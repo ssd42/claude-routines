@@ -1,0 +1,15 @@
+{
+  "_doc": "Live criteria for the house-hunt routine. Scorer skips any hard rule left out (e.g. no baths/sqft minimum set).",
+  "neighborhoods": [
+    { "name": "Scotch Plains", "city": "Scotch Plains", "state": "NJ", "zips": ["07076"] },
+    { "name": "Colonia",       "city": "Colonia",       "state": "NJ", "zips": ["07067"] }
+  ],
+  "price": { "min": 300000, "max": 650000 },
+  "hard": {
+    "beds_min": 3,
+    "property_types": ["Single Family", "Townhouse"]
+  },
+  "relax": { "price_over_pct": 0.07, "beds_under": 1 },
+  "nice_to_haves": [],
+  "dealbreakers": []
+}

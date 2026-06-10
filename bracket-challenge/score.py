@@ -157,12 +157,12 @@ def movement(row, previous):
     return "—"               # — (no change)
 
 
-def render_ascii(board, standings, previous):
+def render_ascii(board, standings, previous, today):
     groups_in = ", ".join(sorted(standings["groups"].keys()))
     width = 42
     lines = []
     lines.append("+" + "-" * width + "+")
-    lines.append("|  BRACKET CHALLENGE  -  AS OF TODAY".ljust(width + 1) + "|")
+    lines.append(f"|  SCORES AS OF {today}".ljust(width + 1) + "|")
     lines.append("+" + "-" * width + "+")
     for row in board:
         rank = f"{row['rank']}."
@@ -177,17 +177,33 @@ def render_ascii(board, standings, previous):
     return "\n".join(lines)
 
 
+def fill_image_prompt(board, previous, today, template_path):
+    """Return the Panini ChatGPT prompt with this board's exact rows filled in."""
+    rows = []
+    for r in board:
+        name = r.get("username") or r["name"]
+        move = movement(r, previous)
+        dots = "." * max(2, 22 - len(name))
+        rows.append(f"{r['rank']}.  {name} {dots} {r['total']}   {move}")
+    leaderboard = "\n".join(rows)
+    with open(template_path) as f:
+        template = f.read()
+    return template.replace("{{DATE}}", today).replace("{{LEADERBOARD}}", leaderboard)
+
+
 def main():
-    if len(sys.argv) not in (3, 4):
-        print("usage: python score.py predictions.json standings.json [YYYY-MM-DD]",
+    args = [a for a in sys.argv[1:] if a != "--image-prompt"]
+    want_prompt = "--image-prompt" in sys.argv
+    if len(args) not in (2, 3):
+        print("usage: python score.py predictions.json standings.json [YYYY-MM-DD] [--image-prompt]",
               file=sys.stderr)
         sys.exit(2)
-    with open(sys.argv[1]) as f:
+    with open(args[0]) as f:
         predictions = json.load(f)
-    with open(sys.argv[2]) as f:
+    with open(args[1]) as f:
         standings = json.load(f)
-    today = sys.argv[3] if len(sys.argv) == 4 else datetime.date.today().isoformat()
-    base_dir = os.path.dirname(os.path.abspath(sys.argv[1]))
+    today = args[2] if len(args) == 3 else datetime.date.today().isoformat()
+    base_dir = os.path.dirname(os.path.abspath(args[0]))
     history_dir = os.path.join(base_dir, "history")
 
     # FIFA ranking is the final tiebreaker; load it if present, else skip.
@@ -199,8 +215,13 @@ def main():
 
     board = build_leaderboard(predictions, standings, rankings)
     previous = load_previous(history_dir, today)
-    print(render_ascii(board, standings, previous))
+    print(render_ascii(board, standings, previous, today))
     save_snapshot(board, history_dir, today)
+
+    if want_prompt:
+        template_path = os.path.join(base_dir, "image-prompt.template.txt")
+        print("\n\n===== CHATGPT IMAGE PROMPT (paste into ChatGPT) =====\n")
+        print(fill_image_prompt(board, previous, today, template_path))
 
 
 if __name__ == "__main__":

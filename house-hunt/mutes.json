@@ -1,0 +1,4 @@
+{
+  "_doc": "Houses to hide from the board. Populated by 'mute <address>' replies in Slack threads. Each entry is a normalized address (lowercase, abbreviations expanded, e.g. '95 jeffery road') or a full 'address|zip' key. match.py drops these from every section.",
+  "muted": []
+}

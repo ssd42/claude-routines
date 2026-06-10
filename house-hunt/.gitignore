@@ -1,0 +1,14 @@
+# OS / Python cruft
+.DS_Store
+__pycache__/
+*.pyc
+
+# secrets — webhook URLs / tokens live OUTSIDE the repo (env vars / ~/.claude)
+.env
+.env.*
+*secret*
+*webhook*
+
+# raw/ holds transient per-run source fetches; the agent rewrites them each run.
+# history/, seen.json, watchlist.json are the routine's MEMORY and ARE committed.
+raw/*.json

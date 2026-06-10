@@ -1,0 +1,26 @@
+name: ci
+
+# Server-side gate for a PUBLIC repo: scan every push/PR so nothing
+# secret-shaped reaches the default branch, even if a local hook is bypassed.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan tracked files for secret patterns
+        run: |
+          patterns='hooks\.slack\.com/services/[A-Za-z0-9]|xox[baprs]-[0-9A-Za-z-]{10,}|AKIA[0-9A-Z]{16}|gh[pousr]_[0-9A-Za-z]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+          # Exclude docs/examples that legitimately describe the patterns.
+          if git grep -nE "$patterns" -- . \
+               ':(exclude).env.example' ':(exclude)SECURITY.md' \
+               ':(exclude)CLAUDE.md' ':(exclude)hooks/pre-commit' \
+               ':(exclude).github/workflows/ci.yml'; then
+            echo "::error::Secret-shaped string found in a tracked file. See SECURITY.md."
+            exit 1
+          fi
+          echo "No secrets found."

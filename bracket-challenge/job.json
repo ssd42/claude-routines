@@ -8,5 +8,10 @@
     "slack_channel_url": "https://stevensclaudeautos.slack.com/archives/C0B9MHSGKQA",
     "format": "ASCII board now; Panini image later (see image-prompt template)"
   },
-  "data_home": "TBD — repo commit vs. routine-persisted (needed so history/ survives between cloud runs)"
+  "data_home": {
+    "_doc": "No external DB. The committed state files in this folder ARE the datastore ('fake DB'): each run reads the prior state, writes the new state, and the routine git-commits + pushes it so it survives to the next run.",
+    "store": "repo-commit",
+    "state_files": ["history/"],
+    "persist": "at end of run, stage these paths, commit, and push to origin/main"
+  }
 }

@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets — THIS REPO IS PUBLIC. Webhook URLs / tokens / keys live OUTSIDE the
+# repo (env vars / ~/.claude). These patterns are a backstop, NOT the plan:
+# the plan is to never write a secret into a repo file in the first place.
+.env
+.env.*
+*.local
+*secret*
+*webhook*
+*.pem
+*.key
+credentials.json
+
+# Playwright MCP scratch output
+.playwright-mcp/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

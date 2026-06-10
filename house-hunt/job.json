@@ -1,0 +1,34 @@
+{
+  "_doc": "Config for the daily house-hunt routine. The scheduled job: (1) fetches each source in sources.json into raw/, (2) runs match.py to reconcile + score + diff + update the watchlist, (3) posts the board to Slack, (4) reads new thread replies on listing posts to add houses to the watchlist.",
+
+  "schedule": "daily, 8:00am ET",
+  "cron": "0 8 * * *",
+  "timezone": "America/New_York",
+  "_schedule_note": "Started daily; dial back to e.g. '0 8 * * 0,1,3,5' (Sun/Mon/Wed/Fri) if it gets noisy.",
+
+  "delivery": {
+    "channel": "slack",
+    "slack_workspace": "stevensclaudeautos",
+    "slack_channel": "#housing-updates",
+    "slack_channel_id": "C0B9JHL9NE9",
+    "slack_channel_url": "https://stevensclaudeautos.slack.com/archives/C0B9JHL9NE9",
+    "webhook_env": "HOUSE_HUNT_SLACK_WEBHOOK",
+    "_security": "NEVER commit the webhook URL. It is an incoming-webhook secret kept OUTSIDE this repo (currently in ~/.claude). At run time the agent reads it from the HOUSE_HUNT_SLACK_WEBHOOK env var (or the existing ~/.claude entry) and POSTs the board. Confirm #housing-updates == channel C0B9JHL9NE9.",
+    "sections": ["new_today", "this_week", "close_enough", "watchlist"],
+    "format": "ASCII board now; richer cards later"
+  },
+
+  "watchlist_intake": {
+    "method": "slack_thread_reply",
+    "_doc": "To add a house to the sold-price tracker, reply in its Slack thread. Each run, the agent scans threads on listing posts for new replies, extracts the listing address/URL, and appends to watchlist.json. Replies are matched back to the listing by the post they're under.",
+    "trigger_phrase_optional": "track",
+    "this_week_window_days": 7
+  },
+
+  "data_home": {
+    "_doc": "No external DB. The committed state files in this folder ARE the datastore ('fake DB'), same pattern as bracket-challenge: each run reads the prior state, writes the new state, and the routine git-commits + pushes it so it survives to the next run. raw/ is transient and NOT committed.",
+    "store": "repo-commit",
+    "state_files": ["history/", "seen.json", "watchlist.json", "mutes.json"],
+    "persist": "at end of run, stage these paths, commit, and push to origin/main"
+  }
+}

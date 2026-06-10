@@ -1,0 +1,7 @@
+{
+  "source": "zillow", "fetched": "2026-06-10",
+  "listings": [
+    {"address":"1521 Front Street","zip":"07076","city":"Scotch Plains","price":585000,"beds":4,"baths":2,"sqft":1900,"property_type":"Single Family","status":"active","url":"https://zillow.com/front","photo_url":"https://photos.zillow.com/front.jpg","tags":["garage"]},
+    {"address":"30 Wexford Dr","zip":"07067","city":"Colonia","price":499000,"beds":3,"baths":2,"sqft":1600,"property_type":"Single Family","status":"active","url":"https://zillow.com/wexford","tags":[]}
+  ]
+}

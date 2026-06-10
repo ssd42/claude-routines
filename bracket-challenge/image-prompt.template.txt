@@ -1,0 +1,30 @@
+Create a leaderboard graphic for our World Cup 2026 bracket-challenge
+league, in a RETRO PANINI STICKER-ALBUM aesthetic. Portrait 1080x1350.
+
+ART DIRECTION - vintage 1970s-90s Panini World Cup sticker album:
+- Warm, slightly faded print palette: cream/off-white paper, retro
+  oranges, teal, mustard yellow, deep red, navy. Sun-bleached, not neon.
+- Visible halftone dot texture and subtle print misregistration, like an
+  old sticker page. Slight paper grain and worn edges.
+- Each player row styled as a collectible STICKER: rounded rectangle with
+  a glossy foil-style border, a small retro number badge on the left,
+  and a vintage typographic nameplate. 1st place gets a shiny gold-foil
+  sticker treatment (the rare "shiny" everyone wanted as a kid).
+- Chunky condensed retro sans-serif headline type, the classic Panini /
+  vintage sporting-event look. Decorative star or soccer-ball motifs.
+- Title banner: "SCORES AS OF {{DATE}}" as a retro album header ribbon.
+  Footer strip: "Group stage - +50 per correct position, +30 per perfect group".
+- Optional period-accurate flourishes: little vintage soccer balls,
+  laurel, halftone crowd silhouette along the bottom - keep it tasteful,
+  don't crowd the data.
+
+NON-NEGOTIABLE: reproduce the names and numbers below EXACTLY, character
+for character. Do not invent, reorder, round, or "fix" any value. Render
+all text as clean, legible type - vintage in STYLE but perfectly readable.
+Names and totals must be 100% accurate.
+
+Each row shows: rank, display name, point total, and a colored arrow
+(green up / red down / gray same) with places moved since yesterday.
+
+LEADERBOARD (exact - do not alter):
+{{LEADERBOARD}}

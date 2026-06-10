@@ -1,0 +1,29 @@
+{
+  "_doc": "YOUR house-hunt criteria. Copy this to criteria.json and fill it in. 'hard' = must-haves (pass = a real match). 'relax' = how far a listing may bend a hard rule and still land in the 'close enough' bucket. 'dealbreakers' = exclude entirely, no matter the score.",
+
+  "neighborhoods": [
+    { "name": "EXAMPLE - Maplewood", "city": "Springfield", "state": "XX", "zips": ["00000", "00001"] },
+    { "name": "EXAMPLE - Riverside",  "city": "Springfield", "state": "XX", "zips": ["00002"] }
+  ],
+
+  "price": { "min": null, "max": 800000 },
+
+  "hard": {
+    "beds_min": 3,
+    "baths_min": 2,
+    "sqft_min": 1400,
+    "property_types": ["Single Family", "Townhouse"]
+  },
+
+  "relax": {
+    "_doc": "A listing that FAILS a hard rule but only within these tolerances becomes 'close enough' (with a reason shown). Bigger misses are excluded.",
+    "price_over_pct": 0.07,
+    "beds_under": 1,
+    "baths_under": 0,
+    "sqft_under_pct": 0.10
+  },
+
+  "nice_to_haves": ["garage", "renovated kitchen", "fenced yard", "no HOA", "move-in ready"],
+
+  "dealbreakers": ["flood zone", "55+ community", "leasehold"]
+}

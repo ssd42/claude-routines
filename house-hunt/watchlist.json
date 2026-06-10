@@ -1,0 +1,25 @@
+{
+  "_doc": "Houses you liked but won't buy \u2014 tracked from list price to sold price. Items are added by replying in a listing's Slack thread (see job.json watchlist_intake). match.py fills in list_price/first_seen on add, tracks price changes, and captures sold_price + sold_date + days_on_market when the status flips to sold.",
+  "tracked": [
+    {
+      "_example": true,
+      "id": "redfin:123-maple-st-00000",
+      "address": "123 Maple St",
+      "zip": "00000",
+      "url": "https://www.redfin.com/...",
+      "added": "2026-06-10",
+      "added_via": "slack_thread:1718000000.000000",
+      "list_price": 749000,
+      "price_history": [
+        {
+          "date": "2026-06-10",
+          "price": 749000
+        }
+      ],
+      "status": "active",
+      "sold_price": null,
+      "sold_date": null,
+      "days_on_market": null
+    }
+  ]
+}

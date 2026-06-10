@@ -1,0 +1,11 @@
+{
+  "source": "redfin", "fetched": "2026-06-10",
+  "listings": [
+    {"address":"1521 Front St","zip":"07076","city":"Scotch Plains","price":579000,"beds":4,"baths":2,"sqft":1900,"property_type":"Single Family","status":"active","url":"https://redfin.com/front","photo_url":"https://photos.redfin.com/front.jpg","listed_date":"2026-06-08","tags":["garage"]},
+    {"address":"30 Wexford Dr","zip":"07067","city":"Colonia","price":499000,"beds":3,"baths":2,"sqft":1600,"property_type":"Single Family","status":"active","url":"https://redfin.com/wexford","photo_url":"https://photos.redfin.com/wexford.jpg","listed_date":"2026-06-09","tags":[]},
+    {"address":"22 Inman Ave","zip":"07067","city":"Colonia","price":675000,"beds":4,"baths":3,"sqft":2200,"property_type":"Single Family","status":"active","url":"https://redfin.com/inman","listed_date":"2026-06-10","tags":[]},
+    {"address":"100 Park Ave","zip":"07076","city":"Scotch Plains","price":615000,"sold_price":600000,"beds":4,"baths":3,"sqft":2200,"property_type":"Single Family","status":"sold","listed_date":"2026-03-01","tags":[]},
+    {"address":"200 Oak Dr","zip":"07076","city":"Scotch Plains","price":545000,"sold_price":540000,"beds":3,"baths":2,"sqft":2000,"property_type":"Single Family","status":"sold","listed_date":"2026-04-01","tags":[]},
+    {"address":"50 Lake Rd","zip":"07067","city":"Colonia","price":455000,"sold_price":450000,"beds":3,"baths":2,"sqft":1600,"property_type":"Single Family","status":"sold","listed_date":"2026-03-15","tags":[]}
+  ]
+}

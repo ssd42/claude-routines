@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Pre-commit secret scanner for claude-routines.
+#
+# THIS REPO IS PUBLIC. This hook is the enforced backstop behind the "never
+# commit secrets" rule (see SECURITY.md): it blocks a commit whose staged
+# changes contain a secret-shaped string, so a leak can't be committed even if
+# the .gitignore misses it or an agent forgets to scan.
+#
+# Install once (from the repo root):   git config core.hooksPath hooks
+# Bypass in a genuine false-positive:  git commit --no-verify   (think twice)
+set -euo pipefail
+
+fail=0
+note() { echo "🚫 pre-commit: $1" >&2; fail=1; }
+
+# 1) Block files that should never be tracked, even if .gitignore lets one slip
+#    through (e.g. force-added). Names only — values are caught in step 2.
+staged_files=$(git diff --cached --name-only --diff-filter=AM)
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  case "$f" in
+    *.env|*.env.*|*.pem|*.key|*secret*|*webhook*|credentials.json)
+      note "refusing to commit secret-like file: $f" ;;
+  esac
+done <<< "$staged_files"
+
+# 2) Scan the ACTUAL staged additions (lines beginning with '+') for secret
+#    patterns. High-confidence patterns only, to keep false positives near zero.
+added=$(git diff --cached -U0 --diff-filter=AM | grep -E '^\+' | grep -vE '^\+\+\+' || true)
+
+declare -a patterns=(
+  'hooks\.slack\.com/services/[A-Za-z0-9]'        # Slack incoming webhook URL
+  'xox[baprs]-[0-9A-Za-z-]{10,}'                  # Slack token
+  'AKIA[0-9A-Z]{16}'                              # AWS access key id
+  'gh[pousr]_[0-9A-Za-z]{30,}'                    # GitHub token
+  '-----BEGIN [A-Z ]*PRIVATE KEY-----'           # private key block
+  'eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}'    # JWT-ish
+)
+
+for p in "${patterns[@]}"; do
+  if hits=$(echo "$added" | grep -nE "$p" || true); [ -n "$hits" ]; then
+    note "staged change matches secret pattern /$p/:"
+    echo "$hits" | sed 's/^/      /' >&2
+  fi
+done
+
+if [ "$fail" -ne 0 ]; then
+  echo "" >&2
+  echo "Commit blocked. Secrets must live OUTSIDE this public repo (env vars)." >&2
+  echo "See SECURITY.md. If this is a genuine false positive: git commit --no-verify" >&2
+  exit 1
+fi

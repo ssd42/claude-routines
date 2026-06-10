@@ -1,0 +1,31 @@
+{
+  "_doc": "Listing sources the agent fetches each run, plus the rule for reconciling them. Each source is fetched into raw/<key>.json as a normalized list; match.py merges them by normalized (address + zip).",
+
+  "sources": [
+    {
+      "key": "redfin",
+      "name": "Redfin",
+      "trust": 1.0,
+      "notes": "Best structured data; reliable sold prices + days-on-market. Primary source of truth for the watchlist tracker."
+    },
+    {
+      "key": "realtor",
+      "name": "Realtor.com",
+      "trust": 0.9,
+      "notes": "MLS-backed; good middle ground."
+    },
+    {
+      "key": "zillow",
+      "name": "Zillow",
+      "trust": 0.8,
+      "notes": "Largest inventory incl. some FSBO, but flakier to fetch and noisier prices (Zestimate vs list). Lowest trust on numeric fields."
+    }
+  ],
+
+  "reconcile": {
+    "match_key": "address_norm+zip",
+    "_doc": "When sources disagree on a numeric field (price, beds, sqft), take the value agreed by >=2 sources; if all 3 differ, take the highest-trust source and flag it as a discrepancy on the listing.",
+    "consensus": "2-of-3 on raw numbers, else highest trust + discrepancy flag",
+    "address_norm": "lowercase, strip punctuation, expand common abbreviations (st->street, ave->avenue, etc.), collapse whitespace"
+  }
+}

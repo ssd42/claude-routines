@@ -1,0 +1,15 @@
+{
+  "_doc": "Inputs for the closing-runway planner (timing.py). Answers: given month-to-month rent with a landlord notice period and a target close window, when does a winning offer need to be in, and when do we give notice? Lead times (escrow, list->under-contract) are derived from comps.json; budget/price come from criteria.json. Override here only to force a value.",
+
+  "notice_period_days": 60,
+  "_notice_note": "Landlord is month-to-month and asked for 2 months' heads-up before we leave.",
+
+  "target_close": { "year": 2026, "months": [8, 9, 10, 11, 12] },
+  "_target_note": "Want to close in 2026; it's already mid-year, so the live window is Aug-Dec. Edit months to re-plan.",
+
+  "overlap_tolerance_days": 30,
+  "_overlap_note": "Acceptable lease+mortgage double-pay window. Escrow (~38d from comps) is shorter than the 60d notice, so giving notice at under-contract leaves ~3 wks of overlap past closing.",
+
+  "lead_time_overrides": { "escrow_days": null, "list_to_uc_days": null },
+  "_lead_time_note": "null = derive from comps.json. Set a number to override (e.g. if your lender quotes a firm escrow length)."
+}
