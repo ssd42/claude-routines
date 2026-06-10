@@ -1,0 +1,84 @@
+{
+  "_doc": "Standings sources for the daily scorer. The job fetches the live group tables (Pts/GD/GF etc.) from these, normalizes team names via teams.json, and reconciles by consensus. IMPORTANT: trust the RAW NUMBERS, not any site's displayed rank — 2026 tiebreaker descriptions conflict across sites. Mid-group: we order pts->GD->GF ourselves. Group complete: take the agreed final order via consensus.",
+
+  "consensus": {
+    "min_agreement": 2,
+    "rule": "For each group, accept a team's raw stat line only if at least `min_agreement` INDEPENDENT sources agree on it. Prefer simple majority when more than 2 independent sources return data. If agreement can't be reached for a group, mark it 'disputed' and skip scoring that group rather than score off a bad number.",
+    "independence_note": "Only count ONE source per independence_group toward agreement. Sources sharing a group (e.g. a shared data vendor, or a Wikipedia copy of FIFA) are not independent votes."
+  },
+
+  "sources": [
+    {
+      "id": "fox",
+      "name": "FOX Sports",
+      "url": "https://www.foxsports.com/soccer/fifa-world-cup/standings",
+      "access": "html",
+      "role": "primary",
+      "independence_group": "fox",
+      "fields": ["MP", "W", "D", "L", "GF", "GA", "GD", "PTS"],
+      "update": "real-time during live matches",
+      "notes": "Best plain-HTML scrape found; all 12 groups A-L in the page HTML. Displayed tiebreaker order is the OLD one (group GD first) — ignore its rank, use raw numbers."
+    },
+    {
+      "id": "fifa",
+      "name": "FIFA official",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/standings",
+      "access": "js",
+      "role": "primary",
+      "independence_group": "fifa",
+      "fields": ["P", "W", "D", "L", "GF", "GA", "GD", "Pts"],
+      "update": "live / near-live",
+      "notes": "Authoritative source of truth, but JS/API-backed — needs a rendered fetch or underlying JSON discovery, not a plain GET. Once a group is COMPLETE, this is the canonical final order."
+    },
+    {
+      "id": "espn",
+      "name": "ESPN",
+      "url": "https://www.espn.com/soccer/standings/_/league/fifa.world",
+      "access": "js",
+      "role": "primary",
+      "independence_group": "espn",
+      "fields": ["P", "W", "D", "L", "F", "A", "GD", "PTS"],
+      "update": "near-live (verify after match 1)",
+      "notes": "Independent broadcaster source; JS/app-heavy, may need rendered DOM or embedded app JSON. Stable league slug 'fifa.world'. CHECK whether its data vendor overlaps with FOX — if so, collapse them into one independence_group."
+    },
+    {
+      "id": "wikipedia",
+      "name": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
+      "access": "html",
+      "role": "audit",
+      "independence_group": "fifa",
+      "fields": ["Pld", "W", "D", "L", "GF", "GA", "GD", "Pts"],
+      "update": "minutes to hours; can lag or be vandalized",
+      "notes": "Easiest plain-HTML source with all columns, but downstream of FIFA + human-edited — NOT an independent vote (same independence_group as fifa). Use as a sanity/audit fallback, not a core voter."
+    },
+    {
+      "id": "sofascore",
+      "name": "Sofascore",
+      "url": "https://www.sofascore.com/football/tournament/world/world-championship/16",
+      "access": "js",
+      "role": "fallback",
+      "independence_group": "sofascore",
+      "fields": ["P", "W", "D", "L", "GF", "GA", "GD", "PTS"],
+      "update": "real-time",
+      "notes": "Independent live-data provider; JS/app page, likely needs its internal API. Good extra independent voter if scrapeable — verify access before relying on it."
+    },
+    {
+      "id": "soccerway",
+      "name": "Soccerway",
+      "url": "https://us.soccerway.com/world/world-championship/",
+      "access": "js",
+      "role": "fallback",
+      "independence_group": "soccerway",
+      "fields": ["P", "W", "D", "L", "GF", "GA", "GD", "Pts"],
+      "update": "real-time",
+      "notes": "Perform Group data provider; real-time standings. JS-ish page. Another independent voter to round out the pool."
+    }
+  ],
+
+  "excluded": [
+    { "id": "fotmob", "reason": "Terms text disallows systematic/regular robot use — avoid for an automated daily job." },
+    { "id": "google_panel", "reason": "No stable public URL/API for scraping; opaque underlying provider." },
+    { "id": "bbc", "reason": "Could not verify a scrapeable 2026 group-table endpoint; revisit if a stable URL is confirmed." }
+  ]
+}

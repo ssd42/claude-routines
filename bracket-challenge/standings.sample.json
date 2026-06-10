@@ -1,0 +1,16 @@
+{
+  "groups": {
+    "A": [
+      {"team": "MEX", "pts": 4, "gd": 2, "gf": 3},
+      {"team": "USA", "pts": 4, "gd": 1, "gf": 2},
+      {"team": "CRC", "pts": 1, "gd": -1, "gf": 1},
+      {"team": "JAM", "pts": 0, "gd": -2, "gf": 0}
+    ],
+    "B": [
+      {"team": "ARG", "pts": 6, "gd": 4, "gf": 5},
+      {"team": "BRA", "pts": 3, "gd": 0, "gf": 2},
+      {"team": "CHI", "pts": 1, "gd": -1, "gf": 1},
+      {"team": "PER", "pts": 1, "gd": -3, "gf": 0}
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+# OS / Python cruft — history/ is intentionally NOT ignored (it's the memory)
+.DS_Store
+__pycache__/
+*.pyc

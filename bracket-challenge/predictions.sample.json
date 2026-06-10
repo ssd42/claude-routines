@@ -1,0 +1,16 @@
+{
+  "players": [
+    { "name": "Steven", "groups": {
+      "A": ["MEX", "USA", "CRC", "JAM"],
+      "B": ["ARG", "BRA", "CHI", "PER"]
+    }},
+    { "name": "Silvia", "groups": {
+      "A": ["USA", "MEX", "JAM", "CRC"],
+      "B": ["BRA", "ARG", "PER", "CHI"]
+    }},
+    { "name": "Marco", "groups": {
+      "A": ["MEX", "USA", "JAM", "CRC"],
+      "B": ["ARG", "CHI", "BRA", "PER"]
+    }}
+  ]
+}

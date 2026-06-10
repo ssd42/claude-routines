@@ -1,0 +1,19 @@
+{
+  "players": [
+    { "name": "Steven Dias", "username": "stevenpybots", "groups": {
+      "A": ["MEX", "KOR", "CZE", "RSA"],
+      "B": ["CAN", "SUI", "QAT", "BIH"],
+      "C": ["BRA", "MAR", "SCO", "HAI"],
+      "D": ["TUR", "USA", "AUS", "PAR"],
+      "E": ["GER", "ECU", "CIV", "CUW"],
+      "F": ["NED", "JPN", "TUN", "SWE"],
+      "G": ["BEL", "IRN", "EGY", "NZL"],
+      "H": ["ESP", "URU", "KSA", "CPV"],
+      "I": ["FRA", "NOR", "SEN", "IRQ"],
+      "J": ["ARG", "AUT", "ALG", "JOR"],
+      "K": ["POR", "COL", "COD", "UZB"],
+      "L": ["ENG", "CRO", "GHA", "PAN"]
+    },
+    "thirds": ["SEN", "AUS", "EGY", "CIV", "CZE", "SCO", "TUN", "GHA"] }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "_doc": "Config for the daily bracket-challenge routine. The scheduled job reads predictions.json + sources.json, scores via score.py, and delivers the board here.",
+  "schedule": "daily, morning ET (exact time TBD)",
+  "delivery": {
+    "channel": "slack",
+    "slack_workspace": "stevensclaudeautos",
+    "slack_channel_id": "C0B9MHSGKQA",
+    "slack_channel_url": "https://stevensclaudeautos.slack.com/archives/C0B9MHSGKQA",
+    "format": "ASCII board now; Panini image later (see image-prompt template)"
+  },
+  "data_home": "TBD — repo commit vs. routine-persisted (needed so history/ survives between cloud runs)"
+}
