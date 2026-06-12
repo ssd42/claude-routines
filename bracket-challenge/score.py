@@ -60,6 +60,14 @@ import os
 import sys
 
 
+def pretty_date(iso):
+    """Render an ISO date (YYYY-MM-DD) for display, e.g. 'JUNE 12, 2026'.
+    Only used in the board header / image prompt; filenames + snapshot keys
+    stay ISO."""
+    d = datetime.date.fromisoformat(iso)
+    return f"{d.strftime('%B').upper()} {d.day}, {d.year}"
+
+
 def group_started(rows):
     """True once at least one game has been played in the group.
 
@@ -176,7 +184,7 @@ def render_ascii(board, standings, previous, today):
     width = 42
     lines = []
     lines.append("+" + "-" * width + "+")
-    lines.append(f"|  SCORES AS OF {today}".ljust(width + 1) + "|")
+    lines.append(f"|  SCORES AS OF {pretty_date(today)}".ljust(width + 1) + "|")
     lines.append("|  if the group stage ended today".ljust(width + 1) + "|")
     lines.append("+" + "-" * width + "+")
     for row in board:
@@ -203,7 +211,7 @@ def fill_image_prompt(board, previous, today, template_path):
     leaderboard = "\n".join(rows)
     with open(template_path) as f:
         template = f.read()
-    return template.replace("{{DATE}}", today).replace("{{LEADERBOARD}}", leaderboard)
+    return template.replace("{{DATE}}", pretty_date(today)).replace("{{LEADERBOARD}}", leaderboard)
 
 
 def main():
