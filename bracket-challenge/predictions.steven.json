@@ -15,7 +15,7 @@
       "L": ["ENG", "CRO", "GHA", "PAN"]
     },
     "thirds": ["SEN", "AUS", "EGY", "CIV", "CZE", "SCO", "TUN", "GHA"] },
-    { "name": "Ronald Mendez", "username": "Ronaldmendez", "groups": {
+    { "name": "Ronald", "username": "Ronaldmendez", "groups": {
       "A": ["MEX", "KOR", "CZE", "RSA"],
       "B": ["QAT", "CAN", "SUI", "BIH"],
       "C": ["BRA", "MAR", "SCO", "HAI"],
@@ -30,7 +30,7 @@
       "L": ["ENG", "CRO", "PAN", "GHA"]
     },
     "thirds": ["URU", "USA", "SUI", "PAN", "SWE", "CZE", "SCO", "JOR"] },
-    { "name": "Cesar Chomba", "username": "ccesar", "groups": {
+    { "name": "Cesar", "username": "ccesar", "groups": {
       "A": ["MEX", "KOR", "CZE", "RSA"],
       "B": ["SUI", "CAN", "BIH", "QAT"],
       "C": ["MAR", "BRA", "SCO", "HAI"],
@@ -45,7 +45,7 @@
       "L": ["CRO", "ENG", "PAN", "GHA"]
     },
     "thirds": ["IRN", "ALG", "CIV", "PAN", "SWE", "CZE", "PAR", "SCO"] },
-    { "name": "Brent LeMaire", "username": "bjl6", "groups": {
+    { "name": "Brent", "username": "bjl6", "groups": {
       "A": ["MEX", "KOR", "CZE", "RSA"],
       "B": ["SUI", "CAN", "BIH", "QAT"],
       "C": ["BRA", "MAR", "SCO", "HAI"],
@@ -60,7 +60,7 @@
       "L": ["ENG", "CRO", "PAN", "GHA"]
     },
     "thirds": ["SEN", "IRN", "ALG", "CIV", "SWE", "CZE", "SCO", "BIH"] },
-    { "name": "Luis Medina", "username": "SandwichLuis", "groups": {
+    { "name": "Luis", "username": "SandwichLuis", "groups": {
       "A": ["MEX", "KOR", "CZE", "RSA"],
       "B": ["CAN", "SUI", "QAT", "BIH"],
       "C": ["BRA", "MAR", "HAI", "SCO"],

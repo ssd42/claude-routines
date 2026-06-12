@@ -12,7 +12,9 @@ ART DIRECTION - vintage 1970s-90s Panini World Cup sticker album:
   sticker treatment (the rare "shiny" everyone wanted as a kid).
 - Chunky condensed retro sans-serif headline type, the classic Panini /
   vintage sporting-event look. Decorative star or soccer-ball motifs.
-- Title banner: "SCORES AS OF {{DATE}}" as a retro album header ribbon.
+- Title banner: "SCORES AS OF {{DATE}}" as a retro album header ribbon, with a
+  smaller subtitle ribbon directly beneath it reading "IF THE GROUP STAGE ENDED
+  TODAY" (these are provisional standings that swing day to day).
   Footer strip: "Group stage - +50 per correct position, +30 per perfect group".
 - Optional period-accurate flourishes: little vintage soccer balls,
   laurel, halftone crowd silhouette along the bottom - keep it tasteful,
@@ -23,7 +25,7 @@ for character. Do not invent, reorder, round, or "fix" any value. Render
 all text as clean, legible type - vintage in STYLE but perfectly readable.
 Names and totals must be 100% accurate.
 
-Each row shows: rank, display name, point total, and a colored arrow
+Each row shows: rank, player name, point total, and a colored arrow
 (green up / red down / gray same) with places moved since yesterday.
 
 LEADERBOARD (exact - do not alter):

@@ -177,10 +177,11 @@ def render_ascii(board, standings, previous, today):
     lines = []
     lines.append("+" + "-" * width + "+")
     lines.append(f"|  SCORES AS OF {today}".ljust(width + 1) + "|")
+    lines.append("|  if the group stage ended today".ljust(width + 1) + "|")
     lines.append("+" + "-" * width + "+")
     for row in board:
         rank = f"{row['rank']}."
-        name = (row.get("username") or row["name"])[:22]
+        name = row["name"][:22]  # show the player's actual name, not their handle
         move = movement(row, previous)
         line = f"| {rank:>3} {name:<22}{row['total']:>6}  {move:>4} |"
         lines.append(line)
@@ -195,7 +196,7 @@ def fill_image_prompt(board, previous, today, template_path):
     """Return the Panini ChatGPT prompt with this board's exact rows filled in."""
     rows = []
     for r in board:
-        name = r.get("username") or r["name"]
+        name = r["name"]  # show the player's actual name, not their handle
         move = movement(r, previous)
         dots = "." * max(2, 22 - len(name))
         rows.append(f"{r['rank']}.  {name} {dots} {r['total']}   {move}")
