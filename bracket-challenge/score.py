@@ -60,6 +60,16 @@ import os
 import sys
 
 
+def group_started(rows):
+    """True once at least one game has been played in the group.
+
+    Every played match awards points (3 for a win, 1 each for a draw — even a
+    0-0), so any non-zero points total means a game has happened. Before kickoff
+    all rows are zero and current_order would just fall back to alphabetical, so
+    we must NOT score a group until it has actually started."""
+    return any(r["pts"] > 0 for r in rows)
+
+
 def current_order(rows, rankings=None):
     """Return team codes in current finishing order (1st..4th).
 
@@ -89,6 +99,9 @@ def score_player(player, standings, rankings=None):
     total = 0
     breakdown = {}
     for g, rows in standings["groups"].items():
+        if not group_started(rows):
+            continue  # no games played yet -> nothing to score (avoids phantom
+                      # points from the alphabetical tiebreak on all-zero rows)
         predicted = player["groups"].get(g)
         if not predicted:
             continue  # player didn't predict this group (shouldn't happen)
@@ -158,7 +171,8 @@ def movement(row, previous):
 
 
 def render_ascii(board, standings, previous, today):
-    groups_in = ", ".join(sorted(standings["groups"].keys()))
+    counted = [g for g, rows in standings["groups"].items() if group_started(rows)]
+    groups_in = ", ".join(sorted(counted)) or "(none yet — no games played)"
     width = 42
     lines = []
     lines.append("+" + "-" * width + "+")

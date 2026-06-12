@@ -2,10 +2,18 @@
   "league": "NYNJWC",
   "members": [
     { "username": "stevenpybots", "name": "Steven Dias", "bracket_submitted": true },
-    { "username": "Ronaldmendez", "name": "Ronald Mendez", "bracket_submitted": false },
-    { "username": "ccesar", "name": "Cesar Chomba", "bracket_submitted": false },
-    { "username": "SandwichLuis", "name": "Luis Medina", "bracket_submitted": false },
-    { "username": "bjl6", "name": "Brent LeMaire", "bracket_submitted": false },
-    { "username": "WorkLikeMexicanStackLikeJew", "name": "Steven Coelho", "bracket_submitted": false }
+    { "username": "Ronaldmendez", "name": "Ronald Mendez", "bracket_submitted": true },
+    { "username": "ccesar", "name": "Cesar Chomba", "bracket_submitted": true },
+    { "username": "SandwichLuis", "name": "Luis Medina", "bracket_submitted": true },
+    { "username": "bjl6", "name": "Brent LeMaire", "bracket_submitted": true },
+    { "username": "SteveRabbit", "name": "Steven Coelho", "bracket_submitted": true },
+    { "username": "UniqueUserName1234", "name": "Joao Pedro", "bracket_submitted": true },
+    { "username": "Xino com x", "name": "Filipe", "bracket_submitted": true },
+    { "username": "MendezZ40", "name": "Ronald's Cousin", "bracket_submitted": true },
+    { "username": "DoctorDan", "name": "Dan", "bracket_submitted": true },
+    { "username": "Danigu", "name": "Dani", "bracket_submitted": true },
+    { "username": "sjaramil", "name": "Silvia", "bracket_submitted": true },
+    { "username": "Portillo15", "name": "Wilbert", "bracket_submitted": true },
+    { "username": "Tejada08", "name": "Wilberts +1", "bracket_submitted": true }
   ]
 }
