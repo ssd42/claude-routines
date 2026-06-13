@@ -1,12 +1,24 @@
 {
-  "_generated": "2026-06-12",
-  "_note": "Group A only — 2 matches played on June 11. Sources: Match results Mexico 2-0 South Africa and South Korea 2-1 Czechia confirmed independently by multiple outlets (Bleacher Report, bolavip.com, tempo.co, search-result snippets from FIFA/FOX/ESPN). Stats derived deterministically from those 2 results. Groups B-L: 0 matches played as of the June 12 morning snapshot (Canada vs BIH and USA vs PAR scheduled for later today).",
+  "_generated": "2026-06-13",
+  "_note": "Groups A, B, D — matches played through June 12-13. Sources: All results confirmed by 2+ independent sources. Group A: MEX 2-0 RSA (June 11), KOR 2-1 CZE (June 12) — confirmed by Yahoo Sports, ESPN, Sky Sports, Bolavip. Group B: CAN 1-1 BIH (June 12) — confirmed by ESPN, FOX Sports, FIFA.com, Olympics.com. Group D: USA 4-1 PAR (June 12) — confirmed by NBC News, NPR, CBS Sports, Al Jazeera, ESPN, FIFA.com. Groups C/E-L: no matches played yet. Group B: QAT vs SUI and Group C: BRA vs MAR scheduled June 13 but not yet completed. Group D: TUR vs AUS scheduled June 14.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
       {"team": "KOR", "pts": 3, "gd": 1, "gf": 2, "ga": 1, "mp": 1},
       {"team": "CZE", "pts": 0, "gd": -1, "gf": 1, "ga": 2, "mp": 1},
       {"team": "RSA", "pts": 0, "gd": -2, "gf": 0, "ga": 2, "mp": 1}
+    ],
+    "B": [
+      {"team": "CAN", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "BIH", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "QAT", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
+      {"team": "SUI", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0}
+    ],
+    "D": [
+      {"team": "USA", "pts": 3, "gd": 3, "gf": 4, "ga": 1, "mp": 1},
+      {"team": "PAR", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 1},
+      {"team": "TUR", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
+      {"team": "AUS", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0}
     ]
   }
 }
