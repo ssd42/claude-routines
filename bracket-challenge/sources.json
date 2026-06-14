@@ -1,6 +1,8 @@
 {
   "_doc": "Standings sources for the daily scorer. The job fetches the live group tables (Pts/GD/GF etc.) from these, normalizes team names via teams.json, and reconciles by consensus. IMPORTANT: trust the RAW NUMBERS, not any site's displayed rank — 2026 tiebreaker descriptions conflict across sites. Mid-group: we order pts->GD->GF ourselves. Group complete: take the agreed final order via consensus.",
 
+  "env_note": "WebFetch is BLOCKED (HTTP 403) for every sports site listed below in the cloud run environment — do NOT call WebFetch on them; it only burns minutes (a past run wasted ~4 min on 9 failed fetches). Get standings via WebSearch instead, and fire ALL queries in ONE parallel batch (e.g. '2026 World Cup all match results June <day> scores', '2026 World Cup Group A B standings table', '2026 World Cup Group C D standings table', plus any specific fixture) rather than group-by-group rounds. Budget two search rounds; if a group still can't be resolved, mark it disputed and skip per the consensus rule.",
+
   "consensus": {
     "min_agreement": 2,
     "rule": "For each group, accept a team's raw stat line only if at least `min_agreement` INDEPENDENT sources agree on it. Prefer simple majority when more than 2 independent sources return data. If agreement can't be reached for a group, mark it 'disputed' and skip scoring that group rather than score off a bad number.",
