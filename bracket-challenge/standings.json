@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-13",
-  "_note": "Groups A, B, C, D (partial) — matches played through June 13 ET. All results confirmed by 2+ independent sources. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, TSN, Sky Sports, Outlook India. Group C: BRA 1-1 MAR (Jun 13) — confirmed multiple; SCO 1-0 HAI (Jun 13) — confirmed ESPN x2, Fox Sports, Yahoo Sports. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports. AUS vs TUR (Jun 13 late/Jun 14 UTC) not yet played. Groups E-L: no matches played yet.",
+  "_generated": "2026-06-14",
+  "_note": "Groups A-E (partial) — matches played through June 14 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, TSN, Sky Sports. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 14) — confirmed ESPN, FIFA official, FOX Sports, VAVEL (4 independent sources). Group E: GER 4-0 CUW (Jun 14) — confirmed Ahram Online, ESPN, FOX Sports, Sofascore (4 independent sources); CIV vs ECU (Jun 14 7pm ET, not yet played). Groups F-L: no matches played yet.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
@@ -22,9 +22,15 @@
     ],
     "D": [
       {"team": "USA", "pts": 3, "gd": 3, "gf": 4, "ga": 1, "mp": 1},
-      {"team": "PAR", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 1},
-      {"team": "TUR", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
-      {"team": "AUS", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0}
+      {"team": "AUS", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
+      {"team": "TUR", "pts": 0, "gd": -2, "gf": 0, "ga": 2, "mp": 1},
+      {"team": "PAR", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 1}
+    ],
+    "E": [
+      {"team": "GER", "pts": 3, "gd": 4, "gf": 4, "ga": 0, "mp": 1},
+      {"team": "ECU", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
+      {"team": "CIV", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
+      {"team": "CUW", "pts": 0, "gd": -4, "gf": 0, "ga": 4, "mp": 1}
     ]
   }
 }
