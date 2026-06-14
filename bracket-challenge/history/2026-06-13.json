@@ -8,79 +8,79 @@
   {
     "name": "Brent",
     "username": "bjl6",
-    "total": 380,
-    "rank": 2
-  },
-  {
-    "name": "Luis",
-    "username": "SandwichLuis",
-    "total": 380,
+    "total": 480,
     "rank": 2
   },
   {
     "name": "Steven Dias",
     "username": "stevenpybots",
-    "total": 380,
+    "total": 480,
     "rank": 2
+  },
+  {
+    "name": "Cesar",
+    "username": "ccesar",
+    "total": 430,
+    "rank": 4
+  },
+  {
+    "name": "Luis",
+    "username": "SandwichLuis",
+    "total": 430,
+    "rank": 4
+  },
+  {
+    "name": "Ronald",
+    "username": "Ronaldmendez",
+    "total": 430,
+    "rank": 4
+  },
+  {
+    "name": "Dan",
+    "username": "DoctorDan",
+    "total": 380,
+    "rank": 7
   },
   {
     "name": "Joao Pedro",
     "username": "UniqueUserName1234",
     "total": 330,
-    "rank": 5
-  },
-  {
-    "name": "Ronald",
-    "username": "Ronaldmendez",
-    "total": 330,
-    "rank": 5
+    "rank": 8
   },
   {
     "name": "Omar",
     "username": "Tejada08",
     "total": 300,
-    "rank": 7
+    "rank": 9
   },
   {
-    "name": "Cesar",
-    "username": "ccesar",
-    "total": 280,
-    "rank": 8
+    "name": "Steven Coelho",
+    "username": "SteveRabbit",
+    "total": 300,
+    "rank": 9
   },
   {
-    "name": "Karen",
-    "username": "MendezZ40",
-    "total": 280,
-    "rank": 8
-  },
-  {
-    "name": "Dan",
-    "username": "DoctorDan",
-    "total": 200,
-    "rank": 10
+    "name": "Dani",
+    "username": "Danigu",
+    "total": 250,
+    "rank": 11
   },
   {
     "name": "Filipe",
     "username": "Xino com x",
     "total": 200,
-    "rank": 10
-  },
-  {
-    "name": "Steven Coelho",
-    "username": "SteveRabbit",
-    "total": 200,
-    "rank": 10
+    "rank": 12
   },
   {
     "name": "Wilbert",
     "username": "Portillo15",
-    "total": 200,
-    "rank": 10
+    "total": 150,
+    "rank": 13
   },
   {
-    "name": "Dani",
-    "username": "Danigu",
-    "total": 100,
+    "name": "Karen",
+    "username": "MendezZ40",
+    "total": 50,
     "rank": 14
   }
 ]
