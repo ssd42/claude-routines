@@ -71,6 +71,9 @@ house, and appends it to `watchlist.json` with its current list price.
 ## Files
 | file | what |
 |------|------|
+| `fetch.py` | **local** listing fetcher → writes `raw/` (RentCast free API, HomeHarvest fallback) |
+| `run.sh` | on-demand wrapper: fetch → score → print board + timing runway |
+| `FETCH.md` | how `fetch.py` works + the full on-demand run/deliver/persist steps |
 | `match.py` | deterministic reconcile + score + diff + watchlist tracker + ASCII board |
 | `timing.py` | closing-runway planner: back-plans offer/notice dates from a target close window |
 | `timing.json` | notice period + target close window for the timing planner |
@@ -85,23 +88,37 @@ house, and appends it to `watchlist.json` with its current list price.
 | `fixtures/` | sample source files for a demo run |
 | `job.json` | schedule + Slack delivery + watchlist intake config |
 
-## Run it (demo)
+## Run it (real, on-demand — LOCAL)
+Listings can only be fetched from a residential IP (the cloud sandbox is blocked
+and datacenter IPs get 403'd), so the run is **local + on-demand**:
 ```bash
-cp fixtures/*.json raw/                  # stand in for a real fetch
-python3 match.py [YYYY-MM-DD]            # prints the board; writes history/ + seen.json
-python3 match.py [YYYY-MM-DD] --blocks  # ALSO prints Slack Block Kit JSON (photo cards)
+# one-time: free RentCast key (optional) + the scraper fallback
+export RENTCAST_API_KEY=…            # optional; without it, HomeHarvest is used
+pip install homeharvest
+
+./run.sh                             # fetch → score → print board + timing runway
 ```
-The `fixtures/` demo spans two days (run `2026-06-10` then `2026-06-12`) to show
-the Changes section (price drop + went-pending), sold comps, and vs-area tags.
+Then **deliver + persist**: post the board + timing runway to Slack
+`#housing-updates` (channel id `C0B9JHL9NE9`) **via the Slack MCP**, and commit
+the real-data state (`history/<date>.json seen.json watchlist.json`). See
+[`FETCH.md`](FETCH.md) for the full sequence.
+
+Demo without fetching (sample data): `cp fixtures/*.json raw/ && python3 match.py [YYYY-MM-DD]`.
 
 ## Status — SPIKE
-Criteria set (Scotch Plains 07076 + Colonia 07067, $300–650k, 3+ beds), running
-daily 8am ET. Scoring, reconcile, change-alerts, comps, and Slack cards all work
-on sample data. Still to wire up:
-- The agent-side **fetch** step per source (the part that writes `raw/`), incl.
-  recent **solds** (Redfin best) to feed the comps.
+Criteria set (Scotch Plains 07076 + Colonia 07067, $300–650k, 3+ beds). Scoring,
+reconcile, change-alerts, comps, timing planner, and Slack delivery all work on
+**real** listings now. Resolved this round:
+- ✅ **Fetch** is wired: `fetch.py` (RentCast free → HomeHarvest fallback), run
+  locally — the cloud sandbox can't reach listing sites.
+- ✅ **Delivery**: Slack **MCP** to channel `C0B9JHL9NE9` (the cloud webhook is
+  egress-blocked; MCP is the working path).
+- Run model: **on-demand local** (no cron); the daily cloud routine is disabled
+  because it can't fetch for free. Re-enable a "local-fetch → cloud-posts" split
+  later if wanted.
+Still to wire up:
 - Slack **thread-reply parsing** for watchlist intake.
-- Confirm `#housing-updates` == channel `C0B9JHL9NE9`; webhook stays out of repo.
+- Recent **solds** into the comps/market section (`fetch.py --sold` provides them).
 
 Memory is resolved: no external DB — the committed state files (`history/`,
 `seen.json`, `watchlist.json`, `mutes.json`) are the datastore, committed +

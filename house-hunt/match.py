@@ -636,11 +636,86 @@ def post_to_webhook(payload):
         return False
 
 
+# ----- curated digest (clean, hierarchical, clickable) -----------------------
+
+def _is_junk(l):
+    """Obviously-broken rows we shouldn't surface: missing beds, or absurd
+    days-on-market (stale relist / bad record, e.g. 700+ days)."""
+    if not l.get("beds"):
+        return True
+    dom = l.get("_dom")
+    return dom is not None and dom > 365
+
+
+def _is_over_budget(l, price_max):
+    return bool(price_max and l.get("price") and l["price"] > price_max)
+
+
+def _digest_line(l, reasons):
+    """One clickable, scannable bullet for the Slack digest (standard markdown)."""
+    price = f"**${l['price']:,.0f}**" if l.get("price") else "**price n/a**"
+    spec = []
+    if l.get("beds"):
+        spec.append(f"{l['beds']:g}bd")
+    if l.get("baths"):
+        spec.append(f"{l['baths']:g}ba")
+    if l.get("sqft"):
+        spec.append(f"{l['sqft']:,}sf")
+    tail = []
+    if l.get("_dom") is not None:
+        tail.append(f"{l['_dom']}d on mkt")
+    va = _vs_area_label(l.get("_vs_area"))
+    if va:
+        tail.append(va)
+    tail += list(reasons)
+    addr = l.get("address") or "?"
+    link = f"[{addr}]({l['url']})" if l.get("url") else addr
+    head = " · ".join([price] + ([" ".join(spec)] if spec else []))
+    return f"• {link} — {head}" + (f"  ·  {' · '.join(tail)}" if tail else "")
+
+
+def render_digest_md(today, fresh, stretch, worth, alerts, pending_count,
+                     stale_count, stats, nudge=None, max_fresh=15):
+    """Curated, hierarchical Slack-markdown digest: changes → deals → fresh
+    (newest first) → a small over-budget 'stretch' list → what we hid → market.
+    Built for a phone glance, every address a real link."""
+    out = [f"🏠  **House Hunt · {today}**", "_Scotch Plains + Colonia · 3+ bd · ≤ $650k_"]
+    if nudge:
+        out += ["", nudge]
+    if alerts:
+        out += ["", f"**🔔 Changes ({len(alerts)})** — on houses already shown"]
+        out += [f"• {m} — {(l.get('address') or '')}" for l, m in alerts]
+    if worth:
+        out += ["", f"**⭐ Worth a look ({len(worth)})** — under-market & price drops"]
+        out += [_digest_line(l, [e] if e else []) for l, e in worth[:8]]
+    out += ["", f"**🆕 Fresh — newest first ({len(fresh)})**"]
+    shown = fresh[:max_fresh]
+    out += [_digest_line(l, r) for l, _, _, r in shown] or ["_nothing in budget today_"]
+    if len(fresh) > len(shown):
+        out.append(f"_…+{len(fresh) - len(shown)} more in-budget (older listings)_")
+    if stretch:
+        out += ["", f"**🤏 Stretch — just over budget ({len(stretch)})**"]
+        out += [_digest_line(l, r) for l, _, _, r in stretch[:6]]
+    hidden = []
+    if pending_count:
+        hidden.append(f"{pending_count} pending")
+    if stale_count:
+        hidden.append(f"{stale_count} stale/incomplete")
+    if hidden:
+        out += ["", f"_hidden: {' · '.join(hidden)}_"]
+    mf = _market_footer(stats)
+    out += ["", "**📊 Market**"]
+    out += [m.strip() for m in mf] if mf else ["_no sold comps yet — `fetch.py --sold` to seed_"]
+    out += ["", "_reply in thread: `track <addr>` · `mute <addr>` · `note <addr> \"…\"`_"]
+    return "\n".join(out)
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     want_blocks = "--blocks" in sys.argv
     want_post = "--post" in sys.argv
     want_md = "--md" in sys.argv
+    want_digest = "--digest" in sys.argv
     today = args[0] if args else datetime.date.today().isoformat()
     criteria = load_json(os.path.join(BASE_DIR, "criteria.json"), None)
     if criteria is None:
@@ -689,7 +764,22 @@ def main():
     worth = worth_a_look(new_today, this_week, alerts)
     open_houses = open_houses_from(new_today, this_week)
 
-    if want_md:
+    # ---- curate the display lists for the digest (P0/P1) ----
+    price_max = (criteria.get("price") or {}).get("max")
+    pending_count = sum(1 for t in new_today if t[0].get("status") == "pending")
+    stale_count = sum(1 for t in new_today
+                      if t[0].get("status") == "active" and _is_junk(t[0]))
+    active_clean = [t for t in new_today
+                    if t[0].get("status") == "active" and not _is_junk(t[0])]
+    active_clean.sort(key=lambda t: t[0].get("_dom") if t[0].get("_dom") is not None else 99999)
+    fresh = [t for t in active_clean if not _is_over_budget(t[0], price_max)]
+    stretch = [t for t in active_clean if _is_over_budget(t[0], price_max)]
+    nudge = next_milestone(today) if next_milestone else None
+
+    if want_digest:
+        print(render_digest_md(today, fresh, stretch, worth, alerts,
+                               pending_count, stale_count, stats, nudge))
+    elif want_md:
         print(render_markdown(worth, new_today, this_week, close_enough, alerts,
                               open_houses, wl_updates, stats, today))
     else:
