@@ -2,85 +2,85 @@
   {
     "name": "Ronald",
     "username": "Ronaldmendez",
-    "total": 940,
+    "total": 810,
     "rank": 1
   },
   {
     "name": "Brent",
     "username": "bjl6",
-    "total": 890,
+    "total": 760,
     "rank": 2
   },
   {
     "name": "Cesar",
     "username": "ccesar",
-    "total": 760,
+    "total": 710,
     "rank": 3
-  },
-  {
-    "name": "Steven Dias",
-    "username": "stevenpybots",
-    "total": 760,
-    "rank": 3
-  },
-  {
-    "name": "Luis",
-    "username": "SandwichLuis",
-    "total": 710,
-    "rank": 5
-  },
-  {
-    "name": "Omar",
-    "username": "Tejada08",
-    "total": 710,
-    "rank": 5
-  },
-  {
-    "name": "Silvia",
-    "username": "sjaramil",
-    "total": 710,
-    "rank": 5
-  },
-  {
-    "name": "Dani",
-    "username": "Danigu",
-    "total": 680,
-    "rank": 8
   },
   {
     "name": "Dan",
     "username": "DoctorDan",
     "total": 660,
-    "rank": 9
+    "rank": 4
   },
   {
-    "name": "Filipe",
-    "username": "Xino com x",
+    "name": "Luis",
+    "username": "SandwichLuis",
     "total": 660,
-    "rank": 9
+    "rank": 4
   },
   {
-    "name": "Joao Pedro",
-    "username": "UniqueUserName1234",
-    "total": 660,
-    "rank": 9
+    "name": "Steven Dias",
+    "username": "stevenpybots",
+    "total": 630,
+    "rank": 6
+  },
+  {
+    "name": "Omar",
+    "username": "Tejada08",
+    "total": 580,
+    "rank": 7
+  },
+  {
+    "name": "Silvia",
+    "username": "sjaramil",
+    "total": 580,
+    "rank": 7
   },
   {
     "name": "Steven Coelho",
     "username": "SteveRabbit",
-    "total": 450,
-    "rank": 12
+    "total": 580,
+    "rank": 7
+  },
+  {
+    "name": "Dani",
+    "username": "Danigu",
+    "total": 550,
+    "rank": 10
+  },
+  {
+    "name": "Filipe",
+    "username": "Xino com x",
+    "total": 530,
+    "rank": 11
+  },
+  {
+    "name": "Joao Pedro",
+    "username": "UniqueUserName1234",
+    "total": 530,
+    "rank": 11
   },
   {
     "name": "Wilbert",
     "username": "Portillo15",
-    "total": 350,
+    "total": 300,
     "rank": 13
   },
   {
     "name": "Karen",
     "username": "MendezZ40",
-    "total": 50,
+    "total": 100,
     "rank": 14
   }
 ]
