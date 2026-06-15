@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-14",
-  "_note": "Groups A-F (partial) — matches played through June 14 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, TSN, Sky Sports. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 14) — confirmed ESPN, FIFA official, FOX Sports, VAVEL (4 independent sources). Group E: GER 7-1 CUW (Jun 14) — confirmed ESPN and FOX Sports (2 independent sources); CIV 1-0 ECU (Jun 14, Amad Diallo 90') — confirmed Yahoo Sports and heavy.com (2 independent sources). Group F: NED 2-2 JPN (Jun 14) — confirmed ESPN and NBC Sports; SWE vs TUN (Jun 14 10pm ET / Jun 15 02:00 UTC, not yet played). Groups G-L: no matches played yet.",
+  "_generated": "2026-06-15",
+  "_note": "Groups A-F — matches played through June 15 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, Sky Sports, Opta Analyst. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 13) — confirmed Yahoo Sports, Bolavip, ESPN. Group E: GER 7-1 CUW (Jun 14) — confirmed ESPN and CBS Sports; CIV 1-0 ECU (Jun 14, Amad Diallo 90') — confirmed ESPN, NBC Philadelphia, Opta Analyst. Group F: NED 2-2 JPN (Jun 14) — confirmed ESPN and NBC Sports; SWE 5-1 TUN (Jun 14) — confirmed multiple sources. Groups G-H: June 15 matches played but results not yet confirmed via search. Groups I-L: no matches played yet.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
@@ -35,8 +35,8 @@
     "F": [
       {"team": "NED", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
       {"team": "JPN", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
-      {"team": "SWE", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0},
-      {"team": "TUN", "pts": 0, "gd": 0, "gf": 0, "ga": 0, "mp": 0}
+      {"team": "SWE", "pts": 3, "gd": 4, "gf": 5, "ga": 1, "mp": 1},
+      {"team": "TUN", "pts": 0, "gd": -4, "gf": 1, "ga": 5, "mp": 1}
     ]
   }
 }
