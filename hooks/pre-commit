@@ -38,7 +38,7 @@ declare -a patterns=(
 )
 
 for p in "${patterns[@]}"; do
-  if hits=$(echo "$added" | grep -nE "$p" || true); [ -n "$hits" ]; then
+  if hits=$(echo "$added" | grep -nE -e "$p" || true); [ -n "$hits" ]; then
     note "staged change matches secret pattern /$p/:"
     echo "$hits" | sed 's/^/      /' >&2
   fi
