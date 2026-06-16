@@ -57,8 +57,14 @@ buyer-deal signal — so you can prioritize houses they currently list.
 
 ⚠️ **Seller-side only.** Realtor.com (via HomeHarvest) publishes the *listing*
 (seller) agent + brokerage; it does **not** expose the *buyer's* agent, so there
-is no buyer-side pattern from this source (would need MLS). Reads `seen.json`
-only — writes nothing, changes no existing behavior.
+is no buyer-side pattern from this source (we tested free web search — Redfin's
+"bought with" 403s and MLS is gated, so buyer-side needs a paid/MLS feed). Reads
+`seen.json` only — writes nothing, changes no existing behavior.
+
+The daily board also carries a 🏷️ tag on any live listing whose **listing
+brokerage** has a track record of closing under ask (≥4 sold comps, median below
+asking) — so "houses listed by an agency that sells under ask" surface inline.
+Sparse today (small free-data samples); it strengthens as the sold archive grows.
 
 ```bash
 python3 agents.py            # report (brokerages, then agents)

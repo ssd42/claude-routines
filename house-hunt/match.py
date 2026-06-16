@@ -397,6 +397,37 @@ def _ppsf_trend(recs):
     return (recent - older) / older * 100
 
 
+def under_ask_brokerages(seen, min_n=4, max_vs=-0.5):
+    """Brokerages whose sold comps closed at/under asking (by median), from the
+    sold archive. Returns {normalized_name: (median_vs_ask_pct, n)} — used to tag
+    a live listing whose LISTING brokerage has a track record of selling under
+    ask (a buyer-deal signal). Seller-side; see agents.py for the full report."""
+    groups = {}
+    for r in seen.get("sold", {}).values():
+        if not (r.get("list_price") and r.get("sold_price") and r.get("list_brokerage")):
+            continue
+        groups.setdefault(" ".join(r["list_brokerage"].split()), []).append(
+            r["sold_price"] / r["list_price"])
+    out = {}
+    for name, ratios in groups.items():
+        if len(ratios) < min_n:
+            continue
+        vs = (_median(ratios) - 1) * 100
+        if vs <= max_vs:
+            out[name] = (vs, len(ratios))
+    return out
+
+
+def _broker_tag(listing, under_ask):
+    """A 🏷️ tag if this listing's brokerage tends to close under asking."""
+    name = " ".join((listing.get("list_brokerage") or "").split())
+    if name and name in under_ask:
+        vs, n = under_ask[name]
+        short = name if len(name) <= 24 else name[:23] + "…"
+        return [f"🏷️ {short} sells {vs:+.1f}% vs ask (n={n})"]
+    return []
+
+
 def annotate(listing, seen, stats, today):
     """Attach true days-on-market (_dom, from listed_date only) and a numeric
     "vs area" pricing delta (_vs_area, % vs median sold $/sqft) to a listing."""
@@ -762,13 +793,14 @@ def render_digest_md(today, fresh, stretch, worth, alerts, pending_count,
 # ----- THE canonical board (cemented format — post this verbatim) ------------
 
 def render_board_md(today, new_week, still_active, alerts, wl_updates, stats,
-                    zip_names, zip_dist, nudge=None, max_new=12, max_active=6,
-                    max_market=12):
+                    zip_names, zip_dist, under_ask=None, nudge=None, max_new=12,
+                    max_active=6, max_market=12):
     """THE one canonical Slack board. Fixed headers, every house linked, every
     section always rendered (shows "(none)" when empty). Listings + the market
     table are ordered CLOSEST-FIRST to the priority anchor (07090). This is the
     SINGLE source of truth for the daily post — `match.py --board` prints exactly
     what gets sent to Slack. Post it verbatim; do not hand-rewrite the message."""
+    under_ask = under_ask or {}
     out = [f"🏠 *House Hunt · {today}*", "_NJ target towns · 3+ bd · 1.5+ ba · ≤ $650k · nearest Westfield first_"]
     if nudge:
         out += ["", nudge]
@@ -776,15 +808,15 @@ def render_board_md(today, new_week, still_active, alerts, wl_updates, stats,
     out += ["", f"*🔔 Changes ({len(alerts)})* — price drops · pending · back-on-market · sold"]
     out += [f"• {m} — {(l.get('address') or '')}" for l, m in alerts] or ["_(none)_"]
 
-    out += ["", f"*🆕 New this week ({len(new_week)})* — newly listed (≤7d on mkt)"]
+    out += ["", f"*🆕 New this week ({len(new_week)})* — newly listed (≤7d on mkt) · 🏷️ = listed by an under-ask brokerage"]
     shown = new_week[:max_new]
-    out += [_digest_line(l, r, show_town=True) for l, _, _, r in shown] or ["_(none)_"]
+    out += [_digest_line(l, r + _broker_tag(l, under_ask), show_town=True) for l, _, _, r in shown] or ["_(none)_"]
     if len(new_week) > len(shown):
         out.append(f"_…+{len(new_week) - len(shown)} more (see seen.json)_")
 
     out += ["", f"*🔁 Still active ({len(still_active)})*"]
     shown = still_active[:max_active]
-    out += [_digest_line(l, r, show_town=True) for l, _, _, r in shown] or ["_(none)_"]
+    out += [_digest_line(l, r + _broker_tag(l, under_ask), show_town=True) for l, _, _, r in shown] or ["_(none)_"]
     if len(still_active) > len(shown):
         out.append(f"_…+{len(still_active) - len(shown)} more (see seen.json)_")
 
@@ -885,8 +917,9 @@ def main():
             return l.get("_dom") is not None and l["_dom"] <= 7
         new_week = [t for t in active if _fresh(t[0])]
         still_active = [t for t in active if not _fresh(t[0])]
+        under_ask = under_ask_brokerages(seen)
         print(render_board_md(today, new_week, still_active, alerts, wl_updates,
-                              stats, zip_names, zip_dist, nudge))
+                              stats, zip_names, zip_dist, under_ask, nudge))
     elif want_digest:
         print(render_digest_md(today, fresh, stretch, worth, alerts,
                                pending_count, stale_count, stats, nudge))
