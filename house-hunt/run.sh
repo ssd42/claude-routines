@@ -15,13 +15,14 @@ echo "▶ fetching listings…"
 python3 fetch.py "$@"
 
 echo
-echo "▶ scoring (match.py) …"
-python3 match.py "$DATE"
+echo "▶ scoring → canonical board (match.py --board) …"
+python3 match.py "$DATE" --board
 
 echo
 echo "▶ timing runway (timing.py) …"
 python3 timing.py "$DATE"
 
 echo
-echo "✓ done. Next: post the board to Slack #housing-updates (C0B9JHL9NE9) via"
-echo "  the Slack MCP, then commit:  git add history/$DATE.json seen.json watchlist.json"
+echo "✓ done. Post the board ABOVE (match.py --board output) to Slack"
+echo "  #housing-updates (C0B9JHL9NE9) via the Slack MCP — VERBATIM, no reformatting."
+echo "  Then commit:  git add history/$DATE.json seen.json watchlist.json"

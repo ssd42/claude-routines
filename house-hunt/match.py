@@ -36,6 +36,9 @@ RAW INPUT SHAPE  (what the agent must produce per source, raw/<key>.json)
   photo_url is the lead photo (used for the Slack cards); optional.
 
 USAGE
+  python3 match.py [YYYY-MM-DD] --board    # THE canonical Slack board — post this
+                                           # output VERBATIM (cemented headers,
+                                           # every house linked). Used by run.sh.
   python3 match.py [YYYY-MM-DD]            # prints the ASCII board
   python3 match.py [YYYY-MM-DD] --md       # prints the Slack-markdown digest
   python3 match.py [YYYY-MM-DD] --blocks   # prints Slack Block Kit JSON (photo
@@ -725,12 +728,56 @@ def render_digest_md(today, fresh, stretch, worth, alerts, pending_count,
     return "\n".join(out)
 
 
+# ----- THE canonical board (cemented format — post this verbatim) ------------
+
+def render_board_md(today, new_today, this_week, alerts, wl_updates, stats,
+                    zip_names, nudge=None, max_new=18, max_active=15):
+    """THE one canonical Slack board. Fixed headers, every house linked, every
+    section always rendered (shows "(none)" when empty). This is the SINGLE
+    source of truth for the daily post — `match.py --board` prints exactly what
+    gets sent to Slack. Post it verbatim; do not hand-rewrite the message."""
+    out = [f"🏠 *House Hunt · {today}*", "_NJ target towns · 3+ bd · 1.5+ ba · ≤ $650k_"]
+    if nudge:
+        out += ["", nudge]
+
+    out += ["", f"*🔔 Changes ({len(alerts)})* — price drops · pending · back-on-market · sold"]
+    out += [f"• {m} — {(l.get('address') or '')}" for l, m in alerts] or ["_(none)_"]
+
+    out += ["", f"*🆕 New today ({len(new_today)})*"]
+    shown = new_today[:max_new]
+    out += [_digest_line(l, r) for l, _, _, r in shown] or ["_(none)_"]
+    if len(new_today) > len(shown):
+        out.append(f"_…+{len(new_today) - len(shown)} more (see seen.json)_")
+
+    out += ["", f"*🔁 Still active ({len(this_week)})*"]
+    shown = this_week[:max_active]
+    out += [_digest_line(l, r) for l, _, _, r in shown] or ["_(none)_"]
+    if len(this_week) > len(shown):
+        out.append(f"_…+{len(this_week) - len(shown)} more (see seen.json)_")
+
+    out += ["", f"*👀 Watchlist ({len(wl_updates)})* — list→sold tracking"]
+    out += [f"• {u}" for u in wl_updates] or ["_(no changes)_"]
+
+    out += ["", "*📊 Market — median sold $/sqft by town*"]
+    mk = []
+    for z, s in stats.items():
+        if not s.get("n") or not s.get("median_ppsf"):
+            continue
+        dom = f"{s['median_dom']:.0f}d" if s.get("median_dom") is not None else "?"
+        mk.append((s["median_ppsf"],
+                   f"• {zip_names.get(z, z)} — ${s['median_ppsf']:,.0f}/sf · {dom} · n={s['n']}"))
+    mk.sort(key=lambda x: -x[0])
+    out += [line for _, line in mk] or ["_no sold comps yet_"]
+    return "\n".join(out)
+
+
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     want_blocks = "--blocks" in sys.argv
     want_post = "--post" in sys.argv
     want_md = "--md" in sys.argv
     want_digest = "--digest" in sys.argv
+    want_board = "--board" in sys.argv
     today = args[0] if args else datetime.date.today().isoformat()
     criteria = load_json(os.path.join(BASE_DIR, "criteria.json"), None)
     if criteria is None:
@@ -791,7 +838,11 @@ def main():
     stretch = [t for t in active_clean if _is_over_budget(t[0], price_max)]
     nudge = next_milestone(today) if next_milestone else None
 
-    if want_digest:
+    if want_board:
+        zip_names = {z: n["name"] for n in criteria["neighborhoods"] for z in n.get("zips", [])}
+        print(render_board_md(today, new_today, this_week, alerts, wl_updates,
+                              stats, zip_names, nudge))
+    elif want_digest:
         print(render_digest_md(today, fresh, stretch, worth, alerts,
                                pending_count, stale_count, stats, nudge))
     elif want_md:

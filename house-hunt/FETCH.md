@@ -39,9 +39,12 @@ Field mapping notes:
 
 ## Full on-demand run
 See `run.sh` (fetch → score → print board + timing). Then deliver + persist:
-1. Post the `match.py` board + `timing.py` runway to Slack **#housing-updates
+1. Post the **`match.py --board` output VERBATIM** to Slack **#housing-updates
    (channel id `C0B9JHL9NE9`) via the Slack MCP** — the cloud webhook is blocked,
-   and MCP posts to the exact channel id with no secret in the repo.
+   and MCP posts to the exact channel id with no secret in the repo. ⚠️ Do NOT
+   hand-rewrite or summarize the message — `--board` is the cemented format
+   (fixed headers, every house linked); reformatting it is what caused the
+   format to drift run-to-run. Append the `timing.py` runway below it if wanted.
 2. Commit only the real-data state: `git add history/<DATE>.json seen.json
    watchlist.json && git commit -m "house-hunt: board snapshot <DATE>" && git push`.
 
