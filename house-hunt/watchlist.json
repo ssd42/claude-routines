@@ -1,5 +1,5 @@
 {
-  "_doc": "Houses you liked but won't buy \u2014 tracked from list price to sold price. Items are added by replying in a listing's Slack thread (see job.json watchlist_intake). match.py fills in list_price/first_seen on add, tracks price changes, and captures sold_price + sold_date + days_on_market when the status flips to sold.",
+  "_doc": "Houses you liked \u2014 pinned and tracked from list price to sold price. Add by replying 'track <address>' in a listing's Slack thread (intake parsing still TODO) or by hand here. match.py maintains list_price + price_history and captures sold_price + sold_date + days_on_market when the status flips to sold. Matched to listings by `id` (the listing key) or address+zip.",
   "tracked": [
     {
       "_example": true,
@@ -14,6 +14,30 @@
         {
           "date": "2026-06-10",
           "price": 749000
+        }
+      ],
+      "status": "active",
+      "sold_price": null,
+      "sold_date": null,
+      "days_on_market": null
+    },
+    {
+      "id": "369 fairview avenue|07067",
+      "address": "369 Fairview Ave",
+      "zip": "07067",
+      "city": "Colonia",
+      "url": "https://www.realtor.com/realestateandhomes-detail/369-Fairview-Ave_Colonia_NJ_07067_M56518-93168",
+      "added": "2026-06-16",
+      "added_via": "manual:liked",
+      "listed_date": "2026-06-09",
+      "beds": 3,
+      "baths": 2.0,
+      "sqft": 1296,
+      "list_price": 519000,
+      "price_history": [
+        {
+          "date": "2026-06-16",
+          "price": 519000
         }
       ],
       "status": "active",
