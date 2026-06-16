@@ -215,10 +215,12 @@ def fill_image_prompt(board, previous, today, template_path):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a != "--image-prompt"]
+    flags = {"--image-prompt", "--force"}
+    args = [a for a in sys.argv[1:] if a not in flags]
     want_prompt = "--image-prompt" in sys.argv
+    force = "--force" in sys.argv
     if len(args) not in (2, 3):
-        print("usage: python score.py predictions.json standings.json [YYYY-MM-DD] [--image-prompt]",
+        print("usage: python score.py predictions.json standings.json [YYYY-MM-DD] [--image-prompt] [--force]",
               file=sys.stderr)
         sys.exit(2)
     with open(args[0]) as f:
@@ -236,10 +238,30 @@ def main():
         with open(rankings_path) as f:
             rankings = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
 
-    board = build_leaderboard(predictions, standings, rankings)
+    # Positions are computed ONCE per day, by the first (scheduled) run. A
+    # same-day re-run must NOT recompute ranks/totals: whatever the day's first
+    # run posted is the board the league saw, and it's also tomorrow's ▲/▼
+    # baseline. Re-running and overwriting the snapshot silently moves that
+    # baseline, so the next day's arrows measure change against a board nobody
+    # saw (this is exactly what broke the 2026-06-15 arrows — see CLAUDE.md).
+    # So: if today's snapshot already exists, reuse it verbatim. Use --force
+    # only for a genuine correction where you intend to replace the baseline.
+    today_path = os.path.join(history_dir, f"{today}.json")
     previous = load_previous(history_dir, today)
+    frozen = os.path.exists(today_path) and not force
+    if frozen:
+        with open(today_path) as f:
+            board = json.load(f)  # rows: name, username, total, rank
+        print(f"NOTE: history/{today}.json already exists — reusing today's "
+              "frozen board; positions are computed once per day and were NOT "
+              "recomputed. (Pass --force to recompute and replace the baseline.)\n",
+              file=sys.stderr)
+    else:
+        board = build_leaderboard(predictions, standings, rankings)
+
     print(render_ascii(board, standings, previous, today))
-    save_snapshot(board, history_dir, today)
+    if not frozen:
+        save_snapshot(board, history_dir, today)
 
     if want_prompt:
         template_path = os.path.join(base_dir, "image-prompt.template.txt")

@@ -36,10 +36,16 @@ Hard-won lessons from real scheduled runs — follow these to avoid known traps:
   the `git commit --allow-empty` + `--dry-run` + `git reset --soft HEAD~1`
   trick: it detaches HEAD and cascades into stash/merge conflicts when you later
   commit real data.
-- **Don't clobber a fuller snapshot.** If `history/<today>.json` already exists,
-  an earlier run finished today (maybe with fewer groups). Read it, compare group
-  counts, and only overwrite if the new data has **genuinely more groups**. A
-  partial snapshot overwriting a fuller one breaks tomorrow's ▲/▼ baseline.
+- **Positions are computed ONCE per day — re-runs reuse the frozen board.**
+  `score.py` is now first-write-wins: if `history/<today>.json` already exists it
+  reuses that board verbatim and does **not** recompute ranks/totals. This is
+  deliberate — the day's first (scheduled) run is both the board the league saw
+  and tomorrow's ▲/▼ baseline; recomputing intra-day silently moves that baseline
+  and breaks the next day's arrows (this is what broke the 2026-06-15 board: 06-14
+  ran 3× and each re-run rewrote the snapshot). A re-run can safely re-post the
+  same board. Only pass `--force` for a **genuine correction** where you intend to
+  replace the baseline — and if you do, expect the next day's arrows to compare
+  against the corrected board, not the originally-posted one.
 - **Get standings right before committing.** Arrows compare to the most recent
   snapshot *strictly before today*. Don't commit an intermediate/partial
   today-snapshot — whatever you commit becomes tomorrow's comparison baseline.
