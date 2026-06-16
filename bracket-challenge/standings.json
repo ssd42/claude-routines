@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-15",
-  "_note": "Groups A-F — matches played through June 15 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, Sky Sports, Opta Analyst. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 13) — confirmed Yahoo Sports, Bolavip, ESPN. Group E: GER 7-1 CUW (Jun 14) — confirmed ESPN and CBS Sports; CIV 1-0 ECU (Jun 14, Amad Diallo 90') — confirmed ESPN, NBC Philadelphia, Opta Analyst. Group F: NED 2-2 JPN (Jun 14) — confirmed ESPN and NBC Sports; SWE 5-1 TUN (Jun 14) — confirmed multiple sources. Groups G-H: June 15 matches played but results not yet confirmed via search. Groups I-L: no matches played yet.",
+  "_generated": "2026-06-16",
+  "_note": "Groups A-H — matches played through June 16 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, FOX Sports, FIFA. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 13) — confirmed Yahoo Sports, Bolavip, ESPN. Group E: GER 7-1 CUW (Jun 14) — confirmed ESPN, CBS Sports; CIV 1-0 ECU (Jun 14) — confirmed ESPN, NBC Philadelphia. Group F: NED 2-2 JPN (Jun 14) — confirmed ESPN, NBC Sports; SWE 5-1 TUN (Jun 14) — confirmed ESPN, Bolavip. Group G: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 15) — confirmed CBS Sports, Yahoo Sports. Group H: ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15) — confirmed CBS Sports, Yahoo Sports. Groups I-L: no confirmed results (I/J matches scheduled Jun 16 evening, K/L start Jun 17).",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
@@ -33,10 +33,22 @@
       {"team": "CUW", "pts": 0, "gd": -6, "gf": 1, "ga": 7, "mp": 1}
     ],
     "F": [
+      {"team": "SWE", "pts": 3, "gd": 4, "gf": 5, "ga": 1, "mp": 1},
       {"team": "NED", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
       {"team": "JPN", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
-      {"team": "SWE", "pts": 3, "gd": 4, "gf": 5, "ga": 1, "mp": 1},
       {"team": "TUN", "pts": 0, "gd": -4, "gf": 1, "ga": 5, "mp": 1}
+    ],
+    "G": [
+      {"team": "BEL", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "EGY", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "IRN", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
+      {"team": "NZL", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1}
+    ],
+    "H": [
+      {"team": "ESP", "pts": 1, "gd": 0, "gf": 0, "ga": 0, "mp": 1},
+      {"team": "CPV", "pts": 1, "gd": 0, "gf": 0, "ga": 0, "mp": 1},
+      {"team": "KSA", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "URU", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1}
     ]
   }
 }
