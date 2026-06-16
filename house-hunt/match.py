@@ -133,7 +133,8 @@ def reconcile(raw_by_source, sources_cfg):
             slot["tags"].update(t.lower() for t in (l.get("tags") or []))
             # prefer any non-null text field we encounter
             for f in ("url", "neighborhood", "listed_date", "city", "property_type",
-                      "photo_url", "open_house", "sold_date"):
+                      "photo_url", "open_house", "sold_date", "list_agent",
+                      "list_brokerage"):
                 if not slot.get(f) and l.get(f):
                     slot[f] = l.get(f)
             for f in ("price", "beds", "baths", "sqft", "sold_price"):
@@ -331,7 +332,12 @@ def record_solds(merged, seen, today):
             continue
         k = listing["key"]
         if k in archive:
-            continue  # already recorded
+            # non-destructive backfill: fill agent/brokerage onto an existing comp
+            # if the feed supplies it now (older comps were archived without it).
+            for f in ("list_agent", "list_brokerage"):
+                if listing.get(f) and not archive[k].get(f):
+                    archive[k][f] = listing.get(f)
+            continue
         rec = seen_listings.get(k, {})
         list_price = rec.get("last_price") or listing.get("price")
         start = listing.get("listed_date") or rec.get("first_seen")
@@ -342,6 +348,8 @@ def record_solds(merged, seen, today):
             "zip": listing.get("zip"), "sold_price": listing.get("sold_price"),
             "list_price": list_price, "sqft": listing.get("sqft"),
             "dom": days_between(start, sold_date), "sold_date": sold_date,
+            "list_agent": listing.get("list_agent"),
+            "list_brokerage": listing.get("list_brokerage"),
         }
         # Only a CHANGE if we'd actually shown this house before; bulk comps
         # we never tracked just seed the market stats silently.

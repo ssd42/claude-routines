@@ -166,6 +166,10 @@ def _hh_rows(zips, listing_type, sold_status, past_days=None):
                 "status": status,
                 "sold_price": g("sold_price") if status == "sold" else None,
                 "sold_date": (str(g("last_sold_date"))[:10] if g("last_sold_date") else None),
+                # listing-side (seller) agent + brokerage. Realtor.com does NOT
+                # publish the buyer's agent, so there is no buyer-side field here.
+                "list_agent": g("agent_name"),
+                "list_brokerage": g("office_name") or g("broker_name"),
                 "url": g("property_url"),
                 "photo_url": photo,
                 "listed_date": (str(g("list_date"))[:10] if g("list_date") else None),

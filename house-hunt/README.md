@@ -48,6 +48,25 @@ asking, closed, Zestimate) — the data that seeds the timing lead times.
 Each run can also emit **Slack Block Kit cards** (lead photo + "View listing"
 button) via `--blocks`, which the agent POSTs to the webhook.
 
+## 🧑‍💼 Agent / brokerage patterns (`agents.py`)
+A standalone, additive analysis on top of the sold archive: it groups every sold
+comp by its **listing agent** and **brokerage** and ranks who closes **under** vs
+**over** asking (with sale count, % under ask, median DOM, median $/sqft). The
+point is to spot a brokerage whose listings historically sell under ask — a
+buyer-deal signal — so you can prioritize houses they currently list.
+
+⚠️ **Seller-side only.** Realtor.com (via HomeHarvest) publishes the *listing*
+(seller) agent + brokerage; it does **not** expose the *buyer's* agent, so there
+is no buyer-side pattern from this source (would need MLS). Reads `seen.json`
+only — writes nothing, changes no existing behavior.
+
+```bash
+python3 agents.py            # report (brokerages, then agents)
+python3 agents.py --md       # Slack-markdown summary
+python3 agents.py --min 5    # min sales to include a name (default 4)
+python3 agents.py --zip 07076 --zip 07067   # restrict to zips
+```
+
 ## How it works
 1. **Fetch** each source in `sources.json` (Redfin, Realtor.com, Zillow) into
    `raw/<source>.json` — done by the scheduled agent.
@@ -75,6 +94,7 @@ house, and appends it to `watchlist.json` with its current list price.
 | `run.sh` | on-demand wrapper: fetch → score → print board + timing runway |
 | `FETCH.md` | how `fetch.py` works + the full on-demand run/deliver/persist steps |
 | `match.py` | deterministic reconcile + score + diff + watchlist tracker + ASCII board |
+| `agents.py` | **standalone** analysis: which listing brokerages/agents close under vs over asking (seller-side; reads the sold archive, writes nothing) |
 | `timing.py` | closing-runway planner: back-plans offer/notice dates from a target close window |
 | `timing.json` | notice period + target close window for the timing planner |
 | `comps.json` | hand-researched reference solds (list→pending→close dates); seeds the timing lead times |
