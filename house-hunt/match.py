@@ -249,14 +249,23 @@ def diff_seen(scored, seen, today, window=7):
     listings = seen.setdefault("listings", {})
     today_d = datetime.date.fromisoformat(today)
     new_today, this_week, alerts = [], [], []
+
+    def _facts(listing):
+        # Static descriptors persisted on the seen record so seen.json is
+        # analyzable on its own (no need to re-join every history/ snapshot).
+        return {f: listing.get(f) for f in (
+            "address", "zip", "city", "neighborhood", "url", "property_type",
+            "beds", "baths", "sqft", "listed_date")}
+
     for entry in scored:
         listing = entry[0]
         k = listing["key"]
         rec = listings.get(k)
         new_price, new_status = listing.get("price"), listing.get("status")
         if rec is None:
-            listings[k] = {"first_seen": today, "last_seen": today,
-                           "status": new_status, "last_price": new_price}
+            listings[k] = {**_facts(listing), "first_seen": today, "last_seen": today,
+                           "status": new_status, "last_price": new_price,
+                           "price_history": [{"date": today, "price": new_price}]}
             new_today.append(entry)
             continue
 
@@ -274,6 +283,12 @@ def diff_seen(scored, seen, today, window=7):
             alerts.append((listing, "↩️ back on market"))
 
         first = datetime.date.fromisoformat(rec["first_seen"])
+        # backfill static facts onto older thin records; refresh any that filled in
+        for f, v in _facts(listing).items():
+            if v is not None and rec.get(f) is None:
+                rec[f] = v
+        if new_price is not None and new_price != rec.get("last_price"):
+            rec.setdefault("price_history", []).append({"date": today, "price": new_price})
         rec["last_seen"] = today
         rec["status"] = new_status
         rec["last_price"] = new_price
@@ -550,7 +565,7 @@ def render_slack_blocks(worth, new_today, open_houses, alerts, stats, today, max
     market line. Stays well under Slack's 50-block limit."""
     B = [{"type": "header", "text": {"type": "plain_text", "text": f"🏠 House Hunt · {today}"}}]
     B.append({"type": "context", "elements": [{"type": "mrkdwn",
-        "text": f"Scotch Plains + Colonia · 3+ bd · ≤$650k    ·    🆕 {len(new_today)} new · 🔔 {len(alerts)} changes"}]})
+        "text": f"NJ target towns · 3+ bd · 1.5+ ba · ≤$650k    ·    🆕 {len(new_today)} new · 🔔 {len(alerts)} changes"}]})
 
     B.append({"type": "section", "text": {"type": "mrkdwn", "text": f"*⭐ Worth a look ({len(worth)})*"}})
     if not worth:
@@ -597,7 +612,7 @@ def render_markdown(worth, new_today, this_week, close_enough, alerts, open_hous
         src = f"  _(on {', '.join(sorted(l['sources']))})_" if l.get("sources") else ""
         return f"• {link} — {body}{src}"
 
-    out = [f"## 🏠 House Hunt · {today}", "_Scotch Plains + Colonia · 3+ bd · ≤$650k_", ""]
+    out = [f"## 🏠 House Hunt · {today}", "_NJ target towns · 3+ bd · 1.5+ ba · ≤$650k_", ""]
     out.append(f"**⭐ Worth a look ({len(worth)})**")
     out += [line(l, [extra] if extra else []) for l, extra in worth] or ["_nothing urgent today_"]
     out += ["", f"🆕 New: {len(new_today)}  ·  🔔 Changes: {len(alerts)}  ·  🤏 Close: {len(close_enough)}  ·  🔁 This week: {len(this_week)}"]
@@ -679,7 +694,7 @@ def render_digest_md(today, fresh, stretch, worth, alerts, pending_count,
     """Curated, hierarchical Slack-markdown digest: changes → deals → fresh
     (newest first) → a small over-budget 'stretch' list → what we hid → market.
     Built for a phone glance, every address a real link."""
-    out = [f"🏠  **House Hunt · {today}**", "_Scotch Plains + Colonia · 3+ bd · ≤ $650k_"]
+    out = [f"🏠  **House Hunt · {today}**", "_NJ target towns · 3+ bd · 1.5+ ba · ≤ $650k_"]
     if nudge:
         out += ["", nudge]
     if alerts:

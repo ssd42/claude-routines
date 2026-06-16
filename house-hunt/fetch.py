@@ -19,9 +19,14 @@ match.py documents (see its header docstring), keyed to the target zips in
 criteria.json. raw/ is gitignored and rewritten each run.
 
 USAGE
-  python3 fetch.py                      # auto: RentCast if key set, else HomeHarvest
+  python3 fetch.py                      # auto: RentCast if key set, else HomeHarvest;
+                                        # pulls recently-sold comps by default
   python3 fetch.py --source homeharvest # force a source
-  python3 fetch.py --sold              # also pull recently-sold comps (HomeHarvest)
+  python3 fetch.py --no-sold           # skip the recently-sold comp pull
+
+NOTE: solds are fetched BY DEFAULT so the dataset captures list->sold outcomes
+(match.py's record_solds archives them into seen.json['sold'] + the market comps).
+Solds come from HomeHarvest only; the RentCast path is active-listings-only.
 """
 
 import datetime
@@ -195,7 +200,7 @@ def main():
     force = None
     if "--source" in args:
         force = args[args.index("--source") + 1]
-    want_sold = "--sold" in args
+    want_sold = "--no-sold" not in args  # solds on by default; --no-sold to skip
     zips = load_criteria_zips()
     key = os.environ.get("RENTCAST_API_KEY")
 
