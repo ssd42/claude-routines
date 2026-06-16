@@ -165,6 +165,7 @@ def _hh_rows(zips, listing_type, sold_status, past_days=None):
                 "property_type": _norm_style(g("style")),
                 "status": status,
                 "sold_price": g("sold_price") if status == "sold" else None,
+                "sold_date": (str(g("last_sold_date"))[:10] if g("last_sold_date") else None),
                 "url": g("property_url"),
                 "photo_url": photo,
                 "listed_date": (str(g("list_date"))[:10] if g("list_date") else None),

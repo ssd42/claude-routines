@@ -133,7 +133,7 @@ def reconcile(raw_by_source, sources_cfg):
             slot["tags"].update(t.lower() for t in (l.get("tags") or []))
             # prefer any non-null text field we encounter
             for f in ("url", "neighborhood", "listed_date", "city", "property_type",
-                      "photo_url", "open_house"):
+                      "photo_url", "open_house", "sold_date"):
                 if not slot.get(f) and l.get(f):
                     slot[f] = l.get(f)
             for f in ("price", "beds", "baths", "sqft", "sold_price"):
@@ -335,10 +335,13 @@ def record_solds(merged, seen, today):
         rec = seen_listings.get(k, {})
         list_price = rec.get("last_price") or listing.get("price")
         start = listing.get("listed_date") or rec.get("first_seen")
+        # prefer the ACTUAL sale date from the source; fall back to today only if
+        # the feed didn't supply one (so the $/sqft trend reflects real timing).
+        sold_date = listing.get("sold_date") or today
         archive[k] = {
             "zip": listing.get("zip"), "sold_price": listing.get("sold_price"),
             "list_price": list_price, "sqft": listing.get("sqft"),
-            "dom": days_between(start, today), "sold_date": today,
+            "dom": days_between(start, sold_date), "sold_date": sold_date,
         }
         # Only a CHANGE if we'd actually shown this house before; bulk comps
         # we never tracked just seed the market stats silently.
@@ -364,8 +367,26 @@ def area_stats(seen):
             "median_ppsf": _median(ppsf),
             "median_ratio": _median(ratio),
             "median_dom": _median([r.get("dom") for r in recs]),
+            "ppsf_trend": _ppsf_trend(recs),
         }
     return stats
+
+
+def _ppsf_trend(recs):
+    """Direction of $/sqft over the comp window: split sold comps by sale date
+    into older vs recent halves, return the % change in median $/sqft (recent
+    vs older). None if too few dated comps to be meaningful."""
+    dated = [(r["sold_date"], r["sold_price"] / r["sqft"]) for r in recs
+             if r.get("sold_date") and r.get("sqft") and r.get("sold_price")]
+    if len(dated) < 6:
+        return None  # not enough signal to call a direction
+    dated.sort()
+    mid = len(dated) // 2
+    older = _median([p for _, p in dated[:mid]])
+    recent = _median([p for _, p in dated[mid:]])
+    if not older or not recent or len(set(d for d, _ in dated)) < 2:
+        return None  # all same date (e.g. undated feed) -> no real trend
+    return (recent - older) / older * 100
 
 
 def annotate(listing, seen, stats, today):
@@ -669,10 +690,12 @@ def _is_over_budget(l, price_max):
     return bool(price_max and l.get("price") and l["price"] > price_max)
 
 
-def _digest_line(l, reasons):
+def _digest_line(l, reasons, show_town=False):
     """One clickable, scannable bullet for the Slack digest (standard markdown)."""
     price = f"**${l['price']:,.0f}**" if l.get("price") else "**price n/a**"
     spec = []
+    if show_town and (l.get("city") or l.get("neighborhood")):
+        spec.append(l.get("city") or l.get("neighborhood"))
     if l.get("beds"):
         spec.append(f"{l['beds']:g}bd")
     if l.get("baths"):
@@ -730,44 +753,50 @@ def render_digest_md(today, fresh, stretch, worth, alerts, pending_count,
 
 # ----- THE canonical board (cemented format — post this verbatim) ------------
 
-def render_board_md(today, new_today, this_week, alerts, wl_updates, stats,
-                    zip_names, nudge=None, max_new=18, max_active=15):
+def render_board_md(today, new_week, still_active, alerts, wl_updates, stats,
+                    zip_names, zip_dist, nudge=None, max_new=12, max_active=6,
+                    max_market=12):
     """THE one canonical Slack board. Fixed headers, every house linked, every
-    section always rendered (shows "(none)" when empty). This is the SINGLE
-    source of truth for the daily post — `match.py --board` prints exactly what
-    gets sent to Slack. Post it verbatim; do not hand-rewrite the message."""
-    out = [f"🏠 *House Hunt · {today}*", "_NJ target towns · 3+ bd · 1.5+ ba · ≤ $650k_"]
+    section always rendered (shows "(none)" when empty). Listings + the market
+    table are ordered CLOSEST-FIRST to the priority anchor (07090). This is the
+    SINGLE source of truth for the daily post — `match.py --board` prints exactly
+    what gets sent to Slack. Post it verbatim; do not hand-rewrite the message."""
+    out = [f"🏠 *House Hunt · {today}*", "_NJ target towns · 3+ bd · 1.5+ ba · ≤ $650k · nearest Westfield first_"]
     if nudge:
         out += ["", nudge]
 
     out += ["", f"*🔔 Changes ({len(alerts)})* — price drops · pending · back-on-market · sold"]
     out += [f"• {m} — {(l.get('address') or '')}" for l, m in alerts] or ["_(none)_"]
 
-    out += ["", f"*🆕 New today ({len(new_today)})*"]
-    shown = new_today[:max_new]
-    out += [_digest_line(l, r) for l, _, _, r in shown] or ["_(none)_"]
-    if len(new_today) > len(shown):
-        out.append(f"_…+{len(new_today) - len(shown)} more (see seen.json)_")
+    out += ["", f"*🆕 New this week ({len(new_week)})* — newly listed (≤7d on mkt)"]
+    shown = new_week[:max_new]
+    out += [_digest_line(l, r, show_town=True) for l, _, _, r in shown] or ["_(none)_"]
+    if len(new_week) > len(shown):
+        out.append(f"_…+{len(new_week) - len(shown)} more (see seen.json)_")
 
-    out += ["", f"*🔁 Still active ({len(this_week)})*"]
-    shown = this_week[:max_active]
-    out += [_digest_line(l, r) for l, _, _, r in shown] or ["_(none)_"]
-    if len(this_week) > len(shown):
-        out.append(f"_…+{len(this_week) - len(shown)} more (see seen.json)_")
+    out += ["", f"*🔁 Still active ({len(still_active)})*"]
+    shown = still_active[:max_active]
+    out += [_digest_line(l, r, show_town=True) for l, _, _, r in shown] or ["_(none)_"]
+    if len(still_active) > len(shown):
+        out.append(f"_…+{len(still_active) - len(shown)} more (see seen.json)_")
 
     out += ["", f"*👀 Watchlist ({len(wl_updates)})* — list→sold tracking"]
     out += [f"• {u}" for u in wl_updates] or ["_(no changes)_"]
 
-    out += ["", "*📊 Market — median sold $/sqft by town*"]
+    out += ["", "*📊 Market — median sold $/sqft · 90d trend (nearest first)*"]
     mk = []
     for z, s in stats.items():
         if not s.get("n") or not s.get("median_ppsf"):
             continue
+        tr = s.get("ppsf_trend")
+        trend = f" {'▲' if tr >= 0 else '▼'}{abs(tr):.0f}%" if tr is not None else ""
         dom = f"{s['median_dom']:.0f}d" if s.get("median_dom") is not None else "?"
-        mk.append((s["median_ppsf"],
-                   f"• {zip_names.get(z, z)} — ${s['median_ppsf']:,.0f}/sf · {dom} · n={s['n']}"))
-    mk.sort(key=lambda x: -x[0])
-    out += [line for _, line in mk] or ["_no sold comps yet_"]
+        mk.append((zip_dist.get(z, 999), -s["n"],
+                   f"• {zip_names.get(z, z)} — ${s['median_ppsf']:,.0f}/sf{trend} · {dom} · n={s['n']}"))
+    mk.sort(key=lambda x: (x[0], x[1]))
+    out += [line for _, _, line in mk[:max_market]] or ["_no sold comps yet_"]
+    if len(mk) > max_market:
+        out.append(f"_…+{len(mk) - max_market} more towns farther out (see seen.json)_")
     return "\n".join(out)
 
 
@@ -840,8 +869,16 @@ def main():
 
     if want_board:
         zip_names = {z: n["name"] for n in criteria["neighborhoods"] for z in n.get("zips", [])}
-        print(render_board_md(today, new_today, this_week, alerts, wl_updates,
-                              stats, zip_names, nudge))
+        zip_dist = {z: n.get("dist_mi", 999) for n in criteria["neighborhoods"] for z in n.get("zips", [])}
+        # active in-criteria listings, ordered CLOSEST-to-07090 first, then cheapest
+        active = [t for t in scored if t[0].get("status") == "active"]
+        active.sort(key=lambda t: (zip_dist.get(t[0].get("zip"), 999), t[0].get("price") or 1e12))
+        def _fresh(l):
+            return l.get("_dom") is not None and l["_dom"] <= 7
+        new_week = [t for t in active if _fresh(t[0])]
+        still_active = [t for t in active if not _fresh(t[0])]
+        print(render_board_md(today, new_week, still_active, alerts, wl_updates,
+                              stats, zip_names, zip_dist, nudge))
     elif want_digest:
         print(render_digest_md(today, fresh, stretch, worth, alerts,
                                pending_count, stale_count, stats, nudge))
