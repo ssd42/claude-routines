@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-16",
-  "_note": "Groups A-H — matches played through June 16 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11) — confirmed ESPN, CBS Sports, Olympics.com. Group B: CAN 1-1 BIH (Jun 12) — confirmed ESPN, NBC Sports; QAT 1-1 SUI (Jun 13) — confirmed ESPN, FOX Sports, FIFA. Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13) — confirmed multiple. Group D: USA 4-1 PAR (Jun 12) — confirmed NBC News, CBS Sports; AUS 2-0 TUR (Jun 13) — confirmed Yahoo Sports, Bolavip, ESPN. Group E: GER 7-1 CUW (Jun 14) — confirmed ESPN, CBS Sports; CIV 1-0 ECU (Jun 14) — confirmed ESPN, NBC Philadelphia. Group F: NED 2-2 JPN (Jun 14) — confirmed ESPN, NBC Sports; SWE 5-1 TUN (Jun 14) — confirmed ESPN, Bolavip. Group G: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 15) — confirmed CBS Sports, Yahoo Sports. Group H: ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15) — confirmed CBS Sports, Yahoo Sports. Groups I-L: no confirmed results (I/J matches scheduled Jun 16 evening, K/L start Jun 17).",
+  "_generated": "2026-06-17",
+  "_note": "Groups A-J — matches played through June 17 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11). Group B: CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13). Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 14). Group D: USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 13). Group E: GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14). Group F: NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14). Group G: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 15). Group H: ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15). Group I: FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16) — confirmed 3+ sources. Group J: ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 17) — confirmed 3+ sources. Groups K/L: first matches today Jun 17, no confirmed final scores yet.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
@@ -49,6 +49,18 @@
       {"team": "CPV", "pts": 1, "gd": 0, "gf": 0, "ga": 0, "mp": 1},
       {"team": "KSA", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
       {"team": "URU", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1}
+    ],
+    "I": [
+      {"team": "NOR", "pts": 3, "gd": 3, "gf": 4, "ga": 1, "mp": 1},
+      {"team": "FRA", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
+      {"team": "SEN", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1},
+      {"team": "IRQ", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 1}
+    ],
+    "J": [
+      {"team": "ARG", "pts": 3, "gd": 3, "gf": 3, "ga": 0, "mp": 1},
+      {"team": "AUT", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
+      {"team": "JOR", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1},
+      {"team": "ALG", "pts": 0, "gd": -3, "gf": 0, "ga": 3, "mp": 1}
     ]
   }
 }

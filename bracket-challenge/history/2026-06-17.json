@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Ronald",
+    "username": "Ronaldmendez",
+    "total": 1110,
+    "rank": 1
+  },
+  {
+    "name": "Luis",
+    "username": "SandwichLuis",
+    "total": 810,
+    "rank": 2
+  },
+  {
+    "name": "Dani",
+    "username": "Danigu",
+    "total": 800,
+    "rank": 3
+  },
+  {
+    "name": "Brent",
+    "username": "bjl6",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Cesar",
+    "username": "ccesar",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Omar",
+    "username": "Tejada08",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Silvia",
+    "username": "sjaramil",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Steven Coelho",
+    "username": "SteveRabbit",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Steven Dias",
+    "username": "stevenpybots",
+    "total": 780,
+    "rank": 4
+  },
+  {
+    "name": "Dan",
+    "username": "DoctorDan",
+    "total": 730,
+    "rank": 10
+  },
+  {
+    "name": "Joao Pedro",
+    "username": "UniqueUserName1234",
+    "total": 730,
+    "rank": 10
+  },
+  {
+    "name": "Filipe",
+    "username": "Xino com x",
+    "total": 550,
+    "rank": 12
+  },
+  {
+    "name": "Wilbert",
+    "username": "Portillo15",
+    "total": 500,
+    "rank": 13
+  },
+  {
+    "name": "Karen",
+    "username": "MendezZ40",
+    "total": 350,
+    "rank": 14
+  }
+]
