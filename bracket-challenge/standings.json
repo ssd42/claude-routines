@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-17",
-  "_note": "Groups A-J — matches played through June 17 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11). Group B: CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13). Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 14). Group D: USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 13). Group E: GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14). Group F: NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14). Group G: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 15). Group H: ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15). Group I: FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16) — confirmed 3+ sources. Group J: ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 17) — confirmed 3+ sources. Groups K/L: first matches today Jun 17, no confirmed final scores yet.",
+  "_generated": "2026-06-18",
+  "_note": "All 12 groups — matches played through end of June 17 ET. Group A: MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11). Group B: CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13). Group C: BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 14). Group D: USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 13). Group E: GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14). Group F: NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14). Group G: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 15). Group H: ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15). Group I: FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16). Group J: ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 17). Group K: POR 1-1 COD (Jun 17), COL 3-1 UZB (Jun 17). Group L: ENG 4-2 CRO (Jun 17), GHA 1-0 PAN (Jun 17). Jun 18 matches (CZE-RSA noon ET, SUI-BIH 3pm ET, CAN-QAT 6pm ET, MEX-KOR 11pm ET) not yet played at time of run.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 3, "gd": 2, "gf": 2, "ga": 0, "mp": 1},
@@ -61,6 +61,18 @@
       {"team": "AUT", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
       {"team": "JOR", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1},
       {"team": "ALG", "pts": 0, "gd": -3, "gf": 0, "ga": 3, "mp": 1}
+    ],
+    "K": [
+      {"team": "COL", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
+      {"team": "POR", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "COD", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
+      {"team": "UZB", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1}
+    ],
+    "L": [
+      {"team": "ENG", "pts": 3, "gd": 2, "gf": 4, "ga": 2, "mp": 1},
+      {"team": "GHA", "pts": 3, "gd": 1, "gf": 1, "ga": 0, "mp": 1},
+      {"team": "CRO", "pts": 0, "gd": -2, "gf": 2, "ga": 4, "mp": 1},
+      {"team": "PAN", "pts": 0, "gd": -1, "gf": 0, "ga": 1, "mp": 1}
     ]
   }
 }
