@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-21",
-  "_note": "Groups A-D at MD2, Groups E-F updated to MD2 (June 21), Groups G-L at MD1. Group A (MD2): MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11), CZE 1-1 RSA (Jun 18), MEX 1-0 KOR (Jun 18). Group B (MD2): CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13), CAN 6-0 QAT (~Jun 17), SUI 4-1 BIH (Jun 18). Group C (MD2): BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13), MAR 1-0 SCO (Jun 19), BRA 3-0 HAI (Jun 20). Group D (MD2): USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 14), USA 2-0 AUS (Jun 19), PAR 1-0 TUR (Jun 19). Group E (MD2): GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14), GER 2-1 CIV (Jun 21), ECU 0-0 CUW (Jun 21). Group F (MD2): NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14), NED 5-1 SWE (Jun 21), JPN 4-0 TUN (Jun 21). Groups G-L MD1 only: BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 16), ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15), FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16), ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 16), POR 1-1 COD (Jun 17), COL 3-1 UZB (Jun 18), ENG 4-2 CRO (Jun 17), GHA 1-0 PAN (Jun 18). Note: Group G MD2 (BEL vs IRN, NZL vs EGY) and Group H MD2 (ESP vs KSA, URU vs CPV) scheduled Jun 21 afternoon/evening ET -- not yet complete at run time.",
+  "_generated": "2026-06-22",
+  "_note": "Groups A-H at MD2, Groups I-L at MD1. Group A (MD2): MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11), CZE 1-1 RSA (Jun 18), MEX 1-0 KOR (Jun 18). Group B (MD2): CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13), CAN 6-0 QAT (~Jun 17), SUI 4-1 BIH (Jun 18). Group C (MD2): BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13), MAR 1-0 SCO (Jun 19), BRA 3-0 HAI (Jun 20). Group D (MD2): USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 14), USA 2-0 AUS (Jun 19), PAR 1-0 TUR (Jun 19). Group E (MD2): GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14), GER 2-1 CIV (Jun 21), ECU 0-0 CUW (Jun 21). Group F (MD2): NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14), NED 5-1 SWE (Jun 21), JPN 4-0 TUN (Jun 21). Group G (MD2): BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 16), BEL 0-0 IRN (Jun 21), EGY 3-1 NZL (Jun 21). Group H (MD2): ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15), ESP 4-0 KSA (Jun 21), URU 2-2 CPV (Jun 21). Groups I-L MD1 only: FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16), ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 16), POR 1-1 COD (Jun 17), COL 3-1 UZB (Jun 18), ENG 4-2 CRO (Jun 17), GHA 1-0 PAN (Jun 18). Group I MD2 (FRA vs IRQ, NOR vs SEN) and Group J MD2 (ARG vs AUT, JOR vs ALG) scheduled Jun 22 -- scores not confirmed at run time.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 6, "gd": 3, "gf": 3, "ga": 0, "mp": 2},
@@ -39,16 +39,16 @@
       {"team": "TUN", "pts": 0, "gd": -8, "gf": 1, "ga": 9, "mp": 2}
     ],
     "G": [
-      {"team": "BEL", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
-      {"team": "EGY", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
-      {"team": "IRN", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1},
-      {"team": "NZL", "pts": 1, "gd": 0, "gf": 2, "ga": 2, "mp": 1}
+      {"team": "EGY", "pts": 4, "gd": 2, "gf": 4, "ga": 2, "mp": 2},
+      {"team": "BEL", "pts": 2, "gd": 0, "gf": 1, "ga": 1, "mp": 2},
+      {"team": "IRN", "pts": 2, "gd": 0, "gf": 2, "ga": 2, "mp": 2},
+      {"team": "NZL", "pts": 1, "gd": -2, "gf": 3, "ga": 5, "mp": 2}
     ],
     "H": [
-      {"team": "ESP", "pts": 1, "gd": 0, "gf": 0, "ga": 0, "mp": 1},
-      {"team": "CPV", "pts": 1, "gd": 0, "gf": 0, "ga": 0, "mp": 1},
-      {"team": "KSA", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
-      {"team": "URU", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1}
+      {"team": "ESP", "pts": 4, "gd": 4, "gf": 4, "ga": 0, "mp": 2},
+      {"team": "URU", "pts": 2, "gd": 0, "gf": 3, "ga": 3, "mp": 2},
+      {"team": "CPV", "pts": 2, "gd": 0, "gf": 2, "ga": 2, "mp": 2},
+      {"team": "KSA", "pts": 1, "gd": -4, "gf": 1, "ga": 5, "mp": 2}
     ],
     "I": [
       {"team": "NOR", "pts": 3, "gd": 3, "gf": 4, "ga": 1, "mp": 1},
