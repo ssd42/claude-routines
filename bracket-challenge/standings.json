@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-06-22",
-  "_note": "Groups A-H at MD2, Groups I-L at MD1. Group A (MD2): MEX 2-0 RSA (Jun 11), KOR 2-1 CZE (Jun 11), CZE 1-1 RSA (Jun 18), MEX 1-0 KOR (Jun 18). Group B (MD2): CAN 1-1 BIH (Jun 12), QAT 1-1 SUI (Jun 13), CAN 6-0 QAT (~Jun 17), SUI 4-1 BIH (Jun 18). Group C (MD2): BRA 1-1 MAR (Jun 13), SCO 1-0 HAI (Jun 13), MAR 1-0 SCO (Jun 19), BRA 3-0 HAI (Jun 20). Group D (MD2): USA 4-1 PAR (Jun 12), AUS 2-0 TUR (Jun 14), USA 2-0 AUS (Jun 19), PAR 1-0 TUR (Jun 19). Group E (MD2): GER 7-1 CUW (Jun 14), CIV 1-0 ECU (Jun 14), GER 2-1 CIV (Jun 21), ECU 0-0 CUW (Jun 21). Group F (MD2): NED 2-2 JPN (Jun 14), SWE 5-1 TUN (Jun 14), NED 5-1 SWE (Jun 21), JPN 4-0 TUN (Jun 21). Group G (MD2): BEL 1-1 EGY (Jun 15), IRN 2-2 NZL (Jun 16), BEL 0-0 IRN (Jun 21), EGY 3-1 NZL (Jun 21). Group H (MD2): ESP 0-0 CPV (Jun 15), KSA 1-1 URU (Jun 15), ESP 4-0 KSA (Jun 21), URU 2-2 CPV (Jun 21). Groups I-L MD1 only: FRA 3-1 SEN (Jun 16), NOR 4-1 IRQ (Jun 16), ARG 3-0 ALG (Jun 16), AUT 3-1 JOR (Jun 16), POR 1-1 COD (Jun 17), COL 3-1 UZB (Jun 18), ENG 4-2 CRO (Jun 17), GHA 1-0 PAN (Jun 18). Group I MD2 (FRA vs IRQ, NOR vs SEN) and Group J MD2 (ARG vs AUT, JOR vs ALG) scheduled Jun 22 -- scores not confirmed at run time.",
+  "_generated": "2026-06-24",
+  "_note": "Groups A-H at MD2; Groups I-L at MD2 (updated from search 2026-06-24). Group B-C MD2 from repo (Jun 18-20 results). Group I: FRA MD1(3-1 SEN)+MD2(3-0 IRQ), NOR MD1(4-1 IRQ); SEN/IRQ also at MD2. Group J: ARG MD1(3-0 ALG)+MD2(3-1 AUT); AUT,ALG,JOR also at MD2. Group K: POR MD1(1-1 COD)+MD2(5-0 UZB), COL MD1(3-1 UZB), COD MD1(1-1 POR), UZB at MD2. Group L: ENG MD1(4-2 CRO)+MD2(0-0 GHA), GHA MD1(1-0 PAN)+MD2(0-0 ENG), CRO MD2(+1-0 PAN), PAN at MD2.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 6, "gd": 3, "gf": 3, "ga": 0, "mp": 2},
@@ -51,28 +51,28 @@
       {"team": "KSA", "pts": 1, "gd": -4, "gf": 1, "ga": 5, "mp": 2}
     ],
     "I": [
+      {"team": "FRA", "pts": 6, "gd": 5, "gf": 6, "ga": 1, "mp": 2},
       {"team": "NOR", "pts": 3, "gd": 3, "gf": 4, "ga": 1, "mp": 1},
-      {"team": "FRA", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
       {"team": "SEN", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1},
-      {"team": "IRQ", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 1}
+      {"team": "IRQ", "pts": 0, "gd": -6, "gf": 1, "ga": 7, "mp": 2}
     ],
     "J": [
-      {"team": "ARG", "pts": 3, "gd": 3, "gf": 3, "ga": 0, "mp": 1},
-      {"team": "AUT", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
-      {"team": "JOR", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1},
-      {"team": "ALG", "pts": 0, "gd": -3, "gf": 0, "ga": 3, "mp": 1}
+      {"team": "ARG", "pts": 6, "gd": 5, "gf": 6, "ga": 1, "mp": 2},
+      {"team": "AUT", "pts": 3, "gd": 0, "gf": 4, "ga": 4, "mp": 2},
+      {"team": "ALG", "pts": 3, "gd": -2, "gf": 1, "ga": 3, "mp": 2},
+      {"team": "JOR", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 2}
     ],
     "K": [
+      {"team": "POR", "pts": 4, "gd": 5, "gf": 6, "ga": 1, "mp": 2},
       {"team": "COL", "pts": 3, "gd": 2, "gf": 3, "ga": 1, "mp": 1},
-      {"team": "POR", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
       {"team": "COD", "pts": 1, "gd": 0, "gf": 1, "ga": 1, "mp": 1},
-      {"team": "UZB", "pts": 0, "gd": -2, "gf": 1, "ga": 3, "mp": 1}
+      {"team": "UZB", "pts": 0, "gd": -7, "gf": 1, "ga": 8, "mp": 2}
     ],
     "L": [
-      {"team": "ENG", "pts": 3, "gd": 2, "gf": 4, "ga": 2, "mp": 1},
-      {"team": "GHA", "pts": 3, "gd": 1, "gf": 1, "ga": 0, "mp": 1},
-      {"team": "CRO", "pts": 0, "gd": -2, "gf": 2, "ga": 4, "mp": 1},
-      {"team": "PAN", "pts": 0, "gd": -1, "gf": 0, "ga": 1, "mp": 1}
+      {"team": "ENG", "pts": 4, "gd": 2, "gf": 4, "ga": 2, "mp": 2},
+      {"team": "GHA", "pts": 4, "gd": 1, "gf": 1, "ga": 0, "mp": 2},
+      {"team": "CRO", "pts": 3, "gd": -1, "gf": 3, "ga": 4, "mp": 2},
+      {"team": "PAN", "pts": 0, "gd": -2, "gf": 0, "ga": 2, "mp": 2}
     ]
   }
 }
