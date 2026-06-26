@@ -1,12 +1,12 @@
 {
-  "_generated": "2026-06-25",
-  "_note": "Groups A-C FINAL (MD3 complete). Group A: MEX 2-0 CZE (raw results; narrative said 3-0, flagged), RSA 1-0 KOR June 25. Group B MD3 June 24: SUI 2-1 CAN, BIH 3-1 QAT. Group C MD3 June 24: BRA 3-0 SCO, MAR 4-2 HAI. Groups D-F at MD2 (MD3 today June 25 not yet played). Groups G-H at MD2 (MD3 June 26). Group I updated to MD2: NOR beat SEN 3-2. Groups J,L at MD2 (MD3 June 26-27). Group K updated to MD2: COL beat COD 1-0.",
+  "_generated": "2026-06-26",
+  "_note": "Groups A-F FINAL (all 3 MDs complete). Groups G-I at MD2 (MD3 today June 26 not yet played). Groups J-L at MD2 (MD3 June 27). Group A corrected: MEX 3-0 CZE confirmed by 2+ sources (June 25 run had flagged 2-0 as uncertain). Group D MD3 June 25: TUR 3-2 USA, PAR 0-0 AUS. Group E MD3 June 25: CUW 0-2 CIV, ECU 2-1 GER. Group F MD3 June 25: JPN 1-1 SWE, NED 3-1 TUN. Group J updated with confirmed MD2 results from today's search.",
   "groups": {
     "A": [
-      {"team": "MEX", "pts": 9, "gd": 5, "gf": 5, "ga": 0, "mp": 3},
+      {"team": "MEX", "pts": 9, "gd": 6, "gf": 6, "ga": 0, "mp": 3},
       {"team": "RSA", "pts": 4, "gd": -1, "gf": 2, "ga": 3, "mp": 3},
       {"team": "KOR", "pts": 3, "gd": -1, "gf": 2, "ga": 3, "mp": 3},
-      {"team": "CZE", "pts": 1, "gd": -3, "gf": 2, "ga": 5, "mp": 3}
+      {"team": "CZE", "pts": 1, "gd": -4, "gf": 2, "ga": 6, "mp": 3}
     ],
     "B": [
       {"team": "SUI", "pts": 7, "gd": 4, "gf": 7, "ga": 3, "mp": 3},
@@ -21,22 +21,22 @@
       {"team": "HAI", "pts": 0, "gd": -6, "gf": 2, "ga": 8, "mp": 3}
     ],
     "D": [
-      {"team": "USA", "pts": 6, "gd": 5, "gf": 6, "ga": 1, "mp": 2},
-      {"team": "AUS", "pts": 3, "gd": 0, "gf": 2, "ga": 2, "mp": 2},
-      {"team": "PAR", "pts": 3, "gd": -2, "gf": 2, "ga": 4, "mp": 2},
-      {"team": "TUR", "pts": 0, "gd": -3, "gf": 0, "ga": 3, "mp": 2}
+      {"team": "USA", "pts": 6, "gd": 4, "gf": 8, "ga": 4, "mp": 3},
+      {"team": "AUS", "pts": 4, "gd": -2, "gf": 2, "ga": 4, "mp": 3},
+      {"team": "PAR", "pts": 4, "gd": -3, "gf": 2, "ga": 5, "mp": 3},
+      {"team": "TUR", "pts": 3, "gd": -3, "gf": 3, "ga": 6, "mp": 3}
     ],
     "E": [
-      {"team": "GER", "pts": 6, "gd": 7, "gf": 9, "ga": 2, "mp": 2},
-      {"team": "CIV", "pts": 3, "gd": 0, "gf": 2, "ga": 2, "mp": 2},
-      {"team": "ECU", "pts": 1, "gd": -1, "gf": 0, "ga": 1, "mp": 2},
-      {"team": "CUW", "pts": 1, "gd": -6, "gf": 1, "ga": 7, "mp": 2}
+      {"team": "GER", "pts": 6, "gd": 6, "gf": 10, "ga": 4, "mp": 3},
+      {"team": "CIV", "pts": 6, "gd": 2, "gf": 4, "ga": 2, "mp": 3},
+      {"team": "ECU", "pts": 4, "gd": 0, "gf": 2, "ga": 2, "mp": 3},
+      {"team": "CUW", "pts": 1, "gd": -8, "gf": 1, "ga": 9, "mp": 3}
     ],
     "F": [
-      {"team": "NED", "pts": 4, "gd": 4, "gf": 7, "ga": 3, "mp": 2},
-      {"team": "JPN", "pts": 4, "gd": 4, "gf": 6, "ga": 2, "mp": 2},
-      {"team": "SWE", "pts": 3, "gd": 0, "gf": 6, "ga": 6, "mp": 2},
-      {"team": "TUN", "pts": 0, "gd": -8, "gf": 1, "ga": 9, "mp": 2}
+      {"team": "NED", "pts": 7, "gd": 6, "gf": 10, "ga": 4, "mp": 3},
+      {"team": "JPN", "pts": 5, "gd": 4, "gf": 7, "ga": 3, "mp": 3},
+      {"team": "SWE", "pts": 4, "gd": 0, "gf": 7, "ga": 7, "mp": 3},
+      {"team": "TUN", "pts": 0, "gd": -10, "gf": 2, "ga": 12, "mp": 3}
     ],
     "G": [
       {"team": "EGY", "pts": 4, "gd": 2, "gf": 4, "ga": 2, "mp": 2},
@@ -57,10 +57,10 @@
       {"team": "IRQ", "pts": 0, "gd": -6, "gf": 1, "ga": 7, "mp": 2}
     ],
     "J": [
-      {"team": "ARG", "pts": 6, "gd": 5, "gf": 6, "ga": 1, "mp": 2},
-      {"team": "AUT", "pts": 3, "gd": 0, "gf": 4, "ga": 4, "mp": 2},
-      {"team": "ALG", "pts": 3, "gd": -2, "gf": 1, "ga": 3, "mp": 2},
-      {"team": "JOR", "pts": 0, "gd": -3, "gf": 1, "ga": 4, "mp": 2}
+      {"team": "ARG", "pts": 6, "gd": 4, "gf": 4, "ga": 0, "mp": 2},
+      {"team": "AUT", "pts": 3, "gd": 1, "gf": 3, "ga": 2, "mp": 2},
+      {"team": "ALG", "pts": 3, "gd": -1, "gf": 2, "ga": 3, "mp": 2},
+      {"team": "JOR", "pts": 0, "gd": -4, "gf": 2, "ga": 6, "mp": 2}
     ],
     "K": [
       {"team": "COL", "pts": 6, "gd": 3, "gf": 4, "ga": 1, "mp": 2},
