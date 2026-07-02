@@ -2,85 +2,85 @@
   {
     "name": "Brent",
     "username": "bjl6",
-    "total": 1700,
+    "total": 1830,
     "rank": 1
   },
   {
     "name": "Filipe",
     "username": "Xino com x",
-    "total": 1540,
+    "total": 1670,
     "rank": 2
   },
   {
     "name": "Silvia",
     "username": "sjaramil",
-    "total": 1470,
+    "total": 1600,
     "rank": 3
   },
   {
     "name": "Steven Coelho",
     "username": "SteveRabbit",
-    "total": 1390,
+    "total": 1520,
     "rank": 4
-  },
-  {
-    "name": "Cesar",
-    "username": "ccesar",
-    "total": 1320,
-    "rank": 5
   },
   {
     "name": "Steven Dias",
     "username": "stevenpybots",
-    "total": 1290,
-    "rank": 6
+    "total": 1420,
+    "rank": 5
   },
   {
     "name": "Ronald",
     "username": "Ronaldmendez",
-    "total": 1260,
+    "total": 1390,
+    "rank": 6
+  },
+  {
+    "name": "Cesar",
+    "username": "ccesar",
+    "total": 1270,
     "rank": 7
   },
   {
     "name": "Luis",
     "username": "SandwichLuis",
-    "total": 1110,
+    "total": 1240,
     "rank": 8
   },
   {
     "name": "Joao Pedro",
     "username": "UniqueUserName1234",
-    "total": 1080,
+    "total": 1210,
     "rank": 9
   },
   {
     "name": "Wilbert",
     "username": "Portillo15",
-    "total": 1080,
+    "total": 1210,
     "rank": 9
-  },
-  {
-    "name": "Dani",
-    "username": "Danigu",
-    "total": 980,
-    "rank": 11
   },
   {
     "name": "Dan",
     "username": "DoctorDan",
-    "total": 960,
-    "rank": 12
+    "total": 1090,
+    "rank": 11
   },
   {
     "name": "Omar",
     "username": "Tejada08",
-    "total": 880,
+    "total": 1010,
+    "rank": 12
+  },
+  {
+    "name": "Dani",
+    "username": "Danigu",
+    "total": 930,
     "rank": 13
   },
   {
     "name": "Karen",
     "username": "MendezZ40",
-    "total": 730,
+    "total": 780,
     "rank": 14
   }
 ]
