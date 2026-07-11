@@ -1,0 +1,68 @@
+{
+  "_doc": "Data layers this job aggregates, and how the merge resolves them. The three layers are COMPLEMENTARY (different columns), not three views of the same field — so the merge uses per-field AUTHORITY (source-of-truth ranking), not 2-of-3 consensus. Every source's value is kept in _provenance.json; a row's `conflicts` column lists any field where 2+ sources gave differing non-null values beyond tolerance.",
+
+  "layers": [
+    {
+      "key": "redfin_dc",
+      "name": "Redfin Data Center",
+      "grain": "zip_month",
+      "cloud_safe": true,
+      "status": "live",
+      "gives": ["median_sale_price", "median_list_price", "median_ppsf", "median_dom", "avg_sale_to_list", "sold_above_list_pct", "homes_sold", "new_listings", "inventory"],
+      "notes": "Public S3 TSV of monthly market aggregates per zip. Fills market.csv. Answers 'how each neighborhood moved up/down'. No per-property rows."
+    },
+    {
+      "key": "nj_records",
+      "name": "NJ public records (MOD-IV / SR1A deed sales)",
+      "grain": "sale",
+      "cloud_safe": true,
+      "status": "live",
+      "endpoint": "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer/0",
+      "gives": ["address", "zip", "town", "county", "municipality", "sold_date", "sold_price", "sqft", "lot_sqft", "year_built", "garage", "prop_class", "property_type"],
+      "notes": "Statewide maps.nj.gov MOD-IV Cadastral layer, queried per (COUNTY, MUN_NAME) from nj_municipalities.json (ZIP5 in the data is dirty). Authoritative sold price + date; best-effort sqft/garage from BLDG_DESC. Residential (class 2) only; drops SR1A non-usable deed codes. NO days-on-market, list price, beds/baths, or amenities (those come from listing_scrape). Holds the most-recent sale per parcel, so a home that sold twice in the window shows once."
+    },
+    {
+      "key": "listing_scrape",
+      "name": "Listing scrape (Redfin / Realtor / Zillow)",
+      "grain": "sale",
+      "cloud_safe": false,
+      "status": "stub",
+      "gives": ["list_date", "sold_date", "days_on_market", "list_price", "sold_price", "price_changes", "sqft", "beds", "baths", "garage", "solar", "ac_type", "property_type"],
+      "notes": "Per-house listing detail incl. DOM, price-cut timeline, amenities. Only reliable for RECENT listings; scrape-gated (403s datacenter IPs) so MUST run locally. Reuses house-hunt's HomeHarvest path. TODO."
+    }
+  ],
+
+  "field_authority": {
+    "_doc": "Per field, ordered list of source keys. Merge fills the column from the FIRST listed source that has a non-null value. Fields with one source just list that source.",
+    "sold_price":        ["nj_records", "listing_scrape", "redfin_dc"],
+    "sold_date":         ["nj_records", "listing_scrape"],
+    "list_price":        ["listing_scrape"],
+    "list_date":         ["listing_scrape"],
+    "days_on_market":    ["listing_scrape"],
+    "price_changes":     ["listing_scrape"],
+    "sqft":              ["listing_scrape", "nj_records"],
+    "beds":              ["listing_scrape", "nj_records"],
+    "baths":             ["listing_scrape", "nj_records"],
+    "lot_sqft":          ["nj_records", "listing_scrape"],
+    "year_built":        ["nj_records", "listing_scrape"],
+    "garage":            ["listing_scrape", "nj_records"],
+    "solar":             ["listing_scrape"],
+    "ac_type":           ["listing_scrape"],
+    "property_type":     ["listing_scrape", "nj_records"],
+    "county":            ["nj_records"],
+    "municipality":      ["nj_records"],
+    "prop_class":        ["nj_records"],
+    "nu_code":           ["nj_records"]
+  },
+
+  "conflict_tolerance": {
+    "_doc": "For numeric fields, sources within this relative tolerance are NOT flagged as conflicting. sold_price 2% apart is rounding; 20% apart is a real disagreement worth the `conflicts` flag.",
+    "sold_price": 0.03,
+    "list_price": 0.03,
+    "sqft": 0.05,
+    "beds": 0,
+    "baths": 0,
+    "lot_sqft": 0.10,
+    "year_built": 0
+  }
+}

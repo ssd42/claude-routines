@@ -1,0 +1,8 @@
+period_begin	period_end	region_type	region	city	state	property_type	median_sale_price	median_list_price	median_ppsf	homes_sold	new_listings	inventory	median_dom	avg_sale_to_list	sold_above_list
+2023-06-01	2023-06-30	zip	Zip Code: 07076	Scotch Plains	New Jersey	All Residential	612000	589000	312	18	22	14	11	1.041	0.72
+2024-06-01	2024-06-30	zip	Zip Code: 07076	Scotch Plains	New Jersey	All Residential	685000	649000	341	21	26	12	9	1.058	0.81
+2025-06-01	2025-06-30	zip	Zip Code: 07076	Scotch Plains	New Jersey	All Residential	742000	699000	366	16	19	9	8	1.067	0.88
+2023-06-01	2023-06-30	zip	Zip Code: 07067	Colonia	New Jersey	All Residential	498000	479000	281	13	17	11	14	1.028	0.61
+2024-06-01	2024-06-30	zip	Zip Code: 07067	Colonia	New Jersey	All Residential	545000	519000	301	15	18	10	12	1.039	0.67
+2025-06-01	2025-06-30	zip	Zip Code: 07067	Colonia	New Jersey	All Residential	589000	559000	318	12	14	8	10	1.051	0.75
+2020-06-01	2020-06-30	zip	Zip Code: 07076	Scotch Plains	New Jersey	All Residential	540000	529000	270	20	24	19	18	0.998	0.40

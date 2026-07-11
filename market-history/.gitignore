@@ -1,0 +1,13 @@
+# transient per-run source pulls — never committed (see ../CLAUDE.md)
+raw/
+
+# python
+__pycache__/
+*.pyc
+
+# secrets backstop (this repo is PUBLIC)
+.env*
+*secret*
+*webhook*
+*.key
+*.pem
