@@ -1,6 +1,6 @@
 {
-  "_generated": "2026-07-02",
-  "_note": "All 12 groups FINAL. Corrected 2026-07-02: Group I FRA/NOR were swapped — France beat Norway 4-1 on June 26 (confirmed ESPN + FIFA match-centre), so FRA 9pts wins group, NOR 6pts 2nd. Group D GF/GA raw numbers fixed (were internally inconsistent; ordering AUS 2nd, PAR 3rd unchanged). Group H Spain 5-0 KSA corrected from 4-0.",
+  "_generated": "2026-07-11",
+  "_note": "All 12 groups FINAL. 2026-07-11: Corrected Group B (SUI/CAN GD were swapped — SUI gd=+5/gf=8, CAN gd=+4/gf=8, verified from match scores by 2 independent sources). Corrected Group G IRN gf=3 (was 2; confirmed via Iran 1-1 Egypt). Corrected Group G NZL gf=4 ga=10 (was 3/9). Corrected Group H Spain 4-0 KSA (prior note said 5-0 but confirmed ESPN + FIFA match page: 4-0), so ESP gd=+5/gf=5, KSA gd=-4.",
   "groups": {
     "A": [
       {"team": "MEX", "pts": 9, "gd": 6, "gf": 6, "ga": 0, "mp": 3},
@@ -9,8 +9,8 @@
       {"team": "CZE", "pts": 1, "gd": -4, "gf": 2, "ga": 6, "mp": 3}
     ],
     "B": [
-      {"team": "SUI", "pts": 7, "gd": 4, "gf": 7, "ga": 3, "mp": 3},
-      {"team": "CAN", "pts": 4, "gd": 5, "gf": 8, "ga": 3, "mp": 3},
+      {"team": "SUI", "pts": 7, "gd": 5, "gf": 8, "ga": 3, "mp": 3},
+      {"team": "CAN", "pts": 4, "gd": 4, "gf": 8, "ga": 4, "mp": 3},
       {"team": "BIH", "pts": 4, "gd": -1, "gf": 5, "ga": 6, "mp": 3},
       {"team": "QAT", "pts": 1, "gd": -8, "gf": 2, "ga": 10, "mp": 3}
     ],
@@ -41,14 +41,14 @@
     "G": [
       {"team": "BEL", "pts": 5, "gd": 4, "gf": 6, "ga": 2, "mp": 3},
       {"team": "EGY", "pts": 5, "gd": 2, "gf": 5, "ga": 3, "mp": 3},
-      {"team": "IRN", "pts": 3, "gd": 0, "gf": 2, "ga": 2, "mp": 3},
-      {"team": "NZL", "pts": 1, "gd": -6, "gf": 3, "ga": 9, "mp": 3}
+      {"team": "IRN", "pts": 3, "gd": 0, "gf": 3, "ga": 3, "mp": 3},
+      {"team": "NZL", "pts": 1, "gd": -6, "gf": 4, "ga": 10, "mp": 3}
     ],
     "H": [
-      {"team": "ESP", "pts": 7, "gd": 6, "gf": 6, "ga": 0, "mp": 3},
+      {"team": "ESP", "pts": 7, "gd": 5, "gf": 5, "ga": 0, "mp": 3},
       {"team": "CPV", "pts": 3, "gd": 0, "gf": 2, "ga": 2, "mp": 3},
       {"team": "URU", "pts": 2, "gd": -1, "gf": 3, "ga": 4, "mp": 3},
-      {"team": "KSA", "pts": 2, "gd": -5, "gf": 1, "ga": 6, "mp": 3}
+      {"team": "KSA", "pts": 2, "gd": -4, "gf": 1, "ga": 5, "mp": 3}
     ],
     "I": [
       {"team": "FRA", "pts": 9, "gd": 8, "gf": 10, "ga": 2, "mp": 3},
