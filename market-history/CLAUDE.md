@@ -2,9 +2,20 @@
 
 Aggregate 3 years of NJ sold + market data across free sources, dedupe, and emit
 CSVs. See [`README.md`](README.md) for layers, merge rule, and run commands.
-**Status: SPIKE** — `redfin_dc` + `nj_records` are live; `listing_scrape` is the
-last stub. The point is purely to *hydrate a clean dataset*, not to decide or
-dashboard anything.
+**Status: SPIKE** — all three layers live (`redfin_dc`, `nj_records`,
+`listing_scrape`). `sales.csv` ≈ 26k merged NJ sales 2023-07→present. The point
+is purely to *hydrate a clean dataset*, not to decide or dashboard anything.
+
+## listing_scrape (live) — key facts
+- HomeHarvest (Realtor.com) SOLD listings, **zip-based** (not municipality). Copies
+  house-hunt's field mapping (pattern, not import). **LOCAL ONLY** — 403s in cloud.
+- Fills DOM, list price, sold-vs-ask, beds/baths, garage; solar/ac_type are
+  best-effort from the description text (sparse: ~1%/6%). No price-cut history.
+- **Merge only cross-links with nj_records when BOTH run in the same command** —
+  `--source nj_records listing_scrape`. Running one alone just appends (main()'s
+  existing-row preservation won't re-merge a committed row against a new source).
+- Matches nj by `address_norm+zip+sold_month`; deed-date vs MLS-close-date lag is
+  tolerated (`DATE_FIELDS`, ±21d) so it doesn't false-flag as a conflict.
 
 ## nj_records (live) — key facts before you touch it
 - Statewide `maps.nj.gov` Cadastral MOD-IV layer, ONE endpoint for all counties,

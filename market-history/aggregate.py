@@ -396,10 +396,110 @@ def fetch_nj_records(zips, since, fixture=False, limit=None):
     return rows
 
 
+# HomeHarvest `style` enum -> property_type label (copied pattern, not import).
+_HH_STYLE = {
+    "SINGLE_FAMILY": "Single Family", "MULTI_FAMILY": "Multi-Family",
+    "DUPLEX_TRIPLEX": "Multi-Family", "TOWNHOMES": "Townhouse",
+    "TOWNHOUSE": "Townhouse", "CONDOS": "Condo", "CONDO": "Condo",
+    "CONDO_TOWNHOME": "Townhouse", "APARTMENT": "Apartment",
+    "LAND": "Land", "FARM": "Land", "MOBILE": "Manufactured",
+}
+
+
+def _scan_amenities(text):
+    """Best-effort solar + AC type from a listing description (None if unstated)."""
+    if not text:
+        return None, None
+    t = str(text).lower()
+    solar = True if "solar" in t else None
+    ac = None
+    if "central air" in t or "central a/c" in t or "central a.c" in t or "central ac" in t:
+        ac = "central"
+    elif "window unit" in t or "window a/c" in t or "window air" in t:
+        ac = "window"
+    return solar, ac
+
+
 def fetch_listing_scrape(zips, since, fixture=False, limit=None):
-    """TODO: reuse house-hunt HomeHarvest path (local only). DOM/price-cuts/amenities."""
-    sys.stderr.write("[listing_scrape] STUB — not implemented yet (0 rows)\n")
-    return []
+    """Recent SOLD listings via HomeHarvest (Realtor.com). LOCAL ONLY (403s in
+    cloud). Fills DOM, list price, beds/baths, garage, amenities — and the recent
+    ~12-18mo that nj_records lags. Zip-based (Realtor.com knows zips). Copies
+    house-hunt's HomeHarvest field mapping (pattern, not import)."""
+    if fixture:
+        path = os.path.join(FIX_DIR, "listing_scrape.json")
+        if os.path.exists(path):
+            sys.stderr.write(f"[listing_scrape] fixture: {path}\n")
+            return load_json(path)
+        sys.stderr.write("[listing_scrape] no fixture, 0 rows\n")
+        return []
+    try:
+        from homeharvest import scrape_property
+        import pandas as pd
+    except ImportError:
+        sys.stderr.write("[listing_scrape] homeharvest not installed "
+                         "(pip install homeharvest) — 0 rows\n")
+        return []
+
+    date_from = f"{since}-01" if len(since) == 7 else since
+    date_to = today()
+    rows = []
+    for z in sorted(zips):
+        try:
+            df = scrape_property(location=z, listing_type="sold",
+                                 date_from=date_from, date_to=date_to)
+        except Exception as e:
+            sys.stderr.write(f"[listing_scrape] {z} ERROR: {e}\n")
+            continue
+        kept = 0
+        for _, r in df.iterrows():
+            def g(k):
+                v = r.get(k)
+                try:
+                    if pd.isna(v):
+                        return None
+                except (TypeError, ValueError):
+                    pass
+                return v
+            sold_date = str(g("last_sold_date"))[:10] if g("last_sold_date") else None
+            sold_price = g("sold_price")
+            if not sold_date or not sold_price or sold_date[:7] < since:
+                continue
+            full, half = g("full_baths") or 0, g("half_baths") or 0
+            baths = (full + 0.5 * half) or None
+            street, unit = g("street"), g("unit")
+            addr = f"{street} {unit}".strip() if unit else street
+            garage = g("parking_garage")
+            solar, ac = _scan_amenities(g("text"))
+            rows.append({
+                "grain": "sale",
+                "address": addr,
+                "zip": str(g("zip_code") or z)[:5],
+                "sold_date": sold_date,
+                "sold_price": int(sold_price),
+                "list_price": int(g("list_price")) if g("list_price") else None,
+                "list_date": str(g("list_date"))[:10] if g("list_date") else None,
+                "days_on_market": int(g("days_on_mls")) if g("days_on_mls") is not None else None,
+                "beds": g("beds"),
+                "baths": baths,
+                "sqft": g("sqft"),
+                "lot_sqft": int(g("lot_sqft")) if g("lot_sqft") else None,
+                "year_built": g("year_built"),
+                "garage": int(garage) if garage is not None else None,
+                "solar": solar,
+                "ac_type": ac,
+                "property_type": _HH_STYLE.get(str(g("style") or "").upper(),
+                                               str(g("style") or "").replace("_", " ").title() or None),
+                "_source": "listing_scrape",
+                "_fetched": today(),
+            })
+            kept += 1
+            if limit and len(rows) >= limit:
+                break
+        sys.stderr.write(f"[listing_scrape] {z}: {kept} sold listings\n")
+        if limit and len(rows) >= limit:
+            break
+    sys.stderr.write(f"[listing_scrape] total {len(rows)} sold rows from {len(zips)} zips\n")
+    return rows
 
 
 SOURCE_FNS = {
@@ -431,13 +531,29 @@ def _sold_month(r):
     return sd[:7] if len(sd) >= 7 else "unknown"
 
 
+# Fields where cross-source differences are expected and NOT real conflicts:
+# property_type vocab differs by source (MOD-IV "Residential" vs MLS "Single Family").
+CATEGORICAL_NOFLAG = {"property_type"}
+# Date fields: deed-recording date (MOD-IV) lags the MLS close date by days —
+# same sale, not a conflict. Flag only if further apart than this many days.
+DATE_FIELDS = {"sold_date": 21, "list_date": 21}
+
+
 def _conflict(field, values, tol_map):
     """True if the non-null values disagree beyond tolerance for this field."""
     vals = [v for v in values if v is not None]
-    if len(vals) < 2:
+    if len(vals) < 2 or field in CATEGORICAL_NOFLAG:
         return False
-    tol = tol_map.get(field)
+    if field in DATE_FIELDS and all(isinstance(v, str) and len(v) >= 10 for v in vals):
+        try:
+            dts = [datetime.date.fromisoformat(v[:10]) for v in vals]
+            return (max(dts) - min(dts)).days > DATE_FIELDS[field]
+        except ValueError:
+            pass
     nums = [float(v) for v in vals if isinstance(v, (int, float))]
+    if field == "year_built" and len(nums) == len(vals):
+        return (max(nums) - min(nums)) > 1  # ±1yr assessor-vs-MLS drift is fine
+    tol = tol_map.get(field)
     if tol is not None and len(nums) == len(vals) and nums:
         lo, hi = min(nums), max(nums)
         if lo == 0:
@@ -479,12 +595,12 @@ def merge_sales(new_rows, sources_cfg):
                     if picked is None:
                         picked = by_src[src][field]
             out[field] = picked
-            # Provenance only matters where sources OVERLAP — record just those
-            # fields, so the sidecar stays empty until a 2nd source lands.
-            if len(seen_vals) >= 2:
+            # Provenance is the audit trail for DISAGREEMENTS — record a field only
+            # when sources actually conflict (agreements need no trail; the merged
+            # value already reflects the consensus). Keeps the sidecar small.
+            if len(seen_vals) >= 2 and _conflict(field, [v for _, v in seen_vals], tol):
                 prov[field] = {s: v for s, v in seen_vals}
-                if _conflict(field, [v for _, v in seen_vals], tol):
-                    conflicts.append(field)
+                conflicts.append(field)
 
         # address: keep the longest raw string seen (most complete)
         out["address"] = max((m.get("address") or "" for m in members), key=len)

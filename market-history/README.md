@@ -5,10 +5,11 @@ Aggregate **3 years of NJ sold + market data** across multiple free sources,
 pulls more data and merges it into the committed CSVs. Not a dashboard, not a
 decision tool (yet): the sole job right now is to **hydrate a clean dataset**.
 
-> **Status: SPIKE.** Two of three data layers are live: **redfin_dc** →
-> `market.csv` (zip-month trends) and **nj_records** → `sales.csv` (~9.8k real NJ
-> deed sales across 36 municipalities). `listing_scrape` is stubbed with a
-> documented row contract so implementing it is drop-in — no merge changes.
+> **Status: SPIKE.** All three data layers are live. `sales.csv` holds **~26k
+> real NJ sales, 2023-07 → present**, merged across MOD-IV deed records and
+> Realtor.com sold listings (~4.7k matched in both). `market.csv` (zip-month
+> trends via redfin_dc) is verified on a fixture; its first real pull is pending
+> (large national download). `listing_scrape` is **local-only** (403s in cloud).
 
 ## What it produces
 | file | grain | filled by | holds |
@@ -28,7 +29,7 @@ job **stitches complementary layers** together:
 |-------|--------|-------|-------------|-------|--------|
 | **redfin_dc** — Redfin Data Center | ✅ live | zip-month | yes | market trends per zip (median $, $/sqft, DOM, sale-to-list, %-above-list) | per-property rows |
 | **nj_records** — MOD-IV deed sales (maps.nj.gov) | ✅ live | sale | yes | authoritative **address + sold price + sold date**, year built, lot, best-effort sqft/garage | DOM, list price, beds/baths, amenities; **lags ~1 yr** |
-| **listing_scrape** — Redfin/Realtor/Zillow | ⏳ stub | sale | **no** (403s datacenter IPs → run locally) | **DOM, list price, price-cut timeline, beds/baths, garage/solar/ac_type**; the **recent ~12–18 mo** nj_records lacks | reliable only for recent listings |
+| **listing_scrape** — HomeHarvest/Realtor.com | ✅ live | sale | **no** (403s datacenter IPs → run locally) | **DOM, list price, sold-vs-ask, beds/baths, garage**, best-effort solar/ac_type; fills the **recent ~12–18 mo** nj_records lacks | solar/AC sparse (parsed from text); local-only |
 
 ### nj_records — how it works (the pattern that spreads to every county)
 One statewide endpoint — `maps.nj.gov/.../Framework/Cadastral/MapServer/0` — holds
@@ -86,16 +87,15 @@ merges new rows in, so you can keep hydrating in batches.
 > `FETCH.md`); redfin_dc and nj_records are cloud-safe.
 
 ## Next
-1. **listing_scrape** (last stub) — reuse house-hunt's HomeHarvest path to add
-   DOM, list price, price-cut timeline, beds/baths, and amenities onto sales —
-   and to fill the recent ~12–18 mo that nj_records lags. Local only (403s). Once
-   it lands, a house sold in the window will carry BOTH the authoritative deed
-   price (nj_records) and the listing story (scrape), and the `conflicts` column
-   will start flagging real list-vs-deed disagreements.
-2. **redfin_dc real pull** — first live run to populate `market.csv` (the spike
-   verified it on the fixture; the real national TSV is a large download).
-3. **SR1A annual files** (optional) — NJ Treasury's full deed history (every sale,
-   not just latest-per-parcel) if we want multiple sales per home in the window.
+1. **redfin_dc real pull** — first live run to populate `market.csv` (verified on
+   the fixture; the real national TSV is a large download).
+2. **Re-run cadence** — `python3 aggregate.py --source nj_records listing_scrape`
+   locally on a schedule (weekly?) keeps `sales.csv` current; it's idempotent and
+   additive. nj_records/redfin_dc are cloud-safe; listing_scrape needs local.
+3. **price_changes / price-cut timeline** — not yet captured (HomeHarvest's basic
+   scrape omits list-price history); add if a source exposes it.
+4. **SR1A annual files** (optional) — NJ Treasury's full deed history (every sale,
+   not just latest-per-parcel) for homes that sold 2+ times in the window.
 
 A new source just returns sale-grain (or zip-month) dicts in the contract
 documented above `fetch_nj_records` in `aggregate.py`, flips its `status` to

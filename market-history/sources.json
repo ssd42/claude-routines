@@ -26,9 +26,9 @@
       "name": "Listing scrape (Redfin / Realtor / Zillow)",
       "grain": "sale",
       "cloud_safe": false,
-      "status": "stub",
-      "gives": ["list_date", "sold_date", "days_on_market", "list_price", "sold_price", "price_changes", "sqft", "beds", "baths", "garage", "solar", "ac_type", "property_type"],
-      "notes": "Per-house listing detail incl. DOM, price-cut timeline, amenities. Only reliable for RECENT listings; scrape-gated (403s datacenter IPs) so MUST run locally. Reuses house-hunt's HomeHarvest path. TODO."
+      "status": "live",
+      "gives": ["list_date", "sold_date", "days_on_market", "list_price", "sold_price", "sqft", "beds", "baths", "lot_sqft", "year_built", "garage", "solar", "ac_type", "property_type"],
+      "notes": "Recent SOLD listings via HomeHarvest (Realtor.com), zip-based. Fills DOM, list price, beds/baths, garage, solar/ac_type (parsed from description), AND the recent ~12-18mo nj_records lags. LOCAL ONLY (403s datacenter IPs). Copies house-hunt's HomeHarvest field mapping (pattern, not import). NOTE: to merge with nj_records per-field, run BOTH sources in the same command (running one alone only appends)."
     }
   ],
 
