@@ -11,6 +11,12 @@
       "nj_records": 1985
     }
   },
+  "1 cedar gate court|07039|2023-12": {
+    "year_built": {
+      "listing_scrape": 2016,
+      "nj_records": 2008
+    }
+  },
   "1 conklin lane|07059|2024-03": {
     "year_built": {
       "listing_scrape": 1950,
@@ -23,16 +29,40 @@
       "nj_records": 1935
     }
   },
+  "1 headley court|07834|2024-07": {
+    "year_built": {
+      "listing_scrape": 1989,
+      "nj_records": 1986
+    }
+  },
   "1 kermit road|07040|2023-11": {
     "sold_date": {
       "listing_scrape": "2023-11-29",
       "nj_records": "2023-11-04"
     }
   },
+  "1 lawrence lane|07834|2024-01": {
+    "sold_date": {
+      "listing_scrape": "2024-01-29",
+      "nj_records": "2024-01-02"
+    }
+  },
   "1 maddie court|07067|2023-12": {
     "lot_sqft": {
       "listing_scrape": 9583,
       "nj_records": 6935
+    }
+  },
+  "1 manchester drive|07834|2023-11": {
+    "sold_date": {
+      "listing_scrape": "2023-11-28",
+      "nj_records": "2023-11-01"
+    }
+  },
+  "1 orchard drive|07930|2024-11": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1959
     }
   },
   "1 patricia avenue|07067|2023-07": {
@@ -77,6 +107,12 @@
       "nj_records": 375
     }
   },
+  "10 louisburg square|07044|2024-04": {
+    "year_built": {
+      "listing_scrape": 1980,
+      "nj_records": 1987
+    }
+  },
   "10 meadowbrook road|07928|2024-10": {
     "year_built": {
       "listing_scrape": 1940,
@@ -87,6 +123,12 @@
     "year_built": {
       "listing_scrape": 1965,
       "nj_records": 1963
+    }
+  },
+  "10 symington avenue|07039|2024-07": {
+    "year_built": {
+      "listing_scrape": 1957,
+      "nj_records": 1953
     }
   },
   "10 timothy lane|07921|2023-10": {
@@ -119,10 +161,28 @@
       "nj_records": 535000
     }
   },
+  "102 salter street|07081|2024-02": {
+    "year_built": {
+      "listing_scrape": 1942,
+      "nj_records": 1939
+    }
+  },
+  "102 west northfield road|07039|2024-11": {
+    "year_built": {
+      "listing_scrape": 2018,
+      "nj_records": 1927
+    }
+  },
   "1035 cellar avenue|07076|2023-08": {
     "lot_sqft": {
       "listing_scrape": 871,
       "nj_records": 771
+    }
+  },
+  "104 nunnink lane|07080|2024-08": {
+    "sqft": {
+      "listing_scrape": 1064,
+      "nj_records": 64
     }
   },
   "105 squire hill road|07043|2024-11": {
@@ -143,6 +203,12 @@
       "nj_records": 1956
     }
   },
+  "109 battle hill avenue|07081|2024-10": {
+    "lot_sqft": {
+      "listing_scrape": 8712,
+      "nj_records": 7492
+    }
+  },
   "109 idlewild road|08817|2023-09": {
     "lot_sqft": {
       "listing_scrape": 7928,
@@ -157,6 +223,18 @@
     "year_built": {
       "listing_scrape": 1950,
       "nj_records": 1940
+    }
+  },
+  "109 maple place|07080|2024-07": {
+    "year_built": {
+      "listing_scrape": 1914,
+      "nj_records": 1963
+    }
+  },
+  "109 oakland avenue|07080|2024-07": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1929
     }
   },
   "11 adrian way|08820|2024-04": {
@@ -255,6 +333,12 @@
       "nj_records": 2
     }
   },
+  "113 elizabethtown court|07080|2023-08": {
+    "sqft": {
+      "listing_scrape": 0,
+      "nj_records": 726
+    }
+  },
   "1132 tanglewood lane|07076|2024-11": {
     "garage": {
       "listing_scrape": 1,
@@ -265,6 +349,18 @@
     "lot_sqft": {
       "listing_scrape": 16988,
       "nj_records": 11286
+    }
+  },
+  "115 river road|07901|2023-10": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1957
+    }
+  },
+  "1155 foster avenue|07080|2023-11": {
+    "sqft": {
+      "listing_scrape": 1675,
+      "nj_records": 675
     }
   },
   "116 roland avenue|07079|2024-05": {
@@ -285,6 +381,12 @@
       "nj_records": 1934
     }
   },
+  "118 coeyman avenue|07110|2024-08": {
+    "year_built": {
+      "listing_scrape": 1928,
+      "nj_records": 1926
+    }
+  },
   "118 gaynor place|07452|2023-09": {
     "year_built": {
       "listing_scrape": 2021,
@@ -295,6 +397,12 @@
     "year_built": {
       "listing_scrape": 1978,
       "nj_records": 1957
+    }
+  },
+  "118 watson road|07023|2023-07": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 2024
     }
   },
   "1180 raritan road|07076|2023-11": {
@@ -309,16 +417,34 @@
       "nj_records": 1960
     }
   },
+  "12 audubon court|07078|2024-04": {
+    "year_built": {
+      "listing_scrape": 2023,
+      "nj_records": 1977
+    }
+  },
   "12 avery court|07940|2023-08": {
     "year_built": {
       "listing_scrape": 1984,
       "nj_records": 1982
     }
   },
+  "12 campbell road|07078|2024-05": {
+    "lot_sqft": {
+      "listing_scrape": 4356,
+      "nj_records": 6930
+    }
+  },
   "12 carolyn court|07960|2024-07": {
     "lot_sqft": {
       "listing_scrape": 4792,
       "nj_records": 2801
+    }
+  },
+  "12 chaucer road|07078|2024-02": {
+    "year_built": {
+      "listing_scrape": 1956,
+      "nj_records": 1954
     }
   },
   "12 chestnut court|07920|2024-08": {
@@ -333,10 +459,22 @@
       "nj_records": 2017
     }
   },
+  "12 falmouth street|07078|2023-08": {
+    "year_built": {
+      "listing_scrape": 2002,
+      "nj_records": 1955
+    }
+  },
   "12 hartshorn terrace|07052|2024-12": {
     "year_built": {
       "listing_scrape": 1920,
       "nj_records": 1942
+    }
+  },
+  "12 hunters trail|07930|2023-08": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 1
     }
   },
   "12 kensington court|07059|2023-08": {
@@ -345,10 +483,34 @@
       "nj_records": 2000
     }
   },
+  "12 park drive|07039|2023-07": {
+    "year_built": {
+      "listing_scrape": 1952,
+      "nj_records": 1950
+    }
+  },
+  "12 shawnee trail|07834|2024-04": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1964
+    }
+  },
   "12 sunset court|07045|2024-08": {
     "year_built": {
       "listing_scrape": 1989,
       "nj_records": 1987
+    }
+  },
+  "12 tall pine lane|07078|2024-08": {
+    "lot_sqft": {
+      "listing_scrape": 21344,
+      "nj_records": 24529
+    }
+  },
+  "120 clarke avenue|07080|2023-12": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1958
     }
   },
   "120 edgemont road|07043|2024-08": {
@@ -373,6 +535,16 @@
     "year_built": {
       "listing_scrape": 1958,
       "nj_records": 1953
+    }
+  },
+  "123 meadowbrook road|07039|2023-10": {
+    "sold_date": {
+      "listing_scrape": "2023-10-31",
+      "nj_records": "2023-10-03"
+    },
+    "year_built": {
+      "listing_scrape": 2023,
+      "nj_records": 1931
     }
   },
   "123 mountain parkway|08812|2023-12": {
@@ -427,16 +599,34 @@
       "nj_records": 2025
     }
   },
+  "127 oakmoor avenue|07080|2024-04": {
+    "lot_sqft": {
+      "listing_scrape": 5000,
+      "nj_records": 50006880
+    }
+  },
   "128 midland boulevard|07040|2024-08": {
     "year_built": {
       "listing_scrape": 1930,
       "nj_records": 1926
     }
   },
+  "129 conklin street|07080|2024-07": {
+    "sqft": {
+      "listing_scrape": 1516,
+      "nj_records": 516
+    }
+  },
   "129 laurel avenue|07980|2023-10": {
     "year_built": {
       "listing_scrape": 1990,
       "nj_records": 1986
+    }
+  },
+  "129 rutgers place|07110|2024-08": {
+    "year_built": {
+      "listing_scrape": 1953,
+      "nj_records": 1938
     }
   },
   "129 wilson street|07005|2023-08": {
@@ -455,6 +645,16 @@
     "year_built": {
       "listing_scrape": 1959,
       "nj_records": 2025
+    }
+  },
+  "13 dorset lane|07901|2023-09": {
+    "lot_sqft": {
+      "listing_scrape": 11326,
+      "nj_records": 6830
+    },
+    "year_built": {
+      "listing_scrape": 2020,
+      "nj_records": 1951
     }
   },
   "13 florence drive|07066|2024-08": {
@@ -479,6 +679,24 @@
     "year_built": {
       "listing_scrape": 1930,
       "nj_records": 1933
+    }
+  },
+  "1309 walnut street|07080|2023-07": {
+    "year_built": {
+      "listing_scrape": 1924,
+      "nj_records": 1929
+    }
+  },
+  "131 oakmoor avenue|07080|2024-09": {
+    "sqft": {
+      "listing_scrape": 1134,
+      "nj_records": 134
+    }
+  },
+  "1310 hamilton boulevard|07080|2023-12": {
+    "lot_sqft": {
+      "listing_scrape": 12665,
+      "nj_records": 11400
     }
   },
   "132 selma boulevard|07869|2024-09": {
@@ -523,6 +741,18 @@
       "nj_records": 1900
     }
   },
+  "1386 schindler drive|07080|2024-07": {
+    "sqft": {
+      "listing_scrape": 2440,
+      "nj_records": 440
+    }
+  },
+  "139 fairfield drive|07078|2024-06": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1940
+    }
+  },
   "1395 croyden road|08807|2023-12": {
     "year_built": {
       "listing_scrape": 1968,
@@ -557,10 +787,22 @@
       "nj_records": 1957
     }
   },
+  "14 liberty avenue|07095|2024-10": {
+    "year_built": {
+      "listing_scrape": 1946,
+      "nj_records": 1948
+    }
+  },
   "14 loriann road|07059|2024-10": {
     "year_built": {
       "listing_scrape": 1972,
       "nj_records": 1963
+    }
+  },
+  "14 park lane|07081|2024-07": {
+    "lot_sqft": {
+      "listing_scrape": 7841,
+      "nj_records": 9971
     }
   },
   "14 stockade road|07059|2023-08": {
@@ -575,10 +817,32 @@
       "nj_records": 2
     }
   },
+  "1406 central avenue|07080|2024-09": {
+    "sqft": {
+      "listing_scrape": 1235,
+      "nj_records": 235
+    }
+  },
   "1406 sylvan lane|07076|2023-12": {
     "year_built": {
       "listing_scrape": 1956,
       "nj_records": 2023
+    }
+  },
+  "1408 irving street|07080|2024-05": {
+    "sold_date": {
+      "listing_scrape": "2024-05-31",
+      "nj_records": "2024-05-09"
+    }
+  },
+  "141 broad street|07901|2024-11": {
+    "lot_sqft": {
+      "listing_scrape": 1307,
+      "nj_records": 1481
+    },
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1933
     }
   },
   "141 linden street|08807|2024-10": {
@@ -591,6 +855,12 @@
     "garage": {
       "listing_scrape": 3,
       "nj_records": 2
+    }
+  },
+  "142 north four bridges road|07853|2023-11": {
+    "year_built": {
+      "listing_scrape": 1977,
+      "nj_records": 1972
     }
   },
   "144 huron drive|07928|2023-09": {
@@ -647,6 +917,12 @@
       "nj_records": 1952
     }
   },
+  "15 brooklawn drive|07078|2024-04": {
+    "lot_sqft": {
+      "listing_scrape": 30928,
+      "nj_records": 36961
+    }
+  },
   "15 burch drive|07950|2024-06": {
     "year_built": {
       "listing_scrape": 1957,
@@ -657,6 +933,16 @@
     "garage": {
       "listing_scrape": 1,
       "nj_records": 2
+    }
+  },
+  "15 edgemont avenue|07901|2024-12": {
+    "lot_sqft": {
+      "listing_scrape": 19166,
+      "nj_records": 15560
+    },
+    "year_built": {
+      "listing_scrape": 1938,
+      "nj_records": 1920
     }
   },
   "15 freeman place|07052|2024-06": {
@@ -677,10 +963,28 @@
       "nj_records": 1990
     }
   },
+  "15 hillside avenue|07078|2024-12": {
+    "lot_sqft": {
+      "listing_scrape": 8120,
+      "nj_records": 79279
+    }
+  },
   "15 jardine road|07960|2024-08": {
     "sold_date": {
       "listing_scrape": "2024-08-27",
       "nj_records": "2024-08-05"
+    }
+  },
+  "15 littlebrook road|07081|2023-12": {
+    "lot_sqft": {
+      "listing_scrape": 13068,
+      "nj_records": 14898
+    }
+  },
+  "15 middle avenue|07901|2024-07": {
+    "sold_price": {
+      "listing_scrape": 610000,
+      "nj_records": 630000
     }
   },
   "15 rocky lane|07920|2023-10": {
@@ -693,6 +997,12 @@
     "lot_sqft": {
       "listing_scrape": 21780,
       "nj_records": 19537
+    }
+  },
+  "15 valley view road|07930|2024-11": {
+    "lot_sqft": {
+      "listing_scrape": 33541,
+      "nj_records": 41556
     }
   },
   "15 walton avenue|07974|2024-05": {
@@ -713,6 +1023,18 @@
       "nj_records": 1
     }
   },
+  "150 west springtown road|07853|2024-01": {
+    "sold_date": {
+      "listing_scrape": "2024-01-31",
+      "nj_records": "2024-01-09"
+    }
+  },
+  "1506 clinton avenue|07080|2024-08": {
+    "sqft": {
+      "listing_scrape": 1550,
+      "nj_records": 550
+    }
+  },
   "151 garfield avenue|07940|2023-07": {
     "lot_sqft": {
       "listing_scrape": 19602,
@@ -731,10 +1053,28 @@
       "nj_records": 4500
     }
   },
+  "1521 west 7th street|07080|2023-09": {
+    "lot_sqft": {
+      "listing_scrape": 2667,
+      "nj_records": 10668
+    }
+  },
+  "154 morningside road|07044|2024-04": {
+    "year_built": {
+      "listing_scrape": 1970,
+      "nj_records": 1940
+    }
+  },
   "154 plainfield avenue|08817|2024-04": {
     "lot_sqft": {
       "listing_scrape": 7000,
       "nj_records": 5998
+    }
+  },
+  "156 oak tree avenue|07080|2024-03": {
+    "sold_price": {
+      "listing_scrape": 500000,
+      "nj_records": 745000
     }
   },
   "156 windy willow way|08876|2023-08": {
@@ -753,6 +1093,12 @@
     "year_built": {
       "listing_scrape": 1949,
       "nj_records": 1951
+    }
+  },
+  "157 north avenue|07023|2024-10": {
+    "garage": {
+      "listing_scrape": 2,
+      "nj_records": 1
     }
   },
   "157 ridgedale avenue|07940|2024-12": {
@@ -789,6 +1135,18 @@
       "nj_records": 1880
     }
   },
+  "16 brookside lane|07922|2024-08": {
+    "year_built": {
+      "listing_scrape": 1952,
+      "nj_records": 1982
+    }
+  },
+  "16 cedar gate drive|07039|2024-05": {
+    "sold_date": {
+      "listing_scrape": "2024-05-29",
+      "nj_records": "2024-05-01"
+    }
+  },
   "16 crestview avenue|07940|2024-07": {
     "garage": {
       "listing_scrape": 2,
@@ -819,16 +1177,52 @@
       "nj_records": 2007
     }
   },
+  "16 montrose avenue|07023|2023-10": {
+    "year_built": {
+      "listing_scrape": 2007,
+      "nj_records": 2005
+    }
+  },
+  "16 oak ridge avenue|07901|2024-07": {
+    "year_built": {
+      "listing_scrape": 1895,
+      "nj_records": 1900
+    }
+  },
   "16 robertson court|07960|2024-04": {
     "lot_sqft": {
       "listing_scrape": 4792,
       "nj_records": 2801
     }
   },
+  "16 west road|07078|2024-10": {
+    "year_built": {
+      "listing_scrape": 1911,
+      "nj_records": 1914
+    }
+  },
   "160 livingston avenue|07974|2024-03": {
     "year_built": {
       "listing_scrape": 2024,
       "nj_records": 1935
+    }
+  },
+  "160 north avenue|07023|2024-08": {
+    "year_built": {
+      "listing_scrape": 2009,
+      "nj_records": 1900
+    }
+  },
+  "1620 central avenue|07080|2024-08": {
+    "year_built": {
+      "listing_scrape": 1962,
+      "nj_records": 1949
+    }
+  },
+  "163 hunter avenue|07023|2024-07": {
+    "year_built": {
+      "listing_scrape": 2005,
+      "nj_records": 2000
     }
   },
   "163 oakwood drive|07974|2024-08": {
@@ -853,6 +1247,12 @@
       "nj_records": 2024
     }
   },
+  "165 schooleys mtn road|07853|2023-07": {
+    "garage": {
+      "listing_scrape": 4,
+      "nj_records": 2
+    }
+  },
   "16g heritage drive|07928|2024-01": {
     "sold_price": {
       "listing_scrape": 410000,
@@ -861,6 +1261,18 @@
     "year_built": {
       "listing_scrape": 1970,
       "nj_records": 1986
+    }
+  },
+  "17 chestnut drive|07930|2023-07": {
+    "lot_sqft": {
+      "listing_scrape": 90605,
+      "nj_records": 72745
+    }
+  },
+  "17 ferncliff terrace|07078|2023-07": {
+    "year_built": {
+      "listing_scrape": 1927,
+      "nj_records": 1925
     }
   },
   "17 huyler road|08876|2023-09": {
@@ -887,6 +1299,12 @@
       "nj_records": 1926
     }
   },
+  "176 beaufort avenue|07039|2023-08": {
+    "year_built": {
+      "listing_scrape": 2006,
+      "nj_records": 1922
+    }
+  },
   "179 culberson road|07920|2024-11": {
     "year_built": {
       "listing_scrape": 1945,
@@ -911,6 +1329,12 @@
       "nj_records": 11095
     }
   },
+  "18 joanna way|07078|2024-01": {
+    "lot_sqft": {
+      "listing_scrape": 19602,
+      "nj_records": 21998
+    }
+  },
   "18 longview avenue|07940|2024-11": {
     "year_built": {
       "listing_scrape": 1948,
@@ -923,10 +1347,22 @@
       "nj_records": "2023-10-09"
     }
   },
+  "18 south terrace|07078|2023-07": {
+    "year_built": {
+      "listing_scrape": 1958,
+      "nj_records": 1947
+    }
+  },
   "18 summit street|07028|2024-05": {
     "year_built": {
       "listing_scrape": 1916,
       "nj_records": 1905
+    }
+  },
+  "18 thackeray drive|07078|2024-09": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1954
     }
   },
   "18 university avenue|07928|2023-12": {
@@ -947,6 +1383,18 @@
       "nj_records": 1897
     }
   },
+  "184 river bend road|07922|2024-03": {
+    "year_built": {
+      "listing_scrape": 1962,
+      "nj_records": 1960
+    }
+  },
+  "185 naughright road|07853|2023-09": {
+    "year_built": {
+      "listing_scrape": 1973,
+      "nj_records": 1970
+    }
+  },
   "19 elizabeth avenue|08820|2024-06": {
     "year_built": {
       "listing_scrape": 2005,
@@ -965,10 +1413,40 @@
       "nj_records": 1960
     }
   },
+  "19 nutley avenue|07110|2024-08": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1942
+    }
+  },
+  "19 orchard lane|07922|2024-07": {
+    "year_built": {
+      "listing_scrape": 1952,
+      "nj_records": 1950
+    }
+  },
+  "19 pearl street|07901|2024-04": {
+    "year_built": {
+      "listing_scrape": 1910,
+      "nj_records": 1908
+    }
+  },
+  "19 shetland drive|07016|2024-05": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1954
+    }
+  },
   "19 sine road|08817|2023-08": {
     "lot_sqft": {
       "listing_scrape": 7194,
       "nj_records": 3925
+    }
+  },
+  "19 washington court|07039|2024-07": {
+    "year_built": {
+      "listing_scrape": 1957,
+      "nj_records": 1954
     }
   },
   "190 central avenue|07940|2024-07": {
@@ -981,6 +1459,18 @@
     "year_built": {
       "listing_scrape": 1956,
       "nj_records": 2024
+    }
+  },
+  "193 mountain avenue|07901|2024-12": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1957
+    }
+  },
+  "196 linden avenue|07044|2024-10": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1957
     }
   },
   "197 newman street|08840|2024-03": {
@@ -999,6 +1489,12 @@
     "year_built": {
       "listing_scrape": 1951,
       "nj_records": 2024
+    }
+  },
+  "2 besler avenue|07016|2024-08": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1941
     }
   },
   "2 flynn terrace|07052|2024-11": {
@@ -1025,6 +1521,12 @@
       "nj_records": 1951
     }
   },
+  "2 margaret avenue|07110|2023-08": {
+    "lot_sqft": {
+      "listing_scrape": 8276,
+      "nj_records": 3572
+    }
+  },
   "2 pine tree terrace|07940|2023-10": {
     "year_built": {
       "listing_scrape": 2023,
@@ -1049,6 +1551,12 @@
       "nj_records": 1941
     }
   },
+  "2 south gables drive|07930|2023-09": {
+    "year_built": {
+      "listing_scrape": 2015,
+      "nj_records": 1970
+    }
+  },
   "2 stuart terrace|07052|2024-11": {
     "year_built": {
       "listing_scrape": 1933,
@@ -1059,6 +1567,12 @@
     "year_built": {
       "listing_scrape": 1994,
       "nj_records": 1992
+    }
+  },
+  "2 tulip court|07039|2024-05": {
+    "year_built": {
+      "listing_scrape": 1972,
+      "nj_records": 1970
     }
   },
   "2 village circle|07945|2023-11": {
@@ -1085,6 +1599,12 @@
       "nj_records": 1956
     }
   },
+  "20 northfield court|07039|2023-11": {
+    "lot_sqft": {
+      "listing_scrape": 19602,
+      "nj_records": 15185
+    }
+  },
   "20 peterson avenue|08817|2024-10": {
     "lot_sqft": {
       "listing_scrape": 10000,
@@ -1097,16 +1617,38 @@
       "nj_records": 1963
     }
   },
+  "20 sandt lane|07853|2024-04": {
+    "sold_price": {
+      "listing_scrape": 765000,
+      "nj_records": 675000
+    },
+    "year_built": {
+      "listing_scrape": 1980,
+      "nj_records": 1970
+    }
+  },
   "200 columbia avenue|08840|2023-08": {
     "sold_date": {
       "listing_scrape": "2023-08-31",
       "nj_records": "2023-08-07"
     }
   },
+  "202 regents drive|07110|2024-06": {
+    "year_built": {
+      "listing_scrape": 2004,
+      "nj_records": 2000
+    }
+  },
   "2054 prospect avenue|07076|2024-06": {
     "sold_price": {
       "listing_scrape": 961000,
       "nj_records": 9610000
+    }
+  },
+  "206 springfield avenue|07901|2023-07": {
+    "year_built": {
+      "listing_scrape": 1930,
+      "nj_records": 1936
     }
   },
   "2063 newark avenue|07076|2024-08": {
@@ -1129,6 +1671,12 @@
     "year_built": {
       "listing_scrape": 1930,
       "nj_records": 1925
+    }
+  },
+  "208 north road|07930|2023-07": {
+    "year_built": {
+      "listing_scrape": 1987,
+      "nj_records": 1985
     }
   },
   "208 southern boulevard|07928|2024-03": {
@@ -1155,16 +1703,34 @@
       "nj_records": 1955
     }
   },
+  "21 dogwood drive|07930|2024-02": {
+    "year_built": {
+      "listing_scrape": 1965,
+      "nj_records": 1972
+    }
+  },
   "21 hickory road|07052|2023-08": {
     "sold_date": {
       "listing_scrape": "2023-08-31",
       "nj_records": "2023-08-08"
     }
   },
+  "21 montgomery road|07039|2023-08": {
+    "year_built": {
+      "listing_scrape": 2022,
+      "nj_records": 1949
+    }
+  },
   "21 north road|07059|2023-08": {
     "sold_date": {
       "listing_scrape": "2023-08-02",
       "nj_records": "2023-08-24"
+    }
+  },
+  "21 ruthven place|07901|2024-03": {
+    "year_built": {
+      "listing_scrape": 1891,
+      "nj_records": 1852
     }
   },
   "210 mountainview avenue|07076|2023-09": {
@@ -1233,6 +1799,12 @@
       "nj_records": 1950
     }
   },
+  "22 robbins avenue|07922|2023-08": {
+    "sold_date": {
+      "listing_scrape": "2023-08-30",
+      "nj_records": "2023-08-08"
+    }
+  },
   "22 shadylawn drive|07940|2023-11": {
     "year_built": {
       "listing_scrape": 1941,
@@ -1249,6 +1821,24 @@
       "nj_records": 10228
     }
   },
+  "22 windsor road|07901|2024-11": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1953
+    }
+  },
+  "220 hillside avenue|07081|2024-11": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1945
+    }
+  },
+  "220 lamerson road|07930|2023-07": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 1
+    }
+  },
   "220 union grove road|07921|2024-11": {
     "year_built": {
       "listing_scrape": 1966,
@@ -1259,6 +1849,12 @@
     "year_built": {
       "listing_scrape": 1996,
       "nj_records": 1989
+    }
+  },
+  "221 plainfield avenue|07922|2024-04": {
+    "year_built": {
+      "listing_scrape": 1943,
+      "nj_records": 1926
     }
   },
   "2218 evergreen avenue|07076|2024-04": {
@@ -1277,6 +1873,12 @@
     "year_built": {
       "listing_scrape": 1880,
       "nj_records": 1890
+    }
+  },
+  "223 kent place boulevard|07901|2024-05": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1953
     }
   },
   "225 plainfield road|08820|2024-03": {
@@ -1309,10 +1911,22 @@
       "nj_records": 1986
     }
   },
+  "23 beacon hill drive|07930|2023-08": {
+    "garage": {
+      "listing_scrape": 4,
+      "nj_records": 1
+    }
+  },
   "23 beaumont terrace|07052|2024-08": {
     "year_built": {
       "listing_scrape": 2019,
       "nj_records": 1932
+    }
+  },
+  "23 corsay road|07110|2024-08": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1963
     }
   },
   "23 glenside drive|07052|2024-06": {
@@ -1349,6 +1963,18 @@
     "lot_sqft": {
       "listing_scrape": 23087,
       "nj_records": 161
+    }
+  },
+  "23 sherman avenue|07901|2024-06": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1979
+    }
+  },
+  "230 washington street|07922|2024-05": {
+    "year_built": {
+      "listing_scrape": 1937,
+      "nj_records": 1930
     }
   },
   "232 victor street|07076|2023-12": {
@@ -1435,16 +2061,34 @@
       "nj_records": 7754
     }
   },
+  "243 forest road|07023|2024-12": {
+    "year_built": {
+      "listing_scrape": 1919,
+      "nj_records": 1906
+    }
+  },
   "244 ridgewood avenue|07028|2024-08": {
     "year_built": {
       "listing_scrape": 1909,
       "nj_records": 1920
     }
   },
+  "245 forest road|07023|2024-11": {
+    "garage": {
+      "listing_scrape": 2,
+      "nj_records": 1
+    }
+  },
   "25 anthony drive|07940|2023-10": {
     "year_built": {
       "listing_scrape": 1952,
       "nj_records": 1954
+    }
+  },
+  "25 baltusrol way|07078|2024-12": {
+    "year_built": {
+      "listing_scrape": 1958,
+      "nj_records": 1950
     }
   },
   "25 bergen road|07974|2024-07": {
@@ -1469,6 +2113,16 @@
     "year_built": {
       "listing_scrape": 1940,
       "nj_records": 1947
+    }
+  },
+  "25 twin oak road|07078|2024-07": {
+    "lot_sqft": {
+      "listing_scrape": 12197,
+      "nj_records": 40188
+    },
+    "year_built": {
+      "listing_scrape": 1929,
+      "nj_records": 1934
     }
   },
   "25 wedgewood drive|07045|2024-09": {
@@ -1501,6 +2155,12 @@
       "nj_records": 1890
     }
   },
+  "254 west hobart gap road|07039|2024-10": {
+    "lot_sqft": {
+      "listing_scrape": 35284,
+      "nj_records": 16017
+    }
+  },
   "258 clarken drive|07052|2023-08": {
     "year_built": {
       "listing_scrape": 1995,
@@ -1519,6 +2179,12 @@
       "nj_records": 1964
     }
   },
+  "26 beacon hill drive|07930|2024-11": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 1
+    }
+  },
   "26 beechwood court|07067|2024-05": {
     "garage": {
       "listing_scrape": 2,
@@ -1529,6 +2195,12 @@
     "year_built": {
       "listing_scrape": 1925,
       "nj_records": 1923
+    }
+  },
+  "26 coniston road|07078|2023-07": {
+    "lot_sqft": {
+      "listing_scrape": 29621,
+      "nj_records": 39496
     }
   },
   "26 coral court|07067|2023-11": {
@@ -1559,6 +2231,12 @@
     "year_built": {
       "listing_scrape": 2022,
       "nj_records": 1933
+    }
+  },
+  "265 east northfield road|07039|2023-08": {
+    "sold_date": {
+      "listing_scrape": "2023-08-31",
+      "nj_records": "2023-08-01"
     }
   },
   "267 powerville road|07005|2024-04": {
@@ -1603,10 +2281,22 @@
       "nj_records": 1981
     }
   },
+  "275 main street|07930|2023-07": {
+    "lot_sqft": {
+      "listing_scrape": 31799,
+      "nj_records": 21401
+    }
+  },
   "278 underhill road|07079|2024-01": {
     "garage": {
       "listing_scrape": 1,
       "nj_records": 2
+    }
+  },
+  "28 camlet court|07068|2023-08": {
+    "year_built": {
+      "listing_scrape": 2008,
+      "nj_records": 2003
     }
   },
   "28 cerone court|07052|2023-08": {
@@ -1625,6 +2315,18 @@
       "nj_records": 1956
     }
   },
+  "28 deerfield drive|07932|2024-11": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1962
+    }
+  },
+  "28 franklin place|07901|2023-07": {
+    "year_built": {
+      "listing_scrape": 1850,
+      "nj_records": 1860
+    }
+  },
   "28 hamilton road|07028|2024-08": {
     "year_built": {
       "listing_scrape": 1920,
@@ -1635,6 +2337,28 @@
     "year_built": {
       "listing_scrape": 1899,
       "nj_records": 1829
+    }
+  },
+  "28 hinchman avenue|07834|2024-09": {
+    "year_built": {
+      "listing_scrape": 1928,
+      "nj_records": 1930
+    }
+  },
+  "28 oakdale road|07930|2024-12": {
+    "lot_sqft": {
+      "listing_scrape": 30056,
+      "nj_records": 116218
+    },
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1920
+    }
+  },
+  "28 preston drive|07039|2024-05": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1957
     }
   },
   "28 quinby place|07052|2023-12": {
@@ -1649,10 +2373,48 @@
       "nj_records": 1950
     }
   },
+  "288 garfield street|07922|2024-09": {
+    "lot_sqft": {
+      "listing_scrape": 14400,
+      "nj_records": 7492
+    },
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1954
+    }
+  },
+  "288 minford avenue|07080|2023-08": {
+    "year_built": {
+      "listing_scrape": 1958,
+      "nj_records": 1962
+    }
+  },
   "29 afterglow way|07042|2024-02": {
     "year_built": {
       "listing_scrape": 1921,
       "nj_records": 1929
+    }
+  },
+  "29 baltusrol way|07078|2024-05": {
+    "lot_sqft": {
+      "listing_scrape": 5227,
+      "nj_records": 5881
+    }
+  },
+  "29 benedict cres|07834|2023-07": {
+    "garage": {
+      "listing_scrape": 2,
+      "nj_records": 1
+    }
+  },
+  "29 greaves place|07016|2023-12": {
+    "garage": {
+      "listing_scrape": 4,
+      "nj_records": 1
+    },
+    "year_built": {
+      "listing_scrape": 2010,
+      "nj_records": 1948
     }
   },
   "29 long hill lane|07928|2024-10": {
@@ -1685,6 +2447,12 @@
       "nj_records": 1948
     }
   },
+  "292 washington street|07922|2024-03": {
+    "year_built": {
+      "listing_scrape": 1978,
+      "nj_records": 1981
+    }
+  },
   "296 elkwood avenue|07974|2023-11": {
     "year_built": {
       "listing_scrape": 1956,
@@ -1701,6 +2469,12 @@
     "year_built": {
       "listing_scrape": 1955,
       "nj_records": 1957
+    }
+  },
+  "3 edgemont avenue|07901|2023-09": {
+    "lot_sqft": {
+      "listing_scrape": 40946,
+      "nj_records": 32256
     }
   },
   "3 hill hollow road|07059|2024-08": {
@@ -1731,6 +2505,12 @@
       "nj_records": 2007
     }
   },
+  "3 lambert street|07095|2023-07": {
+    "year_built": {
+      "listing_scrape": 1954,
+      "nj_records": 1950
+    }
+  },
   "3 mark circle|08840|2023-08": {
     "year_built": {
       "listing_scrape": 1973,
@@ -1755,6 +2535,12 @@
       "nj_records": 1920
     }
   },
+  "3 small brook circle|07834|2024-10": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 1
+    }
+  },
   "3 timothy lane|07921|2024-09": {
     "year_built": {
       "listing_scrape": 1987,
@@ -1776,6 +2562,30 @@
   "30 ashley road|08817|2024-10": {
     "year_built": {
       "listing_scrape": 2024,
+      "nj_records": 1952
+    }
+  },
+  "30 cypress avenue|07044|2023-12": {
+    "sold_date": {
+      "listing_scrape": "2023-12-29",
+      "nj_records": "2023-12-06"
+    }
+  },
+  "30 cypress terrace|07081|2024-06": {
+    "year_built": {
+      "listing_scrape": 1956,
+      "nj_records": 1959
+    }
+  },
+  "30 denville avenue|07834|2024-03": {
+    "sold_date": {
+      "listing_scrape": "2024-03-27",
+      "nj_records": "2024-03-05"
+    }
+  },
+  "30 harvey drive|07901|2023-12": {
+    "year_built": {
+      "listing_scrape": 2023,
       "nj_records": 1952
     }
   },
@@ -1833,6 +2643,12 @@
       "nj_records": 2
     }
   },
+  "305 whitford avenue|07110|2024-07": {
+    "sold_date": {
+      "listing_scrape": "2024-07-30",
+      "nj_records": "2024-07-01"
+    }
+  },
   "3080 valley road|07920|2024-08": {
     "garage": {
       "listing_scrape": 4,
@@ -1885,6 +2701,12 @@
       "nj_records": 1973
     }
   },
+  "3122 woodland avenue|07080|2024-06": {
+    "sqft": {
+      "listing_scrape": 3746,
+      "nj_records": 746
+    }
+  },
   "32 bruce road|07043|2024-07": {
     "year_built": {
       "listing_scrape": 1900,
@@ -1901,6 +2723,12 @@
       "nj_records": 1987
     }
   },
+  "32 cherry tree lane|07930|2023-07": {
+    "year_built": {
+      "listing_scrape": 1969,
+      "nj_records": 1972
+    }
+  },
   "32 coppergate drive|07920|2024-03": {
     "year_built": {
       "listing_scrape": 2023,
@@ -1911,6 +2739,12 @@
     "lot_sqft": {
       "listing_scrape": 6599,
       "nj_records": 5998
+    }
+  },
+  "32 intervale road|07039|2024-03": {
+    "sold_date": {
+      "listing_scrape": "2024-03-29",
+      "nj_records": "2024-03-07"
     }
   },
   "32 maplewood avenue|07040|2024-12": {
@@ -1959,6 +2793,22 @@
       "nj_records": 1895
     }
   },
+  "3230 brenda place|07080|2024-04": {
+    "sqft": {
+      "listing_scrape": 1300,
+      "nj_records": 300
+    }
+  },
+  "324 high street|07110|2023-08": {
+    "sold_price": {
+      "listing_scrape": 1150000,
+      "nj_records": 999000
+    },
+    "year_built": {
+      "listing_scrape": 2004,
+      "nj_records": 1880
+    }
+  },
   "324 route 10|07869|2023-08": {
     "year_built": {
       "listing_scrape": 1959,
@@ -1981,6 +2831,18 @@
     "lot_sqft": {
       "listing_scrape": 8250,
       "nj_records": 10210
+    }
+  },
+  "33 witherspoon street|07110|2023-09": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1927
+    }
+  },
+  "330 street james avenue|07095|2024-10": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1945
     }
   },
   "335 academy street|07079|2023-12": {
@@ -2013,10 +2875,40 @@
       "nj_records": 1951
     }
   },
+  "34 angela way|07922|2023-12": {
+    "year_built": {
+      "listing_scrape": 1998,
+      "nj_records": 1996
+    }
+  },
+  "34 buttonwood road|07021|2024-08": {
+    "year_built": {
+      "listing_scrape": 1900,
+      "nj_records": 1898
+    }
+  },
+  "34 morris avenue|07901|2023-12": {
+    "year_built": {
+      "listing_scrape": 1919,
+      "nj_records": 1900
+    }
+  },
   "34 morris place|07940|2024-07": {
     "garage": {
       "listing_scrape": 2,
       "nj_records": 1
+    }
+  },
+  "34 south terrace|07078|2024-01": {
+    "lot_sqft": {
+      "listing_scrape": 14375,
+      "nj_records": 16544
+    }
+  },
+  "34 tree top drive|07081|2023-11": {
+    "lot_sqft": {
+      "listing_scrape": 27878,
+      "nj_records": 22390
     }
   },
   "34 underwood drive|07052|2023-09": {
@@ -2055,6 +2947,12 @@
       "nj_records": 1923
     }
   },
+  "35 fieldstone drive|07039|2023-08": {
+    "year_built": {
+      "listing_scrape": 1956,
+      "nj_records": 1958
+    }
+  },
   "35 hillcrest avenue|07960|2024-05": {
     "year_built": {
       "listing_scrape": 1949,
@@ -2065,6 +2963,12 @@
     "year_built": {
       "listing_scrape": 1994,
       "nj_records": 1990
+    }
+  },
+  "35 laurel avenue|07039|2024-05": {
+    "year_built": {
+      "listing_scrape": 1947,
+      "nj_records": 1940
     }
   },
   "35 maple street|07974|2024-05": {
@@ -2085,10 +2989,28 @@
       "nj_records": 1959
     }
   },
+  "35 roger avenue|07016|2023-08": {
+    "year_built": {
+      "listing_scrape": 1957,
+      "nj_records": 1949
+    }
+  },
+  "350 north avenue|07023|2023-09": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 2
+    }
+  },
   "351 doremus avenue|07452|2024-07": {
     "lot_sqft": {
       "listing_scrape": 5663,
       "nj_records": 13599
+    }
+  },
+  "356 meisel avenue|07081|2024-06": {
+    "lot_sqft": {
+      "listing_scrape": 16988,
+      "nj_records": 13499
     }
   },
   "357 union avenue|07076|2024-07": {
@@ -2109,6 +3031,12 @@
       "nj_records": 1
     }
   },
+  "36 brookdale road|07016|2024-06": {
+    "year_built": {
+      "listing_scrape": 1956,
+      "nj_records": 1960
+    }
+  },
   "36 cedar street|08820|2024-12": {
     "year_built": {
       "listing_scrape": 1965,
@@ -2125,6 +3053,12 @@
     "year_built": {
       "listing_scrape": 1955,
       "nj_records": 1951
+    }
+  },
+  "36 joanna way|07078|2023-10": {
+    "year_built": {
+      "listing_scrape": 2023,
+      "nj_records": 1952
     }
   },
   "36 lincoln boulevard|07066|2023-09": {
@@ -2153,10 +3087,28 @@
       "nj_records": 2
     }
   },
+  "36 sherwood road|07078|2024-07": {
+    "year_built": {
+      "listing_scrape": 1930,
+      "nj_records": 1921
+    }
+  },
   "36 west cliff road|07067|2023-12": {
     "year_built": {
       "listing_scrape": 1946,
       "nj_records": 1940
+    }
+  },
+  "3602 park place|07081|2024-06": {
+    "year_built": {
+      "listing_scrape": 1993,
+      "nj_records": 1988
+    }
+  },
+  "3614 park place|07081|2024-08": {
+    "year_built": {
+      "listing_scrape": 1993,
+      "nj_records": 1988
     }
   },
   "363 hickory avenue|07027|2024-01": {
@@ -2189,6 +3141,18 @@
       "nj_records": 1958
     }
   },
+  "37 mile drive|07930|2024-11": {
+    "lot_sqft": {
+      "listing_scrape": 91476,
+      "nj_records": 114402
+    }
+  },
+  "37 morningside road|07044|2024-07": {
+    "year_built": {
+      "listing_scrape": 1920,
+      "nj_records": 1939
+    }
+  },
   "37 olyphant drive|07960|2024-08": {
     "year_built": {
       "listing_scrape": 1920,
@@ -2213,6 +3177,12 @@
       "nj_records": 1912
     }
   },
+  "38 amherst place|07039|2024-09": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1940
+    }
+  },
   "38 east lane|07940|2024-06": {
     "garage": {
       "listing_scrape": 2,
@@ -2221,6 +3191,12 @@
     "lot_sqft": {
       "listing_scrape": 31799,
       "nj_records": 22002
+    }
+  },
+  "38 fairview avenue|07853|2023-10": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1900
     }
   },
   "38 genoble road|07045|2023-09": {
@@ -2259,10 +3235,22 @@
       "nj_records": 1950
     }
   },
+  "39 druid hill road|07901|2024-06": {
+    "year_built": {
+      "listing_scrape": 1939,
+      "nj_records": 1931
+    }
+  },
   "39 hawthorne avenue|07950|2024-08": {
     "lot_sqft": {
       "listing_scrape": 7500,
       "nj_records": 5968
+    }
+  },
+  "39 irving avenue|07039|2024-12": {
+    "year_built": {
+      "listing_scrape": 1929,
+      "nj_records": 1926
     }
   },
   "39 kingswood road|08876|2023-09": {
@@ -2275,6 +3263,12 @@
       "nj_records": 1993
     }
   },
+  "39 manor road|07039|2024-11": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1950
+    }
+  },
   "39 north gate road|07945|2024-05": {
     "year_built": {
       "listing_scrape": 1984,
@@ -2285,6 +3279,12 @@
     "year_built": {
       "listing_scrape": 1996,
       "nj_records": 1987
+    }
+  },
+  "393 chestnut street|07110|2024-04": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1915
     }
   },
   "393 pierson avenue|08837|2024-09": {
@@ -2371,10 +3371,22 @@
       "nj_records": 2024
     }
   },
+  "4 spruce lane|07853|2024-12": {
+    "garage": {
+      "listing_scrape": 6,
+      "nj_records": 2
+    }
+  },
   "4 vanderhoof road|07045|2024-05": {
     "year_built": {
       "listing_scrape": 1990,
       "nj_records": 1995
+    }
+  },
+  "40 arlene court|07023|2024-03": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1965
     }
   },
   "40 birchwood lane|07005|2023-07": {
@@ -2401,6 +3413,12 @@
       "nj_records": 14702
     }
   },
+  "40 overlook road|07039|2024-08": {
+    "year_built": {
+      "listing_scrape": 2008,
+      "nj_records": 2006
+    }
+  },
   "404 jerusalem road|07076|2024-04": {
     "garage": {
       "listing_scrape": 2,
@@ -2411,10 +3429,34 @@
       "nj_records": 1927
     }
   },
+  "407 lexington avenue|07016|2024-09": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1940
+    }
+  },
+  "407 passaic avenue|07110|2024-09": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1900
+    }
+  },
   "408 digaetano terrace|07052|2024-09": {
     "year_built": {
       "listing_scrape": 1995,
       "nj_records": 1987
+    }
+  },
+  "41 derwent avenue|07044|2023-11": {
+    "year_built": {
+      "listing_scrape": 1943,
+      "nj_records": 1949
+    }
+  },
+  "41 heron road|07039|2024-05": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1959
     }
   },
   "41 jefferson boulevard|08817|2024-11": {
@@ -2471,10 +3513,28 @@
       "nj_records": 1996
     }
   },
+  "42 carillon circle|07039|2024-06": {
+    "year_built": {
+      "listing_scrape": 2014,
+      "nj_records": 2008
+    }
+  },
+  "42 hillcrest avenue|07016|2023-07": {
+    "year_built": {
+      "listing_scrape": 2018,
+      "nj_records": 1924
+    }
+  },
   "42 longview road|07009|2024-06": {
     "year_built": {
       "listing_scrape": 1950,
       "nj_records": 1954
+    }
+  },
+  "42 minnisink drive|07068|2023-09": {
+    "lot_sqft": {
+      "listing_scrape": 1742,
+      "nj_records": 1951
     }
   },
   "428 sycamore avenue|07076|2024-11": {
@@ -2507,6 +3567,12 @@
       "nj_records": 1962
     }
   },
+  "43 jefferson avenue|07078|2024-07": {
+    "lot_sqft": {
+      "listing_scrape": 49658,
+      "nj_records": 30427
+    }
+  },
   "43 lowell avenue|07052|2024-08": {
     "year_built": {
       "listing_scrape": 1911,
@@ -2517,6 +3583,12 @@
     "year_built": {
       "listing_scrape": 1973,
       "nj_records": 1970
+    }
+  },
+  "44 chestnut road|07044|2024-05": {
+    "year_built": {
+      "listing_scrape": 1930,
+      "nj_records": 1926
     }
   },
   "44 daugherty avenue|07933|2023-08": {
@@ -2551,6 +3623,18 @@
     "year_built": {
       "listing_scrape": 1928,
       "nj_records": 1921
+    }
+  },
+  "45 front street|07834|2024-03": {
+    "sold_date": {
+      "listing_scrape": "2024-03-28",
+      "nj_records": "2024-03-04"
+    }
+  },
+  "45 longview trail|07834|2023-12": {
+    "year_built": {
+      "listing_scrape": 1945,
+      "nj_records": 1947
     }
   },
   "45 lorelei road|07052|2024-02": {
@@ -2595,10 +3679,22 @@
       "nj_records": 1956
     }
   },
+  "46 wynnewood road|07039|2024-11": {
+    "year_built": {
+      "listing_scrape": 1962,
+      "nj_records": 1935
+    }
+  },
   "460 garretson road|08807|2023-10": {
     "year_built": {
       "listing_scrape": 1996,
       "nj_records": 1945
+    }
+  },
+  "460 north avenue|07023|2024-06": {
+    "year_built": {
+      "listing_scrape": 1960,
+      "nj_records": 1950
     }
   },
   "460 ridgewood avenue|07028|2023-08": {
@@ -2631,16 +3727,34 @@
       "nj_records": 1960
     }
   },
+  "47 burnet hill road|07039|2023-08": {
+    "sold_date": {
+      "listing_scrape": "2023-08-31",
+      "nj_records": "2023-08-09"
+    }
+  },
   "47 chestnut court|07920|2024-10": {
     "year_built": {
       "listing_scrape": 1992,
       "nj_records": 1988
     }
   },
+  "47 greenbriar drive|07901|2023-10": {
+    "sold_price": {
+      "listing_scrape": 2205000,
+      "nj_records": 1102500
+    }
+  },
   "47 lexington road|07920|2023-11": {
     "year_built": {
       "listing_scrape": 1968,
       "nj_records": 1962
+    }
+  },
+  "47 north road|07110|2023-09": {
+    "year_built": {
+      "listing_scrape": 1890,
+      "nj_records": 1906
     }
   },
   "47 ovington avenue|08817|2024-04": {
@@ -2651,6 +3765,36 @@
     "year_built": {
       "listing_scrape": 2024,
       "nj_records": 1952
+    }
+  },
+  "47 poplar place|07023|2024-05": {
+    "year_built": {
+      "listing_scrape": 1953,
+      "nj_records": 1950
+    }
+  },
+  "47 schweinberg drive|07068|2024-08": {
+    "year_built": {
+      "listing_scrape": 2008,
+      "nj_records": 2003
+    }
+  },
+  "47 seneca trail|07834|2023-12": {
+    "year_built": {
+      "listing_scrape": 1926,
+      "nj_records": 1924
+    }
+  },
+  "473 plainfield avenue|07922|2023-10": {
+    "year_built": {
+      "listing_scrape": 2023,
+      "nj_records": 1955
+    }
+  },
+  "474 white oak ridge road|07078|2023-11": {
+    "year_built": {
+      "listing_scrape": 1965,
+      "nj_records": 1963
     }
   },
   "48 cottage street|07079|2024-07": {
@@ -2729,10 +3873,40 @@
       "nj_records": 1956
     }
   },
+  "5 deerfield road|07039|2024-10": {
+    "year_built": {
+      "listing_scrape": 2017,
+      "nj_records": 1951
+    }
+  },
+  "5 falcon court|07039|2024-11": {
+    "sold_price": {
+      "listing_scrape": 1600000,
+      "nj_records": 1668056
+    }
+  },
+  "5 goodhart drive|07039|2024-04": {
+    "year_built": {
+      "listing_scrape": 2023,
+      "nj_records": 1970
+    }
+  },
+  "5 harcourt terrace|07834|2023-08": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 1
+    }
+  },
   "5 hardy drive|08807|2024-07": {
     "year_built": {
       "listing_scrape": 1998,
       "nj_records": 2000
+    }
+  },
+  "5 harvey court|07901|2024-04": {
+    "lot_sqft": {
+      "listing_scrape": 9583,
+      "nj_records": 8107
     }
   },
   "5 hawthorne place|07920|2024-06": {
@@ -2741,10 +3915,28 @@
       "nj_records": 1988
     }
   },
+  "5 heath drive|07930|2024-01": {
+    "year_built": {
+      "listing_scrape": 1997,
+      "nj_records": 1993
+    }
+  },
+  "5 hidden glen road|07853|2024-12": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1967
+    }
+  },
   "5 hillcrest road|07940|2024-06": {
     "year_built": {
       "listing_scrape": 1909,
       "nj_records": 1920
+    }
+  },
+  "5 hunters trail|07930|2024-05": {
+    "garage": {
+      "listing_scrape": 2,
+      "nj_records": 1
     }
   },
   "5 samuel way|07928|2024-02": {
@@ -2789,10 +3981,22 @@
       "nj_records": 1
     }
   },
+  "50 severna avenue|07081|2024-06": {
+    "lot_sqft": {
+      "listing_scrape": 6534,
+      "nj_records": 7527
+    }
+  },
   "502 prospect street|07452|2024-03": {
     "sold_date": {
       "listing_scrape": "2024-03-28",
       "nj_records": "2024-03-01"
+    }
+  },
+  "51 monroe avenue|07068|2023-10": {
+    "sold_date": {
+      "listing_scrape": "2023-10-26",
+      "nj_records": "2023-10-03"
     }
   },
   "51 washington avenue|07960|2024-09": {
@@ -2823,6 +4027,12 @@
       "nj_records": 1931
     }
   },
+  "516 ashwood road|07081|2024-05": {
+    "year_built": {
+      "listing_scrape": 1965,
+      "nj_records": 1950
+    }
+  },
   "516 spring valley drive|08807|2024-10": {
     "year_built": {
       "listing_scrape": 1963,
@@ -2839,6 +4049,12 @@
     "lot_sqft": {
       "listing_scrape": 173369,
       "nj_records": 119354
+    }
+  },
+  "52 mt pleasant tpke|07834|2023-12": {
+    "year_built": {
+      "listing_scrape": 1901,
+      "nj_records": 1999
     }
   },
   "52 murray hill sq|07974|2023-08": {
@@ -2869,10 +4085,22 @@
       "nj_records": "2023-08-02"
     }
   },
+  "53 cliffside trail|07834|2024-02": {
+    "lot_sqft": {
+      "listing_scrape": 7841,
+      "nj_records": 1873
+    }
+  },
   "53 east craig street|07920|2024-05": {
     "year_built": {
       "listing_scrape": 1948,
       "nj_records": 1955
+    }
+  },
+  "53 quail run|07853|2024-03": {
+    "sold_date": {
+      "listing_scrape": "2024-03-01",
+      "nj_records": "2024-03-27"
     }
   },
   "53 sheridan avenue|07052|2023-07": {
@@ -2885,6 +4113,12 @@
     "year_built": {
       "listing_scrape": 1990,
       "nj_records": 1988
+    }
+  },
+  "54 naughright road|07853|2023-12": {
+    "year_built": {
+      "listing_scrape": 1979,
+      "nj_records": 1964
     }
   },
   "54 ormont road|07928|2024-08": {
@@ -2933,6 +4167,12 @@
     "sold_date": {
       "listing_scrape": "2023-10-26",
       "nj_records": "2023-10-04"
+    }
+  },
+  "561 coventry drive|07110|2023-12": {
+    "year_built": {
+      "listing_scrape": 2003,
+      "nj_records": 2001
     }
   },
   "566 river road|07928|2024-07": {
@@ -2999,6 +4239,12 @@
       "nj_records": 1951
     }
   },
+  "59 woodland avenue|07901|2024-08": {
+    "year_built": {
+      "listing_scrape": 1895,
+      "nj_records": 1908
+    }
+  },
   "59-61 dunnell road|07040|2024-10": {
     "year_built": {
       "listing_scrape": 1900,
@@ -3053,10 +4299,38 @@
       "nj_records": 1919
     }
   },
+  "6 pebble beach drive|07039|2024-12": {
+    "year_built": {
+      "listing_scrape": 2002,
+      "nj_records": 2000
+    }
+  },
   "6 ravine court|07076|2023-07": {
     "year_built": {
       "listing_scrape": 2020,
       "nj_records": 1930
+    }
+  },
+  "6 rolling ridge drive|07853|2024-04": {
+    "year_built": {
+      "listing_scrape": 1973,
+      "nj_records": 1968
+    }
+  },
+  "6 squire hill road|07853|2023-10": {
+    "garage": {
+      "listing_scrape": 3,
+      "nj_records": 2
+    },
+    "year_built": {
+      "listing_scrape": 1800,
+      "nj_records": 1807
+    }
+  },
+  "6 thames drive|07039|2023-07": {
+    "lot_sqft": {
+      "listing_scrape": 32670,
+      "nj_records": 48839
     }
   },
   "6 thomas trl|07960|2024-04": {
@@ -3101,6 +4375,12 @@
       "nj_records": 2004
     }
   },
+  "62 broad street|07901|2024-04": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1949
+    }
+  },
   "62 clarken drive|07052|2024-04": {
     "year_built": {
       "listing_scrape": 1985,
@@ -3117,6 +4397,12 @@
     "year_built": {
       "listing_scrape": 1959,
       "nj_records": 1956
+    }
+  },
+  "631 snyder avenue|07922|2024-04": {
+    "year_built": {
+      "listing_scrape": 1978,
+      "nj_records": 1972
     }
   },
   "64 hedges avenue|07928|2024-08": {
@@ -3143,10 +4429,28 @@
       "nj_records": 1
     }
   },
+  "65 edgewood road|07901|2024-08": {
+    "year_built": {
+      "listing_scrape": 1937,
+      "nj_records": 1957
+    }
+  },
   "65 llewellyn avenue|07052|2024-05": {
     "year_built": {
       "listing_scrape": 1961,
       "nj_records": 1916
+    }
+  },
+  "65 virginia avenue|07039|2023-08": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1947
+    }
+  },
+  "651 raritan road|07016|2024-06": {
+    "year_built": {
+      "listing_scrape": 1900,
+      "nj_records": 1915
     }
   },
   "66 kingswood road|08876|2024-03": {
@@ -3167,10 +4471,22 @@
       "nj_records": 1907
     }
   },
+  "67 chestnut road|07044|2024-11": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1945
+    }
+  },
   "67 elmara drive|08807|2023-07": {
     "year_built": {
       "listing_scrape": 1999,
       "nj_records": 1997
+    }
+  },
+  "67 pitcairn drive|07068|2024-11": {
+    "year_built": {
+      "listing_scrape": 1969,
+      "nj_records": 1966
     }
   },
   "67 vacca drive|07052|2023-10": {
@@ -3195,6 +4511,18 @@
     "garage": {
       "listing_scrape": 2,
       "nj_records": 1
+    }
+  },
+  "68 tennyson drive|07078|2024-11": {
+    "year_built": {
+      "listing_scrape": 1953,
+      "nj_records": 1956
+    }
+  },
+  "69 cornell drive|07039|2023-08": {
+    "lot_sqft": {
+      "listing_scrape": 20000,
+      "nj_records": 24999
     }
   },
   "69 harry road|08807|2024-11": {
@@ -3227,6 +4555,12 @@
       "nj_records": 1987
     }
   },
+  "7 birch drive|07068|2024-05": {
+    "year_built": {
+      "listing_scrape": 1970,
+      "nj_records": 1967
+    }
+  },
   "7 carolyn court|07960|2024-09": {
     "lot_sqft": {
       "listing_scrape": 4792,
@@ -3235,6 +4569,12 @@
     "year_built": {
       "listing_scrape": 1986,
       "nj_records": 1984
+    }
+  },
+  "7 elmwood drive|07039|2024-12": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1950
     }
   },
   "7 gardiner place|07042|2023-07": {
@@ -3267,6 +4607,18 @@
       "nj_records": 5985
     }
   },
+  "7 mohawk drive|07016|2024-04": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1942
+    }
+  },
+  "7 morris court|07901|2023-10": {
+    "year_built": {
+      "listing_scrape": 1928,
+      "nj_records": 1916
+    }
+  },
   "7 opatut court|08817|2024-11": {
     "lot_sqft": {
       "listing_scrape": 32670,
@@ -3279,6 +4631,30 @@
       "nj_records": 2023
     }
   },
+  "7 plain street|07901|2024-05": {
+    "lot_sqft": {
+      "listing_scrape": 8276,
+      "nj_records": 16601
+    }
+  },
+  "7 ranney road|07853|2024-08": {
+    "year_built": {
+      "listing_scrape": 1992,
+      "nj_records": 1990
+    }
+  },
+  "7 tilden court|07039|2024-01": {
+    "year_built": {
+      "listing_scrape": 1966,
+      "nj_records": 1959
+    }
+  },
+  "7 tioga pass|07078|2024-02": {
+    "lot_sqft": {
+      "listing_scrape": 20909,
+      "nj_records": 25422
+    }
+  },
   "7 vinal place|07940|2023-08": {
     "garage": {
       "listing_scrape": 2,
@@ -3289,10 +4665,28 @@
       "nj_records": 10102
     }
   },
+  "70 milton avenue|07110|2024-08": {
+    "year_built": {
+      "listing_scrape": 1962,
+      "nj_records": 1960
+    }
+  },
   "70 somerville road|07920|2024-10": {
     "year_built": {
       "listing_scrape": 1956,
       "nj_records": 1950
+    }
+  },
+  "706 south springfield avenue|07081|2024-05": {
+    "year_built": {
+      "listing_scrape": 1988,
+      "nj_records": 1986
+    }
+  },
+  "71 elm place|07110|2024-09": {
+    "year_built": {
+      "listing_scrape": 1945,
+      "nj_records": 1930
     }
   },
   "71 jamestown road|07920|2024-11": {
@@ -3317,6 +4711,12 @@
     "year_built": {
       "listing_scrape": 1969,
       "nj_records": 1966
+    }
+  },
+  "71 western drive|07078|2023-10": {
+    "year_built": {
+      "listing_scrape": 1883,
+      "nj_records": 1900
     }
   },
   "711 westfield road|07076|2023-07": {
@@ -3349,6 +4749,12 @@
       "nj_records": "2023-12-06"
     }
   },
+  "74 montrose avenue|07023|2023-12": {
+    "year_built": {
+      "listing_scrape": 1962,
+      "nj_records": 1960
+    }
+  },
   "7503 hana road|08817|2023-11": {
     "year_built": {
       "listing_scrape": 1986,
@@ -3371,6 +4777,12 @@
     "year_built": {
       "listing_scrape": 1960,
       "nj_records": 1950
+    }
+  },
+  "78 benjamin street|07016|2023-08": {
+    "year_built": {
+      "listing_scrape": 2013,
+      "nj_records": 1924
     }
   },
   "78 east cliff road|07067|2024-10": {
@@ -3403,10 +4815,34 @@
       "nj_records": 1986
     }
   },
+  "79 fairmount avenue|07930|2024-09": {
+    "year_built": {
+      "listing_scrape": 2019,
+      "nj_records": 2016
+    }
+  },
+  "79 fellswood drive|07039|2023-08": {
+    "sold_price": {
+      "listing_scrape": 625000,
+      "nj_records": 1625000
+    }
+  },
   "79 haggerty drive|07052|2023-12": {
     "lot_sqft": {
       "listing_scrape": 50,
       "nj_records": 14392
+    }
+  },
+  "79 mountainview avenue|07110|2023-11": {
+    "year_built": {
+      "listing_scrape": 1880,
+      "nj_records": 1885
+    }
+  },
+  "79 schweinberg drive|07068|2023-08": {
+    "year_built": {
+      "listing_scrape": 2006,
+      "nj_records": 2003
     }
   },
   "79 van ness terrace|07040|2023-08": {
@@ -3419,6 +4855,18 @@
     "year_built": {
       "listing_scrape": 1984,
       "nj_records": 1981
+    }
+  },
+  "8 barkman way|07930|2024-04": {
+    "lot_sqft": {
+      "listing_scrape": 21344,
+      "nj_records": 4356
+    }
+  },
+  "8 canterbury road|07834|2024-04": {
+    "year_built": {
+      "listing_scrape": 1995,
+      "nj_records": 1989
     }
   },
   "8 carol place|08817|2023-07": {
@@ -3453,6 +4901,12 @@
     "lot_sqft": {
       "listing_scrape": 22651,
       "nj_records": 19345
+    }
+  },
+  "8 hawthorne drive|07039|2024-11": {
+    "year_built": {
+      "listing_scrape": 2024,
+      "nj_records": 1953
     }
   },
   "8 ivy street|07066|2024-12": {
@@ -3507,6 +4961,12 @@
       "nj_records": 1986
     }
   },
+  "8 rose court|07834|2024-03": {
+    "sold_date": {
+      "listing_scrape": "2024-03-26",
+      "nj_records": "2024-03-01"
+    }
+  },
   "80 early street|07960|2024-03": {
     "year_built": {
       "listing_scrape": 1937,
@@ -3517,6 +4977,12 @@
     "year_built": {
       "listing_scrape": 1988,
       "nj_records": 1986
+    }
+  },
+  "81 oak ridge avenue|07901|2024-05": {
+    "year_built": {
+      "listing_scrape": 1908,
+      "nj_records": 1910
     }
   },
   "82 boyden avenue|07040|2024-05": {
@@ -3543,6 +5009,12 @@
       "nj_records": 16156
     }
   },
+  "83 west end avenue|07901|2023-11": {
+    "sold_date": {
+      "listing_scrape": "2023-11-30",
+      "nj_records": "2023-11-07"
+    }
+  },
   "83 winsor place|07028|2023-08": {
     "year_built": {
       "listing_scrape": 1890,
@@ -3555,16 +5027,34 @@
       "nj_records": 1982
     }
   },
+  "832 springfield avenue|07016|2024-11": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1964
+    }
+  },
   "84 preston drive|07933|2023-07": {
     "year_built": {
       "listing_scrape": 1936,
       "nj_records": 1940
     }
   },
+  "84 state park road|07930|2024-12": {
+    "garage": {
+      "listing_scrape": 4,
+      "nj_records": 1
+    }
+  },
   "85 meyersville road|07928|2024-09": {
     "year_built": {
       "listing_scrape": 1955,
       "nj_records": 1951
+    }
+  },
+  "85 stewart road|07078|2023-12": {
+    "year_built": {
+      "listing_scrape": 1887,
+      "nj_records": 1885
     }
   },
   "850 amboy avenue|08837|2023-07": {
@@ -3591,10 +5081,34 @@
       "nj_records": "2024-03-01"
     }
   },
+  "89 lenape lane|07922|2024-09": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1958
+    }
+  },
+  "89 timber drive|07922|2024-10": {
+    "year_built": {
+      "listing_scrape": 1955,
+      "nj_records": 1960
+    }
+  },
+  "9 arrow drive|07039|2024-03": {
+    "lot_sqft": {
+      "listing_scrape": 16553,
+      "nj_records": 13347
+    }
+  },
   "9 coursen way|07940|2024-12": {
     "garage": {
       "listing_scrape": 2,
       "nj_records": 1
+    }
+  },
+  "9 denham road|07081|2024-06": {
+    "year_built": {
+      "listing_scrape": 1950,
+      "nj_records": 1954
     }
   },
   "9 evergreen court|07028|2024-08": {
@@ -3621,6 +5135,18 @@
       "nj_records": 1994
     }
   },
+  "90 mountain avenue|07901|2024-03": {
+    "year_built": {
+      "listing_scrape": 1906,
+      "nj_records": 1900
+    }
+  },
+  "91 highland avenue|07078|2024-01": {
+    "year_built": {
+      "listing_scrape": 1905,
+      "nj_records": 1925
+    }
+  },
   "91 plymouth avenue|07040|2023-08": {
     "year_built": {
       "listing_scrape": 1926,
@@ -3645,6 +5171,18 @@
       "nj_records": 1954
     }
   },
+  "92 race street|07110|2023-09": {
+    "year_built": {
+      "listing_scrape": 1929,
+      "nj_records": 1927
+    }
+  },
+  "920 south orange avenue|07078|2024-06": {
+    "year_built": {
+      "listing_scrape": 1966,
+      "nj_records": 1956
+    }
+  },
   "929 victor street|08807|2024-10": {
     "year_built": {
       "listing_scrape": 1960,
@@ -3655,6 +5193,12 @@
     "year_built": {
       "listing_scrape": 1987,
       "nj_records": 1985
+    }
+  },
+  "96 raymond avenue|07110|2024-02": {
+    "year_built": {
+      "listing_scrape": 1940,
+      "nj_records": 1949
     }
   },
   "97 stratford circle|08820|2024-08": {
