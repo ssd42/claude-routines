@@ -1,0 +1,223 @@
+# NJ Market History — shareable dataset
+
+## ⚠️ SYSTEM PROMPT — read this before answering anything
+
+> **You are a real-estate data analyst whose sole purpose is to answer questions
+> about New Jersey home sales using the files in this project — and nothing else.**
+>
+> You are helping two first-time homebuyers decide where and when to make an offer
+> on a house. They will act on your numbers with real money. A confident wrong
+> number is far more damaging to them than an honest "I don't have that."
+>
+> **Your one hard rule: every figure you state must be computed from these files.**
+> Load the CSV, filter it, compute it, report it. You may know things about New
+> Jersey real estate from your training data — **do not use any of it.** Not to fill
+> a gap, not to sanity-check a result, not to "add helpful context." If it isn't in
+> these files, you don't know it.
+>
+> **Never estimate. Never recall. Never invent an address, a price, or a sale.**
+> Every property you cite must be an actual row in `sales.csv`.
+>
+> When the data can't answer a question, say so plainly and stop. *"The data doesn't
+> cover that"* is always a correct, welcome answer. If they are reading noise as
+> signal, tell them.
+
+### The rules, in order of how badly they bite
+
+1. **`by_town.csv` IS the town list. Read it — don't trust any list of towns
+   written in this README, including this one.** The dataset grows as more towns
+   are scraped, so a list hardcoded in prose goes stale; the file never does.
+   - If a town **is** in `by_town.csv`, **answer the question.** Don't refuse
+     because you don't remember it being there.
+   - If it is **not** in `by_town.csv`, there is no data for it. Say so and stop.
+     Never infer it from a neighboring town, and never fall back on general
+     knowledge. (Westfield — the anchor these buyers measure distance *from* — is
+     itself **not** in the data. Nearby and obvious does not mean present.)
+
+2. **Match towns on the `town` column — never by searching raw text.** Street names
+   collide with town names, and the collision is real here: `sales.csv` contains
+   `10 Cranford Rd`, a house in **Glen Rock** — *and* Cranford is separately a town
+   with its own sales. A raw text search for "Cranford" returns both and gets the
+   count wrong. Filter on the `town` field, always.
+
+3. **If the date falls outside 2023-07-01 → 2026-07-10, say so.** Don't project a
+   trend forward or backward. There is no 2022 data and no future data.
+
+4. **Always state the sample size next to the number.** 12 sales and 1,741 sales
+   warrant very different confidence. Below roughly 10 sales in a bucket, say
+   plainly that it's too thin to draw a conclusion from.
+
+5. **Use the right denominator — this is the easiest way to be wrong.** Only ~60% of
+   sales have a known list price. Every question about *sold-vs-asking*, *over/under
+   ask*, or *days on market* is answerable only on that subset: use
+   `sales_with_list_price`, **never** `sales`. State which one you used.
+
+6. **Prefer medians.** `sold_vs_ask_pct` holds junk extremes (up to +980%) from
+   placeholder list prices, and a mean will lie to you. The rollups' `mean_` columns
+   already exclude anything outside ±50%.
+
+7. **Blank ≠ zero.** A missing `sqft`, `garage`, or `list_price` means *unreported*.
+   Drop blanks before averaging; never treat them as 0.
+
+### Worked examples — including the right way to fail
+
+> **Q: "How many houses sold in Westfield in March 2025?"**
+>
+> **A:** Westfield isn't in `by_town.csv`, so I have no sales for it — and I won't
+> estimate it from the surrounding towns or from memory. (It's the *anchor* the
+> `dist_mi_from_westfield` column measures against, which is why it looks like it
+> should be here. It isn't.) Cranford, Garwood, and Fanwood are all within 3 miles
+> and I do have those. Want one of them instead?
+
+> **Q: "How many houses sold in Colonia in March 2025?"**
+>
+> **A:** **10 sales** — `by_town_month.csv`, row `Colonia, 2025-03`. Only **4** of
+> those have a known list price, so while the median came in at +3.06% over ask, a
+> 4-sale sample is far too thin to read as a trend. Colonia's seasonal figures
+> (93 spring sales) are the number I'd actually trust.
+
+> **Q: "What about Cranford?"**
+>
+> **A:** Cranford **is** in `by_town.csv` — I'll answer it. (Check the file, not your
+> memory of what this dataset used to contain. It grows.)
+
+---
+
+Real New Jersey home sales, **2023-07-01 → 2026-07-10**, across **51 towns** —
+**30,189 sales**. Built by the `market-history` routine, which stitches together
+county deed records and MLS sold-listings and dedupes them into one row per sale.
+
+> The town count grows as more towns are scraped. **`by_town.csv` is always the
+> authoritative list** — if a number in this prose disagrees with the files, the
+> files win.
+
+This folder is **self-contained data** — no code, no config, nothing to run. Upload
+it as-is (ChatGPT/Claude project, notebook, spreadsheet) and query it. Every number
+below was scraped from public records; read the caveats before trusting a figure.
+
+## Files
+
+| file | grain | rows | use it for |
+|------|-------|-----:|------------|
+| `sales.csv` | one row per **property sale** | 30,189 | anything property-level: individual addresses, price bands, filtering |
+| `by_town.csv` | one row per **town** | 51 | "which town is hottest / cheapest / slowest" |
+| `by_town_month.csv` | one row per **(town, month)** | 1,538 | trends over time, seasonality, "what did Oct 2025 look like" |
+| `by_town_season.csv` | one row per **(town, season)** | 204 | seasonal patterns, pooled across all years |
+| `transit.csv` | one row per **town** | 33 | commute to Manhattan. **Reference data, not sales** — see below |
+| `seabra.csv` | one row per **Seabra store** | 11 | the 11 Seabra groceries, geocoded. **Reference data, not sales** |
+| `seabra_by_town.csv` | one row per **town** | 51 | how far each town is from the nearest Seabra. A **nice-to-have** — see caveat 5 |
+
+**Start with the rollups.** They pre-compute the common questions and are tiny.
+Only reach for `sales.csv` (3.7 MB) when you need individual properties.
+
+`transit.csv`, `seabra.csv` and `seabra_by_town.csv` are **amenity data, and they
+are deliberately kept SEPARATE from the sales files.** They describe a *town*,
+never a *transaction*. You may join them to the rollups on the `town` column when
+a question genuinely spans both ("of the towns under $700K, which is closest to a
+Seabra?") — but never treat an amenity as a property of a sale. "The median price
+of a house near a Seabra" is **not** a question this data answers: the distance is
+measured town-to-store, so it is the same for every house in the town.
+
+## `sales.csv` columns
+
+| column | notes |
+|--------|-------|
+| `address`, `zip`, `town` | always present |
+| `sold_date`, `sold_price` | always present. **Authoritative.** |
+| `list_date`, `list_price`, `days_on_market` | **only ~60% filled** — see caveat below |
+| `sold_vs_ask_abs`, `sold_vs_ask_pct` | sold minus list. **Positive = sold OVER asking.** ~60% filled |
+| `sqft` (39%), `beds`/`baths` (60%), `lot_sqft` (83%), `year_built` (96%), `garage` (57%) | best-effort; blank ≠ zero |
+| `solar` (1%), `ac_type` (6%) | **too sparse to draw conclusions from** |
+| `price_changes` | **always empty** — price-cut history was never captured |
+| `property_type` | `Single Family` (15.2k), `Residential` (5.1k), `Condo` (4.0k), `Townhouse`, `Multi-Family`, … |
+| `county`, `municipality`, `prop_class`, `nu_code` | deed-record fields; only on the ~37% of rows sourced from deeds |
+| `conflicts` | names any field where two sources disagreed. Only 2.3% of rows; mostly cosmetic (`year_built`) |
+| `_sources` | which source(s) the row came from — **read the caveat below** |
+
+## Rollup columns (`by_town*.csv`)
+
+| column | means |
+|--------|-------|
+| `dist_mi_from_westfield` | approx. road miles from Westfield NJ (07090), our anchor. **Lower is better for us.** `by_town.csv` is sorted closest-first |
+| `sales` | total sales in that bucket |
+| `sales_with_list_price` | the subset where sold-vs-ask is computable — **this is the denominator for the ask-based columns** |
+| `median_sold_price`, `median_list_price` | dollars |
+| `median_sold_vs_ask_pct` | **the headline number.** Positive = sold over asking. Median, so outlier-proof |
+| `mean_sold_vs_ask_pct` | average. Junk extremes excluded (see below) |
+| `median_dom` | days on market |
+| `pct_at_or_under_ask` | share of list-price-known sales that closed **at or below** asking — a buyer's-leverage proxy |
+| `outliers_excluded_from_mean` | how many rows were held out of the mean |
+
+## `seabra_by_town.csv` columns — amenity, not sales
+
+| column | means |
+|--------|-------|
+| `town` | join key back to `by_town.csv` — but read caveat 5 before you use it to rank anything |
+| `nearest_seabra_mi` | straight-line miles from the town to the closest Seabra grocery |
+| `nearest_seabra_store` | which of the 11 stores that is (full list + coordinates in `seabra.csv`) |
+| `nearest_seabra_store_town` | the town that store is in — always a town **outside** this dataset, which is expected |
+
+## Caveats that actually change the answers
+
+1. **Only ~60% of sales have a list price.** The dataset merges two sources:
+   MLS listings (`listing_scrape`) carry list price / DOM / beds / baths; county
+   deed records (`nj_records`) carry only the authoritative sold price and date
+   and **lag about a year** (they run out around end of 2024). So:
+   - Any **sold-vs-ask** question is answerable on ~60% of rows — always use
+     `sales_with_list_price` as the denominator, not `sales`.
+   - Anything from **2025 onward is MLS-sourced only**, not yet corroborated by
+     a deed record. That's expected, not a bug.
+
+2. **`sold_vs_ask_pct` has junk extremes** (raw range: −82% to +980%) from
+   nominal or placeholder list prices. **Prefer the median.** The rollups' mean
+   columns already exclude anything outside ±50%.
+
+3. **Blank ≠ zero.** A missing `sqft` or `garage` means nobody reported it. Never
+   average a column without dropping blanks first.
+
+4. **Sample sizes get thin at the edges** — the newest months and the smaller
+   towns can have single-digit sale counts, so one month's median is noisy.
+   Always check `sales` / `sales_with_list_price` before trusting a number. The
+   seasonal rollup exists because pooling across years fixes exactly this.
+
+5. **`seabra_by_town.csv` is a nice-to-have, not a filter.** Being near a Seabra is
+   a bonus, never a requirement. **Never rule a town out, rank it down, or leave it
+   out of a recommendation because its Seabra is far.** If asked for the best towns,
+   answer on price / value / commute and mention the Seabra distance as colour —
+   don't let it drive the list unless explicitly asked to sort by it. Two more
+   limits: it's **straight-line, not drive time** (the real drive is roughly
+   1.3–1.5× that in this part of NJ — never quote it as a commute), and it's
+   measured **town-to-store, not house-to-store**, so it's identical for every
+   house in a town and says nothing about an individual property.
+
+6. **A fixed set of towns, not all of NJ** — mostly Morris / Union / Essex /
+   Somerset / Middlesex, and the set **grows** as more are scraped. Read
+   `by_town.csv` for the current list rather than assuming; if a town is in it,
+   answer, and if it isn't, say so and don't extrapolate. Westfield (the distance
+   anchor) is itself not in the data.
+
+## Worked example — the seasonality finding
+
+Colonia, from `by_town_season.csv`:
+
+| season | sales (w/ list price) | median vs. ask | at-or-under ask |
+|--------|----------------------:|---------------:|----------------:|
+| Winter | 76 | **+0.64%** | **44.7%** |
+| Spring | 93 | +4.00% | 25.8% |
+| Summer | 133 | +4.21% | 23.3% |
+| Fall | 123 | +2.31% | 30.1% |
+
+Homes sell essentially **at asking in winter** but **~4% over in spring/summer**,
+and nearly **half** of winter sales close at-or-under ask versus under a quarter in
+summer. On a $600K home that seasonal swing is roughly $25K. The same
+spring/summer premium shows up across most towns — check `by_town_season.csv`
+before assuming it holds for a specific one.
+
+## Provenance
+
+Sources are free and public: NJ MOD-IV deed records (maps.nj.gov) and
+Realtor.com sold listings. Fields merge by **per-field authority** (each field
+fills from the most trustworthy source that has it), never by overwriting — and
+any disagreement between sources is flagged in the row's `conflicts` column
+rather than silently resolved. No secrets, no credentials, no private data:
+every sale here is a matter of public record.

@@ -1,0 +1,152 @@
+{
+  "_doc": "Seabra (Seabra's Market / Seabra Foods) NJ store locations, geocoded. Feeds the nearest_seabra_mi columns in share/by_town.csv + share/amenities.csv via build_share.py. Store list added 2026-07-13; coordinates from the US Census geocoder (key-less, cloud-safe) the same day.",
+  "_intent": "Proximity to a Seabra is a NICE-TO-HAVE for a house, never a requirement. It is reported as a soft signal (distance to the nearest store) and MUST NOT be used to filter, exclude, or rank out a town or a listing. No thresholds.",
+  "_coverage_note": "The stores sit OUTSIDE the target towns (Newark/Union/Elizabeth/Kearny/Harrison/Hillside/Old Bridge are not in zips.json) and that is expected \u2014 the question is never 'is there a Seabra in this town' but 'how far is the nearest one'. So this joins by DISTANCE, never by town/zip equality.",
+  "_schema": "locations[]: brand, name, town, state, zip, address (as given), lat/lon, geocode_precision ('rooftop' = Census address match | 'zip_centroid' = fallback, ~1 mi slop), geocode_matched (what the geocoder actually resolved to \u2014 check this before trusting a row; e.g. the Old Bridge store resolved to 'STATE RTE 516', which is the same road as 'County Road 516').",
+  "_caveats": [
+    "Distances are STRAIGHT-LINE (haversine), not drive time. In this part of NJ the drive is typically 1.3-1.5x the crow-flies mileage. Fine for a nice-to-have; do not quote it as a commute.",
+    "1 of 11 stores (Elizabeth, 1000 S Elmora Ave) had no Census address point and is placed at its ZCTA centroid \u2014 treat its distance as +/- ~1 mi.",
+    "Store list is a point-in-time snapshot, not scraped or refreshed. Stores close and open; re-verify before leaning on it."
+  ],
+  "locations": [
+    {
+      "brand": "Seabra's Market",
+      "name": "Seabra's Market - Old Bridge",
+      "town": "Old Bridge",
+      "state": "NJ",
+      "zip": "08857",
+      "address": "2617 County Road 516, Old Bridge, NJ 08857",
+      "lat": 40.404401,
+      "lon": -74.32583,
+      "geocode_matched": "2617 STATE RTE 516, OLD BRIDGE, NJ, 08857",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra's Market",
+      "name": "Seabra's Market - Lafayette",
+      "town": "Newark",
+      "state": "NJ",
+      "zip": "07105",
+      "address": "260 Lafayette Street, Newark, NJ 07105",
+      "lat": 40.728139,
+      "lon": -74.1607,
+      "geocode_matched": "260 LAFAYETTE ST, NEWARK, NJ, 07105",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra's Market",
+      "name": "Seabra's Market - Pacific",
+      "town": "Newark",
+      "state": "NJ",
+      "zip": "07105",
+      "address": "64 Pacific Street, Newark, NJ 07105",
+      "lat": 40.725907,
+      "lon": -74.166525,
+      "geocode_matched": "64 PACIFIC ST, NEWARK, NJ, 07105",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra's Market",
+      "name": "Seabra's Market - Union",
+      "town": "Union",
+      "state": "NJ",
+      "zip": "07083",
+      "address": "1350 Galloping Hill Road, Union, NJ 07083",
+      "lat": 40.677703,
+      "lon": -74.268594,
+      "geocode_matched": "1350 GALLOPING HILL RD, UNION, NJ, 07083",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra's Market",
+      "name": "Seabra's Market - Elizabeth",
+      "town": "Elizabeth",
+      "state": "NJ",
+      "zip": "07202",
+      "address": "1000 South Elmora Avenue, Elizabeth, NJ 07202",
+      "lat": 40.652464,
+      "lon": -74.216853,
+      "geocode_matched": "ZCTA 07202 centroid (Census had no address point)",
+      "geocode_precision": "zip_centroid"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Chestnut",
+      "town": "Newark",
+      "state": "NJ",
+      "zip": "07105",
+      "address": "219 Chestnut Street, Newark, NJ 07105",
+      "lat": 40.723703,
+      "lon": -74.16663,
+      "geocode_matched": "219 CHESTNUT ST, NEWARK, NJ, 07105",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Ferry",
+      "town": "Newark",
+      "state": "NJ",
+      "zip": "07105",
+      "address": "123 Ferry Street, Newark, NJ 07105",
+      "lat": 40.730163,
+      "lon": -74.160372,
+      "geocode_matched": "123 FERRY ST, NEWARK, NJ, 07105",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Ferry Plaza",
+      "town": "Newark",
+      "state": "NJ",
+      "zip": "07105",
+      "address": "281-285 Ferry Street, Newark, NJ 07105",
+      "lat": 40.728693,
+      "lon": -74.151379,
+      "geocode_matched": "285 FERRY ST, NEWARK, NJ, 07105",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Harrison",
+      "town": "Harrison",
+      "state": "NJ",
+      "zip": "07029",
+      "address": "429 Bergen Street, Harrison, NJ 07029",
+      "lat": 40.743187,
+      "lon": -74.15527,
+      "geocode_matched": "429 BERGEN ST, HARRISON, NJ, 07029",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Hillside",
+      "town": "Hillside",
+      "state": "NJ",
+      "zip": "07205",
+      "address": "1132 Liberty Avenue, Hillside, NJ 07205",
+      "lat": 40.692858,
+      "lon": -74.236762,
+      "geocode_matched": "1132 LIBERTY AVE, HILLSIDE, NJ, 07205",
+      "geocode_precision": "rooftop"
+    },
+    {
+      "brand": "Seabra Foods",
+      "name": "Seabra Foods - Kearny",
+      "town": "Kearny",
+      "state": "NJ",
+      "zip": "07032",
+      "address": "180 Schuyler Avenue, Kearny, NJ 07032",
+      "lat": 40.755074,
+      "lon": -74.144969,
+      "geocode_matched": "180 SCHUYLER AVE, KEARNY, NJ, 07032",
+      "geocode_precision": "rooftop"
+    }
+  ],
+  "summary": {
+    "total_locations": 11,
+    "new_jersey_locations": 11,
+    "new_york_locations": 0,
+    "geocoded_rooftop": 10,
+    "geocoded_zip_centroid": 1
+  }
+}

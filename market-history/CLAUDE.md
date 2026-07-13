@@ -29,6 +29,38 @@ is purely to *hydrate a clean dataset*, not to decide or dashboard anything.
 - Holds the latest sale per parcel → a home sold twice in the window shows once;
   SR1A annual files would give full multi-sale history if needed later.
 
+## Two kinds of data here — don't confuse them
+1. **Sale-grain, scraped** — `sales.csv` / `market.csv`, built by `aggregate.py`
+   from public records. This is the dataset.
+2. **Town-grain reference/amenity layers** — hand-curated or one-shot files that
+   describe a *town*, never a transaction: `transit.json` (commute to Manhattan),
+   `poi_seabra.json` (grocery POI), `education_rates/` (ACS by zip),
+   `zip_centroids.json` (Census ZCTA centroids). **`aggregate.py` does not read any
+   of these** — they're joined in by `build_share.py` on the way into `share/`.
+   Adding an amenity = drop a file here + flatten it in `build_share.py`. Never
+   merge one into `sales.csv`; a town attribute is not a property attribute.
+
+## Amenities — `poi_seabra.json`
+11 Seabra groceries, geocoded (US Census geocoder, key-less/cloud-safe; 10 rooftop,
+Elizabeth fell back to its ZCTA centroid — no Census address point exists for it).
+`build_share.py` measures straight-line miles from each town's zip centroid
+(`zip_centroids.json`) to the nearest store.
+
+**Each amenity ships as its OWN files — never as columns on a sales file.**
+Seabra → `share/seabra.csv` (the store points) + `share/seabra_by_town.csv` (nearest
+store per town), joinable to `by_town.csv` on `town` by whoever wants it. This
+mirrors `transit.csv`. It was briefly built as extra columns *inside* `by_town.csv`
+and that was wrong: it fuses a town attribute into a sales rollup, so the two can no
+longer be read, versioned, or dropped independently. Don't do it again.
+
+- **It is a NICE-TO-HAVE, never a filter.** It must not exclude or rank out a town
+  or a listing, and `share/README.md` (the analyst system prompt) says so in
+  caveat 5. Don't "improve" it into a score.
+- The stores sit **outside** the target towns by design — this is a *distance* join,
+  never a town/zip equality join. A zero-match equality join means you did it wrong.
+- Straight-line, **not drive time** (~1.3–1.5× in this area), and **town-to-store,
+  not house-to-store** — identical for every house in a town.
+
 ## Independence
 Self-contained routine (root [`../CLAUDE.md`](../CLAUDE.md)). Keep changes inside
 this folder. `zips.json` was **seeded from** `house-hunt/criteria.json` but this
@@ -44,6 +76,17 @@ diverge. The fetch→dedupe→CSV shape is a shared *pattern*, not shared *code*
   `conflict_tolerance`) are named in the row's `conflicts` column. Never silently
   drop a value.
 - **Best-effort / nullable:** never drop a sale for missing amenities.
+- **Dedupe is TWO layers, and the second one matters.** `merge_sales` groups on an
+  exact `(address_norm, zip, sold_month)` key — which silently missed ~459 sales
+  (1.7%) that the deed and the MLS spelled differently (`21 TISBURY VILLAGE` vs
+  `21 Tisbury Ct`, `15 COUNTRY MEADOW LN` vs `15 Country Meadows Ln`), inflating
+  every count. `coalesce_sales` is the safety net: it runs over the FULL row set
+  (new + already-committed) so it repairs history too, in two sweeps —
+  `address_key` + price within 1%, then the blunter `address_key_loose` (unit ids
+  and directionals stripped) gated on an EXACT price match. Both sweeps also
+  require the rows come from **different sources**: one source listing a street
+  twice in a month is two houses (`27 Knoll Rd`, `914 Knoll Rd`), not a dupe.
+  `python3 aggregate.py --dedupe-only` re-runs it over `sales.csv` with no fetch.
 - **Idempotent + additive:** a run re-reads the existing CSVs and merges into
   them, so re-runs hydrate in batches. The repo is the DB — commit the CSVs +
   `history/` + `state.json`; `raw/` is gitignored.
@@ -65,6 +108,11 @@ key-less public data); if a paid API key is added later it lives as an env var
 on the routine, referenced by name only.
 
 ## Known rough edges (spike)
+- `address_key_loose` (dedupe sweep 2) drops unit ids, so two different units in
+  one building collide on the key. They're held apart ONLY by the exact-price +
+  cross-source guard. Two units of one condo selling for the identical price in the
+  same month, one recorded by each source, would fuse wrongly. Not observed, but
+  it's the sharpest edge in there — tighten the guard before trusting condo counts.
 - Redfin S3 URL is hardcoded (env-overridable); if it 404s, the path moved.
 - `sold_date` conflict flags even a ±2-day gap between a deed record and a
   listing's "sold" mark — informative but noisy; add a date tolerance if it bites.

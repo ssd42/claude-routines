@@ -1,0 +1,12 @@
+name,brand,town,zip,address,lat,lon,geocode_precision
+Seabra's Market - Old Bridge,Seabra's Market,Old Bridge,08857,"2617 County Road 516, Old Bridge, NJ 08857",40.404401,-74.32583,rooftop
+Seabra's Market - Lafayette,Seabra's Market,Newark,07105,"260 Lafayette Street, Newark, NJ 07105",40.728139,-74.1607,rooftop
+Seabra's Market - Pacific,Seabra's Market,Newark,07105,"64 Pacific Street, Newark, NJ 07105",40.725907,-74.166525,rooftop
+Seabra's Market - Union,Seabra's Market,Union,07083,"1350 Galloping Hill Road, Union, NJ 07083",40.677703,-74.268594,rooftop
+Seabra's Market - Elizabeth,Seabra's Market,Elizabeth,07202,"1000 South Elmora Avenue, Elizabeth, NJ 07202",40.652464,-74.216853,zip_centroid
+Seabra Foods - Chestnut,Seabra Foods,Newark,07105,"219 Chestnut Street, Newark, NJ 07105",40.723703,-74.16663,rooftop
+Seabra Foods - Ferry,Seabra Foods,Newark,07105,"123 Ferry Street, Newark, NJ 07105",40.730163,-74.160372,rooftop
+Seabra Foods - Ferry Plaza,Seabra Foods,Newark,07105,"281-285 Ferry Street, Newark, NJ 07105",40.728693,-74.151379,rooftop
+Seabra Foods - Harrison,Seabra Foods,Harrison,07029,"429 Bergen Street, Harrison, NJ 07029",40.743187,-74.15527,rooftop
+Seabra Foods - Hillside,Seabra Foods,Hillside,07205,"1132 Liberty Avenue, Hillside, NJ 07205",40.692858,-74.236762,rooftop
+Seabra Foods - Kearny,Seabra Foods,Kearny,07032,"180 Schuyler Avenue, Kearny, NJ 07032",40.755074,-74.144969,rooftop

@@ -104,12 +104,18 @@ def default_since():
 
 
 def zip_to_town():
-    """Map every target zip -> its town name (from zips.json)."""
+    """Map every target zip -> its town name (from zips.json).
+
+    FALLBACK labelling only — a zip is not a municipality (07006 holds Caldwell,
+    North Caldwell and West Caldwell), so a sale with a deed behind it takes its
+    town from MUN_NAME instead (see merge_sales). Where a zip is shared, the town
+    listed FIRST in zips.json wins, so the label can't flip on a file reorder.
+    """
     cfg = load_json(ZIPS_FILE)
     out = {}
     for t in cfg["towns"]:
         for z in t["zips"]:
-            out[z] = t["name"]
+            out.setdefault(z, t["name"])
     return out
 
 
@@ -124,11 +130,94 @@ def address_norm(s):
         r"\bdr\b": "drive", r"\bln\b": "lane", r"\bct\b": "court",
         r"\bpl\b": "place", r"\bblvd\b": "boulevard", r"\bter\b": "terrace",
         r"\bhwy\b": "highway", r"\bpkwy\b": "parkway", r"\bcir\b": "circle",
+        # MOD-IV deed spellings the MLS writes differently — each of these was a
+        # real double-counted sale before it was expanded here.
+        r"\bla\b": "lane", r"\bsq\b": "square", r"\brdg\b": "ridge",
+        r"\bcmn\b": "common", r"\btrl\b": "trail", r"\bhts\b": "heights",
+        r"\bplz\b": "plaza", r"\bxing\b": "crossing", r"\bext\b": "extension",
         r"\bn\b": "north", r"\bs\b": "south", r"\be\b": "east", r"\bw\b": "west",
     }
     for pat, rep in abbr.items():
         s = re.sub(pat, rep, s)
     return re.sub(r"\s+", " ", s).strip()
+
+
+# Words that carry no identity: street types, and the *designator* part of a unit
+# ("apt 3" -> the "3" identifies the unit, "apt" does not). Dropped when building
+# the loose match key so `TISBURY VILLAGE` and `TISBURY CT` — the same development,
+# spelled differently by the deed and the MLS — collapse to one sale.
+_NOISE_WORDS = {
+    "street", "avenue", "road", "drive", "lane", "court", "place", "boulevard",
+    "terrace", "highway", "parkway", "circle", "common", "commons", "cmn",
+    "village", "way", "trail", "path", "run", "square", "plaza", "crossing",
+    "extension", "turnpike", "route", "apartment", "apt", "unit", "suite",
+    "ste", "number", "no",
+}
+
+
+def address_key(s):
+    """Loose identity key for one property: (house_number, street_stem).
+
+    Deliberately lossier than address_norm — it exists to catch the SAME sale
+    recorded by two sources that spell the address differently:
+
+        15 COUNTRY MEADOW LN  / 15 Country Meadows Ln  (plural)
+        3 GLEN GATE           / 3 Glen Gate Rd         (suffix absent)
+        39 WILLOW BROOK DRIVE / 39 Willowbrook Dr      (spacing)
+        21 TISBURY VILLAGE    / 21 Tisbury Ct          (street type differs)
+        1220 BIRCH ST         / 1220B Birch St         (unit letter on number)
+
+    Unit identifiers are KEPT (only the "apt"/"unit" word is dropped), so two
+    condos in one building stay distinct. Never used alone — callers must also
+    agree on sold_price, which is what makes the looseness safe.
+    """
+    s = address_norm(s)
+    if not s:
+        return ("", "")
+    parts = s.split()
+    # leading house number: digits only, so "1220b" == "1220"
+    num = ""
+    if parts and re.match(r"^\d", parts[0]):
+        num = re.match(r"^(\d+)", parts[0]).group(1)
+        parts = parts[1:]
+    stem = "".join(p for p in parts if p not in _NOISE_WORDS)
+    # singular/plural: meadows -> meadow
+    if len(stem) > 3 and stem.endswith("s"):
+        stem = stem[:-1]
+    return (num, stem)
+
+
+_DIRECTIONALS = {"north", "south", "east", "west"}
+
+
+def address_key_loose(s):
+    """address_key with unit ids and trailing directionals ALSO stripped.
+
+    Catches the residue the strict key can't:
+        8 JENNIFER COURT      / 8 Jennifer Ct Unit 8    (deed omits the unit)
+        18 HAMILTON DRIVE EAST/ 18 Hamilton Dr          (deed keeps the directional)
+
+    Far blunter — it would happily fuse two different units of one building. Only
+    ever used behind an EXACT sold_price match, which is what keeps it honest.
+    """
+    s = address_norm(s)
+    if not s:
+        return ("", "")
+    parts = s.split()
+    num = ""
+    if parts and re.match(r"^\d", parts[0]):
+        num = re.match(r"^(\d+)", parts[0]).group(1)
+        parts = parts[1:]
+    stem = "".join(
+        p for p in parts
+        if p not in _NOISE_WORDS
+        and p not in _DIRECTIONALS
+        and not any(ch.isdigit() for ch in p)   # drop unit ids: "3", "d2", "1407"
+        and len(p) > 1                          # drop bare unit letters: "a", "c"
+    )
+    if len(stem) > 3 and stem.endswith("s"):
+        stem = stem[:-1]
+    return (num, stem)
 
 
 def _num(v):
@@ -562,6 +651,129 @@ def _conflict(field, values, tol_map):
     return len(set(map(str, vals))) > 1
 
 
+# How close two sold_prices must be to be believed the same sale. Deed and MLS
+# occasionally differ by a rounding/transfer-tax hair; beyond this they are two
+# different houses that merely share a street and a month.
+COALESCE_PRICE_TOL = 0.01
+
+
+def _price_agrees(rows):
+    """True if every row's sold_price sits within COALESCE_PRICE_TOL of the others."""
+    ps = [float(r["sold_price"]) for r in rows
+          if r.get("sold_price") not in (None, "")]
+    if len(ps) < 2:
+        return True  # nothing to contradict
+    lo, hi = min(ps), max(ps)
+    return lo > 0 and (hi - lo) / lo <= COALESCE_PRICE_TOL
+
+
+def _srcs(r):
+    return set((r.get("_sources") or r.get("_source") or "").split(",")) - {""}
+
+
+def _fuse(members, authority):
+    """Collapse rows known to be one sale into a single row, by field authority."""
+    base = max(members, key=lambda m: len(m.get("address") or ""))
+    merged = dict(base)
+    for field, order in authority.items():
+        if field.startswith("_"):
+            continue
+        picked = None
+        for src in order:                      # authority order, best first
+            for m in members:
+                if src in _srcs(m) and m.get(field) not in (None, ""):
+                    picked = m[field]
+                    break
+            if picked is not None:
+                break
+        if picked is None:                     # no authority hit: any value will do
+            picked = next((m[field] for m in members
+                           if m.get(field) not in (None, "")), None)
+        if picked is not None:
+            merged[field] = picked
+
+    merged["address"] = base.get("address")
+    merged["_sources"] = ",".join(sorted(set().union(*(_srcs(m) for m in members))))
+    merged["conflicts"] = ";".join(sorted(
+        {c for m in members for c in (m.get("conflicts") or "").split(";") if c}
+    ))
+    lp, sp = _num(merged.get("list_price")), _num(merged.get("sold_price"))
+    if lp and sp:
+        merged["sold_vs_ask_abs"] = sp - lp
+        merged["sold_vs_ask_pct"] = round((sp - lp) / lp * 100, 2)
+    return merged
+
+
+def _coalesce_pass(rows, authority, keyfn, exact_price):
+    """One fusing sweep. Rows fuse only when ALL of these hold:
+
+      1. same (key, zip, sold_month) — same house, per whichever key is in play,
+      2. sold_price agrees (exactly, or within tolerance) — the real safety check,
+      3. they came from DIFFERENT sources — one source listing a street twice in a
+         month is two houses (27 Knoll Rd, 914 Knoll Rd), not a double-count.
+    """
+    buckets = defaultdict(list)
+    for r in rows:
+        smonth = (r.get("sold_date") or "")[:7] or "unknown"
+        buckets[(keyfn(r.get("address")), r.get("zip"), smonth)].append(r)
+
+    out, fused = [], 0
+    for (akey, _z, _m), members in buckets.items():
+        # unkeyable (no house number AND no stem) — never risk fusing these
+        if len(members) == 1 or akey == ("", ""):
+            out.extend(members)
+            continue
+        prices = [float(m["sold_price"]) for m in members
+                  if m.get("sold_price") not in (None, "")]
+        ok = (len(set(prices)) <= 1) if exact_price else _price_agrees(members)
+        if not ok:
+            out.extend(members)          # same street, different houses
+            continue
+        all_srcs = [_srcs(m) for m in members]
+        if any(a & b for i, a in enumerate(all_srcs) for b in all_srcs[i + 1:]):
+            # Careful: a RE-FETCH is not a second house. Once a sale is fused, the row
+            # carries BOTH sources and the *other* source's address spelling, so the
+            # next pull of the same deed can't match merge_sales' exact address key and
+            # arrives here looking like an nj-vs-nj collision. Left alone, every re-run
+            # re-adds it and the dataset inflates (it is supposed to be idempotent).
+            # Tell them apart by the source SET: a re-fetch is a proper subset of the
+            # fused row it came from; two genuinely distinct houses have equal source
+            # sets, so they never subset each other and still fall through as before.
+            survivors = [m for i, m in enumerate(members)
+                         if not any(i != j and all_srcs[i] < all_srcs[j]
+                                    for j in range(len(members)))]
+            if len(survivors) == 1:      # everything else was a redundant re-fetch
+                out.append(survivors[0])
+                fused += len(members) - 1
+                continue
+            out.extend(members)          # same source twice => distinct properties
+            continue
+        out.append(_fuse(members, authority))
+        fused += len(members) - 1
+    return out, fused
+
+
+def coalesce_sales(rows, sources_cfg):
+    """Fuse rows that are ONE sale recorded twice under different address spellings.
+
+    merge_sales' exact key cannot see these — the deed says `21 TISBURY VILLAGE`,
+    the MLS says `21 Tisbury Ct`, and the sale lands as two rows, inflating every
+    count. Runs over the FULL row set (freshly-merged + previously-committed), so
+    it also repairs duplicates already sitting in sales.csv.
+
+    Two sweeps, loosening the address key while tightening the price guard:
+      1. address_key       + price within 1%  — the ordinary spelling drift.
+      2. address_key_loose + price EXACTLY equal — unit ids and directionals that
+         only one source recorded. Blunt key, so the price guard does the work.
+
+    Returns (rows, n_fused).
+    """
+    authority = sources_cfg["field_authority"]
+    rows, n1 = _coalesce_pass(rows, authority, address_key, exact_price=False)
+    rows, n2 = _coalesce_pass(rows, authority, address_key_loose, exact_price=True)
+    return rows, n1 + n2
+
+
 def merge_sales(new_rows, sources_cfg):
     """Per-field authority merge of sale-grain rows across sources.
 
@@ -580,7 +792,12 @@ def merge_sales(new_rows, sources_cfg):
     merged, provenance = [], {}
     for (anorm, z, smonth), members in groups.items():
         by_src = {m["_source"]: m for m in members}
-        out = {"zip": z, "town": z2t.get(z, "")}
+        # Town comes from the deed's MUNICIPALITY when we have one, and only falls
+        # back to the zip otherwise: a zip can cover several municipalities (07006 is
+        # Caldwell AND North Caldwell AND West Caldwell), so zip_to_town would lump
+        # them. listing_scrape-only sales have no municipality and keep the fallback.
+        nj = by_src.get("nj_records")
+        out = {"zip": z, "town": (nj or {}).get("town") or z2t.get(z, "")}
         prov, conflicts = {}, []
 
         # every candidate field = union of authority keys
@@ -692,6 +909,8 @@ def main():
     ap.add_argument("--limit", type=int, help="cap rows per source (debug)")
     ap.add_argument("--min-price", type=int, help="drop nj_records sales below this (default 10000)")
     ap.add_argument("--no-history", action="store_true", help="skip history/ snapshot")
+    ap.add_argument("--dedupe-only", action="store_true",
+                    help="no fetch: re-coalesce the committed sales.csv and rewrite it")
     args = ap.parse_args()
 
     if args.min_price is not None:
@@ -699,6 +918,16 @@ def main():
         NJ_MIN_PRICE = args.min_price
 
     sources_cfg = load_json(SOURCES_FILE)
+
+    # Repair pass over already-committed data. No network, no fetch: read sales.csv,
+    # fuse the rows that are one sale under two spellings, write it back.
+    if args.dedupe_only:
+        existing = _read_csv(SALES_CSV)
+        deduped, fused = coalesce_sales(existing, sources_cfg)
+        print(f"{len(existing)} rows -> {len(deduped)} ({fused} duplicate row(s) fused)")
+        _write_csv(SALES_CSV, SALES_COLS, _sort_sales(deduped))
+        return
+
     live = [l["key"] for l in sources_cfg["layers"] if l["status"] == "live"]
     requested = args.source or live
     zips_cfg = load_json(ZIPS_FILE)
@@ -729,6 +958,12 @@ def main():
         k = (address_norm(r.get("address")), r.get("zip"), (r.get("sold_date") or "")[:7] or "unknown")
         if k not in touched:
             sales_merged.append(r)
+    # Safety net over the FULL set (new + previously-committed): fuse one sale that
+    # two sources spelled differently. merge_sales' exact key cannot see these, and
+    # without this every count runs a few percent high. Also repairs history.
+    sales_merged, fused = coalesce_sales(sales_merged, sources_cfg)
+    if fused:
+        print(f"  coalesced {fused} duplicate row(s) — same sale, different address spelling")
     sales_rows = _sort_sales(sales_merged)
 
     _write_csv(MARKET_CSV, MARKET_COLS, market_rows)

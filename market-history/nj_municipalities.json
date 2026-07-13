@@ -1,42 +1,451 @@
 {
-  "_doc": "Fetch units for the nj_records source. MOD-IV is keyed by (COUNTY, MUN_NAME) — NOT zip (the ZIP5 field in the data is dirty). So each target town maps to one or more exact MUN_NAME strings pulled from maps.nj.gov's Cadastral layer on 2026-07-11. Some towns are SECTIONS of a larger municipality (Colonia -> Woodbridge, Basking Ridge -> Bernards, Towaco -> Montville): pulling the municipality returns the whole township, which we keep (goal = aggregate; ZIP5 lets us subset later). Some town names split into Boro + Twp (Chatham, Mendham, Boonton): both are listed. Verify a MUN_NAME against the live layer's distinct values if a fetch returns 0 rows.",
-  "endpoint": "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer/0",
-  "municipalities": [
-    { "town": "Garwood",        "county": "UNION",     "mun": "GARWOOD BORO",          "zips": ["07027"] },
-    { "town": "Scotch Plains",  "county": "UNION",     "mun": "SCOTCH PLAINS TWP",     "zips": ["07076"] },
-    { "town": "Clark",          "county": "UNION",     "mun": "CLARK TWP",             "zips": ["07066"] },
-    { "town": "New Providence", "county": "UNION",     "mun": "NEW PROVIDENCE BORO",   "zips": ["07974"] },
-    { "town": "Watchung",       "county": "SOMERSET",  "mun": "WATCHUNG BORO",         "zips": ["07069"] },
-    { "town": "Warren",         "county": "SOMERSET",  "mun": "WARREN TWP",            "zips": ["07059"] },
-    { "town": "Green Brook",    "county": "SOMERSET",  "mun": "GREEN BROOK TWP",       "zips": ["08812"] },
-    { "town": "Bridgewater",    "county": "SOMERSET",  "mun": "BRIDGEWATER TWP",       "zips": ["08807"] },
-    { "town": "Basking Ridge",  "county": "SOMERSET",  "mun": "BERNARDS TWP",          "zips": ["07920"], "section_of": "Basking Ridge is the main section of Bernards Twp; pull returns all of Bernards" },
-    { "town": "Bedminster",     "county": "SOMERSET",  "mun": "BEDMINSTER TWP",        "zips": ["07921"] },
-    { "town": "Branchburg",     "county": "SOMERSET",  "mun": "BRANCHBURG TWP",        "zips": ["08876"] },
-    { "town": "Colonia",        "county": "MIDDLESEX", "mun": "WOODBRIDGE TWP",        "zips": ["07067"], "section_of": "Colonia is a section of Woodbridge Twp; pull returns all of Woodbridge — subset by ZIP5=07067 later" },
-    { "town": "Edison",         "county": "MIDDLESEX", "mun": "EDISON TWP",            "zips": ["08820", "08817", "08837"] },
-    { "town": "Metuchen",       "county": "MIDDLESEX", "mun": "METUCHEN BORO",         "zips": ["08840"] },
-    { "town": "Maplewood",      "county": "ESSEX",     "mun": "MAPLEWOOD TWP",         "zips": ["07040"] },
-    { "town": "South Orange",   "county": "ESSEX",     "mun": "SOUTH ORANGE VILLAGE TW", "zips": ["07079"] },
-    { "town": "West Orange",    "county": "ESSEX",     "mun": "WEST ORANGE TWP",       "zips": ["07052"] },
-    { "town": "Glen Ridge",     "county": "ESSEX",     "mun": "GLEN RIDGE BORO",       "zips": ["07028"] },
-    { "town": "Montclair",      "county": "ESSEX",     "mun": "MONTCLAIR TWP",         "zips": ["07042", "07043"] },
-    { "town": "Cedar Grove",    "county": "ESSEX",     "mun": "CEDAR GROVE TWP",       "zips": ["07009"] },
-    { "town": "Caldwell",       "county": "ESSEX",     "mun": "CALDWELL BORO TWP",     "zips": ["07006"] },
-    { "town": "North Caldwell", "county": "ESSEX",     "mun": "NORTH CALDWELL TWP",    "zips": ["07006"] },
-    { "town": "Long Hill",      "county": "MORRIS",    "mun": "LONG HILL TWP",         "zips": ["07980", "07933", "07946"] },
-    { "town": "Chatham",        "county": "MORRIS",    "mun": "CHATHAM BORO",          "zips": ["07928"] },
-    { "town": "Chatham",        "county": "MORRIS",    "mun": "CHATHAM TWP",           "zips": ["07928"] },
-    { "town": "Madison",        "county": "MORRIS",    "mun": "MADISON BORO",          "zips": ["07940"] },
-    { "town": "Morristown",     "county": "MORRIS",    "mun": "MORRISTOWN TOWN",       "zips": ["07960"] },
-    { "town": "Morris Plains",  "county": "MORRIS",    "mun": "MORRIS PLAINS BORO",    "zips": ["07950"] },
-    { "town": "Mendham",        "county": "MORRIS",    "mun": "MENDHAM BORO",          "zips": ["07945"] },
-    { "town": "Mendham",        "county": "MORRIS",    "mun": "MENDHAM TWP",           "zips": ["07945"] },
-    { "town": "Boonton",        "county": "MORRIS",    "mun": "BOONTON TOWN",          "zips": ["07005"] },
-    { "town": "Boonton",        "county": "MORRIS",    "mun": "BOONTON TWP",           "zips": ["07005"] },
-    { "town": "Montville",      "county": "MORRIS",    "mun": "MONTVILLE TWP",         "zips": ["07045", "07082"], "note": "covers both Montville (07045) and Towaco (07082) sections" },
-    { "town": "Randolph",       "county": "MORRIS",    "mun": "RANDOLPH TWP",          "zips": ["07869"] },
-    { "town": "Glen Rock",      "county": "BERGEN",    "mun": "GLEN ROCK BORO",        "zips": ["07452"] },
-    { "town": "Franklin Lakes", "county": "BERGEN",    "mun": "FRANKLIN LAKES BORO",   "zips": ["07417"] }
-  ]
+ "_doc": "Fetch units for the nj_records source. MOD-IV is keyed by (COUNTY, MUN_NAME) \u2014 NOT zip (the ZIP5 field in the data is dirty). So each target town maps to one or more exact MUN_NAME strings pulled from maps.nj.gov's Cadastral layer on 2026-07-11. Some towns are SECTIONS of a larger municipality (Colonia -> Woodbridge, Basking Ridge -> Bernards, Towaco -> Montville): pulling the municipality returns the whole township, which we keep (goal = aggregate; ZIP5 lets us subset later). Some town names split into Boro + Twp (Chatham, Mendham, Boonton): both are listed. Verify a MUN_NAME against the live layer's distinct values if a fetch returns 0 rows.",
+ "endpoint": "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer/0",
+ "municipalities": [
+  {
+   "town": "Franklin Lakes",
+   "county": "BERGEN",
+   "mun": "FRANKLIN LAKES BORO",
+   "zips": [
+    "07417"
+   ]
+  },
+  {
+   "town": "Glen Rock",
+   "county": "BERGEN",
+   "mun": "GLEN ROCK BORO",
+   "zips": [
+    "07452"
+   ]
+  },
+  {
+   "town": "Caldwell",
+   "county": "ESSEX",
+   "mun": "CALDWELL BORO TWP",
+   "zips": [
+    "07006"
+   ]
+  },
+  {
+   "town": "Cedar Grove",
+   "county": "ESSEX",
+   "mun": "CEDAR GROVE TWP",
+   "zips": [
+    "07009"
+   ]
+  },
+  {
+   "town": "Essex Fells",
+   "county": "ESSEX",
+   "mun": "ESSEX FELLS TWP",
+   "zips": [
+    "07021"
+   ],
+   "note": "MOD-IV calls it ESSEX FELLS TWP, not BORO"
+  },
+  {
+   "town": "Glen Ridge",
+   "county": "ESSEX",
+   "mun": "GLEN RIDGE BORO",
+   "zips": [
+    "07028"
+   ]
+  },
+  {
+   "town": "Livingston",
+   "county": "ESSEX",
+   "mun": "LIVINGSTON TWP",
+   "zips": [
+    "07039"
+   ]
+  },
+  {
+   "town": "Maplewood",
+   "county": "ESSEX",
+   "mun": "MAPLEWOOD TWP",
+   "zips": [
+    "07040"
+   ]
+  },
+  {
+   "town": "Short Hills",
+   "county": "ESSEX",
+   "mun": "MILLBURN TWP",
+   "zips": [
+    "07078"
+   ],
+   "section_of": "Short Hills is a section of Millburn Twp (Millburn proper is 07041); pull returns the whole township \u2014 subset by ZIP5=07078"
+  },
+  {
+   "town": "Montclair",
+   "county": "ESSEX",
+   "mun": "MONTCLAIR TWP",
+   "zips": [
+    "07042",
+    "07043"
+   ]
+  },
+  {
+   "town": "North Caldwell",
+   "county": "ESSEX",
+   "mun": "NORTH CALDWELL TWP",
+   "zips": [
+    "07006"
+   ]
+  },
+  {
+   "town": "Nutley",
+   "county": "ESSEX",
+   "mun": "NUTLEY TWP",
+   "zips": [
+    "07110"
+   ]
+  },
+  {
+   "town": "Roseland",
+   "county": "ESSEX",
+   "mun": "ROSELAND BORO",
+   "zips": [
+    "07068"
+   ]
+  },
+  {
+   "town": "South Orange",
+   "county": "ESSEX",
+   "mun": "SOUTH ORANGE VILLAGE TW",
+   "zips": [
+    "07079"
+   ]
+  },
+  {
+   "town": "Verona",
+   "county": "ESSEX",
+   "mun": "VERONA TWP",
+   "zips": [
+    "07044"
+   ]
+  },
+  {
+   "town": "West Orange",
+   "county": "ESSEX",
+   "mun": "WEST ORANGE TWP",
+   "zips": [
+    "07052"
+   ]
+  },
+  {
+   "town": "Edison",
+   "county": "MIDDLESEX",
+   "mun": "EDISON TWP",
+   "zips": [
+    "08820",
+    "08817",
+    "08837"
+   ]
+  },
+  {
+   "town": "Metuchen",
+   "county": "MIDDLESEX",
+   "mun": "METUCHEN BORO",
+   "zips": [
+    "08840"
+   ]
+  },
+  {
+   "town": "South Plainfield",
+   "county": "MIDDLESEX",
+   "mun": "SOUTH PLAINFIELD BORO",
+   "zips": [
+    "07080"
+   ]
+  },
+  {
+   "town": "Colonia",
+   "county": "MIDDLESEX",
+   "mun": "WOODBRIDGE TWP",
+   "zips": [
+    "07067"
+   ],
+   "section_of": "Colonia is a section of Woodbridge Twp; pull returns all of Woodbridge \u2014 subset by ZIP5=07067 later"
+  },
+  {
+   "town": "Woodbridge",
+   "county": "MIDDLESEX",
+   "mun": "WOODBRIDGE TWP",
+   "zips": [
+    "07095"
+   ],
+   "section_of": "Woodbridge proper (07095) is one section of Woodbridge Twp; pull returns the whole township \u2014 subset by ZIP5=07095. Colonia is a separate entry on the same municipality, so the township is fetched twice."
+  },
+  {
+   "town": "Boonton",
+   "county": "MORRIS",
+   "mun": "BOONTON TOWN",
+   "zips": [
+    "07005"
+   ]
+  },
+  {
+   "town": "Boonton",
+   "county": "MORRIS",
+   "mun": "BOONTON TWP",
+   "zips": [
+    "07005"
+   ]
+  },
+  {
+   "town": "Chatham",
+   "county": "MORRIS",
+   "mun": "CHATHAM BORO",
+   "zips": [
+    "07928"
+   ]
+  },
+  {
+   "town": "Chatham",
+   "county": "MORRIS",
+   "mun": "CHATHAM TWP",
+   "zips": [
+    "07928"
+   ]
+  },
+  {
+   "town": "Chester",
+   "county": "MORRIS",
+   "mun": "CHESTER BORO",
+   "zips": [
+    "07930"
+   ]
+  },
+  {
+   "town": "Chester",
+   "county": "MORRIS",
+   "mun": "CHESTER TWP",
+   "zips": [
+    "07930"
+   ]
+  },
+  {
+   "town": "Denville",
+   "county": "MORRIS",
+   "mun": "DENVILLE TWP",
+   "zips": [
+    "07834"
+   ]
+  },
+  {
+   "town": "Florham Park",
+   "county": "MORRIS",
+   "mun": "FLORHAM PARK BORO",
+   "zips": [
+    "07932"
+   ]
+  },
+  {
+   "town": "Long Hill",
+   "county": "MORRIS",
+   "mun": "LONG HILL TWP",
+   "zips": [
+    "07980",
+    "07933",
+    "07946"
+   ]
+  },
+  {
+   "town": "Madison",
+   "county": "MORRIS",
+   "mun": "MADISON BORO",
+   "zips": [
+    "07940"
+   ]
+  },
+  {
+   "town": "Mendham",
+   "county": "MORRIS",
+   "mun": "MENDHAM BORO",
+   "zips": [
+    "07945"
+   ]
+  },
+  {
+   "town": "Mendham",
+   "county": "MORRIS",
+   "mun": "MENDHAM TWP",
+   "zips": [
+    "07945"
+   ]
+  },
+  {
+   "town": "Montville",
+   "county": "MORRIS",
+   "mun": "MONTVILLE TWP",
+   "zips": [
+    "07045",
+    "07082"
+   ],
+   "note": "covers both Montville (07045) and Towaco (07082) sections"
+  },
+  {
+   "town": "Morris Plains",
+   "county": "MORRIS",
+   "mun": "MORRIS PLAINS BORO",
+   "zips": [
+    "07950"
+   ]
+  },
+  {
+   "town": "Morristown",
+   "county": "MORRIS",
+   "mun": "MORRISTOWN TOWN",
+   "zips": [
+    "07960"
+   ]
+  },
+  {
+   "town": "Randolph",
+   "county": "MORRIS",
+   "mun": "RANDOLPH TWP",
+   "zips": [
+    "07869"
+   ]
+  },
+  {
+   "town": "Long Valley",
+   "county": "MORRIS",
+   "mun": "WASHINGTON TWP",
+   "zips": [
+    "07853"
+   ],
+   "section_of": "Long Valley is the main section of Washington Twp (Morris); pull returns the whole township \u2014 subset by ZIP5=07853"
+  },
+  {
+   "town": "Bedminster",
+   "county": "SOMERSET",
+   "mun": "BEDMINSTER TWP",
+   "zips": [
+    "07921"
+   ]
+  },
+  {
+   "town": "Basking Ridge",
+   "county": "SOMERSET",
+   "mun": "BERNARDS TWP",
+   "zips": [
+    "07920"
+   ],
+   "section_of": "Basking Ridge is the main section of Bernards Twp; pull returns all of Bernards"
+  },
+  {
+   "town": "Branchburg",
+   "county": "SOMERSET",
+   "mun": "BRANCHBURG TWP",
+   "zips": [
+    "08876"
+   ]
+  },
+  {
+   "town": "Bridgewater",
+   "county": "SOMERSET",
+   "mun": "BRIDGEWATER TWP",
+   "zips": [
+    "08807"
+   ]
+  },
+  {
+   "town": "Green Brook",
+   "county": "SOMERSET",
+   "mun": "GREEN BROOK TWP",
+   "zips": [
+    "08812"
+   ]
+  },
+  {
+   "town": "Warren",
+   "county": "SOMERSET",
+   "mun": "WARREN TWP",
+   "zips": [
+    "07059"
+   ]
+  },
+  {
+   "town": "Watchung",
+   "county": "SOMERSET",
+   "mun": "WATCHUNG BORO",
+   "zips": [
+    "07069"
+   ]
+  },
+  {
+   "town": "Berkeley Heights",
+   "county": "UNION",
+   "mun": "BERKELEY HEIGHTS TWP",
+   "zips": [
+    "07922"
+   ]
+  },
+  {
+   "town": "Clark",
+   "county": "UNION",
+   "mun": "CLARK TWP",
+   "zips": [
+    "07066"
+   ]
+  },
+  {
+   "town": "Cranford",
+   "county": "UNION",
+   "mun": "CRANFORD TWP",
+   "zips": [
+    "07016"
+   ]
+  },
+  {
+   "town": "Fanwood",
+   "county": "UNION",
+   "mun": "FANWOOD BORO",
+   "zips": [
+    "07023"
+   ]
+  },
+  {
+   "town": "Garwood",
+   "county": "UNION",
+   "mun": "GARWOOD BORO",
+   "zips": [
+    "07027"
+   ]
+  },
+  {
+   "town": "New Providence",
+   "county": "UNION",
+   "mun": "NEW PROVIDENCE BORO",
+   "zips": [
+    "07974"
+   ]
+  },
+  {
+   "town": "Scotch Plains",
+   "county": "UNION",
+   "mun": "SCOTCH PLAINS TWP",
+   "zips": [
+    "07076"
+   ]
+  },
+  {
+   "town": "Springfield",
+   "county": "UNION",
+   "mun": "SPRINGFIELD TWP",
+   "zips": [
+    "07081"
+   ]
+  },
+  {
+   "town": "Summit",
+   "county": "UNION",
+   "mun": "SUMMIT CITY",
+   "zips": [
+    "07901"
+   ]
+  }
+ ]
 }
