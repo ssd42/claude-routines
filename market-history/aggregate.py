@@ -60,12 +60,22 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RAW_DIR = os.path.join(BASE_DIR, "raw")
 HIST_DIR = os.path.join(BASE_DIR, "history")
 FIX_DIR = os.path.join(BASE_DIR, "fixtures")
+
+# config — what to scrape
 ZIPS_FILE = os.path.join(BASE_DIR, "zips.json")
 SOURCES_FILE = os.path.join(BASE_DIR, "sources.json")
-STATE_FILE = os.path.join(BASE_DIR, "state.json")
+
+# the dataset — sale-grain output
 MARKET_CSV = os.path.join(BASE_DIR, "market.csv")
 SALES_CSV = os.path.join(BASE_DIR, "sales.csv")
-PROV_FILE = os.path.join(BASE_DIR, "_provenance.json")
+
+# state/ — machine bookkeeping, not data. Nobody reads these to answer a question:
+# state.json is fetch cursors (which zip pulled when), provenance.json is every
+# source's value for every merged field. Committed (the repo is the DB) but kept
+# out of the root so they don't read as peers of sales.csv.
+STATE_DIR = os.path.join(BASE_DIR, "state")
+STATE_FILE = os.path.join(STATE_DIR, "state.json")
+PROV_FILE = os.path.join(STATE_DIR, "provenance.json")
 
 REDFIN_ZIP_URL = os.environ.get(
     "MARKET_HISTORY_REDFIN_URL",
@@ -937,6 +947,7 @@ def main():
         sys.exit(f"none of {args.zips} are target zips")
 
     os.makedirs(RAW_DIR, exist_ok=True)
+    os.makedirs(STATE_DIR, exist_ok=True)
     market_new, sales_new = [], []
     for src in requested:
         fn = SOURCE_FNS.get(src)

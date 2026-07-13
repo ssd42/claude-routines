@@ -1,4 +1,5 @@
 town,dist_mi_from_westfield,nearest_seabra_mi,nearest_seabra_store,nearest_seabra_store_town
+Westfield,0,4.3,Seabra's Market - Union,Union
 Cranford,2,2.3,Seabra's Market - Union,Union
 Garwood,2,3.4,Seabra's Market - Union,Union
 Fanwood,3,6.6,Seabra's Market - Union,Union
@@ -39,6 +40,7 @@ Madison,17,9.8,Seabra's Market - Union,Union
 Nutley,17,4.6,Seabra Foods - Kearny,Kearny
 Branchburg,18,22.7,Seabra's Market - Union,Union
 Morristown,19,14.1,Seabra's Market - Union,Union
+Cedar Knolls,20,14.1,Seabra's Market - Union,Union
 Morris Plains,21,16.1,Seabra's Market - Union,Union
 Denville,22,18.4,Seabra's Market - Union,Union
 Glen Rock,22,14.2,Seabra Foods - Kearny,Kearny

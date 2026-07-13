@@ -3,6 +3,8 @@
   "_zip_label_rule": "A zip maps to exactly ONE town (zip_to_town is FIRST-wins by the order below). This is only the FALLBACK label, used for listing_scrape-only rows; a row with an nj_records deed behind it takes its town from the municipality instead. The one shared zip is 07006 (Caldwell / North Caldwell / West Caldwell all sit in it) — Caldwell is listed first, so scrape-only 07006 sales fall back to 'Caldwell'.",
   "priority_anchor_zip": "07090",
   "towns": [
+    { "name": "Westfield",        "zips": ["07090"], "dist_mi": 0,
+      "note": "The priority anchor itself. It is a TARGET TOWN, not just a reference point — dist_mi 0. Originally omitted because this file was seeded from house-hunt/criteria.json, where 07090 appears only as priority_anchor_zip; that made sense for a scout looking for listings NEAR here, but market-history needs the anchor's own sales as the baseline every other town is compared against." },
     { "name": "Cranford",         "zips": ["07016"], "dist_mi": 2 },
     { "name": "Garwood",          "zips": ["07027"], "dist_mi": 2 },
     { "name": "Fanwood",          "zips": ["07023"], "dist_mi": 3 },

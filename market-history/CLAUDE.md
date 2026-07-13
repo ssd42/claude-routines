@@ -46,6 +46,12 @@ merged into a sales file; never a filter).
 Top-level `zips.json` / `nj_municipalities.json` / `sources.json` are **config**
 (what to scrape), not data — that's why they stay out of `layers/`.
 
+`state/` is **machine bookkeeping**, not data: `state.json` (fetch cursors — which
+zip pulled when) and `provenance.json` (every source's value for every merged
+field). Committed, because the repo is the DB — but nobody opens them to answer a
+question, so they don't sit in the root looking like peers of `sales.csv`. So the
+root reads as four things: **code, config, data, machinery.**
+
 ## Amenities — `layers/seabra/seabra.json`
 11 Seabra groceries, geocoded (US Census geocoder, key-less/cloud-safe; 10 rooftop,
 Elizabeth fell back to its ZCTA centroid — no Census address point exists for it).
