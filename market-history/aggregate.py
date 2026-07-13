@@ -100,7 +100,7 @@ SALES_COLS = [
     "list_price", "sold_price", "sold_vs_ask_abs", "sold_vs_ask_pct",
     "price_changes", "sqft", "beds", "baths", "lot_sqft", "year_built",
     "garage", "solar", "ac_type", "property_type",
-    "county", "municipality", "prop_class", "nu_code",
+    "county", "municipality", "prop_class", "nu_code", "bldg_desc",
     "mls", "mls_id",
     "conflicts", "flags", "_sources", "_fetched",
 ]
@@ -371,23 +371,33 @@ def _parse_deed_date(dd):
     return f"{year:04d}-{mm:02d}-{day:02d}"
 
 
+# MOD-IV BLDG_DESC garage codes. `2S-F-L-DG` = 2-storey, frame, ..., detached garage.
+# An optional leading digit is the stall count (`2AG` = 2-car attached).
+_GARAGE_RE = re.compile(r"\b(\d)?\s*([ABDU]G)\b")
+
+# What BLDG_DESC does NOT contain: square footage. Verified against 2,000 parcels
+# across 5 municipalities — ZERO carry one. The old parser searched it for `\d{3,5}SF`
+# anyway and matched digits out of the structure code, inventing 49 "houses" of 4, 6,
+# 22 and 35 square feet. sqft is now sourced from listing_scrape ONLY; on a deed row it
+# is left NULL, which is the honest answer. Do not re-add this.
+
+
 def _parse_bldg_desc(desc):
-    """Best-effort pull sqft + garage count from MOD-IV BLDG_DESC (e.g. '2S F 1BG',
-    '2SCB-3780SF'). Returns (sqft, garage_count) — either may be None."""
+    """Garage stalls from MOD-IV BLDG_DESC. Returns None when unstated.
+
+    Codes: AG attached, DG detached, BG built-in, UG under. All four mean the house
+    HAS a garage — the earlier parser only recognised AG (plus a digit-prefixed B/UG),
+    so every DETACHED garage was recorded as 'no information'. DG is not an edge case:
+    across 2,000 parcels it appeared 127 times against AG's 123. It was the single most
+    common garage in the data and we were dropping all of it.
+    """
     if not desc:
-        return None, None
-    s = str(desc).upper()
-    sqft = None
-    m = re.search(r"(\d{3,5})\s*SF", s)
-    if m:
-        sqft = int(m.group(1))
-    garage = None
-    m = re.search(r"(\d)\s*[BU]G", s)  # N built-in / under garage
-    if m:
-        garage = int(m.group(1))
-    elif re.search(r"\bAG\b", s):       # attached garage, count unknown
-        garage = 1
-    return sqft, garage
+        return None
+    m = _GARAGE_RE.search(str(desc).upper())
+    if not m:
+        return None
+    count, _code = m.groups()
+    return int(count) if count else 1   # code present but no stall count -> at least 1
 
 
 def _arcgis_query(endpoint, where, out_fields, page=1000, timeout=90):
@@ -462,7 +472,8 @@ def fetch_nj_records(zips, since, fixture=False, limit=None):
             sold_date = _parse_deed_date(a.get("DEED_DATE"))
             if not sold_date or sold_date[:7] < since:
                 continue
-            sqft, garage = _parse_bldg_desc(a.get("BLDG_DESC"))
+            bldg_desc = (a.get("BLDG_DESC") or "").strip() or None
+            garage = _parse_bldg_desc(bldg_desc)
             z5 = (a.get("ZIP5") or "").strip()
             if u.get("section_of"):
                 # town is a SECTION of this municipality (e.g. Colonia in Woodbridge);
@@ -482,10 +493,16 @@ def fetch_nj_records(zips, since, fixture=False, limit=None):
                 "municipality": u["mun"],
                 "sold_date": sold_date,
                 "sold_price": a.get("SALE_PRICE"),
-                "sqft": sqft,
+                # no sqft: MOD-IV does not carry one (see _parse_bldg_desc). Left NULL
+                # on deed rows; listing_scrape is the only source for it.
                 "lot_sqft": round(acre * 43560) if acre else None,
                 "year_built": a.get("YR_CONSTR") or None,
                 "garage": garage,
+                # the string `garage` was parsed FROM, stored verbatim so a parser fix
+                # can be re-applied to three years of history offline instead of
+                # re-scraping. ~12 chars/row. This is what the garage bug cost us: it
+                # was only findable by going back out to the network.
+                "bldg_desc": bldg_desc,
                 "prop_class": a.get("PROP_CLASS"),
                 "nu_code": code or None,
                 "property_type": NJ_CLASS.get(a.get("PROP_CLASS") or "", None),
