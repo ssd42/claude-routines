@@ -29,22 +29,28 @@ is purely to *hydrate a clean dataset*, not to decide or dashboard anything.
 - Holds the latest sale per parcel → a home sold twice in the window shows once;
   SR1A annual files would give full multi-sale history if needed later.
 
-## Two kinds of data here — don't confuse them
-1. **Sale-grain, scraped** — `sales.csv` / `market.csv`, built by `aggregate.py`
-   from public records. This is the dataset.
-2. **Town-grain reference/amenity layers** — hand-curated or one-shot files that
-   describe a *town*, never a transaction: `transit.json` (commute to Manhattan),
-   `poi_seabra.json` (grocery POI), `education_rates/` (ACS by zip),
-   `zip_centroids.json` (Census ZCTA centroids). **`aggregate.py` does not read any
-   of these** — they're joined in by `build_share.py` on the way into `share/`.
-   Adding an amenity = drop a file here + flatten it in `build_share.py`. Never
-   merge one into `sales.csv`; a town attribute is not a property attribute.
+## Two grains — the whole layout follows from this
+Every dataset here is one of exactly two things, and the directory says which:
 
-## Amenities — `poi_seabra.json`
+| grain | where | what | built by |
+|-------|-------|------|----------|
+| **sale-grain** | top level: `sales.csv`, `market.csv`, `_provenance.json`, `history/` | one row per **transaction**, scraped | `aggregate.py` |
+| **town-grain** | **`layers/`** (`seabra/`, `transit/`, `education/`, `geo/`) | one row per **town** — an attribute of a *place* | curated; joined at share time by `build_share.py` |
+
+**`aggregate.py` never reads `layers/`.** Layers are joined in at *share* time, not
+*scrape* time. New dataset? If it describes a town it goes in `layers/`; if it
+describes a sale it goes in the scrape. Read [`layers/README.md`](layers/README.md)
+— it holds the contract (keyed on `town`; ships as its own file in `share/`; never
+merged into a sales file; never a filter).
+
+Top-level `zips.json` / `nj_municipalities.json` / `sources.json` are **config**
+(what to scrape), not data — that's why they stay out of `layers/`.
+
+## Amenities — `layers/seabra/seabra.json`
 11 Seabra groceries, geocoded (US Census geocoder, key-less/cloud-safe; 10 rooftop,
 Elizabeth fell back to its ZCTA centroid — no Census address point exists for it).
 `build_share.py` measures straight-line miles from each town's zip centroid
-(`zip_centroids.json`) to the nearest store.
+(`layers/geo/zip_centroids.json`) to the nearest store.
 
 **Each amenity ships as its OWN files — never as columns on a sales file.**
 Seabra → `share/seabra.csv` (the store points) + `share/seabra_by_town.csv` (nearest

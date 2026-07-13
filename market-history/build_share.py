@@ -20,12 +20,20 @@ from datetime import date
 from pathlib import Path
 
 HERE = Path(__file__).parent
-SALES = HERE / "sales.csv"
-ZIPS = HERE / "zips.json"
-TRANSIT = HERE / "transit.json"
-SEABRA = HERE / "poi_seabra.json"
-CENTROIDS = HERE / "zip_centroids.json"
 SHARE = HERE / "share"
+
+# sale-grain: the scraped dataset itself
+SALES = HERE / "sales.csv"
+
+# config: which towns/zips we target
+ZIPS = HERE / "zips.json"
+
+# town-grain amenity layers — one folder each under layers/, all keyed on `town`.
+# They describe a TOWN, never a sale, and each ships as its own file in share/.
+# See layers/README.md before adding one.
+TRANSIT = HERE / "layers" / "transit" / "transit.json"
+SEABRA = HERE / "layers" / "seabra" / "seabra.json"
+CENTROIDS = HERE / "layers" / "geo" / "zip_centroids.json"
 
 # market.csv is deliberately NOT shipped: the redfin_dc layer has never pulled, so
 # the file is a header and zero rows. Shipping an empty "market trends" CSV invites
@@ -117,7 +125,7 @@ def main():
     # nearest Seabra per town — a NICE-TO-HAVE amenity signal, never a filter.
     # Straight-line from the town's zip centroid(s) to the geocoded stores. The
     # stores all sit outside the target towns, so this is a distance join, not an
-    # equality join (see poi_seabra.json).
+    # equality join (see layers/seabra/seabra.json).
     stores = [s for s in json.loads(SEABRA.read_text())["locations"] if s.get("lat")]
     centroids = {z: (c["lat"], c["lon"])
                  for z, c in json.loads(CENTROIDS.read_text())["zips"].items()}

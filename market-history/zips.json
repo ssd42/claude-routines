@@ -44,6 +44,7 @@
     { "name": "Nutley",           "zips": ["07110"], "dist_mi": 17 },
     { "name": "Branchburg",       "zips": ["08876"], "dist_mi": 18 },
     { "name": "Morristown",       "zips": ["07960"], "dist_mi": 19 },
+    { "name": "Cedar Knolls",     "zips": ["07927"], "dist_mi": 20 },
     { "name": "Morris Plains",    "zips": ["07950"], "dist_mi": 21 },
     { "name": "Denville",         "zips": ["07834"], "dist_mi": 22 },
     { "name": "Glen Rock",        "zips": ["07452"], "dist_mi": 22 },
