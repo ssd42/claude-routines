@@ -1,0 +1,153 @@
+address,zip,town,list_date,sold_date,days_on_market,list_price,sold_price,sold_vs_ask_pct,property_type,conflicts,_sources
+568 Knoll Rd,07005,Boonton,2025-06-19,2025-08-05,46,260000,460000,76.92,Single Family,,listing_scrape
+7 MEADOW LANE,07006,North Caldwell,2024-06-14,2024-09-16,93,1388800,2100018,51.21,Single Family,,"listing_scrape,nj_records"
+28 Oakwood Ave,07028,Glen Ridge,2024-01-22,2024-04-01,69,649000,999999,54.08,Single Family,,listing_scrape
+202 STONEHOUSE ROAD,07028,Glen Ridge,,2024-05-01,,849000,1452000,71.02,Single Family,,"listing_scrape,nj_records"
+76 HIGH STREET,07028,Glen Ridge,2024-04-16,2024-06-12,65,649000,1050000,61.79,Single Family,,"listing_scrape,nj_records"
+92 OXFORD STREET,07028,Glen Ridge,2024-06-19,2024-08-02,63,839000,1470000,75.21,Single Family,,"listing_scrape,nj_records"
+18 HILLSIDE AVENUE,07028,Glen Ridge,2024-06-01,2024-08-14,74,719000,1101000,53.13,Single Family,,"listing_scrape,nj_records"
+101 HAWTHORNE AVENUE,07028,Glen Ridge,2024-09-27,2024-11-25,60,759000,1145000,50.86,Single Family,,"listing_scrape,nj_records"
+15 Mead Ter,07028,Glen Ridge,2024-10-18,2024-12-13,55,949000,1660000,74.92,Single Family,,listing_scrape
+18 Chestnut Hill Pl,07028,Glen Ridge,2025-01-17,2025-03-04,45,829000,1325000,59.83,Single Family,,listing_scrape
+64 Essex St Unit 2,07028,Glen Ridge,2025-01-31,2025-04-08,66,599000,975000,62.77,Condo,,listing_scrape
+183 Sherman Ave,07028,Glen Ridge,2025-03-03,2025-04-23,50,865000,1400000,61.85,Single Family,,listing_scrape
+9 Roswell Ter,07028,Glen Ridge,2025-03-15,2025-04-25,40,629000,951000,51.19,Single Family,,listing_scrape
+53 Gray St,07028,Glen Ridge,2025-03-27,2025-05-02,36,849000,1356000,59.72,Single Family,,listing_scrape
+20 Lorraine St,07028,Glen Ridge,2025-02-21,2025-05-20,87,679000,1185000,74.52,Single Family,,listing_scrape
+47 Lincoln St,07028,Glen Ridge,2025-04-18,2025-05-30,41,849000,1350000,59.01,Single Family,,listing_scrape
+85 Park Ave Unit 303,07028,Glen Ridge,2025-06-13,2025-07-24,41,725000,1150000,58.62,Condo,,listing_scrape
+581 Ridgewood Ave,07028,Glen Ridge,2025-05-01,2025-07-30,90,999000,1553000,55.46,Single Family,,listing_scrape
+79 Forest Ave,07028,Glen Ridge,2025-09-25,2025-10-31,36,1899000,3200000,68.51,Single Family,,listing_scrape
+33 Burnett St,07028,Glen Ridge,2025-10-18,2025-11-21,33,789000,1275000,61.6,Single Family,,listing_scrape
+50 Hamilton Rd,07028,Glen Ridge,2025-09-19,2025-11-21,62,899000,1510000,67.96,Single Family,,listing_scrape
+231 Washington St,07028,Glen Ridge,2025-11-08,2025-12-23,44,799000,1310000,63.95,Single Family,,listing_scrape
+64 Forest Ave,07028,Glen Ridge,2026-02-17,2026-03-26,36,1549000,2499999,61.39,Single Family,,listing_scrape
+82 Essex Ave,07028,Glen Ridge,2026-03-20,2026-05-01,41,849000,1315000,54.89,Single Family,,listing_scrape
+145 Hawthorne Ave,07028,Glen Ridge,2026-05-14,2026-06-24,41,1499000,2300000,53.44,Single Family,,listing_scrape
+20 Edgewood Rd,07028,Glen Ridge,2026-04-14,2026-06-24,71,799000,1323410,65.63,Single Family,,listing_scrape
+52 Sommer Ave,07028,Glen Ridge,2026-05-02,2026-07-01,59,699000,1107250,58.4,Single Family,,listing_scrape
+65 Hawthorne Ave,07028,Glen Ridge,2026-05-10,2026-07-08,58,899000,1365000,51.84,Single Family,,listing_scrape
+43 SOMMER AVENUE,07040,Maplewood,2024-03-06,2024-04-12,40,729000,1139999,56.38,Single Family,,"listing_scrape,nj_records"
+20 BROADVIEW AVENUE,07040,Maplewood,,2024-05-31,,729000,1111000,52.4,Single Family,,"listing_scrape,nj_records"
+115 CEDAR LANE,07040,Maplewood,2024-10-23,2024-12-10,49,939000,1420000,51.22,Single Family,lot_sqft,"listing_scrape,nj_records"
+27 Boyden Pkwy,07040,Maplewood,2025-03-31,2025-06-02,62,299000,610500,104.18,Multi-Family,,listing_scrape
+7 Alden Pl,07040,Maplewood,2026-04-21,2026-07-06,75,799000,1200000,50.19,Single Family,,listing_scrape
+27 FAIRFIELD STREET,07042,Montclair,2023-04-24,2023-07-10,85,1450000,2275000,56.9,Single Family,,"listing_scrape,nj_records"
+147 UNION STREET,07042,Montclair,2023-04-13,2023-08-07,116,2750000,4500000,63.64,Single Family,year_built,"listing_scrape,nj_records"
+264 MIDLAND AVENUE,07042,Montclair,2023-06-06,2023-08-15,69,849000,1350000,59.01,Single Family,,"listing_scrape,nj_records"
+61 TUXEDO ROAD,07042,Montclair,,2023-08-30,,799000,1222000,52.94,Single Family,,"listing_scrape,nj_records"
+60 FOREST STREET,07042,Montclair,2023-06-30,2023-09-08,72,699000,1050000,50.21,Single Family,,"listing_scrape,nj_records"
+64 Chestnut St,07042,Montclair,2023-07-31,2023-10-12,72,1995900,850000,-57.41,Multi-Family,,listing_scrape
+109 CHRISTOPHER STREET,07042,Montclair,2023-10-12,2023-11-29,47,969000,1515000,56.35,Single Family,,"listing_scrape,nj_records"
+23 Frederick St,07042,Montclair,,2023-12-21,,749000,1150000,53.54,Single Family,,listing_scrape
+10 Crestmont Rd Apt 1B,07042,Montclair,2024-01-19,2024-04-15,86,399000,625000,56.64,Condo,,listing_scrape
+10 VERA PLACE,07042,Montclair,,2024-05-17,,1025000,1600000,56.1,Single Family,,"listing_scrape,nj_records"
+26 Harvard St,07042,Montclair,2024-04-09,2024-06-17,68,899000,1390000,54.62,Single Family,,listing_scrape
+2 FAIRFIELD STREET,07042,Montclair,2024-05-14,2024-07-02,55,1150000,1900000,65.22,Single Family,,"listing_scrape,nj_records"
+188 PARK STREET,07042,Montclair,2024-04-06,2024-07-03,100,1050000,1618800,54.17,Single Family,,"listing_scrape,nj_records"
+112 Llewellyn Rd,07042,Montclair,2024-04-24,2024-07-16,83,1199000,2075000,73.06,Single Family,,listing_scrape
+148 CHRISTOPHER STREET,07042,Montclair,2024-06-07,2024-08-02,58,1325000,2500000,88.68,Single Family,,"listing_scrape,nj_records"
+224 CHRISTOPHER STREET,07042,Montclair,2024-06-03,2024-08-02,59,2250000,3510000,56.0,Single Family,,"listing_scrape,nj_records"
+3 YALE TERRACE,07042,Montclair,2024-09-24,2024-11-22,58,1049000,1650000,57.29,Single Family,,"listing_scrape,nj_records"
+21 Vera Pl,07042,Montclair,2024-09-26,2024-12-19,84,1145000,2001100,74.77,Single Family,,listing_scrape
+55 Warren Pl,07042,Montclair,2025-02-14,2025-04-11,55,1299000,2100000,61.66,Single Family,,listing_scrape
+10 Crestmont Rd Apt 5A,07042,Montclair,2025-02-05,2025-04-25,79,349000,585000,67.62,Condo,,listing_scrape
+10 Graham Ter,07042,Montclair,2025-03-11,2025-05-08,57,629000,970000,54.21,Single Family,,listing_scrape
+274 N Fullerton Ave,07042,Montclair,2025-04-22,2025-06-02,41,799000,1405000,75.84,Single Family,,listing_scrape
+4 Harrison Ave,07042,Montclair,2025-04-22,2025-06-09,47,1499000,2275000,51.77,Single Family,,listing_scrape
+73 Pleasant Ave,07042,Montclair,2025-05-07,2025-06-23,46,599000,931000,55.43,Single Family,,listing_scrape
+89 High St,07042,Montclair,2025-04-26,2025-06-25,59,999999,1603000,60.3,Single Family,,listing_scrape
+14 Prescott Ave,07042,Montclair,2025-10-03,2025-10-31,27,1050000,1700000,61.9,Single Family,,listing_scrape
+44 Madison Ave,07042,Montclair,2025-12-26,2026-03-06,69,988880,1500000,51.69,Single Family,,listing_scrape
+20 Prospect Ter,07042,Montclair,2026-01-31,2026-03-20,47,999000,1610000,61.16,Single Family,,listing_scrape
+97 Montclair Ave,07042,Montclair,2026-03-02,2026-04-22,50,1399000,2100000,50.11,Single Family,,listing_scrape
+40 Cross St,07042,Montclair,2026-03-15,2026-05-01,46,799000,1230000,53.94,Single Family,,listing_scrape
+227 Grove St,07042,Montclair,2026-03-24,2026-05-08,44,899000,1392225,54.86,Single Family,,listing_scrape
+17 Mendl Ter,07042,Montclair,2026-03-06,2026-05-15,69,999000,1580000,58.16,Single Family,,listing_scrape
+83 Essex Ave,07042,Montclair,2026-04-13,2026-05-29,45,1075000,1705000,58.6,Single Family,,listing_scrape
+20 Columbus Ave,07042,Montclair,2026-04-07,2026-06-04,57,799000,1200000,50.19,Single Family,,listing_scrape
+1 McDonough St,07042,Montclair,2026-04-03,2026-06-15,72,800000,1265000,58.13,Single Family,,listing_scrape
+111 Montclair Ave,07042,Montclair,2026-04-17,2026-06-26,70,1399000,2200000,57.26,Single Family,,listing_scrape
+60 Bradford Ave,07043,Montclair,2023-04-30,2023-07-21,81,1675000,2544500,51.91,Single Family,,listing_scrape
+22 THE FAIRWAY,07043,Montclair,2023-05-11,2023-07-25,73,1299000,2000022,53.97,Single Family,,"listing_scrape,nj_records"
+158 Lorraine Ave,07043,Montclair,2023-05-17,2023-08-01,75,1175000,1802000,53.36,Single Family,,listing_scrape
+381 PARK STREET,07043,Montclair,2023-07-15,2023-08-18,41,999000,1502000,50.35,Single Family,,"listing_scrape,nj_records"
+42 WATCHUNG AVENUE,07043,Montclair,2023-07-21,2023-09-06,47,925000,1600000,72.97,Single Family,,"listing_scrape,nj_records"
+176 WATCHUNG AVENUE,07043,Montclair,2023-07-26,2023-10-09,76,869000,1310517,50.81,Single Family,,"listing_scrape,nj_records"
+304 NO. MOUNTAIN AVENUE,07043,Montclair,2023-09-09,2023-10-11,37,1149000,1900000,65.36,Single Family,,"listing_scrape,nj_records"
+125 Summit Ave,07043,Montclair,2023-09-13,2023-11-01,49,1099000,1702000,54.87,Single Family,,listing_scrape
+639 Grove St,07043,Montclair,2023-10-12,2023-11-17,36,599000,924000,54.26,Single Family,,listing_scrape
+27 THE FAIRWAY,07043,Montclair,2023-09-14,2023-11-29,75,989000,1705000,72.4,Single Family,,"listing_scrape,nj_records"
+20 NASSAU ROAD,07043,Montclair,2023-09-07,2023-12-05,95,799999,1225000,53.13,Single Family,,"listing_scrape,nj_records"
+133 COOPER AVENUE,07043,Montclair,2024-01-22,2024-02-28,36,1299000,2125000,63.59,Single Family,,"listing_scrape,nj_records"
+128 HADDON PLACE,07043,Montclair,2024-02-13,2024-04-18,70,899000,1551000,72.53,Single Family,,"listing_scrape,nj_records"
+322 HIGHLAND AVENUE,07043,Montclair,2024-03-08,2024-04-29,52,899000,1562700,73.83,Single Family,,"listing_scrape,nj_records"
+86 Alexander Ave,07043,Montclair,2024-02-08,2024-05-01,82,849000,1350000,59.01,Single Family,,listing_scrape
+102 GORDONHURST AVENUE,07043,Montclair,,2024-05-10,,899000,1502329,67.11,Single Family,,"listing_scrape,nj_records"
+95 HADDON PLACE,07043,Montclair,,2024-05-23,,1095000,1703000,55.53,Single Family,,"listing_scrape,nj_records"
+287 NO. MOUNTAIN AVENUE,07043,Montclair,2024-03-21,2024-06-03,75,769000,1287000,67.36,Single Family,,"listing_scrape,nj_records"
+547 PARK STREET,07043,Montclair,2024-04-04,2024-06-05,71,899000,1360000,51.28,Single Family,,"listing_scrape,nj_records"
+277 Up Mtn,07043,Montclair,2024-04-23,2024-06-14,52,1100000,1805000,64.09,Single Family,,listing_scrape
+201 BELLEVUE AVE C0001,07043,Montclair,2024-05-01,2024-07-08,69,619000,950000,53.47,Condo,,"listing_scrape,nj_records"
+125 Gordonhurst Ave,07043,Montclair,2024-04-12,2024-07-25,103,899000,1500000,66.85,Single Family,,listing_scrape
+60 GRANDVIEW PLACE,07043,Montclair,2024-07-05,2024-08-09,44,999000,1671000,67.27,Single Family,,"listing_scrape,nj_records"
+68 OVERLOOK ROAD,07043,Montclair,2024-09-18,2024-10-29,43,999000,1705000,70.67,Single Family,,"listing_scrape,nj_records"
+90 Alexander Ave,07043,Montclair,2024-10-02,2024-11-01,30,799000,1300000,62.7,Single Family,,listing_scrape
+223 Alexander Ave,07043,Montclair,2024-09-07,2024-11-05,59,449900,680000,51.14,Single Family,,listing_scrape
+10 BRADFORD AVENUE,07043,Montclair,2024-09-28,2024-11-21,54,889000,1420000,59.73,Single Family,,"listing_scrape,nj_records"
+9 Carolin Rd,07043,Montclair,2024-11-11,2024-12-30,48,799000,1201000,50.31,Single Family,,listing_scrape
+131 Heller Way,07043,Montclair,2024-10-10,2025-01-06,87,1779000,3400000,91.12,Single Family,,listing_scrape
+23 Fairview Pl,07043,Montclair,2024-11-27,2025-01-17,50,879000,1330000,51.31,Single Family,,listing_scrape
+26 Marquette Rd,07043,Montclair,2025-01-18,2025-04-02,74,799000,1310000,63.95,Single Family,,listing_scrape
+137 Summit Ave,07043,Montclair,2025-03-05,2025-04-11,36,1649000,2550000,54.64,Single Family,,listing_scrape
+558 Park St,07043,Montclair,2025-02-06,2025-04-28,80,1285000,1955000,52.14,Single Family,,listing_scrape
+25 Marquette Rd,07043,Montclair,2025-03-12,2025-04-29,47,899000,1450000,61.29,Single Family,,listing_scrape
+150 Gordonhurst Ave,07043,Montclair,2025-03-21,2025-05-07,46,899000,1575000,75.19,Single Family,,listing_scrape
+40 Godfrey Rd,07043,Montclair,2025-03-15,2025-05-29,74,1199000,1850000,54.3,Single Family,,listing_scrape
+20 Godfrey Rd,07043,Montclair,2025-04-03,2025-06-06,64,1100000,1850000,68.18,Single Family,,listing_scrape
+38 Norman Rd,07043,Montclair,2025-05-01,2025-06-09,39,1400000,2300000,64.29,Single Family,,listing_scrape
+56 Watchung Ave,07043,Montclair,2025-04-29,2025-06-09,40,899000,1350000,50.17,Single Family,,listing_scrape
+6 Carlton Dr,07043,Montclair,2025-05-04,2025-06-25,51,899000,1355000,50.72,Single Family,,listing_scrape
+385 Grove St,07043,Montclair,2025-05-09,2025-07-02,53,699000,1200000,71.67,Single Family,,listing_scrape
+462 Grove St,07043,Montclair,2025-05-29,2025-07-29,60,1050000,1900000,80.95,Single Family,,listing_scrape
+134 Clarewill Ave,07043,Montclair,2025-10-15,2025-12-12,58,999000,1680000,68.17,Single Family,,listing_scrape
+123 Alexander Ave,07043,Montclair,2025-10-06,2025-12-15,69,749000,1150000,53.54,Single Family,,listing_scrape
+306 N Mountain Ave,07043,Montclair,,2026-03-12,,979000,1475000,50.66,Single Family,,listing_scrape
+9 Windermere Rd,07043,Montclair,2026-01-29,2026-03-12,41,899000,1450000,61.29,Single Family,,listing_scrape
+200 Inwood Ave,07043,Montclair,2026-02-03,2026-03-18,42,1150000,1999999,73.91,Single Family,,listing_scrape
+11 Kenneth Rd,07043,Montclair,2026-01-16,2026-03-20,62,559000,999000,78.71,Single Family,,listing_scrape
+42 Carolin Rd,07043,Montclair,2026-03-14,2026-05-07,53,869000,1320000,51.9,Single Family,,listing_scrape
+589 Highland Ave,07043,Montclair,2026-04-15,2026-05-22,36,829000,1250000,50.78,Single Family,,listing_scrape
+19 The Fairway,07043,Montclair,2026-04-11,2026-06-01,50,1650000,2500000,51.52,Single Family,,listing_scrape
+43 Macopin Ave,07043,Montclair,2026-05-04,2026-06-15,41,879000,1487500,69.23,Single Family,,listing_scrape
+583 Highland Ave,07043,Montclair,2026-04-27,2026-06-15,48,849000,1380000,62.54,Single Family,,listing_scrape
+231 Watchung Ave,07043,Montclair,2026-05-04,2026-07-08,64,899000,1450000,61.29,Single Family,,listing_scrape
+33 Upland Way,07044,Verona,2024-11-04,2025-01-21,77,949000,1436000,51.32,Single Family,,listing_scrape
+97 Hillside Ave,07044,Verona,2025-01-25,2025-03-10,43,779000,1215000,55.97,Single Family,,listing_scrape
+129 Morningside Rd,07044,Verona,2025-03-15,2025-05-06,51,839000,1400000,66.87,Single Family,,listing_scrape
+86 Sunset Ave,07044,Verona,2026-02-21,2026-04-01,38,789000,1210000,53.36,Single Family,,listing_scrape
+10 Smith Manor Blvd Apt 206,07052,West Orange,2024-02-23,2024-04-08,44,475000,725000,52.63,Condo,,listing_scrape
+51 Lessing Rd,07052,West Orange,2025-03-08,2025-04-30,52,729000,1100000,50.89,Single Family,,listing_scrape
+57 Winding Way,07052,West Orange,2025-02-19,2025-04-30,69,250000,858000,243.2,Single Family,,listing_scrape
+24 Highmount Ave,07059,Warren,2025-05-21,2025-07-22,61,1499000,460000,-69.31,Single Family,,listing_scrape
+2054 PROSPECT AVE,07076,Scotch Plains,2024-05-03,2024-06-25,55,889900,9610000,979.9,Single Family,sold_price,"listing_scrape,nj_records"
+284 Forest Dr,07078,Short Hills,2024-12-13,2025-02-07,55,1100000,1720000,56.36,Single Family,,listing_scrape
+33 Warren Ct,07079,South Orange,2026-02-04,2026-03-23,46,899000,1352000,50.39,Single Family,,listing_scrape
+317 Richmond Ave,07079,South Orange,2026-04-16,2026-05-27,41,779000,1175000,50.83,Single Family,,listing_scrape
+229 Joan St,07080,South Plainfield,2024-11-15,2025-01-24,69,575000,595,-99.9,Single Family,,listing_scrape
+114 Whispering Hills Rd,07080,South Plainfield,2025-07-02,2026-01-23,204,1125000,112500,-90.0,Single Family,,listing_scrape
+516 ASHWOOD RD,07081,Springfield,,2024-05-16,,499000,750000,50.3,Single Family,year_built,"listing_scrape,nj_records"
+402 S Elmer St,07090,Westfield,2024-04-06,2024-07-19,103,150000,65000,-56.67,Land,,listing_scrape
+355 Oak Ave,07095,Woodbridge,2025-07-21,2026-01-14,176,280000,250,-99.91,Single Family,,listing_scrape
+436 Diamond Spring Rd,07834,Denville,2025-06-28,2025-11-03,128,200000,303500,51.75,Single Family,,listing_scrape
+26 Glenwood Pl,07834,Denville,2026-02-20,2026-05-12,80,300000,703500,134.5,Single Family,,listing_scrape
+24 Glenwood Pl,07834,Denville,2026-02-20,2026-05-13,81,300000,567000,89.0,Single Family,,listing_scrape
+25 Upper Rainbow Trl,07834,Denville,2026-02-20,2026-05-14,82,300000,861000,187.0,Single Family,,listing_scrape
+1398 Sussex Tpke,07869,Randolph,,2024-03-12,,85000,30000,-64.71,Land,,listing_scrape
+47 GREENBRIAR DR,07901,Summit,2023-07-20,2023-10-10,82,2250000,1102500,-51.0,Single Family,sold_price;garage,"listing_scrape,nj_records"
+2 Elm St,07930,Chester,2025-04-24,2025-05-28,34,300000,651000,117.0,Single Family,,listing_scrape
+68 Knollwood Ave,07940,Madison,2026-03-04,2026-05-04,60,1199000,1800000,50.13,Single Family,,listing_scrape
+50 Leamoor Dr,07950,Morris Plains,2024-09-08,2025-01-31,144,1650000,300000,-81.82,Land,,listing_scrape
+234 Mount Kemble Ave,07960,Morristown,2025-08-27,2025-10-15,48,150000,250000,66.67,Land,,listing_scrape
+218 3rd St,08812,Green Brook,2024-02-14,2024-06-07,113,1100000,465000,-57.73,Single Family,,listing_scrape
+512 Kenbury Rd,08876,Branchburg,2025-05-30,2025-08-15,77,209900,320000,52.45,Manufactured,,listing_scrape

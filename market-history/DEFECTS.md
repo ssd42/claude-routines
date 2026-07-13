@@ -9,21 +9,60 @@ check into `analysis/defects/<date>/`, plus `_summary.csv`. Re-run after any
 re-scrape and diff the summary: a defect that drops to 0 is fixed, one that grows
 is a regression.
 
-**Latest scan — 2026-07-13, 38,015 rows.** 10.3% of rows fail at least one check.
+**Latest scan — 2026-07-13 (post-fix), 38,025 rows. 0.5% of rows fail a check**
+(was 10.3%). The re-scrape + `validate.py` landed; defects 1 and 2 are **fixed**.
 
-| check | sev | rows | % | status |
-|-------|-----|-----:|--:|--------|
-| [`list_date_after_sold_date`](#1-list_date_after_sold_date) | HIGH | 1,696 | 4.46% | diagnosed, unfixed |
-| [`list_date_is_batch_sentinel`](#2-list_date_is_batch_sentinel) | HIGH | 166 | 0.44% | diagnosed, unfixed |
-| [`days_on_market_disagrees`](#3-days_on_market_disagrees) | MED | 1,969 | 5.18% | diagnosed, unfixed |
-| [`sold_vs_ask_extreme`](#4-sold_vs_ask_extreme) | MED | 152 | 0.40% | known, mitigated |
-| `ask_pct_without_list_price` | HIGH | 0 | 0% | clean ✅ |
-| `no_sold_price` | HIGH | 0 | 0% | clean ✅ |
-| `no_sold_date` | HIGH | 0 | 0% | clean ✅ |
+| check | sev | before | after | status |
+|-------|-----|-------:|------:|--------|
+| [`list_date_after_sold_date`](#1-list_date_after_sold_date) | HIGH | 1,696 | **0** | **FIXED** ✅ |
+| [`list_date_is_batch_sentinel`](#2-list_date_is_batch_sentinel) | HIGH | 166 | **0** | **FIXED** ✅ |
+| [`days_on_market_disagrees`](#3-days_on_market_disagrees) | MED | 1,969 | **38** | was mostly a false alarm — see below |
+| [`sold_vs_ask_extreme`](#4-sold_vs_ask_extreme) | MED | 152 | 152 | known, mitigated (source-side) |
+| [`sqft` is single-sourced](#5-sqft-is-single-sourced--there-is-no-second-opinion) | HIGH | n/a | — | **structural — unscannable** |
+| `ask_pct_without_list_price` | HIGH | 0 | 0 | clean ✅ |
+| `no_sold_price` | HIGH | 0 | 0 | clean ✅ |
+| `no_sold_date` | HIGH | 0 | 0 | clean ✅ |
 
-The three HIGH checks that return 0 are the merge's core contract (a sale always
-has an authoritative price and date; a derived percentage never outlives its
-input). They hold. **Every defect we have is in `list_date`.**
+### What the fix was
+
+`list_date` is a **record-ingestion timestamp**, not a listing date. Realtor.com
+stamps every property in a bulk-refresh batch with the refresh time — 463 rows
+across 51 towns all carried `2024-08-04 14:51:57`, identical to the second.
+
+`aggregate.py` now catches it two ways (impossible date; timestamp reused across
+properties) and **rebuilds from `days_on_mls` where that survives, nulls otherwise,
+flags always**. `validate.py` repeats the repair over the **whole committed set** —
+which matters, because `aggregate.py` is additive: a row it doesn't re-fetch is
+carried over verbatim, so 36 corrupt rows survived the re-scrape untouched and only
+pass 2 could reach them. **That is the self-healing property: a fix reaches three
+years of history offline, with no network call.**
+
+### One number went UP before it went down — the registry working
+
+The first post-fix scan showed `days_on_market_disagrees` *rising*, 1,969 → 2,110.
+Cause: **`sold_date` has two definitions.** `field_authority` prefers the deed's
+RECORDING date, while `days_on_market` is measured against the MLS CLOSING date, and
+the two differ by days. On a deed-merged row the subtraction *cannot* close — the
+check was flagging a definition, not a defect. Both scanners now apply the deed
+tolerance (±21d, matching `DATE_FIELDS` in `aggregate.py`) and the true count is **38**.
+
+### What the re-scrape also recovered
+
+- **`pending_date` — 0% → 48%.** The **offer-accepted date**, which the scraper was
+  fetching and the merge was silently discarding (it wasn't in `field_authority`).
+  This is the field every "when should we bid" question actually needs; `sold_date`
+  trails it by a ~41-day escrow. Measured: **15 days list → under contract, 41 days
+  contract → close.**
+- **Garage on deed rows — 5% → 11%.** `_parse_bldg_desc` only recognised `AG`
+  (attached) and dropped `DG` (detached) entirely. Across 2,400 parcels `DG` appeared
+  127 times against `AG`'s 123 — it was the **most common garage in the data** and
+  every one was recorded as "no information."
+- **Invented sqft removed.** `BLDG_DESC` carries no square footage (zero of 2,400
+  parcels), but the old regex matched digits out of the structure code and produced 49
+  "houses" of 4, 6, 22 and 35 square feet. Deed-row `sqft` is now NULL, which is true.
+- **`bldg_desc` stored verbatim (29%).** The string the garage parser reads. The bug
+  above was only findable by going back to the network; now the next parser fix
+  re-applies to history offline.
 
 ---
 
@@ -152,6 +191,50 @@ to prefer medians. Tracked here only so the count stays visible.
 
 ### Proposed fix
 None needed. If it ever grows sharply, the source changed.
+
+---
+
+## 5. `sqft` is single-sourced — there is no second opinion
+
+**Not a corrupt value: a missing cross-check.** Unlike 1–4 this isn't a row-level
+defect, so `analysis/defects.py` can't scan for it. It is a **structural** gap, and
+it is the one most likely to make a downstream tool confidently wrong.
+
+`sqft` is carried by **`listing_scrape` only** — present on ~50% of MLS-sourced rows
+and **1% of deed-sourced rows** (42 of 7,291 deed-only rows). So:
+
+- The **`conflicts` column can never fire on `sqft` in any useful way.** It flags
+  exactly **10 rows of 38,015** — not because the sources agree, but because the
+  second source almost never has a value to disagree *with*.
+- Any figure keyed on size — every $/sqft comp, the whole `offer/` tool — rests on a
+  number **nothing corroborates**.
+
+**Live example.** 93 Gaywood Ave, Colonia (Block 499.02, Lot 11): the MLS says
+**1,108 sqft**; the MOD-IV tax card says **1,188**. A 7% gap, and we are structurally
+incapable of noticing it. The house is a 1944 Cape whose listing advertises a
+second-floor primary suite while `BLDG_DESC` reads `1S S F` — *one story* — so the
+true living area is likely above **both** recorded numbers.
+
+### Why `aggregate.py` isn't wrong, exactly
+
+The comment at `aggregate.py:378` — *"BLDG_DESC does NOT contain square footage"* — is
+**correct for the endpoint we query**. Verified live against
+`Framework/Cadastral/MapServer/0`: 46 fields, and not one is a living area
+(`BLDG_DESC`, `LAND_DESC`, `CALC_ACRE`, `BLDG_CLASS` … no `SQ_FT` / `SFLA`).
+
+**But MOD-IV does carry it — in a different file.** The living area sits in the MOD-IV
+**assessment (SR1A / MOD4 property) file**, not the GIS cadastral layer. That's where
+NJParcels gets the 1,188.
+
+### Proposed fix
+Add the MOD-IV tax file as a **fourth source** in `sources.json`, joined on `PAMS_PIN`
+(already present on every deed row). That gives an independent `sqft` on most of the
+~39% of rows with a deed record — which makes `conflicts` meaningful on `sqft`, grows
+the 18% comp universe, and gives `offer/` a real second opinion instead of a
+disclaimer. See [`offer/FOLLOWUPS.md`](offer/FOLLOWUPS.md) #1.
+
+**How we'd know it worked:** a new check, `sqft_disagrees` (|MLS − tax| > 5%), goes
+from *unmeasurable* to a real number. Today it cannot even be computed.
 
 ---
 

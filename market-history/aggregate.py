@@ -1027,6 +1027,9 @@ def main():
     ap.add_argument("--limit", type=int, help="cap rows per source (debug)")
     ap.add_argument("--min-price", type=int, help="drop nj_records sales below this (default 10000)")
     ap.add_argument("--no-history", action="store_true", help="skip history/ snapshot")
+    ap.add_argument("--from-raw", action="store_true",
+                    help="re-merge the last raw/ pull instead of fetching — applies a "
+                         "parser or field_authority fix to existing data, no network")
     ap.add_argument("--dedupe-only", action="store_true",
                     help="no fetch: re-coalesce the committed sales.csv and rewrite it")
     args = ap.parse_args()
@@ -1062,9 +1065,20 @@ def main():
         if not fn:
             sys.stderr.write(f"[{src}] unknown source, skipping\n")
             continue
-        rows = fn(zips, args.since, fixture=args.fixture, limit=args.limit)
-        with open(os.path.join(RAW_DIR, f"{src}.json"), "w") as f:
-            json.dump(rows, f, indent=2)
+        raw_path = os.path.join(RAW_DIR, f"{src}.json")
+        if args.from_raw:
+            # Re-merge the LAST pull from disk — no network. This is how a parser or
+            # field-authority fix reaches three years of history without re-scraping:
+            # raw/ holds what the source actually said, so every derived value can be
+            # rebuilt offline. (It is why bldg_desc is now stored — see _parse_bldg_desc.)
+            if not os.path.exists(raw_path):
+                sys.exit(f"--from-raw: {raw_path} not found — run a real fetch first")
+            rows = load_json(raw_path)
+            sys.stderr.write(f"[{src}] --from-raw: {len(rows)} rows re-merged from disk\n")
+        else:
+            rows = fn(zips, args.since, fixture=args.fixture, limit=args.limit)
+            with open(raw_path, "w") as f:
+                json.dump(rows, f, indent=2)
         for r in rows:
             (market_new if r.get("grain") == "zip_month" else sales_new).append(r)
 

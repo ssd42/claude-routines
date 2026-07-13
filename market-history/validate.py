@@ -74,6 +74,52 @@ def num(v):
         return None
 
 
+def rederive(rows):
+    """Recompute every DERIVED field from the stored primitives, over the WHOLE set.
+
+    This is the self-healing half of the pipeline. `aggregate.py` is additive — a row it
+    doesn't re-fetch is carried over verbatim — so a fix to a derived value would only
+    ever reach rows that happened to be re-scraped, and the rest would keep the old wrong
+    answer forever. Rebuilding derived fields here, from primitives, on every run, means a
+    formula fix reaches all three years of history offline and instantly.
+
+    A field belongs here iff it is a pure function of other stored columns. `sold_price` is
+    a primitive (a source said it). `sold_vs_ask_pct` is derived (we computed it). Never
+    recompute a primitive — you'd be inventing data.
+    """
+    changed = 0
+    for r in rows:
+        before = (r.get("days_to_contract"), r.get("sold_vs_ask_abs"), r.get("sold_vs_ask_pct"))
+
+        # REPAIR a primitive we know is impossible. aggregate.py fixes list_date at the
+        # scrape, but it is ADDITIVE — a row it did not re-fetch is carried over verbatim,
+        # so old corrupt values survive forever in rows nobody happened to re-scrape. This
+        # heals them without a network call. Nulling only: we never invent a date.
+        ld, sd = day(r.get("list_date")), day(r.get("sold_date"))
+        if ld and sd and ld > sd:
+            r["list_date"] = ""
+            r["days_on_market"] = ""
+            r["flags"] = ";".join(sorted(
+                {f for f in (r.get("flags") or "").split(";") if f}
+                | {"list_date_after_sold_date", "list_date_nulled"}))
+
+        ld, pd_ = day(r.get("list_date")), day(r.get("pending_date"))
+        d = (pd_ - ld).days if (ld and pd_) else None
+        r["days_to_contract"] = d if (d is not None and d >= 0) else ""
+
+        lp, sp = num(r.get("list_price")), num(r.get("sold_price"))
+        if lp and sp:
+            r["sold_vs_ask_abs"] = round(sp - lp)
+            r["sold_vs_ask_pct"] = round((sp - lp) / lp * 100, 2)
+        else:
+            r["sold_vs_ask_abs"] = r["sold_vs_ask_pct"] = ""
+
+        if (str(before[0]), str(before[1]), str(before[2])) != (
+                str(r["days_to_contract"]), str(r["sold_vs_ask_abs"]), str(r["sold_vs_ask_pct"])):
+            changed += 1
+    return changed
+
+
 def validate(rows):
     """-> {flag: [rows]}. A row may earn several flags."""
     hits = {}
@@ -95,7 +141,13 @@ def validate(rows):
             flag("pending_date_after_sold_date", r)
 
         # --- the feed's own arithmetic must close ------------------------------
-        if ld and sd and dom is not None and abs((sd - ld).days - dom) > DOM_TOL:
+        # `sold_date` has TWO definitions and field_authority prefers the deed's. The
+        # deed RECORDING date lags the MLS CLOSING date by days, while `days_on_market`
+        # is measured against the MLS close — so on a deed-merged row the subtraction
+        # cannot close, and flagging it would be flagging a definition, not a defect.
+        # Same reasoning as DATE_FIELDS' +/-21d tolerance in aggregate.py's conflict check.
+        tol = DATE_TOL if "nj_records" in (r.get("_sources") or "") else DOM_TOL
+        if ld and sd and dom is not None and abs((sd - ld).days - dom) > tol:
             flag("days_on_market_disagrees", r)
         if ld and pd_ and dtc is not None and abs((pd_ - ld).days - dtc) > DOM_TOL:
             flag("days_to_contract_disagrees", r)
@@ -141,10 +193,13 @@ def main():
             "sales.csv has no pending_date column — it predates the two-pass ingest.\n"
             "Re-run pass 1 first:  python3 aggregate.py --source nj_records listing_scrape\n")
 
+    rebuilt = rederive(rows)
     hits = validate(rows)
     corroborated = sum(1 for r in rows if r.get("_corroborated"))
 
-    print("validated %d sales\n" % len(rows))
+    print("validated %d sales" % len(rows))
+    print("re-derived %d rows (days_to_contract, sold_vs_ask_*) from stored primitives\n"
+          % rebuilt)
     print("CROSS-SOURCE COVERAGE (the only genuinely dual-sourced fact)")
     print("  sold_date + sold_price seen by BOTH deed and MLS: %d (%.0f%%)"
           % (corroborated, corroborated / len(rows) * 100))

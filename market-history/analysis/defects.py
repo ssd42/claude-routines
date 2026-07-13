@@ -75,11 +75,19 @@ def list_date_is_batch_sentinel(rows):
 
 
 def _dom_disagrees(r):
-    """days_on_market should equal sold_date - list_date (+/- 1 for rounding)."""
+    """days_on_market should equal sold_date - list_date.
+
+    Tolerance depends on WHOSE sold_date won the merge. field_authority prefers the
+    deed's, and the deed RECORDING date lags the MLS CLOSING date by days — while
+    days_on_market is measured against the MLS close. So on a deed-merged row the
+    subtraction cannot close, and flagging it would flag a definition, not a defect.
+    Mirrors validate.py and aggregate.py's DATE_FIELDS +/-21d conflict tolerance.
+    """
     ld, sd, dom = day(r["list_date"]), day(r["sold_date"]), num(r["days_on_market"])
     if ld is None or sd is None or dom is None:
         return False
-    return abs((sd - ld).days - dom) > 3
+    tol = 21 if "nj_records" in (r.get("_sources") or "") else 3
+    return abs((sd - ld).days - dom) > tol
 
 
 def _ask_pct_extreme(r):
