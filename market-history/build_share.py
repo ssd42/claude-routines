@@ -33,6 +33,8 @@ ZIPS = HERE / "zips.json"
 # See layers/README.md before adding one.
 TRANSIT = HERE / "layers" / "transit" / "transit.json"
 SEABRA = HERE / "layers" / "seabra" / "seabra.json"
+EDUCATION = HERE / "layers" / "education" / "education_rates.csv"
+INCOME = HERE / "layers" / "income" / "income.csv"
 CENTROIDS = HERE / "layers" / "geo" / "zip_centroids.json"
 
 # market.csv is deliberately NOT shipped: the redfin_dc layer has never pulled, so
@@ -288,7 +290,65 @@ def main():
             })
     print(f"  wrote share/seabra_by_town.csv ({len(seabra)} towns)")
 
-    # 7. README drift guard. The README doubles as the SYSTEM PROMPT for whatever
+    # 7. education + income — two more STANDALONE town-grain layers, same contract
+    #    as transit and seabra: their own file, joined on `town`, never a column on a
+    #    sales rollup and never a filter. Both are ACS 2020-2024 and zip-grain at the
+    #    source, so they carry `zip` too — a town with several zips gets several rows.
+    zip_town = {}
+    for t in zips["towns"]:                       # FIRST-wins, per zips.json _zip_label_rule
+        for z in t["zips"]:
+            zip_town.setdefault(z, t["name"])
+
+    def read_layer(path):
+        with path.open(encoding="utf-8-sig", newline="") as f:
+            return [r for r in csv.DictReader(f) if r["zip_code"] in zip_town]
+
+    edu = read_layer(EDUCATION)
+    ecols = ["town", "zip", "dist_mi_from_westfield", "hs_grad_or_higher_pct",
+             "bachelors_or_higher_pct", "population_age_25_plus", "acs_period"]
+    with (SHARE / "education.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, ecols)
+        w.writeheader()
+        for r in sorted(edu, key=lambda r: (dist.get(zip_town[r["zip_code"]], 999),
+                                            zip_town[r["zip_code"]], r["zip_code"])):
+            town = zip_town[r["zip_code"]]
+            w.writerow({
+                "town": town,
+                "zip": r["zip_code"],
+                "dist_mi_from_westfield": dist.get(town, ""),
+                "hs_grad_or_higher_pct": r["high_school_graduate_or_higher_pct_age_25_plus"],
+                "bachelors_or_higher_pct": r["bachelors_degree_or_higher_pct_age_25_plus"],
+                "population_age_25_plus": r["population_age_25_plus"],
+                "acs_period": r["education_period"],
+            })
+    print(f"  wrote share/education.csv ({len(edu)} zips)")
+
+    inc = read_layer(INCOME)
+    icols = ["town", "zip", "dist_mi_from_westfield", "median_household_income_usd",
+             "margin_of_error_usd", "acs_period"]
+    with (SHARE / "income.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, icols)
+        w.writeheader()
+        for r in sorted(inc, key=lambda r: (dist.get(zip_town[r["zip_code"]], 999),
+                                            zip_town[r["zip_code"]], r["zip_code"])):
+            town = zip_town[r["zip_code"]]
+            w.writerow({
+                "town": town,
+                "zip": r["zip_code"],
+                "dist_mi_from_westfield": dist.get(town, ""),
+                "median_household_income_usd": r["median_household_income_usd"],
+                "margin_of_error_usd": r["median_household_income_margin_of_error_usd"],
+                "acs_period": r["acs_period"],
+            })
+    print(f"  wrote share/income.csv ({len(inc)} zips)")
+
+    for label, got in (("education", {r["zip_code"] for r in edu}),
+                       ("income", {r["zip_code"] for r in inc})):
+        gap = set(zip_town) - got
+        if gap:
+            print(f"  ! no {label} row for zip: {', '.join(sorted(gap))}")
+
+    # 8. README drift guard. The README doubles as the SYSTEM PROMPT for whatever
     #    LLM reads this bundle, so a stale count there is not cosmetic — it once
     #    told the model "Cranford is not in this dataset" a scrape after Cranford
     #    landed, i.e. it instructed a refusal of a question the data could answer.

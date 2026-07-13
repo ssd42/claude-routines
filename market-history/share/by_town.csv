@@ -1,4 +1,5 @@
 town,dist_mi_from_westfield,sales,sales_with_list_price,median_sold_price,median_list_price,median_sold_vs_ask_pct,mean_sold_vs_ask_pct,median_dom,pct_at_or_under_ask,outliers_excluded_from_mean
+Westfield,0,1261,831,1181000,1150000,5.45,7.39,59,26.6,1
 Cranford,2,832,452,733000,725000,5.03,6.1,56,23.7,0
 Garwood,2,172,103,663650,649000,3.14,3.84,62,30.1,0
 Fanwood,3,269,192,750000,700000,6.32,6.68,61,20.8,0
@@ -39,6 +40,7 @@ Madison,17,531,350,1031000,1049500,4.74,7.23,64,29.4,1
 Nutley,17,1033,485,621000,609000,4.92,5.66,67,26.8,0
 Branchburg,18,802,536,578500,565000,3.13,3.89,61,31.2,1
 Morristown,19,1503,1020,800000,775000,3.38,5.12,63,33.1,1
+Cedar Knolls,20,90,76,625000,622500,4.37,5.05,62,26.3,0
 Morris Plains,21,822,465,702258,675000,4.25,5.17,59,26.7,1
 Denville,22,963,500,665000,600000,4.12,4.45,62,29.0,4
 Glen Rock,22,383,147,975000,899000,10.13,10.81,60,15.0,0
