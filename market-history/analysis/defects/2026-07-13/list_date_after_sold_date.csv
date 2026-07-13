@@ -1,0 +1,1697 @@
+address,zip,town,list_date,sold_date,days_on_market,list_price,sold_price,sold_vs_ask_pct,property_type,conflicts,_sources
+4 ASHWOOD TRL,07005,Boonton,2024-03-13,2023-12-07,,599000,653000,9.02,Condo,year_built,"listing_scrape,nj_records"
+945 WOOTTON ST,07005,Boonton,2024-03-13,2023-12-07,,749900,791000,5.48,Single Family,,"listing_scrape,nj_records"
+116 Redgate Rd,07005,Boonton,2024-03-13,2023-12-15,,539000,575000,6.68,Single Family,,listing_scrape
+175 OVERLOOK AVE,07005,Boonton,2024-03-13,2023-12-15,,575000,575000,0.0,Single Family,,"listing_scrape,nj_records"
+3 CANTERBURY RD,07005,Boonton,2024-03-31,2024-01-10,,849999,960000,12.94,Single Family,,"listing_scrape,nj_records"
+318 WILLIAM ST,07005,Boonton,2024-03-31,2024-01-17,,549000,592000,7.83,Single Family,,"listing_scrape,nj_records"
+24 Dogwood Ln,07005,Boonton,2024-05-16,2024-03-13,,749500,765000,2.07,Single Family,,listing_scrape
+9 Lakeview Ave,07005,Boonton,2024-06-28,2024-04-11,,649000,737395,13.62,Single Family,,listing_scrape
+7 Lakeside Dr,07005,Boonton,2024-08-04,2024-05-08,,699000,765000,9.44,Single Family,,listing_scrape
+5 Kingsland Rd,07005,Boonton,2024-08-04,2024-05-10,,849990,825000,-2.94,Single Family,,listing_scrape
+162 ROESSLER ST,07005,Boonton,2024-08-04,2024-05-16,,482000,511000,6.02,Single Family,,"listing_scrape,nj_records"
+320 HILL ST,07005,Boonton,2024-08-04,2024-05-17,,409000,482000,17.85,Single Family,,"listing_scrape,nj_records"
+6 Woodland Dr,07005,Boonton,2024-08-04,2024-05-29,,475000,525000,10.53,Single Family,,listing_scrape
+432 W MAIN ST,07005,Boonton,2025-01-08,2024-11-22,,675000,665000,-1.48,Single Family,,"listing_scrape,nj_records"
+3 Banks Dr Unit 2,07005,Boonton,2025-03-04,2025-03-03,,679000,679000,0.0,Single Family,,listing_scrape
+19 Oak Rd,07005,Boonton,2025-09-19,2025-07-14,,630000,620000,-1.59,Single Family,,listing_scrape
+150 Kanouse St,07005,Boonton,2026-03-30,2025-10-27,,449900,435000,-3.31,Single Family,,listing_scrape
+2 Patrick Ct,07005,Boonton,2026-04-19,2026-01-20,,2999999,2999999,0.0,Single Family,,listing_scrape
+20 Birdie Ln,07005,Boonton,2026-04-19,2026-02-02,,749000,749000,0.0,Single Family,,listing_scrape
+2 Birdie Ln,07005,Boonton,2026-05-19,2026-03-13,,850000,850000,0.0,Single Family,,listing_scrape
+101 Oak St,07005,Boonton,2026-06-02,2026-05-19,,440000,440000,0.0,Single Family,,listing_scrape
+16 WESTVILLE AVE,07006,Caldwell,2025-01-31,2023-07-06,,610000,615000,0.82,Single Family,,"listing_scrape,nj_records"
+27 CENTRAL AVE UNIT 3,07006,Caldwell,2023-09-02,2023-08-18,,314900,315000,0.03,Condo,,"listing_scrape,nj_records"
+18 MAGNOLIA LA,07006,Caldwell,2023-09-02,2023-09-01,12,429900,412500,-4.05,Condo,,"listing_scrape,nj_records"
+62 Central Ave,07006,Caldwell,2025-06-09,2023-10-06,,685000,675000,-1.46,Multi-Family,,listing_scrape
+8 Jennifer Ct Unit 8,07006,Caldwell,2024-03-13,2023-12-08,,580000,591000,1.9,Townhouse,,"listing_scrape,nj_records"
+356 CENTRAL AVENUE,07006,North Caldwell,2024-03-13,2023-12-15,,835900,785000,-6.09,Single Family,,"listing_scrape,nj_records"
+19 Dana Pl,07006,Caldwell,2024-03-13,2023-12-18,,759000,780000,2.77,Single Family,,listing_scrape
+7 DOGWOOD PLACE,07006,North Caldwell,2024-03-13,2023-12-18,,685000,675000,-1.46,Single Family,,"listing_scrape,nj_records"
+244 Westville Ave,07006,Caldwell,2024-03-13,2023-12-22,,525000,600000,14.29,Single Family,,listing_scrape
+32 HAMILTON DRIVE EAST,07006,North Caldwell,2024-03-31,2024-01-11,,899900,950000,5.57,Single Family,,"listing_scrape,nj_records"
+1 ORCHARD SQUARE,07006,Caldwell,2024-04-16,2024-01-24,,400000,385000,-3.75,Single Family,,"listing_scrape,nj_records"
+26 OVERLOOK RD,07006,Caldwell,2024-08-11,2024-05-14,,815000,815000,0.0,Single Family,,"listing_scrape,nj_records"
+11 BLACKBERRY LANE,07006,North Caldwell,2024-08-04,2024-05-16,,1499000,1700000,13.41,Single Family,,"listing_scrape,nj_records"
+52 Four Seasons Dr,07006,Caldwell,2024-08-04,2024-05-20,,780000,780000,0.0,Condo,,listing_scrape
+10 Washington Ave,07006,Caldwell,2024-08-04,2024-05-28,,649000,649000,0.0,Single Family,,listing_scrape
+26 CLEVELAND RD,07006,Caldwell,2024-08-04,2024-05-29,,749000,965000,28.84,Single Family,,"listing_scrape,nj_records"
+13 Dodd Rd,07006,Caldwell,2024-08-04,2024-05-30,,579000,700000,20.9,Single Family,,listing_scrape
+50 Laurel Pl,07006,Caldwell,2024-08-04,2024-05-31,,529900,610000,15.12,Single Family,,listing_scrape
+7 Orient Way,07006,Caldwell,2024-08-04,2024-06-03,,899000,915000,1.78,Single Family,,listing_scrape
+137 Park Ave,07006,Caldwell,2025-08-14,2024-06-12,,749900,759900,1.33,Single Family,,listing_scrape
+27 Mc Nish Way,07006,Caldwell,2024-10-28,2024-08-09,,739900,750000,1.37,Townhouse,,listing_scrape
+4 Twin Brook Rd,07006,Caldwell,2025-08-19,2024-09-06,,849900,875000,2.95,Single Family,,listing_scrape
+15 Squire Hill Rd,07006,Caldwell,2025-04-02,2025-02-28,,2500000,2500000,0.0,Single Family,,listing_scrape
+18 Eton Dr,07006,Caldwell,2025-05-01,2025-04-30,,1100000,1100000,0.0,Single Family,,listing_scrape
+27 Myrtle Ave,07006,Caldwell,2025-07-02,2025-06-27,,710000,710000,0.0,Single Family,,listing_scrape
+5 Acorn Pl,07006,Caldwell,2025-09-23,2025-08-14,,1250000,1250000,0.0,Single Family,,listing_scrape
+123 Four Seasons Dr Unit 123,07006,Caldwell,2025-09-15,2025-09-12,,779000,800000,2.7,Condo,,listing_scrape
+66 Westover Ave,07006,Caldwell,2026-03-30,2025-10-01,,849900,795000,-6.46,Single Family,,listing_scrape
+88 Park Ave,07006,Caldwell,2026-01-28,2025-11-17,,575000,650000,13.04,Single Family,,listing_scrape
+433 Mountain Ave,07006,Caldwell,2025-12-02,2025-12-01,,1495000,1800000,20.4,Multi-Family,,listing_scrape
+9 Acorn Pl,07006,Caldwell,2026-03-25,2026-01-06,,1099000,1100000,0.09,Single Family,,listing_scrape
+4 Willow Ln,07006,Caldwell,2026-05-30,2026-05-29,,950000,950000,0.0,Single Family,,listing_scrape
+50 Sherman Ave,07009,Cedar Grove,2024-08-30,2023-08-04,,629900,675000,7.16,Single Family,,listing_scrape
+30 David Rd,07009,Cedar Grove,2025-04-10,2023-09-07,,399000,435000,9.02,Single Family,,listing_scrape
+1012 Holly Ln Unit 120,07009,Cedar Grove,2025-01-31,2023-11-03,,699000,705000,0.86,Condo,,listing_scrape
+405 Holly Ln,07009,Cedar Grove,2024-08-04,2024-05-15,,575000,628000,9.22,Condo,,listing_scrape
+9 CARMELLA COURT,07009,Cedar Grove,2024-08-30,2024-05-16,,1295000,1285000,-0.77,Single Family,,"listing_scrape,nj_records"
+35 DAVID ROAD,07009,Cedar Grove,2024-08-04,2024-05-21,,429000,520000,21.21,Single Family,,"listing_scrape,nj_records"
+257 CEDAR STREET,07009,Cedar Grove,2024-08-04,2024-05-28,,869900,915000,5.18,Single Family,,"listing_scrape,nj_records"
+75 Sunrise Ter,07009,Cedar Grove,2026-03-30,2025-11-14,,699000,720000,3.0,Single Family,,listing_scrape
+51 Essex Rd,07009,Cedar Grove,2026-01-29,2025-12-18,,739000,710000,-3.92,Single Family,,listing_scrape
+107 Harper Ter,07009,Cedar Grove,2026-04-19,2026-02-11,,899000,870000,-3.23,Single Family,,listing_scrape
+15 SUTTON PL,07016,Cranford,2023-08-18,2023-08-14,,825000,850000,3.03,Single Family,,"listing_scrape,nj_records"
+38 BALMIERE PKWY,07016,Cranford,2024-08-30,2023-08-24,,799999,805000,0.63,Single Family,,"listing_scrape,nj_records"
+14 WEST END PL,07016,Cranford,2023-10-11,2023-10-03,,375000,385000,2.67,Townhouse,,"listing_scrape,nj_records"
+49 MYRTLE ST,07016,Cranford,2024-08-30,2023-12-01,,799000,845024,5.76,Single Family,,"listing_scrape,nj_records"
+25 LENHOME DR,07016,Cranford,2024-03-13,2023-12-05,,739000,775000,4.87,Single Family,,"listing_scrape,nj_records"
+37 MENDELL AVE,07016,Cranford,2024-03-13,2023-12-19,,799000,880000,10.14,Single Family,,"listing_scrape,nj_records"
+239 HILLSIDE AVE,07016,Cranford,2025-01-31,2024-01-10,,589900,635500,7.73,Single Family,,"listing_scrape,nj_records"
+100 UNION AVE S,07016,Cranford,2024-03-31,2024-01-11,,485000,510000,5.15,Single Family,,"listing_scrape,nj_records"
+30 Springfield Ave Apt D,07016,Cranford,2025-01-31,2024-04-12,,949000,875000,-7.8,Townhouse,,"listing_scrape,nj_records"
+2 LENOX AVE,07016,Cranford,2024-07-22,2024-04-24,,925000,925000,0.0,Single Family,,"listing_scrape,nj_records"
+401 CENTRAL AVE,07016,Cranford,2024-08-04,2024-05-06,,899000,975000,8.45,Single Family,,"listing_scrape,nj_records"
+16 PRINCETON RD,07016,Cranford,2024-08-04,2024-05-09,,749000,770000,2.8,Single Family,,"listing_scrape,nj_records"
+220 COLUMBIA AVE,07016,Cranford,2024-08-04,2024-05-09,,599900,648822,8.16,Single Family,,"listing_scrape,nj_records"
+505 SPRINGFIELD AVE,07016,Cranford,2024-08-04,2024-05-09,,1250000,1255000,0.4,Single Family,,"listing_scrape,nj_records"
+321 North Ave Unit 128,07016,Cranford,2024-08-04,2024-05-10,,500000,550000,10.0,Condo,,listing_scrape
+99 BURNSIDE AVE,07016,Cranford,2024-08-04,2024-05-13,,659000,800000,21.4,Single Family,,"listing_scrape,nj_records"
+22A Parkway Vlg,07016,Cranford,2024-08-04,2024-05-15,,349900,345000,-1.4,Condo,,listing_scrape
+310 LINCOLN AVE E,07016,Cranford,2024-08-04,2024-05-15,,612000,710000,16.01,Single Family,,"listing_scrape,nj_records"
+239 WALNUT AVE,07016,Cranford,2024-08-04,2024-05-21,,799900,825000,3.14,Single Family,,"listing_scrape,nj_records"
+130 CENTENNIAL AVE,07016,Cranford,2024-08-11,2024-05-22,,525000,581000,10.67,Single Family,,"listing_scrape,nj_records"
+509 LINCOLN PARK E,07016,Cranford,2024-08-04,2024-05-28,,339900,339900,0.0,Condo,,"listing_scrape,nj_records"
+19 SHETLAND DR,07016,Cranford,2024-08-11,2024-05-29,,1299000,1300000,0.08,Single Family,year_built,"listing_scrape,nj_records"
+2 ADAMS AVE,07016,Cranford,2024-08-04,2024-05-29,,699000,830000,18.74,Single Family,,"listing_scrape,nj_records"
+22 Riverside Dr Apt C6,07016,Cranford,2024-08-04,2024-05-31,,419000,419000,0.0,Condo,,listing_scrape
+217 Prospect Ave Unit 3B,07016,Cranford,2025-12-23,2024-06-18,,399900,426000,6.53,Condo,,listing_scrape
+716 Orange Ave,07016,Cranford,2025-02-05,2024-12-03,,699000,710000,1.57,Single Family,,listing_scrape
+18 Hampton St,07016,Cranford,2025-09-19,2025-04-04,,1200000,1300000,8.33,Single Family,,listing_scrape
+205 Edgar Ave,07016,Cranford,2025-04-25,2025-04-14,,749000,735000,-1.87,Single Family,,listing_scrape
+733 Willow St,07016,Cranford,2025-06-05,2025-06-03,,889000,960000,7.99,Single Family,,listing_scrape
+202 Elizabeth Ave,07016,Cranford,2025-07-07,2025-06-27,,749000,760000,1.47,Single Family,,listing_scrape
+8A Parkway Vlg,07016,Cranford,2025-07-22,2025-07-21,,280000,292000,4.29,Condo,,listing_scrape
+30 Carolina St,07016,Cranford,2026-06-07,2026-04-02,,850000,935000,10.0,Single Family,,listing_scrape
+3 HATHAWAY LANE,07021,Essex Fells,2023-08-12,2023-08-09,,1650000,1650000,0.0,Single Family,,"listing_scrape,nj_records"
+22 Welsh Rd,07021,Essex Fells,2025-05-31,2025-05-30,,1562500,1562500,0.0,Single Family,,listing_scrape
+220 FARLEY AVE,07023,Fanwood,2023-09-08,2023-08-31,,700000,700000,0.0,Single Family,,"listing_scrape,nj_records"
+6 CLEMENT PL,07023,Fanwood,2023-09-25,2023-09-14,,485000,506000,4.33,Single Family,,"listing_scrape,nj_records"
+214 Marian Ave,07023,Fanwood,2024-03-31,2024-01-05,,730000,815500,11.71,Single Family,,listing_scrape
+118 S GLENWOOD RD,07023,Fanwood,2025-07-23,2024-05-01,,550000,575000,4.55,Single Family,,"listing_scrape,nj_records"
+23 COTTAGE WAY,07023,Fanwood,2024-08-04,2024-05-04,,920000,929000,0.98,Single Family,,"listing_scrape,nj_records"
+31 BEECH AVE,07023,Fanwood,2024-08-04,2024-05-17,,589675,628000,6.5,Single Family,,"listing_scrape,nj_records"
+47 POPLAR PL,07023,Fanwood,2024-08-04,2024-05-23,,650000,760000,16.92,Single Family,year_built,"listing_scrape,nj_records"
+75 2nd St,07023,Fanwood,2024-08-04,2024-05-31,,599000,680000,13.52,Single Family,,listing_scrape
+9 BROHM PLACE,07023,Fanwood,2024-11-19,2024-09-05,,645000,645000,0.0,Single Family,,"listing_scrape,nj_records"
+25 WATSON RD,07023,Fanwood,2024-10-26,2024-10-15,,650000,760000,16.92,Single Family,,"listing_scrape,nj_records"
+6 Shady Ln,07023,Fanwood,2025-09-19,2025-06-27,,729000,779000,6.86,Single Family,,listing_scrape
+45 Waldon Rd,07023,Fanwood,2026-01-22,2025-11-13,,699900,825000,17.87,Single Family,,listing_scrape
+50 1st St,07023,Fanwood,2026-04-19,2026-01-21,,469000,455000,-2.99,Single Family,,listing_scrape
+399 4th Ave,07027,Garwood,2025-01-31,2023-08-24,,620000,691000,11.45,Single Family,,listing_scrape
+363 HICKORY AVE,07027,Garwood,2024-03-31,2024-01-10,,535000,550000,2.8,Single Family,year_built,"listing_scrape,nj_records"
+260 LOCUST AVE,07027,Garwood,2024-07-07,2024-04-25,,499999,515000,3.0,Single Family,,"listing_scrape,nj_records"
+167 MYRTLE AVE,07027,Garwood,2024-08-04,2024-05-02,,598900,650000,8.53,Single Family,,"listing_scrape,nj_records"
+79 3rd Ave,07027,Garwood,2024-08-04,2024-05-17,,749000,685000,-8.54,Single Family,,listing_scrape
+204 Chestnut Ct,07027,Garwood,2025-04-08,2025-01-15,,750000,828500,10.47,Condo,,listing_scrape
+566 RIDGEWOOD AVENUE,07028,Glen Ridge,2024-03-13,2023-12-05,,1100000,1425000,29.55,Single Family,,"listing_scrape,nj_records"
+332 RIDGEWOOD AVENUE,07028,Glen Ridge,2024-03-13,2023-12-08,,1399000,1725000,23.3,Single Family,,"listing_scrape,nj_records"
+590 RIDGEWOOD AVENUE,07028,Glen Ridge,2024-03-13,2023-12-14,,899000,1125000,25.14,Single Family,,"listing_scrape,nj_records"
+150 Linden Ave,07028,Glen Ridge,2024-03-13,2023-12-15,,789000,973000,23.32,Single Family,,listing_scrape
+25 HILLCREST ROAD,07028,Glen Ridge,2024-03-31,2024-01-18,,2999000,3000000,0.03,Single Family,,"listing_scrape,nj_records"
+202 STONEHOUSE ROAD,07028,Glen Ridge,2024-08-04,2024-05-01,,849000,1452000,71.02,Single Family,,"listing_scrape,nj_records"
+30 APPLETON PLACE,07028,Glen Ridge,2024-08-04,2024-05-10,,1295000,1630000,25.87,Single Family,year_built,"listing_scrape,nj_records"
+18 SUMMIT STREET,07028,Glen Ridge,2024-08-04,2024-05-13,,1850000,2525000,36.49,Single Family,year_built,"listing_scrape,nj_records"
+926 Bloomfield Ave Apt 8D,07028,Glen Ridge,2024-08-04,2024-05-15,,180000,185000,2.78,Condo,,listing_scrape
+27 OAKWOOD AVENUE,07028,Glen Ridge,2024-08-04,2024-05-17,,879000,1260000,43.34,Single Family,,"listing_scrape,nj_records"
+321 FOREST AVENUE,07028,Glen Ridge,2024-08-04,2024-05-24,,1075000,1465000,36.28,Single Family,,"listing_scrape,nj_records"
+316 Washington St,07028,Glen Ridge,2024-08-04,2024-06-03,,1899000,2316000,21.96,Single Family,,listing_scrape
+166 SHERMAN AVENUE,07028,Glen Ridge,2024-09-11,2024-06-20,,1299000,1250000,-3.77,Single Family,,"listing_scrape,nj_records"
+40 Stanford Pl,07028,Glen Ridge,2025-08-29,2025-06-09,,1149000,1410000,22.72,Single Family,,listing_scrape
+132 Linden Ave,07028,Glen Ridge,2025-10-06,2025-07-15,,699000,999999,43.06,Single Family,,listing_scrape
+12 Winsor Pl,07028,Glen Ridge,2025-10-25,2025-07-28,,1470000,1527000,3.88,Single Family,,listing_scrape
+24 Fordham Rd,07039,Livingston,2023-07-11,2023-07-05,,2300000,2190000,-4.78,Single Family,,listing_scrape
+25 SHADOWLAWN DR,07039,Livingston,2023-07-14,2023-07-12,,1075000,1075000,0.0,Single Family,,"listing_scrape,nj_records"
+4311 POINTE GATE DRIVE,07039,Livingston,2023-08-15,2023-08-09,0,589000,615000,4.41,Condo,,"listing_scrape,nj_records"
+69 CORNELL DRIVE,07039,Livingston,2023-08-15,2023-08-11,,1800000,1900000,5.56,Single Family,lot_sqft,"listing_scrape,nj_records"
+3304 POINTE GATE DRIVE,07039,Livingston,2025-07-23,2023-08-17,,415000,450000,8.43,Condo,,"listing_scrape,nj_records"
+35 FIELDSTONE DRIVE,07039,Livingston,2023-08-31,2023-08-23,,829000,870000,4.95,Single Family,year_built,"listing_scrape,nj_records"
+36 SHREWSBURY DRIVE,07039,Livingston,2025-01-31,2023-09-19,,969000,975000,0.62,Single Family,,"listing_scrape,nj_records"
+77-79 Glen Ridge Ave,07039,Livingston,2024-08-30,2023-10-10,,769900,769900,0.0,Multi-Family,,listing_scrape
+26 N Cedar Pkwy,07039,Livingston,2023-12-02,2023-12-01,,575000,650000,13.04,Single Family,,listing_scrape
+18 Dickinson Ln,07039,Livingston,2024-08-30,2023-12-05,,1249900,1275000,2.01,Single Family,,listing_scrape
+8 PRINCETON RD,07039,Livingston,2024-03-13,2023-12-12,,1695000,1675000,-1.18,Single Family,,"listing_scrape,nj_records"
+1 CEDAR GATE COURT,07039,Livingston,2024-03-13,2023-12-15,,999000,911490,-8.76,Townhouse,year_built,"listing_scrape,nj_records"
+913 Kensington Ln,07039,Livingston,2024-03-13,2023-12-18,,718000,700000,-2.51,Townhouse,,listing_scrape
+22 EAST DR,07039,Livingston,2024-03-31,2024-01-08,,2095000,2200000,5.01,Single Family,,"listing_scrape,nj_records"
+271 N Livingston Ave,07039,Livingston,2024-03-31,2024-01-12,,640000,640000,0.0,Single Family,,listing_scrape
+32 Coddington Ter,07039,Livingston,2024-03-31,2024-01-25,,849000,861500,1.47,Single Family,,listing_scrape
+12 N ASHBY AVENUE,07039,Livingston,2024-05-01,2024-02-16,,580000,580000,0.0,Single Family,,"listing_scrape,nj_records"
+15 Shrewsbury Dr,07039,Livingston,2024-05-01,2024-02-26,,700000,700000,0.0,Single Family,,listing_scrape
+1 Princeton Rd,07039,Livingston,2024-04-02,2024-04-01,,1400000,1395000,-0.36,Single Family,,listing_scrape
+22 NOTCH HILL DR,07039,Livingston,2024-04-11,2024-04-09,,1200000,1461000,21.75,Single Family,,"listing_scrape,nj_records"
+52 HAVENWOOD DRIVE,07039,Livingston,2024-04-25,2024-04-12,,1250000,1250000,0.0,Single Family,,"listing_scrape,nj_records"
+16 CEDAR GATE DRIVE,07039,Livingston,2024-06-12,2024-05-01,,975000,975000,0.0,Condo,sold_date,"listing_scrape,nj_records"
+3309 Pointe Gate Dr Unit 9,07039,Livingston,2024-08-04,2024-05-01,,639000,639000,0.0,Condo,,"listing_scrape,nj_records"
+2 CORNERSTONE WAY,07039,Livingston,2024-08-04,2024-05-02,,1675000,1700000,1.49,Single Family,,"listing_scrape,nj_records"
+35 LAUREL AVE,07039,Livingston,2024-08-04,2024-05-02,,569900,670000,17.56,Single Family,year_built,"listing_scrape,nj_records"
+212 EDMONTON COURT,07039,Livingston,2024-08-04,2024-05-07,,699900,800000,14.3,Condo,,"listing_scrape,nj_records"
+10 Windsor Dr,07039,Livingston,2024-08-04,2024-05-10,,974900,1150000,17.96,Single Family,,listing_scrape
+13 Highland Dr,07039,Livingston,2024-08-04,2024-05-10,,750000,825000,10.0,Single Family,,listing_scrape
+25 Ridgewood Dr,07039,Livingston,2024-08-04,2024-05-13,,1300000,1265000,-2.69,Single Family,,listing_scrape
+2 TULIP CT,07039,Livingston,2024-08-04,2024-05-14,,725000,955000,31.72,Single Family,year_built,"listing_scrape,nj_records"
+36 RAINBOW RIDGE DRIVE,07039,Livingston,2024-08-04,2024-05-15,,1750000,1825000,4.29,Single Family,,"listing_scrape,nj_records"
+1 TABOR COURT,07039,Livingston,2024-08-04,2024-05-20,,1000000,1220000,22.0,Single Family,,"listing_scrape,nj_records"
+41 HERON ROAD,07039,Livingston,2024-08-04,2024-05-20,,1250000,1460000,16.8,Single Family,year_built,"listing_scrape,nj_records"
+4109 Pointe Gate Dr Unit 4109,07039,Livingston,2024-08-30,2024-05-20,,599000,550000,-8.18,Condo,,"listing_scrape,nj_records"
+103 REGAL BLVD,07039,Livingston,2024-08-04,2024-05-21,,649000,684500,5.47,Condo,,"listing_scrape,nj_records"
+12 OXFORD DR,07039,Livingston,2024-08-04,2024-05-22,,950000,1180000,24.21,Single Family,,"listing_scrape,nj_records"
+88 W NORTHFIELD ROAD,07039,Livingston,2024-08-04,2024-05-24,,1380000,1555000,12.68,Single Family,,"listing_scrape,nj_records"
+4305 Pointe Gate Dr Unit 4305,07039,Livingston,2024-08-04,2024-05-28,,650000,740000,13.85,Condo,,"listing_scrape,nj_records"
+12 Audobon Rd,07039,Livingston,2024-08-04,2024-05-29,,859000,950000,10.59,Single Family,,listing_scrape
+28 PRESTON DR,07039,Livingston,2024-08-04,2024-05-30,,1725000,1699000,-1.51,Single Family,year_built,"listing_scrape,nj_records"
+5 FREDON DR,07039,Livingston,2024-08-04,2024-05-30,,1375000,1635000,18.91,Single Family,,"listing_scrape,nj_records"
+3 Split Rock Rd,07039,Livingston,2024-08-04,2024-06-03,,2900000,2900000,0.0,Single Family,,listing_scrape
+58 BELMONT DR,07039,Livingston,2024-06-11,2024-06-07,,725000,830000,14.48,Single Family,,"listing_scrape,nj_records"
+42 CARILLON CIRCLE,07039,Livingston,2024-06-21,2024-06-12,,799000,850000,6.38,Townhouse,year_built,"listing_scrape,nj_records"
+6 HASTINGS LANE,07039,Livingston,2024-07-29,2024-07-25,,1350000,1654000,22.52,Single Family,,"listing_scrape,nj_records"
+40 CONCORD DRIVE,07039,Livingston,2024-10-22,2024-08-02,,899000,910000,1.22,Single Family,,"listing_scrape,nj_records"
+1206 POINTE GATE DRIVE,07039,Livingston,2024-10-17,2024-10-16,,675000,742000,9.93,Condo,,"listing_scrape,nj_records"
+5 FALCON COURT,07039,Livingston,2024-11-08,2024-11-01,,1600000,1668056,4.25,Single Family,sold_price,"listing_scrape,nj_records"
+374 W Northfield Rd,07039,Livingston,2024-12-12,2024-12-11,,799000,825000,3.25,Single Family,,listing_scrape
+47 Stonewall Dr,07039,Livingston,2024-12-27,2024-12-26,,1800000,1850000,2.78,Single Family,,listing_scrape
+75 Falcon Rd,07039,Livingston,2025-03-15,2025-02-04,,999900,1050000,5.01,Single Family,,listing_scrape
+15 Devonshire Rd,07039,Livingston,2025-02-27,2025-02-26,,2585000,2585000,0.0,Single Family,,listing_scrape
+9 Carillon Cir,07039,Livingston,2025-05-23,2025-03-19,,1245000,1245000,0.0,Single Family,,listing_scrape
+8 Marberne Ter,07039,Livingston,2025-04-08,2025-04-07,,1198000,1220000,1.84,Single Family,,listing_scrape
+3404 Pointe Gate Dr,07039,Livingston,2025-07-02,2025-04-22,,410000,405000,-1.22,Condo,,listing_scrape
+31 Aspen Dr,07039,Livingston,2025-04-30,2025-04-29,,1500000,1500000,0.0,Single Family,,listing_scrape
+13 Elmwood Dr,07039,Livingston,2025-07-08,2025-04-30,,1500000,1560000,4.0,Single Family,,listing_scrape
+85 W McClellan Ave,07039,Livingston,2025-05-16,2025-05-15,,1500000,1500000,0.0,Single Family,,listing_scrape
+4 Drummond Ter,07039,Livingston,2025-08-08,2025-05-20,,850000,875000,2.94,Single Family,,listing_scrape
+511 Binghampton Ln,07039,Livingston,2025-06-03,2025-06-02,,1075000,1090000,1.4,Condo,,listing_scrape
+51 Stonewall Dr,07039,Livingston,2025-06-27,2025-06-26,,1650000,1625000,-1.52,Single Family,,listing_scrape
+30 Mountain Ridge Dr,07039,Livingston,2025-09-17,2025-07-15,,2249000,2502000,11.25,Single Family,,listing_scrape
+9 Baker Rd,07039,Livingston,2025-10-11,2025-07-28,,999000,1100000,10.11,Single Family,,listing_scrape
+55 Rockledge Dr,07039,Livingston,2025-08-01,2025-07-31,,1525000,1525000,0.0,Single Family,,listing_scrape
+17 Rumson Rd,07039,Livingston,2025-08-05,2025-08-04,,1825000,1825000,0.0,Single Family,,listing_scrape
+43 Rumson Rd,07039,Livingston,2025-08-30,2025-08-29,,1375000,1400000,1.82,Single Family,,listing_scrape
+2 Ambrosia Ct,07039,Livingston,2025-09-13,2025-09-12,,799000,787000,-1.5,Condo,,listing_scrape
+11 Homestead Ter,07039,Livingston,2025-10-17,2025-10-16,,1150000,1300000,13.04,Single Family,,listing_scrape
+17 Cliffside Dr,07039,Livingston,2025-10-28,2025-10-27,,950000,950000,0.0,Single Family,,listing_scrape
+301 Edmonton Ct,07039,Livingston,2026-04-30,2025-11-26,,670000,670000,0.0,Condo,,listing_scrape
+4 Foxcroft Dr,07039,Livingston,2025-12-05,2025-12-01,,1070000,1070000,0.0,Single Family,,listing_scrape
+24 E Harrison Pl,07039,Livingston,2026-03-25,2026-02-02,,799000,815888,2.11,Single Family,,listing_scrape
+44 Laurel Ave,07039,Livingston,2026-04-19,2026-02-04,,1090000,1090000,0.0,Single Family,,listing_scrape
+51 Winchester Rd,07039,Livingston,2026-04-19,2026-02-05,,925000,925000,0.0,Single Family,,listing_scrape
+26 Cobblewood Rd,07039,Livingston,2026-03-04,2026-03-02,,1775000,1775000,0.0,Single Family,,listing_scrape
+38 Knollwood Dr,07039,Livingston,2026-04-23,2026-03-19,,1250000,1250000,0.0,Single Family,,listing_scrape
+33 Belmont Dr,07039,Livingston,2026-06-07,2026-03-30,,850000,850000,0.0,Single Family,,listing_scrape
+25 Edgemere Rd,07039,Livingston,2026-04-11,2026-04-10,,750000,871000,16.13,Single Family,,listing_scrape
+16 Country Club Rd,07039,Livingston,2026-06-12,2026-06-11,,889000,911000,2.47,Single Family,,listing_scrape
+14 Braeburn Ct,07039,Livingston,2026-06-19,2026-06-18,,950000,950000,0.0,Townhouse,,listing_scrape
+56 Eastbrook Ter,07039,Livingston,2026-07-09,2026-07-08,,1218000,1300000,6.73,Single Family,,listing_scrape
+76 ORCHARD ROAD,07040,Maplewood,2023-07-11,2023-07-07,,489000,495000,1.23,Single Family,,"listing_scrape,nj_records"
+616 S Orange Ave Apt 5K,07040,Maplewood,2024-08-30,2023-09-12,,575000,575000,0.0,Condo,,listing_scrape
+273 BOYDEN AVENUE,07040,Maplewood,2023-12-12,2023-12-07,0,559000,559000,0.0,Multi-Family,,"listing_scrape,nj_records"
+117 MAPLEWOOD AVENUE,07040,Maplewood,2024-03-13,2023-12-08,,999900,882617,-11.73,Single Family,,"listing_scrape,nj_records"
+245 WYOMING AVENUE,07040,Maplewood,2024-03-13,2023-12-08,,849000,1065000,25.44,Single Family,,"listing_scrape,nj_records"
+9-13 HUDSON AVENUE,07040,Maplewood,2024-03-13,2023-12-13,,449900,449900,0.0,Single Family,,"listing_scrape,nj_records"
+30 CLAREMONT AVENUE,07040,Maplewood,2024-03-13,2023-12-14,,1825000,2025000,10.96,Single Family,,"listing_scrape,nj_records"
+534 Academy St,07040,Maplewood,2024-03-13,2023-12-15,,750000,725000,-3.33,Single Family,,listing_scrape
+13 North Cres,07040,Maplewood,2024-03-13,2023-12-18,,1190000,1300000,9.24,Single Family,,listing_scrape
+265 WYOMING AVENUE,07040,Maplewood,2024-03-13,2023-12-18,,2100000,2000000,-4.76,Single Family,,"listing_scrape,nj_records"
+167 OAKLAND ROAD,07040,Maplewood,2024-03-13,2023-12-21,,1175000,1275000,8.51,Single Family,,"listing_scrape,nj_records"
+53 MADISON AVENUE,07040,Maplewood,2024-03-31,2024-01-12,,750000,955000,27.33,Single Family,,"listing_scrape,nj_records"
+429 ELMWOOD AVENUE,07040,Maplewood,2024-04-30,2024-04-10,,689000,690000,0.15,Single Family,,"listing_scrape,nj_records"
+7 LOMBARDY PLACE,07040,Maplewood,2024-08-30,2024-04-30,,1150000,999000,-13.13,Multi-Family,,"listing_scrape,nj_records"
+10 OAKVIEW AVENUE,07040,Maplewood,2024-08-04,2024-05-07,,899000,1200000,33.48,Single Family,,"listing_scrape,nj_records"
+53A Meadowbrook Pl,07040,Maplewood,2024-08-04,2024-05-10,,250000,250000,0.0,Condo,,listing_scrape
+60 Yale St,07040,Maplewood,2024-08-04,2024-05-10,,750000,841000,12.13,Single Family,,listing_scrape
+13 EAST CEDAR LANE,07040,Maplewood,2024-08-04,2024-05-13,,899000,1125000,25.14,Single Family,,"listing_scrape,nj_records"
+122 Wyoming Ave,07040,Maplewood,2024-08-04,2024-05-15,,1695000,1750000,3.24,Single Family,,listing_scrape
+54 Kendal Ave,07040,Maplewood,2024-08-04,2024-05-15,,1100000,1160000,5.45,Single Family,,listing_scrape
+85 Maplewood Ave,07040,Maplewood,2024-08-04,2024-05-15,,1400000,1422000,1.57,Single Family,,listing_scrape
+8 CRESTWOOD DRIVE,07040,Maplewood,2024-08-04,2024-05-16,,1299000,1299000,0.0,Single Family,,"listing_scrape,nj_records"
+119 UNION AVENUE,07040,Maplewood,2024-08-04,2024-05-17,,895000,1110000,24.02,Single Family,,"listing_scrape,nj_records"
+26 EAST CEDAR LANE,07040,Maplewood,2024-08-04,2024-05-17,,719000,838000,16.55,Single Family,,"listing_scrape,nj_records"
+790 PROSPECT STREET,07040,Maplewood,2024-08-04,2024-05-19,,399000,399000,0.0,Single Family,,"listing_scrape,nj_records"
+18 HUBERT PLACE,07040,Maplewood,2024-08-04,2024-05-22,,1099000,1232000,12.1,Single Family,,"listing_scrape,nj_records"
+31-33 CONCORD AVENUE,07040,Maplewood,2024-08-04,2024-05-24,,679000,842000,24.01,Single Family,,"listing_scrape,nj_records"
+50 HUDSON AVENUE,07040,Maplewood,2024-08-04,2024-05-28,,699000,815000,16.6,Single Family,,"listing_scrape,nj_records"
+562-564 PROSPECT STREET,07040,Maplewood,2024-08-04,2024-05-28,,1195000,1387400,16.1,Single Family,,"listing_scrape,nj_records"
+82 BOYDEN AVENUE,07040,Maplewood,2024-08-04,2024-05-28,,599000,743000,24.04,Single Family,year_built,"listing_scrape,nj_records"
+697 Prospect St,07040,Maplewood,2024-08-04,2024-05-30,,1799000,1804000,0.28,Single Family,,listing_scrape
+20 BROADVIEW AVENUE,07040,Maplewood,2024-08-04,2024-05-31,,729000,1111000,52.4,Single Family,,"listing_scrape,nj_records"
+17 Midland Blvd,07040,Maplewood,2024-08-04,2024-06-03,,849000,1115000,31.33,Single Family,,listing_scrape
+616 S Orange Ave Unit E,07040,Maplewood,2024-08-04,2024-06-03,,500000,500000,0.0,Condo,,listing_scrape
+35 PARKER AVENUE,07040,Maplewood,2024-07-12,2024-07-02,,799000,770000,-3.63,Single Family,,"listing_scrape,nj_records"
+128 MIDLAND BLVD,07040,Maplewood,2024-08-20,2024-08-15,,749000,800000,6.81,Single Family,year_built,"listing_scrape,nj_records"
+616 S Orange Ave Apt 4C,07040,Maplewood,2024-09-26,2024-09-25,,880000,880000,0.0,Condo,,listing_scrape
+122 Orchard Rd,07040,Maplewood,2025-09-19,2025-04-23,,725000,700000,-3.45,Multi-Family,,listing_scrape
+101 Tiffany Pl,07040,Maplewood,2025-10-31,2025-08-27,,689000,700000,1.6,Multi-Family,,listing_scrape
+25 Essex Ave,07040,Maplewood,2025-08-28,2025-08-27,,905000,905000,0.0,Single Family,,listing_scrape
+36A Meadowbrook Pl,07040,Maplewood,2025-12-31,2025-12-29,,330000,332000,0.61,Condo,,listing_scrape
+18 Curtis Pl,07040,Maplewood,2026-01-06,2026-01-05,,3250000,3150000,-3.08,Single Family,,listing_scrape
+459 Walton Rd,07040,Maplewood,2026-01-13,2026-01-12,,999000,999000,0.0,Single Family,,listing_scrape
+82 Union Ave,07040,Maplewood,2026-06-07,2026-04-01,,750000,765000,2.0,Single Family,,listing_scrape
+12 Kensington Ter,07040,Maplewood,2026-05-21,2026-05-13,,700000,892500,27.5,Single Family,,listing_scrape
+586 Ridgewood Rd,07040,Maplewood,2026-05-22,2026-05-15,,1499000,1650000,10.07,Single Family,,listing_scrape
+25 Bowdoin St,07040,Maplewood,2026-06-12,2026-05-27,,1400000,1415000,1.07,Single Family,,listing_scrape
+61 TUXEDO ROAD,07042,Montclair,2024-08-30,2023-08-30,,799000,1222000,52.94,Single Family,,"listing_scrape,nj_records"
+5 Roosevelt Pl Apt 5S,07042,Montclair,2024-08-30,2023-10-02,,299000,332000,11.04,Condo,,listing_scrape
+56 GATES AVENUE C0005,07042,Montclair,2024-03-13,2023-12-07,,274000,285000,4.01,Condo,,"listing_scrape,nj_records"
+23 Frederick St,07042,Montclair,2024-03-13,2023-12-21,,749000,1150000,53.54,Single Family,,listing_scrape
+15 Wheeler St Unit 1,07042,Montclair,2023-12-29,2023-12-28,,1355000,1357750,0.2,Multi-Family,,listing_scrape
+9 EUCLID PLACE,07042,Montclair,2024-03-31,2024-01-15,,768880,1047000,36.17,Single Family,,"listing_scrape,nj_records"
+29 AFTERGLOW WAY,07042,Montclair,2024-05-01,2024-02-15,,1450000,1800000,24.14,Single Family,year_built,"listing_scrape,nj_records"
+6 William St,07042,Montclair,2025-01-31,2024-05-02,,739000,770000,4.19,Multi-Family,,listing_scrape
+16 GLENRIDGE PARKWAY,07042,Montclair,2024-08-04,2024-05-08,,1100000,1430000,30.0,Single Family,,"listing_scrape,nj_records"
+11 BRIAR HILL ROAD,07042,Montclair,2024-08-04,2024-05-09,,799000,999000,25.03,Single Family,,"listing_scrape,nj_records"
+186 HIGHLAND AVENUE,07042,Montclair,2024-08-11,2024-05-16,,1299000,1325000,2.0,Single Family,,"listing_scrape,nj_records"
+10 VERA PLACE,07042,Montclair,2024-08-04,2024-05-17,,1025000,1600000,56.1,Single Family,,"listing_scrape,nj_records"
+80 PLYMOUTH STREET,07042,Montclair,2024-08-04,2024-05-24,,1599000,1715000,7.25,Single Family,,"listing_scrape,nj_records"
+42 HARRISON AVENUE,07042,Montclair,2024-08-04,2024-05-28,,915000,1050000,14.75,Single Family,,"listing_scrape,nj_records"
+1 William St,07042,Montclair,2024-08-04,2024-05-30,,479000,590000,23.17,Single Family,,listing_scrape
+295 BLOOMFIELD AVE C0007,07042,Montclair,2024-08-04,2024-05-30,,525000,567000,8.0,Condo,,"listing_scrape,nj_records"
+57 TUXEDO ROAD,07042,Montclair,2024-08-04,2024-05-31,,1275000,1751900,37.4,Single Family,,"listing_scrape,nj_records"
+135 CLAREMONT AVENUE,07042,Montclair,2025-01-31,2024-06-26,,849000,870000,2.47,Multi-Family,,"listing_scrape,nj_records"
+48 Nishuane Rd,07042,Montclair,2024-07-27,2024-07-15,,719000,805000,11.96,Single Family,,listing_scrape
+105 NO. FULLERTON AVENUE,07042,Montclair,2024-09-27,2024-09-06,,1749000,1775000,1.49,Multi-Family,,"listing_scrape,nj_records"
+329 ORANGE ROAD,07042,Montclair,2025-03-10,2024-10-25,,925000,925000,0.0,Multi-Family,,"listing_scrape,nj_records"
+57 Union St,07042,Montclair,2025-03-08,2025-03-07,,650000,650000,0.0,Single Family,,listing_scrape
+123 Lincoln St,07042,Montclair,2025-04-23,2025-04-22,,1200000,1200000,0.0,Single Family,,listing_scrape
+28 Forest St,07042,Montclair,2025-06-08,2025-06-07,,999000,999000,0.0,Multi-Family,,listing_scrape
+12 Clairidge Ct,07042,Montclair,2025-10-25,2025-08-04,,1295000,1750000,35.14,Single Family,,listing_scrape
+35 Cloverhill Pl,07042,Montclair,2025-10-31,2025-08-21,,1075000,1075000,0.0,Multi-Family,,listing_scrape
+15 Howe Ave,07042,Montclair,2026-01-29,2025-11-13,,500000,520000,4.0,Single Family,,listing_scrape
+89 Porter Pl,07042,Montclair,2026-01-29,2025-12-19,,1795000,2150000,19.78,Single Family,,listing_scrape
+81 N Fullerton Ave,07042,Montclair,2026-01-29,2026-01-05,,899000,840000,-6.56,Single Family,,listing_scrape
+88 S Mountain Ave,07042,Montclair,2026-04-19,2026-01-20,,5000000,5000000,0.0,Single Family,,listing_scrape
+48 S Park St Unit 517,07042,Montclair,2026-04-19,2026-01-30,,475000,500000,5.26,Condo,,listing_scrape
+229 Orange Rd,07042,Montclair,2026-05-15,2026-05-14,,2400000,2800000,16.67,Single Family,,listing_scrape
+7 FAIRMOUNT AVENUE,07043,Montclair,2024-08-30,2023-07-13,,1250000,1400000,12.0,Single Family,,"listing_scrape,nj_records"
+344 HIGHLAND AVENUE,07043,Montclair,2023-07-24,2023-07-14,0,2500000,2500000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+101 YANTACAW BROOK ROAD,07043,Montclair,2024-08-30,2023-09-08,,1799999,1835000,1.94,Single Family,,"listing_scrape,nj_records"
+34 MACOPIN AVENUE,07043,Montclair,2025-01-31,2023-09-12,,1399999,1450000,3.57,Single Family,,"listing_scrape,nj_records"
+6 ELIZABETH ROAD,07043,Montclair,2024-03-13,2023-12-06,,799000,900000,12.64,Single Family,,"listing_scrape,nj_records"
+109 BUCKINGHAM ROAD,07043,Montclair,2024-03-13,2023-12-19,,899000,1202000,33.7,Single Family,,"listing_scrape,nj_records"
+530 Valley Rd Apt 2Z,07043,Montclair,2024-03-13,2023-12-19,,499000,558000,11.82,Condo,,listing_scrape
+395 Upper Mountain Ave,07043,Montclair,2024-03-13,2023-12-20,,1395000,1910000,36.92,Single Family,,listing_scrape
+370 NO. MOUNTAIN AVENUE,07043,Montclair,2024-08-04,2024-05-08,,1199000,1690000,40.95,Single Family,,"listing_scrape,nj_records"
+102 GORDONHURST AVENUE,07043,Montclair,2024-08-04,2024-05-10,,899000,1502329,67.11,Single Family,,"listing_scrape,nj_records"
+24 WELLESLEY ROAD,07043,Montclair,2024-08-04,2024-05-10,,1149000,1610000,40.12,Single Family,,"listing_scrape,nj_records"
+530 Valley Rd Apt 6Y,07043,Montclair,2024-08-04,2024-05-10,,325000,410000,26.15,Condo,,listing_scrape
+128 SQUIRE HILL ROAD,07043,Montclair,2024-08-04,2024-05-16,,699900,815000,16.45,Single Family,,"listing_scrape,nj_records"
+31 TUERS PLACE,07043,Montclair,2024-08-04,2024-05-16,,849000,1090000,28.39,Single Family,year_built,"listing_scrape,nj_records"
+95 HADDON PLACE,07043,Montclair,2024-08-04,2024-05-23,,1095000,1703000,55.53,Single Family,,"listing_scrape,nj_records"
+176 Wildwood Ave,07043,Montclair,2024-08-04,2024-06-03,,1250000,1760000,40.8,Single Family,,listing_scrape
+76 HELLER WAY,07043,Montclair,2024-07-17,2024-07-04,0,3000000,2912500,-2.92,Single Family,,"listing_scrape,nj_records"
+1249 Valley Rd,07043,Montclair,2025-07-03,2025-07-02,,775000,920000,18.71,Single Family,,listing_scrape
+515 Park St,07043,Montclair,2025-07-31,2025-07-30,,1395000,1172000,-15.99,Land,,listing_scrape
+18 Park Ter,07043,Montclair,2025-08-29,2025-08-22,,799000,975000,22.03,Single Family,,listing_scrape
+306 N Mountain Ave,07043,Montclair,2026-03-16,2026-03-12,,979000,1475000,50.66,Single Family,,listing_scrape
+1 HILLCREST TERRACE,07044,Verona,2024-08-30,2023-07-14,,780000,875113,12.19,Single Family,,"listing_scrape,nj_records"
+16 HOWARD STREET,07044,Verona,2024-08-30,2023-09-01,,499000,640000,28.26,Single Family,,"listing_scrape,nj_records"
+2 CLARIDGE DRIVE    #2NE,07044,Verona,2023-11-14,2023-10-25,,550000,555000,0.91,Condo,,"listing_scrape,nj_records"
+69 PERSONETTE AVENUE,07044,Verona,2024-03-13,2023-12-20,,739000,915189,23.84,Single Family,,"listing_scrape,nj_records"
+112 ELMWOOD ROAD,07044,Verona,2024-03-31,2024-01-15,,599000,669000,11.69,Single Family,,"listing_scrape,nj_records"
+2 Claridge Penthouse Bw Dr Unit 12BW,07044,Verona,2024-08-04,2024-05-09,,599000,599000,0.0,Condo,,listing_scrape
+10 HEMLOCK DRIVE,07044,Verona,2024-08-04,2024-05-14,,799000,915000,14.52,Single Family,,"listing_scrape,nj_records"
+44 CHESTNUT ROAD,07044,Verona,2024-08-04,2024-05-15,,829000,1049090,26.55,Single Family,year_built,"listing_scrape,nj_records"
+24 Birdseye Gln,07044,Verona,2024-08-04,2024-05-21,,799900,924812,15.62,Single Family,,listing_scrape
+5 RANDOLPH PLACE,07044,Verona,2024-08-04,2024-05-22,,1369000,1890000,38.06,Single Family,,"listing_scrape,nj_records"
+2 Claridge Dr Apt 9EE,07044,Verona,2024-08-04,2024-05-24,,519000,515000,-0.77,Condo,,listing_scrape
+1 GLEN ROAD,07044,Verona,2024-11-14,2024-08-23,,565000,612000,8.32,Single Family,,"listing_scrape,nj_records"
+349 Bloomfield Ave Unit 25,07044,Verona,2025-03-10,2024-10-02,,289900,300000,3.48,Condo,,"listing_scrape,nj_records"
+6 Kips Rdg,07044,Verona,2025-01-23,2025-01-22,,950000,950000,0.0,Townhouse,,listing_scrape
+30 Hillcrest Ter,07044,Verona,2025-10-17,2025-08-01,,779000,852000,9.37,Single Family,,listing_scrape
+10 Morningside Rd,07044,Verona,2026-01-06,2025-12-24,,1675000,1675000,0.0,Single Family,,listing_scrape
+33 E Lincoln St,07044,Verona,2026-04-19,2026-02-13,,899000,950000,5.67,Single Family,,listing_scrape
+1 Claridge Dr Apt 723,07044,Verona,2026-06-07,2026-04-03,,365000,350000,-4.11,Condo,,listing_scrape
+36 Gerdes Ave,07044,Verona,2026-07-03,2026-06-24,,1335000,1500000,12.36,Single Family,,listing_scrape
+11 Bark Mill Ter Unit 92,07045,Montville,2025-01-31,2023-07-07,,625000,640000,2.4,Townhouse,,listing_scrape
+21A John Henry Dr,07045,Montville,2024-03-13,2023-12-05,,699900,765000,9.3,Single Family,,"listing_scrape,nj_records"
+13 WOODLAND RD,07045,Montville,2024-03-13,2023-12-15,,1299000,1400000,7.78,Single Family,,"listing_scrape,nj_records"
+13 Marguerite Ln,07045,Montville,2024-03-13,2023-12-19,,1100000,999999,-9.09,Single Family,,listing_scrape
+7 Afterglow Way,07045,Montville,2024-03-13,2023-12-21,,629000,590000,-6.2,Single Family,,listing_scrape
+7 HATHAWAY LN,07045,Montville,2024-03-13,2023-12-21,,1150000,1275000,10.87,Single Family,,"listing_scrape,nj_records"
+14 HELTON TER,07045,Montville,2024-03-31,2024-01-23,,485900,500000,2.9,Townhouse,,"listing_scrape,nj_records"
+89 TAYLORTOWN RD,07045,Montville,2024-03-01,2024-02-12,,899000,944000,5.01,Single Family,,"listing_scrape,nj_records"
+7 JOHN HENRY DR,07045,Montville,2024-08-04,2024-05-02,,699900,730000,4.3,Single Family,,"listing_scrape,nj_records"
+66 DAVENPORT RD,07045,Montville,2024-08-04,2024-05-06,,618000,640000,3.56,Condo,,"listing_scrape,nj_records"
+2 STONEHENGE CT,07045,Montville,2024-08-04,2024-05-07,,1550000,1580000,1.94,Single Family,,"listing_scrape,nj_records"
+63 Taylortown Rd,07045,Montville,2024-08-04,2024-05-09,,1199000,1225400,2.2,Single Family,,listing_scrape
+80 GABRIEL DR,07045,Montville,2024-08-04,2024-05-09,,499900,531000,6.22,Condo,,"listing_scrape,nj_records"
+85 TAYLORTOWN RD,07045,Montville,2024-08-04,2024-05-09,,698000,835000,19.63,Single Family,,"listing_scrape,nj_records"
+38 SPRINGBROOK RD EAST,07045,Montville,2024-08-04,2024-05-14,,440000,525000,19.32,Condo,,"listing_scrape,nj_records"
+4 VANDERHOOF RD,07045,Montville,2024-08-11,2024-05-14,,550000,635000,15.45,Condo,year_built,"listing_scrape,nj_records"
+32 Stony Brook Rd,07045,Montville,2024-08-04,2024-05-15,,698000,787500,12.82,Single Family,,listing_scrape
+7 BROMLEY CT,07045,Montville,2024-08-04,2024-05-16,,789000,850000,7.73,Single Family,,"listing_scrape,nj_records"
+88 Genoble Rd,07045,Montville,2024-08-04,2024-05-20,,425000,450000,5.88,Condo,,listing_scrape
+52 Hook Mountain Rd,07045,Montville,2024-08-04,2024-05-24,,999999,1025000,2.5,Single Family,,listing_scrape
+6 KANOUSE LN,07045,Montville,2024-08-04,2024-05-29,,1369000,1375000,0.44,Single Family,,"listing_scrape,nj_records"
+132 PINE BROOK RD,07045,Montville,2024-08-04,2024-05-30,,749000,825000,10.15,Single Family,,"listing_scrape,nj_records"
+17 ARTHUR PL,07045,Montville,2024-08-04,2024-05-30,,899900,975000,8.35,Single Family,,"listing_scrape,nj_records"
+19 Virginia Rd,07045,Montville,2024-08-04,2024-05-31,,799000,804000,0.63,Single Family,,listing_scrape
+22 Genoble Rd Unit 22,07045,Montville,2024-08-04,2024-06-03,,310000,325000,4.84,Condo,,listing_scrape
+10 EUGENE DR,07045,Montville,2024-09-04,2024-09-03,,815000,815000,0.0,Condo,,"listing_scrape,nj_records"
+9 Quarry Mountain Ln,07045,Montville,2025-12-20,2025-12-19,,3650000,3650000,0.0,Single Family,,listing_scrape
+34 Genoble Rd,07045,Montville,2026-03-25,2026-01-05,,464900,440000,-5.36,Condo,,listing_scrape
+39 FREDERICKS STREET,07052,West Orange,2023-07-26,2023-07-03,,899000,925000,2.89,Condo,,"listing_scrape,nj_records"
+34 Linden Ave,07052,West Orange,2024-08-30,2023-07-20,,400000,400000,0.0,Land,,listing_scrape
+105 BARRINGER COURT,07052,West Orange,2023-07-28,2023-07-21,,625000,625000,0.0,Condo,,"listing_scrape,nj_records"
+54 MISSISSIPPI AVENUE,07052,West Orange,2024-08-30,2023-07-21,,450000,460000,2.22,Single Family,,"listing_scrape,nj_records"
+4 HAGE TERRACE,07052,West Orange,2023-07-26,2023-07-25,,899000,900000,0.11,Condo,year_built,"listing_scrape,nj_records"
+76 Riggs Pl,07052,West Orange,2024-08-30,2023-08-16,,424900,500000,17.67,Multi-Family,,listing_scrape
+62 Walker Rd,07052,West Orange,2024-08-30,2023-08-18,,924900,950000,2.71,Single Family,,listing_scrape
+17 WESTWOOD DRIVE SOUTH,07052,West Orange,2023-09-19,2023-09-12,,400000,350000,-12.5,Single Family,,"listing_scrape,nj_records"
+17 Wheatland Ave,07052,West Orange,2024-08-30,2023-09-13,,219000,210000,-4.11,Land,,listing_scrape
+25 CENTRAL PLACE,07052,West Orange,2024-01-02,2023-10-04,,325000,346600,6.65,Single Family,sold_date,"listing_scrape,nj_records"
+4 LINDEN COURT,07052,West Orange,2025-01-31,2023-10-06,,699900,615000,-12.13,Single Family,sold_price,"listing_scrape,nj_records"
+17 LYNWOOD WAY,07052,West Orange,2023-10-30,2023-10-23,,2100000,2100000,0.0,Single Family,,"listing_scrape,nj_records"
+26 OAKRIDGE ROAD,07052,West Orange,2024-03-13,2023-12-04,,599000,777000,29.72,Single Family,,"listing_scrape,nj_records"
+2 GREGORY AVENUE,07052,West Orange,2024-03-13,2023-12-07,,588000,600000,2.04,Single Family,lot_sqft,"listing_scrape,nj_records"
+28 HUNTERDON ROAD,07052,West Orange,2024-08-30,2023-12-13,,475000,491000,3.37,Single Family,,"listing_scrape,nj_records"
+71 MAPLE AVENUE,07052,West Orange,2024-03-13,2023-12-13,,875000,915000,4.57,Single Family,year_built,"listing_scrape,nj_records"
+54 Hunterdon Rd,07052,West Orange,2024-03-13,2023-12-15,,425000,420000,-1.18,Single Family,,listing_scrape
+8 Himsl Ct,07052,West Orange,2024-03-13,2023-12-15,,1149000,1225000,6.61,Single Family,,listing_scrape
+549 MT. PLEASANT AVENUE,07052,West Orange,2024-03-13,2023-12-18,,555000,557500,0.45,Single Family,,"listing_scrape,nj_records"
+10 THORN TERRACE,07052,West Orange,2024-03-13,2023-12-19,,699900,730000,4.3,Single Family,,"listing_scrape,nj_records"
+5 CUMMINGS CIRCLE,07052,West Orange,2024-03-31,2024-01-04,,625000,625000,0.0,Condo,,"listing_scrape,nj_records"
+332 ARANEO DRIVE,07052,West Orange,2024-03-31,2024-01-18,,469000,530000,13.01,Townhouse,,"listing_scrape,nj_records"
+59 Park Ter,07052,West Orange,2025-01-31,2024-01-24,,395000,400000,1.27,Single Family,,listing_scrape
+5 McGuire Dr,07052,West Orange,2024-05-21,2024-03-04,,999000,1000000,0.1,Single Family,,listing_scrape
+104 Marion Dr Unit 104,07052,West Orange,2024-05-16,2024-03-05,,349000,390000,11.75,Condo,,"listing_scrape,nj_records"
+17 Larkin Cir Unit 17,07052,West Orange,2024-08-30,2024-03-12,,530000,550000,3.77,Townhouse,,listing_scrape
+10 Smith Manor Blvd Apt 821,07052,West Orange,2025-01-31,2024-04-12,,499000,499000,0.0,Condo,,listing_scrape
+42 MOUNTAIN VIEW STREET,07052,West Orange,2024-04-25,2024-04-12,0,465000,465000,0.0,Single Family,,"listing_scrape,nj_records"
+6 FAIRVIEW AVENUE,07052,West Orange,2024-08-04,2024-05-01,,1399000,1399000,0.0,Single Family,,"listing_scrape,nj_records"
+216 CLARKEN DRIVE,07052,West Orange,2024-08-04,2024-05-02,,569000,650000,14.24,Condo,,"listing_scrape,nj_records"
+40 MORRIS ROAD,07052,West Orange,2024-08-04,2024-05-06,,599000,585000,-2.34,Single Family,,"listing_scrape,nj_records"
+18 AMELIA STREET,07052,West Orange,2024-08-04,2024-05-07,,424000,618000,45.75,Single Family,,"listing_scrape,nj_records"
+338 Araneo Dr,07052,West Orange,2024-08-04,2024-05-07,,525000,587000,11.81,Condo,,listing_scrape
+134 WALKER ROAD,07052,West Orange,2024-08-04,2024-05-08,,650000,720000,10.77,Single Family,,"listing_scrape,nj_records"
+43 Conforti Ave Apt 19,07052,West Orange,2024-08-04,2024-05-09,,284000,305000,7.39,Condo,,listing_scrape
+43 Conforti Ave Apt 74,07052,West Orange,2024-08-04,2024-05-10,,234900,230000,-2.09,Condo,,listing_scrape
+88 WARREN ROAD,07052,West Orange,2024-08-04,2024-05-10,,620000,623000,0.48,Single Family,,"listing_scrape,nj_records"
+90 HILLSIDE AVENUE,07052,West Orange,2024-08-04,2024-05-11,,650000,818000,25.85,Single Family,,"listing_scrape,nj_records"
+35 GILBERT PLACE,07052,West Orange,2024-08-04,2024-05-13,,735000,926000,25.99,Single Family,,"listing_scrape,nj_records"
+18 CULLEN DRIVE,07052,West Orange,2024-08-04,2024-05-14,,979000,999999,2.14,Single Family,,"listing_scrape,nj_records"
+69 GLEN VIEW DRIVE,07052,West Orange,2024-08-04,2024-05-14,,399000,405000,1.5,Condo,,"listing_scrape,nj_records"
+16 SWAINE PLACE,07052,West Orange,2024-08-04,2024-05-20,,475000,530000,11.58,Single Family,,"listing_scrape,nj_records"
+73 SULLIVAN DRIVE,07052,West Orange,2024-08-04,2024-05-22,,640000,817000,27.66,Townhouse,,"listing_scrape,nj_records"
+24 CERONE COURT,07052,West Orange,2024-08-04,2024-05-23,,480000,556500,15.94,Condo,,"listing_scrape,nj_records"
+28 Hart Dr,07052,West Orange,2024-08-04,2024-05-28,,409000,497000,21.52,Townhouse,,listing_scrape
+280 NORTHFIELD AVENUE,07052,West Orange,2024-08-04,2024-05-28,,799900,840000,5.01,Single Family,,"listing_scrape,nj_records"
+103 BARRINGER COURT,07052,West Orange,2024-08-04,2024-05-30,,475000,615000,29.47,Townhouse,,"listing_scrape,nj_records"
+20 NANCE ROAD,07052,West Orange,2024-08-04,2024-05-30,,650000,827000,27.23,Single Family,,"listing_scrape,nj_records"
+202 ZEPPI LANE,07052,West Orange,2024-08-04,2024-05-30,,499000,600000,20.24,Condo,,"listing_scrape,nj_records"
+11 Schmitt Rd,07052,West Orange,2024-08-04,2024-06-03,,619000,781000,26.17,Single Family,,listing_scrape
+65 Crystal Ave,07052,West Orange,2024-08-04,2024-06-03,,475000,562000,18.32,Condo,,listing_scrape
+401 BARRINGER COURT,07052,West Orange,2024-08-24,2024-07-02,,640000,640000,0.0,Condo,,"listing_scrape,nj_records"
+166 Marion Dr,07052,West Orange,2024-09-25,2024-07-09,,365000,405000,10.96,Townhouse,,listing_scrape
+10 Smith Manor Blvd Apt 610,07052,West Orange,2024-09-28,2024-07-15,,369900,348000,-5.92,Condo,,listing_scrape
+17 Helen Ave,07052,West Orange,2024-10-23,2024-08-01,,799000,950000,18.9,Single Family,,listing_scrape
+32 Clarken Dr Unit 251,07052,West Orange,2024-10-28,2024-08-01,,540000,580000,7.41,Townhouse,,listing_scrape
+58 Nance Rd,07052,West Orange,2026-03-19,2024-09-04,,699900,750000,7.16,Single Family,,listing_scrape
+37 THORN TERRACE,07052,West Orange,2025-07-23,2024-09-16,,569000,580000,1.93,Single Family,,"listing_scrape,nj_records"
+12 HARTSHORN TERRACE,07052,West Orange,2024-12-17,2024-12-12,,500000,625000,25.0,Single Family,year_built,"listing_scrape,nj_records"
+35 Mountain Way,07052,West Orange,2025-04-07,2025-04-04,,748888,853000,13.9,Single Family,,listing_scrape
+14 Underwood Dr,07052,West Orange,2025-04-16,2025-04-15,,799900,950000,18.76,Single Family,,listing_scrape
+8 Overlook Ave,07052,West Orange,2025-05-08,2025-05-07,,825000,829125,0.5,Single Family,,listing_scrape
+23 Ashwood Ter,07052,West Orange,2025-08-08,2025-05-30,,599000,701000,17.03,Single Family,,listing_scrape
+49 Mayfair Dr,07052,West Orange,2025-07-30,2025-07-29,,875000,875000,0.0,Single Family,,listing_scrape
+1054 Smith Manor Blvd,07052,West Orange,2025-08-19,2025-08-18,,670000,670000,0.0,Townhouse,,listing_scrape
+491 MT Pleasant Ave,07052,West Orange,2026-03-30,2025-11-14,,699000,699000,0.0,Single Family,,listing_scrape
+34 Silver Spring Rd,07052,West Orange,2025-12-15,2025-12-08,,525000,575000,9.52,Single Family,,listing_scrape
+35 Fitzrandolph Rd,07052,West Orange,2026-03-30,2025-12-15,,495000,494800,-0.04,Single Family,,listing_scrape
+7 Lawrence Ave,07052,West Orange,2026-03-30,2025-12-29,,699000,710000,1.57,Multi-Family,,listing_scrape
+89 Clarken Dr,07052,West Orange,2026-03-30,2026-01-05,,500000,500000,0.0,Condo,,listing_scrape
+281 Gregory Ave,07052,West Orange,2026-02-27,2026-02-26,,775000,775000,0.0,Single Family,,listing_scrape
+346 Gregory Ave,07052,West Orange,2026-06-07,2026-03-22,,699000,755000,8.01,Single Family,,listing_scrape
+21 Glen Ave,07052,West Orange,2026-06-07,2026-03-27,,1795000,1950000,8.64,Single Family,,listing_scrape
+19 Moran Rd,07052,West Orange,2026-05-11,2026-04-30,,570000,610000,7.02,Condo,,listing_scrape
+89 Leonardo Ct,07052,West Orange,2026-06-23,2026-06-15,,579000,675000,16.58,Condo,,listing_scrape
+19 Deerwood Trl,07059,Warren,2025-01-31,2023-07-06,,1100000,1039500,-5.5,Single Family,,listing_scrape
+2 EVERGREEN COURT,07059,Warren,2024-03-13,2023-12-20,,1549000,1450000,-6.39,Single Family,,"listing_scrape,nj_records"
+25 NOTTINGHAM WAY,07059,Warren,2024-02-17,2024-01-30,,2125000,1912500,-10.0,Single Family,,"listing_scrape,nj_records"
+115 SMOKE RISE DRIVE,07059,Warren,2025-09-12,2024-03-21,,989000,995000,0.61,Single Family,,"listing_scrape,nj_records"
+16 QUAIL RUN,07059,Warren,2024-08-04,2024-05-02,,1350000,1225000,-9.26,Single Family,,"listing_scrape,nj_records"
+4 MOBUS LANE,07059,Warren,2024-08-04,2024-05-07,,539800,525000,-2.74,Single Family,,"listing_scrape,nj_records"
+26 MORNING GLORY ROAD,07059,Warren,2024-08-04,2024-05-14,,2199000,2000000,-9.05,Single Family,,"listing_scrape,nj_records"
+56 BETSY ROSS DR.,07059,Warren,2024-08-04,2024-05-15,,1425000,1425000,0.0,Single Family,,"listing_scrape,nj_records"
+8 Gregory Ln,07059,Warren,2024-08-04,2024-05-15,,2000000,2100000,5.0,Single Family,,listing_scrape
+60 SNEIDER ROAD,07059,Warren,2024-08-04,2024-05-20,,1795000,1635000,-8.91,Single Family,,"listing_scrape,nj_records"
+15 Stoney Brook Dr,07059,Warren,2024-08-04,2024-05-22,,1199000,1201000,0.17,Single Family,,listing_scrape
+33 Old Stirling Rd,07059,Warren,2024-08-04,2024-05-23,,899900,999999,11.12,Single Family,,listing_scrape
+38 Dahlia Dr Unit 38,07059,Warren,2024-08-04,2024-05-24,,1050000,960000,-8.57,Townhouse,,listing_scrape
+1 BELLEWOOD DRIVE,07059,Warren,2024-08-04,2024-05-28,,1295000,1351000,4.32,Single Family,,"listing_scrape,nj_records"
+3 FOX HILL DRIVE WEST,07059,Warren,2025-01-31,2024-05-28,,959999,1035000,7.81,Multi-Family,,"listing_scrape,nj_records"
+14 KATHERINE DRIVE,07059,Warren,2024-08-04,2024-05-30,,825000,833000,0.97,Single Family,,"listing_scrape,nj_records"
+3 HILL HOLLOW ROAD,07059,Warren,2024-08-27,2024-08-08,2,1700000,1690000,-0.59,Single Family,sold_date;year_built,"listing_scrape,nj_records"
+34 GATES AVENUE,07059,Warren,2024-12-19,2024-12-16,,449900,450000,0.02,Single Family,,"listing_scrape,nj_records"
+20 Primrose Way,07059,Warren,2025-03-01,2025-02-28,,1300000,1300000,0.0,Single Family,,listing_scrape
+3 Glenview Dr,07059,Warren,2025-03-11,2025-03-05,,2625000,2475000,-5.71,Single Family,,listing_scrape
+16 Aggie Ln Unit 126U,07059,Warren,2025-09-19,2025-05-21,,79150,79150,0.0,Condo,,listing_scrape
+21 Darkwood Ct,07059,Warren,2025-09-30,2025-09-29,,1775000,1775000,0.0,Single Family,,listing_scrape
+11 Grouse Rd,07059,Warren,2026-03-27,2026-03-26,,1250000,1250000,0.0,Single Family,,listing_scrape
+102 Delia Ter,07066,Clark,2025-01-17,2023-12-07,,549900,575000,4.56,Single Family,,listing_scrape
+54 Mildred Ter,07066,Clark,2025-01-31,2023-12-07,,600000,600000,0.0,Single Family,,listing_scrape
+25 ACKEN DR,07066,Clark,2024-03-13,2023-12-18,,1300000,1300000,0.0,Single Family,,"listing_scrape,nj_records"
+15 NEW YORK AVE,07066,Clark,2024-03-13,2023-12-20,,559000,550000,-1.61,Single Family,,"listing_scrape,nj_records"
+63 Hillcrest Dr,07066,Clark,2024-03-31,2024-01-17,,699900,665000,-4.99,Single Family,,listing_scrape
+353 MADISON HILL ROAD,07066,Clark,2025-01-31,2024-04-10,,850000,865000,1.76,Single Family,,"listing_scrape,nj_records"
+1108 LAKE AVE,07066,Clark,2024-08-04,2024-05-03,,559000,617000,10.38,Single Family,year_built,"listing_scrape,nj_records"
+20 Clauss Rd,07066,Clark,2025-01-31,2024-05-03,,475000,480000,1.05,Single Family,,listing_scrape
+47 SHETLAND DR,07066,Clark,2025-01-31,2024-05-08,,539000,590000,9.46,Single Family,,"listing_scrape,nj_records"
+130 SWEET BRIAR DR,07066,Clark,2024-08-04,2024-05-17,,290000,313000,7.93,Condo,,"listing_scrape,nj_records"
+99 WILLIAM ST,07066,Clark,2024-08-04,2024-05-17,,849000,859000,1.18,Single Family,,"listing_scrape,nj_records"
+99 Briarwood Path Unit 99,07066,Clark,2024-08-30,2024-05-21,,299000,289000,-3.34,Condo,,"listing_scrape,nj_records"
+27 LIMOLI LANE,07066,Clark,2024-08-04,2024-05-24,,975000,975000,0.0,Single Family,,"listing_scrape,nj_records"
+12 GRAND ST,07066,Clark,2025-03-10,2024-11-07,,699000,690000,-1.29,Single Family,,"listing_scrape,nj_records"
+9 BENISH COURT,07066,Clark,2024-12-04,2024-11-27,,1350000,1350000,0.0,Single Family,,"listing_scrape,nj_records"
+7 Cornell Cir,07066,Clark,2025-09-19,2025-05-22,,1150000,1168000,1.57,Single Family,,listing_scrape
+808 Riverbend Dr,07066,Clark,2026-01-23,2026-01-22,,515000,520000,0.97,Single Family,,listing_scrape
+4 SULLIVAN AVE,07067,Colonia,2026-03-11,2023-07-18,,584910,584900,-0.0,Single Family,,"listing_scrape,nj_records"
+67 W CLARK PL,07067,Colonia,2025-01-31,2023-08-04,,525000,575000,9.52,Single Family,,"listing_scrape,nj_records"
+40 KIMBERLY RD,07067,Colonia,2025-01-31,2023-08-22,,499000,580000,16.23,Single Family,,"listing_scrape,nj_records"
+100 OXFORD RD,07067,Colonia,2025-12-05,2023-08-28,,514900,535000,3.9,Single Family,sold_price,"listing_scrape,nj_records"
+78 Overbrook Dr,07067,Colonia,2024-08-30,2023-09-08,,625000,650000,4.0,Single Family,,listing_scrape
+16 HARTLAND CT,07067,Colonia,2024-01-02,2023-10-03,,599000,610000,1.84,Single Family,sold_date,"listing_scrape,nj_records"
+66 LONGFELLOW DR,07067,Colonia,2025-01-31,2023-10-05,,479900,490000,2.1,Single Family,,"listing_scrape,nj_records"
+183 Midfield Rd,07067,Colonia,2024-01-02,2023-10-17,,435000,405000,-6.9,Single Family,,listing_scrape
+61 DOVER RD,07067,Colonia,2024-01-02,2023-10-17,,519950,575000,10.59,Single Family,,"listing_scrape,nj_records"
+201 MC FARLANE RD,07067,Colonia,2024-01-02,2023-10-18,,519000,530000,2.12,Single Family,,"listing_scrape,nj_records"
+37 OXFORD RD,07067,Colonia,2024-01-02,2023-10-27,,535000,545000,1.87,Single Family,,"listing_scrape,nj_records"
+232 Carolyn Ave,07067,Colonia,2024-01-02,2023-11-01,,749000,725000,-3.2,Single Family,,listing_scrape
+3 Quaker Ln,07067,Colonia,2025-01-31,2023-11-03,,599700,530000,-11.62,Single Family,,listing_scrape
+9 RUTGERS AVE,07067,Colonia,2025-01-31,2023-11-13,,975000,915000,-6.15,Single Family,,"listing_scrape,nj_records"
+2 COLUMBIA AVE,07067,Colonia,2025-09-12,2023-11-17,,479000,479000,0.0,Single Family,,"listing_scrape,nj_records"
+85 CYPRESS DR,07067,Colonia,2024-03-13,2023-12-18,,489900,574500,17.27,Single Family,,"listing_scrape,nj_records"
+61 CAROLYN AVE,07067,Colonia,2025-01-31,2023-12-20,,429900,480000,11.65,Single Family,,"listing_scrape,nj_records"
+4 MADDIE CT,07067,Colonia,2024-03-31,2024-01-10,,1289000,1280000,-0.7,Single Family,,"listing_scrape,nj_records"
+41 Taylor Ter,07067,Colonia,2024-05-16,2024-03-15,,635000,635000,0.0,Single Family,,listing_scrape
+28 MC KINLEY AVE,07067,Colonia,2026-05-20,2024-05-06,,500000,580000,16.0,Single Family,,"listing_scrape,nj_records"
+3 WENDY RD,07067,Colonia,2024-08-04,2024-05-10,,665000,640000,-3.76,Single Family,,"listing_scrape,nj_records"
+82 NORMANDY RD,07067,Colonia,2024-08-04,2024-05-14,,574900,670000,16.54,Single Family,,"listing_scrape,nj_records"
+61 LONGFELLOW DR,07067,Colonia,2024-08-04,2024-05-21,,499900,500900,0.2,Single Family,,"listing_scrape,nj_records"
+22 PRINCETON AVE,07067,Colonia,2025-01-31,2024-06-04,,665000,770000,15.79,Single Family,,"listing_scrape,nj_records"
+16 PRINCETON AVE,07067,Colonia,2024-11-19,2024-07-02,,529000,580000,9.64,Single Family,,"listing_scrape,nj_records"
+23 MILIKEN RD,07067,Colonia,2024-10-28,2024-07-25,,500000,550000,10.0,Single Family,,"listing_scrape,nj_records"
+360 MAPLEWOOD AVE,07067,Colonia,2024-10-28,2024-07-26,,669000,699700,4.59,Single Family,,"listing_scrape,nj_records"
+28 Eli Rd,07067,Colonia,2024-10-28,2024-08-01,,679000,685000,0.88,Single Family,,listing_scrape
+92 N GRANT AVE,07067,Colonia,2026-01-16,2024-11-21,,575000,580000,0.87,Single Family,,"listing_scrape,nj_records"
+157 Cleveland Ave,07067,Colonia,2025-03-10,2025-01-03,,535000,550000,2.8,Single Family,,listing_scrape
+73 Predmore Ave,07067,Colonia,2026-04-14,2025-01-31,,599900,580000,-3.32,Single Family,,listing_scrape
+67 Harrison Ave,07067,Colonia,2025-07-17,2025-03-13,,735000,780000,6.12,Single Family,,listing_scrape
+109 Jordan Rd,07067,Colonia,2025-09-19,2025-05-15,,899000,885000,-1.56,Single Family,,listing_scrape
+59 Amherst Ave,07067,Colonia,2026-02-24,2025-05-30,,500000,490000,-2.0,Single Family,,listing_scrape
+77 Conduit Way,07067,Colonia,2026-03-30,2025-11-04,,515000,511000,-0.78,Single Family,,listing_scrape
+31 Jordan Rd,07067,Colonia,2026-03-30,2025-11-12,,825000,815000,-1.21,Single Family,,listing_scrape
+16 Stafford Rd,07067,Colonia,2026-03-30,2025-12-01,,699999,730000,4.29,Single Family,,listing_scrape
+66 Claremont Ave,07067,Colonia,2026-03-30,2025-12-19,,675000,660000,-2.22,Single Family,,listing_scrape
+10 PLYMOUTH PLACE,07068,Roseland,2024-03-13,2023-12-11,,649000,725000,11.71,Single Family,,"listing_scrape,nj_records"
+50 OAK DRIVE,07068,Roseland,2024-03-13,2023-12-20,,989000,1140000,15.27,Single Family,,"listing_scrape,nj_records"
+7 BIRCH DR,07068,Roseland,2024-08-04,2024-05-02,,989000,1180000,19.31,Single Family,year_built,"listing_scrape,nj_records"
+5 4th Ave,07068,Roseland,2024-08-04,2024-05-08,,630000,650000,3.17,Single Family,,listing_scrape
+103 Eagle Rock Ave,07068,Roseland,2024-08-04,2024-05-15,,750000,820000,9.33,Single Family,,listing_scrape
+28 COOPER AVENUE,07068,Roseland,2024-08-04,2024-05-17,,575000,585000,1.74,Single Family,,"listing_scrape,nj_records"
+1 Tannery Ln,07068,Roseland,2025-10-08,2025-10-07,,1150000,1150000,0.0,Single Family,,listing_scrape
+1204 Johnston Dr,07069,Watchung,2026-03-25,2023-07-05,,1299000,1230000,-5.31,Single Family,,listing_scrape
+65 KNIGHTSBRIDGE,07069,Watchung,2023-07-13,2023-07-06,,2255000,2250000,-0.22,Single Family,,"listing_scrape,nj_records"
+928 VALLEY ROAD,07069,Watchung,2026-06-21,2023-09-28,,749000,749000,0.0,Single Family,,"listing_scrape,nj_records"
+90 GLEN EAGLES DRIVE,07069,Watchung,2024-03-13,2023-12-18,,975000,975000,0.0,Single Family,,"listing_scrape,nj_records"
+37 Redmont Rd,07069,Watchung,2025-01-31,2024-01-08,,799000,780000,-2.38,Single Family,,listing_scrape
+65 SPENCER LANE,07069,Watchung,2024-08-04,2024-05-15,,999000,910000,-8.91,Single Family,,"listing_scrape,nj_records"
+20 INDIAN RUN,07069,Watchung,2024-08-04,2024-05-16,,649000,750000,15.56,Townhouse,year_built,"listing_scrape,nj_records"
+105 Scott Dr,07069,Watchung,2024-08-04,2024-05-31,,1375000,1400000,1.82,Single Family,,listing_scrape
+93 SUNLIT DRIVE,07069,Watchung,2024-10-18,2024-08-02,,899000,1056000,17.46,Single Family,,"listing_scrape,nj_records"
+524 RIDGE ROAD,07069,Watchung,2025-07-14,2024-09-04,,1700000,1715000,0.88,Single Family,,"listing_scrape,nj_records"
+5 Fox Chase Dr,07069,Watchung,2025-12-05,2025-06-13,,2250000,2200000,-2.22,Single Family,,listing_scrape
+81 Sunlit Dr,07069,Watchung,2025-10-24,2025-10-23,,975000,950000,-2.56,Single Family,,listing_scrape
+81 Century Ln,07069,Watchung,2026-04-19,2026-02-06,,899000,899000,0.0,Single Family,,listing_scrape
+40 Snoden Ln,07069,Watchung,2026-06-07,2026-03-27,,1695000,1695000,0.0,Single Family,,listing_scrape
+170 Anderson Rd,07069,Watchung,2026-06-17,2026-06-16,,825000,825000,0.0,Single Family,,listing_scrape
+17 AUTUMN DRIVE,07076,Scotch Plains,2025-01-31,2023-07-13,,775000,829500,7.03,Single Family,,"listing_scrape,nj_records"
+2400 PARK PLACE,07076,Scotch Plains,2025-07-23,2023-07-21,,725000,725000,0.0,Single Family,,"listing_scrape,nj_records"
+2326 Morse Ave,07076,Scotch Plains,2026-05-20,2023-11-03,,699999,760000,8.57,Single Family,,listing_scrape
+14 TREEVIEW CIRCLE,07076,Scotch Plains,2024-03-13,2023-12-07,,1050000,999999,-4.76,Single Family,,"listing_scrape,nj_records"
+13 BURNHAM VILLAGE,07076,Scotch Plains,2024-03-13,2023-12-08,,559900,560000,0.02,Condo,,"listing_scrape,nj_records"
+11 AUTUMN DRIVE,07076,Scotch Plains,2024-03-13,2023-12-12,,1050000,1250000,19.05,Single Family,year_built,"listing_scrape,nj_records"
+2272 MOUNTAIN AVE,07076,Scotch Plains,2024-03-13,2023-12-12,,618800,601000,-2.88,Single Family,,"listing_scrape,nj_records"
+406 DONATO CIRCLE,07076,Scotch Plains,2024-03-13,2023-12-13,,459000,530000,15.47,Condo,,"listing_scrape,nj_records"
+9 HARWICH VILLAGE,07076,Scotch Plains,2024-03-13,2023-12-14,,499000,528000,5.81,Townhouse,,"listing_scrape,nj_records"
+1755 RAMAPO WAY,07076,Scotch Plains,2024-03-13,2023-12-18,,499000,555000,11.22,Single Family,,"listing_scrape,nj_records"
+1051 Clarks Ln,07076,Scotch Plains,2024-03-13,2023-12-20,,1499000,1325000,-11.61,Single Family,,listing_scrape
+384 PARK VIEW DRIVE,07076,Scotch Plains,2024-03-13,2023-12-21,,714900,700000,-2.08,Single Family,,"listing_scrape,nj_records"
+1133 MARTINE AVE,07076,Scotch Plains,2024-03-13,2023-12-22,,630000,650000,3.17,Single Family,,"listing_scrape,nj_records"
+5 Wareham Vlg,07076,Scotch Plains,2024-03-31,2024-01-24,,475000,495000,4.21,Condo,,listing_scrape
+15 Ravenswood Ln,07076,Scotch Plains,2024-04-11,2024-02-14,,1385000,1195000,-13.72,Single Family,,listing_scrape
+1978 WOOD ROAD,07076,Scotch Plains,2024-04-12,2024-03-01,,1050000,1219780,16.17,Single Family,,"listing_scrape,nj_records"
+2370 Seneca Rd,07076,Scotch Plains,2024-04-02,2024-04-01,,675000,712000,5.48,Single Family,,listing_scrape
+2234 WOODLAND TERRACE,07076,Scotch Plains,2024-08-04,2024-05-06,,915000,915000,0.0,Single Family,,"listing_scrape,nj_records"
+1703 MOUNTAIN AVE,07076,Scotch Plains,2024-08-04,2024-05-10,,649000,701000,8.01,Single Family,,"listing_scrape,nj_records"
+19 Malanga Ct,07076,Scotch Plains,2024-08-04,2024-05-10,,365000,442000,21.1,Condo,,listing_scrape
+1263 SUNNYFIELD LANE,07076,Scotch Plains,2024-08-04,2024-05-14,,775000,950000,22.58,Single Family,year_built,"listing_scrape,nj_records"
+214 WILLIAM ST,07076,Scotch Plains,2024-08-04,2024-05-14,,575000,681000,18.43,Single Family,,"listing_scrape,nj_records"
+553 OVERHILL ST,07076,Scotch Plains,2024-08-04,2024-05-14,,750000,710000,-5.33,Single Family,,"listing_scrape,nj_records"
+2145 Seward Dr,07076,Scotch Plains,2024-08-04,2024-05-15,,949900,1111111,16.97,Single Family,,listing_scrape
+40 HIGHLANDER DRIVE,07076,Scotch Plains,2024-08-04,2024-05-15,,1325000,1610000,21.51,Single Family,,"listing_scrape,nj_records"
+2241 Greenside Pl,07076,Scotch Plains,2024-08-04,2024-05-20,,629000,669000,6.36,Single Family,,listing_scrape
+7 KAREN COURT,07076,Scotch Plains,2024-08-04,2024-05-21,,1275000,1200000,-5.88,Single Family,,"listing_scrape,nj_records"
+1922 CHURCH AVE,07076,Scotch Plains,2024-08-04,2024-05-22,,505000,570000,12.87,Single Family,,"listing_scrape,nj_records"
+2536 SMITH ST,07076,Scotch Plains,2025-01-31,2024-05-22,,519000,585000,12.72,Single Family,,"listing_scrape,nj_records"
+22 BLACK BIRCH ROAD,07076,Scotch Plains,2024-08-04,2024-05-28,,1125000,1240000,10.22,Single Family,,"listing_scrape,nj_records"
+13 BRANDYWINE COURT,07076,Scotch Plains,2024-08-04,2024-05-30,,975000,1277777,31.05,Single Family,year_built,"listing_scrape,nj_records"
+222 MOUNTAINVIEW AVE,07076,Scotch Plains,2024-10-29,2024-07-15,,650000,675000,3.85,Single Family,,"listing_scrape,nj_records"
+372 STOUT AVE,07076,Scotch Plains,2024-10-19,2024-07-23,,575000,600000,4.35,Single Family,year_built,"listing_scrape,nj_records"
+1726 Mountain Ave,07076,Scotch Plains,2025-10-28,2024-08-02,,479000,507000,5.85,Single Family,,listing_scrape
+2063 NEWARK AVE,07076,Scotch Plains,2024-08-30,2024-08-29,,1100000,1100000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+2221 PAFF PLACE,07076,Scotch Plains,2024-11-19,2024-08-29,,640000,625000,-2.34,Single Family,,"listing_scrape,nj_records"
+2219 North Ave Apt 11,07076,Scotch Plains,2025-03-10,2024-09-30,,470000,470000,0.0,Condo,,listing_scrape
+336 WILLIAM ST,07076,Scotch Plains,2026-06-22,2024-10-04,,849999,840000,-1.18,Single Family,year_built,"listing_scrape,nj_records"
+1 Cherry Blossom Ln,07076,Scotch Plains,2025-03-10,2024-11-08,,1320000,1417000,7.35,Single Family,,listing_scrape
+175 MOUNTAINVIEW AVE,07076,Scotch Plains,2024-11-19,2024-11-18,,550000,550000,0.0,Single Family,,"listing_scrape,nj_records"
+1623 Front St,07076,Scotch Plains,2026-02-24,2025-02-14,,595900,565000,-5.19,Single Family,,listing_scrape
+1204 Sunnyfield Ln,07076,Scotch Plains,2025-04-18,2025-04-01,,1350000,1512000,12.0,Single Family,,listing_scrape
+2383 Monica Pl,07076,Scotch Plains,2025-09-19,2025-04-01,,650000,685000,5.38,Single Family,,listing_scrape
+2408 Mountain Ave,07076,Scotch Plains,2025-09-19,2025-05-12,,599000,600000,0.17,Single Family,,listing_scrape
+31 Homestead Ter,07076,Scotch Plains,2025-06-26,2025-06-23,,1095000,1100000,0.46,Single Family,,listing_scrape
+1936 Parkwood Dr,07076,Scotch Plains,2025-11-18,2025-09-25,,1950000,2250000,15.38,Single Family,,listing_scrape
+2594 Mountain Ave,07076,Scotch Plains,2026-03-30,2025-10-09,,959000,905000,-5.63,Single Family,,listing_scrape
+21 Yarmouth Ct,07076,Scotch Plains,2025-11-04,2025-11-03,,650000,675000,3.85,Condo,,listing_scrape
+422 Myrtle Ave,07076,Scotch Plains,2026-06-22,2025-11-06,,1295000,1295000,0.0,Single Family,,listing_scrape
+11 Rambling Dr,07076,Scotch Plains,2025-12-19,2025-12-18,,1100000,1200000,9.09,Single Family,,listing_scrape
+1889 N Gate Rd,07076,Scotch Plains,2026-04-19,2026-02-05,,999999,999999,0.0,Single Family,,listing_scrape
+1944 Parkwood Dr,07076,Scotch Plains,2026-06-07,2026-03-20,,799900,885000,10.64,Single Family,,listing_scrape
+136 SILVER SPRING ROAD,07078,Short Hills,2023-07-11,2023-07-02,,2390000,2435000,1.88,Single Family,,"listing_scrape,nj_records"
+71 FAIRFIELD DRIVE,07078,Short Hills,2023-07-20,2023-07-17,,2495000,2870000,15.03,Single Family,,"listing_scrape,nj_records"
+415 White Oak Ridge Rd,07078,Short Hills,2023-07-25,2023-07-19,,3800000,3800000,0.0,Single Family,,listing_scrape
+44 Dorison Dr,07078,Short Hills,2023-07-25,2023-07-24,,3500000,3400011,-2.86,Single Family,,listing_scrape
+36 JOANNA WAY,07078,Short Hills,2023-10-19,2023-10-05,,3075000,3075000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+41 LAKE ROAD,07078,Short Hills,2024-03-13,2023-12-08,,3750000,4050000,8.0,Single Family,,"listing_scrape,nj_records"
+103 FOREST DRIVE NORTH,07078,Short Hills,2023-12-14,2023-12-09,,2575000,2575000,0.0,Single Family,,"listing_scrape,nj_records"
+19 MARTINDALE ROAD,07078,Short Hills,2024-03-13,2023-12-15,,1688000,1650000,-2.25,Single Family,,"listing_scrape,nj_records"
+21 AUDUBON COURT,07078,Short Hills,2024-03-13,2023-12-15,,1595000,1650000,3.45,Single Family,,"listing_scrape,nj_records"
+85 STEWART ROAD,07078,Short Hills,2024-03-13,2023-12-18,,6688000,6037000,-9.73,Single Family,year_built,"listing_scrape,nj_records"
+37 Barnsdale Rd,07078,Short Hills,2024-03-13,2023-12-20,,1850000,1850000,0.0,Single Family,,listing_scrape
+267 Dale Dr,07078,Short Hills,2024-01-01,2023-12-31,,2450000,2450000,0.0,Single Family,,listing_scrape
+18 JOANNA WAY,07078,Short Hills,2024-03-31,2024-01-05,,4500000,4500000,0.0,Single Family,lot_sqft,"listing_scrape,nj_records"
+76 Minnisink Rd,07078,Short Hills,2024-05-16,2024-03-01,,4188000,3940000,-5.92,Single Family,,listing_scrape
+7 SPENSER DR,07078,Short Hills,2024-04-30,2024-04-22,,3450000,3450000,0.0,Single Family,,"listing_scrape,nj_records"
+8 Robbins Ln,07078,Short Hills,2025-01-31,2024-05-03,,1500000,1965000,31.0,Single Family,,listing_scrape
+17 MERRYWOOD LANE,07078,Short Hills,2024-08-04,2024-05-04,,2988000,2850000,-4.62,Single Family,,"listing_scrape,nj_records"
+12 CAMPBELL ROAD,07078,Short Hills,2024-08-04,2024-05-06,,988000,920000,-6.88,Single Family,lot_sqft,"listing_scrape,nj_records"
+64 SILVER SPRING ROAD,07078,Short Hills,2024-08-04,2024-05-06,,1888888,2050000,8.53,Single Family,,"listing_scrape,nj_records"
+29 BALTUSROL WAY,07078,Short Hills,2024-08-04,2024-05-09,,1088000,1088000,0.0,Single Family,lot_sqft,"listing_scrape,nj_records"
+79 BALTUSROL WAY,07078,Short Hills,2024-08-04,2024-05-13,,1495000,1635000,9.36,Single Family,,"listing_scrape,nj_records"
+22 Great Hills Rd,07078,Short Hills,2024-08-04,2024-05-15,,1188000,1188000,0.0,Single Family,,listing_scrape
+10 BYRON ROAD,07078,Short Hills,2024-08-04,2024-05-17,,2795000,2750000,-1.61,Single Family,,"listing_scrape,nj_records"
+7 Knollwood Rd,07078,Short Hills,2024-08-04,2024-05-23,,1675000,1675000,0.0,Single Family,,listing_scrape
+25 Lawrence Dr,07078,Short Hills,2024-08-04,2024-06-03,,3495000,3600000,3.0,Single Family,,listing_scrape
+307 Long Hill Dr,07078,Short Hills,2024-07-17,2024-07-16,,2150000,2230000,3.72,Single Family,,listing_scrape
+65 Troy Dr,07078,Short Hills,2024-07-26,2024-07-25,,3435000,3435000,0.0,Single Family,,listing_scrape
+52 KEATS ROAD,07078,Short Hills,2024-09-13,2024-09-11,1,2795000,2900000,3.76,Single Family,,"listing_scrape,nj_records"
+253 HARTSHORN DRIVE,07078,Short Hills,2024-10-16,2024-10-15,,6800000,6800000,0.0,Single Family,,"listing_scrape,nj_records"
+281 HARTSHORN DRIVE,07078,Short Hills,2024-10-16,2024-10-15,,6800000,6800000,0.0,Single Family,,"listing_scrape,nj_records"
+74 STEWART ROAD,07078,Short Hills,2024-11-22,2024-11-20,,4175000,4175000,0.0,Single Family,,"listing_scrape,nj_records"
+2 Sinclair Ter,07078,Short Hills,2025-01-10,2025-01-09,,6750000,6750000,0.0,Single Family,,listing_scrape
+22 Dorset Ln,07078,Short Hills,2025-02-08,2025-02-07,,4050000,4050000,0.0,Single Family,,listing_scrape
+55 Mohawk Rd,07078,Short Hills,2025-05-23,2025-04-10,,3400000,3400000,0.0,Single Family,,listing_scrape
+40 Grosvenor Rd,07078,Short Hills,2025-08-08,2025-06-02,,2399000,2650000,10.46,Single Family,,listing_scrape
+80 Old Hollow Rd,07078,Short Hills,2025-07-02,2025-07-01,,4900000,4829700,-1.43,Single Family,,listing_scrape
+2 Oaklawn Rd,07078,Short Hills,2025-07-21,2025-07-08,,2408750,2408750,0.0,Single Family,,listing_scrape
+12 Roland Dr,07078,Short Hills,2025-11-08,2025-11-07,,1775000,1775000,0.0,Single Family,,listing_scrape
+18 S Beechcroft Rd,07078,Short Hills,2026-01-27,2025-11-26,,2200000,2150000,-2.27,Single Family,,listing_scrape
+71 Hillside Ave,07078,Short Hills,2026-01-14,2026-01-13,,6400000,6400000,0.0,Single Family,,listing_scrape
+74 White Oak Ridge Rd,07078,Short Hills,2026-04-19,2026-02-02,,3600000,3600000,0.0,Single Family,,listing_scrape
+25 West Rd,07078,Short Hills,2026-02-17,2026-02-16,,1800000,1815000,0.83,Single Family,,listing_scrape
+12 Meadowbrook Rd,07078,Short Hills,2026-02-24,2026-02-19,,1349000,1322020,-2.0,Single Family,,listing_scrape
+378 White Oak Ridge Rd,07078,Short Hills,2026-06-07,2026-03-30,,1288000,1455000,12.97,Single Family,,listing_scrape
+1 Lenape Rd,07078,Short Hills,2026-06-02,2026-06-01,,2450000,2450000,0.0,Single Family,,listing_scrape
+15 Troy Dr,07078,Short Hills,2026-06-04,2026-06-03,,3000000,3000000,0.0,Single Family,,listing_scrape
+269 Walton Ave,07079,South Orange,2023-07-25,2023-07-18,,650000,650000,0.0,Single Family,,listing_scrape
+67 Crest Dr,07079,South Orange,2023-08-22,2023-08-21,,1750000,1725000,-1.43,Single Family,,listing_scrape
+287 TILLOU RD,07079,South Orange,2023-10-13,2023-09-21,,1100000,1250000,13.64,Single Family,,"listing_scrape,nj_records"
+540 PAGE TERRACE,07079,South Orange,2024-03-13,2023-12-12,,1199000,1350000,12.59,Single Family,,"listing_scrape,nj_records"
+429 Meeker St,07079,South Orange,2025-01-31,2024-01-19,,789000,808000,2.41,Single Family,,listing_scrape
+465 Valley St Unit 7K,07079,South Orange,2024-03-19,2024-03-15,,475000,485000,2.11,Condo,,listing_scrape
+115 WYOMING AVENUE SOUTH,07079,South Orange,2024-08-04,2024-05-02,,1150000,1266000,10.09,Single Family,,"listing_scrape,nj_records"
+310 Beech Spring Rd,07079,South Orange,2024-08-04,2024-05-07,,1295000,1710000,32.05,Single Family,,listing_scrape
+340 Radel Ter,07079,South Orange,2024-08-04,2024-05-07,,799000,850000,6.38,Single Family,,listing_scrape
+305 HARTFORD ROAD,07079,South Orange,2024-08-04,2024-05-09,,1700000,1785000,5.0,Single Family,garage,"listing_scrape,nj_records"
+574 Sinclair Ter,07079,South Orange,2024-08-04,2024-05-10,,799000,990000,23.9,Single Family,,listing_scrape
+116 ROLAND AVE,07079,South Orange,2024-08-04,2024-05-12,,825000,995000,20.61,Single Family,garage,"listing_scrape,nj_records"
+78 ROLAND AVE,07079,South Orange,2024-08-04,2024-05-13,,625000,730000,16.8,Single Family,,"listing_scrape,nj_records"
+619 Hamilton Rd,07079,South Orange,2024-08-04,2024-05-15,,799000,875000,9.51,Single Family,,listing_scrape
+377 MEADOWBROOK LANE,07079,South Orange,2024-08-04,2024-05-16,,929000,999999,7.64,Single Family,year_built,"listing_scrape,nj_records"
+359 WILDEN PLACE,07079,South Orange,2024-08-04,2024-05-22,,750000,745000,-0.67,Single Family,garage,"listing_scrape,nj_records"
+418 CLARK STREET,07079,South Orange,2024-08-04,2024-05-23,,739000,835000,12.99,Single Family,,"listing_scrape,nj_records"
+240 Highland Rd,07079,South Orange,2024-08-04,2024-05-29,,1100000,1135000,3.18,Single Family,,listing_scrape
+31 GLENSIDE ROAD,07079,South Orange,2024-08-04,2024-05-29,,1250000,1275000,2.0,Single Family,,"listing_scrape,nj_records"
+120 HOLLAND ROAD,07079,South Orange,2024-08-04,2024-05-30,,775000,785000,1.29,Single Family,,"listing_scrape,nj_records"
+26 Village Green Ct,07079,South Orange,2024-08-04,2024-05-31,,789000,875000,10.9,Condo,,listing_scrape
+341 WYOMING AVENUE,07079,South Orange,2024-08-04,2024-05-31,,1199000,1704000,42.12,Single Family,,"listing_scrape,nj_records"
+465 Valley St Unit 5B,07079,South Orange,2024-06-08,2024-06-07,,370000,370000,0.0,Condo,,listing_scrape
+454 TILLOU ROAD,07079,South Orange,2024-06-24,2024-06-11,,1195000,1600000,33.89,Single Family,garage,"listing_scrape,nj_records"
+34 CREST DRIVE,07079,South Orange,2024-06-29,2024-06-28,,1100000,1150000,4.55,Single Family,,"listing_scrape,nj_records"
+73 RIGGS PLACE,07079,South Orange,2024-07-23,2024-07-12,,785000,834000,6.24,Single Family,,"listing_scrape,nj_records"
+131 N Wyoming Ave,07079,South Orange,2024-10-08,2024-10-07,,1400000,1400000,0.0,Single Family,,listing_scrape
+465-73 Valley St Unit 7B,07079,South Orange,2024-11-12,2024-11-11,,420000,420000,0.0,Condo,,listing_scrape
+276 N Western Dr,07079,South Orange,2024-11-26,2024-11-25,,1250000,1417000,13.36,Single Family,,listing_scrape
+159 Mercer Pl,07079,South Orange,2025-01-03,2024-12-20,,995000,999000,0.4,Single Family,,listing_scrape
+74 Ralston Ave,07079,South Orange,2025-05-21,2025-05-20,,950000,965000,1.58,Single Family,,listing_scrape
+269 Tichenor Ave,07079,South Orange,2025-06-13,2025-06-09,,850000,900000,5.88,Single Family,,listing_scrape
+114 Roland Ave,07079,South Orange,2025-07-16,2025-06-23,,800000,800000,0.0,Single Family,,listing_scrape
+205 Garfield Pl,07079,South Orange,2026-03-11,2025-12-22,,999900,1142200,14.23,Single Family,,listing_scrape
+17 University Ct,07079,South Orange,2026-03-30,2025-12-23,,1035000,991500,-4.2,Single Family,,listing_scrape
+80 Ralston Ave,07079,South Orange,2026-04-19,2026-02-13,,1500000,1680000,12.0,Single Family,,listing_scrape
+66 Ralston Ave,07079,South Orange,2026-05-23,2026-05-22,,975000,955000,-2.05,Single Family,,listing_scrape
+240 Sprague Ave,07080,South Plainfield,2025-01-31,2023-07-24,,475000,510000,7.37,Single Family,,listing_scrape
+113 ELIZABETHTOWN CT,07080,South Plainfield,2025-09-12,2023-08-11,,539900,601000,11.32,Single Family,sqft,"listing_scrape,nj_records"
+128 MILDRED ST,07080,South Plainfield,2025-01-31,2023-08-22,,320000,340000,6.25,Single Family,,"listing_scrape,nj_records"
+501 DOLORES AVE,07080,South Plainfield,2024-01-02,2023-10-11,,399900,426000,6.53,Single Family,,"listing_scrape,nj_records"
+313 LANE AVE,07080,South Plainfield,2024-01-02,2023-10-16,,425000,449000,5.65,Single Family,,"listing_scrape,nj_records"
+19 Brick Rd,07080,South Plainfield,2024-01-02,2023-10-18,,675000,710000,5.19,Single Family,,listing_scrape
+318 CHURCH ST,07080,South Plainfield,2024-01-02,2023-10-18,,449000,436000,-2.9,Single Family,,"listing_scrape,nj_records"
+126 LOWDEN AVE,07080,South Plainfield,2024-01-02,2023-10-24,,345000,380000,10.14,Single Family,,"listing_scrape,nj_records"
+218 SCHILLACI LA,07080,South Plainfield,2024-01-02,2023-10-25,,430000,430000,0.0,Single Family,,"listing_scrape,nj_records"
+1413 JACOBUS ST,07080,South Plainfield,2024-01-02,2023-10-31,,425000,430000,1.18,Single Family,,"listing_scrape,nj_records"
+210 HOPKINSON ST,07080,South Plainfield,2025-12-08,2023-11-06,,610000,605000,-0.82,Single Family,,"listing_scrape,nj_records"
+1919 SELENE AVE,07080,South Plainfield,2025-01-31,2023-11-07,,395000,430000,8.86,Single Family,,"listing_scrape,nj_records"
+121 MADISON DR,07080,South Plainfield,2025-01-31,2023-11-21,,485000,540000,11.34,Single Family,,"listing_scrape,nj_records"
+1811 BELLEW PLACE,07080,South Plainfield,2025-01-31,2023-12-18,,799000,810000,1.38,Single Family,,"listing_scrape,nj_records"
+240 Adeline Ave,07080,South Plainfield,2024-03-13,2023-12-18,,799900,840000,5.01,Single Family,,listing_scrape
+200 RAHWAY AVE,07080,South Plainfield,2024-03-13,2023-12-20,,599900,599900,0.0,Single Family,,"listing_scrape,nj_records"
+1310 HAMILTON BLVD,07080,South Plainfield,2025-01-31,2023-12-22,,629000,557500,-11.37,Single Family,lot_sqft,"listing_scrape,nj_records"
+1226 S 9th St,07080,South Plainfield,2024-08-30,2024-01-19,,639900,640000,0.02,Single Family,,listing_scrape
+127 OAKMOOR AVE,07080,South Plainfield,2025-01-31,2024-04-10,,499000,560000,12.22,Single Family,lot_sqft,"listing_scrape,nj_records"
+1070 SHERMAN AVE,07080,South Plainfield,2025-06-10,2024-04-16,,549900,570000,3.66,Single Family,,"listing_scrape,nj_records"
+606 FRANKLIN AVE,07080,South Plainfield,2026-03-19,2024-05-01,,325000,365000,12.31,Single Family,,"listing_scrape,nj_records"
+187 OAK MANOR PKWY,07080,South Plainfield,2025-07-23,2024-05-02,,399999,450000,12.5,Single Family,,"listing_scrape,nj_records"
+237 Ledden Ter,07080,South Plainfield,2024-08-04,2024-05-08,,440000,460000,4.55,Single Family,,listing_scrape
+2170 Orchard Dr,07080,South Plainfield,2024-08-04,2024-05-13,,549999,555000,0.91,Single Family,,listing_scrape
+1613 Windrew Ave,07080,South Plainfield,2024-08-04,2024-05-16,,470000,470000,0.0,Single Family,,listing_scrape
+2005 PLAINFIELD AVE,07080,South Plainfield,2024-08-04,2024-05-17,,749900,835000,11.35,Single Family,,"listing_scrape,nj_records"
+158 Norway Ln,07080,South Plainfield,2024-08-04,2024-05-24,,395000,410000,3.8,Single Family,,listing_scrape
+2140 ORCHARD DR,07080,South Plainfield,2024-08-04,2024-05-24,,475000,515000,8.42,Single Family,,"listing_scrape,nj_records"
+3122 WOODLAND AVE,07080,South Plainfield,2024-06-14,2024-06-13,,999999,885000,-11.5,Single Family,sqft,"listing_scrape,nj_records"
+129 CONKLIN STREET,07080,South Plainfield,2024-10-28,2024-07-11,,399900,420000,5.03,Single Family,sqft,"listing_scrape,nj_records"
+2100 Plainfield Ave,07080,South Plainfield,2025-09-19,2025-07-10,,739000,767000,3.79,Single Family,,listing_scrape
+122 Randolph Ave,07080,South Plainfield,2025-12-10,2025-08-19,,529999,518000,-2.26,Single Family,,listing_scrape
+1260 S 10th St,07080,South Plainfield,2026-03-30,2025-11-04,,575000,618000,7.48,Single Family,,listing_scrape
+1317 Famularo Dr,07080,South Plainfield,2026-03-30,2026-01-09,,498000,489000,-1.81,Single Family,,listing_scrape
+600 S SPRINGFIELD AVE,07081,Springfield,2025-01-31,2023-07-06,,419000,475000,13.37,Single Family,,"listing_scrape,nj_records"
+21 ROSE AVE,07081,Springfield,2025-01-31,2023-12-08,,585999,615000,4.95,Multi-Family,,"listing_scrape,nj_records"
+996 Chimney Ridge Dr,07081,Springfield,2024-03-13,2023-12-20,,828000,796000,-3.86,Single Family,,listing_scrape
+232 MILLTOWN RD,07081,Springfield,2025-01-31,2024-01-10,,485000,510000,5.15,Single Family,,"listing_scrape,nj_records"
+39 Meisel Ave,07081,Springfield,2024-07-07,2024-04-25,,399999,426000,6.5,Single Family,,listing_scrape
+32 SHERWOOD RD,07081,Springfield,2024-08-04,2024-05-03,,659000,701018,6.38,Single Family,,"listing_scrape,nj_records"
+300 WILSON RD UNIT 10,07081,Springfield,2024-08-04,2024-05-15,,330000,350000,6.06,Condo,,"listing_scrape,nj_records"
+86 Troy Dr Apt B,07081,Springfield,2024-08-04,2024-05-15,,359900,390000,8.36,Condo,,listing_scrape
+516 ASHWOOD RD,07081,Springfield,2024-08-04,2024-05-16,,499000,750000,50.3,Single Family,year_built,"listing_scrape,nj_records"
+23 NEW BROOK LANE,07081,Springfield,2024-08-04,2024-05-20,,729000,865000,18.66,Single Family,,"listing_scrape,nj_records"
+706 S SPRINGFIELD AVE,07081,Springfield,2024-08-04,2024-05-21,,850000,850000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+59 BRIAR HILLS CIRCLE,07081,Springfield,2024-08-04,2024-05-22,,700000,678800,-3.03,Single Family,,"listing_scrape,nj_records"
+33-37 Diven St,07081,Springfield,2025-09-12,2024-06-12,,489900,460000,-6.1,Single Family,,"listing_scrape,nj_records"
+85 Hawthorne Ave,07081,Springfield,2025-01-31,2024-06-28,,499700,580000,16.07,Single Family,,listing_scrape
+30 LEWIS DR,07081,Springfield,2024-11-08,2024-11-04,,850000,850000,0.0,Single Family,,"listing_scrape,nj_records"
+67 Beverly Rd,07081,Springfield,2025-09-19,2025-06-16,,849900,950000,11.78,Single Family,,listing_scrape
+70 High Point Dr,07081,Springfield,2025-09-19,2025-07-15,,724900,775000,6.91,Single Family,,listing_scrape
+874 Mountain Ave,07081,Springfield,2026-03-30,2026-01-07,,599900,599900,0.0,Single Family,,listing_scrape
+11 REDDING PL,07082,Towaco,2025-01-31,2023-07-06,,585000,630000,7.69,Single Family,,"listing_scrape,nj_records"
+2 Hilbert Ct,07082,Towaco,2023-12-07,2023-12-06,,375000,375000,0.0,Land,,listing_scrape
+6 Church Ln,07082,Towaco,2024-03-13,2023-12-15,,588000,602000,2.38,Single Family,,listing_scrape
+3 HAROLD TER,07082,Towaco,2024-04-25,2024-04-24,,599900,710000,18.35,Single Family,,"listing_scrape,nj_records"
+45 ABBOTT RD,07082,Towaco,2024-08-04,2024-05-16,,1199000,1310000,9.26,Single Family,,"listing_scrape,nj_records"
+82A Pine Brook Rd,07082,Towaco,2024-08-04,2024-05-16,,599000,645000,7.68,Single Family,,listing_scrape
+17 HILLCREST RD,07082,Towaco,2024-08-04,2024-05-22,,1175000,1300000,10.64,Single Family,,"listing_scrape,nj_records"
+14 OLD JACKSONVILLE RD,07082,Towaco,2024-08-04,2024-05-23,,729800,835000,14.41,Single Family,,"listing_scrape,nj_records"
+14 Foremost Mountain Rd,07082,Towaco,2024-08-04,2024-05-31,,578800,645000,11.44,Single Family,,listing_scrape
+33 MANITOU CIR,07090,Westfield,2023-07-15,2023-07-07,,885000,1050000,18.64,Single Family,,"listing_scrape,nj_records"
+306 SCOTCH PLAINS AVE,07090,Westfield,2023-08-16,2023-08-14,,950000,995100,4.75,Single Family,,"listing_scrape,nj_records"
+741 CARLETON RD,07090,Westfield,2023-08-19,2023-08-15,,1250000,1350000,8.0,Single Family,lot_sqft,"listing_scrape,nj_records"
+1 Faulkner Dr,07090,Westfield,2023-09-06,2023-09-05,,690000,690000,0.0,Single Family,,listing_scrape
+827 Cedar Ter,07090,Westfield,2023-09-21,2023-09-20,,1650000,1729000,4.79,Single Family,,listing_scrape
+519 Trinity Pl Apt 2AS,07090,Westfield,2025-07-23,2023-10-18,,334900,335000,0.03,Condo,,listing_scrape
+102 DICKSON DR,07090,Westfield,2024-03-13,2023-12-08,,899000,860000,-4.34,Single Family,lot_sqft,"listing_scrape,nj_records"
+1504 BOULEVARD,07090,Westfield,2024-03-13,2023-12-12,,1299000,1299000,0.0,Single Family,,"listing_scrape,nj_records"
+531 TOPPING HILL ROAD,07090,Westfield,2024-03-13,2023-12-12,,899000,875000,-2.67,Single Family,,"listing_scrape,nj_records"
+800 WILLOW GROVE ROAD,07090,Westfield,2024-03-13,2023-12-12,,1150000,990000,-13.91,Single Family,,"listing_scrape,nj_records"
+123 STANMORE PLACE,07090,Westfield,2024-03-13,2023-12-13,,999900,1050123,5.02,Single Family,year_built,"listing_scrape,nj_records"
+1015 Grandview Ave,07090,Westfield,2024-03-13,2023-12-15,,1350000,1460000,8.15,Single Family,,listing_scrape
+801 New England Dr,07090,Westfield,2025-01-31,2023-12-19,,899000,860000,-4.34,Single Family,,listing_scrape
+740 NORGATE,07090,Westfield,2024-03-13,2023-12-20,,1750000,1750000,0.0,Single Family,,"listing_scrape,nj_records"
+405 ROANOKE RD,07090,Westfield,2024-03-13,2023-12-21,,2999000,3175000,5.87,Single Family,lot_sqft;garage,"listing_scrape,nj_records"
+334 CHESTNUT ST N,07090,Westfield,2024-03-31,2024-01-02,,925000,925000,0.0,Single Family,,"listing_scrape,nj_records"
+722 Mountain Ave,07090,Westfield,2024-03-31,2024-01-22,,899000,990000,10.12,Single Family,,listing_scrape
+37C Sandra Cir Unit 2,07090,Westfield,2024-03-31,2024-01-23,,275000,290000,5.45,Condo,,listing_scrape
+406 CLARK ST,07090,Westfield,2024-03-31,2024-01-25,,789000,819250,3.83,Single Family,,"listing_scrape,nj_records"
+42 DORIS PKWY,07090,Westfield,2024-05-16,2024-03-08,,725000,950000,31.03,Single Family,,"listing_scrape,nj_records"
+509 BOULEVARD UNIT A,07090,Westfield,2024-08-04,2024-05-01,,999900,1145000,14.51,Townhouse,,"listing_scrape,nj_records"
+1101 WYCHWOOD ROAD,07090,Westfield,2025-05-16,2024-05-06,,1299900,1281148,-1.44,Single Family,garage,"listing_scrape,nj_records"
+434 LONGFELLOW AVE,07090,Westfield,2024-08-04,2024-05-06,,899000,1076434,19.74,Single Family,,"listing_scrape,nj_records"
+938 NORTH AVENUE W,07090,Westfield,2024-08-04,2024-05-08,,539000,550000,2.04,Single Family,,"listing_scrape,nj_records"
+422 Lenox Ave,07090,Westfield,2024-08-04,2024-05-09,,1425000,1650000,15.79,Single Family,,listing_scrape
+515 SHERWOOD PARKWAY,07090,Westfield,2024-08-04,2024-05-09,,1100000,1280000,16.36,Single Family,,"listing_scrape,nj_records"
+925 Wyandotte Trl,07090,Westfield,2024-08-04,2024-05-10,,1699900,1923000,13.12,Single Family,,listing_scrape
+814 OAK AVE,07090,Westfield,2024-08-04,2024-05-11,,875000,952500,8.86,Single Family,,"listing_scrape,nj_records"
+637 CLARK ST,07090,Westfield,2025-01-31,2024-05-12,,924900,975000,5.42,Single Family,,"listing_scrape,nj_records"
+639 SALTER PLACE,07090,Westfield,2024-08-04,2024-05-13,,2599000,2599000,0.0,Single Family,garage,"listing_scrape,nj_records"
+557 1st St,07090,Westfield,2024-08-04,2024-05-14,,1099000,1000000,-9.01,Single Family,,listing_scrape
+130 Madison Ave,07090,Westfield,2024-08-04,2024-05-15,,1750000,1720000,-1.71,Single Family,,listing_scrape
+679 WILLOW GROVE ROAD,07090,Westfield,2024-08-04,2024-05-15,,799000,985000,23.28,Single Family,,"listing_scrape,nj_records"
+237 ORCHARD ST,07090,Westfield,2024-08-04,2024-05-16,,725000,801000,10.48,Single Family,,"listing_scrape,nj_records"
+812 SHERBROOKE DR,07090,Westfield,2024-08-04,2024-05-16,,749000,950000,26.84,Single Family,,"listing_scrape,nj_records"
+237 MIDWOOD PL,07090,Westfield,2024-08-04,2024-05-17,,1850000,2000000,8.11,Single Family,,"listing_scrape,nj_records"
+608 ARDSLEIGH DR,07090,Westfield,2024-08-04,2024-05-17,,895000,861000,-3.8,Single Family,,"listing_scrape,nj_records"
+223 BAKER AVE,07090,Westfield,2024-08-04,2024-05-20,,1369000,1600000,16.87,Single Family,,"listing_scrape,nj_records"
+811 FRANKLIN AVE,07090,Westfield,2024-08-04,2024-05-21,,1329000,1502000,13.02,Single Family,year_built,"listing_scrape,nj_records"
+25 SANDRA CIRCLE,07090,Westfield,2024-08-04,2024-05-22,,899000,925000,2.89,Single Family,,"listing_scrape,nj_records"
+612 DOWNER ST,07090,Westfield,2024-08-04,2024-05-22,,1800000,1700000,-5.56,Single Family,,"listing_scrape,nj_records"
+445 DOWNER ST,07090,Westfield,2024-08-04,2024-05-25,,589000,575000,-2.38,Single Family,,"listing_scrape,nj_records"
+307 MASSACHUSETTS ST,07090,Westfield,2024-08-04,2024-05-28,,850000,960000,12.94,Single Family,,"listing_scrape,nj_records"
+518 Saint Marks Ave,07090,Westfield,2024-08-04,2024-05-31,,1779000,1926000,8.26,Single Family,,listing_scrape
+6 THOMAS COURT,07090,Westfield,2024-08-04,2024-05-31,,1475000,1503000,1.9,Single Family,lot_sqft;garage,"listing_scrape,nj_records"
+565 Cumberland St,07090,Westfield,2024-08-04,2024-06-03,,625000,750000,20.0,Single Family,,listing_scrape
+533 Edgar Rd,07090,Westfield,2024-08-11,2024-06-10,,1039000,1220000,17.42,Single Family,,listing_scrape
+752 TAMAQUES WAY,07090,Westfield,2024-07-23,2024-07-19,,899000,999999,11.23,Single Family,,"listing_scrape,nj_records"
+713 Knollwood Ter,07090,Westfield,2026-01-22,2024-07-31,,1849999,2020000,9.19,Single Family,,listing_scrape
+621 Shadowlawn Dr,07090,Westfield,2024-08-02,2024-08-01,,1750000,1750000,0.0,Single Family,,listing_scrape
+920 Talcott Rd,07090,Westfield,2024-08-20,2024-08-05,,1800000,1800000,0.0,Single Family,,listing_scrape
+570 Lawrence Ave,07090,Westfield,2024-10-09,2024-08-06,,2399000,2552500,6.4,Single Family,,listing_scrape
+515 Colonial Ave,07090,Westfield,2024-09-04,2024-09-03,,2475000,2475000,0.0,Single Family,,listing_scrape
+105 Golf Edge Dr,07090,Westfield,2024-10-10,2024-09-30,,2850000,3107090,9.02,Single Family,,"listing_scrape,nj_records"
+725 HIGHLAND AVE,07090,Westfield,2024-11-14,2024-11-05,,2695000,2675000,-0.74,Single Family,,"listing_scrape,nj_records"
+676 SUMMIT AVE,07090,Westfield,2024-11-19,2024-11-15,,899000,975000,8.45,Single Family,,"listing_scrape,nj_records"
+26 FAIRHILL RD,07090,Westfield,2025-03-05,2024-12-16,,1950000,1825000,-6.41,Single Family,lot_sqft;year_built;garage,"listing_scrape,nj_records"
+934 Prospect St,07090,Westfield,2025-02-05,2025-01-31,,2400000,2440000,1.67,Single Family,,listing_scrape
+1011 Boynton Ave,07090,Westfield,2025-03-25,2025-03-21,,1050000,1200000,14.29,Single Family,,listing_scrape
+230 Connecticut St,07090,Westfield,2025-04-06,2025-03-28,,1850000,1877161,1.47,Single Family,,listing_scrape
+225 Twin Oaks Ter,07090,Westfield,2025-09-19,2025-03-31,,1489000,1600000,7.45,Single Family,,listing_scrape
+36 Woodbrook Cir,07090,Westfield,2025-09-19,2025-04-17,,1988000,1850000,-6.94,Single Family,,listing_scrape
+958 Prospect St,07090,Westfield,2025-09-19,2025-06-26,,2300000,2450000,6.52,Single Family,,listing_scrape
+12 Wychview Dr,07090,Westfield,2025-07-03,2025-07-02,,999000,1200000,20.12,Single Family,,listing_scrape
+720 Lawrence Ave,07090,Westfield,2025-08-07,2025-08-06,,3695000,3550000,-3.92,Single Family,,listing_scrape
+34 Woodbrook Cir,07090,Westfield,2026-01-14,2025-08-08,,724900,885000,22.09,Single Family,,listing_scrape
+4 Breezeknoll Dr,07090,Westfield,2025-08-21,2025-08-18,,2500000,2500000,0.0,Single Family,,listing_scrape
+880 Dorian Rd,07090,Westfield,2025-08-30,2025-08-29,,1285000,1400000,8.95,Single Family,,listing_scrape
+689 Shadowlawn Dr,07090,Westfield,2025-09-16,2025-09-12,,1250000,1440000,15.2,Single Family,,listing_scrape
+900 Kimball Ave,07090,Westfield,2025-10-18,2025-10-17,,2650000,2650000,0.0,Single Family,,listing_scrape
+650 Coleman Pl,07090,Westfield,2026-01-22,2025-10-27,,999000,1260000,26.13,Single Family,,listing_scrape
+806 Saint Marks Ave,07090,Westfield,2025-12-30,2025-10-27,,2399888,2399888,0.0,Single Family,,listing_scrape
+521 Topping Hill Rd,07090,Westfield,2025-11-06,2025-11-03,,1450000,1650000,13.79,Single Family,,listing_scrape
+416 Boulevard,07090,Westfield,2026-01-22,2025-11-05,,950000,999999,5.26,Single Family,,listing_scrape
+615 Kensington Dr,07090,Westfield,2025-12-15,2025-12-03,,849000,900000,6.01,Single Family,,listing_scrape
+211 Cacciola Pl,07090,Westfield,2025-12-19,2025-12-18,,650000,665000,2.31,Multi-Family,,listing_scrape
+647 Elm St,07090,Westfield,2025-12-31,2025-12-30,,1150000,1375000,19.57,Single Family,,listing_scrape
+910 Minisink Way,07090,Westfield,2026-01-16,2026-01-15,,1250000,1310000,4.8,Single Family,,listing_scrape
+633 Norwood Dr,07090,Westfield,2026-04-19,2026-02-13,,749900,900000,20.02,Single Family,,listing_scrape
+738 Coleman Pl,07090,Westfield,2026-06-07,2026-03-16,,1100000,1275000,15.91,Single Family,,listing_scrape
+141 Brightwood Ave,07090,Westfield,2026-06-07,2026-03-18,,1299999,1250000,-3.85,Single Family,,listing_scrape
+50 Tamaques Way,07090,Westfield,2026-06-07,2026-03-23,,825000,950000,15.15,Single Family,,listing_scrape
+130 Boynton Ct,07090,Westfield,2026-06-07,2026-03-25,,1399000,1415000,1.14,Single Family,,listing_scrape
+904 Cranford Ave,07090,Westfield,2026-06-25,2026-05-28,,1300000,1270000,-2.31,Single Family,,listing_scrape
+6 Breezeknoll Dr,07090,Westfield,2026-06-27,2026-06-25,,5450000,5200000,-4.59,Single Family,,listing_scrape
+54 5th St,07095,Woodbridge,2025-01-31,2023-07-06,,469000,469000,0.0,Single Family,,listing_scrape
+645 RIDGEDALE AVE,07095,Woodbridge,2025-01-31,2023-08-24,,749999,825000,10.0,Single Family,,"listing_scrape,nj_records"
+61A Golden Ct Unit 611,07095,Woodbridge,2025-01-31,2023-08-25,,324999,315000,-3.08,Condo,,listing_scrape
+8 KOSENE ST,07095,Woodbridge,2025-04-21,2023-09-11,,479000,510000,6.47,Single Family,,"listing_scrape,nj_records"
+115 New St,07095,Woodbridge,2025-01-31,2023-09-14,,629000,639000,1.59,Multi-Family,,listing_scrape
+36 Willry St,07095,Woodbridge,2025-01-31,2023-09-14,,400000,430000,7.5,Single Family,,listing_scrape
+201 S Fulton St,07095,Woodbridge,2025-10-07,2023-09-22,,539000,560000,3.9,Multi-Family,,listing_scrape
+225 GROVE AVE,07095,Woodbridge,2023-10-02,2023-09-28,,475000,475000,0.0,Single Family,,"listing_scrape,nj_records"
+225 CHURCH ST,07095,Woodbridge,2025-01-31,2023-10-10,,674900,730000,8.16,Single Family,,"listing_scrape,nj_records"
+6 E GROVE AVE,07095,Woodbridge,2025-11-21,2023-10-10,,389000,430000,10.54,Single Family,,"listing_scrape,nj_records"
+276 Anders Way,07095,Woodbridge,2025-01-31,2023-10-11,,399900,430000,7.53,Single Family,,listing_scrape
+143C Overlook Ct Unit 143C,07095,Woodbridge,2024-01-02,2023-10-19,,320000,320000,0.0,Condo,,listing_scrape
+280 Bunns Ln,07095,Woodbridge,2024-01-02,2023-10-20,,399900,430000,7.53,Single Family,,listing_scrape
+141-H Beverly Hill Ter,07095,Woodbridge,2024-01-02,2023-10-23,,249999,242000,-3.2,Condo,,listing_scrape
+96 ALWAT ST,07095,Woodbridge,2025-09-12,2023-11-15,,620000,620000,0.0,Single Family,,"listing_scrape,nj_records"
+571 ALMON AVE,07095,Woodbridge,2025-01-31,2023-11-29,,425000,425000,0.0,Single Family,,"listing_scrape,nj_records"
+218 GROVE AVE,07095,Woodbridge,2025-07-23,2023-12-11,,550000,550000,0.0,Single Family,,"listing_scrape,nj_records"
+113 HIGH ST,07095,Woodbridge,2024-03-13,2023-12-20,,475000,490000,3.16,Single Family,,"listing_scrape,nj_records"
+639 Cricket Ln,07095,Woodbridge,2024-03-13,2023-12-22,,260000,265000,1.92,Condo,,listing_scrape
+C Overlook Ct Unit 155,07095,Woodbridge,2024-03-13,2023-12-22,,315000,340000,7.94,Condo,,listing_scrape
+255 GROVE ST,07095,Woodbridge,2025-09-05,2024-01-03,,399900,445000,11.28,Single Family,,"listing_scrape,nj_records"
+214 CRICKET LN,07095,Woodbridge,2024-02-05,2024-02-03,2,299000,295000,-1.34,Condo,,"listing_scrape,nj_records"
+325 DE SOTA AVE,07095,Woodbridge,2025-11-24,2024-02-05,,425000,427000,0.47,Single Family,,"listing_scrape,nj_records"
+13 Lambert St,07095,Woodbridge,2024-08-04,2024-05-17,,579000,599000,3.45,Single Family,,listing_scrape
+641 Ridgedale Ave,07095,Woodbridge,2026-06-22,2024-06-04,,799900,830000,3.76,Single Family,,listing_scrape
+1009 CRICKET LN,07095,Woodbridge,2025-01-31,2024-06-06,,260000,303000,16.54,Condo,,"listing_scrape,nj_records"
+179 SHERRY ST,07095,Woodbridge,2025-01-31,2024-06-26,,499000,521000,4.41,Single Family,,"listing_scrape,nj_records"
+123 Cricket Ln Unit 123,07095,Woodbridge,2026-03-19,2024-06-28,,260000,263000,1.15,Condo,,"listing_scrape,nj_records"
+414 Elmwood Ave,07095,Woodbridge,2024-08-14,2024-07-17,,599000,579500,-3.26,Single Family,,listing_scrape
+154 CRESCENT ST,07095,Woodbridge,2024-11-01,2024-08-28,,549000,535000,-2.55,Single Family,,"listing_scrape,nj_records"
+1330 CRICKET LN,07095,Woodbridge,2025-03-10,2024-11-02,,290000,285000,-1.72,Condo,,"listing_scrape,nj_records"
+205 Russell St,07095,Woodbridge,2025-09-19,2025-04-30,,639900,711000,11.11,Single Family,,listing_scrape
+592 Ridgedale Ave,07095,Woodbridge,2025-09-19,2025-05-30,,409900,412500,0.63,Single Family,,listing_scrape
+212 Freeman St,07095,Woodbridge,2025-10-31,2025-08-29,,599000,635000,6.01,Single Family,,listing_scrape
+587 Linden Ave,07095,Woodbridge,2026-03-30,2025-10-15,,469900,490000,4.28,Single Family,,listing_scrape
+9 Winston Dr,07095,Woodbridge,2026-06-22,2025-10-15,,475000,475000,0.0,Single Family,,listing_scrape
+637 Harrell Ave,07095,Woodbridge,2026-03-30,2025-11-04,,499000,487000,-2.4,Single Family,,listing_scrape
+1320 Cricket Ln Unit 1320,07095,Woodbridge,2026-03-30,2025-11-13,,299000,304000,1.67,Condo,,listing_scrape
+704 Cricket Ln Unit 704,07095,Woodbridge,2026-03-30,2025-11-13,,275000,290000,5.45,Condo,,listing_scrape
+532 Bamford Ave,07095,Woodbridge,2026-03-30,2025-12-03,,575000,590000,2.61,Single Family,,listing_scrape
+118 Willry St,07095,Woodbridge,2026-03-30,2025-12-05,,449900,515000,14.47,Single Family,,listing_scrape
+65 Russell St,07095,Woodbridge,2026-03-30,2025-12-15,,409900,434000,5.88,Single Family,,listing_scrape
+615 Sharon Garden Ct,07095,Woodbridge,2026-06-12,2025-12-18,,315000,320000,1.59,Condo,,listing_scrape
+180 Minna Ave,07095,Woodbridge,2026-03-30,2025-12-30,,735000,725000,-1.36,Single Family,,listing_scrape
+193 Sierra Ct,07095,Woodbridge,2026-03-30,2026-01-21,,359000,329000,-8.36,Condo,,listing_scrape
+325 Regency Pl,07095,Woodbridge,2026-03-30,2026-01-23,,375000,385000,2.67,Townhouse,,listing_scrape
+52 Martin Ter,07095,Woodbridge,2026-03-30,2026-01-23,,350000,370000,5.71,Single Family,,listing_scrape
+810 Cricket Ln,07095,Woodbridge,2026-06-15,2026-06-12,,340000,340000,0.0,Condo,,listing_scrape
+299 Hillside Ave,07110,Nutley,2024-08-30,2023-07-06,,595000,620000,4.2,Single Family,,listing_scrape
+80 MCKINLEY STREET,07110,Nutley,2024-08-30,2023-09-28,,585000,585000,0.0,Single Family,,"listing_scrape,nj_records"
+99 CHURCH STREET,07110,Nutley,2024-08-30,2023-10-04,,440000,490000,11.36,Single Family,,"listing_scrape,nj_records"
+76 HOWARD PLACE,07110,Nutley,2025-01-31,2023-10-06,,599000,599000,0.0,Single Family,,"listing_scrape,nj_records"
+194 Hancox Ave,07110,Nutley,2024-08-30,2023-10-13,,425000,437294,2.89,Single Family,,listing_scrape
+65 Overlook Ter,07110,Nutley,2024-08-30,2023-12-05,,550000,625000,13.64,Single Family,,listing_scrape
+9 WHITFORD AVENUE,07110,Nutley,2024-08-30,2023-12-08,,699900,659900,-5.72,Single Family,,"listing_scrape,nj_records"
+339 WALNUT STREET,07110,Nutley,2024-03-13,2023-12-21,,499000,600000,20.24,Single Family,,"listing_scrape,nj_records"
+2 FULTON STREET,07110,Nutley,2024-03-27,2023-12-29,,879000,830000,-5.57,Single Family,,"listing_scrape,nj_records"
+312 Bloomfield Ave,07110,Nutley,2025-01-31,2024-01-05,,399000,431000,8.02,Single Family,,listing_scrape
+11 Lake St,07110,Nutley,2024-03-31,2024-01-22,,599000,690000,15.19,Single Family,,listing_scrape
+6-12 Hillside Ave Unit 2E,07110,Nutley,2024-08-30,2024-02-07,,319000,340000,6.58,Condo,,listing_scrape
+39 FREEMAN PLACE,07110,Nutley,2024-08-04,2024-05-03,,499000,550000,10.22,Single Family,,"listing_scrape,nj_records"
+180 COEYMAN AVENUE,07110,Nutley,2024-08-04,2024-05-08,,599000,650000,8.51,Single Family,,"listing_scrape,nj_records"
+76 MCKINLEY STREET,07110,Nutley,2024-08-04,2024-05-09,,669000,780000,16.59,Single Family,,"listing_scrape,nj_records"
+59 BROOKFIELD AVENUE,07110,Nutley,2024-08-04,2024-05-10,,799900,925000,15.64,Single Family,,"listing_scrape,nj_records"
+17 BAYARD STREET,07110,Nutley,2024-08-04,2024-05-15,,599000,650000,8.51,Single Family,,"listing_scrape,nj_records"
+83 ALEXANDER AVENUE,07110,Nutley,2024-08-04,2024-05-21,,699900,811000,15.87,Single Family,,"listing_scrape,nj_records"
+259 HIGH STREET,07110,Nutley,2024-08-04,2024-05-22,,415000,552000,33.01,Single Family,,"listing_scrape,nj_records"
+20 LAUREL PLACE,07110,Nutley,2024-08-04,2024-05-23,,458000,550000,20.09,Single Family,,"listing_scrape,nj_records"
+448 River Rd Apt B,07110,Nutley,2024-08-04,2024-05-28,,284900,281900,-1.05,Condo,,listing_scrape
+140 Bloomfield Ave,07110,Nutley,2025-01-31,2024-06-04,,455000,485000,6.59,Single Family,,listing_scrape
+462 River Rd Apt A,07110,Nutley,2024-08-30,2024-06-19,,299900,325000,8.37,Condo,,listing_scrape
+50 HOWARD PLACE,07110,Nutley,2024-08-30,2024-06-25,,625000,728500,16.56,Single Family,,"listing_scrape,nj_records"
+115 Chestnut St,07110,Nutley,2024-10-29,2024-07-08,,799999,800000,0.0,Single Family,,listing_scrape
+479 PROSPECT STREET,07110,Nutley,2025-11-24,2024-07-15,,750000,836000,11.47,Single Family,,"listing_scrape,nj_records"
+493 WASHINGTON AVENUE,07110,Nutley,2024-08-02,2024-07-30,,699999,765000,9.29,Single Family,,"listing_scrape,nj_records"
+104 HANCOX AVENUE,07110,Nutley,2024-09-13,2024-08-01,,799999,850000,6.25,Multi-Family,,"listing_scrape,nj_records"
+97 SAN ANTONIO AVENUE,07110,Nutley,2025-07-23,2024-08-23,,575000,575000,0.0,Single Family,,"listing_scrape,nj_records"
+101 River A1 Rd Unit A1,07110,Nutley,2025-01-15,2024-10-30,,279000,305000,9.32,Condo,,"listing_scrape,nj_records"
+320 WINTHROP DRIVE,07110,Nutley,2024-11-21,2024-11-15,,675000,711000,5.33,Townhouse,,"listing_scrape,nj_records"
+105 SATTERTHWAITE AVENUE,07110,Nutley,2025-03-10,2024-12-20,,699900,710000,1.44,Single Family,,"listing_scrape,nj_records"
+24 Clover St,07110,Nutley,2025-03-10,2025-01-03,,500000,585000,17.0,Single Family,,listing_scrape
+640 Franklin Ave Apt 1B,07110,Nutley,2025-09-19,2025-04-24,,240000,230000,-4.17,Condo,,listing_scrape
+33 Humbert St,07110,Nutley,2025-10-15,2025-07-29,,399000,330000,-17.29,Single Family,,listing_scrape
+430 Hartford Dr,07110,Nutley,2025-10-18,2025-08-02,,674900,637000,-5.62,Condo,,listing_scrape
+425 Hartford Dr,07110,Nutley,2025-12-20,2025-12-19,,659000,659000,0.0,Condo,,listing_scrape
+12 Renner Ave,07110,Nutley,2026-03-30,2026-01-20,,500000,451000,-9.8,Single Family,,listing_scrape
+769 HIGH WOODS DRIVE,07417,Franklin Lakes,2024-03-13,2023-12-10,,1375000,1520000,10.55,Single Family,,"listing_scrape,nj_records"
+16 HOLMHILL CIRCLE,07417,Franklin Lakes,2024-03-13,2023-12-13,,2799000,2799000,0.0,Single Family,lot_sqft,"listing_scrape,nj_records"
+821 SHADOW RIDGE ROAD,07417,Franklin Lakes,2024-08-30,2024-03-06,,899999,999999,11.11,Single Family,,"listing_scrape,nj_records"
+44 Leigh Ter,07452,Glen Rock,2024-08-30,2023-09-13,,699900,750000,7.16,Single Family,,listing_scrape
+38 Nottingham Rd,07452,Glen Rock,2024-08-30,2023-09-26,,1200000,1275000,6.25,Single Family,,listing_scrape
+44 RADBURN RD.,07452,Glen Rock,2024-03-13,2023-12-08,,599888,710000,18.36,Single Family,,"listing_scrape,nj_records"
+450 PROSPECT ST.,07452,Glen Rock,2024-08-04,2024-05-02,,1249000,1610000,28.9,Single Family,,"listing_scrape,nj_records"
+375 Ackerman Ave,07452,Glen Rock,2024-08-04,2024-05-08,,739000,710000,-3.92,Single Family,,listing_scrape
+41 ROXBURY PL.,07452,Glen Rock,2026-03-31,2024-07-11,,745000,846000,13.56,Single Family,year_built,"listing_scrape,nj_records"
+12 MEMORY LN,07834,Denville,2023-07-28,2023-07-24,,489900,525000,7.16,Single Family,,"listing_scrape,nj_records"
+19 Cambridge Ave,07834,Denville,2023-09-07,2023-09-06,,900000,900000,0.0,Single Family,,listing_scrape
+30 CLAUDE AVE,07834,Denville,2024-08-30,2023-10-18,,524900,550000,4.78,Single Family,,"listing_scrape,nj_records"
+2 ARDSLEY CT,07834,Denville,2025-01-31,2023-10-31,,745000,785000,5.37,Townhouse,,"listing_scrape,nj_records"
+47 SUNSET TRL,07834,Denville,2023-11-20,2023-11-16,0,425000,425000,0.0,Single Family,,"listing_scrape,nj_records"
+45 LONGVIEW TRL,07834,Denville,2024-03-13,2023-12-11,,550000,595000,8.18,Single Family,year_built,"listing_scrape,nj_records"
+1 MIRADOR RD,07834,Denville,2024-03-13,2023-12-12,,595000,590000,-0.84,Single Family,,"listing_scrape,nj_records"
+47 SENECA TRL,07834,Denville,2024-03-13,2023-12-14,,399000,410000,2.76,Single Family,year_built,"listing_scrape,nj_records"
+2 BAIRD DR,07834,Denville,2024-03-13,2023-12-20,,672900,667900,-0.74,Single Family,,"listing_scrape,nj_records"
+52 MT PLEASANT TPKE,07834,Denville,2024-03-13,2023-12-20,,674000,665000,-1.34,Single Family,year_built,"listing_scrape,nj_records"
+26 LACKAWANNA AVE,07834,Denville,2024-03-13,2023-12-21,,345000,365000,5.8,Single Family,,"listing_scrape,nj_records"
+5 FISCHER TRL,07834,Denville,2024-03-31,2024-01-16,,525000,551000,4.95,Single Family,,"listing_scrape,nj_records"
+15 Cobb Rd,07834,Denville,2024-03-31,2024-01-20,,599999,620000,3.33,Single Family,,listing_scrape
+15 SENECA TRL,07834,Denville,2024-08-04,2024-05-06,,650000,675000,3.85,Single Family,,"listing_scrape,nj_records"
+27 W Shore Rd,07834,Denville,2024-08-04,2024-05-09,,375000,401026,6.94,Single Family,,listing_scrape
+14 RIDGEWOOD PKWY W,07834,Denville,2024-08-11,2024-05-17,,745000,745000,0.0,Single Family,,"listing_scrape,nj_records"
+15 HARRIMAN AVE,07834,Denville,2024-08-04,2024-05-17,,650000,701000,7.85,Single Family,,"listing_scrape,nj_records"
+30 Upper Rainbow Trl,07834,Denville,2024-08-04,2024-05-17,,485000,515000,6.19,Single Family,,listing_scrape
+52 HENNING TER,07834,Denville,2024-08-04,2024-05-20,,750000,742500,-1.0,Condo,,"listing_scrape,nj_records"
+7 BROOKVIEW RD,07834,Denville,2024-08-04,2024-05-20,,399000,420000,5.26,Single Family,,"listing_scrape,nj_records"
+63 THURMONT RD,07834,Denville,2024-08-04,2024-05-22,,349900,380000,8.6,Single Family,,"listing_scrape,nj_records"
+22 BROOKVIEW RD,07834,Denville,2024-08-04,2024-05-24,,489000,555000,13.5,Single Family,,"listing_scrape,nj_records"
+181 Fox Hill Rd,07834,Denville,2024-08-04,2024-05-30,,575000,620555,7.92,Single Family,,listing_scrape
+10 SHAWGER RD,07834,Denville,2024-08-29,2024-08-09,,625000,630000,0.8,Single Family,,"listing_scrape,nj_records"
+28 LENAPE TRL,07834,Denville,2024-09-19,2024-09-06,,749000,800000,6.81,Single Family,,"listing_scrape,nj_records"
+3 SMALL BROOK CIR,07834,Denville,2025-03-10,2024-10-09,,1299999,1400001,7.69,Single Family,garage,"listing_scrape,nj_records"
+8 Tomahawk Trl,07834,Denville,2025-01-10,2025-01-09,,485000,500000,3.09,Single Family,,listing_scrape
+11 Snyder Ave,07834,Denville,2025-06-05,2025-06-04,,500000,559000,11.8,Single Family,,listing_scrape
+2 Neben Pl,07834,Denville,2025-07-03,2025-06-09,,850000,900000,5.88,Single Family,,listing_scrape
+6 Gauer Ct,07834,Denville,2025-07-25,2025-06-27,,773100,779330,0.81,Townhouse,,listing_scrape
+51 Indian Rd,07834,Denville,2025-10-04,2025-07-08,,524000,560000,6.87,Single Family,,listing_scrape
+61 Swenson St,07834,Denville,2025-09-30,2025-07-14,,932546,931587,-0.1,Condo,,listing_scrape
+57 Swenson St,07834,Denville,2025-09-30,2025-07-15,,918483,901750,-1.82,Condo,,listing_scrape
+61 Sunset Trl,07834,Denville,2025-07-29,2025-07-18,,585000,565000,-3.42,Single Family,,listing_scrape
+4 General Winds Way,07834,Denville,2025-09-17,2025-08-08,,784770,842770,7.39,Townhouse,,listing_scrape
+7 Laurel Ave,07834,Denville,2025-10-11,2025-09-19,,899000,925000,2.89,Single Family,,listing_scrape
+1 General Winds Way,07834,Denville,2025-11-04,2025-10-21,,888685,941575,5.95,Townhouse,,listing_scrape
+109 Sunset Trl,07834,Denville,2026-04-19,2026-02-11,,400000,400000,0.0,Single Family,,listing_scrape
+41 General Winds Way,07834,Denville,2026-04-28,2026-03-30,,739590,769775,4.08,Townhouse,,listing_scrape
+14 Fieldstone Dr,07853,Long Valley,2025-07-23,2024-02-15,,699999,750000,7.14,Single Family,,listing_scrape
+8 LAUREL DR,07853,Long Valley,2024-08-04,2024-05-07,,600000,725000,20.83,Single Family,,"listing_scrape,nj_records"
+22 OLD FARMERS RD,07853,Long Valley,2024-08-04,2024-05-09,,382500,449000,17.39,Single Family,,"listing_scrape,nj_records"
+38 ANN RD,07853,Long Valley,2024-08-04,2024-05-13,,575000,650000,13.04,Single Family,,"listing_scrape,nj_records"
+144 E VALLEY BROOK RD,07853,Long Valley,2024-08-04,2024-05-14,,525000,607511,15.72,Single Family,,"listing_scrape,nj_records"
+13 KINGS RIDGE RD,07853,Long Valley,2024-08-04,2024-05-15,,464900,480900,3.44,Single Family,,"listing_scrape,nj_records"
+34 Quail Run,07853,Long Valley,2024-08-04,2024-05-15,,599900,660000,10.02,Single Family,,listing_scrape
+201AKA199 Parker Rd,07853,Long Valley,2024-08-04,2024-05-20,,425000,386000,-9.18,Single Family,,listing_scrape
+89 W SPRINGTOWN RD,07853,Long Valley,2024-08-04,2024-06-03,,679000,715000,5.3,Single Family,,"listing_scrape,nj_records"
+190 Middle Valley Rd,07853,Long Valley,2024-06-24,2024-06-06,,700000,700000,0.0,Single Family,,listing_scrape
+30 Welsh Farm Rd,07853,Long Valley,2026-04-19,2026-02-04,,775000,851000,9.81,Townhouse,,listing_scrape
+339 W Mill Rd,07853,Long Valley,2026-05-12,2026-02-18,,434900,420000,-3.43,Single Family,,listing_scrape
+11 Winchester Ter,07869,Randolph,2023-08-11,2023-08-10,,940000,940000,0.0,Single Family,,listing_scrape
+6 Arrowgate Dr,07869,Randolph,2025-07-23,2023-12-11,,469900,452000,-3.81,Condo,,listing_scrape
+13 MOUNTAINSIDE DR,07869,Randolph,2024-03-13,2023-12-12,,999900,996000,-0.39,Single Family,,"listing_scrape,nj_records"
+20 INDIAN TRAIL RD,07869,Randolph,2024-03-13,2023-12-12,,900000,900000,0.0,Single Family,,"listing_scrape,nj_records"
+22 TREATY RD,07869,Randolph,2024-03-13,2023-12-15,,575000,625000,8.7,Single Family,,"listing_scrape,nj_records"
+40 BEECH RD,07869,Randolph,2024-03-13,2023-12-15,,649000,650000,0.15,Single Family,,"listing_scrape,nj_records"
+8 MAHOGANY WAY,07869,Randolph,2024-03-13,2023-12-18,,550000,570000,3.64,Condo,,"listing_scrape,nj_records"
+12 POWDER HORN TER,07869,Randolph,2024-03-13,2023-12-19,,669000,658000,-1.64,Single Family,,"listing_scrape,nj_records"
+324 Dover Chester Rd,07869,Randolph,2024-03-13,2023-12-19,,675000,689000,2.07,Single Family,,listing_scrape
+1 High Ridge Rd,07869,Randolph,2024-03-13,2023-12-22,,649900,622300,-4.25,Single Family,,listing_scrape
+194 MORRIS TPKE,07869,Randolph,2024-03-31,2024-01-02,,665000,716000,7.67,Single Family,,"listing_scrape,nj_records"
+31 MISTY MOUNTAIN RD,07869,Randolph,2024-03-31,2024-01-19,,699900,699900,0.0,Single Family,,"listing_scrape,nj_records"
+30 BONNELL LN,07869,Randolph,2025-01-31,2024-01-22,,735000,745000,1.36,Single Family,,"listing_scrape,nj_records"
+126 Dover Chester Rd,07869,Randolph,2024-03-13,2024-01-30,,499900,532000,6.42,Single Family,,listing_scrape
+10 LONGVIEW AVE,07869,Randolph,2024-05-01,2024-02-26,,550000,600000,9.09,Single Family,,"listing_scrape,nj_records"
+40 WINDSOR AVE,07869,Randolph,2025-01-31,2024-03-06,,485000,525000,8.25,Single Family,,"listing_scrape,nj_records"
+1398 Sussex Tpke,07869,Randolph,2025-07-23,2024-03-12,,85000,30000,-64.71,Land,,listing_scrape
+2 SHERWOOD CT,07869,Randolph,2024-06-04,2024-03-14,,1349900,1430000,5.93,Single Family,,"listing_scrape,nj_records"
+23 MARJALEEN DR,07869,Randolph,2024-04-26,2024-04-23,,935000,935000,0.0,Single Family,,"listing_scrape,nj_records"
+113 EVERDALE RD,07869,Randolph,2024-08-04,2024-05-06,,950000,935000,-1.58,Single Family,,"listing_scrape,nj_records"
+1114 SUSSEX TPKE,07869,Randolph,2024-08-04,2024-05-08,,699000,746000,6.72,Single Family,,"listing_scrape,nj_records"
+26 TAMMY HILL TRL,07869,Randolph,2024-08-04,2024-05-08,,950000,950000,0.0,Single Family,,"listing_scrape,nj_records"
+38 CALAIS RD,07869,Randolph,2024-08-04,2024-05-10,,580000,580000,0.0,Single Family,,"listing_scrape,nj_records"
+79 Beech Rd,07869,Randolph,2024-08-04,2024-05-10,,750000,875000,16.67,Single Family,,listing_scrape
+1072 SUSSEX TPKE,07869,Randolph,2024-08-04,2024-05-13,,549800,561000,2.04,Single Family,year_built,"listing_scrape,nj_records"
+45 CENTER RD,07869,Randolph,2025-01-31,2024-05-14,,689000,875000,27.0,Single Family,,"listing_scrape,nj_records"
+6 MISTY MOUNTAIN RD,07869,Randolph,2024-08-04,2024-05-14,,699000,750000,7.3,Single Family,year_built,"listing_scrape,nj_records"
+4 DEVONSHIRE DR,07869,Randolph,2024-08-04,2024-05-16,,1150000,1250000,8.7,Single Family,,"listing_scrape,nj_records"
+26 BROMPTON PL,07869,Randolph,2024-07-30,2024-05-17,,789000,850000,7.73,Townhouse,,"listing_scrape,nj_records"
+34 HERITAGE CT,07869,Randolph,2024-08-04,2024-05-20,,929000,1069000,15.07,Single Family,,"listing_scrape,nj_records"
+171 RESERVOIR AVE,07869,Randolph,2024-08-04,2024-05-23,,384900,450000,16.91,Single Family,,"listing_scrape,nj_records"
+34 HIGHVIEW TER,07869,Randolph,2024-08-04,2024-05-23,,599000,585000,-2.34,Single Family,,"listing_scrape,nj_records"
+45 Ironia Rd,07869,Randolph,2024-08-04,2024-05-24,,450000,515000,14.44,Single Family,,listing_scrape
+1 COLONIAL CT,07869,Randolph,2024-08-11,2024-05-29,,825000,850000,3.03,Single Family,,"listing_scrape,nj_records"
+24 BERRY LN,07869,Randolph,2024-08-04,2024-05-29,,850000,890000,4.71,Single Family,,"listing_scrape,nj_records"
+29 Olde York Rd,07869,Randolph,2024-08-04,2024-05-31,,900000,1060000,17.78,Single Family,,listing_scrape
+3 Dalrymple St,07869,Randolph,2024-08-04,2024-05-31,,525000,605000,15.24,Single Family,,listing_scrape
+27 ROC ETAM RD,07869,Randolph,2025-01-31,2024-06-25,,1150000,1150000,0.0,Single Family,,"listing_scrape,nj_records"
+1 Marble Ln,07869,Randolph,2025-01-31,2024-07-01,,799000,875000,9.51,Multi-Family,,listing_scrape
+25 RIDGEWOOD DR,07869,Randolph,2024-08-14,2024-07-15,,465000,625000,34.41,Townhouse,,"listing_scrape,nj_records"
+133 HIGH ST,07869,Randolph,2024-10-29,2024-07-24,,549900,500000,-9.07,Single Family,,"listing_scrape,nj_records"
+49 Albert Ct,07869,Randolph,2024-08-09,2024-08-08,,660000,660000,0.0,Condo,,listing_scrape
+2 Albert Ct,07869,Randolph,2025-06-10,2025-05-23,,680000,680000,0.0,Townhouse,,listing_scrape
+16 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-07-24,,983259,956264,-2.75,Condo,,listing_scrape
+19 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-07-24,,847642,820647,-3.18,Condo,,listing_scrape
+10 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-08-01,,939444,912449,-2.87,Condo,,listing_scrape
+7 Shaker Mill Rd,07869,Randolph,2025-08-14,2025-08-13,,1300000,1300000,0.0,Single Family,,listing_scrape
+22 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-08-22,,785318,778655,-0.85,Condo,,listing_scrape
+26 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-08-27,,937995,876239,-6.58,Condo,,listing_scrape
+7 Winchester Ter,07869,Randolph,2025-08-29,2025-08-28,,1100000,1100000,0.0,Single Family,,listing_scrape
+24 Flower Horn Blvd,07869,Randolph,2025-09-30,2025-09-02,,854286,838988,-1.79,Condo,,listing_scrape
+5 Merrimac Rd,07869,Randolph,2026-01-10,2026-01-09,,879000,895000,1.82,Single Family,,listing_scrape
+9 E Elizabeth Dr,07869,Randolph,2026-05-15,2026-05-14,,500000,500000,0.0,Single Family,,listing_scrape
+16 Hillside Ave,07901,Summit,2023-08-03,2023-08-02,,1900000,1900000,0.0,Single Family,,listing_scrape
+99 PROSPECT ST,07901,Summit,2023-09-01,2023-08-22,,3800000,3800000,0.0,Single Family,,"listing_scrape,nj_records"
+24 Ridge Rd,07901,Summit,2023-09-07,2023-09-06,,4500000,4500000,0.0,Single Family,,listing_scrape
+13 DORSET LANE,07901,Summit,2023-09-30,2023-09-25,,1750000,1750000,0.0,Single Family,lot_sqft;year_built,"listing_scrape,nj_records"
+21 Llewelyn Rd,07901,Summit,2023-10-13,2023-10-11,,2500000,2750000,10.0,Single Family,,listing_scrape
+6 Glenside Ave,07901,Summit,2025-08-19,2023-10-13,,850000,867000,2.0,Multi-Family,,listing_scrape
+14 Essex Rd,07901,Summit,2023-12-03,2023-12-02,,6000000,5700000,-5.0,Single Family,,listing_scrape
+2 MEADOWBROOK CT,07901,Summit,2024-03-13,2023-12-12,,875000,1075000,22.86,Single Family,,"listing_scrape,nj_records"
+25 MILTON AVE,07901,Summit,2024-03-13,2023-12-12,,634900,620000,-2.35,Single Family,,"listing_scrape,nj_records"
+133 Summit Ave Apt 19,07901,Summit,2024-03-13,2023-12-15,,399000,399000,0.0,Condo,,listing_scrape
+30 HARVEY DR,07901,Summit,2024-03-13,2023-12-18,,1775000,1780000,0.28,Single Family,year_built,"listing_scrape,nj_records"
+20 SAYRE ST,07901,Summit,2024-03-13,2023-12-19,,1095000,999000,-8.77,Single Family,,"listing_scrape,nj_records"
+157 BELLEVUE AVE,07901,Summit,2023-12-28,2023-12-20,,3400000,3270000,-3.82,Single Family,,"listing_scrape,nj_records"
+40 PROSPECT HILL AVE,07901,Summit,2024-01-25,2023-12-20,,6500000,6500000,0.0,Single Family,,"listing_scrape,nj_records"
+69 Templar Way,07901,Summit,2024-03-31,2024-01-03,,1800000,2002000,11.22,Single Family,,listing_scrape
+1 Euclid Ave Apt 6B,07901,Summit,2024-03-31,2024-01-04,,1200000,1288000,7.33,Condo,,listing_scrape
+777 Springfield Ave Apt 15,07901,Summit,2024-03-31,2024-01-18,,475000,491000,3.37,Condo,,listing_scrape
+15 RUSSELL PL,07901,Summit,2024-05-16,2024-03-08,,1275000,1303000,2.2,Single Family,,"listing_scrape,nj_records"
+31 HOBART AVE,07901,Summit,2024-05-16,2024-03-08,,1225000,1755000,43.27,Single Family,,"listing_scrape,nj_records"
+10 PEMBROKE RD,07901,Summit,2024-04-17,2024-04-04,,2795000,2850000,1.97,Single Family,,"listing_scrape,nj_records"
+9 PRINCETON ST,07901,Summit,2024-04-26,2024-04-23,,850000,850000,0.0,Single Family,,"listing_scrape,nj_records"
+1 COLT RD,07901,Summit,2024-05-09,2024-05-01,,1695000,1870000,10.32,Single Family,,"listing_scrape,nj_records"
+20 FAIRVIEW AVE,07901,Summit,2024-08-04,2024-05-03,,985000,999000,1.42,Single Family,,"listing_scrape,nj_records"
+7 DE BARY PL,07901,Summit,2024-08-04,2024-05-08,,1495000,1600000,7.02,Single Family,,"listing_scrape,nj_records"
+29 Whitewood Dr,07901,Summit,2024-08-04,2024-05-10,,989000,1228000,24.17,Single Family,,listing_scrape
+59 EGGERS COURT,07901,Summit,2024-08-04,2024-05-14,,995000,1250000,25.63,Condo,,"listing_scrape,nj_records"
+81 OAK RIDGE AVE,07901,Summit,2024-08-04,2024-05-14,,3990000,4210000,5.51,Single Family,year_built,"listing_scrape,nj_records"
+225 KENT PLACE BLVD,07901,Summit,2024-08-04,2024-05-21,,1279000,1510000,18.06,Single Family,,"listing_scrape,nj_records"
+31 DAYTON RD,07901,Summit,2024-08-04,2024-05-22,,975000,980000,0.51,Single Family,,"listing_scrape,nj_records"
+31 RIDGEDALE AVE,07901,Summit,2024-08-04,2024-05-22,,769000,900000,17.04,Single Family,,"listing_scrape,nj_records"
+7 PLAIN ST.,07901,Summit,2024-08-04,2024-05-23,,849000,860000,1.3,Single Family,lot_sqft,"listing_scrape,nj_records"
+92 PORTLAND RD,07901,Summit,2024-08-04,2024-05-23,,1950000,2405000,23.33,Single Family,,"listing_scrape,nj_records"
+108 ASHLAND RD,07901,Summit,2024-08-04,2024-05-24,,1199000,1520108,26.78,Single Family,,"listing_scrape,nj_records"
+60 MOUNTAIN AVE,07901,Summit,2024-08-04,2024-05-28,,1849000,1800000,-2.65,Single Family,,"listing_scrape,nj_records"
+1 WALDRON AVE,07901,Summit,2024-08-01,2024-07-26,,1250000,1515000,21.2,Single Family,,"listing_scrape,nj_records"
+15 MIDDLE AVE,07901,Summit,2024-10-28,2024-07-30,,599900,630000,5.02,Single Family,sold_price,"listing_scrape,nj_records"
+65 EDGEWOOD RD,07901,Summit,2024-08-16,2024-08-01,,2450000,2450000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+48 Knob Hill Dr,07901,Summit,2024-08-14,2024-08-13,,1200000,1200000,0.0,Single Family,,listing_scrape
+19 Eggers Ct,07901,Summit,2024-08-15,2024-08-14,,849000,995000,17.2,Townhouse,,listing_scrape
+18 LAUREL AVE,07901,Summit,2024-08-23,2024-08-16,,1595000,1595000,0.0,Single Family,,"listing_scrape,nj_records"
+132 HILL CREST AVE,07901,Summit,2024-10-03,2024-10-01,,5500000,5300000,-3.64,Single Family,,"listing_scrape,nj_records"
+47 Whittredge Rd,07901,Summit,2024-10-07,2024-10-04,,5350000,5350000,0.0,Single Family,,listing_scrape
+15 Glen Oaks Ave,07901,Summit,2025-03-10,2024-11-12,,1725000,1877000,8.81,Single Family,,listing_scrape
+265 Oak Ridge Ave,07901,Summit,2024-12-12,2024-12-11,,1895000,2050000,8.18,Single Family,,listing_scrape
+15 EDGEMONT AVE,07901,Summit,2025-03-04,2024-12-18,,1795000,1750000,-2.51,Single Family,lot_sqft;year_built,"listing_scrape,nj_records"
+45 PROSPECT HILL AVE,07901,Summit,2024-12-19,2024-12-18,,4500000,4500000,0.0,Single Family,,"listing_scrape,nj_records"
+125 Blackburn Rd,07901,Summit,2024-12-31,2024-12-30,,1595000,1751000,9.78,Single Family,,listing_scrape
+164 Kent Place Blvd,07901,Summit,2025-01-24,2025-01-21,,1699000,1699000,0.0,Single Family,,listing_scrape
+119 Oak Ridge Ave,07901,Summit,2025-02-01,2025-01-31,,2995000,3325000,11.02,Single Family,,listing_scrape
+5 Tulip St,07901,Summit,2025-02-14,2025-02-13,,2400000,2200000,-8.33,Single Family,,listing_scrape
+121 Whittredge Rd,07901,Summit,2025-04-02,2025-04-01,,4400000,4350000,-1.14,Single Family,,listing_scrape
+141 Hobart Ave,07901,Summit,2025-05-01,2025-04-30,,4950000,4500000,-9.09,Single Family,,listing_scrape
+59 New England Ave Unit 8,07901,Summit,2025-05-23,2025-05-22,,2185000,2195000,0.46,Condo,,listing_scrape
+77 Druid Hill Rd,07901,Summit,2025-06-28,2025-06-27,,2400000,2400000,0.0,Single Family,,listing_scrape
+21 Lennox Rd,07901,Summit,2025-09-19,2025-07-01,,2465000,2350000,-4.67,Single Family,,listing_scrape
+25 Norwood Ave Apt 3,07901,Summit,2025-07-11,2025-07-08,,1650000,1750000,6.06,Condo,,listing_scrape
+10 Templar Way,07901,Summit,2025-08-15,2025-08-14,,2700000,2700000,0.0,Single Family,,listing_scrape
+60 Lenox Rd,07901,Summit,2025-08-23,2025-08-22,,3300000,3400000,3.03,Single Family,,listing_scrape
+19 Dale Dr,07901,Summit,2025-09-04,2025-09-03,,1375000,1375000,0.0,Single Family,,listing_scrape
+25 Walnut St,07901,Summit,2025-10-17,2025-10-16,,600000,620000,3.33,Multi-Family,,listing_scrape
+3 Brantwood Dr,07901,Summit,2025-10-28,2025-10-27,,2750000,2850000,3.64,Single Family,,listing_scrape
+28 Londonderry Way,07901,Summit,2025-12-09,2025-12-08,,1250000,1250000,0.0,Single Family,,listing_scrape
+12 Valemont Way,07901,Summit,2026-07-09,2026-07-06,,750000,750000,0.0,Single Family,,listing_scrape
+59 Baltusrol Way,07920,Basking Ridge,2023-07-17,2023-07-16,,2580000,2580000,0.0,Single Family,,listing_scrape
+45 GEORGETOWN CT,07920,Basking Ridge,2023-08-31,2023-08-18,,875000,875000,0.0,Townhouse,,"listing_scrape,nj_records"
+3005 Hemlock Pl,07920,Basking Ridge,2023-09-02,2023-09-01,,275000,275000,0.0,Condo,,listing_scrape
+97 BALDWIN CT,07920,Basking Ridge,2024-03-13,2023-12-14,,450000,485000,7.78,Townhouse,,"listing_scrape,nj_records"
+2 SPENCER RD,07920,Basking Ridge,2024-03-13,2023-12-19,,699600,670000,-4.23,Single Family,,"listing_scrape,nj_records"
+424 PENNS WAY,07920,Basking Ridge,2024-03-13,2023-12-22,,400000,418000,4.5,Condo,,"listing_scrape,nj_records"
+91 LURLINE DR,07920,Basking Ridge,2024-03-31,2024-01-12,,1050000,1150000,9.52,Single Family,,"listing_scrape,nj_records"
+137 POTOMAC DR,07920,Basking Ridge,2024-03-31,2024-01-19,,295000,327000,10.85,Condo,,"listing_scrape,nj_records"
+120 CANTERBURY WAY,07920,Basking Ridge,2024-03-31,2024-01-22,,2099999,2075000,-1.19,Single Family,,"listing_scrape,nj_records"
+3 HAWTHORNE PL,07920,Basking Ridge,2024-03-31,2024-01-22,,550000,580000,5.45,Townhouse,,"listing_scrape,nj_records"
+93 SYCAMORE CT,07920,Basking Ridge,2024-03-31,2024-01-24,,475000,510500,7.47,Condo,,"listing_scrape,nj_records"
+141 ARBOR CIR,07920,Basking Ridge,2024-04-11,2024-02-02,,539900,560000,3.72,Condo,,"listing_scrape,nj_records"
+11 WITHERSPOON LN,07920,Basking Ridge,2024-05-01,2024-02-15,,999000,975000,-2.4,Condo,,"listing_scrape,nj_records"
+6 CASTLE WAY,07920,Basking Ridge,2024-08-04,2024-05-02,,1980000,2110000,6.57,Single Family,year_built,"listing_scrape,nj_records"
+247 SPENCER RD,07920,Basking Ridge,2024-08-04,2024-05-07,,998000,998000,0.0,Single Family,,"listing_scrape,nj_records"
+1306 Evergreen Dr,07920,Basking Ridge,2024-08-04,2024-05-08,,649000,640000,-1.39,Single Family,,listing_scrape
+23 BALDWIN CT,07920,Basking Ridge,2024-08-04,2024-05-09,,385000,400523,4.03,Condo,year_built,"listing_scrape,nj_records"
+10 BROOKSIDE AVE,07920,Basking Ridge,2024-08-04,2024-05-10,,685000,746000,8.91,Single Family,,"listing_scrape,nj_records"
+303 PENNS WAY,07920,Basking Ridge,2024-08-04,2024-05-10,,425000,490000,15.29,Condo,,"listing_scrape,nj_records"
+14 KNOX CT,07920,Basking Ridge,2024-08-04,2024-05-14,,750000,760000,1.33,Condo,,"listing_scrape,nj_records"
+3004 HEMLOCK PL,07920,Basking Ridge,2024-08-04,2024-05-14,,448000,459000,2.46,Condo,,"listing_scrape,nj_records"
+19 COUNTRYSIDE DR,07920,Basking Ridge,2024-08-04,2024-05-15,,265500,300000,12.99,Condo,,"listing_scrape,nj_records"
+319 POTOMAC DR,07920,Basking Ridge,2024-08-04,2024-05-15,,365000,380000,4.11,Condo,,"listing_scrape,nj_records"
+220 ARROWOOD WAY,07920,Basking Ridge,2024-08-04,2024-05-16,,550000,535000,-2.73,Condo,,"listing_scrape,nj_records"
+78 LIBERTY RIDGE RD,07920,Basking Ridge,2024-08-04,2024-05-17,,999000,1150150,15.13,Single Family,year_built,"listing_scrape,nj_records"
+2 CANTERBURY WAY,07920,Basking Ridge,2024-08-04,2024-05-20,,1699000,1647427,-3.04,Single Family,,"listing_scrape,nj_records"
+24 VALLEY VIEW DR,07920,Basking Ridge,2024-08-04,2024-05-22,,475000,517000,8.84,Condo,,"listing_scrape,nj_records"
+27 KNOLLCROFT RD,07920,Basking Ridge,2024-08-04,2024-05-22,,849000,1150000,35.45,Single Family,,"listing_scrape,nj_records"
+69 ASPEN DR,07920,Basking Ridge,2024-08-04,2024-05-22,,464000,480000,3.45,Condo,,"listing_scrape,nj_records"
+351 PENNS WAY,07920,Basking Ridge,2024-08-04,2024-05-23,,495000,585000,18.18,Townhouse,,"listing_scrape,nj_records"
+15 SULLIVAN DR,07920,Basking Ridge,2024-08-04,2024-05-28,,1250000,1356000,8.48,Single Family,,"listing_scrape,nj_records"
+53 E CRAIG ST,07920,Basking Ridge,2024-08-04,2024-05-28,,849000,1100000,29.56,Single Family,year_built,"listing_scrape,nj_records"
+58 Bernard Dr,07920,Basking Ridge,2024-08-04,2024-05-30,,1629900,1580000,-3.06,Single Family,,listing_scrape
+10 TALMADGE LN,07920,Basking Ridge,2024-08-04,2024-06-03,,1565000,1815000,15.97,Single Family,,"listing_scrape,nj_records"
+9 CARNEGIE PL,07920,Basking Ridge,2024-08-11,2024-06-04,,1150000,1260000,9.57,Single Family,,"listing_scrape,nj_records"
+291 ENGLISH PL,07920,Basking Ridge,2024-10-15,2024-07-29,,379000,405500,6.99,Condo,,"listing_scrape,nj_records"
+131 Countryside Dr,07920,Basking Ridge,2025-05-18,2025-02-28,,239000,325000,35.98,Condo,,listing_scrape
+81 Stonehouse Rd,07920,Basking Ridge,2025-05-10,2025-05-08,,370000,370000,0.0,Single Family,,listing_scrape
+11 Atlas Rd,07920,Basking Ridge,2025-06-07,2025-06-06,,1400000,1498000,7.0,Single Family,,listing_scrape
+71 Wexford Way,07920,Basking Ridge,2025-07-04,2025-07-03,,1750000,1750000,0.0,Single Family,,listing_scrape
+76 Culberson Rd,07920,Basking Ridge,2025-12-30,2025-09-25,,1599000,1600000,0.06,Single Family,,listing_scrape
+2 Pine Ct,07921,Bedminster,2023-10-14,2023-10-13,,350000,350000,0.0,Condo,,listing_scrape
+73 WESCOTT ROAD,07921,Bedminster,2024-01-31,2023-12-06,,279999,293500,4.82,Condo,sold_date,"listing_scrape,nj_records"
+55 EDGEWOOD ROAD,07921,Bedminster,2025-01-31,2023-12-15,,560000,560000,0.0,Townhouse,,"listing_scrape,nj_records"
+6 TORY COURT,07921,Bedminster,2024-03-31,2024-01-23,,350000,371000,6.0,Condo,,"listing_scrape,nj_records"
+27 CROSSFIELD COURT,07921,Bedminster,2024-08-04,2024-05-09,,465000,465000,0.0,Condo,,"listing_scrape,nj_records"
+4 High Pond Ln Unit 4,07921,Bedminster,2024-08-04,2024-05-10,,498000,483000,-3.01,Condo,,"listing_scrape,nj_records"
+5 RAY COURT,07921,Bedminster,2024-08-04,2024-05-15,,269500,298000,10.58,Condo,,"listing_scrape,nj_records"
+52 ETON COURT,07921,Bedminster,2024-08-11,2024-05-15,,525000,605000,15.24,Townhouse,,"listing_scrape,nj_records"
+17 BENTLEY COURT,07921,Bedminster,2024-08-04,2024-05-17,,400000,418000,4.5,Condo,,"listing_scrape,nj_records"
+24 ETON COURT,07921,Bedminster,2024-08-04,2024-05-17,,540000,580000,7.41,Townhouse,,"listing_scrape,nj_records"
+1 LOCKHAVEN COURT,07921,Bedminster,2024-08-04,2024-05-20,,825000,825000,0.0,Condo,,"listing_scrape,nj_records"
+100 WESCOTT ROAD,07921,Bedminster,2024-08-04,2024-05-20,,385000,400000,3.9,Condo,,"listing_scrape,nj_records"
+14 HEATHERWOOD LANE,07921,Bedminster,2024-08-04,2024-05-23,,525000,641000,22.1,Condo,,"listing_scrape,nj_records"
+23 WESCOTT ROAD,07921,Bedminster,2024-08-04,2024-05-30,,250000,280000,12.0,Condo,,"listing_scrape,nj_records"
+20 WOOD DUCK POND ROAD,07921,Bedminster,2024-08-04,2024-05-31,,425000,487000,14.59,Condo,,"listing_scrape,nj_records"
+42 ETON COURT,07921,Bedminster,2024-08-04,2024-05-31,,529900,600000,13.23,Condo,,"listing_scrape,nj_records"
+8 TORY COURT,07921,Bedminster,2024-08-04,2024-05-31,,425000,500000,17.65,Condo,,"listing_scrape,nj_records"
+13 Hyde Ct,07921,Bedminster,2025-03-18,2025-03-14,,239000,255000,6.69,Condo,,listing_scrape
+30 Birchwood Rd,07921,Bedminster,2025-08-15,2025-05-29,,449000,463000,3.12,Condo,,listing_scrape
+17 Village Green Rd,07921,Bedminster,2026-06-07,2026-03-20,,182000,180000,-1.1,Condo,,listing_scrape
+1153 PLAINFIELD AVENUE,07922,Berkeley Heights,2025-01-31,2023-10-03,,629900,605000,-3.95,Single Family,,"listing_scrape,nj_records"
+56 SPRINGHOLM DRIVE,07922,Berkeley Heights,2024-03-13,2023-12-18,,460000,461000,0.22,Condo,,"listing_scrape,nj_records"
+43 Beech Ave,07922,Berkeley Heights,2024-03-31,2024-01-12,,675000,725000,7.41,Single Family,,listing_scrape
+106 Briarwood Dr,07922,Berkeley Heights,2025-01-16,2024-02-02,,839999,800000,-4.76,Single Family,,listing_scrape
+630 Plainfield Ave,07922,Berkeley Heights,2024-08-30,2024-02-02,,1199000,1199000,0.0,Single Family,,listing_scrape
+46 Snyder Ave,07922,Berkeley Heights,2025-01-31,2024-05-07,,599888,550000,-8.32,Single Family,,listing_scrape
+154 Hillside Ave,07922,Berkeley Heights,2025-01-31,2024-05-22,,1550000,1550000,0.0,Single Family,,listing_scrape
+92 SAW MILL DR,07922,Berkeley Heights,2024-08-04,2024-05-23,,950000,977000,2.84,Single Family,,"listing_scrape,nj_records"
+230 WASHINGTON STREET,07922,Berkeley Heights,2024-08-04,2024-05-30,,849900,917982,8.01,Single Family,year_built,"listing_scrape,nj_records"
+8 POWDER HORN WAY,07922,Berkeley Heights,2024-09-12,2024-06-19,,899000,924000,2.78,Single Family,,"listing_scrape,nj_records"
+68 Runnymeade Rd,07922,Berkeley Heights,2024-07-04,2024-07-02,,1330000,1330000,0.0,Single Family,,listing_scrape
+585 Plainfield Ave,07922,Berkeley Heights,2024-08-07,2024-08-06,,375000,375000,0.0,Single Family,,listing_scrape
+54 RUTHERFORD RD,07922,Berkeley Heights,2025-03-10,2024-11-08,,1150000,1375000,19.57,Single Family,,"listing_scrape,nj_records"
+124 Rutgers Ave,07922,Berkeley Heights,2025-05-02,2025-05-01,,765000,765000,0.0,Single Family,,listing_scrape
+725 Mountain Ave,07922,Berkeley Heights,2025-05-31,2025-05-30,,850000,850000,0.0,Land,,listing_scrape
+315 Emerson Ln,07922,Berkeley Heights,2025-09-19,2025-07-11,,1150000,1130000,-1.74,Single Family,,listing_scrape
+25 Liberty Ave,07922,Berkeley Heights,2025-08-30,2025-08-29,,1550000,1550000,0.0,Single Family,,listing_scrape
+11 Parker Ave,07927,Cedar Knolls,2024-08-04,2024-05-10,,455000,527122,15.85,Single Family,,listing_scrape
+405 Waterview Ct,07927,Cedar Knolls,2024-08-04,2024-05-22,,540000,627500,16.2,Townhouse,,listing_scrape
+40 Pine St,07928,Chatham,2023-07-12,2023-07-11,,2975000,2975000,0.0,Single Family,,listing_scrape
+13 CRESTWOOD DR,07928,Chatham,2023-08-05,2023-08-01,,3200000,3200000,0.0,Single Family,,"listing_scrape,nj_records"
+140 HILLSIDE AVE,07928,Chatham,2025-01-31,2023-10-02,,749000,749000,0.0,Single Family,,"listing_scrape,nj_records"
+109 Coleman Ave,07928,Chatham,2023-12-30,2023-12-08,,899000,1050000,16.8,Single Family,,listing_scrape
+35 ROOSEVELT AVE,07928,Chatham,2024-03-13,2023-12-13,,799000,975500,22.09,Single Family,,"listing_scrape,nj_records"
+74 ROWAN RD,07928,Chatham,2024-03-13,2023-12-13,,1399000,1533000,9.58,Single Family,,"listing_scrape,nj_records"
+146 River Rd,07928,Chatham,2024-03-13,2023-12-15,,1250000,1175000,-6.0,Single Family,,listing_scrape
+2 Van Houton Ave,07928,Chatham,2024-03-13,2023-12-15,,1450000,1585000,9.31,Single Family,,listing_scrape
+243 SOUTHERN BLVD,07928,Chatham,2024-03-13,2023-12-19,,1650000,1700000,3.03,Single Family,,"listing_scrape,nj_records"
+39 STERLING DR,07928,Chatham,2024-03-31,2024-01-04,,1595000,1725000,8.15,Condo,,"listing_scrape,nj_records"
+16 Heritage Dr Unit G,07928,Chatham,2025-01-31,2024-01-08,,450000,410000,-8.89,Condo,,listing_scrape
+11 JOSEPH ST,07928,Chatham,2024-03-31,2024-01-17,,849000,901000,6.12,Single Family,,"listing_scrape,nj_records"
+195 Terrace Dr,07928,Chatham,2024-03-31,2024-01-18,,419000,420000,0.24,Condo,,listing_scrape
+2 BIRCH HILL DR,07928,Chatham,2024-08-04,2024-05-01,,1099000,1300000,18.29,Single Family,,"listing_scrape,nj_records"
+421 RIVER RD,07928,Chatham,2024-08-04,2024-05-01,,625000,600000,-4.0,Single Family,,"listing_scrape,nj_records"
+3 Huron Dr,07928,Chatham,2024-08-04,2024-05-07,,1349999,1340000,-0.74,Single Family,,listing_scrape
+40 LINDEN LN,07928,Chatham,2024-08-04,2024-05-07,,3050000,2975000,-2.46,Single Family,,"listing_scrape,nj_records"
+79 Center Ave,07928,Chatham,2024-08-04,2024-05-08,,1075000,1300000,20.93,Single Family,,listing_scrape
+24 HEDGES AVE,07928,Chatham,2024-08-04,2024-05-09,,939000,1141000,21.51,Single Family,year_built,"listing_scrape,nj_records"
+72 GARDEN AVE,07928,Chatham,2024-08-04,2024-05-10,,1795000,1950000,8.64,Single Family,,"listing_scrape,nj_records"
+229 RIVEREDGE DR,07928,Chatham,2024-08-04,2024-05-13,,425000,486000,14.35,Condo,,"listing_scrape,nj_records"
+6C Heritage Dr Unit C,07928,Chatham,2024-08-04,2024-05-13,,495000,530000,7.07,Condo,,"listing_scrape,nj_records"
+87 CANDACE LN,07928,Chatham,2024-08-04,2024-05-13,,1450000,1626000,12.14,Single Family,,"listing_scrape,nj_records"
+9 GATES AVE,07928,Chatham,2024-08-04,2024-05-14,,1850000,2200000,18.92,Single Family,,"listing_scrape,nj_records"
+90 N PASSAIC AVE,07928,Chatham,2024-08-11,2024-05-14,,825000,995000,20.61,Single Family,,"listing_scrape,nj_records"
+18 STAFFORD RD,07928,Chatham,2024-08-04,2024-05-15,,1587000,1850000,16.57,Single Family,,"listing_scrape,nj_records"
+6 SHERWOOD CIR,07928,Chatham,2024-08-04,2024-05-15,,2699000,2699000,0.0,Single Family,,"listing_scrape,nj_records"
+18 CHESTNUT ST,07928,Chatham,2024-08-04,2024-05-16,,1255000,1400000,11.55,Single Family,,"listing_scrape,nj_records"
+17 Wynwood Rd,07928,Chatham,2024-08-04,2024-05-21,,2175000,2530000,16.32,Single Family,,listing_scrape
+44 BUXTON RD,07928,Chatham,2024-08-11,2024-05-23,,1850000,1905000,2.97,Single Family,,"listing_scrape,nj_records"
+112 LAFAYETTE AVE,07928,Chatham,2024-08-04,2024-05-24,,899000,999999,11.23,Single Family,,"listing_scrape,nj_records"
+64 SUMMIT AVE,07928,Chatham,2024-08-04,2024-05-24,,1575000,1575000,0.0,Single Family,,"listing_scrape,nj_records"
+"380 MAIN ST.,UNIT 46",07928,Chatham,2024-08-04,2024-05-25,,335000,318000,-5.07,Condo,,"listing_scrape,nj_records"
+320 HILLSIDE AVE,07928,Chatham,2024-08-04,2024-05-28,,2099000,2109000,0.48,Single Family,,"listing_scrape,nj_records"
+69 WASHINGTON AVE,07928,Chatham,2024-08-04,2024-05-28,,1250000,1500000,20.0,Single Family,,"listing_scrape,nj_records"
+212 SOUTHERN BLVD,07928,Chatham,2024-08-04,2024-05-30,,2625000,2550000,-2.86,Single Family,,"listing_scrape,nj_records"
+23 DIVISION AVE,07928,Chatham,2024-08-04,2024-05-30,,725000,785000,8.28,Single Family,,"listing_scrape,nj_records"
+25 Fairfax Ter,07928,Chatham,2024-08-04,2024-06-03,,1795000,1795000,0.0,Single Family,,listing_scrape
+25 FALMOUTH RD,07928,Chatham,2024-07-11,2024-07-01,,1600000,1600000,0.0,Single Family,,"listing_scrape,nj_records"
+90 May Dr,07928,Chatham,2024-07-07,2024-07-01,,3499000,3564000,1.86,Single Family,,listing_scrape
+61 S Passaic Ave,07928,Chatham,2024-10-29,2024-08-15,,700000,769000,9.86,Single Family,,listing_scrape
+6 Maple St,07928,Chatham,2025-03-12,2025-03-11,,3650000,3800000,4.11,Single Family,,listing_scrape
+141 Sunset Dr,07928,Chatham,2025-05-23,2025-04-11,,2075000,2075000,0.0,Single Family,,listing_scrape
+11 Lincoln Cir,07928,Chatham,2025-05-03,2025-05-02,,3650000,3650000,0.0,Single Family,,listing_scrape
+17 Crestwood Dr,07928,Chatham,2025-05-07,2025-05-06,,2825000,2825000,0.0,Single Family,,listing_scrape
+5 Holly Dr,07928,Chatham,2025-07-21,2025-06-13,,3250000,3300000,1.54,Single Family,,listing_scrape
+15 Gates Ave,07928,Chatham,2025-08-06,2025-07-31,,1999000,2050000,2.55,Single Family,,listing_scrape
+20 Samuel Way,07928,Chatham,2025-09-30,2025-08-28,,1400000,1397000,-0.21,Condo,,listing_scrape
+32 Inwood Rd,07928,Chatham,2026-03-27,2026-01-23,,1242600,1242600,0.0,Single Family,,listing_scrape
+198 Riveredge Dr,07928,Chatham,2026-05-22,2026-03-03,,699000,850000,21.6,Condo,,listing_scrape
+54 Hedges Ave,07928,Chatham,2026-06-07,2026-03-31,,2250000,2250000,0.0,Single Family,,listing_scrape
+128 Fairmount Ave,07928,Chatham,2026-06-10,2026-05-27,,3355000,2915000,-13.11,Single Family,,listing_scrape
+82 May Dr,07928,Chatham,2026-05-29,2026-05-28,,3795000,3825000,0.79,Single Family,,listing_scrape
+2 Oak Hill Rd,07928,Chatham,2026-06-24,2026-06-22,,2750000,2750000,0.0,Single Family,,listing_scrape
+71 Dale Dr,07928,Chatham,2026-06-25,2026-06-24,,3647500,3647500,0.0,Single Family,,listing_scrape
+220 LAMERSON RD,07930,Chester,2023-07-24,2023-07-21,0,1550000,1600000,3.23,Single Family,garage,"listing_scrape,nj_records"
+265 Old Chester Gladstone Rd,07930,Chester,2023-08-26,2023-08-25,,850000,950000,11.76,Single Family,,"listing_scrape,nj_records"
+3 Bird Song Ct,07930,Chester,2024-03-13,2023-12-18,,975000,990000,1.54,Single Family,,listing_scrape
+2 Twin Brooks Trl,07930,Chester,2024-03-31,2024-01-02,,750000,715000,-4.67,Single Family,,listing_scrape
+5 HEATH DR,07930,Chester,2024-03-31,2024-01-22,,1399990,1635000,16.79,Single Family,year_built,"listing_scrape,nj_records"
+5 HUNTERS TRL,07930,Chester,2024-08-04,2024-05-10,,949900,1050000,10.54,Single Family,garage,"listing_scrape,nj_records"
+20 BEACON HILL DR,07930,Chester,2024-08-04,2024-05-12,,1196000,1196000,0.0,Single Family,,"listing_scrape,nj_records"
+2 MILE DR,07930,Chester,2024-08-04,2024-05-20,,675000,724000,7.26,Single Family,,"listing_scrape,nj_records"
+5 TOPPING WAY,07930,Chester,2024-08-04,2024-05-23,,1100000,1250000,13.64,Single Family,,"listing_scrape,nj_records"
+11 Delwood Rd,07930,Chester,2026-03-30,2025-10-17,,889900,885000,-0.55,Single Family,,listing_scrape
+140 Hacklebarney Rd,07930,Chester,2025-12-30,2025-10-27,,1099999,1180000,7.27,Single Family,,listing_scrape
+16 FOREST DR,07932,Florham Park,2024-08-30,2023-08-17,,649900,625000,-3.83,Single Family,,"listing_scrape,nj_records"
+4 Rosemary Ct,07932,Florham Park,2023-09-20,2023-09-19,,399000,399000,0.0,Condo,,listing_scrape
+96 BRANDYWYNE DR,07932,Florham Park,2023-11-10,2023-11-03,,429000,453000,5.59,Townhouse,,"listing_scrape,nj_records"
+1 MCNERNEY LN,07932,Florham Park,2024-03-13,2023-12-13,,695400,695400,0.0,Condo,,"listing_scrape,nj_records"
+125 Park Ave,07932,Florham Park,2024-03-13,2023-12-15,,700000,730000,4.29,Single Family,,listing_scrape
+35 BROADWAY,07932,Florham Park,2024-03-13,2023-12-15,,549999,580000,5.45,Single Family,,"listing_scrape,nj_records"
+4 Hanover Rd Unit C1,07932,Florham Park,2024-03-13,2023-12-21,,999900,999900,0.0,Townhouse,,listing_scrape
+2 Vanderbilt Blvd Unit 405,07932,Florham Park,2024-08-04,2024-05-01,,660000,700000,6.06,Condo,,"listing_scrape,nj_records"
+33 ELMWOOD RD,07932,Florham Park,2024-08-04,2024-05-08,,650000,705000,8.46,Single Family,,"listing_scrape,nj_records"
+161 SUMMIT RD,07932,Florham Park,2024-08-04,2024-05-21,,3100000,2980000,-3.87,Single Family,,"listing_scrape,nj_records"
+20 MURPHY CIR,07932,Florham Park,2024-08-04,2024-05-24,,899999,1150000,27.78,Single Family,,"listing_scrape,nj_records"
+34 BROOKLAKE RD,07932,Florham Park,2024-08-04,2024-05-24,,869000,1045000,20.25,Single Family,,"listing_scrape,nj_records"
+250 Ridgedale Ave Apt B5,07932,Florham Park,2024-08-04,2024-05-28,,699000,760000,8.73,Condo,,listing_scrape
+38 Park St Apt 11D,07932,Florham Park,2024-08-11,2024-05-30,,499000,547000,9.62,Condo,,listing_scrape
+5 Decker Ln,07932,Florham Park,2024-08-04,2024-06-03,,1395000,1505000,7.89,Single Family,,listing_scrape
+22 1st St,07932,Florham Park,2024-06-15,2024-06-14,,999000,999000,0.0,Single Family,,listing_scrape
+49 Murphy Cir,07932,Florham Park,2024-08-09,2024-08-02,,1095000,1200000,9.59,Single Family,,listing_scrape
+2 WOODBINE RD,07932,Florham Park,2024-11-20,2024-09-30,,995000,1168500,17.44,Single Family,,"listing_scrape,nj_records"
+17 FLORHAM AVE,07932,Florham Park,2024-12-23,2024-12-13,,2100000,2100000,0.0,Single Family,,"listing_scrape,nj_records"
+14 Pinchbrook Dr,07932,Florham Park,2025-09-19,2025-06-18,,1449000,1311000,-9.52,Single Family,,listing_scrape
+1 Brandywyne Dr,07932,Florham Park,2025-08-16,2025-08-15,,575000,575000,0.0,Condo,,listing_scrape
+6 Salvatore Ct,07932,Florham Park,2025-11-07,2025-11-06,,2450000,2450000,0.0,Single Family,,listing_scrape
+44 Lakeview Ave,07932,Florham Park,2026-05-12,2026-02-20,,1300000,1200000,-7.69,Single Family,,listing_scrape
+755 Davis Rd,07933,Long Hill,2023-07-11,2023-07-06,,1200000,1200000,0.0,Single Family,,listing_scrape
+10 SUNRISE DR,07933,Long Hill,2024-03-13,2023-12-08,,399000,450000,12.78,Condo,,"listing_scrape,nj_records"
+189 Long View Ter,07933,Long Hill,2024-08-04,2024-05-10,,875000,863069,-1.36,Single Family,,"listing_scrape,nj_records"
+23 HIGHLAND AVE,07933,Long Hill,2024-08-04,2024-05-22,,740056,845000,14.18,Single Family,,"listing_scrape,nj_records"
+596 Meyersville Rd,07933,Long Hill,2024-08-31,2024-06-05,,620000,530000,-14.52,Single Family,,listing_scrape
+93 Morristown Rd,07933,Long Hill,2025-10-11,2025-08-01,,1599000,1625000,1.63,Single Family,,listing_scrape
+50 Cottage Pl,07933,Long Hill,2026-01-07,2026-01-06,,785000,785000,0.0,Single Family,,listing_scrape
+4 Ashland Rd,07940,Madison,2023-09-12,2023-09-08,,919000,919000,0.0,Single Family,,listing_scrape
+10 HAMILTON ST,07940,Madison,2023-12-30,2023-12-11,,1550000,1700000,9.68,Single Family,,"listing_scrape,nj_records"
+34C Loantaka Way Apt C,07940,Madison,2024-03-13,2023-12-19,,459000,455000,-0.87,Condo,,listing_scrape
+5 Sinclair Ter,07940,Madison,2024-03-13,2023-12-20,,2435000,2435000,0.0,Single Family,,listing_scrape
+5 PINE TREE TER,07940,Madison,2024-03-13,2023-12-22,,739000,820000,10.96,Single Family,,"listing_scrape,nj_records"
+111 MADISON AVE,07940,Madison,2024-03-31,2024-01-04,,949000,950000,0.11,Single Family,,"listing_scrape,nj_records"
+6 BRANNICK DR,07940,Madison,2024-05-01,2024-02-15,,2300000,2300000,0.0,Single Family,,"listing_scrape,nj_records"
+110 GREEN AVE,07940,Madison,2024-08-04,2024-05-02,,2275000,2275000,0.0,Single Family,,"listing_scrape,nj_records"
+4 ROLLING HILL CT,07940,Madison,2024-08-04,2024-05-15,,878000,1050000,19.59,Townhouse,,"listing_scrape,nj_records"
+36 BARNSDALE RD,07940,Madison,2024-08-04,2024-05-17,,1098000,1350000,22.95,Single Family,garage,"listing_scrape,nj_records"
+33 WOODLAND RD,07940,Madison,2024-08-04,2024-05-31,,1750000,1800000,2.86,Single Family,,"listing_scrape,nj_records"
+50 East Ln,07940,Madison,2024-12-20,2024-12-19,,3550000,3550000,0.0,Single Family,,listing_scrape
+9 COURSEN WAY,07940,Madison,2025-02-28,2024-12-19,,999000,999000,0.0,Single Family,garage,"listing_scrape,nj_records"
+9 Rolling Hill Ct,07940,Madison,2024-12-31,2024-12-30,,875000,875000,0.0,Condo,,listing_scrape
+35 Rosemont Ave,07940,Madison,2025-02-26,2025-02-11,,825000,835000,1.21,Single Family,,listing_scrape
+73 Brittin St,07940,Madison,2025-09-19,2025-04-17,,1499000,1600000,6.74,Single Family,,listing_scrape
+50 Hillcrest Rd,07940,Madison,2025-09-06,2025-09-05,,3350000,3350000,0.0,Single Family,,listing_scrape
+10 Locust St,07940,Madison,2025-10-15,2025-10-14,,1599000,1599000,0.0,Single Family,,listing_scrape
+57 Greenwood Ave,07940,Madison,2026-05-13,2026-05-12,,1150000,1150000,0.0,Multi-Family,,listing_scrape
+154 Talmage Rd,07945,Mendham,2023-12-04,2023-12-03,,989000,975000,-1.42,Single Family,,listing_scrape
+22 SCHOOLHOUSE LN,07945,Mendham,2025-08-21,2023-12-13,,3649999,3250000,-10.96,Single Family,,"listing_scrape,nj_records"
+137 Hilltop Rd,07945,Mendham,2024-03-13,2023-12-21,,2995000,2747500,-8.26,Single Family,,listing_scrape
+2 CALAIS RD,07945,Mendham,2024-04-03,2024-01-05,,1160000,1170000,0.86,Single Family,,"listing_scrape,nj_records"
+12 WEXFORD DR,07945,Mendham,2024-03-31,2024-01-16,,729000,729000,0.0,Townhouse,,"listing_scrape,nj_records"
+4 PROSPECT ST,07945,Mendham,2024-08-04,2024-05-10,,1189000,1240000,4.29,Single Family,,"listing_scrape,nj_records"
+15 HILLCREST AVE,07945,Mendham,2024-08-04,2024-05-14,,849000,865000,1.88,Single Family,,"listing_scrape,nj_records"
+3 HOPE FARM LN,07945,Mendham,2024-08-04,2024-05-16,,1250000,1365000,9.2,Single Family,,"listing_scrape,nj_records"
+15 Carroll Dr,07945,Mendham,2024-08-04,2024-05-17,,875000,950000,8.57,Single Family,,listing_scrape
+39 NORTH GATE RD,07945,Mendham,2024-08-04,2024-05-17,,1595000,1595000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+468 CHERRY LN,07945,Mendham,2024-08-04,2024-05-17,,1575000,1600000,1.59,Single Family,,"listing_scrape,nj_records"
+61 W Main St,07945,Mendham,2024-08-04,2024-05-17,,799000,775000,-3.0,Single Family,,listing_scrape
+4 ASTER TER,07945,Mendham,2024-08-04,2024-05-20,,699000,730000,4.43,Single Family,,"listing_scrape,nj_records"
+5 LANGFORD DR,07945,Mendham,2024-08-04,2024-05-20,,1250000,1300000,4.0,Single Family,,"listing_scrape,nj_records"
+1 Canterbury Ct,07945,Mendham,2024-08-04,2024-05-31,,1100000,995000,-9.55,Single Family,,listing_scrape
+10 Shadowbrook Way,07945,Mendham,2024-08-04,2024-06-03,,1375000,1461000,6.25,Single Family,,listing_scrape
+165 Cherry Ln,07945,Mendham,2024-08-04,2024-06-03,,2695000,2395000,-11.13,Single Family,,listing_scrape
+26 SUNSET PL,07946,Long Hill,2024-08-04,2024-05-04,,695000,733000,5.47,Single Family,,"listing_scrape,nj_records"
+45 Northfield Rd,07946,Long Hill,2024-08-04,2024-05-24,,699000,775000,10.87,Single Family,,listing_scrape
+65 Old Forge Rd,07946,Long Hill,2026-04-19,2026-02-13,,1750000,1916000,9.49,Single Family,,listing_scrape
+49 Fairchild Ave,07950,Morris Plains,2023-11-09,2023-11-02,,680000,685000,0.74,Multi-Family,,listing_scrape
+19 WALSH WAY,07950,Morris Plains,2024-03-13,2023-12-13,,645000,636000,-1.4,Single Family,,"listing_scrape,nj_records"
+20 Emerson Rd,07950,Morris Plains,2024-03-13,2023-12-15,,998000,998000,0.0,Single Family,,listing_scrape
+66 Moraine Rd,07950,Morris Plains,2024-03-13,2023-12-15,,625000,662000,5.92,Single Family,,listing_scrape
+2467 Route10 Bldg 6 Unit 2A,07950,Morris Plains,2024-03-13,2023-12-21,,199999,218000,9.0,Condo,,listing_scrape
+6 Fairhaven Dr,07950,Morris Plains,2024-03-13,2023-12-21,,625000,690000,10.4,Single Family,,listing_scrape
+28 Skyview Ter,07950,Morris Plains,2024-05-16,2024-02-25,,950000,950000,0.0,Single Family,,listing_scrape
+2 Waverly Ct,07950,Morris Plains,2024-05-16,2024-03-04,,950000,985000,3.68,Single Family,,listing_scrape
+2467 Route 10 Units 50 & 4B,07950,Morris Plains,2024-10-29,2024-05-03,,199999,235000,17.5,Condo,,listing_scrape
+419 Mountain Way,07950,Morris Plains,2024-08-04,2024-05-10,,990000,1101000,11.21,Single Family,,listing_scrape
+30 GLENBROOK RD,07950,Morris Plains,2024-08-04,2024-05-17,,600000,656000,9.33,Single Family,,"listing_scrape,nj_records"
+8 Ridgewood Rd,07950,Morris Plains,2024-08-04,2024-05-17,,579900,675500,16.49,Single Family,,listing_scrape
+2467 Route10 Unit 1A,07950,Morris Plains,2024-08-04,2024-05-23,,225000,222000,-1.33,Condo,,listing_scrape
+12 Moraine Rd,07950,Morris Plains,2024-08-04,2024-06-03,,748800,850000,13.51,Single Family,,listing_scrape
+32 Burnham Rd,07950,Morris Plains,2024-08-11,2024-08-09,,440000,440000,0.0,Single Family,,listing_scrape
+4 Christine Dr,07950,Morris Plains,2024-11-20,2024-10-16,,749990,875000,16.67,Single Family,,listing_scrape
+15 SUNSET RD,07950,Morris Plains,2025-06-26,2024-10-29,,699000,790000,13.02,Single Family,,"listing_scrape,nj_records"
+859 Miller Rd,07950,Morris Plains,2025-03-07,2025-03-04,,770000,800000,3.9,Single Family,,listing_scrape
+10 Cross Rd,07950,Morris Plains,2025-12-20,2025-12-19,,850614,850614,0.0,Single Family,,listing_scrape
+13 Mountview Rd,07950,Morris Plains,2026-03-30,2025-12-30,,800000,888800,11.1,Single Family,,listing_scrape
+40 E Main St,07960,Morristown,2023-08-23,2023-07-25,,2275000,2325000,2.2,Single Family,,listing_scrape
+17 Chadwell Pl,07960,Morristown,2025-01-31,2023-08-23,,1295000,1250000,-3.47,Condo,,listing_scrape
+7 Prospect St Unit 506,07960,Morristown,2023-09-30,2023-09-29,,490000,490000,0.0,Condo,,listing_scrape
+10 Lake Valley Rd,07960,Morristown,2023-10-19,2023-10-17,,558000,530000,-5.02,Single Family,,listing_scrape
+33 Spring Brook Rd,07960,Morristown,2023-11-03,2023-11-02,,1000000,1050000,5.0,Single Family,,listing_scrape
+20 Orchard St,07960,Morristown,2023-11-21,2023-11-17,,1175000,1175000,0.0,Multi-Family,,listing_scrape
+22 Orchard St,07960,Morristown,2023-11-21,2023-11-17,,1175000,1175000,0.0,Multi-Family,,listing_scrape
+50 Elm St Apt F,07960,Morristown,2023-11-23,2023-11-22,,249000,249000,0.0,Condo,,listing_scrape
+20 White Deer Ln,07960,Morristown,2024-03-13,2023-12-15,,2295000,2275000,-0.87,Single Family,,listing_scrape
+22 Schoolhouse Ln,07960,Morristown,2024-08-30,2023-12-15,,3649999,3250000,-10.96,Single Family,,listing_scrape
+293 Mount Kemble Ave,07960,Morristown,2024-03-13,2023-12-15,,599000,550000,-8.18,Single Family,,listing_scrape
+64 WETMORE AVE,07960,Morristown,2024-03-13,2023-12-15,,685000,570000,-16.79,Single Family,sold_price,"listing_scrape,nj_records"
+40 Dorothy Dr,07960,Morristown,2024-03-13,2023-12-18,,699900,775500,10.8,Single Family,,listing_scrape
+56D Ridgedale Ave Unit D,07960,Morristown,2024-03-13,2023-12-19,,439000,450000,2.51,Townhouse,,"listing_scrape,nj_records"
+62 Brook Dr,07960,Morristown,2024-03-13,2023-12-19,,1799000,1700000,-5.5,Single Family,,listing_scrape
+7B Dorado Dr Unit B,07960,Morristown,2024-03-13,2023-12-19,,425000,450000,5.88,Condo,,listing_scrape
+10 TIFFANY RD,07960,Morristown,2024-03-13,2023-12-20,,1475000,1475000,0.0,Single Family,,"listing_scrape,nj_records"
+2 Hancock Dr,07960,Morristown,2024-03-13,2023-12-21,,480000,480000,0.0,Condo,,listing_scrape
+17 KENMUIR AVE,07960,Morristown,2024-08-30,2023-12-28,,899900,900000,0.01,Single Family,,"listing_scrape,nj_records"
+47A LAKE RD,07960,Morristown,2024-08-30,2024-01-09,,499999,580000,16.0,Single Family,,"listing_scrape,nj_records"
+10 Zamrok Way,07960,Morristown,2024-03-31,2024-01-19,,649900,650000,0.02,Condo,,listing_scrape
+4 Dukes Ct,07960,Morristown,2024-08-30,2024-02-07,,1325000,1200000,-9.43,Single Family,,listing_scrape
+47 Hillairy Ave,07960,Morristown,2024-08-30,2024-03-04,,550000,550000,0.0,Single Family,,listing_scrape
+2 Baxter Rd,07960,Morristown,2024-08-30,2024-03-28,,1599000,1460000,-8.69,Single Family,,listing_scrape
+25 Miller Rd,07960,Morristown,2024-04-05,2024-04-04,,4300000,4300000,0.0,Townhouse,,listing_scrape
+11 Green Knolls Rd,07960,Morristown,2024-05-23,2024-04-30,,679000,740000,8.98,Single Family,,listing_scrape
+37 COMMUNITY PL,07960,Morristown,2024-08-04,2024-05-01,,1465000,1465000,0.0,Condo,,"listing_scrape,nj_records"
+63 TAFT LN,07960,Morristown,2024-08-04,2024-05-06,,575000,640000,11.3,Condo,,"listing_scrape,nj_records"
+3 Tennyson Ct,07960,Morristown,2024-08-04,2024-05-07,,1350000,1550000,14.81,Single Family,,listing_scrape
+"7 MAPLE AVE, UNIT 8",07960,Morristown,2024-08-04,2024-05-07,,1295000,1225000,-5.41,Townhouse,,"listing_scrape,nj_records"
+1 Burnet Rd,07960,Morristown,2024-08-04,2024-05-10,,975000,1075000,10.26,Single Family,,listing_scrape
+278 Mount Kemble Ave,07960,Morristown,2024-08-04,2024-05-10,,475000,485000,2.11,Single Family,,listing_scrape
+320 South St Apt 2E,07960,Morristown,2024-08-04,2024-05-10,,335000,340000,1.49,Condo,,listing_scrape
+45 Constitution Way,07960,Morristown,2024-08-04,2024-05-13,,699000,699000,0.0,Townhouse,,listing_scrape
+35 HILLCREST AVE,07960,Morristown,2024-08-04,2024-05-14,,575000,653000,13.57,Single Family,year_built,"listing_scrape,nj_records"
+10 Hillview Ter,07960,Morristown,2024-08-04,2024-05-15,,649900,701000,7.86,Single Family,,listing_scrape
+11 Canfield Way,07960,Morristown,2024-08-30,2024-05-15,,1249000,1300000,4.08,Single Family,,listing_scrape
+51 Mount Kemble Ave Apt 402,07960,Morristown,2024-08-04,2024-05-15,,624999,625000,0.0,Condo,,listing_scrape
+4D Leva Dr,07960,Morristown,2024-08-04,2024-05-16,,429500,500300,16.48,Condo,,listing_scrape
+58 DOGWOOD RD,07960,Morristown,2024-08-04,2024-05-16,,750000,840000,12.0,Single Family,,"listing_scrape,nj_records"
+6 Altamont Ct Apt 16,07960,Morristown,2024-08-04,2024-05-16,,310000,340000,9.68,Condo,,listing_scrape
+41 Hilltop Cir,07960,Morristown,2024-08-04,2024-05-17,,1375000,1415000,2.91,Single Family,,listing_scrape
+19 Tall Timber Dr,07960,Morristown,2024-08-04,2024-05-20,,899900,901500,0.18,Single Family,,listing_scrape
+4 Kissel Ln,07960,Morristown,2024-08-04,2024-05-21,,850000,910000,7.06,Single Family,,listing_scrape
+21 Sand Spring Rd,07960,Morristown,2024-08-04,2024-05-23,,2195000,1850000,-15.72,Single Family,,listing_scrape
+19 Eagle Nest Rd,07960,Morristown,2024-08-11,2024-05-24,,1535000,1535000,0.0,Single Family,,listing_scrape
+12 Herms Pl,07960,Morristown,2024-08-04,2024-05-30,,775000,851000,9.81,Single Family,,listing_scrape
+114 Skyline Dr,07960,Morristown,2024-08-04,2024-05-31,,1550000,1400000,-9.68,Single Family,,listing_scrape
+14 Tingley Rd,07960,Morristown,2024-08-04,2024-05-31,,999888,1060000,6.01,Single Family,,listing_scrape
+110 Washington Ave,07960,Morristown,2024-08-04,2024-06-03,,975000,1210000,24.1,Single Family,,listing_scrape
+607 Pitney Pl,07960,Morristown,2025-01-31,2024-06-29,,299999,336500,12.17,Single Family,,listing_scrape
+34 Kennedy Ln,07960,Morristown,2024-07-11,2024-07-10,,2900000,2900000,0.0,Single Family,,listing_scrape
+39 Spring Brook Rd,07960,Morristown,2024-07-23,2024-07-22,,1295000,1325000,2.32,Single Family,,listing_scrape
+14 Oheka Pl,07960,Morristown,2024-10-28,2024-08-01,,1395000,1520000,8.96,Townhouse,,listing_scrape
+380 South St,07960,Morristown,2025-02-10,2025-02-09,,300000,335000,11.67,Single Family,,listing_scrape
+10 Brigade Hill Rd,07960,Morristown,2025-02-21,2025-02-20,,2600000,2600000,0.0,Single Family,,listing_scrape
+1 White Deer Ln,07960,Morristown,2025-05-23,2025-03-06,,1695000,1780000,5.01,Single Family,,listing_scrape
+29 Stone Ct,07960,Morristown,2025-07-08,2025-04-28,,949900,960000,1.06,Townhouse,,listing_scrape
+11 Wetmore Ave Apt C,07960,Morristown,2025-05-17,2025-05-16,,260000,260000,0.0,Condo,,listing_scrape
+25 White Deer Ln,07960,Morristown,2025-05-22,2025-05-21,,1850000,2250000,21.62,Single Family,,listing_scrape
+44 Primrose Trl,07960,Morristown,2025-06-10,2025-06-09,,1200000,1200000,0.0,Single Family,,listing_scrape
+15 Heather Ln,07960,Morristown,2025-09-17,2025-06-20,,825000,894900,8.47,Single Family,,listing_scrape
+5 Jonathan Smith Rd,07960,Morristown,2026-03-30,2025-10-30,,1495000,1635000,9.36,Single Family,,listing_scrape
+29 Kitchell Rd,07960,Morristown,2026-01-27,2025-11-14,,2700000,2650000,-1.85,Single Family,,listing_scrape
+139 Woodland Ave,07960,Morristown,2026-03-30,2026-01-06,,874999,845000,-3.43,Single Family,,listing_scrape
+2 Twombly Ct,07960,Morristown,2026-03-30,2026-01-20,,660000,745000,12.88,Townhouse,,listing_scrape
+13 Woodlawn Dr,07960,Morristown,2026-05-13,2026-02-13,,849000,850000,0.12,Single Family,,listing_scrape
+16 Lee Dr,07960,Morristown,2026-05-12,2026-03-05,,1095000,1068000,-2.47,Condo,,listing_scrape
+15 Beechwood Dr,07960,Morristown,2026-06-07,2026-03-20,,1417500,1417500,0.0,Single Family,,listing_scrape
+80 Spring Valley Rd,07960,Morristown,2026-05-01,2026-04-30,,1895000,1895000,0.0,Single Family,,listing_scrape
+83 Hunterdon Blvd,07974,New Providence,2023-08-23,2023-08-15,,875000,925000,5.71,Single Family,,listing_scrape
+20 Marion Ave,07974,New Providence,2025-01-31,2023-10-06,,1250000,1250000,0.0,Single Family,,listing_scrape
+55 W Fourth St,07974,New Providence,2024-03-13,2023-12-14,,650000,721000,10.92,Single Family,,"listing_scrape,nj_records"
+8 PINE CT,07974,New Providence,2024-03-13,2023-12-15,,1349000,1350000,0.07,Single Family,,"listing_scrape,nj_records"
+229 UNION AVE,07974,New Providence,2024-03-31,2024-01-04,,625000,635000,1.6,Single Family,,"listing_scrape,nj_records"
+13 HEATHER CT,07974,New Providence,2024-03-31,2024-01-22,,749900,776000,3.48,Single Family,,"listing_scrape,nj_records"
+110 PRIMROSE DR,07974,New Providence,2024-03-31,2024-01-24,,615000,765000,24.39,Single Family,,"listing_scrape,nj_records"
+75 FAIRVIEW AVE,07974,New Providence,2025-01-31,2024-03-18,,729900,729900,0.0,Single Family,,"listing_scrape,nj_records"
+52 PEARL ST,07974,New Providence,2024-08-04,2024-05-09,,1450000,1530000,5.52,Single Family,,"listing_scrape,nj_records"
+25 WALNUT ST,07974,New Providence,2024-08-04,2024-05-10,,799000,900000,12.64,Single Family,,"listing_scrape,nj_records"
+15 WALTON AVE,07974,New Providence,2024-08-04,2024-05-14,,1095000,1271000,16.07,Single Family,year_built,"listing_scrape,nj_records"
+35 MAPLE ST,07974,New Providence,2024-08-04,2024-05-20,,599000,680000,13.52,Single Family,year_built,"listing_scrape,nj_records"
+15 RIVERBEND CT,07974,New Providence,2024-08-04,2024-05-28,,639000,639000,0.0,Condo,,"listing_scrape,nj_records"
+35 Laurel Dr,07974,New Providence,2024-07-26,2024-07-25,,735000,712500,-3.06,Single Family,,listing_scrape
+163 OAKWOOD DR,07974,New Providence,2024-09-09,2024-08-01,,2350000,2350000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+379 CENTRAL AVE,07974,New Providence,2024-10-31,2024-08-02,,799000,925000,15.77,Single Family,,"listing_scrape,nj_records"
+158 Colchester Rd,07974,New Providence,2024-12-12,2024-12-11,,1549000,1650000,6.52,Single Family,,listing_scrape
+37 Green Way,07974,New Providence,2025-12-09,2025-09-26,,1325000,1325000,0.0,Townhouse,,listing_scrape
+159 Oakwood Dr,07974,New Providence,2025-11-11,2025-11-10,,3599000,3599000,0.0,Single Family,,listing_scrape
+11 Etmore Pl,07974,New Providence,2026-01-22,2025-11-21,,899900,975000,8.35,Single Family,,listing_scrape
+82 Central Ave,07974,New Providence,2026-01-17,2026-01-15,,1425000,1490000,4.56,Single Family,,listing_scrape
+68 Elm St,07974,New Providence,2026-04-19,2026-01-31,,999000,1125000,12.61,Single Family,,listing_scrape
+112 Crane Cir,07974,New Providence,2026-07-07,2026-04-24,,975000,999999,2.56,Single Family,,listing_scrape
+31 Commonwealth Ave,07974,New Providence,2026-06-25,2026-06-12,,710000,710000,0.0,Single Family,,listing_scrape
+Union St,07980,Long Hill,2023-09-18,2023-08-28,,85000,85000,0.0,Land,,listing_scrape
+61 Lupine Way,07980,Long Hill,2024-03-13,2023-12-15,,624900,700000,12.02,Single Family,,listing_scrape
+147 LUPINE WAY,07980,Long Hill,2024-03-13,2023-12-18,,360000,360000,0.0,Single Family,year_built,"listing_scrape,nj_records"
+11 COUNTRY LN,07980,Long Hill,2024-03-31,2024-01-10,,979000,1050000,7.25,Single Family,,"listing_scrape,nj_records"
+40 Saint Josephs Dr,07980,Long Hill,2024-08-04,2024-05-21,,715000,819000,14.55,Single Family,,listing_scrape
+282 Mercer St,07980,Long Hill,2025-09-19,2025-05-09,,780000,780000,0.0,Single Family,,listing_scrape
+313 Warren Ave,07980,Long Hill,2026-04-19,2026-02-13,,529900,600313,13.29,Single Family,,listing_scrape
+2 CORY LANE,08807,Bridgewater,2025-07-23,2023-08-08,,825000,909000,10.18,Single Family,,"listing_scrape,nj_records"
+5  ADRIAN TERRACE,08807,Bridgewater,2024-01-02,2023-10-16,,950000,1100000,15.79,Single Family,,"listing_scrape,nj_records"
+382 UNION AVE,08807,Bridgewater,2025-07-23,2023-11-13,,389900,389900,0.0,Single Family,,"listing_scrape,nj_records"
+4806 PATTERSON ST.,08807,Bridgewater,2025-07-23,2023-11-28,,559900,550000,-1.77,Townhouse,,"listing_scrape,nj_records"
+277 HOLLAND COURT,08807,Bridgewater,2024-03-13,2023-12-15,,825000,890000,7.88,Single Family,,"listing_scrape,nj_records"
+155 Victoria Dr Unit 155,08807,Bridgewater,2024-03-13,2023-12-18,,395000,410000,3.8,Condo,,"listing_scrape,nj_records"
+1612 Mountain Top Rd,08807,Bridgewater,2024-03-13,2023-12-19,,850000,799000,-6.0,Single Family,,listing_scrape
+1605 VROOM DR.,08807,Bridgewater,2024-03-13,2023-12-21,,549000,584000,6.38,Condo,,"listing_scrape,nj_records"
+20 HARRY ROAD,08807,Bridgewater,2024-03-13,2024-01-05,,449900,460000,2.24,Single Family,,"listing_scrape,nj_records"
+9 Stanford Dr Apt 1A,08807,Bridgewater,2024-03-31,2024-01-18,,217000,220000,1.38,Condo,,"listing_scrape,nj_records"
+333 COUNTRY CLUB ROAD,08807,Bridgewater,2024-03-31,2024-01-25,,714900,700000,-2.08,Single Family,,"listing_scrape,nj_records"
+102 HAGERMAN CT.,08807,Bridgewater,2024-03-05,2024-03-04,,479900,475000,-1.02,Condo,,"listing_scrape,nj_records"
+185 MARY COURT,08807,Bridgewater,2025-01-31,2024-03-08,,399000,377500,-5.39,Condo,,"listing_scrape,nj_records"
+7 Dartmouth Ave Apt 1B,08807,Bridgewater,2024-05-16,2024-03-15,,269000,270000,0.37,Condo,,"listing_scrape,nj_records"
+11 HOAGLAND CT.,08807,Bridgewater,2024-08-04,2024-05-02,,725000,770000,6.21,Single Family,,"listing_scrape,nj_records"
+2003 Ackmen Ct,08807,Bridgewater,2024-08-04,2024-05-09,,550000,590000,7.27,Townhouse,,listing_scrape
+116 IVY LANE,08807,Bridgewater,2024-08-04,2024-05-15,,725000,775000,6.9,Single Family,,"listing_scrape,nj_records"
+268 FARMER ROAD,08807,Bridgewater,2024-08-04,2024-05-15,,725000,823500,13.59,Single Family,,"listing_scrape,nj_records"
+6 SLACK COURT,08807,Bridgewater,2024-08-04,2024-05-17,,899000,951000,5.78,Single Family,,"listing_scrape,nj_records"
+1805 DOOLITTLE DRIVE,08807,Bridgewater,2024-08-04,2024-05-20,,410000,430000,4.88,Condo,,"listing_scrape,nj_records"
+1048 Route # 202/206,08807,Bridgewater,2024-08-04,2024-05-22,,985000,975000,-1.02,Single Family,,listing_scrape
+304 STRATFORD PL.,08807,Bridgewater,2024-08-04,2024-05-23,,334900,340000,1.52,Condo,,"listing_scrape,nj_records"
+5 Flanders Way,08807,Bridgewater,2024-08-11,2024-05-23,,775000,860000,10.97,Single Family,,listing_scrape
+29 MUIRFIELD LN.,08807,Bridgewater,2024-08-04,2024-05-24,,840000,875000,4.17,Single Family,,"listing_scrape,nj_records"
+3205 PINHORN DRIVE,08807,Bridgewater,2024-08-04,2024-05-24,,460000,450000,-2.17,Townhouse,,"listing_scrape,nj_records"
+38 ALLEN ROAD,08807,Bridgewater,2024-08-04,2024-05-29,,675000,730000,8.15,Single Family,,"listing_scrape,nj_records"
+178 NORTHFIELD RD.,08807,Bridgewater,2024-08-04,2024-05-31,,425000,460000,8.24,Townhouse,,"listing_scrape,nj_records"
+756 WINGATE DRIVE,08807,Bridgewater,2024-08-04,2024-05-31,,825000,850000,3.03,Single Family,,"listing_scrape,nj_records"
+6 HEATH DR.,08807,Bridgewater,2024-06-29,2024-06-28,,1600000,1600000,0.0,Single Family,,"listing_scrape,nj_records"
+616 3rd St,08807,Bridgewater,2025-01-31,2024-06-28,,435000,485000,11.49,Single Family,,listing_scrape
+1074 BROWN ROAD,08807,Bridgewater,2024-10-28,2024-07-12,,630000,712000,13.02,Single Family,,"listing_scrape,nj_records"
+3608 PINHORN DRIVE,08807,Bridgewater,2024-10-10,2024-08-09,,499999,540000,8.0,Condo,,"listing_scrape,nj_records"
+683 TALAMINI ROAD,08807,Bridgewater,2024-10-10,2024-08-19,,619683,686683,10.81,Single Family,,"listing_scrape,nj_records"
+3 HODGE DR.,08807,Bridgewater,2024-11-19,2024-08-28,,1300000,1450000,11.54,Single Family,,"listing_scrape,nj_records"
+39 NORTH AVENUE,08807,Bridgewater,2025-02-20,2024-09-11,,649900,750000,15.4,Single Family,,"listing_scrape,nj_records"
+133 HILLSIDE AVENUE,08807,Bridgewater,2025-07-23,2024-09-30,,550000,676000,22.91,Single Family,,"listing_scrape,nj_records"
+163 Candlewick Ln,08807,Bridgewater,2025-02-20,2024-12-06,,872500,872500,0.0,Single Family,,listing_scrape
+703 Brokaw Ct,08807,Bridgewater,2026-02-24,2025-03-20,,439900,455000,3.43,Townhouse,,listing_scrape
+11 Dartmouth Ave Apt 1B,08807,Bridgewater,2025-09-19,2025-04-23,,270000,285000,5.56,Condo,,listing_scrape
+526 Vanderveer Rd,08807,Bridgewater,2025-09-19,2025-06-12,,1070000,1100000,2.8,Single Family,,listing_scrape
+10 Tiffin Pl,08807,Bridgewater,2025-09-19,2025-06-13,,599900,585000,-2.48,Single Family,,listing_scrape
+256 Marcia Way,08807,Bridgewater,2026-02-24,2025-07-31,,614999,597500,-2.85,Townhouse,,listing_scrape
+2012 Vroom Dr,08807,Bridgewater,2026-05-27,2025-09-15,,419999,415000,-1.19,Condo,,listing_scrape
+14 Dartmouth Ave Apt 1A,08807,Bridgewater,2026-03-25,2025-10-15,,299000,340000,13.71,Condo,,listing_scrape
+876 Sunset Rdg,08807,Bridgewater,2026-04-14,2026-02-03,,1650000,1635000,-0.91,Single Family,,listing_scrape
+409 Stony Brook Dr,08807,Bridgewater,2026-04-19,2026-02-12,,850000,850000,0.0,Single Family,,listing_scrape
+332 2nd St,08812,Green Brook,2026-06-21,2023-07-10,,499000,530000,6.21,Single Family,,listing_scrape
+4 DUDLEY COURT,08812,Green Brook,2025-07-23,2023-07-10,,395000,425000,7.59,Condo,,"listing_scrape,nj_records"
+1236 King Ct,08812,Green Brook,2025-01-31,2023-08-14,,325000,325000,0.0,Condo,,listing_scrape
+727 1st St,08812,Green Brook,2026-01-21,2023-09-01,,419000,419000,0.0,Single Family,,listing_scrape
+112 Front St,08812,Green Brook,2024-01-02,2023-10-20,,480000,515000,7.29,Single Family,,listing_scrape
+605 2nd St,08812,Green Brook,2024-03-13,2023-12-20,,550000,540000,-1.82,Single Family,,listing_scrape
+123 MOUNTAIN PKWY.,08812,Green Brook,2024-03-13,2023-12-21,,525000,550000,4.76,Single Family,lot_sqft;year_built,"listing_scrape,nj_records"
+1822 King Ct Unit 1822,08812,Green Brook,2024-03-31,2024-01-05,,320000,380000,18.75,Condo,,"listing_scrape,nj_records"
+718 Front St,08812,Green Brook,2025-07-23,2024-03-14,,379900,357000,-6.03,Single Family,,listing_scrape
+64 RIDGE ROAD,08812,Green Brook,2025-07-23,2024-03-27,,1249000,1249000,0.0,Single Family,,"listing_scrape,nj_records"
+137 GREENBROOK ROAD,08812,Green Brook,2025-05-01,2024-04-04,,480000,535000,11.46,Single Family,,"listing_scrape,nj_records"
+1042 SHADOWLAWN DRIVE,08812,Green Brook,2025-01-31,2024-04-10,,450000,520000,15.56,Townhouse,,"listing_scrape,nj_records"
+332 Penfield Pl,08812,Green Brook,2024-08-04,2024-05-15,,499900,505000,1.02,Single Family,,listing_scrape
+31 ROCK ROAD W.,08812,Green Brook,2024-08-04,2024-05-16,,850000,870000,2.35,Single Family,,"listing_scrape,nj_records"
+115 WARRENVILLE RD.,08812,Green Brook,2024-08-04,2024-05-22,,535000,575000,7.48,Single Family,,"listing_scrape,nj_records"
+327 New Market Rd,08812,Green Brook,2024-08-04,2024-05-31,,459900,500000,8.72,Single Family,,listing_scrape
+765 Third St,08812,Green Brook,2025-02-20,2024-09-10,,525000,595000,13.33,Single Family,,listing_scrape
+828 Dunellen Ave,08812,Green Brook,2025-01-28,2024-10-31,,384900,365000,-5.17,Single Family,,listing_scrape
+563 Mountainview Ter,08812,Green Brook,2025-07-23,2024-11-26,,899990,899990,0.0,Single Family,,listing_scrape
+342 Oak Pkwy,08812,Green Brook,2025-07-07,2025-01-07,,699000,677000,-3.15,Single Family,,listing_scrape
+322 2nd St,08812,Green Brook,2026-06-22,2025-09-19,,799000,750000,-6.13,Single Family,,listing_scrape
+1 Heathcote Ave,08817,Edison,2025-01-31,2023-07-11,,399000,380000,-4.76,Single Family,,listing_scrape
+16 Cambridge Rd,08817,Edison,2025-09-15,2023-08-03,,603000,643000,6.63,Single Family,,listing_scrape
+37 MARKHAM RD,08817,Edison,2023-08-17,2023-08-07,,725000,720000,-0.69,Single Family,,"listing_scrape,nj_records"
+129 COLLEGE DRIVE,08817,Edison,2025-09-15,2023-08-21,,192000,193000,0.52,Condo,,"listing_scrape,nj_records"
+17 LORDINA DR,08817,Edison,2025-01-30,2023-09-06,,784950,835000,6.38,Single Family,,"listing_scrape,nj_records"
+57 EARDLEY RD,08817,Edison,2025-01-31,2023-09-11,,500000,555000,11.0,Single Family,,"listing_scrape,nj_records"
+108 MERRYWOOD DR,08817,Edison,2024-01-02,2023-10-04,,349000,365000,4.58,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+56 SHARON AVE,08817,Edison,2025-01-31,2023-10-04,,525000,560000,6.67,Single Family,sold_date,"listing_scrape,nj_records"
+25 IRVING ST,08817,Edison,2025-01-31,2023-10-06,,529000,470000,-11.15,Single Family,,"listing_scrape,nj_records"
+16 WOERNER CT,08817,Edison,2024-01-02,2023-10-10,,499000,460000,-7.82,Single Family,,"listing_scrape,nj_records"
+35 WALNUT ST,08817,Edison,2024-01-02,2023-10-13,,489999,480000,-2.04,Single Family,,"listing_scrape,nj_records"
+20 Laurie Ln,08817,Edison,2024-01-02,2023-10-19,,450000,520000,15.56,Single Family,,listing_scrape
+54 Idlewild Rd,08817,Edison,2025-01-31,2023-10-23,,400000,370000,-7.5,Single Family,,listing_scrape
+1732 Waterford Dr,08817,Edison,2024-01-02,2023-10-24,,349000,340000,-2.58,Condo,,listing_scrape
+4207 HANA RD,08817,Edison,2023-11-03,2023-10-26,,400000,390000,-2.5,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+5 York Dr Apt 2A,08817,Edison,2024-01-02,2023-10-26,,111000,130000,17.12,Coop,,listing_scrape
+3603 Hana Rd,08817,Edison,2024-01-02,2023-10-27,,440000,430000,-2.27,Condo Townhome Rowhome Coop,,listing_scrape
+4303 HANA RD,08817,Edison,2024-01-30,2024-01-03,,440000,430000,-2.27,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+196 College Dr Unit 196,08817,Edison,2025-01-31,2024-02-02,,250000,247000,-1.2,Condo,,listing_scrape
+89 IDLEWILD RD,08817,Edison,2024-02-20,2024-02-14,,800000,800000,0.0,Single Family,,"listing_scrape,nj_records"
+17 Player Ave,08817,Edison,2024-03-07,2024-02-29,,379888,390000,2.66,Multi-Family,,listing_scrape
+183 Plainfield Ave,08817,Edison,2025-06-25,2024-03-06,,495000,540000,9.09,Single Family,,listing_scrape
+2076 Woodbridge Ave,08817,Edison,2024-03-14,2024-03-06,,300000,285000,-5.0,Land,,listing_scrape
+30 MEADOW RD,08817,Edison,2025-07-23,2024-03-12,,525000,525000,0.0,Single Family,,"listing_scrape,nj_records"
+14 EASTLICK RD,08817,Edison,2026-06-22,2024-04-04,,579000,605000,4.49,Single Family,,"listing_scrape,nj_records"
+68 MELBOURNE ST,08817,Edison,2026-04-24,2024-04-25,,699999,660000,-5.71,Single Family,,"listing_scrape,nj_records"
+21 OVINGTON AVE,08817,Edison,2025-01-31,2024-05-14,,515000,540000,4.85,Single Family,,"listing_scrape,nj_records"
+157 HILLCREST AVE,08817,Edison,2024-08-04,2024-05-28,,579900,660000,13.81,Single Family,year_built,"listing_scrape,nj_records"
+28 BOULDER DR,08817,Edison,2025-01-31,2024-06-11,,350000,385000,10.0,Condo,,"listing_scrape,nj_records"
+3804 HANA RD,08817,Edison,2024-06-14,2024-06-11,,440000,437500,-0.57,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+40 PARTCH PL,08817,Edison,2025-09-15,2024-06-13,,699900,738000,5.44,Single Family,,"listing_scrape,nj_records"
+91 RODAK CIRCLE,08817,Edison,2025-01-31,2024-06-13,,750000,730000,-2.67,Single Family,lot_sqft,"listing_scrape,nj_records"
+49 AGATHA DR,08817,Edison,2025-01-31,2024-06-14,,750000,765000,2.0,Single Family,,"listing_scrape,nj_records"
+62 ELLIOT PL,08817,Edison,2026-03-19,2024-06-18,,400000,445000,11.25,Single Family,,"listing_scrape,nj_records"
+134 College Dr Unit 134,08817,Edison,2025-01-31,2024-06-27,,289000,315000,9.0,Townhouse,,"listing_scrape,nj_records"
+1635 Waterford Dr Unit 1635,08817,Edison,2025-01-31,2024-07-01,,399000,415000,4.01,Condo,,listing_scrape
+14 Meyer Rd,08817,Edison,2025-07-23,2024-07-10,,584900,640000,9.42,Single Family,,listing_scrape
+45 Melbourne St,08817,Edison,2024-10-28,2024-07-30,,519900,560000,7.71,Single Family,,listing_scrape
+14 BAXTER RD,08817,Edison,2024-10-28,2024-08-06,,699999,750000,7.14,Single Family,,"listing_scrape,nj_records"
+97 College Dr Unit 97,08817,Edison,2024-10-29,2024-08-12,,285000,285000,0.0,Multi-Family,,"listing_scrape,nj_records"
+176 Winthrop Rd,08817,Edison,2025-07-23,2024-08-14,,349999,450000,28.57,Single Family,,listing_scrape
+3007 HANA RD,08817,Edison,2024-10-25,2024-10-09,,465000,465000,0.0,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+7 FERRIS RD,08817,Edison,2025-03-10,2024-10-17,,499000,537100,7.64,Single Family,,"listing_scrape,nj_records"
+63 GLENVILLE RD,08817,Edison,2026-03-19,2024-11-13,,569900,651000,14.23,Single Family,,"listing_scrape,nj_records"
+3802 HANA RD,08817,Edison,2025-01-02,2024-12-03,,465000,465000,0.0,Condo Townhome Rowhome Coop,sold_date,"listing_scrape,nj_records"
+12 Weldon Rd,08817,Edison,2025-03-10,2024-12-05,,499000,502500,0.7,Single Family,,listing_scrape
+37 Parkerson Rd,08817,Edison,2025-03-10,2024-12-05,,799000,770000,-3.63,Single Family,,listing_scrape
+27 Westminster Pl,08817,Edison,2025-07-23,2024-12-09,,499000,520000,4.21,Single Family,,listing_scrape
+3407 Hana Rd,08817,Edison,2025-05-19,2025-05-13,,465000,465000,0.0,Condo Townhome Rowhome Coop,,listing_scrape
+67 Columbus Ave,08817,Edison,2025-09-19,2025-06-06,,485000,535000,10.31,Single Family,,listing_scrape
+18 Velikan Pl,08817,Edison,2025-09-19,2025-07-01,,650000,745000,14.62,Single Family,,listing_scrape
+57 Duley Ave,08817,Edison,2025-09-19,2025-07-02,,539000,605000,12.24,Single Family,,listing_scrape
+37 York Dr Apt 5A,08817,Edison,2025-09-19,2025-07-10,,170000,165000,-2.94,Coop,,listing_scrape
+196 Plainfield Ave,08817,Edison,2025-08-14,2025-07-22,,499000,538000,7.82,Multi-Family,,listing_scrape
+66 Fox Rd Apt 10A,08817,Edison,2025-12-17,2025-08-08,,165000,153000,-7.27,Coop,,listing_scrape
+20 Dayton Rd,08817,Edison,2025-10-31,2025-08-20,,419000,435000,3.82,Single Family,,listing_scrape
+99 Craig St,08817,Edison,2026-03-19,2025-08-25,,839900,895000,6.56,Multi-Family,,listing_scrape
+35 Lydia Ln,08817,Edison,2025-09-02,2025-08-29,,990000,983000,-0.71,Single Family,,listing_scrape
+711 Orlando St Unit 711,08817,Edison,2025-11-14,2025-09-09,,410000,435000,6.1,Townhouse,,listing_scrape
+114 Garden Ter,08817,Edison,2026-04-24,2025-09-17,,505000,500000,-0.99,Single Family,,listing_scrape
+3303 Hana Rd,08817,Edison,2025-09-26,2025-09-18,,555000,550000,-0.9,Condo Townhome Rowhome Coop,,listing_scrape
+2505 Woodbridge Ave Trlr 32M,08817,Edison,2026-03-30,2025-11-07,,125000,125000,0.0,Manufactured,,listing_scrape
+1617 Raspberry Ct,08817,Edison,2026-03-30,2025-12-15,,319000,310000,-2.82,Condo,,listing_scrape
+206 Plainfield Ave,08817,Edison,2026-03-30,2025-12-31,,434900,430000,-1.13,Single Family,,listing_scrape
+52 Ashley Rd,08817,Edison,2026-02-14,2026-02-13,,425000,420000,-1.18,Single Family,,listing_scrape
+10 Magee Rd,08817,Edison,2026-04-11,2026-04-10,,699000,710000,1.57,Single Family,,listing_scrape
+4204 Hana Rd,08817,Edison,2026-05-04,2026-04-30,,535000,515001,-3.74,Townhouse,,listing_scrape
+81 Laurel Hollow Ct Unit 81,08820,Edison,2025-01-31,2023-07-25,,599900,685000,14.19,Condo,,"listing_scrape,nj_records"
+64 Webb St,08820,Edison,2025-01-31,2023-09-28,,560000,601000,7.32,Single Family,,listing_scrape
+1847 WOODLAND AVE,08820,Edison,2024-01-02,2023-10-04,,799900,820800,2.61,Single Family,,"listing_scrape,nj_records"
+1903 Deerfield Dr Unit 1903,08820,Edison,2024-01-02,2023-10-11,,515000,470000,-8.74,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+49 GATE HOUSE LANE,08820,Edison,2024-01-02,2023-10-11,,480000,535000,11.46,Condo,,"listing_scrape,nj_records"
+12 LONGVIEW RD,08820,Edison,2024-01-02,2023-10-12,,999000,1250000,25.13,Single Family,,"listing_scrape,nj_records"
+15 TEN EYCK PL,08820,Edison,2024-01-02,2023-10-13,,1350000,1419000,5.11,Single Family,,"listing_scrape,nj_records"
+701 TIMBER OAKS RD,08820,Edison,2024-01-02,2023-10-13,,540000,575000,6.48,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+20 ROLLING BROOK DR,08820,Edison,2024-01-02,2023-10-17,,998900,980000,-1.89,Single Family,,"listing_scrape,nj_records"
+51 WINDING BROOK WAY,08820,Edison,2024-01-02,2023-10-17,,995000,990000,-0.5,Single Family,,"listing_scrape,nj_records"
+36 ELIZABETH AVE,08820,Edison,2024-01-02,2023-10-18,,599999,630000,5.0,Single Family,,"listing_scrape,nj_records"
+6 NEW YORK BLVD,08820,Edison,2025-01-31,2023-10-18,,979900,990000,1.03,Single Family,,"listing_scrape,nj_records"
+75 CHATSWORTH CT,08820,Edison,2025-07-23,2023-10-18,,689000,705000,2.32,Condo,,"listing_scrape,nj_records"
+862 INMAN AVE,08820,Edison,2024-01-02,2023-10-18,,1100000,1175000,6.82,Single Family,,"listing_scrape,nj_records"
+76 SALEM ST,08820,Edison,2024-01-02,2023-10-19,,859900,925000,7.57,Single Family,,"listing_scrape,nj_records"
+8 CHARLES ST,08820,Edison,2024-01-02,2023-10-26,,329000,329000,0.0,Single Family,,"listing_scrape,nj_records"
+98 STRATFORD CIR,08820,Edison,2024-01-02,2023-10-26,,650000,602346,-7.33,Single Family,,"listing_scrape,nj_records"
+48 PARK GATE DR,08820,Edison,2024-01-02,2023-10-31,,550000,605000,10.0,Condo Townhome Rowhome Coop,,"listing_scrape,nj_records"
+3 VINNE COURT,08820,Edison,2025-01-31,2023-11-14,,875000,936000,6.97,Single Family,lot_sqft,"listing_scrape,nj_records"
+274 SAVOY AVE,08820,Edison,2025-07-23,2023-11-17,,699000,715000,2.29,Single Family,,"listing_scrape,nj_records"
+2 LIPNICK LANE,08820,Edison,2025-01-31,2023-12-08,,975000,965000,-1.03,Single Family,,"listing_scrape,nj_records"
+3770 Park Ave,08820,Edison,2025-01-31,2023-12-14,,1399999,1359000,-2.93,Single Family,,listing_scrape
+291 MC KINLEY AVE,08820,Edison,2024-03-13,2023-12-15,,949999,923000,-2.84,Single Family,,"listing_scrape,nj_records"
+15 DEVON RD,08820,Edison,2025-01-31,2023-12-20,,769000,775000,0.78,Single Family,,"listing_scrape,nj_records"
+198 Normandy Rd,08820,Edison,2025-01-31,2024-02-07,,899000,975000,8.45,Single Family,,listing_scrape
+36 MANOR BLVD,08820,Edison,2025-01-31,2024-03-13,,629000,655500,4.21,Single Family,,"listing_scrape,nj_records"
+42 GIGGLESWICK WAY,08820,Edison,2024-08-04,2024-05-08,,585000,665000,13.68,Condo,,"listing_scrape,nj_records"
+12 WARWICK RD,08820,Edison,2025-01-31,2024-06-10,,739000,851000,15.16,Single Family,,"listing_scrape,nj_records"
+37 PARKERSON RD,08820,Edison,2025-01-31,2024-06-26,,399999,399999,0.0,Single Family,,"listing_scrape,nj_records"
+826 INMAN AVE,08820,Edison,2025-01-31,2024-06-28,,1449000,1400000,-3.38,Single Family,lot_sqft,"listing_scrape,nj_records"
+25 SCHUBERT AVE,08820,Edison,2025-01-31,2024-07-23,,769000,835000,8.58,Single Family,,"listing_scrape,nj_records"
+2802 CRICKET CIRCLE,08820,Edison,2025-09-12,2024-07-25,,509900,525000,2.96,Condo,,"listing_scrape,nj_records"
+58 PHEASANT RUN,08820,Edison,2024-11-19,2024-08-28,,499900,541000,8.22,Townhouse,,"listing_scrape,nj_records"
+37 LAVENDER DR,08820,Edison,2025-08-22,2024-09-04,,899000,875000,-2.67,Single Family,,"listing_scrape,nj_records"
+16 GREENWICH RD,08820,Edison,2024-11-19,2024-09-11,,750000,780000,4.0,Single Family,,"listing_scrape,nj_records"
+120 MUNDY AVE,08820,Edison,2025-03-10,2024-10-17,,799000,840000,5.13,Single Family,,"listing_scrape,nj_records"
+20 Norton St,08820,Edison,2025-07-23,2024-12-06,,799000,780000,-2.38,Single Family,,listing_scrape
+112 Mundy Ave,08820,Edison,2025-09-19,2025-04-30,,1759000,1675000,-4.78,Single Family,,listing_scrape
+949 New Dover Rd,08820,Edison,2025-09-19,2025-05-16,,1399500,1408369,0.63,Single Family,,listing_scrape
+95 Tingley Ln,08820,Edison,2026-03-19,2025-05-23,,1049900,1225000,16.68,Single Family,,listing_scrape
+965 New Dover Rd,08820,Edison,2025-06-05,2025-06-03,,624900,730000,16.82,Single Family,,listing_scrape
+4102 Cricket Cir,08820,Edison,2025-12-30,2025-07-10,,499000,499000,0.0,Condo,,listing_scrape
+878 Beatrice Pkwy,08820,Edison,2025-09-19,2025-07-10,,925000,999000,8.0,Single Family,,listing_scrape
+24 Timber Rd,08820,Edison,2025-08-15,2025-08-14,,650000,650000,0.0,Single Family,,listing_scrape
+280 McKinley Ave,08820,Edison,2026-01-14,2025-08-29,,634900,651000,2.54,Single Family,,listing_scrape
+994 Feather Bed Ln,08820,Edison,2026-04-02,2025-09-24,,994000,940000,-5.43,Single Family,,listing_scrape
+120 Alfred St,08820,Edison,2026-03-30,2025-10-03,,815000,790000,-3.07,Single Family,,listing_scrape
+29 Wintergreen Ave,08820,Edison,2026-03-30,2025-10-06,,669999,715000,6.72,Single Family,,listing_scrape
+18 Mulberry Ln,08820,Edison,2026-03-30,2025-10-15,,1095000,1135000,3.65,Single Family,,listing_scrape
+804 Timber Oaks Rd,08820,Edison,2026-03-30,2025-11-17,,485000,470000,-3.09,Townhouse,,listing_scrape
+8 Mary Ellen Dr,08820,Edison,2026-03-30,2025-12-29,,959000,960000,0.1,Single Family,,listing_scrape
+3774 Park Ave Unit 1,08820,Edison,2026-04-25,2026-03-16,,1599000,1599000,0.0,Single Family,,listing_scrape
+3851 Park Ave,08820,Edison,2026-06-07,2026-03-30,,1750000,1750000,0.0,Single Family,,listing_scrape
+57 Judson St,08837,Edison,2023-09-01,2023-08-31,,150000,162500,8.33,Coop,,listing_scrape
+109 Edison Glen Ter,08837,Edison,2024-01-02,2023-10-18,,219900,230000,4.59,Condo,,listing_scrape
+83 LIDDLE AVE,08837,Edison,2024-01-02,2023-10-19,,249900,250000,0.04,Condo,,"listing_scrape,nj_records"
+182 Grandview Ave,08837,Edison,2024-01-02,2023-10-20,,600000,630000,5.0,Single Family,,listing_scrape
+46 MORRIS AVE,08837,Edison,2024-01-02,2023-10-24,,519999,509000,-2.12,Single Family,,"listing_scrape,nj_records"
+47 Judson St Apt 12A,08837,Edison,2024-01-02,2023-10-26,,160000,160000,0.0,Coop,,listing_scrape
+25 ROOSEVELT BLVD,08837,Edison,2024-03-13,2023-12-15,,649999,650000,0.0,Single Family,,"listing_scrape,nj_records"
+48 COOLIDGE AVE,08837,Edison,2024-03-13,2023-12-15,,399000,425100,6.54,Single Family,,"listing_scrape,nj_records"
+5 LEHIGH AVE,08837,Edison,2024-03-13,2023-12-19,,562000,538000,-4.27,Single Family,,"listing_scrape,nj_records"
+116 Edison Glen Ter,08837,Edison,2025-01-31,2024-01-29,,500000,500000,0.0,Townhouse,,listing_scrape
+4025 WOODBRIDGE AVE,08837,Edison,2025-01-31,2024-04-04,,499000,540000,8.22,Single Family,,"listing_scrape,nj_records"
+4 Winslow Rd,08837,Edison,2024-08-30,2024-04-05,,550000,525000,-4.55,Single Family,,listing_scrape
+185 LIDDLE AVE,08837,Edison,2025-01-31,2024-04-23,,199900,199900,0.0,Condo,,"listing_scrape,nj_records"
+6 Mayling Ct,08837,Edison,2024-08-04,2024-05-15,,699000,777000,11.16,Single Family,,listing_scrape
+18 Judson St Apt 8B,08837,Edison,2024-08-04,2024-05-24,,170000,185000,8.82,Condo,,listing_scrape
+26 N Garfield Park Unit A,08837,Edison,2024-08-23,2024-08-15,,234900,234900,0.0,Condo,,"listing_scrape,nj_records"
+6 Lincoln Ave,08837,Edison,2025-09-19,2025-03-21,,599000,570000,-4.84,Multi-Family,,listing_scrape
+183 Liddle Ave,08837,Edison,2026-03-19,2025-07-25,,239900,230000,-4.13,Condo,,listing_scrape
+190 Jackson Ave,08837,Edison,2026-03-30,2025-11-24,,484998,490000,1.03,Single Family,,listing_scrape
+143 Safran Ave,08837,Edison,2026-03-30,2026-01-16,,429900,485000,12.82,Single Family,,listing_scrape
+25 Eileen Way,08837,Edison,2026-03-30,2026-01-21,,699999,685000,-2.14,Single Family,,listing_scrape
+117 SPRING ST.,08840,Metuchen,2025-01-31,2023-09-07,,579000,640000,10.54,Single Family,,"listing_scrape,nj_records"
+48 MYRTLE AVE.,08840,Metuchen,2024-01-02,2023-10-12,,1290000,1290000,0.0,Single Family,,"listing_scrape,nj_records"
+83 Essex Ave,08840,Metuchen,2024-01-02,2023-10-16,,399900,385000,-3.73,Multi-Family,,listing_scrape
+18 WESTON ST.,08840,Metuchen,2024-01-02,2023-10-18,,839000,865800,3.19,Single Family,,"listing_scrape,nj_records"
+90 Maryknoll Rd,08840,Metuchen,2024-01-02,2023-10-18,,429900,453000,5.37,Single Family,,listing_scrape
+121 Newman St Unit 2147,08840,Metuchen,2024-01-02,2023-10-20,,270000,270000,0.0,Condo Townhome Rowhome Coop,,listing_scrape
+214 W. CHESTNUT AVE.,08840,Metuchen,2024-01-02,2023-10-27,,535000,528000,-1.31,Single Family,,"listing_scrape,nj_records"
+227 Wall St,08840,Metuchen,2024-01-02,2023-10-27,,525000,550000,4.76,Single Family,,listing_scrape
+122 Amboy Ave,08840,Metuchen,2024-01-02,2023-11-01,,600000,605000,0.83,Single Family,,listing_scrape
+20 Weston St,08840,Metuchen,2024-01-02,2023-11-02,,839000,861425,2.67,Single Family,,listing_scrape
+205 Rose St Unit 2110,08840,Metuchen,2025-01-31,2023-11-06,,325000,360000,10.77,Townhouse,,listing_scrape
+85 BLAIR AVE.,08840,Metuchen,2024-03-13,2023-12-13,,850000,860000,1.18,Single Family,,"listing_scrape,nj_records"
+620 MIDDLESEX AVE.,08840,Metuchen,2024-03-13,2023-12-15,,549900,566000,2.93,Condo,,"listing_scrape,nj_records"
+35 VICTORY CT.,08840,Metuchen,2024-03-13,2023-12-20,,330000,375000,13.64,Townhouse,,"listing_scrape,nj_records"
+20 McGuire St,08840,Metuchen,2025-07-23,2023-12-21,,500000,520000,4.0,Single Family,,listing_scrape
+52 CHARLES ST.,08840,Metuchen,2025-01-31,2023-12-22,,575000,650000,13.04,Single Family,,"listing_scrape,nj_records"
+206 NEWMAN ST.,08840,Metuchen,2024-02-21,2024-02-02,,365000,360000,-1.37,Condo,,"listing_scrape,nj_records"
+72 MARTIN ST.,08840,Metuchen,2025-01-31,2024-02-22,,750000,750000,0.0,Single Family,,"listing_scrape,nj_records"
+165 Essex Ave Apt 509,08840,Metuchen,2025-09-12,2024-03-14,,349000,380000,8.88,Condo,,"listing_scrape,nj_records"
+286 CENTRAL AVE.,08840,Metuchen,2024-08-04,2024-05-16,,499000,482000,-3.41,Single Family,,"listing_scrape,nj_records"
+17 ROSE ST.,08840,Metuchen,2024-08-04,2024-05-23,,675000,700000,3.7,Single Family,,"listing_scrape,nj_records"
+57 PLAINFIELD AVE.,08840,Metuchen,2024-06-27,2024-06-21,,600000,600000,0.0,Single Family,,"listing_scrape,nj_records"
+216 Atlantic St,08840,Metuchen,2024-11-19,2024-07-08,,529999,556000,4.91,Single Family,,listing_scrape
+43 BRUNSWICK AVE.,08840,Metuchen,2024-10-29,2024-07-26,,1200000,1380000,15.0,Single Family,year_built,"listing_scrape,nj_records"
+167 Atlantic St,08840,Metuchen,2024-10-29,2024-08-09,,599999,595000,-0.83,Single Family,,listing_scrape
+16 Atlantic St,08840,Metuchen,2024-11-01,2024-08-30,,550000,540000,-1.82,Single Family,,listing_scrape
+10 SIDNEY PL.,08840,Metuchen,2026-03-19,2024-10-25,,989900,999999,1.02,Single Family,,"listing_scrape,nj_records"
+21 DESSER PL.,08840,Metuchen,2025-03-10,2024-11-20,,650000,671000,3.23,Single Family,,"listing_scrape,nj_records"
+40 School St,08840,Metuchen,2026-03-19,2024-12-18,,1349000,1366000,1.26,Single Family,,listing_scrape
+296 High St,08840,Metuchen,2026-03-30,2025-10-31,,559000,549000,-1.79,Single Family,,listing_scrape
+69 BERNARD ST,08876,Branchburg,2025-01-31,2023-07-18,,550000,585000,6.36,Single Family,,"listing_scrape,nj_records"
+5 BUFFALO HOLLOW RD,08876,Branchburg,2025-07-23,2023-09-06,,519900,565000,8.67,Townhouse,,"listing_scrape,nj_records"
+2 TIMBERS CT,08876,Branchburg,2024-03-13,2023-12-15,,799900,785000,-1.86,Single Family,year_built,"listing_scrape,nj_records"
+9 MONICA CT,08876,Branchburg,2024-03-13,2023-12-15,,1250000,1270000,1.6,Single Family,,"listing_scrape,nj_records"
+3353 ROUND HILL RD,08876,Branchburg,2024-03-13,2023-12-18,,639000,720000,12.68,Single Family,,"listing_scrape,nj_records"
+4 Speer St,08876,Branchburg,2024-03-13,2023-12-18,,359000,385000,7.24,Single Family,,listing_scrape
+918 MAGNOLIA LN,08876,Branchburg,2024-03-13,2023-12-18,,399900,358000,-10.48,Townhouse,,"listing_scrape,nj_records"
+18 WATCHUNG TRL,08876,Branchburg,2024-03-13,2023-12-20,,430000,460000,6.98,Condo,,"listing_scrape,nj_records"
+70 Country Squire Way,08876,Branchburg,2024-03-13,2023-12-20,,1075000,999000,-7.07,Single Family,,listing_scrape
+4 DEERHILL RD,08876,Branchburg,2024-03-31,2024-01-11,,679000,732500,7.88,Single Family,,"listing_scrape,nj_records"
+189 Mercer St,08876,Branchburg,2024-03-31,2024-01-25,,469900,465000,-1.04,Single Family,,listing_scrape
+5 Mitchell Rd,08876,Branchburg,2025-07-23,2024-02-16,,599000,605000,1.0,Single Family,,listing_scrape
+504 RED CREST LN,08876,Branchburg,2025-01-31,2024-03-01,,399000,433000,8.52,Multi-Family,,"listing_scrape,nj_records"
+38 STATION RD,08876,Branchburg,2025-01-31,2024-04-05,,679000,780000,14.87,Single Family,,"listing_scrape,nj_records"
+27 Steele Ave,08876,Branchburg,2025-07-23,2024-05-09,,699900,754900,7.86,Single Family,,listing_scrape
+70 DELAWARE LN,08876,Branchburg,2024-08-04,2024-05-14,,450000,460000,2.22,Townhouse,,"listing_scrape,nj_records"
+52 Sycamore St,08876,Branchburg,2024-08-04,2024-05-15,,532500,600000,12.68,Single Family,,listing_scrape
+6 S Clark Ave,08876,Branchburg,2024-08-04,2024-05-16,,489000,525000,7.36,Single Family,,listing_scrape
+27 RAMAPO TRL,08876,Branchburg,2024-08-04,2024-05-17,,595000,690000,15.97,Single Family,,"listing_scrape,nj_records"
+19 Seville Dr,08876,Branchburg,2024-08-11,2024-05-20,,399900,450000,12.53,Single Family,,listing_scrape
+113 N Auten Ave,08876,Branchburg,2024-08-04,2024-05-22,,350000,440000,25.71,Single Family,,listing_scrape
+19 W Spring St,08876,Branchburg,2024-08-04,2024-05-22,,499900,575000,15.02,Single Family,,listing_scrape
+17 Speer St,08876,Branchburg,2024-08-04,2024-05-23,,490000,510000,4.08,Single Family,,listing_scrape
+213 MILLER AVE,08876,Branchburg,2024-08-04,2024-05-24,,559000,570000,1.97,Single Family,,"listing_scrape,nj_records"
+492 Kenbury Rd,08876,Branchburg,2024-08-04,2024-05-24,,199900,195000,-2.45,Manufactured,,listing_scrape
+455 Kenbury Rd,08876,Branchburg,2024-08-04,2024-05-28,,145000,145000,0.0,Manufactured,,listing_scrape
+575 OLD YORK RD,08876,Branchburg,2024-08-04,2024-05-28,,769000,810000,5.33,Single Family,,"listing_scrape,nj_records"
+120 Washington Pl,08876,Branchburg,2024-08-04,2024-05-31,,385000,440000,14.29,Single Family,,listing_scrape
+6 SANTORO CT,08876,Branchburg,2024-08-04,2024-05-31,,1279000,1285000,0.47,Single Family,,"listing_scrape,nj_records"
+6 Meadow View Ct,08876,Branchburg,2024-08-04,2024-06-03,,1195000,1245000,4.18,Single Family,,listing_scrape
+151 TANGLEWOOD DR,08876,Branchburg,2024-08-04,2024-06-30,,715000,910000,27.27,Single Family,sold_date,"listing_scrape,nj_records"
+35 BERNARD ST,08876,Branchburg,2024-08-14,2024-07-19,,825000,926000,12.24,Single Family,,"listing_scrape,nj_records"
+477 Kenbury Rd,08876,Branchburg,2024-10-10,2024-07-19,,140000,145000,3.57,Manufactured,,listing_scrape
+13 GATES RD,08876,Branchburg,2024-10-10,2024-08-01,,949900,1015000,6.85,Single Family,,"listing_scrape,nj_records"
+2 RAMAPO TRL,08876,Branchburg,2025-07-23,2024-08-13,,810000,940000,16.05,Single Family,,"listing_scrape,nj_records"
+904 Churchill Cir,08876,Branchburg,2024-10-10,2024-08-14,,629000,641500,1.99,Condo,,listing_scrape
+50 BURNT MILL RD,08876,Branchburg,2024-11-19,2024-08-30,,519000,499000,-3.85,Single Family,,"listing_scrape,nj_records"
+194 STONY BROOK RD,08876,Branchburg,2024-10-10,2024-09-16,,999999,999999,0.0,Single Family,,"listing_scrape,nj_records"
+24 Cedar Grove Rd,08876,Branchburg,2025-04-10,2025-01-31,,679900,680000,0.01,Single Family,,listing_scrape
+43 Washington Pl Unit 41,08876,Branchburg,2025-09-19,2025-05-06,,900000,850000,-5.56,Multi-Family,,listing_scrape
+68 Somerset St,08876,Branchburg,2025-06-27,2025-05-07,,489000,520000,6.34,Single Family,,listing_scrape
+102 Vanderveer Ave,08876,Branchburg,2025-06-27,2025-05-09,,539000,601000,11.5,Single Family,,listing_scrape
+65 N Branch River Rd,08876,Branchburg,2025-06-27,2025-05-30,,429000,469450,9.43,Single Family,,listing_scrape
+10 Fairview Ave,08876,Branchburg,2025-09-19,2025-06-05,,599000,599000,0.0,Multi-Family,,listing_scrape

@@ -1,0 +1,8 @@
+check,severity,rows,total_rows,pct
+list_date_after_sold_date,HIGH,1696,38015,4.46
+list_date_is_batch_sentinel,HIGH,166,38015,0.44
+days_on_market_disagrees,MED,1969,38015,5.18
+sold_vs_ask_extreme,MED,152,38015,0.4
+ask_pct_without_list_price,HIGH,0,38015,0.0
+no_sold_price,HIGH,0,38015,0.0
+no_sold_date,HIGH,0,38015,0.0

@@ -54,7 +54,7 @@ import re
 import sys
 import urllib.parse
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RAW_DIR = os.path.join(BASE_DIR, "raw")
@@ -90,12 +90,19 @@ MARKET_COLS = [
 ]
 
 SALES_COLS = [
-    "address", "zip", "town", "list_date", "sold_date", "days_on_market",
+    "address", "zip", "town",
+    # the timeline. pending_date is the OFFER-ACCEPTED date — the moment the
+    # negotiation actually ended. Everything else about "when is it cheap to buy"
+    # is really a question about this date, not about sold_date (which trails it
+    # by a ~40-day escrow) and not about list_date.
+    "list_date", "pending_date", "sold_date",
+    "days_to_contract", "days_on_market",
     "list_price", "sold_price", "sold_vs_ask_abs", "sold_vs_ask_pct",
     "price_changes", "sqft", "beds", "baths", "lot_sqft", "year_built",
     "garage", "solar", "ac_type", "property_type",
     "county", "municipality", "prop_class", "nu_code",
-    "conflicts", "_sources", "_fetched",
+    "mls", "mls_id",
+    "conflicts", "flags", "_sources", "_fetched",
 ]
 
 
@@ -519,6 +526,61 @@ def _scan_amenities(text):
     return solar, ac
 
 
+def _clean_list_dates(raw):
+    """Repair Realtor.com's `list_date`, which is a RECORD-INGESTION timestamp.
+
+    When their backend bulk-refreshes a batch of sold records, every property in the
+    batch is stamped with the refresh time — `2024-08-04 14:51:57`, identical to the
+    SECOND across dozens of unrelated houses in different towns. Taken at face value
+    it produced 1,862 corrupt rows (8.2% of list-dated rows). See ../DEFECTS.md.
+
+    Two tells:
+      1. list_date > sold_date          — impossible; definitive.
+      2. list_date timestamp reused by another property in the same pull — a real
+         listing time is never shared to the second. This catches the dangerous ones
+         whose fake date happens to PRECEDE the sale, which rule 1 cannot see.
+
+    RECOVERY, in order. We only null as a last resort:
+      a. `days_on_mls` is a second witness to the same interval — on healthy rows
+         `sold_date - days_on_mls == list_date` to the day. If it is present, rebuild
+         list_date from it.
+      b. Otherwise null list_date. A blank is honest; a fabricated date silently
+         poisons every time-on-market figure.
+
+    `pending_date`, `list_price` and the sale fields are untouched — only list_date is
+    junk, so sold-vs-ask and (crucially) the offer-accepted date still stand. Every
+    touched row is marked in `flags` so the repair is visible, never silent.
+    """
+    shared = {ts for ts, n in Counter(
+        r["_list_ts"] for r in raw if r.get("_list_ts")).items() if n > 1}
+    for r in raw:
+        ts = r.pop("_list_ts", None)
+        ld, sd, dom = r.get("list_date"), r.get("sold_date"), r.get("days_on_market")
+        why = None
+        if ld and sd and ld > sd:
+            why = "list_date_after_sold_date"
+        elif ts and ts in shared:
+            why = "list_date_is_batch_sentinel"
+        if not why:
+            continue
+        if dom is not None and sd:                       # (a) rebuild from days_on_mls
+            r["list_date"] = (datetime.date.fromisoformat(sd)
+                              - datetime.timedelta(days=int(dom))).isoformat()
+            r["flags"] = why + ";list_date_rebuilt_from_dom"
+        else:                                            # (b) unrecoverable
+            r["list_date"] = None
+            r["days_on_market"] = None
+            r["flags"] = why + ";list_date_nulled"
+    hit = [r for r in raw if r.get("flags")]
+    fixed = sum(1 for r in hit if "rebuilt" in r["flags"])
+    if hit:
+        sys.stderr.write(
+            "[listing_scrape] %d fabricated list_dates (%d shared ingestion "
+            "timestamps): %d rebuilt from days_on_mls, %d nulled — see DEFECTS.md\n"
+            % (len(hit), len(shared), fixed, len(hit) - fixed))
+    return raw
+
+
 def fetch_listing_scrape(zips, since, fixture=False, limit=None):
     """Recent SOLD listings via HomeHarvest (Realtor.com). LOCAL ONLY (403s in
     cloud). Fills DOM, list price, beds/baths, garage, amenities — and the recent
@@ -577,7 +639,17 @@ def fetch_listing_scrape(zips, since, fixture=False, limit=None):
                 "sold_price": int(sold_price),
                 "list_price": int(g("list_price")) if g("list_price") else None,
                 "list_date": str(g("list_date"))[:10] if g("list_date") else None,
+                # full timestamp kept only so _clean_list_dates can spot the batch
+                # artifacts (a shared ingestion time); it never reaches the CSV
+                "_list_ts": str(g("list_date")) if g("list_date") else None,
+                # THE OFFER-ACCEPTED DATE. Realtor.com exposes it and we were
+                # throwing it away — every "when should we bid" question needs this,
+                # not sold_date (which trails it by a ~40-day escrow). Far cleaner
+                # than list_date: ~1% incoherent vs ~7%.
+                "pending_date": str(g("pending_date"))[:10] if g("pending_date") else None,
                 "days_on_market": int(g("days_on_mls")) if g("days_on_mls") is not None else None,
+                "mls": g("mls"),
+                "mls_id": str(g("mls_id")) if g("mls_id") else None,
                 "beds": g("beds"),
                 "baths": baths,
                 "sqft": g("sqft"),
@@ -598,7 +670,7 @@ def fetch_listing_scrape(zips, since, fixture=False, limit=None):
         if limit and len(rows) >= limit:
             break
     sys.stderr.write(f"[listing_scrape] total {len(rows)} sold rows from {len(zips)} zips\n")
-    return rows
+    return _clean_list_dates(rows)
 
 
 SOURCE_FNS = {
@@ -707,11 +779,30 @@ def _fuse(members, authority):
     merged["conflicts"] = ";".join(sorted(
         {c for m in members for c in (m.get("conflicts") or "").split(";") if c}
     ))
+    merged["flags"] = ";".join(sorted(
+        {f for m in members for f in (m.get("flags") or "").split(";") if f}
+    ))
     lp, sp = _num(merged.get("list_price")), _num(merged.get("sold_price"))
     if lp and sp:
         merged["sold_vs_ask_abs"] = sp - lp
         merged["sold_vs_ask_pct"] = round((sp - lp) / lp * 100, 2)
+    _set_days_to_contract(merged)
     return merged
+
+
+def _set_days_to_contract(row):
+    """days_to_contract = list -> under contract. How long you actually have to act.
+
+    Median 14 days across the dataset, and half of all homes go under contract inside
+    two weeks — so this, not `days_on_market` (which is list -> CLOSING and trails the
+    negotiation by a ~40-day escrow), is the number that says how fast a buyer must move.
+    """
+    ld, pd_ = row.get("list_date"), row.get("pending_date")
+    row["days_to_contract"] = None
+    if ld and pd_:
+        d = (datetime.date.fromisoformat(pd_) - datetime.date.fromisoformat(ld)).days
+        if d >= 0:                      # a negative interval means one date is junk
+            row["days_to_contract"] = d
 
 
 def _coalesce_pass(rows, authority, keyfn, exact_price):
