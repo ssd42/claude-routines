@@ -138,11 +138,15 @@ attributes of the people who bought any particular house.
 |--------|-------|
 | `address`, `zip`, `town` | always present |
 | `sold_date`, `sold_price` | always present. **Authoritative.** |
-| `list_date`, `list_price`, `days_on_market` | **only ~60% filled** — see caveat below |
+| `list_date`, `list_price` | **only ~60% filled** — see caveat below |
+| `pending_date` (48%) | **when the offer was ACCEPTED.** The negotiation ended here; `sold_date` is ~41 days later, after escrow. For any "when should we bid" question this is the right date, not `sold_date` |
+| `days_to_contract` (47%) | list → under contract. **Median 15 days** — half of all homes go under contract inside 2 weeks. This is how fast you must move |
+| `days_on_market` | list → **CLOSING**, not list-to-offer. **And it is a FLOOR, not a fact** — see caveat 8 |
 | `sold_vs_ask_abs`, `sold_vs_ask_pct` | sold minus list. **Positive = sold OVER asking.** ~60% filled |
-| `sqft` (37%), `beds`/`baths` (60%), `lot_sqft` (85%), `year_built` (96%), `garage` (56%) | best-effort; blank ≠ zero |
+| `sqft` (37%), `beds`/`baths` (60%), `lot_sqft` (85%), `year_built` (96%), `garage` (57%) | best-effort; blank ≠ zero |
 | `solar` (1%), `ac_type` (6%) | **too sparse to draw conclusions from** |
 | `price_changes` | **always empty** — price-cut history was never captured |
+| `flags` | data defects found on this row (see `DEFECTS.md`). Nothing is deleted; it is marked |
 | `property_type` | `Single Family` (22.6k), `Residential` (7.3k), `Condo` (5.5k), `Townhouse` (846), `Multi-Family` (663), … |
 | `county`, `municipality`, `prop_class`, `nu_code` | deed-record fields; only on the ~39% of rows sourced from deeds |
 | `conflicts` | names any field where two sources disagreed. Only 2.4% of rows; mostly cosmetic (`year_built`) |
@@ -238,6 +242,38 @@ large (±$15–25K); a $5K gap between two towns is **not** a real difference.
      outside source claiming DeCamp service is stale — do not use it.
    - Check the `confidence` column. Two towns (Chester, and Denville's bus figure)
      are weakly sourced and flagged as such.
+
+8. **`days_on_market` is a FLOOR, not a fact — and it lies worst about the houses
+   you most need the truth about.**
+
+   It measures **the current listing only**. A seller whose house isn't moving can
+   pull it off the market and relist it: the MLS starts a fresh listing with a fresh
+   `days_on_market`, and the house reads as brand new. That is the entire point of the
+   tactic — buyers pay more for a home that looks like it just arrived.
+
+   Our source returns one row per sold property with one `list_date`, and **does not
+   return withdrawn listings.** So a house that listed in February, was pulled in
+   April, relisted in June and sold in July reaches us as *a single listing that began
+   in June*. The February listing does not exist in our data.
+
+   The consequence is not a random error — it is **biased**. The houses that struggled
+   longest are precisely the ones whose `days_on_market` is most understated, so they
+   look **fresher and more in demand than they were.** A listing showing "12 days" may
+   have been quietly trying to sell for a year.
+
+   - **Never read a low `days_on_market` as proof of demand.** Read a *high* one as
+     proof of weakness — that direction is trustworthy, because nobody inflates it.
+   - `listings.csv` (built by `listings.py`) is our fix: it watches what is on the
+     market each week, so we *see* a house leave and come back and can recover the true
+     first-list date. It is **forward-only** — it knows nothing before 2026-07-13 and
+     cannot be backfilled. For sales before then, this caveat simply stands.
+
+9. **Two dates end a sale, and they are ~41 days apart.** `pending_date` is when the
+   offer was **accepted** — the moment the price was agreed. `sold_date` is when the
+   deal **closed**. Every question about *when the market was hot* or *when to bid* is
+   really about `pending_date`; bucketing by `sold_date` smears the answer across the
+   escrow period. Measured here: **15 days list → contract, 41 days contract → close.**
+   `pending_date` is on 48% of rows — use it where you have it, and say which you used.
 
 ## Worked example — the seasonality finding
 

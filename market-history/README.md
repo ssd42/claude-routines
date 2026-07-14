@@ -16,6 +16,7 @@ decision tool (yet): the sole job right now is to **hydrate a clean dataset**.
 |------|-------|-----------|-------|
 | `market.csv` | one row per **(zip, month, property_type)** | redfin_dc ✅ | median sale price, median $/sqft, median DOM, sale-to-list ratio, % sold above list, homes sold, new listings, inventory — i.e. **how each neighborhood moved up/down** |
 | `sales.csv` | one row per **property sale** | nj_records + listing_scrape ⏳ | address, zip, list/sold dates, DOM, list/sold price, **sold-vs-ask ($ and %)**, sqft/beds/baths, lot, year built, garage/solar/ac_type, `conflicts`, `_sources` |
+| `listings.csv` | one row per **listing SPELL** | `listings.py` ⏳ | one continuous period a house sat on the market. A property with 2 spells was **relisted**. See below — this is how we catch the days-on-market reset |
 | `_provenance.json` | per merged sale | merge | **every** source's value for every field + which disagreed |
 | `history/<date>/` | snapshot | each run | committed point-in-time copy of both CSVs |
 | `raw/<source>.json` | per-source pull | fetch | normalized rows, **gitignored** (transient, reproducible) |
@@ -49,6 +50,66 @@ queried **per municipality**, because the data taught us:
 - **~1-year data lag** — MOD-IV is assessment data; it currently covers through
   ~end of 2024. Recent sales are what `listing_scrape` will add on top.
 - **DEED_DATE** is `YYMMDD`; `sqft`/`garage` are best-effort parsed from `BLDG_DESC`.
+
+## `listings.py` — catching the days-on-market reset
+
+A seller whose house isn't moving can pull the listing and put it back later. The
+MLS starts a **fresh listing** — new `days_on_market`, usually a new `mls_id` — and
+the house reads as brand new. That is the point: buyers pay more for a home that
+looks like it just arrived.
+
+**Our sold-listings source cannot see this.** It returns one row per sold property
+with one `list_date`, and does not return withdrawn listings. A house that listed in
+February, was pulled in April, relisted in June and sold in July reaches us as *a
+single listing that began in June*.
+
+So `days_on_market` in `sales.csv` is a **floor, not a fact** — and the error is not
+random, it is **biased**: the houses that struggled longest have the most understated
+DOM, so they look *fresher and more in demand than they were*. Read a **high** DOM as
+real evidence of weakness (nobody inflates it); never read a **low** one as evidence
+of demand.
+
+No field fixes this. The only way to know a house left the market is **to have been
+watching**. `listings.py` watches:
+
+```bash
+python3 listings.py              # one observation run -> listings.csv
+python3 listings.py --dry-run    # scrape + report, write nothing
+```
+
+Each run records what is currently for sale. A listing that was there last run and is
+gone this run has **ended**; if the same property reappears later, that is a
+**relist**, and we know the true first-list date because we saw it.
+
+`listings.csv` is **one row per listing SPELL** — one continuous period a house sat on
+the market. A property with 2 spells was relisted once. Join it to `sales.csv` on
+`property_key`. It is a **third grain** (listing), alongside sale and town — don't
+merge it into a sales file.
+
+**We deliberately do NOT fuse two spells just because the gap was short.** A 6-week gap
+at the *same* price is a DOM reset; a 6-week gap at a price cut from $700K to $625K is a
+genuine repricing, and calling that "180 days on market" would misrepresent a real new
+offer to the market. **The price delta is the tell, not the gap.** Spells are recorded as
+facts, each keeping its own first/last price; collapsing is left to whoever asks the
+question, because a fused row destroys the distinction forever.
+
+### ⚠️ It is forward-only, so it has to actually run
+
+It detects a relist by seeing a listing vanish and come back — which it can only do
+**across runs**. It knows nothing before its first run (2026-07-13, 3,503 active
+listings) and **cannot be backfilled**. Every unobserved week is a permanent hole.
+
+It **cannot run in the cloud** (Realtor.com 403s datacenter IPs — same constraint as
+`listing_scrape`). It needs a weekly *local* trigger:
+
+```bash
+cp schedule/com.claude-routines.market-history-listings.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.claude-routines.market-history-listings.plist
+launchctl list | grep market-history      # confirm it registered
+```
+
+If that agent silently stops, `listings.csv` quietly stops accumulating and the relist
+analysis is worth nothing. Check `last_seen` in `listings.csv` if you suspect it died.
 
 ## Merge — how conflicts resolve
 The layers are **complementary** (different columns), so the merge uses

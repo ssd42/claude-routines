@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Weekly local trigger for market-history/listings.py.
+
+  This CANNOT be a cloud routine: Realtor.com 403s datacenter IPs, so the scrape must
+  run from a residential connection (same constraint as listing_scrape in aggregate.py).
+  It therefore runs on this Mac, under launchd.
+
+  It matters that it actually runs. listings.py is FORWARD-ONLY — it detects a relist by
+  seeing a listing vanish and come back, which it can only do across runs. A week that
+  is not observed is a week of listing history that can never be reconstructed. If this
+  agent silently stops, listings.csv quietly stops accumulating and the relist analysis
+  is worth nothing.
+
+  Install:
+    cp market-history/schedule/com.claude-routines.market-history-listings.plist \
+       ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.claude-routines.market-history-listings.plist
+
+  Check it is registered:
+    launchctl list | grep market-history
+
+  Watch a run:
+    tail -f /tmp/market-history-listings.log
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.claude-routines.market-history-listings.plist
+    rm ~/Library/LaunchAgents/com.claude-routines.market-history-listings.plist
+
+  NOTE: paths below are absolute and machine-specific. If the repo moves, update them.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.claude-routines.market-history-listings</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/stevendias/PythonProjects/claude-routines/market-history/listings.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/stevendias/PythonProjects/claude-routines/market-history</string>
+
+    <!-- Sundays at 09:00. Weekly is enough: a seller who pulls a listing to reset its
+         days-on-market leaves it off for weeks, not hours. Daily would just be 7x the
+         requests for the same signal. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>0</integer>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <!-- If the Mac was asleep at 09:00 Sunday, run as soon as it wakes. A missed week is
+         a permanent hole in the history, so catching up late beats skipping. -->
+    <key>StartInterval</key>
+    <integer>0</integer>
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/market-history-listings.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/market-history-listings.log</string>
+</dict>
+</plist>
