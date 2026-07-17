@@ -2,32 +2,34 @@ name: pages
 
 # Publish the Offer Advisor (the single-house analyser) to GitHub Pages.
 #
-# WHAT SHIPS, AND WHAT DELIBERATELY DOES NOT
-# ------------------------------------------
-# Ships:     market-history/offer/index.html + engine.js + data.js  (~0.6 MB)
-#            Built entirely from PUBLIC-RECORD sold data — county deeds and closed
-#            sales. It does not rot: a 2024 sale is still a 2024 sale next year.
+# WHAT SHIPS
+# ----------
+#   index.html + engine.js + data.js   — the analyser, ~0.6 MB, from PUBLIC-RECORD
+#                                        sold data. Does not rot.
+#   market.html + listings.js          — the live-market browser, ~1.4 MB. Published
+#                                        deliberately (owner's call, 2026-07-17).
 #
-# Does NOT ship: market.html + listings.js — the live-listings browser. Three reasons,
-#            and any one of them is enough:
-#   1. It republishes ~3,500 Realtor.com listings and HOTLINKS their photos from
-#      rdcpix.com — their bandwidth, our page. Scraping for personal use is one thing;
-#      standing up a public mirror of their inventory is the thing their terms care
-#      about. They 403 datacenter IPs specifically to stop it.
-#   2. It rots ~2%/day. A URL implies "live" in a way a local file never does, and a
-#      stranger landing on 3-month-old listings has been actively misled.
-#   3. It could not stay fresh anyway — see below.
+# TWO THINGS TO KEEP IN VIEW NOW THAT THE MARKET BROWSER IS PUBLIC
+# ---------------------------------------------------------------
+# 1. It republishes ~3,500 Realtor.com listings and HOTLINKS their photos from
+#    rdcpix.com — their bandwidth serving our page. Realtor 403s datacenter IPs
+#    specifically to discourage redistribution. This is a terms-of-service question,
+#    not a technical one; it is the owner's to make and it has been made. To reverse
+#    it, drop market.html/listings.js from the copy step below and re-run.
+# 2. IT ROTS ~2%/DAY and a URL implies "live" in a way a local file never does. The
+#    page carries a staleness stamp that goes amber past 3 days — that stamp is now
+#    load-bearing, not decoration. Do not remove it.
 #
-# WHY THIS ONLY REBUILDS data.js, NEVER THE LISTINGS
-# --------------------------------------------------
-# `listing_scrape` 403s datacenter IPs, so NO GitHub runner can ever fetch listings —
-# only a residential connection can (see market-history/CLAUDE.md). Sold data is a
-# committed CSV, so rebaking data.js here is safe and offline. If you want fresh
-# listings, that is `python3 listings.py` on your own machine, by design.
+# WHY THE LISTINGS CANNOT BE REFRESHED HERE
+# -----------------------------------------
+# `listing_scrape` 403s datacenter IPs, so NO GitHub runner can fetch listings — only
+# a residential connection can (market-history/CLAUDE.md). CI rebuilds listings.js
+# from the COMMITTED listings.csv, so the published market is exactly as fresh as the
+# last `python3 listings.py` run someone pushed. There is no way to automate that.
 #
-# The build re-bakes data.js from the committed CSVs rather than trusting the one in
+# Both .js files are re-baked here from the committed CSVs rather than trusted from
 # the repo, so a stale commit can never publish numbers that disagree with the data
-# behind them.
+# behind them. (listings.js is gitignored — it is a 1.4 MB build artifact.)
 
 on:
   push:
@@ -64,22 +66,23 @@ jobs:
         # stdlib only — no pip install, nothing to pin.
         # OFFER_DEPLOY marks this as the published copy, so index.html hides its link
         # to the live-market browser — which is not deployed and would 404 here.
-        env:
-          OFFER_DEPLOY: '1'
         run: python3 offer/build_data.py
 
-      - name: Assemble the site — analyser only
+      - name: Assemble the site
         run: |
           mkdir -p _site
-          cp market-history/offer/index.html  _site/
-          cp market-history/offer/engine.js   _site/
-          cp market-history/offer/data.js     _site/
-          # A guard, not a formality: if listings.js ever reaches _site, the live
-          # market browser has been published by accident. Fail loudly.
-          if [ -f _site/listings.js ] || [ -f _site/market.html ]; then
-            echo "::error::The live-listings browser must not be published. See the header of this workflow."
+          cp market-history/offer/index.html   _site/
+          cp market-history/offer/market.html  _site/
+          cp market-history/offer/engine.js    _site/
+          cp market-history/offer/data.js      _site/
+          cp market-history/offer/listings.js  _site/
+          # The market browser is only honest if it says how old it is — a stale
+          # snapshot on a public URL is worse than no snapshot. Fail rather than
+          # publish a page that lost its staleness stamp.
+          grep -q 'id="stamp"' _site/market.html || {
+            echo "::error::market.html has no staleness stamp — refusing to publish a live-market page that cannot say how old it is."
             exit 1
-          fi
+          }
           echo "published:"; ls -la _site/
 
       - uses: actions/configure-pages@v5
