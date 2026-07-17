@@ -622,7 +622,11 @@ $("towns-menu").addEventListener("click", e => {
 });
 document.addEventListener("click", () => $("towns-menu").classList.remove("on"));
 $("reset").addEventListener("click", () => {
-  ["min", "max", "beds", "baths"].forEach(id => $(id).value = "");
+  // FIELDS, not a hand-written copy of it. This line used to list four fields by
+  // hand and was never updated when likelot/likesq were added, so Reset quietly left
+  // the lot preference armed — the filter stayed on while the control that set it
+  // looked cleared.
+  FIELDS.forEach(f => $(f).value = "");
   picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
   cutOnly = false; $("cut-btn").classList.remove("on");
   buffer = 0.3;
