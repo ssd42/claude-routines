@@ -35,6 +35,7 @@ TRANSIT = HERE / "layers" / "transit" / "transit.json"
 SEABRA = HERE / "layers" / "seabra" / "seabra.json"
 TRADER_JOES = HERE / "layers" / "trader_joes" / "trader_joes.json"
 WAWA = HERE / "layers" / "wawa" / "wawa.json"
+SCHOOLS = HERE / "layers" / "schools" / "school_ratings.csv"
 EDUCATION = HERE / "layers" / "education" / "education_rates.csv"
 INCOME = HERE / "layers" / "income" / "income.csv"
 CENTROIDS = HERE / "layers" / "geo" / "zip_centroids.json"
@@ -382,6 +383,27 @@ def main():
             })
     print(f"  wrote share/wawa_by_town.csv ({len(wawa)} towns, "
           f"{sum(1 for v in wawa.values() if v[0] and v[0] > 5)} flagged beyond the supplied radius)")
+
+    # 6d. schools — NJ DOE 2024-25 assessment deciles. A DISTRICT proxy keyed to zip:
+    #     schools are assigned by attendance boundary, not zip, and one zip can span
+    #     districts at different levels (Garwood: elementary Garwood Boro, high school
+    #     Clark Twp). Town-level signal only; verify the boundary for a real house.
+    #     Distinct from layers/education/ (ACS adult degrees, which is an income proxy
+    #     at r=+0.87 — not a school metric).
+    with SCHOOLS.open(encoding="utf-8-sig", newline="") as fh:
+        srows = list(csv.DictReader(fh))
+    scols = ["town", "zip", "dist_mi_from_westfield", "elementary_rating_1_to_10",
+             "middle_rating_1_to_10", "high_school_rating_1_to_10",
+             "elementary_composite_proficiency_pct", "high_school_composite_proficiency_pct",
+             "elementary_districts", "high_school_districts", "school_year"]
+    with (SHARE / "schools.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, scols)
+        w.writeheader()
+        for r in sorted(srows, key=lambda r: (float(r["dist_mi"] or 999), r["town"])):
+            w.writerow({"town": r["town"], "zip": r["zip_code"],
+                        "dist_mi_from_westfield": r["dist_mi"], "school_year": r["school_year"],
+                        **{k: r[k] for k in scols if k in r}})
+    print(f"  wrote share/schools.csv ({len(srows)} zips)")
 
     # 7. education + income — two more STANDALONE town-grain layers, same contract
     #    as transit and seabra: their own file, joined on `town`, never a column on a

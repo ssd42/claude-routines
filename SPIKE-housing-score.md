@@ -99,12 +99,15 @@ a grade, never rank it.
 
 | factor | w | s(x) | why |
 |---|---:|---|---|
-| **price** | **30** | `1.0` to $750k, then linear → `0` at $950k | the hard constraint. You said above $750k it stops working. |
+| **price** | **30** | `1.0` to $750k, then linear → `0` at $950k | the hard constraint. ⚠️ Inside your $650k filter this is a **constant** — every house scores 1.0, so the heaviest factor does no ranking work. It's a gate, not a discriminator. |
 | **lot** | **16** | `0.35` at 3k → **`1.0` across 6k–14k** → `0.7` at 22k → `0.4` at 1 acre | "bigger is better, too big is a commitment". The plateau contains Farley's 6,599. |
+| **schools** | **12** | mean of the elementary/middle/high DOE deciles. `decile 2: 0` → `9+: 1.0` | **real DOE 2024-25 assessment results**, not the ACS adult-degree proxy (§10) |
 | **commute to NY** | **12** | `≤35min: 1.0` → `50min: 0.75` → `70min: 0.30` → `0` by 120 | **the one amenity that isn't a nice-to-have.** Real range: 30–119 min, median 50 |
 | **beds** | **11** | `<3: 0.25` · `3: 0.80` · `4: 1.0` · `5+: 1.0` | 3 is the floor; the penalty is steep, the reward for 5+ is nil |
 | **year built** | **6** | `1900: 0.20` → `2010+: 1.0` | halved — see §5. Condition is scored from the copy instead |
 | **shops nearby** | **5** | mean of TJ / Wawa / Seabra miles. `≤2mi: 1.0` → `6mi: 0.6` → `0.1` by 16mi | **low on purpose** — "closer is better, but don't give it many points". Averaged so one distant chain can't sink a town |
+| **time on market** | **8** | `≤7d: 0.5` (neutral) → `90d: 1.0` → `150d: 0.6` → `0.25` by 300 | **measured, not assumed** — see §11 |
+| **house, not a condo** | **8** | `house: 1.0` · `multi: 0.55` · `attached: 0.2` | |
 | **baths** | **9** | `<1.5: 0.25` · `1.5: 0.70` · `2: 0.85` · `2.5+: 1.0` | |
 | **house sqft** | **7** | `1000: 0.55` → `1400: 0.85` → `1800+: 1.0` | low weight *because* it's only on 31% — it would otherwise swing the mean wildly between houses that publish it and houses that don't |
 
@@ -119,6 +122,16 @@ a grade, never rank it.
 | window/wall AC only | **−3** | 2% |
 | **as-is / needs work / TLC** | **−6** | 14% |
 | **in-ground pool** | **−8** | 12% |
+| finished basement | **+3** | 31% |
+| deck / patio | **+2** | 46% |
+| fenced yard | **+2** | 19% |
+
+### And two signals only *we* have — from watching, not from the copy
+
+| signal | pts | why we alone can see it |
+|---|---:|---|
+| **cut its price** | **+4** | we watched it fall between runs; `price_changes` is empty on every sold row |
+| **relisted** | **−3** | the days-on-market reset. `listings.py` exists for this |
 
 ### And a third number, which matters as much as the score
 
@@ -251,3 +264,76 @@ is to change the weights.
 So it should be **easy to change and easy to see through** — hence §7.5, hence the
 confidence number, hence the ±12 cap. The failure mode isn't a bad formula. It's a
 formula you stop questioning because it looks like a measurement.
+
+
+---
+
+## 10. Schools — why the obvious file was the wrong file
+
+The repo already had `layers/education/` and it *looks* like a schools layer. It isn't.
+It's **ACS Table B15003 — Educational Attainment for the Population 25 Years and Over**:
+the share of *adults* with a degree. That measures the neighbours, not the schools.
+
+Measured before using it:
+
+```
+  bachelors% vs median household income   r = +0.87   (explains 75% of the variance)
+  bachelors% vs median sold price         r = +0.76
+```
+
+**It is the income map with a different label.** Folding it into HS would have
+(a) double-counted price, which already carries w=30, and (b) encoded class sorting as
+a quality judgement — which is exactly what `share/README.md` caveat 5 forbids:
+*"never present them as a quality ranking."*
+
+So HS uses **`layers/schools/`** instead: NJ DOE 2024-25 statewide assessment results,
+district deciles 1–10, elementary / middle / high scored separately and averaged.
+Actual test results.
+
+**Its own caveat, which is real:** the rating is a **district proxy keyed to a ZIP**,
+and schools are assigned by *attendance boundary*. One ZIP can span districts at
+different levels — **Garwood's elementary is Garwood Boro; its high school is Clark
+Township.** Two houses on one street can feed different elementary schools. It's a
+town-level signal; for an actual house, check the boundary. 52 of 53 towns have a
+rating (Westfield has no row — and the weighted mean simply drops it).
+
+---
+
+## 11. Time on market — the data contradicted my first instinct
+
+I assumed *longer sit = more leverage, monotonically*. Then I measured it, across the
+active listings we're watching:
+
+| days on market | n | cutting price |
+|---|---:|---:|
+| 0–7 | 399 | 3.0% |
+| 8–30 | 634 | 3.6% |
+| 31–60 | 399 | **4.8%** ← peak |
+| 61–120 | 300 | 1.7% |
+| **121+** | 142 | **1.4%** ← collapses |
+
+**A house that has sat four months is not cutting — it's stubborn, or it's broken.**
+Motivation peaks in the 1–3 month window and then dies. That matches the instinct that
+prompted this ("either really bad or forgotten") and contradicts mine, so the curve
+follows the data: fresh is **neutral** (no leverage, no information), 90 days is the
+peak, and it decays after.
+
+⚠️ **The honest confound:** the 121+ group may look non-cutting because the ones that
+*did* cut already sold and left the market. That's survivorship, not proof. Three days
+of observation can't separate them. More weekly runs will.
+
+---
+
+## 12. Still missing (ranked)
+
+1. **Flood zone** — listings carry lat/lon on 100% of rows and FEMA's NFHL is public.
+   93 Gaywood sits partly in an AE zone and we'd never know. This should be a hard
+   penalty and it's genuinely buildable.
+2. **Rail proximity** — same unlock. The line behind 63 Lyons is invisible to us, and
+   backing onto an active line is a real, permanent minus.
+3. **vs-comps into HS** — `market.html` already computes the gap; a house $50k under
+   comps should outrank one $50k over. Currently you're doing that arithmetic by eye.
+4. **Lot *shape*, not just area** — 6,599 sqft as Farley's 50×132 is a backyard; as
+   100×66 it isn't. MOD-IV carries `LAND_DESC` ("50 X 132").
+5. **Confidence is shown but never scored** — a 55%-known HS 80 currently ranks beside
+   a 100%-known HS 80. It breaks ties and nothing more. Deliberate for now; revisit.

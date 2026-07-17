@@ -1,0 +1,29 @@
+NJ SCHOOL RATINGS — 2024-25
+===========================
+school_ratings.csv — one row per target ZIP (57 of 57; Westfield 07090 has no row).
+
+SOURCE
+  NJ DOE Statewide Assessment Results 2024-25
+  https://www.nj.gov/education/assessment/results/reports/2425/
+
+WHAT THE RATING IS
+  `*_rating_1_to_10` = a custom NJ statewide DISTRICT decile. 1 = bottom 10% of NJ
+  districts, 10 = top 10%. Composite proficiency is weighted by valid test scores.
+  Three levels ride separately: elementary, middle, high_school.
+
+THE CAVEAT THAT MATTERS — IT IS A DISTRICT PROXY, NOT A CATCHMENT
+  The rating is attached to a ZIP via the town label. Schools are assigned by
+  ATTENDANCE BOUNDARY, not by ZIP, and the two do not agree:
+    * one ZIP can span districts AT DIFFERENT LEVELS — Garwood's elementary is
+      Garwood Boro but its high school is Clark Township;
+    * a large township (Woodbridge: Colonia / Avenel / Iselin) has one label here
+      and several catchments in reality;
+    * two houses on the same street can feed different elementary schools.
+  So this is a TOWN-level signal. For an actual house, verify the boundary. The file
+  says so itself in `assignment_note`, and that note is not boilerplate.
+
+WHY THIS AND NOT layers/education/
+  `education/` is ACS B15003 — the share of ADULTS 25+ holding degrees. That measures
+  the neighbours, not the schools, and it correlates with household income at r=+0.87
+  and with median sold price at r=+0.76. Using it as a school metric would be scoring
+  a town's wealth twice and calling it education. THIS file is actual test results.

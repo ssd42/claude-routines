@@ -294,6 +294,41 @@ const HS_FACTORS = [
         : m <= 70 ? 0.75 - 0.45 * (m - 50) / 20           // 50→70: real cost
         : Math.max(0, 0.3 - 0.3 * (m - 70) / 50)},
 
+  // ── schools. NJ DOE 2024-25 district deciles, averaged across the three levels we
+  //    have. A DISTRICT proxy on a zip: two houses on one street can feed different
+  //    elementary schools, so this is a TOWN signal — verify the boundary for a real
+  //    house. (Deliberately NOT layers/education/, which is adult degree rates and
+  //    correlates with income at r=+0.87 — that would score a town's wealth twice.)
+  {k:"school", w:12, label:"schools",
+   get:(l, T) => {
+     const s = T && T.school;
+     if (!s) return null;
+     const v = [s.el, s.mid, s.hs].filter(x => x != null);
+     return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+   },
+   s:d => Math.max(0, Math.min(1, (d - 2) / 7))},   // decile 2→0, 9+→1
+
+  // ── time on market. MEASURED, not assumed: of active listings, the share cutting
+  //    price PEAKS at 31-60 days (4.8%) and COLLAPSES past 121 (1.4%). So a long sit
+  //    is not linearly better — a house nobody has touched in four months is stubborn
+  //    or broken, not a bargain. Fresh gets nothing (no leverage, no information);
+  //    1-3 months is the motivated-seller window; past that it decays.
+  //    ⚠️ Confound worth remembering: the 121+ group may look non-cutting because the
+  //    ones that DID cut already sold and left. Survivorship, not proof.
+  {k:"dom", w:8, label:"time on market",
+   get:l => l.dom,
+   s:d => d <= 7 ? 0.5                                  // brand new: neutral, no info
+        : d <= 30 ? 0.5 + 0.3 * (d - 7) / 23            // warming up
+        : d <= 90 ? 0.8 + 0.2 * (d - 30) / 60           // the leverage window
+        : d <= 150 ? 1 - 0.4 * (d - 90) / 60            // going stale
+        : Math.max(0.25, 0.6 - 0.35 * (d - 150) / 150)},// forgotten, or something's wrong
+
+  // ── you want a house, not a condo. Attached homes aren't ruled out (the Type filter
+  //    does that) but they don't get to score like a house.
+  {k:"type", w:8, label:"house, not a condo",
+   get:l => D.family[l.ty] || null,
+   s:f => f === "house" ? 1 : f === "multi" ? 0.55 : 0.2},
+
   {k:"beds", w:11, label:"beds",
    get:l => l.bd,
    s:b => b < 3 ? 0.25 : b === 3 ? 0.8 : 1},              // 3 is the floor; 5+ adds nothing
@@ -336,6 +371,18 @@ const HS_FLAVOUR = [
   {k:"asis",     pts:-6, label:"as-is / needs work", re:/\bas[- ]is\b|handyman|\btlc\b|needs work|investor/i},
   // the best amenity signal we have: nobody hides a pool, so absence really is absence
   {k:"pool",     pts:-8, label:"in-ground pool",   re:/in[- ]?ground pool|inground|gunite|heated pool/i},
+  {k:"bsmt",     pts:+3, label:"finished basement", re:/finished basement/i},
+  {k:"deck",     pts:+2, label:"deck / patio",     re:/\bdeck\b|\bpatio\b/i},
+  {k:"fence",    pts:+2, label:"fenced yard",      re:/\bfenced\b|fully fenced/i},
+];
+
+/* Signals from OUR OWN watching, not from the copy. listings.py is the only source
+   that can see these: a price cut we witnessed, and a relist (which resets the feed's
+   days_on_market and is the whole reason that file exists). They are facts we
+   observed, so unlike the text signals they are never a guess. */
+const HS_WATCHED = [
+  {k:"cut",     pts:+4, label:"cut its price",  test:l => !!l.cut},
+  {k:"relist",  pts:-3, label:"relisted",       test:l => (l.spell || 1) > 1},
 ];
 const HS_FLAVOUR_CAP = 12;
 
@@ -359,6 +406,9 @@ function hsFor(l) {
   const txt = l.tx || "";
   if (txt) for (const f of HS_FLAVOUR) {
     if (f.re.test(txt)) { flav += f.pts; found.push({label:f.label, pts:f.pts}); }
+  }
+  for (const f of HS_WATCHED) {
+    if (f.test(l)) { flav += f.pts; found.push({label:f.label, pts:f.pts}); }
   }
   // window/wall AC is only a negative if there is no central air to override it
   flav = Math.max(-HS_FLAVOUR_CAP, Math.min(HS_FLAVOUR_CAP, flav));

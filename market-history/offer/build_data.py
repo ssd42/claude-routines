@@ -339,6 +339,7 @@ def main():
     seabra = {r["town"]: r for r in read(os.path.join(SHARE, "seabra_by_town.csv"))}
     tj = {r["town"]: r for r in read(os.path.join(SHARE, "trader_joes_by_town.csv"))}
     wawa = {r["town"]: r for r in read(os.path.join(SHARE, "wawa_by_town.csv"))}
+    schools = {r["town"]: r for r in read(os.path.join(SHARE, "schools.csv"))}
     zips_doc = json.load(open(os.path.join(ROOT, "zips.json")))
 
     comps = build_comps(sales)
@@ -434,7 +435,7 @@ def main():
         for z in t["zips"]:
             zip_to_town.setdefault(z, name)
         tr, sb, tjr = transit.get(name, {}), seabra.get(name, {}), tj.get(name, {})
-        ww = wawa.get(name, {})
+        ww, sch = wawa.get(name, {}), schools.get(name, {})
         towns[name] = {
             "county": t.get("county", ""),
             "zips": t["zips"],
@@ -465,6 +466,22 @@ def main():
                 "inTown": ww.get("nearest_wawa_store_town") == name,
                 "beyond": ww.get("beyond_supplied_radius") == "yes",
             } if ww else None,
+            # NJ DOE 2024-25 assessment deciles (1=bottom 10% of NJ districts, 10=top).
+            # A DISTRICT proxy keyed to zip -- schools go by attendance boundary, and
+            # one zip can span districts at different levels (Garwood: elementary
+            # Garwood Boro, high school Clark Twp). Town-level only; verify per house.
+            # NOT layers/education/ -- that is ACS adult degrees, an income proxy at
+            # r=+0.87, which would score a town's wealth and call it schools.
+            "school": {
+                "el": num(sch.get("elementary_rating_1_to_10")),
+                "mid": num(sch.get("middle_rating_1_to_10")),
+                "hs": num(sch.get("high_school_rating_1_to_10")),
+                "elProf": num(sch.get("elementary_composite_proficiency_pct")),
+                "district": sch.get("elementary_districts") or None,
+                "splitDistrict": bool(sch.get("elementary_districts")
+                                      and sch.get("high_school_districts")
+                                      and sch["elementary_districts"] != sch["high_school_districts"]),
+            } if sch else None,
             # notes + confidence ride along verbatim -- they are where the truth is
             # (the RVL has no one-seat peak ride, several buses are rush-only, ...)
             "transit": {
