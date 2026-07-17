@@ -245,6 +245,142 @@ function lotContext(town, sqft, lot) {
   };
 }
 
+/* ══ HS — the Housing Score ═══════════════════════════════════════════════════
+   0-100: how much YOU would like this house. NOT what it is worth — comps answer
+   that, and comps can be checked against reality. THIS CANNOT. There is no ground
+   truth for taste: if it says 82 and you hate the house, the score is wrong by
+   definition and the fix is to change the weights. So it shows its working.
+
+   Two rules hold the whole thing up:
+
+   1. BASE IS A WEIGHTED MEAN, NOT A SUM. An unknown factor drops out of the
+      numerator AND the denominator, so it neither helps nor hurts — it just makes
+      the rest count for proportionally more. That is "don't penalise a missing
+      field" done arithmetically rather than by good intentions.
+
+   2. FLAVOUR IS CAPPED AT ±12. The amenity signals come from the listing COPY, and
+      copy length correlates with features found at r = +0.41 while correlating with
+      price at r = +0.03 — i.e. a chatty agent looks like a better house, and that is
+      pure noise. Measured: short blurbs yield a median 0.5 features, long ones 3.0.
+      Uncapped, HS would rank estate agents. Capped, verbosity moves a grade at most.
+
+   ⚠️ AMENITIES RANK HOUSES HERE, WHICH layers/README.md OTHERWISE FORBIDS.
+   That rule protects VALUATION — comps and the seasonal factor must never be moved
+   by how near a shop is, or we would be pricing a house by its groceries. HS is a
+   PREFERENCE score, not a valuation, and the owner asked for it explicitly
+   (2026-07-17). The line: amenities never touch what a house is WORTH; they may
+   touch whether you WANT it. */
+
+const HS_FACTORS = [
+  // ── the hard constraint. Full marks under $750k, worthless by $950k.
+  {k:"price", w:30, label:"price",
+   get:l => l.p, s:p => p <= 750000 ? 1 : Math.max(0, 1 - (p - 750000) / 200000)},
+
+  // ── "bigger is better; too big is a commitment". The plateau contains 524 Farley
+  //    (6,599 sqft), the favourite of 30+ open houses.
+  {k:"lot", w:16, label:"lot size",
+   get:l => l.lot,
+   s:x => x < 3000 ? 0.25
+        : x < 6000 ? 0.25 + 0.75 * (x - 3000) / 3000     // 3k→6k climbs to full
+        : x <= 14000 ? 1                                  // 6k–14k the sweet spot
+        : x <= 22000 ? 1 - 0.3 * (x - 14000) / 8000       // getting to be a job
+        : Math.max(0.3, 0.7 - 0.3 * (x - 22000) / 21560)},// an acre+ is a project
+
+  // ── the commute is the one amenity that is not a nice-to-have.
+  {k:"commute", w:12, label:"commute to NY",
+   get:(l, T) => T && T.transit && T.transit.min,
+   s:m => m <= 35 ? 1
+        : m <= 50 ? 1 - 0.25 * (m - 35) / 15              // 35→50: still good
+        : m <= 70 ? 0.75 - 0.45 * (m - 50) / 20           // 50→70: real cost
+        : Math.max(0, 0.3 - 0.3 * (m - 70) / 50)},
+
+  {k:"beds", w:11, label:"beds",
+   get:l => l.bd,
+   s:b => b < 3 ? 0.25 : b === 3 ? 0.8 : 1},              // 3 is the floor; 5+ adds nothing
+
+  {k:"baths", w:9, label:"baths",
+   get:l => l.ba,
+   s:b => b < 1.5 ? 0.25 : b < 2 ? 0.7 : b < 2.5 ? 0.85 : 1},
+
+  {k:"sqft", w:7, label:"house size",
+   get:l => l.sq,
+   s:x => x < 1000 ? 0.4 : x < 1800 ? 0.4 + 0.6 * (x - 1000) / 800 : 1},
+
+  // ── deliberately HALF the weight the spike first gave it: "newer" is a proxy for
+  //    "not a project", and 524 Farley is a 1950 build. Condition is scored from the
+  //    copy instead (see HS_FLAVOUR), where it belongs.
+  {k:"year", w:6, label:"year built",
+   get:l => l.yr,
+   s:y => y >= 2010 ? 1 : y <= 1900 ? 0.2 : 0.2 + 0.8 * (y - 1900) / 110},
+
+  // ── shops. LOW weight on purpose: the ask was "closer is better, but don't give it
+  //    many points". Averaged across the three so one distant chain can't sink a town.
+  {k:"shops", w:5, label:"shops nearby",
+   get:(l, T) => {
+     if (!T) return null;
+     const d = [T.tj && T.tj.mi, T.wawa && T.wawa.mi, T.seabra && T.seabra.mi]
+       .filter(x => x != null);
+     return d.length ? d.reduce((a, b) => a + b, 0) / d.length : null;
+   },
+   s:mi => mi <= 2 ? 1 : mi <= 6 ? 1 - 0.4 * (mi - 2) / 4 : Math.max(0.1, 0.6 - 0.5 * (mi - 6) / 10)},
+];
+
+/* Text-mined. ONLY ever applied when the words are actually there — never assumed.
+   Coverage measured live (Scotch Plains, 101 descriptions). */
+const HS_FLAVOUR = [
+  {k:"reno",     pts:+5, label:"renovated",        re:/renovat|updated|remodel|new kitchen/i},
+  {k:"garage",   pts:+4, label:"garage",           re:/\bgarage\b/i},
+  {k:"ac",       pts:+3, label:"central air",      re:/central (air|a\/?c)|central-air/i},
+  {k:"drive",    pts:+2, label:"driveway",         re:/\bdrive ?way\b/i},
+  {k:"wallac",   pts:-3, label:"window/wall AC",   re:/window (unit|a\/?c)|wall (unit|a\/?c)|ductless|mini[- ]split/i},
+  {k:"asis",     pts:-6, label:"as-is / needs work", re:/\bas[- ]is\b|handyman|\btlc\b|needs work|investor/i},
+  // the best amenity signal we have: nobody hides a pool, so absence really is absence
+  {k:"pool",     pts:-8, label:"in-ground pool",   re:/in[- ]?ground pool|inground|gunite|heated pool/i},
+];
+const HS_FLAVOUR_CAP = 12;
+
+function hsFor(l) {
+  const T = D.towns[l.t];
+  let num = 0, den = 0, all = 0;
+  const parts = [];
+  for (const f of HS_FACTORS) {
+    all += f.w;
+    const v = f.get(l, T);
+    if (v == null || v === "" || Number.isNaN(v)) { parts.push({...f, known:false}); continue; }
+    const sc = Math.max(0, Math.min(1, f.s(v)));
+    num += f.w * sc; den += f.w;
+    parts.push({k:f.k, label:f.label, w:f.w, known:true, value:v, s:sc});
+  }
+  if (!den) return null;
+  const base = 100 * num / den;
+
+  let flav = 0;
+  const found = [];
+  const txt = l.tx || "";
+  if (txt) for (const f of HS_FLAVOUR) {
+    if (f.re.test(txt)) { flav += f.pts; found.push({label:f.label, pts:f.pts}); }
+  }
+  // window/wall AC is only a negative if there is no central air to override it
+  flav = Math.max(-HS_FLAVOUR_CAP, Math.min(HS_FLAVOUR_CAP, flav));
+
+  // Base is scaled to 88 so FLAVOUR has real headroom. Without this, a strong house
+  // hit base ~95, +12 flavour clamped to 100, and SEVEN houses tied at a perfect
+  // score — a ceiling exactly where the ranking has to do its work. Now 100 means
+  // "excellent fundamentals AND everything we want is actually mentioned", which is
+  // rare and says something. 88 is the most a listing can score on structured data
+  // alone, which is also the honest cap: we cannot know it has a garage if nobody
+  // wrote it down.
+  return {
+    hs: Math.round(Math.max(0, Math.min(100, base * 0.88 + flav))),
+    base: Math.round(base),
+    flavour: flav,
+    // How much of the model actually ran. Two houses at HS 78 are NOT the same claim
+    // if one is 55% known. Rank by hs, break ties on this — never the reverse.
+    confidence: Math.round(100 * den / all),
+    parts, found, hasText: !!txt,
+  };
+}
+
 /* ── the SEASONAL estimator: town x closing month, every house type ───────────
    Its own ladder, resolved PER MONTH: a town can have a fat June and a thin
    January. Also never crosses town lines. */

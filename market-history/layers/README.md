@@ -56,3 +56,19 @@ file table **and** add its nice-to-have caveat.
 Next candidate: `education/` is sitting here parsed but unjoined — it's zip-grain,
 so rolling it to a town needs a population-weighted average across the town's zips
 (Edison has 3).
+
+## ⚠️ The one sanctioned exception: `offer/`'s Housing Score (HS)
+
+The rule above — *amenities are colour, never a filter, never rank a town* — still
+governs everything that says what a house is **worth**: the comps and the seasonal
+factor in `offer/index.html` must never see a shop or a commute. Pricing a house by its
+groceries would be a straightforward error, and that is what this rule exists to stop.
+
+**HS is exempt, on the owner's explicit call (2026-07-17).** It is a *preference* score,
+not a valuation, and it ranks houses by how much *he* would want them — commute at
+weight 12, the three shop layers sharing weight 5. The line that survives:
+
+> **Amenities never touch what a house is WORTH. They may touch whether you WANT it.**
+
+If you are adding a new consumer and it wants amenity data: valuation, no. Taste, ask.
+See [`../../SPIKE-housing-score.md`](../../SPIKE-housing-score.md).

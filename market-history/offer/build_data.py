@@ -296,6 +296,12 @@ def bake_listings():
             "up": bool(p0 and price > p0),
             "p0": int(p0) if p0 else None,
             "url": r["url"] or None, "img": r["photo"] or None,
+            # The listing copy. It is the ONLY place garage / pool / central air /
+            # condition live, and HS mines it in the browser rather than here so a
+            # pattern fix needs no re-scrape — the same reason listings.csv stores it
+            # verbatim (DEFECTS.md's bldg_desc lesson). Lower-cased and trimmed to
+            # keep the payload honest: it is ~1 KB per listing otherwise.
+            "tx": (r.get("text") or "").lower()[:700] or None,
         })
     fetched = max(seen_runs) if seen_runs else None
     path = os.path.join(HERE, "listings.js")

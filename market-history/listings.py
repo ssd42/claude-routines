@@ -60,6 +60,7 @@ this file quietly stops accumulating and the whole thing is worthless. See READM
 """
 import argparse
 import csv
+import re
 import datetime
 import json
 import os
@@ -112,6 +113,13 @@ COLS = [
                              # will send you to a house that has an accepted offer.
     "days_on_mls",           # what the feed claims. A relist resets it — that is the
                              # whole reason this file exists. Trust first_seen instead.
+    # The listing copy, VERBATIM (trimmed to 900 chars). It is the only place garage /
+    # pool / central-air / condition exist — no structured field carries them. Stored
+    # raw rather than pre-parsed, for the reason DEFECTS.md learned the hard way with
+    # bldg_desc: the garage parser was wrong for months and fixing it needed a whole
+    # re-scrape, because we had thrown the source string away. Keep the text and the
+    # next parser fix re-applies to three years of history offline.
+    "text",
 ]
 
 # Realtor.com's for_sale feed includes homes that already have an accepted offer.
@@ -191,6 +199,7 @@ def scrape(zips, dry):
                 "photo": g("primary_photo") or "",
                 "mls_status": str(g("status") or "").upper(),
                 "days_on_mls": int(g("days_on_mls")) if g("days_on_mls") is not None else "",
+                "text": re.sub(r"\s+", " ", str(g("text") or ""))[:900],
             }
             n += 1
         sys.stderr.write(f"[listings] {z}: {n} active listings\n")
@@ -226,6 +235,8 @@ def main():
 
     STABLE = ("beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
               "lat", "lon", "url", "photo")
+    # the copy can be rewritten mid-spell (a stale listing gets a refresh), so re-read it
+    VOLATILE_TEXT = ("text",)
     VOLATILE = ("mls_status", "days_on_mls")
 
     for key, obs in live.items():
@@ -240,7 +251,7 @@ def main():
             # mls_status moves while the spell is open (FOR_SALE -> PENDING), so it is
             # re-read every run. The spell itself stays `active`: a pending house has
             # not left the market, it just isn't available to you.
-            for f in VOLATILE:
+            for f in VOLATILE + VOLATILE_TEXT:
                 cur[f] = str(obs[f])
             # backfill the house fields onto spells opened before 2026-07-16, when this
             # file only recorded prices. Only ever fills a blank — never overwrites an
@@ -265,7 +276,7 @@ def main():
             "first_list_price": str(obs["list_price"]), "last_list_price": str(obs["list_price"]),
             "observations": "1", "status": "active", "gone_on": "", "price_changed": "",
         }
-        for f in STABLE + VOLATILE:
+        for f in STABLE + VOLATILE + VOLATILE_TEXT:
             row[f] = str(obs[f])
         rows.append(row)
 
