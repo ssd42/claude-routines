@@ -9,6 +9,7 @@ Watchung,07069,5,8,8,8,67.7,73.5,Watchung Borough School District,Watchung Hills
 Colonia,07067,6,5,3,4,44.8,54.8,Woodbridge Township School District,Woodbridge Township School District,2024-2025
 Summit,07901,6,10,9,9,83.5,77.4,Summit Public School District,Summit Public School District,2024-2025
 Berkeley Heights,07922,7,9,9,10,70.1,80.9,Berkeley Heights School District,Berkeley Heights School District,2024-2025
+Millburn,07041,7,10,10,10,87.2,82.9,Millburn Township School District,Millburn Township School District,2024-2025
 New Providence,07974,7,10,10,9,83.6,75.3,New Providence School District,New Providence School District,2024-2025
 Short Hills,07078,8,10,10,10,87.2,82.9,Millburn Township School District,Millburn Township School District,2024-2025
 South Plainfield,07080,8,5,4,7,48.8,67.6,South Plainfield School District,South Plainfield School District,2024-2025
@@ -18,14 +19,18 @@ Edison,08817,9,8,7,9,65.8,74.9,Edison Township School District,Edison Township S
 Edison,08837,9,8,7,9,65.8,74.9,Edison Township School District,Edison Township School District,2024-2025
 Green Brook,08812,9,7,7,8,58.2,73.5,Green Brook Township Public School District,Watchung Hills Regional High School District,2024-2025
 Metuchen,08840,9,9,9,10,73.6,85.1,Metuchen Public School District,Metuchen Public School District,2024-2025
+Gillette,07933,10,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
+Stirling,07980,10,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
 Woodbridge,07095,10,5,3,4,44.8,54.8,Woodbridge Township School District,Woodbridge Township School District,2024-2025
 Maplewood,07040,11,8,7,9,67.7,78.1,South Orange-Maplewood School District,South Orange-Maplewood School District,2024-2025
+Millington,07946,11,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
 South Orange,07079,11,8,7,9,67.7,78.1,South Orange-Maplewood School District,South Orange-Maplewood School District,2024-2025
 Livingston,07039,12,10,10,10,82.5,83.7,Livingston Board Of Education School District,Livingston Board Of Education School District,2024-2025
 Bridgewater,08807,13,8,7,10,64.3,79.7,Bridgewater-Raritan Regional School District,Bridgewater-Raritan Regional School District,2024-2025
 Long Hill,07980,13,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
 Long Hill,07933,13,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
 Long Hill,07946,13,8,8,8,62.7,73.5,Long Hill Township School District,Watchung Hills Regional High School District,2024-2025
+Martinsville,08836,13,8,7,10,64.3,79.7,Bridgewater-Raritan Regional School District,Bridgewater-Raritan Regional School District,2024-2025
 West Orange,07052,13,7,6,6,61.9,65.6,West Orange Public Schools,West Orange Public Schools,2024-2025
 Basking Ridge,07920,14,10,10,8,83.2,72.0,Bernards Township School District,Bernards Township School District,2024-2025
 Glen Ridge,07028,14,10,10,9,80.4,79.1,Glen Ridge Public School District,Glen Ridge Public School District,2024-2025
@@ -38,11 +43,13 @@ Roseland,07068,15,10,8,9,80.0,74.6,Roseland School District,West Essex Regional 
 Caldwell,07006,16,7,7,8,60.9,73.1,Caldwell-West School District,Caldwell-West School District,2024-2025
 Cedar Grove,07009,16,10,7,9,77.9,74.8,Cedar Grove Township School District,Cedar Grove Township School District,2024-2025
 North Caldwell,07006,16,10,8,9,82.4,74.6,North Caldwell School District,West Essex Regional School District,2024-2025
+West Caldwell,07006,16,7,7,8,60.9,73.1,Caldwell-West School District,Caldwell-West School District,2024-2025
 Bedminster,07921,17,9,9,9,69.6,77.5,Bedminster Township Public School District,Somerset Hills Regional School District,2024-2025
 Chatham,07928,17,10,9,10,77.7,79.5,School District Of The Chathams,School District Of The Chathams,2024-2025
 Madison,07940,17,9,9,10,74.5,79.5,Madison Public School District,Madison Public School District,2024-2025
 Nutley,07110,17,7,8,7,60.2,70.1,Nutley Public School District,Nutley Public School District,2024-2025
 Branchburg,08876,18,8,6,5,65.7,62.4,Branchburg Township School District,Somerville Public School District,2024-2025
+Morris Township,07960,19,7,5,6,56.5,64.4,Morris School District,Morris School District,2024-2025
 Morristown,07960,19,7,5,6,56.5,64.4,Morris School District,Morris School District,2024-2025
 Cedar Knolls,07927,20,8,7,9,64.2,75.0,Hanover Township School District,Hanover Park Regional High School District,2024-2025
 Morris Plains,07950,21,9,9,8,73.7,71.6,Morris Plains School District,Morris Hills Regional School District,2024-2025

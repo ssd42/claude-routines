@@ -403,3 +403,42 @@ compromise, and it would also punish a genuine bargain for being a bargain. The
 market page's **vs-comps** already does the honest version of this: it compares a house
 to *similar-sized* houses in the same town, so it catches "cheap for what it is" rather
 than "cheap because it's small".
+
+
+---
+
+## 14. The line — where to start looking
+
+Against your standing search (≤$650k · 3+ bd · 1.5+ ba · houses · available), **210
+houses**:
+
+```
+  p10  67      p25  70      median  74      p75  79      p90  82      max  89
+```
+
+| cut | houses | share of the list |
+|---|---:|---:|
+| HS 70+ | 167 | 80% |
+| **HS 75+** | **98** | **47%** |
+| **HS 80+** | **52** | **25%** |
+| HS 85+ | 12 | 6% |
+
+**Start at 80.** Reasons:
+
+* **The distribution is tight** — half the list sits between 70 and 79. A cut at 70
+  removes almost nothing (80% survive) and a cut at 75 still leaves you 98 houses,
+  which is not a shortlist. The scale *looks* like 0–100 but in practice your filtered
+  market lives in a ~20-point band, because price/beds/baths are already filtered — the
+  factors that would produce a low score have been screened out before HS runs.
+* **80+ is 52 houses** — a fortnight of Saturdays, and a real bar rather than a
+  formality.
+* **85+ is 12** — use it when you want *only* the standouts. Today it's the top of the
+  list: Garwood at $639k (garage, finished basement, **cut its price**), West Orange at
+  $550k with 100% confidence.
+
+**Read the confidence next to it.** An HS 82 at 79% known and an HS 82 at 100% are not
+the same claim. Prefer the confident one when they tie, which is what the sort already
+does.
+
+**And expect to move this number.** If 80+ shows you houses you don't like, the weights
+are wrong, not your taste — that's §9.
