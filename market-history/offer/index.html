@@ -50,9 +50,9 @@
     .strip{gap:1.2rem}
   }
   /* beds + baths are one unit — they should never break across rows */
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1.1rem;min-width:9rem}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1.1rem;min-width:9rem;align-items:end}
   .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
-    color:var(--rule-2);font-style:italic}
+    color:var(--rule-2);font-style:italic;white-space:nowrap}
   .opt.req{color:var(--over);font-style:normal}
   label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
     color:var(--ink-3);margin-bottom:.35rem;font-weight:600}

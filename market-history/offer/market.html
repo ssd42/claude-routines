@@ -49,13 +49,14 @@
   label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
     color:var(--ink-3);margin-bottom:.35rem;font-weight:600}
   .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
-    color:var(--rule-2);font-style:italic}
+    color:var(--rule-2);font-style:italic;white-space:nowrap}
+  label{text-wrap:balance}
   input,select{width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--rule-2);
     padding:.3rem 0 .35rem;font-family:var(--serif);font-size:1.15rem;color:var(--ink);
     border-radius:0}
   input:focus,select:focus{outline:none;border-bottom-color:var(--ink)}
   input::placeholder{color:var(--rule-2);font-style:italic}
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;align-items:end}
 
   .towns{position:relative}
   .towns-btn{width:100%;text-align:left;background:transparent;border:0;
@@ -209,7 +210,7 @@
   <div class="pair">
     <div><label for="likelot">Lot like <span class="opt">optional</span></label>
       <input id="likelot" inputmode="numeric" placeholder="6,599"></div>
-    <div><label for="likesq">House sq ft like <span class="opt">optional</span></label>
+    <div><label for="likesq">House sqft like <span class="opt">optional</span></label>
       <input id="likesq" inputmode="numeric" placeholder="1,170"></div>
   </div>
 </form>
