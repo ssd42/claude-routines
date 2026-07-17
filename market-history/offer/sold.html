@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sold — NJ market history</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --over:#8c2f2a; --under:#2c6459; --flag:#a8631c;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;
+    line-height:1.55;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) 6rem;
+    -webkit-font-smoothing:antialiased}
+  .sheet{max-width:80rem;margin:0 auto}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:.75rem;margin-bottom:1rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .nav{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap}
+  .nav a{font-size:.75rem;color:var(--ink-3);text-decoration:none;
+    border-bottom:1px solid var(--rule-2);white-space:nowrap}
+  .nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .stamp{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;font-size:.8rem;
+    padding:.6rem .8rem;border:1px solid var(--rule);margin-bottom:1.6rem;color:var(--ink-2)}
+  .stamp b{color:var(--ink)}
+  .stamp code{font-size:.75rem;background:var(--paper-2);padding:.1rem .3rem}
+  .stamp.warn{border-color:var(--flag);background:color-mix(in oklab,var(--flag) 7%,transparent)}
+  .stamp.warn b{color:var(--flag)}
+
+  /* ── search + filters ── */
+  .q{margin-bottom:1.2rem}
+  .q input{width:100%;background:transparent;border:0;border-bottom:2px solid var(--rule-2);
+    padding:.4rem 0 .5rem;font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.75rem);
+    color:var(--ink);border-radius:0}
+  .q input:focus{outline:none;border-bottom-color:var(--ink)}
+  .q input::placeholder{color:var(--rule-2);font-style:italic}
+  .q .hint{font-size:.72rem;color:var(--ink-3);margin-top:.35rem}
+
+  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1rem 1.4rem;align-items:end;margin-bottom:.9rem}
+  label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:.35rem;font-weight:600}
+  .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
+    color:var(--rule-2);font-style:italic;white-space:nowrap}
+  input,select{width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--rule-2);
+    padding:.3rem 0 .35rem;font-family:var(--serif);font-size:1.15rem;color:var(--ink);
+    border-radius:0}
+  input:focus,select:focus{outline:none;border-bottom-color:var(--ink)}
+  input::placeholder{color:var(--rule-2);font-style:italic}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;align-items:end}
+  @media(max-width:560px){.filters{grid-template-columns:1fr;gap:.9rem}}
+
+  .towns{position:relative}
+  .towns-btn{width:100%;text-align:left;background:transparent;border:0;
+    border-bottom:1.5px solid var(--rule-2);padding:.3rem 0 .35rem;cursor:pointer;
+    font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
+  .towns-btn.none{color:var(--rule-2);font-style:italic}
+  .towns-menu{position:absolute;z-index:30;top:100%;left:0;right:0;
+    min-width:min(22rem, calc(100vw - 2rem));max-width:calc(100vw - 2rem);
+    background:var(--paper);border:1px solid var(--rule-2);max-height:min(20rem,50vh);
+    overflow:auto;-webkit-overflow-scrolling:touch;padding:.4rem;display:none;
+    box-shadow:0 12px 24px -18px rgba(31,28,24,.5)}
+  .towns-menu.on{display:block}
+  .towns-menu .row{display:flex;align-items:center;gap:.5rem;padding:.25rem .35rem;
+    font-size:.85rem;cursor:pointer}
+  .towns-menu .row:hover{background:var(--paper-2)}
+  .towns-menu .row input{width:auto;border:0}
+  .towns-menu .row span{color:var(--ink-3);font-size:.75rem;margin-left:auto;
+    font-variant-numeric:tabular-nums}
+  .towns-menu .acts{display:flex;gap:.8rem;padding:.3rem .35rem .5rem;
+    border-bottom:1px solid var(--rule);margin-bottom:.3rem}
+  .towns-menu .acts button{background:none;border:0;font-family:var(--sans);font-size:.72rem;
+    color:var(--ink-3);cursor:pointer;text-decoration:underline}
+
+  .seg{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .seg-lab{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;margin-right:.2rem}
+  .seg-gap{width:1rem}
+  @media(max-width:560px){.seg-gap{width:100%;height:0}.seg .seg-lab{width:100%;margin-bottom:-.2rem}}
+  .seg button{background:transparent;border:1px solid var(--rule-2);color:var(--ink-3);
+    font-family:var(--sans);font-size:.75rem;padding:.24rem .55rem;cursor:pointer}
+  .seg button:hover{border-color:var(--ink-2);color:var(--ink-2)}
+  .seg button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .reset{margin-left:auto;background:none;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-3);font-family:var(--sans);font-size:.75rem;cursor:pointer;padding:.2rem 0}
+  .reset:hover{color:var(--over);border-bottom-color:var(--over)}
+  @media (pointer:coarse){
+    .seg button{padding:.6rem .9rem;font-size:.8rem}
+    .reset{padding:.6rem 0;font-size:.8rem}
+    .towns-btn,.towns-menu .row{padding-top:.6rem;padding-bottom:.6rem}
+    .more button{padding:.75rem 1.5rem}
+  }
+
+  .count{border-top:1px solid var(--rule);padding-top:.8rem;margin-bottom:.2rem;
+    font-size:.8rem;color:var(--ink-3);display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+  .count b{color:var(--ink);font-family:var(--serif);font-size:1.1rem}
+  .sortsel{margin-left:auto;width:auto;font-size:.78rem;font-family:var(--sans);
+    border-bottom-color:var(--rule);padding:.1rem 0;color:var(--ink-2)}
+  @media(max-width:560px){.sortsel{margin-left:0;width:100%}.count{flex-wrap:wrap}}
+
+  /* ── rows ── */
+  .row{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);
+    gap:1rem;align-items:baseline;padding:.7rem 0;border-bottom:1px solid var(--rule)}
+  .row:hover{background:var(--paper-2)}
+  .addr{font-family:var(--serif);font-size:1.05rem;line-height:1.3}
+  .addr .t{font-size:.75rem;color:var(--ink-3);font-family:var(--sans)}
+  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .price{font-family:var(--serif);font-size:1.2rem;font-variant-numeric:tabular-nums;
+    text-align:right}
+  .ask{font-size:.78rem;font-variant-numeric:tabular-nums;text-align:right}
+  .ask .o{color:var(--over)} .ask .u{color:var(--under);font-weight:600}
+  .ask .n{color:var(--rule-2);font-style:italic;font-size:.72rem}
+  .when{font-size:.78rem;color:var(--ink-2);font-variant-numeric:tabular-nums;text-align:right}
+  @media(max-width:760px){
+    .row{grid-template-columns:minmax(0,1fr) auto;gap:.2rem .8rem;padding:.9rem 0}
+    .price{grid-column:2;grid-row:1;text-align:right}
+    .facts{grid-column:1}
+    .ask{grid-column:2;grid-row:2;text-align:right}
+    .when{grid-column:2;grid-row:3;text-align:right}
+  }
+  .head{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr);
+    gap:1rem;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;padding:.4rem 0;border-bottom:1px solid var(--ink)}
+  .head span:nth-child(3),.head span:nth-child(4){text-align:right}
+  @media(max-width:760px){.head{display:none}}
+
+  .empty{padding:3rem 0;color:var(--ink-3);font-family:var(--serif);font-size:1.2rem;max-width:38rem}
+  .more{margin-top:1.2rem;text-align:center}
+  .more button{background:none;border:1px solid var(--rule-2);color:var(--ink-2);
+    font-family:var(--sans);font-size:.8rem;padding:.4rem 1.2rem;cursor:pointer}
+  .more button:hover{border-color:var(--ink)}
+  .fine{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1.2rem;
+    columns:2;column-gap:2.4rem;font-size:.75rem;color:var(--ink-3);line-height:1.6}
+  @media(max-width:700px){.fine{columns:1}}
+  .fine p{break-inside:avoid;margin-bottom:.7rem}
+  .fine b{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <h1>Sold <em>— what houses actually went for</em></h1>
+  <nav class="nav">
+    <a href="market.html">on the market →</a>
+    <a href="index.html">price a house →</a>
+  </nav>
+</header>
+
+<div class="stamp" id="stamp"></div>
+
+<div class="q">
+  <input id="q" placeholder="12 Maple · Maple Ave · Cranford" autocomplete="off" aria-label="Search">
+  <div class="hint">Search an <b>address</b>, a <b>street</b> (finds every sale on it), or a
+    <b>town</b>. 16,000+ streets across 63 towns.</div>
+</div>
+
+<form class="filters" autocomplete="off" onsubmit="return false">
+  <div class="pair">
+    <div><label for="min">Min price <span class="opt">optional</span></label>
+      <input id="min" inputmode="numeric" placeholder="400,000"></div>
+    <div><label for="max">Max price <span class="opt">optional</span></label>
+      <input id="max" inputmode="numeric" placeholder="750,000"></div>
+  </div>
+  <div class="towns">
+    <label>Towns <span class="opt">optional — all if none picked</span></label>
+    <button class="towns-btn none" id="towns-btn" type="button">every town</button>
+    <div class="towns-menu" id="towns-menu"></div>
+  </div>
+  <div class="pair">
+    <div><label for="bdmin">Beds min</label><input id="bdmin" inputmode="numeric" placeholder="3"></div>
+    <div><label for="bdmax">Beds max</label><input id="bdmax" inputmode="numeric" placeholder="5"></div>
+  </div>
+  <div class="pair">
+    <div><label for="bamin">Baths min</label><input id="bamin" inputmode="decimal" placeholder="1.5"></div>
+    <div><label for="bamax">Baths max</label><input id="bamax" inputmode="decimal" placeholder="3"></div>
+  </div>
+  <div class="pair">
+    <div><label for="from">Sold from <span class="opt">optional</span></label>
+      <input id="from" type="date"></div>
+    <div><label for="to">Sold to <span class="opt">optional</span></label>
+      <input id="to" type="date"></div>
+  </div>
+</form>
+
+<div class="seg">
+  <span class="seg-lab">Sold</span>
+  <button data-days="30">last 30 days</button>
+  <button data-days="90">last 90 days</button>
+  <button data-days="365">last year</button>
+  <button data-days="0" class="on">all time</button>
+  <span class="seg-gap"></span>
+  <span class="seg-lab">Type</span>
+  <button data-ty="" class="on">any</button>
+  <button data-ty="Single Family">house</button>
+  <button data-ty="Condo">condo</button>
+  <button data-ty="Townhouse">townhouse</button>
+  <button data-ty="Multi-Family">multi</button>
+  <button id="reset" class="reset">Reset</button>
+</div>
+
+<div class="count" id="count"></div>
+<div class="head"><span>address</span><span>details</span><span>sold for</span><span>vs ask · when</span></div>
+<div id="list"></div>
+<div class="more" id="more"></div>
+<div class="fine" id="fine"></div>
+
+</div>
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="sold.js"></script>
+<script>
+"use strict";
+/* This page is AGNOSTIC to the other two. It borrows read-only helpers from engine.js
+   ($, usd, digits) and the town list from data.js, and it touches nothing they own —
+   no shared state, its own storage key, its own data file. Breaking sold.html cannot
+   break market.html or index.html, and vice versa. */
+const S = window.SOLD;
+const PAGE = 80;
+let shown = PAGE, picked = new Set(), days = 0, ty = "", sortBy = "newest";
+
+// Column indices into a sold row. A NAMED object, not twelve single-letter globals:
+// this page loads data.js and engine.js alongside its own script, and a top-level
+// `const T` in that company is a collision waiting to happen — it collided the first
+// time this was tested. One object, one name, no surface area.
+const COL = Object.freeze({
+  addr:0, town:1, date:2, price:3, bd:4, ba:5, sqft:6, lot:7, yr:8, ty:9, listPrice:10, vsAsk:11,
+});
+
+const usdF = n => "$" + Math.round(n).toLocaleString("en-US");
+const esc2 = s => String(s == null ? "" : s).replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ── the stamp ─────────────────────────────────────────────────────────────────
+   Sold data CANNOT rot — a 2024 sale is still a 2024 sale next year — so unlike the
+   market page there is no urgency here. But the dataset does stop growing if nobody
+   re-runs the hydration, and a silently frozen window looks identical to a quiet
+   market. So: state the window always, and only nag past a week. */
+const STALE_DAYS = 7;
+function drawStamp() {
+  const el = $("stamp");
+  const last = new Date(S.window[1] + "T12:00:00");
+  const now = new Date(S.generated + "T12:00:00");
+  const age = Math.round((now - last) / 86400000);
+  const stale = age > STALE_DAYS;
+  el.className = "stamp" + (stale ? " warn" : "");
+  el.innerHTML = `<span><b>${S.rows.length.toLocaleString()} sales</b>,
+      ${S.window[0]} → <b>${S.window[1]}</b>.</span>
+    <span>${stale
+      ? `<b>The newest sale here is ${age} days old.</b> Re-run
+         <code>python3 aggregate.py</code> then <code>offer/build_data.py</code> —
+         a frozen dataset looks exactly like a quiet market, which is the point of this line.`
+      : `Sold prices don't go stale — a 2024 sale is still a 2024 sale. This just says
+         how far the data reaches.`}</span>`;
+}
+
+/* ── search: address / street / town ───────────────────────────────────────────
+   Matches the address string OR the town, but NEVER matches a town by searching the
+   address text — `10 Cranford Rd` is a house in Glen Rock, and there are `Westfield
+   Ave` addresses in Clark. Typing "Cranford" must not return Glen Rock's house as a
+   Cranford sale; it returns it as a street hit, which is honest and different. */
+function matcher(q) {
+  q = q.trim().toLowerCase();
+  if (!q) return null;
+  const terms = q.split(/\s+/).filter(Boolean);
+  return r => {
+    const hay = r[COL.addr].toLowerCase() + " " + r[COL.town].toLowerCase();
+    return terms.every(t => hay.includes(t));
+  };
+}
+
+function towns() {
+  const c = {};
+  for (const r of S.rows) c[r[COL.town]] = (c[r[COL.town]] || 0) + 1;
+  return Object.keys(D.towns)
+    .filter(t => c[t])
+    .sort((a, b) => (D.towns[a].dist ?? 99) - (D.towns[b].dist ?? 99) || a.localeCompare(b))
+    .map(t => ({t, n: c[t], dist: D.towns[t].dist}));
+}
+function drawTowns() {
+  $("towns-menu").innerHTML =
+    `<div class="acts"><button data-none="1">clear</button></div>` +
+    towns().map(({t, n, dist}) =>
+      `<label class="row"><input type="checkbox" value="${esc2(t)}" ${picked.has(t) ? "checked" : ""}>
+        ${esc2(t)} <span>${dist != null ? dist + "mi · " : ""}${n.toLocaleString()}</span></label>`).join("");
+  const b = $("towns-btn");
+  b.classList.toggle("none", !picked.size);
+  b.textContent = !picked.size ? "every town"
+    : picked.size <= 2 ? [...picked].join(", ") : picked.size + " towns";
+}
+
+/* Presets count back from the NEWEST SALE WE HOLD, not from today. The window ends a
+   couple of days behind real time, so "last 30 days" measured from today would quietly
+   mean the last 28 days of data and the label would lie. */
+function cutoff(d) {
+  if (!d) return null;
+  const end = new Date(S.window[1] + "T12:00:00");
+  end.setDate(end.getDate() - d);
+  return end.toISOString().slice(0, 10);
+}
+
+function filtered() {
+  const q = matcher($("q").value);
+  const mn = digits($("min").value), mx = digits($("max").value);
+  const bdn = digits($("bdmin").value), bdx = digits($("bdmax").value);
+  const ban = digits($("bamin").value), bax = digits($("bamax").value);
+  const from = $("from").value || cutoff(days), to = $("to").value;
+  return S.rows.filter(r => {
+    if (picked.size && !picked.has(r[COL.town])) return false;
+    if (ty && r[COL.ty] !== ty) return false;
+    if (mn && r[COL.price] < (mn < 10000 ? mn * 1000 : mn)) return false;
+    if (mx && r[COL.price] > (mx < 10000 ? mx * 1000 : mx)) return false;
+    // a blank bed/bath count is unknown, not zero — never fail a row for it
+    if (bdn && (r[COL.bd] == null || r[COL.bd] < bdn)) return false;
+    if (bdx && (r[COL.bd] == null || r[COL.bd] > bdx)) return false;
+    if (ban && (r[COL.ba] == null || r[COL.ba] < ban)) return false;
+    if (bax && (r[COL.ba] == null || r[COL.ba] > bax)) return false;
+    if (from && r[COL.date] < from) return false;
+    if (to && r[COL.date] > to) return false;
+    if (q && !q(r)) return false;
+    return true;
+  });
+}
+
+const SORTS = {
+  newest:   ["Most recent",        (a, b) => b[COL.date].localeCompare(a[COL.date])],
+  oldest:   ["Oldest first",       (a, b) => a[COL.date].localeCompare(b[COL.date])],
+  cheap:    ["Price: low to high", (a, b) => a[COL.price] - b[COL.price]],
+  dear:     ["Price: high to low", (a, b) => b[COL.price] - a[COL.price]],
+  under:    ["Most UNDER asking",  (a, b) => (a[COL.vsAsk] ?? 999) - (b[COL.vsAsk] ?? 999)],
+  over:     ["Most OVER asking",   (a, b) => (b[COL.vsAsk] ?? -999) - (a[COL.vsAsk] ?? -999)],
+};
+
+function render() {
+  drawStamp();
+  const rows = filtered();
+  rows.sort(SORTS[sortBy][1]);
+
+  const ask = rows.filter(r => r[COL.vsAsk] != null);
+  const med = ask.length ? [...ask].map(r => r[COL.vsAsk]).sort((a, b) => a - b)[ask.length >> 1] : null;
+  $("count").innerHTML =
+    `<b>${rows.length.toLocaleString()}</b> sales
+     ${picked.size ? "in " + picked.size + " town" + (picked.size === 1 ? "" : "s") : ""}
+     ${med != null ? `· median <b style="font-family:var(--sans);font-size:.8rem">${
+        med >= 0 ? "+" : ""}${med.toFixed(1)}%</b> vs asking
+        <span style="color:var(--rule-2)">(on the ${ask.length.toLocaleString()} with a known ask)</span>` : ""}
+     <select class="sortsel" id="sort">${Object.entries(SORTS).map(([k, [lab]]) =>
+        `<option value="${k}" ${k === sortBy ? "selected" : ""}>${lab}</option>`).join("")}</select>`;
+  $("sort").addEventListener("change", e => { sortBy = e.target.value; render(); });
+
+  if (!rows.length) {
+    $("list").innerHTML = `<div class="empty">Nothing matches. Try a shorter search —
+      <i>Maple</i> rather than <i>12 Maple Ave</i> — or widen the price range.</div>`;
+    $("more").innerHTML = "";
+    return;
+  }
+
+  $("list").innerHTML = rows.slice(0, shown).map(r => {
+    const facts = [
+      r[COL.bd] != null ? `${r[COL.bd]}bd` : null,
+      r[COL.ba] != null ? `${r[COL.ba]}ba` : null,
+      r[COL.sqft] ? r[COL.sqft].toLocaleString() + " sqft" : null,
+      r[COL.lot] ? (r[COL.lot] / 43560 >= 0.5 ? (r[COL.lot] / 43560).toFixed(2) + " ac"
+                                      : r[COL.lot].toLocaleString() + " lot") : null,
+      r[COL.yr] || null, r[COL.ty] || null,
+    ].filter(Boolean).join(" · ");
+    const vs = r[COL.vsAsk] == null
+      ? `<span class="n">no asking price</span>`
+      : `<span class="${r[COL.vsAsk] > 0 ? "o" : r[COL.vsAsk] < 0 ? "u" : ""}">${
+          r[COL.vsAsk] > 0 ? "+" : ""}${r[COL.vsAsk].toFixed(1)}% vs ask</span>${
+          r[COL.listPrice] ? `<br><span style="color:var(--rule-2)">asked ${usdF(r[COL.listPrice])}</span>` : ""}`;
+    return `<div class="row">
+      <div class="addr">${esc2(r[COL.addr])}<div class="t">${esc2(r[COL.town])}${
+        D.towns[r[COL.town]]?.dist != null ? " · " + D.towns[r[COL.town]].dist + "mi from Westfield" : ""}</div></div>
+      <div class="facts">${facts || "&nbsp;"}</div>
+      <div class="price">${usdF(r[COL.price])}</div>
+      <div><div class="ask">${vs}</div><div class="when">${r[COL.date]}</div></div>
+    </div>`;
+  }).join("");
+
+  $("more").innerHTML = rows.length > shown
+    ? `<button id="more-btn">show ${Math.min(PAGE, rows.length - shown).toLocaleString()} more
+        (${(rows.length - shown).toLocaleString()} left)</button>` : "";
+  if ($("more-btn")) $("more-btn").addEventListener("click", () => { shown += PAGE; render(); });
+}
+
+/* ── state: own key, own hash. Nothing shared with the other pages. ───────────── */
+const FIELDS = ["q", "min", "max", "bdmin", "bdmax", "bamin", "bamax", "from", "to"];
+const KEY = "offer-sold";
+function save() {
+  const st = {towns: [...picked], days, ty, sort: sortBy};
+  FIELDS.forEach(f => { if ($(f).value) st[f] = $(f).value; });
+  try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+}
+function restore() {
+  let blob = null;
+  try { blob = localStorage.getItem(KEY); } catch (e) {}
+  if (!blob) return;
+  let st; try { st = JSON.parse(blob); } catch (e) { return; }
+  FIELDS.forEach(f => { if (st[f] != null) $(f).value = st[f]; });
+  if (st.towns) picked = new Set(st.towns.filter(t => D.towns[t]));
+  days = st.days || 0; ty = st.ty || "";
+  if (st.sort && SORTS[st.sort]) sortBy = st.sort;
+  document.querySelectorAll(".seg button[data-days]").forEach(x =>
+    x.classList.toggle("on", +x.dataset.days === days));
+  document.querySelectorAll(".seg button[data-ty]").forEach(x =>
+    x.classList.toggle("on", (x.dataset.ty || "") === ty));
+}
+
+[...FIELDS].forEach(id =>
+  $(id).addEventListener("input", () => { shown = PAGE; save(); render(); }));
+document.querySelectorAll(".seg button[data-days]").forEach(b =>
+  b.addEventListener("click", () => {
+    days = +b.dataset.days; shown = PAGE;
+    $("from").value = ""; $("to").value = "";      // a preset replaces an explicit range
+    document.querySelectorAll(".seg button[data-days]").forEach(x => x.classList.toggle("on", x === b));
+    save(); render();
+  }));
+document.querySelectorAll(".seg button[data-ty]").forEach(b =>
+  b.addEventListener("click", () => {
+    ty = b.dataset.ty || ""; shown = PAGE;
+    document.querySelectorAll(".seg button[data-ty]").forEach(x => x.classList.toggle("on", x === b));
+    save(); render();
+  }));
+$("towns-btn").addEventListener("click", e => { e.stopPropagation(); $("towns-menu").classList.toggle("on"); });
+$("towns-menu").addEventListener("click", e => {
+  e.stopPropagation();
+  if (e.target.dataset.none) picked = new Set();
+  else if (e.target.type === "checkbox") {
+    e.target.checked ? picked.add(e.target.value) : picked.delete(e.target.value);
+  } else return;
+  shown = PAGE; save(); drawTowns(); render();
+});
+document.addEventListener("click", () => $("towns-menu").classList.remove("on"));
+$("reset").addEventListener("click", () => {
+  FIELDS.forEach(f => $(f).value = "");
+  picked = new Set(); days = 0; ty = ""; sortBy = "newest"; shown = PAGE;
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  document.querySelectorAll(".seg button[data-days]").forEach(x => x.classList.toggle("on", x.dataset.days === "0"));
+  document.querySelectorAll(".seg button[data-ty]").forEach(x => x.classList.toggle("on", x.dataset.ty === ""));
+  drawTowns(); render();
+});
+window.addEventListener("pageshow", e => { if (e.persisted) render(); });
+
+$("fine").innerHTML = `
+  <p><b>This is what houses actually sold for</b> — closed sales from county deed records
+     and MLS closings, ${S.window[0]} → ${S.window[1]}. Public record. Unlike the market
+     page, none of it rots.</p>
+  <p><b>Only ${Math.round(100 * S.rows.filter(r => r[COL.vsAsk] != null).length / S.rows.length)}%
+     have an asking price</b>, so the vs-ask column is blank for the rest — a deed record
+     carries the sold price and nothing else. Any median here is taken over the ones that
+     have it, and says so.</p>
+  <p><b>Sq ft is on ~37% of rows and a blank is not a zero.</b> Same for beds, baths and
+     lot: unknown means unknown, and a row is never filtered out for a number it doesn't
+     publish.</p>
+  <p><b>Deeds lag about a year</b>, so 2025–26 is MLS-sourced only and not yet corroborated
+     by a deed. The newest months are also still filling in — a thin recent month is the
+     data catching up, not a quiet market.</p>
+  <p><b>No AC or pool filter, deliberately.</b> AC is on 6% of sold rows and pool isn't a
+     field at all — both only ever lived in the listing description, which the sold
+     dataset never stored. A filter that silently hides 94% of the market is worse than
+     no filter.</p>
+  <p><b>Searching a town matches the town field, never the address text.</b> <i>10 Cranford
+     Rd</i> is a house in Glen Rock, and there are <i>Westfield Ave</i> addresses in Clark.</p>`;
+
+restore();
+drawTowns();
+render();
+</script>
+</body>
+</html>

@@ -11,6 +11,9 @@ raw/
 # just work. The Pages workflow re-bakes it anyway, so a stale commit can't publish
 # numbers that disagree with the CSVs behind them.
 offer/listings.js
+# same reasoning: 3.9 MB, regenerated offline from the committed share/sales.csv in a
+# second, and it changes whenever the sold data does. CI rebuilds it before deploying.
+offer/sold.js
 
 # python
 __pycache__/

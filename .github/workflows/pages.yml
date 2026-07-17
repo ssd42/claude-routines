@@ -8,6 +8,8 @@ name: pages
 #                                        sold data. Does not rot.
 #   market.html + listings.js          — the live-market browser, ~1.4 MB. Published
 #                                        deliberately (owner's call, 2026-07-17).
+#   sold.html + sold.js                — every closed sale, ~3.9 MB raw / ~1.0 MB gzipped.
+#                                        Public record; unlike the market it cannot rot.
 #
 # TWO THINGS TO KEEP IN VIEW NOW THAT THE MARKET BROWSER IS PUBLIC
 # ---------------------------------------------------------------
@@ -76,6 +78,8 @@ jobs:
           cp market-history/offer/engine.js    _site/
           cp market-history/offer/data.js      _site/
           cp market-history/offer/listings.js  _site/
+          cp market-history/offer/sold.html    _site/
+          cp market-history/offer/sold.js      _site/
           # The market browser is only honest if it says how old it is — a stale
           # snapshot on a public URL is worse than no snapshot. Fail rather than
           # publish a page that lost its staleness stamp.
