@@ -144,7 +144,7 @@
 
 <div class="stamp" id="stamp"></div>
 
-<div class="filters">
+<form class="filters" autocomplete="off" onsubmit="return false">
   <div class="pair">
     <div><label for="min">Min price <span class="opt">optional</span></label>
       <input id="min" inputmode="numeric" placeholder="500,000"></div>
@@ -160,7 +160,7 @@
     <div><label for="beds">Beds min</label><input id="beds" inputmode="numeric" placeholder="3"></div>
     <div><label for="baths">Baths min</label><input id="baths" inputmode="decimal" placeholder="2"></div>
   </div>
-</div>
+</form>
 
 <div class="seg">
   <span class="seg-lab">Show</span>
@@ -337,7 +337,7 @@ function render() {
         with a measured size are asking below what comparable homes sold for` : ""}
      <select class="sortsel" id="sort">${Object.entries(SORTS).map(([k, [lab]]) =>
         `<option value="${k}" ${k === sortBy ? "selected" : ""}>${lab}</option>`).join("")}</select>`;
-  $("sort").addEventListener("change", e => { sortBy = e.target.value; render(); });
+  $("sort").addEventListener("change", e => { sortBy = e.target.value; save(); render(); });
 
   if (!rows.length) {
     $("list").innerHTML = `<div class="empty">Nothing matches. ${
@@ -395,17 +395,63 @@ function render() {
   if ($("more-btn")) $("more-btn").addEventListener("click", () => { shown += PAGE; render(); });
 }
 
-["min", "max", "beds", "baths"].forEach(id =>
-  $(id).addEventListener("input", () => { shown = PAGE; render(); }));
+/* ── own the filter state ──────────────────────────────────────────────────────
+   Chrome restores input VALUES on reload/back — but it does so AFTER our script has
+   run, and a restore fires no `input` event. So the boxes came back filled while the
+   list stayed unfiltered: the page looked filtered and wasn't. Rather than fight the
+   browser we take the job off it (autocomplete="off") and persist the filters
+   ourselves, restoring them BEFORE the first render. The hash also makes any view a
+   shareable link — the same trick index.html uses to hand a house to the analyser. */
+const FIELDS = ["min", "max", "beds", "baths"];
+const KEY = "offer-market";
+function save() {
+  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked]};
+  FIELDS.forEach(f => { if ($(f).value) st[f] = $(f).value; });
+  const blob = JSON.stringify(st);
+  try { localStorage.setItem(KEY, blob); } catch (e) {}
+  // only put it in the URL when it says something — a bare #{} on every page is noise
+  const bare = !st.min && !st.max && !st.beds && !st.baths && !st.towns.length &&
+               st.mode === "avail" && st.type === "home" && st.sort === "value";
+  try {
+    history.replaceState(null, "", bare ? location.pathname
+      : location.pathname + "#" + encodeURIComponent(blob));
+  } catch (e) {}
+}
+function restore() {
+  let blob = null;
+  if (location.hash.length > 1) {
+    try { blob = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+  }
+  if (!blob) { try { blob = localStorage.getItem(KEY); } catch (e) {} }
+  if (!blob) return;
+  let st; try { st = JSON.parse(blob); } catch (e) { return; }
+  FIELDS.forEach(f => { if (st[f] != null) $(f).value = st[f]; });
+  if (st.towns) picked = new Set(st.towns.filter(t => D.towns[t]));
+  if (st.mode) statusMode = st.mode;
+  if (st.type) typeMode = st.type;
+  if (st.sort && SORTS[st.sort]) sortBy = st.sort;
+  document.querySelectorAll(".seg button[data-st]").forEach(x =>
+    x.classList.toggle("on", x.dataset.st === statusMode));
+  document.querySelectorAll(".seg button[data-ty]").forEach(x =>
+    x.classList.toggle("on", x.dataset.ty === typeMode));
+  M.listings.forEach(l => delete l._v);        // type may have changed the comp family
+}
+
+FIELDS.forEach(id =>
+  $(id).addEventListener("input", () => { shown = PAGE; save(); render(); }));
+
+/* bfcache: pressing Back restores the page frozen, with no script re-run. Re-render
+   so the list can never be out of step with the controls above it. */
+window.addEventListener("pageshow", e => { if (e.persisted) render(); });
 document.querySelectorAll(".seg button[data-st]").forEach(b =>
   b.addEventListener("click", () => {
-    statusMode = b.dataset.st; shown = PAGE;
+    statusMode = b.dataset.st; shown = PAGE; save();
     document.querySelectorAll(".seg button[data-st]").forEach(x => x.classList.toggle("on", x === b));
     render();
   }));
 document.querySelectorAll(".seg button[data-ty]").forEach(b =>
   b.addEventListener("click", () => {
-    typeMode = b.dataset.ty; shown = PAGE;
+    typeMode = b.dataset.ty; shown = PAGE; save();
     document.querySelectorAll(".seg button[data-ty]").forEach(x => x.classList.toggle("on", x === b));
     M.listings.forEach(l => delete l._v);
     render();
@@ -420,12 +466,15 @@ $("towns-menu").addEventListener("click", e => {
   else if (e.target.type === "checkbox") {
     e.target.checked ? picked.add(e.target.value) : picked.delete(e.target.value);
   } else return;
-  shown = PAGE; drawTowns(); render();
+  shown = PAGE; save(); drawTowns(); render();
 });
 document.addEventListener("click", () => $("towns-menu").classList.remove("on"));
 $("reset").addEventListener("click", () => {
   ["min", "max", "beds", "baths"].forEach(id => $(id).value = "");
   picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  history.replaceState(null, "", location.pathname);
+  M.listings.forEach(l => delete l._v);
   document.querySelectorAll(".seg button[data-st]").forEach(x =>
     x.classList.toggle("on", x.dataset.st === "avail"));
   document.querySelectorAll(".seg button[data-ty]").forEach(x =>
@@ -457,6 +506,7 @@ $("fine").innerHTML = `
      Amenity distances and commutes are colour, never filters — they don't rank or remove a
      house here, same as everywhere else in this tool.</p>`;
 
+if (M && M.listings) restore();
 drawTowns();
 render();
 </script>
