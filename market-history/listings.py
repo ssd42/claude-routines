@@ -94,10 +94,38 @@ COLS = [
     "first_seen", "last_seen",   # what WE observed. This is the part we can vouch for.
     "first_list_price", "last_list_price",
     "observations",          # how many runs saw it. 1 = we've only ever seen it once.
-    "status",                # active | gone
+    "status",                # active | gone   — OUR spell state, not the MLS's
     "gone_on",               # first run that did NOT see it. Blank while active.
     "price_changed",         # yes if last_list_price != first_list_price during the spell
+    # ---- the house itself. Added 2026-07-16 so offer/market.html can browse the
+    # market and hand a house to the analyser. STABLE per spell (a house does not
+    # grow a bedroom mid-listing), so they are written once, when the spell opens.
+    "beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
+    "lat", "lon",            # listings carry these on ~100% of rows; sales.csv has NONE
+    "url", "photo",
+    # ---- VOLATILE: re-read every run, because they move while the spell is open.
+    "mls_status",            # FOR_SALE | PENDING | CONTINGENT — the MLS's own state.
+                             # NOT the same as `status` above: a PENDING house is still
+                             # ON the market (the feed returns it), so its spell stays
+                             # `active` until it disappears. ~23% of the feed is already
+                             # spoken for, and a browse view MUST filter on this or it
+                             # will send you to a house that has an accepted offer.
+    "days_on_mls",           # what the feed claims. A relist resets it — that is the
+                             # whole reason this file exists. Trust first_seen instead.
 ]
+
+# Realtor.com's for_sale feed includes homes that already have an accepted offer.
+AVAILABLE = {"FOR_SALE"}
+
+# Same normalisation aggregate.py uses, so property_type matches sales.csv and the
+# comp engine compares like with like.
+STYLE = {
+    "SINGLE_FAMILY": "Single Family", "MULTI_FAMILY": "Multi-Family",
+    "CONDOS": "Condo", "CONDO": "Condo", "CONDO_TOWNHOME": "Condo",
+    "CONDO_TOWNHOME_ROWHOME_COOP": "Condo", "TOWNHOMES": "Townhouse",
+    "TOWNHOUSE": "Townhouse", "DUPLEX_TRIPLEX": "Multi-Family",
+    "APARTMENT": "Condo", "LAND": "Land", "MOBILE": "Mobile", "FARM": "Farm",
+}
 
 
 def load_existing():
@@ -142,11 +170,27 @@ def scrape(zips, dry):
             # one property, one entry per run — a duplicate row in the feed is not a relist
             if key in seen:
                 continue
+            full, half = g("full_baths") or 0, g("half_baths") or 0
             seen[key] = {
                 "property_key": key, "address": addr, "zip": zc,
                 "mls_id": str(g("mls_id")) if g("mls_id") else "",
                 "list_date": str(g("list_date"))[:10] if g("list_date") else "",
                 "list_price": int(g("list_price")) if g("list_price") else "",
+                # the house — for offer/market.html. sqft is ~47% filled and lot ~89%;
+                # the analyser takes either, so a sqft-less listing is still usable and
+                # must not be dropped here.
+                "beds": int(g("beds")) if g("beds") else "",
+                "baths": (full + 0.5 * half) or "",
+                "sqft": int(g("sqft")) if g("sqft") else "",
+                "lot_sqft": int(g("lot_sqft")) if g("lot_sqft") else "",
+                "year_built": int(g("year_built")) if g("year_built") else "",
+                "property_type": STYLE.get(str(g("style") or "").upper().strip(), ""),
+                "lat": round(float(g("latitude")), 6) if g("latitude") else "",
+                "lon": round(float(g("longitude")), 6) if g("longitude") else "",
+                "url": g("property_url") or "",
+                "photo": g("primary_photo") or "",
+                "mls_status": str(g("status") or "").upper(),
+                "days_on_mls": int(g("days_on_mls")) if g("days_on_mls") is not None else "",
             }
             n += 1
         sys.stderr.write(f"[listings] {z}: {n} active listings\n")
@@ -180,6 +224,10 @@ def main():
 
     new_spells, relists, continued, ended = 0, 0, 0, 0
 
+    STABLE = ("beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
+              "lat", "lon", "url", "photo")
+    VOLATILE = ("mls_status", "days_on_mls")
+
     for key, obs in live.items():
         cur = active.get(key)
         if cur:                                        # still on the market
@@ -189,6 +237,17 @@ def main():
                 if str(obs["list_price"]) != cur["last_list_price"]:
                     cur["price_changed"] = "yes"
                 cur["last_list_price"] = str(obs["list_price"])
+            # mls_status moves while the spell is open (FOR_SALE -> PENDING), so it is
+            # re-read every run. The spell itself stays `active`: a pending house has
+            # not left the market, it just isn't available to you.
+            for f in VOLATILE:
+                cur[f] = str(obs[f])
+            # backfill the house fields onto spells opened before 2026-07-16, when this
+            # file only recorded prices. Only ever fills a blank — never overwrites an
+            # observation we already made.
+            for f in STABLE:
+                if not cur.get(f):
+                    cur[f] = str(obs[f])
             continued += 1
             continue
         # not currently open -> either brand new to us, or BACK after being gone
@@ -198,14 +257,17 @@ def main():
         else:
             new_spells += 1
         spells[key] = n
-        rows.append({
+        row = {
             "property_key": key, "address": obs["address"], "zip": obs["zip"],
             "town": zip_town.get(obs["zip"], ""), "spell": str(n),
             "mls_id": obs["mls_id"], "list_date": obs["list_date"],
             "first_seen": run, "last_seen": run,
             "first_list_price": str(obs["list_price"]), "last_list_price": str(obs["list_price"]),
             "observations": "1", "status": "active", "gone_on": "", "price_changed": "",
-        })
+        }
+        for f in STABLE + VOLATILE:
+            row[f] = str(obs[f])
+        rows.append(row)
 
     # anything that WAS active and is not in this run's scrape has left the market.
     # It either sold or was withdrawn — link_sales.py decides which, by checking sales.csv.
@@ -215,12 +277,19 @@ def main():
             cur["gone_on"] = run
             ended += 1
 
+    avail = sum(1 for o in live.values() if o["mls_status"] in AVAILABLE)
     print()
     print("run %s — %d active listings scraped across %d zips" % (run, len(live), len(zips)))
     print("  %5d listings continued from a previous run" % continued)
     print("  %5d new to us (first spell)" % new_spells)
     print("  %5d RELISTED (a property we had seen leave, now back)" % relists)
     print("  %5d left the market since the last run (sold or withdrawn)" % ended)
+    print()
+    print("  %5d actually AVAILABLE (mls_status FOR_SALE)" % avail)
+    print("  %5d already pending/contingent — still listed, not buyable" % (len(live) - avail))
+    have = lambda f: sum(1 for o in live.values() if o[f] != "")
+    print("  house detail: sqft on %d%%, lot on %d%% — the analyser takes either"
+          % (100 * have("sqft") / max(len(live), 1), 100 * have("lot_sqft") / max(len(live), 1)))
 
     if first_ever:
         print()

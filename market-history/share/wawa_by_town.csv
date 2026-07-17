@@ -1,0 +1,54 @@
+town,dist_mi_from_westfield,nearest_wawa_mi,nearest_wawa_store,nearest_wawa_store_town,beyond_supplied_radius
+Westfield,0,3.1,Wawa - Cranford,Cranford,
+Cranford,2,1.0,Wawa - Cranford,Cranford,
+Garwood,2,2.1,Wawa - Cranford,Cranford,
+Fanwood,3,1.0,Wawa - Plainfield,Plainfield,
+Scotch Plains,3,1.4,Wawa - Plainfield,Plainfield,
+Clark,4,2.0,Wawa - Rahway,Rahway,
+Springfield,5,1.4,Wawa - Springfield,Springfield,
+Watchung,5,1.4,Wawa - North Plainfield,North Plainfield,
+Colonia,6,1.2,Wawa - Rahway,Rahway,
+Summit,6,2.1,Wawa - Springfield,Springfield,
+Berkeley Heights,7,3.5,Wawa - Plainfield,Plainfield,
+New Providence,7,4.3,Wawa - Springfield,Springfield,
+Short Hills,8,1.7,Wawa - Springfield,Springfield,
+South Plainfield,8,2.1,Wawa - Piscataway (New Durham Road),Piscataway,
+Warren,8,4.0,Wawa - North Plainfield,North Plainfield,
+Edison,9,0.5,Wawa - Edison (Route 1 North),Edison,
+Green Brook,9,2.5,Wawa - North Plainfield,North Plainfield,
+Metuchen,9,1.3,Wawa - Edison (US Route 1),Edison,
+Woodbridge,10,1.3,Wawa - Woodbridge,Woodbridge,
+Maplewood,11,1.2,Wawa - Maplewood,Maplewood,
+South Orange,11,1.8,Wawa - Maplewood,Maplewood,
+Livingston,12,3.7,Wawa - East Hanover,East Hanover,
+Bridgewater,13,3.3,Wawa - Bridgewater,Bridgewater,
+Long Hill,13,4.5,Wawa - North Plainfield,North Plainfield,
+West Orange,13,2.5,Wawa - Orange,Orange,
+Basking Ridge,14,7.0,Wawa - North Plainfield,North Plainfield,yes
+Glen Ridge,14,2.3,Wawa - Belleville,Belleville,
+Verona,14,4.2,Wawa - Fairfield,Fairfield,
+Essex Fells,15,4.1,Wawa - Pine Brook,Pine Brook,
+Florham Park,15,2.4,Wawa - East Hanover,East Hanover,
+Montclair,15,3.1,Wawa - Orange,Orange,
+Roseland,15,2.9,Wawa - Parsippany,Parsippany,
+Caldwell,16,2.6,Wawa - Fairfield,Fairfield,
+Cedar Grove,16,3.2,Wawa - Fairfield,Fairfield,
+North Caldwell,16,2.6,Wawa - Fairfield,Fairfield,
+Bedminster,17,8.5,Wawa - Bridgewater,Bridgewater,yes
+Chatham,17,4.7,Wawa - Springfield,Springfield,
+Madison,17,3.9,Wawa - East Hanover,East Hanover,
+Nutley,17,3.1,Wawa - Belleville,Belleville,
+Branchburg,18,5.6,Wawa - Hillsborough,Hillsborough,yes
+Morristown,19,6.3,Wawa - East Hanover,East Hanover,yes
+Cedar Knolls,20,3.5,Wawa - East Hanover,East Hanover,
+Morris Plains,21,2.9,Wawa - Mountain Lakes,Mountain Lakes,
+Denville,22,1.2,Wawa - Mountain Lakes,Mountain Lakes,
+Glen Rock,22,9.2,Wawa - Fairfield,Fairfield,yes
+Mendham,22,6.5,Wawa - Randolph,Randolph,yes
+Boonton,23,4.2,Wawa - Mountain Lakes,Mountain Lakes,
+Montville,23,3.5,Wawa - Pine Brook,Pine Brook,
+Franklin Lakes,24,9.0,Wawa - Fairfield,Fairfield,yes
+Randolph,25,2.2,Wawa - Randolph,Randolph,
+Towaco,25,4.5,Wawa - Fairfield,Fairfield,
+Chester,26,9.0,Wawa - Randolph,Randolph,yes
+Long Valley,29,13.1,Wawa - Randolph,Randolph,yes

@@ -1,0 +1,94 @@
+name: pages
+
+# Publish the Offer Advisor (the single-house analyser) to GitHub Pages.
+#
+# WHAT SHIPS, AND WHAT DELIBERATELY DOES NOT
+# ------------------------------------------
+# Ships:     market-history/offer/index.html + engine.js + data.js  (~0.6 MB)
+#            Built entirely from PUBLIC-RECORD sold data — county deeds and closed
+#            sales. It does not rot: a 2024 sale is still a 2024 sale next year.
+#
+# Does NOT ship: market.html + listings.js — the live-listings browser. Three reasons,
+#            and any one of them is enough:
+#   1. It republishes ~3,500 Realtor.com listings and HOTLINKS their photos from
+#      rdcpix.com — their bandwidth, our page. Scraping for personal use is one thing;
+#      standing up a public mirror of their inventory is the thing their terms care
+#      about. They 403 datacenter IPs specifically to stop it.
+#   2. It rots ~2%/day. A URL implies "live" in a way a local file never does, and a
+#      stranger landing on 3-month-old listings has been actively misled.
+#   3. It could not stay fresh anyway — see below.
+#
+# WHY THIS ONLY REBUILDS data.js, NEVER THE LISTINGS
+# --------------------------------------------------
+# `listing_scrape` 403s datacenter IPs, so NO GitHub runner can ever fetch listings —
+# only a residential connection can (see market-history/CLAUDE.md). Sold data is a
+# committed CSV, so rebaking data.js here is safe and offline. If you want fresh
+# listings, that is `python3 listings.py` on your own machine, by design.
+#
+# The build re-bakes data.js from the committed CSVs rather than trusting the one in
+# the repo, so a stale commit can never publish numbers that disagree with the data
+# behind them.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'market-history/offer/**'
+      - 'market-history/share/**'
+      - 'market-history/analysis/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a half-finished deploy; queue instead.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-bake data.js from the committed CSVs
+        working-directory: market-history
+        # stdlib only — no pip install, nothing to pin.
+        run: python3 offer/build_data.py
+
+      - name: Assemble the site — analyser only
+        run: |
+          mkdir -p _site
+          cp market-history/offer/index.html  _site/
+          cp market-history/offer/engine.js   _site/
+          cp market-history/offer/data.js     _site/
+          # A guard, not a formality: if listings.js ever reaches _site, the live
+          # market browser has been published by accident. Fail loudly.
+          if [ -f _site/listings.js ] || [ -f _site/market.html ]; then
+            echo "::error::The live-listings browser must not be published. See the header of this workflow."
+            exit 1
+          fi
+          echo "published:"; ls -la _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

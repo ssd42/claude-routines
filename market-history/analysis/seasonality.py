@@ -35,6 +35,8 @@ ZIPS = os.path.join(HERE, os.pardir, "zips.json")
 OUTLIER_PCT = 50.0   # beyond this the list price was a placeholder, not an ask
 THIN = 10            # below this a bucket is too thin to read as signal
 MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+SEASON = {12: "Winter", 1: "Winter", 2: "Winter", 3: "Spring", 4: "Spring", 5: "Spring",
+          6: "Summer", 7: "Summer", 8: "Summer", 9: "Fall", 10: "Fall", 11: "Fall"}
 
 ASK_COLS = [
     "sales_all", "n", "median_list_price", "median_sold_price",
@@ -98,9 +100,15 @@ def load(keep_defects):
         pct, lp, sp = num(r["sold_vs_ask_pct"]), num(r["list_price"]), num(r["sold_price"])
         askable = (pct is not None and abs(pct) <= OUTLIER_PCT
                    and lp is not None and sp is not None)
+        # The price is agreed when the OFFER IS ACCEPTED, not when the deal closes.
+        # `pending_date` is that event, recovered by the 2026-07-13 re-scrape (79% of
+        # askable rows). Bucketing by sold_date smears the seasonal signal across the
+        # ~41-day escrow -- see the contract-month rollups in main().
+        pd_ = day(r.get("pending_date"))
         sales.append({
             "town": r["town"], "county": county.get(r["town"], ""),
             "month": sd.month, "year": sd.year, "sold_date": sd, "list_date": ld,
+            "pending_date": pd_, "contract_month": pd_.month if pd_ else None,
             "askable": askable, "pct": pct if askable else None,
             "abs": num(r["sold_vs_ask_abs"]), "sold": sp, "list": lp,
             "dom": num(r["days_on_market"]),
@@ -216,6 +224,78 @@ def main():
           ["county", "town", "month", "month_num"], ASK_COLS,
           [((c, t, MONTHS[m - 1], m), ask_row(v, totals[(t, m)]))
            for (c, t, m), v in sorted(by_tm.items())])
+
+    # 3b. THE CONTRACT-MONTH CURVE — the same question, asked correctly.
+    #
+    # Everything above buckets a sale by the month it CLOSED. But the price is struck
+    # when the offer is accepted, and escrow runs a median 41 days after that, so a
+    # closing-month bucket blurs the seasonal signal across six weeks. Bucketing on
+    # `pending_date` instead sharpens the peak-to-trough swing from 4.88pp to 6.00pp
+    # and moves the cheapest month from January to DECEMBER.
+    #
+    # It is also the only actionable version: you choose when you make an offer. You
+    # do not choose when the deal closes.
+    #
+    # Written TWICE -- over the full window, and over the last two years only. A
+    # consumer that lets the user say "recent sales only" needs a seasonal curve on the
+    # same footing, or panel A and panel B are quietly answering about different eras.
+    # The recent cut is thinner by construction; its `thin` flags earn their keep.
+    #
+    # Denominator note: `n` here counts only sales carrying BOTH a usable ask and a
+    # pending_date (79% of askable rows) -- a different, smaller base than `n` above.
+    newest = max(s["year"] for s in sales)
+    WINDOWS = [("", None), ("_recent", {newest - 1, newest})]
+
+    for suffix, keep_years in WINDOWS:
+        contract = [s for s in sales if s["contract_month"]
+                    and (keep_years is None or s["year"] in keep_years)]
+        c_totals = defaultdict(int)
+        for s in contract:
+            c_totals[(s["town"], s["contract_month"])] += 1
+
+        def cbucket(fn, rows=contract):
+            out = defaultdict(list)
+            for s in rows:
+                out[fn(s)].append(s)
+            return out
+
+        c_by_month = cbucket(lambda s: s["contract_month"])
+        c_all = defaultdict(int)
+        for (town, m), c in c_totals.items():
+            c_all[m] += c
+        write(os.path.join(outdir, "contract_month_all_towns%s.csv" % suffix),
+              ["month", "month_num"], ASK_COLS,
+              [((MONTHS[m - 1], m), ask_row(c_by_month[m], c_all[m])) for m in range(1, 13)])
+
+        c_by_tm = cbucket(lambda s: (s["county"], s["town"], s["contract_month"]))
+        write(os.path.join(outdir, "by_town_contract_month%s.csv" % suffix),
+              ["county", "town", "month", "month_num"], ASK_COLS,
+              [((c, t, MONTHS[m - 1], m), ask_row(v, c_totals[(t, m)]))
+               for (c, t, m), v in sorted(c_by_tm.items())])
+
+        # contract-SEASON, so a consumer's thin-month fallback stays in one grain.
+        # (share/by_town_season.csv exists but buckets on the CLOSING date; falling back
+        # from a contract month into a closing season would quietly change the question.)
+        c_by_ts = cbucket(lambda s: (s["town"], SEASON[s["contract_month"]]))
+        s_totals = defaultdict(int)
+        for s in contract:
+            s_totals[(s["town"], SEASON[s["contract_month"]])] += 1
+        write(os.path.join(outdir, "by_town_contract_season%s.csv" % suffix),
+              ["town", "season"], ASK_COLS,
+              [((t, se), ask_row(v, s_totals[(t, se)])) for (t, se), v in sorted(c_by_ts.items())])
+
+        # contract-grain, all year — the last rung of that same ladder.
+        c_by_t = cbucket(lambda s: s["town"])
+        write(os.path.join(outdir, "by_town_contract_all%s.csv" % suffix), ["town"], ASK_COLS,
+              [((t,), ask_row(v, len(v))) for t, v in sorted(c_by_t.items())])
+
+        # the LEVEL anchor for this window: every askable sale, contract-date or not.
+        # (The contract subset is biased hot -- +4.76% vs +2.45% over ask -- so the
+        # magnitude must come from the full sample and only the SHAPE from the subset.)
+        lvl_rows = [s for s in sales if keep_years is None or s["year"] in keep_years]
+        lvl = cbucket(lambda s: s["town"], lvl_rows)
+        write(os.path.join(outdir, "by_town_level%s.csv" % suffix), ["town"], ASK_COLS,
+              [((t,), ask_row(v, len(v))) for t, v in sorted(lvl.items())])
 
     # 4. per-county seasonal curve
     by_cm = bucket(lambda s: (s["county"], s["month"]))

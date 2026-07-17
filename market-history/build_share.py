@@ -33,6 +33,8 @@ ZIPS = HERE / "zips.json"
 # See layers/README.md before adding one.
 TRANSIT = HERE / "layers" / "transit" / "transit.json"
 SEABRA = HERE / "layers" / "seabra" / "seabra.json"
+TRADER_JOES = HERE / "layers" / "trader_joes" / "trader_joes.json"
+WAWA = HERE / "layers" / "wawa" / "wawa.json"
 EDUCATION = HERE / "layers" / "education" / "education_rates.csv"
 INCOME = HERE / "layers" / "income" / "income.csv"
 CENTROIDS = HERE / "layers" / "geo" / "zip_centroids.json"
@@ -92,8 +94,8 @@ def haversine_mi(a, b):
     return 2 * 3958.7613 * math.asin(math.sqrt(h))
 
 
-def nearest_seabra(town_zips, stores, centroids):
-    """Closest Seabra to a town, measured from each of its zip centroids.
+def nearest_store(town_zips, stores, centroids):
+    """Closest store to a town, measured from each of its zip centroids.
 
     A town is a polygon, not a point, so we take the *minimum* over its zips —
     for multi-zip towns (Edison, Long Hill) that's the corner of town nearest a
@@ -112,6 +114,20 @@ def nearest_seabra(town_zips, stores, centroids):
     return round(best[0], 1), best[1]["name"], best[1]["town"]
 
 
+nearest_seabra = nearest_store   # kept: the original name, one layer among several now
+
+
+def load_stores(path, open_only=False):
+    """Geocoded stores from an amenity layer. `open_only` drops anything not yet
+    trading — a store that has not opened cannot be the nearest store to a house you
+    buy today (see layers/trader_joes/trader_joes.json _status_rule)."""
+    locs = json.loads(path.read_text())["locations"]
+    out = [s for s in locs if s.get("lat")]
+    if open_only:
+        out = [s for s in out if s.get("status", "open") == "open"]
+    return out
+
+
 def main():
     rows = list(csv.DictReader(SALES.open()))
     print(f"read {len(rows):,} sales from {SALES.name}")
@@ -128,12 +144,26 @@ def main():
     # Straight-line from the town's zip centroid(s) to the geocoded stores. The
     # stores all sit outside the target towns, so this is a distance join, not an
     # equality join (see layers/seabra/seabra.json).
-    stores = [s for s in json.loads(SEABRA.read_text())["locations"] if s.get("lat")]
+    stores = load_stores(SEABRA)
     centroids = {z: (c["lat"], c["lon"])
                  for z, c in json.loads(CENTROIDS.read_text())["zips"].items()}
     seabra = {
-        t["name"]: nearest_seabra(t["zips"], stores, centroids) for t in zips["towns"]
+        t["name"]: nearest_store(t["zips"], stores, centroids) for t in zips["towns"]
     }
+
+    # nearest Trader Joe's — same contract as Seabra (nice-to-have, never a filter).
+    # open_only: the coming-soon West Orange store is excluded from every distance.
+    # Unlike Seabra, four stores sit INSIDE target towns (Westfield is the anchor), so
+    # a ~0-1mi reading is expected there, not a bug.
+    tj_stores = load_stores(TRADER_JOES, open_only=True)
+    tj = {t["name"]: nearest_store(t["zips"], tj_stores, centroids) for t in zips["towns"]}
+
+    # nearest Wawa — same contract again. NOTE the supplied list was pre-filtered to a
+    # ~5mi radius of the target set, so it is NOT all NJ Wawas: for the 9 towns that
+    # compute beyond 5mi the real nearest store may not be in the file at all. See
+    # layers/wawa/wawa.json _coverage_caveat before reading a big number as "none near".
+    wawa_stores = load_stores(WAWA, open_only=True)
+    wawa = {t["name"]: nearest_store(t["zips"], wawa_stores, centroids) for t in zips["towns"]}
     no_cent = [n for n, v in seabra.items() if v[0] is None]
     if no_cent:
         print(f"  ! no zip centroid, nearest_seabra blank for: {', '.join(sorted(no_cent))}")
@@ -289,6 +319,69 @@ def main():
                 "nearest_seabra_store_town": stown or "",
             })
     print(f"  wrote share/seabra_by_town.csv ({len(seabra)} towns)")
+
+    # 6b. trader_joes — the same standalone-amenity shape as seabra:
+    #      trader_joes.csv         — the 11 store points (the raw source)
+    #      trader_joes_by_town.csv — derived: nearest OPEN store to each town
+    tjcols = ["name", "brand", "store_number", "town", "county", "address", "status",
+              "lat", "lon", "geocode_precision"]
+    all_tj = json.loads(TRADER_JOES.read_text())["locations"]
+    with (SHARE / "trader_joes.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, tjcols, extrasaction="ignore")
+        w.writeheader()
+        for st_ in sorted(all_tj, key=lambda s: s["name"]):
+            w.writerow(st_)
+    print(f"  wrote share/trader_joes.csv ({len(all_tj)} stores, "
+          f"{len(tj_stores)} open and counted)")
+
+    with (SHARE / "trader_joes_by_town.csv").open("w", newline="") as f:
+        w = csv.DictWriter(
+            f, ["town", "dist_mi_from_westfield", "nearest_tj_mi",
+                "nearest_tj_store", "nearest_tj_store_town"]
+        )
+        w.writeheader()
+        for town in sorted(tj, key=lambda t: (dist.get(t, 999), t)):
+            mi, store, stown = tj[town]
+            w.writerow({
+                "town": town,
+                "dist_mi_from_westfield": dist.get(town, ""),
+                "nearest_tj_mi": "" if mi is None else mi,
+                "nearest_tj_store": store or "",
+                "nearest_tj_store_town": stown or "",
+            })
+    print(f"  wrote share/trader_joes_by_town.csv ({len(tj)} towns)")
+
+    # 6c. wawa — third amenity layer, identical shape.
+    wcols = ["name", "brand", "store_number", "town", "county", "zip", "address",
+             "status", "lat", "lon", "geocode_precision", "official_url"]
+    all_wawa = json.loads(WAWA.read_text())["locations"]
+    with (SHARE / "wawa.csv").open("w", newline="") as f:
+        w = csv.DictWriter(f, wcols, extrasaction="ignore")
+        w.writeheader()
+        for st_ in sorted(all_wawa, key=lambda s: s["name"]):
+            w.writerow(st_)
+    print(f"  wrote share/wawa.csv ({len(all_wawa)} stores)")
+
+    with (SHARE / "wawa_by_town.csv").open("w", newline="") as f:
+        w = csv.DictWriter(
+            f, ["town", "dist_mi_from_westfield", "nearest_wawa_mi",
+                "nearest_wawa_store", "nearest_wawa_store_town", "beyond_supplied_radius"]
+        )
+        w.writeheader()
+        for town in sorted(wawa, key=lambda t: (dist.get(t, 999), t)):
+            mi, store, stown = wawa[town]
+            w.writerow({
+                "town": town,
+                "dist_mi_from_westfield": dist.get(town, ""),
+                "nearest_wawa_mi": "" if mi is None else mi,
+                "nearest_wawa_store": store or "",
+                "nearest_wawa_store_town": stown or "",
+                # the supplied list stops at ~5mi, so past that we cannot claim this is
+                # really the closest Wawa — only the closest one we were given.
+                "beyond_supplied_radius": "yes" if (mi is not None and mi > 5.0) else "",
+            })
+    print(f"  wrote share/wawa_by_town.csv ({len(wawa)} towns, "
+          f"{sum(1 for v in wawa.values() if v[0] and v[0] > 5)} flagged beyond the supplied radius)")
 
     # 7. education + income — two more STANDALONE town-grain layers, same contract
     #    as transit and seabra: their own file, joined on `town`, never a column on a

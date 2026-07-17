@@ -1,0 +1,32 @@
+name,brand,store_number,town,county,zip,address,status,lat,lon,geocode_precision,official_url
+Wawa - Avenel,Wawa,8323,Avenel,MIDDLESEX,07001,"930 US Highway 1 N, Avenel, NJ 07001",open,40.580861,-74.284207,rooftop,https://www.wawa.com/locations/8323
+Wawa - Belleville,Wawa,8441,Belleville,ESSEX,07109,"11 Franklin Ave, Belleville, NJ 07109",open,40.77897,-74.1774,rooftop,https://www.wawa.com/locations/8441
+Wawa - Bridgewater,Wawa,8341,Bridgewater,SOMERSET,08807,"580 Union Ave, Bridgewater, NJ 08807",open,40.568195,-74.564348,rooftop,https://www.wawa.com/locations/8341
+Wawa - Cranford,Wawa,8379,Cranford,UNION,07016,"500 North Ave E, Cranford, NJ 07016",open,40.658805,-74.284331,rooftop,https://www.wawa.com/locations/8379
+Wawa - East Hanover,Wawa,8410,East Hanover,MORRIS,07936,"28 Route 10, East Hanover, NJ 07936",open,40.812437,-74.390394,rooftop,https://www.wawa.com/locations/8410
+Wawa - Edison (Route 1 North),Wawa,8406,Edison,MIDDLESEX,08817,"580 Route 1 N, Edison, NJ 08817",open,40.506855,-74.393419,rooftop,https://www.wawa.com/locations/8406
+Wawa - Edison (US Route 1),Wawa,8489,Edison,MIDDLESEX,08837,"1095 US Route 1, Edison, NJ 08837",open,40.523995,-74.360563,rooftop,https://www.wawa.com/locations/8489
+Wawa - Edison (Woodbridge Avenue),Wawa,8365,Edison,MIDDLESEX,08837,"2720 Woodbridge Ave, Edison, NJ 08837",open,40.515674,-74.357439,rooftop,https://www.wawa.com/locations/8365
+Wawa - Elizabeth,Wawa,8320,Elizabeth,UNION,07201,"595 Spring St, Elizabeth, NJ 07201",open,40.673393,-74.200022,rooftop,https://www.wawa.com/locations/8320
+Wawa - Fairfield,Wawa,8349,Fairfield,ESSEX,07004,"28 Little Falls Rd, Fairfield, NJ 07004",open,40.88822,-74.274969,rooftop,https://www.wawa.com/locations/8349
+Wawa - Hillsborough,Wawa,439,Hillsborough,SOMERSET,08844,"381 Triangle Rd, Hillsborough, NJ 08844",open,40.51808,-74.635031,rooftop,https://www.wawa.com/locations/0439
+Wawa - Linden (East Edgar Road),Wawa,8439,Linden,UNION,07036,"1951 E Edgar Rd, Linden, NJ 07036",open,40.643108,-74.228765,rooftop,https://www.wawa.com/locations/8439
+Wawa - Linden (West Edgar Road),Wawa,8497,Linden,UNION,07036,"800 W Edgar Rd, Linden, NJ 07036",open,40.619263,-74.250288,rooftop,https://www.wawa.com/locations/8497
+Wawa - Maplewood,Wawa,8350,Maplewood,ESSEX,07040,"1511 Springfield Ave, Maplewood, NJ 07040",open,40.722965,-74.252989,rooftop,https://www.wawa.com/locations/8350
+Wawa - Mountain Lakes,Wawa,8488,Mountain Lakes,MORRIS,07046,"370 Route 46 E, Mountain Lakes, NJ 07046",open,40.885071,-74.463818,osm_poi,https://www.wawa.com/locations/8488
+Wawa - Neshanic Station,Wawa,916,Neshanic Station,SOMERSET,08853,"800 Route 202, Neshanic Station, NJ 08853",open,40.532999,-74.777292,rooftop,https://www.wawa.com/locations/0916
+Wawa - North Brunswick,Wawa,8412,North Brunswick,MIDDLESEX,08902,"1910 Route 27, North Brunswick, NJ 08902",open,40.460771,-74.507935,rooftop,https://www.wawa.com/locations/8412
+Wawa - North Plainfield,Wawa,8397,North Plainfield,SOMERSET,07060,"855 US Highway 22, North Plainfield, NJ 07060",open,40.623678,-74.444062,rooftop,https://www.wawa.com/locations/8397
+Wawa - Orange,Wawa,8455,Orange,ESSEX,07050,"164 Main St, Orange, NJ 07050",open,40.769033,-74.223296,rooftop,https://www.wawa.com/locations/8455
+Wawa - Parsippany,Wawa,8302,Parsippany,MORRIS,07054,"350 New Rd, Parsippany, NJ 07054",open,40.849507,-74.350878,rooftop,https://www.wawa.com/locations/8302
+Wawa - Pine Brook,Wawa,8385,Pine Brook,MORRIS,07058,"16 Route 46, Pine Brook, NJ 07058",open,40.859186,-74.342814,osm_poi,https://www.wawa.com/locations/8385
+Wawa - Piscataway (Centennial Avenue),Wawa,8485,Piscataway,MIDDLESEX,08854,"88 Centennial Ave, Piscataway, NJ 08854",open,40.540929,-74.50027,rooftop,https://www.wawa.com/locations/8485
+Wawa - Piscataway (New Durham Road),Wawa,8386,Piscataway,MIDDLESEX,08854,"555 New Durham Rd, Piscataway, NJ 08854",open,40.544243,-74.411545,osm_nominatim,https://www.wawa.com/locations/8386
+Wawa - Plainfield,Wawa,8464,Plainfield,UNION,07062,"1470 South Ave, Plainfield, NJ 07062",open,40.631108,-74.399115,osm_nominatim,https://www.wawa.com/locations/8464
+Wawa - Rahway,Wawa,8389,Rahway,UNION,07065,"280 St Georges Ave, Rahway, NJ 07065",open,40.595857,-74.290449,osm_nominatim,https://www.wawa.com/locations/8389
+Wawa - Randolph,Wawa,8434,Randolph,MORRIS,07869,"358 Route 10, Randolph, NJ 07869",open,40.866605,-74.553467,rooftop,https://www.wawa.com/locations/8434
+Wawa - Roselle,Wawa,8392,Roselle,UNION,07203,"1187 St Georges Ave, Roselle, NJ 07203",open,40.647055,-74.249114,rooftop,https://www.wawa.com/locations/8392
+Wawa - Somerset,Wawa,8376,Somerset,SOMERSET,08873,"607 Somerset St, Somerset, NJ 08873",open,40.486397,-74.469841,rooftop,https://www.wawa.com/locations/8376
+Wawa - Springfield,Wawa,8445,Springfield,UNION,07081,"685 Morris Tpke, Springfield, NJ 07081",open,40.71757,-74.32679,rooftop,https://www.wawa.com/locations/8445
+Wawa - Union,Wawa,8465,Union,UNION,07083,"1750 Route 22 E, Union, NJ 07083",open,40.696404,-74.255206,rooftop,https://www.wawa.com/locations/8465
+Wawa - Woodbridge,Wawa,8317,Woodbridge,MIDDLESEX,07095,"440 King Georges Rd, Woodbridge, NJ 07095",open,40.536459,-74.297644,rooftop,https://www.wawa.com/locations/8317

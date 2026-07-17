@@ -1,6 +1,17 @@
 # transient per-run source pulls — never committed (see ../CLAUDE.md)
 raw/
 
+# BUILD ARTIFACT, not data. offer/build_data.py regenerates it offline from the
+# committed listings.csv in about a second, it is 1.4 MB, and it changes on EVERY
+# scrape — committing it would add ~75 MB of churn a year to a public repo for a file
+# nothing needs. Same reasoning as raw/: transient and reproducible.
+#
+# data.js is NOT ignored, deliberately: it is 3x smaller, changes only when the sold
+# data does (rarely), and index.html white-screens without it — so a fresh clone should
+# just work. The Pages workflow re-bakes it anyway, so a stale commit can't publish
+# numbers that disagree with the CSVs behind them.
+offer/listings.js
+
 # python
 __pycache__/
 *.pyc

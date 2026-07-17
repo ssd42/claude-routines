@@ -16,6 +16,8 @@ it's the reason this folder exists.
 
 | layer | source file | grain | what it answers |
 |-------|-------------|-------|-----------------|
+| `wawa/` | 31 Wawas near the target set, geocoded. `nearest_wawa_mi` per town. ⚠️ The supplied list was pre-cut at ~5mi, so it is **incomplete for the 9 towns beyond that** — `beyond_supplied_radius` flags them. Its bundled `near_target_towns` field was discarded (26 pairs broke its own 5mi rule); distance is computed, never taken on trust. |
+| `trader_joes/` | 11 North Jersey Trader Joe's, geocoded. `nearest_tj_mi` per town. **Only OPEN stores count** — the coming-soon West Orange branch is excluded until it trades. Unlike Seabra, four stores sit *inside* target towns (Westfield 0.3mi), which is expected. |
 | `seabra/` | `seabra.json` | 11 store points | how far is a town from a Seabra grocery |
 | `transit/` | `transit.json` | town | how long is the commute to Manhattan |
 | `education/` | `education_rates.csv` | zip (ZCTA) | ACS educational attainment — **not yet wired into `build_share.py`** |

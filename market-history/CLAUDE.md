@@ -35,7 +35,7 @@ Every dataset here is one of exactly two things, and the directory says which:
 | grain | where | what | built by |
 |-------|-------|------|----------|
 | **sale-grain** | top level: `sales.csv`, `market.csv`, `_provenance.json`, `history/` | one row per **transaction**, scraped | `aggregate.py` |
-| **town-grain** | **`layers/`** (`seabra/`, `transit/`, `education/`, `geo/`) | one row per **town** — an attribute of a *place* | curated; joined at share time by `build_share.py` |
+| **town-grain** | **`layers/`** (`seabra/`, `trader_joes/`, `wawa/`, `transit/`, `education/`, `geo/`) | one row per **town** — an attribute of a *place* | curated; joined at share time by `build_share.py` |
 
 **`aggregate.py` never reads `layers/`.** Layers are joined in at *share* time, not
 *scrape* time. New dataset? If it describes a town it goes in `layers/`; if it
@@ -52,7 +52,55 @@ field). Committed, because the repo is the DB — but nobody opens them to answe
 question, so they don't sit in the root looking like peers of `sales.csv`. So the
 root reads as four things: **code, config, data, machinery.**
 
-## Amenities — `layers/seabra/seabra.json`
+## Amenities — `seabra/`, `trader_joes/`, `wawa/`
+
+Three store layers now, one contract and one maths (`nearest_store()` in
+`build_share.py` serves all three). **Two Seabra assumptions turned out to be facts
+about Seabra, not rules** — read those notes before copying the pattern again.
+
+### `layers/wawa/wawa.json`
+31 stores, supplied 2026-07-16. Ships as `share/wawa.csv` + `share/wawa_by_town.csv`
+(`nearest_wawa_mi`, plus a `beyond_supplied_radius` flag).
+
+- ⚠️ **The supplied list was pre-filtered to ~5mi of the target set — so it is NOT
+  all NJ Wawas, and is incomplete by construction for distant towns.** 9 of 53 towns
+  compute beyond 5mi (Long Valley 13.1, Glen Rock 9.2, Chester 9.0, Franklin Lakes
+  9.0, Bedminster 8.5 …); for those, the real nearest Wawa may not be in the file.
+  Both the CSV and the page flag it. **A big `nearest_wawa_mi` means "none close in
+  our data", never "none nearby."**
+- **The supplied `near_target_towns` field was DISCARDED, not stored.** It was a
+  pre-baked ~5mi town match, and checked against real geocodes **26 of its pairs
+  broke its own rule** (Elizabeth "near" Springfield at 7.2mi; Linden-East "near"
+  Woodbridge at 6.9mi). Distance is computed from coordinates like every other layer.
+  *A pre-baked answer shipped alongside data is not data — never trust one you can
+  compute yourself.*
+- **Geocoding needed a fallback**: 26/31 rooftop via Census, but Census cannot resolve
+  route-style addresses (`16 Route 46`), so 3 fell back to OSM Nominatim by address and
+  2 (Pine Brook, Mountain Lakes) to a brand+town POI lookup. `geocode_precision` is on
+  every row; `osm_poi` points are approximate.
+
+### `layers/trader_joes/trader_joes.json`
+11 North Jersey stores, supplied 2026-07-16, all 11 geocoded **rooftop** by the same
+key-less Census geocoder. Ships as `share/trader_joes.csv` (the store points) +
+`share/trader_joes_by_town.csv` (`nearest_tj_mi` per town).
+
+- **Only `status: open` stores count toward a distance.** West Orange (#592) is
+  `coming_soon` and is excluded — a store that has not opened cannot be the nearest
+  store to a house you buy today. It stays in the layer, flagged, so the record is
+  complete and a rebuild picks it up automatically when the status flips. West Orange
+  the *town* therefore measures 4.7mi to **Millburn**, not ~0 to the unbuilt one in
+  its own town.
+- ⚠️ **Unlike Seabra, four stores sit INSIDE target towns** — Westfield (the 07090
+  anchor, 0.3mi), Denville, Florham Park, and coming-soon West Orange. The Seabra
+  note below says "the stores sit outside the target towns... a zero-match equality
+  join means you did it wrong." **That is a fact about Seabra, not a rule about
+  amenities.** It is still a distance join; for four towns the honest answer just
+  happens to be "it's in town."
+- Range across the 53 towns: **0.3mi (Westfield) → 18.1mi**, median 4.6mi.
+- North Jersey only, as supplied — a town near an unlisted southern store would read
+  as further from a TJ than it is.
+
+### `layers/seabra/seabra.json`
 11 Seabra groceries, geocoded (US Census geocoder, key-less/cloud-safe; 10 rooftop,
 Elizabeth fell back to its ZCTA centroid — no Census address point exists for it).
 `build_share.py` measures straight-line miles from each town's zip centroid

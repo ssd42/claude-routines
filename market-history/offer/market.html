@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the market — NJ market history</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --over:#8c2f2a; --under:#2c6459; --flag:#a8631c;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;
+    line-height:1.55;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) 6rem;
+    -webkit-font-smoothing:antialiased}
+  .sheet{max-width:82rem;margin:0 auto}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:.75rem;margin-bottom:1rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .to-analyser{margin-left:auto;font-size:.75rem;color:var(--ink-3);text-decoration:none;
+    border-bottom:1px solid var(--rule-2)}
+  .to-analyser:hover{color:var(--ink)}
+
+  /* ── the staleness stamp. Not decoration — the honesty contract of this page. ── */
+  .stamp{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;font-size:.8rem;
+    padding:.6rem .8rem;border:1px solid var(--rule);margin-bottom:1.6rem;color:var(--ink-2)}
+  .stamp b{color:var(--ink)}
+  .stamp.warn{border-color:var(--flag);background:color-mix(in oklab,var(--flag) 7%,transparent)}
+  .stamp.warn b{color:var(--flag)}
+  .stamp code{font-size:.75rem;background:var(--paper-2);padding:.1rem .3rem}
+
+  /* ── filters ── */
+  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1rem 1.4rem;align-items:end;margin-bottom:.9rem}
+  label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:.35rem;font-weight:600}
+  .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
+    color:var(--rule-2);font-style:italic}
+  input,select{width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--rule-2);
+    padding:.3rem 0 .35rem;font-family:var(--serif);font-size:1.15rem;color:var(--ink);
+    border-radius:0}
+  input:focus,select:focus{outline:none;border-bottom-color:var(--ink)}
+  input::placeholder{color:var(--rule-2);font-style:italic}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+
+  .towns{position:relative}
+  .towns-btn{width:100%;text-align:left;background:transparent;border:0;
+    border-bottom:1.5px solid var(--rule-2);padding:.3rem 0 .35rem;cursor:pointer;
+    font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
+  .towns-btn.none{color:var(--rule-2);font-style:italic}
+  .towns-menu{position:absolute;z-index:30;top:100%;left:0;right:0;min-width:22rem;
+    background:var(--paper);border:1px solid var(--rule-2);max-height:20rem;overflow:auto;
+    box-shadow:0 12px 24px -18px rgba(31,28,24,.5);display:none;padding:.4rem}
+  .towns-menu.on{display:block}
+  .towns-menu .row{display:flex;align-items:center;gap:.5rem;padding:.25rem .35rem;
+    font-size:.85rem;cursor:pointer}
+  .towns-menu .row:hover{background:var(--paper-2)}
+  .towns-menu .row input{width:auto;border:0}
+  .towns-menu .row span{color:var(--ink-3);font-size:.75rem;margin-left:auto;
+    font-variant-numeric:tabular-nums}
+  .towns-menu .acts{display:flex;gap:.8rem;padding:.3rem .35rem .5rem;
+    border-bottom:1px solid var(--rule);margin-bottom:.3rem}
+  .towns-menu .acts button{background:none;border:0;font-family:var(--sans);font-size:.72rem;
+    color:var(--ink-3);cursor:pointer;text-decoration:underline}
+  .towns-menu .acts button:hover{color:var(--ink)}
+
+  .seg{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .seg-lab{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;margin-right:.2rem}
+  .seg button{background:transparent;border:1px solid var(--rule-2);color:var(--ink-3);
+    font-family:var(--sans);font-size:.75rem;padding:.24rem .55rem;cursor:pointer}
+  .seg button:hover{border-color:var(--ink-2);color:var(--ink-2)}
+  .seg button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .reset{margin-left:auto;background:none;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-3);font-family:var(--sans);font-size:.75rem;cursor:pointer;padding:.2rem 0}
+  .reset:hover{color:var(--over);border-bottom-color:var(--over)}
+
+  .count{border-top:1px solid var(--rule);padding-top:.8rem;margin-bottom:.4rem;
+    font-size:.8rem;color:var(--ink-3);display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+  .count b{color:var(--ink);font-family:var(--serif);font-size:1.1rem}
+  .sortsel{margin-left:auto;width:auto;font-size:.78rem;font-family:var(--sans);
+    border-bottom-color:var(--rule);padding:.1rem 0;color:var(--ink-2)}
+
+  /* ── rows ── */
+  .list{display:flex;flex-direction:column}
+  .row{display:grid;grid-template-columns:5.5rem minmax(0,2.2fr) minmax(0,1fr) minmax(0,1.5fr);
+    gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule);
+    position:relative;transition:background-color .12s}
+  .row:hover{background:var(--paper-2)}
+  /* the whole row opens the analyser... */
+  .stretch{color:inherit;text-decoration:none}
+  .stretch::after{content:"";position:absolute;inset:0}
+  /* ...except this, which sits above it and opens the real listing */
+  .ext{position:relative;z-index:1;display:inline-block;margin-top:.35rem;font-size:.7rem;
+    letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--ink-3);
+    text-decoration:none;border:1px solid var(--rule-2);padding:.15rem .45rem}
+  .ext:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .row.pending{opacity:.5}
+  @media(max-width:760px){.row{grid-template-columns:4rem 1fr;gap:.6rem}
+    .row .facts,.row .verdict{grid-column:2}}
+  .thumb{width:5.5rem;height:4rem;object-fit:cover;background:var(--paper-2);
+    border:1px solid var(--rule)}
+  .addr{font-family:var(--serif);font-size:1.1rem;line-height:1.25}
+  .addr .t{font-size:.78rem;color:var(--ink-3);font-family:var(--sans)}
+  .tag{font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;font-weight:700;
+    padding:.05rem .3rem;border:1px solid;vertical-align:.1em;margin-left:.35rem}
+  .tag.pend{color:var(--flag);border-color:var(--flag)}
+  .tag.cut{color:var(--under);border-color:var(--under)}
+  .tag.stale{color:var(--ink-3);border-color:var(--rule-2)}
+  .ask{font-family:var(--serif);font-size:1.35rem;font-variant-numeric:tabular-nums;
+    text-align:right}
+  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .verdict{font-size:.8rem;line-height:1.4}
+  .verdict .n{font-family:var(--serif);font-size:1.05rem;font-variant-numeric:tabular-nums}
+  .verdict .over{color:var(--over)} .verdict .under{color:var(--under)}
+  .verdict .none{color:var(--rule-2);font-style:italic;font-size:.75rem}
+
+  .empty{padding:3rem 0;color:var(--ink-3);font-family:var(--serif);font-size:1.2rem;
+    max-width:38rem}
+  .more{margin-top:1.2rem;text-align:center}
+  .more button{background:none;border:1px solid var(--rule-2);color:var(--ink-2);
+    font-family:var(--sans);font-size:.8rem;padding:.4rem 1.2rem;cursor:pointer}
+  .more button:hover{border-color:var(--ink)}
+  .fine{margin-top:3rem;border-top:1px solid var(--rule);padding-top:1.2rem;
+    columns:2;column-gap:2.4rem;font-size:.75rem;color:var(--ink-3);line-height:1.6}
+  @media(max-width:700px){.fine{columns:1}}
+  .fine p{break-inside:avoid;margin-bottom:.7rem}
+  .fine b{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <h1>On the market <em>— and what it's worth</em></h1>
+  <a class="to-analyser" href="index.html">price a single house →</a>
+</header>
+
+<div class="stamp" id="stamp"></div>
+
+<div class="filters">
+  <div class="pair">
+    <div><label for="min">Min price <span class="opt">optional</span></label>
+      <input id="min" inputmode="numeric" placeholder="500,000"></div>
+    <div><label for="max">Max price <span class="opt">optional</span></label>
+      <input id="max" inputmode="numeric" placeholder="750,000"></div>
+  </div>
+  <div class="towns">
+    <label>Towns <span class="opt">optional — all if none picked</span></label>
+    <button class="towns-btn none" id="towns-btn" type="button">every town</button>
+    <div class="towns-menu" id="towns-menu"></div>
+  </div>
+  <div class="pair">
+    <div><label for="beds">Beds min</label><input id="beds" inputmode="numeric" placeholder="3"></div>
+    <div><label for="baths">Baths min</label><input id="baths" inputmode="decimal" placeholder="2"></div>
+  </div>
+</div>
+
+<div class="seg">
+  <span class="seg-lab">Show</span>
+  <button data-st="avail" class="on">Available only</button>
+  <button data-st="all">Include pending</button>
+  <span style="width:1rem"></span>
+  <span class="seg-lab">Type</span>
+  <button data-ty="home" class="on">Homes</button>
+  <button data-ty="house">Houses only</button>
+  <button data-ty="any">Everything</button>
+  <button id="reset" class="reset">Reset</button>
+</div>
+
+<div class="count" id="count"></div>
+<div class="list" id="list"></div>
+<div class="more" id="more"></div>
+<div class="fine" id="fine"></div>
+
+</div>
+<script src="data.js"></script>
+<script src="listings.js"></script>
+<script src="engine.js"></script>
+<script>
+"use strict";
+const M = window.MARKET;
+const PAGE = 60;                       // rows before "show more" — 3.5k <img> would crawl
+let shown = PAGE;
+let statusMode = "avail";
+let typeMode = "home";
+let picked = new Set();
+let sortBy = "value";
+
+/* ── the staleness stamp ───────────────────────────────────────────────────────
+   This page is the first thing here that can be WRONG THROUGH NO FAULT OF ITS OWN.
+   Everything else refuses when it doesn't know; a listing just rots — a house goes
+   under contract an hour after the fetch and this keeps offering it. The stamp is
+   the same contract as every other caveat in the tool: say how much you know, and
+   how old it is. */
+function ageDays() {
+  if (!M || !M.fetched) return null;
+  const then = new Date(M.fetched + "T12:00:00");
+  const now = new Date(D.generated + "T12:00:00");
+  return Math.round((now - then) / 86400000);
+}
+function drawStamp() {
+  const el = $("stamp"), d = ageDays();
+  if (!M || !M.listings.length) {
+    el.className = "stamp warn";
+    el.innerHTML = `<b>No market snapshot on this copy.</b>
+      Run <code>python3 offer/build_data.py</code> — it bakes this page from the committed
+      <code>listings.csv</code> in a second, no network needed. For a <i>fresh</i> market,
+      run <code>python3 listings.py</code> first: that one needs your own connection
+      (Realtor.com blocks datacenter IPs) and takes ~3 minutes.`;
+    return;
+  }
+  const stale = d >= 3;
+  el.className = "stamp" + (stale ? " warn" : "");
+  el.innerHTML = `<span><b>${stale ? "This snapshot is " + d + " days old." :
+      d === 0 ? "Fetched today." : "Fetched " + d + " day" + (d===1?"":"s") + " ago."}</b>
+    ${M.fetched} · ${M.listings.length.toLocaleString()} listings.</span>
+    <span>These are houses that were on the market <i>then</i>, not now — the market moves
+    daily. ${stale ? "<b>Re-run <code>python3 listings.py</code></b> before trusting this."
+      : "Re-run <code>python3 listings.py</code> to refresh."}</span>`;
+}
+
+/* ── the vs-comps column: the only reason to use this instead of Zillow ────────
+   Zillow shows you the ask. This shows the ask against what similar houses in that
+   town actually sold for. It calls the SAME comps() the analyser uses (engine.js),
+   so the number here and the number after you click cannot disagree. */
+function valuation(l) {
+  if (!D.towns[l.t]) return null;              // not a town we hold sales for
+  // Land, mobile homes and farms are not houses. There is no honest way to price a
+  // vacant lot against homes that have a house on them, and the "best value" sort
+  // would put them straight at the top — a $99,900 lot reading as $500k underpriced.
+  const fam = D.family[l.ty];
+  if (!fam) return null;
+  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot, fam);
+  if (!c || c.failed) return null;
+  // If the comps and the ask disagree by more than 3x, they are not describing the
+  // same thing and we cannot tell which is wrong. A 552sqft Edison "house" asking
+  // $690k is a teardown -- you're buying the land, and "teardown" is nowhere in our
+  // data. Refusing is the honest move; printing "−$481k vs comps" would send someone
+  // to a demolition site thinking they'd found a bargain.
+  const ratio = c.mid / l.p;
+  if (ratio > 3 || ratio < 1 / 3) return null;
+  return {mid: c.mid, lo: c.lo, hi: c.hi, n: c.n, fam: c.fam, famDropped: c.famDropped,
+          gap: l.p - c.mid,
+          // `weak` = the comps were not anchored to this house's size, because the
+          // listing didn't publish one (~69% don't). The MEDIAN gap is barely affected
+          // (-3% vs -1%), but the SPREAD is 1.4x wider -- and a "best value" sort reads
+          // the tail, not the median. So an unmeasured house wanders to the top of the
+          // ranking on noise. Shown, but never ranked above a house we can measure.
+          weak: !c.bySize,
+          verdict: l.p > c.hi ? "over" : l.p < c.lo ? "under" : "in"};
+}
+
+const usdFull = n => "$" + Math.round(n).toLocaleString("en-US");
+const esc2 = s => String(s == null ? "" : s).replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function towns() {
+  if (!M || !M.listings) return [];
+  const counts = {};
+  for (const l of M.listings) counts[l.t] = (counts[l.t] || 0) + 1;
+  // closest-first, the same anchor ordering zips.json and by_town.csv already use
+  return Object.keys(D.towns)
+    .filter(t => counts[t])
+    .sort((a, b) => (D.towns[a].dist ?? 99) - (D.towns[b].dist ?? 99) || a.localeCompare(b))
+    .map(t => ({t, n: counts[t], dist: D.towns[t].dist}));
+}
+
+function drawTowns() {
+  const rows = towns().map(({t, n, dist}) =>
+    `<label class="row"><input type="checkbox" value="${esc2(t)}" ${picked.has(t) ? "checked" : ""}>
+      ${esc2(t)} <span>${dist != null ? dist + "mi · " : ""}${n}</span></label>`).join("");
+  $("towns-menu").innerHTML =
+    `<div class="acts"><button data-all="1">select all</button>
+       <button data-none="1">clear</button></div>${rows}`;
+  const b = $("towns-btn");
+  b.classList.toggle("none", !picked.size);
+  b.textContent = !picked.size ? "every town"
+    : picked.size <= 2 ? [...picked].join(", ")
+    : picked.size + " towns";
+}
+
+function filtered() {
+  const min = digits($("min").value), max = digits($("max").value);
+  const bd = digits($("beds").value), ba = digits($("baths").value);
+  return M.listings.filter(l => {
+    if (statusMode === "avail" && l.st !== "FOR_SALE") return false;
+    // "Homes" = anything with a house on it. Land/mobile/farm are a different product
+    // and cannot be priced against home comps, so they are out of the default view.
+    const fam = D.family[l.ty];
+    if (typeMode === "home" && !fam) return false;
+    if (typeMode === "house" && fam !== "house") return false;
+    if (min && l.p < (min < 10000 ? min * 1000 : min)) return false;
+    if (max && l.p > (max < 10000 ? max * 1000 : max)) return false;
+    if (picked.size && !picked.has(l.t)) return false;
+    if (bd && (l.bd == null || l.bd < bd)) return false;
+    if (ba && (l.ba == null || l.ba < ba)) return false;
+    return true;
+  });
+}
+
+const SORTS = {
+  // Rank measured houses first, then unmeasured, then unpriceable. Within each band,
+  // by gap. Sorting all three together ranks our own ignorance to the top.
+  value: ["Best value (measured first)", (a, b) => {
+    const rank = l => !l._v ? 2 : l._v.weak ? 1 : 0;
+    return rank(a) - rank(b) ||
+      (a._v ? a._v.gap / a.p : 9) - (b._v ? b._v.gap / b.p : 9);
+  }],
+  price_asc: ["Price: low to high", (a, b) => a.p - b.p],
+  price_desc: ["Price: high to low", (a, b) => b.p - a.p],
+  near: ["Closest to Westfield", (a, b) =>
+    (D.towns[a.t]?.dist ?? 99) - (D.towns[b.t]?.dist ?? 99)],
+  newest: ["Newest listed", (a, b) => (b.seen || "").localeCompare(a.seen || "")],
+  dom: ["Longest on market", (a, b) => (b.dom || 0) - (a.dom || 0)],
+};
+
+function render() {
+  drawStamp();
+  if (!M || !M.listings.length) { $("count").textContent = ""; $("list").innerHTML = ""; return; }
+
+  const rows = filtered();
+  for (const l of rows) if (l._v === undefined) l._v = valuation(l);
+  rows.sort(SORTS[sortBy][1]);
+
+  const under = rows.filter(l => l._v && !l._v.weak && l._v.verdict === "under").length;
+  $("count").innerHTML =
+    `<b>${rows.length.toLocaleString()}</b> ${statusMode === "avail" ? "available" : "listings"}
+     ${picked.size ? "in " + picked.size + " town" + (picked.size === 1 ? "" : "s") : "across " + towns().length + " towns"}
+     ${under ? `· <b style="font-family:var(--sans);font-size:.8rem;color:var(--under)">${under}</b>
+        with a measured size are asking below what comparable homes sold for` : ""}
+     <select class="sortsel" id="sort">${Object.entries(SORTS).map(([k, [lab]]) =>
+        `<option value="${k}" ${k === sortBy ? "selected" : ""}>${lab}</option>`).join("")}</select>`;
+  $("sort").addEventListener("change", e => { sortBy = e.target.value; render(); });
+
+  if (!rows.length) {
+    $("list").innerHTML = `<div class="empty">Nothing matches. ${
+      statusMode === "avail" && M.listings.some(l => l.st !== "FOR_SALE")
+        ? "Note that pending houses are hidden — <i>Include pending</i> shows them greyed."
+        : "Try widening the price range or clearing the town filter."}</div>`;
+    $("more").innerHTML = "";
+    return;
+  }
+
+  $("list").innerHTML = rows.slice(0, shown).map(l => {
+    const v = l._v, pend = l.st !== "FOR_SALE";
+    // hand the house straight to the analyser — its state already lives in the URL hash
+    const state = encodeURIComponent(JSON.stringify({
+      street: l.a, town: l.t, ask: String(l.p),
+      sqft: l.sq ? String(l.sq) : "", beds: l.bd ? String(l.bd) : "",
+      baths: l.ba ? String(l.ba) : "", lot: l.lot ? String(l.lot) : "",
+      m: String(new Date(D.generated + "T12:00:00").getMonth() + 1), mode: "idx",
+    }));
+    const facts = [
+      l.bd != null ? `${l.bd}bd` : null, l.ba != null ? `${l.ba}ba` : null,
+      l.sq ? l.sq.toLocaleString() + " sqft" : null,
+      l.lot ? (l.lot / 43560 >= 0.5 ? (l.lot / 43560).toFixed(2) + " ac" : l.lot.toLocaleString() + " lot") : null,
+      l.yr || null,
+    ].filter(Boolean).join(" · ");
+    const tags = [
+      pend ? `<span class="tag pend">${esc2((l.st || "").replace("_", " ").toLowerCase())}</span>` : "",
+      l.cut ? `<span class="tag cut">price cut</span>` : "",
+      l.spell > 1 ? `<span class="tag stale">relisted ×${l.spell}</span>` : "",
+    ].join("");
+    return `<div class="row ${pend ? "pending" : ""}">
+      <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
+      <div class="addr"><a class="stretch" href="index.html#${state}">${esc2(l.a)}</a>${tags}
+        <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}
+          ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
+      <div><div class="ask">${usdFull(l.p)}</div>
+        <div class="facts" style="text-align:right">${facts || "&nbsp;"}</div></div>
+      <div class="verdict">${v ? `
+        <span class="n ${v.weak ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
+          ${v.weak ? 'style="color:var(--ink-3)"' : ""}>${
+          v.gap >= 0 ? "+" : "−"}${usdFull(Math.abs(v.gap))}</span> vs comps<br>
+        <span style="color:var(--ink-3)">${v.weak
+          ? `<i>no sq ft on this listing</i> — compared on ${l.lot ? "lot" : "beds"} only, so treat it loosely`
+          : `${v.n} similar ${esc2(l.t)} sales → ${usdFull(v.mid)}${
+              v.famDropped ? " · <i>mixed house types</i>" : ""}`}</span>`
+        : `<span class="none">no comparable sales<br>to price this against</span>`}
+        ${l.url ? `<a class="ext" href="${esc2(l.url)}" target="_blank" rel="noopener noreferrer"
+             title="Open this listing on Realtor.com">listing ↗</a>` : ""}</div>
+    </div>`;
+  }).join("");
+
+  $("more").innerHTML = rows.length > shown
+    ? `<button id="more-btn">show ${Math.min(PAGE, rows.length - shown)} more
+        (${rows.length - shown} left)</button>` : "";
+  if ($("more-btn")) $("more-btn").addEventListener("click", () => { shown += PAGE; render(); });
+}
+
+["min", "max", "beds", "baths"].forEach(id =>
+  $(id).addEventListener("input", () => { shown = PAGE; render(); }));
+document.querySelectorAll(".seg button[data-st]").forEach(b =>
+  b.addEventListener("click", () => {
+    statusMode = b.dataset.st; shown = PAGE;
+    document.querySelectorAll(".seg button[data-st]").forEach(x => x.classList.toggle("on", x === b));
+    render();
+  }));
+document.querySelectorAll(".seg button[data-ty]").forEach(b =>
+  b.addEventListener("click", () => {
+    typeMode = b.dataset.ty; shown = PAGE;
+    document.querySelectorAll(".seg button[data-ty]").forEach(x => x.classList.toggle("on", x === b));
+    M.listings.forEach(l => delete l._v);
+    render();
+  }));
+$("towns-btn").addEventListener("click", e => {
+  e.stopPropagation(); $("towns-menu").classList.toggle("on");
+});
+$("towns-menu").addEventListener("click", e => {
+  e.stopPropagation();
+  if (e.target.dataset.all) { picked = new Set(towns().map(x => x.t)); }
+  else if (e.target.dataset.none) { picked = new Set(); }
+  else if (e.target.type === "checkbox") {
+    e.target.checked ? picked.add(e.target.value) : picked.delete(e.target.value);
+  } else return;
+  shown = PAGE; drawTowns(); render();
+});
+document.addEventListener("click", () => $("towns-menu").classList.remove("on"));
+$("reset").addEventListener("click", () => {
+  ["min", "max", "beds", "baths"].forEach(id => $(id).value = "");
+  picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
+  document.querySelectorAll(".seg button[data-st]").forEach(x =>
+    x.classList.toggle("on", x.dataset.st === "avail"));
+  document.querySelectorAll(".seg button[data-ty]").forEach(x =>
+    x.classList.toggle("on", x.dataset.ty === "home"));
+  drawTowns(); render();
+});
+
+$("fine").innerHTML = `
+  <p><b>This is a snapshot, not a feed.</b> The page cannot fetch — it reads a file baked by
+     <code>listings.py</code>, which needs a home connection (Realtor.com blocks datacenter IPs).
+     A house can go under contract an hour after the fetch and this page will keep offering it.
+     That is why the date is at the top, not the bottom.</p>
+  <p><b>Nearly half of what a listing feed calls "for sale" already has an accepted offer.</b>
+     Of the ${M ? M.listings.length.toLocaleString() : "—"} listings here,
+     ${M ? M.listings.filter(l => l.st !== "FOR_SALE").length.toLocaleString() : "—"}
+     are pending or contingent. They're hidden by default and greyed when shown — never
+     mixed in silently.</p>
+  <p><b>"vs comps" is the ask against what similar homes in that town actually sold for</b> —
+     same engine as the analyser, so the number can't change when you click through. Similar
+     means size, beds and baths where we have them. <b>It is not a valuation</b>: condition is
+     nowhere in this data, and sq ft is missing on most listings.</p>
+  <p><b>Sq ft is on only ~31% of listings, lot on ~75%.</b> A house with neither is priced on
+     beds and baths alone, and says so when you open it. "No comparable sales" means the town
+     has under 10 similar sales — not that the house is bad.</p>
+  <p><b>Days on market resets when a seller relists.</b> That's the whole reason
+     <code>listings.py</code> watches weekly — <i>relisted ×2</i> means we personally saw it
+     leave and come back, so its real clock is longer than the feed admits.</p>
+  <p><b>Sold data: ${D.totalSales.toLocaleString()} NJ sales, ${D.window[0]} → ${D.window[1]}.</b>
+     Amenity distances and commutes are colour, never filters — they don't rank or remove a
+     house here, same as everywhere else in this tool.</p>`;
+
+drawTowns();
+render();
+</script>
+</body>
+</html>

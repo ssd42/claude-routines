@@ -1,0 +1,12 @@
+name,brand,store_number,town,county,address,status,lat,lon,geocode_precision
+Trader Joe's - Clifton,Trader Joe's,610,Clifton,Passaic,"259 Allwood Road, Clifton, NJ 07012",open,40.835364,-74.147224,rooftop
+Trader Joe's - Denville,Trader Joe's,617,Denville,Morris,"3056 State Route 10 West, Denville, NJ 07834",open,40.866564,-74.509009,rooftop
+Trader Joe's - Edgewater,Trader Joe's,606,Edgewater,Bergen,"715 River Road, Edgewater, NJ 07020",open,40.819535,-73.97801,rooftop
+Trader Joe's - Florham Park,Trader Joe's,604,Florham Park,Morris,"176 Columbia Turnpike, Florham Park, NJ 07932",open,40.788495,-74.392324,rooftop
+Trader Joe's - Hoboken,Trader Joe's,611,Hoboken,Hudson,"1350 Willow Avenue, Hoboken, NJ 07030",open,40.753468,-74.029876,rooftop
+Trader Joe's - Millburn,Trader Joe's,609,Millburn,Essex,"187 Millburn Avenue, Millburn, NJ 07041",open,40.722592,-74.29628,rooftop
+Trader Joe's - Paramus,Trader Joe's,605,Paramus,Bergen,"404 Route 17 North, Paramus, NJ 07652",open,40.95239,-74.072539,rooftop
+Trader Joe's - Wayne,Trader Joe's,603,Wayne,Passaic,"910 Hamburg Turnpike, Wayne, NJ 07470",open,40.958865,-74.229624,rooftop
+Trader Joe's - West Orange,Trader Joe's,592,West Orange,Essex,"471 Mt Pleasant Avenue, West Orange, NJ 07052",coming_soon,40.792563,-74.269679,rooftop
+Trader Joe's - Westfield,Trader Joe's,601,Westfield,Union,"155 Elm Street, Westfield, NJ 07090",open,40.652489,-74.34972,rooftop
+Trader Joe's - Westwood,Trader Joe's,602,Westwood,Bergen,"20 Irvington Street, Westwood, NJ 07675",open,40.992588,-74.035542,rooftop
