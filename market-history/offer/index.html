@@ -38,7 +38,17 @@
   /* ── the form ───────────────────────────────────────── */
   form{display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));
     gap:1.1rem 1.4rem;align-items:end;margin-bottom:.9rem}
-  .f-addr{grid-column:span 2;min-width:15rem}
+  .f-addr{grid-column:span 2;min-width:min(15rem, 100%)}
+  @media(max-width:560px){
+    form{grid-template-columns:1fr;gap:.9rem}
+    .f-addr{grid-column:span 1;min-width:0}
+    .controls{gap:.7rem}
+    .reset{margin-left:0}
+    .seg{gap:.35rem}
+    .seg .seg-lab{width:100%;margin-bottom:-.2rem}
+    .payoff-row{gap:.6rem}
+    .strip{gap:1.2rem}
+  }
   /* beds + baths are one unit — they should never break across rows */
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1.1rem;min-width:9rem}
   .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
@@ -138,7 +148,11 @@
   /* the exact-match roster: few enough rows that you can just look at them */
   .xlist{margin-top:1rem;font-size:.78rem;color:var(--ink-2)}
   .xlist:empty{display:none}
-  .xlist table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  /* 6 columns will not fit a phone. Scroll the TABLE, never the page. */
+  .xlist .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    margin:0 -.2rem;padding:0 .2rem}
+  .xlist table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;
+    min-width:26rem}
   .xlist th{text-align:left;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
     color:var(--ink-3);font-weight:600;padding:.3rem .5rem .3rem 0;border-bottom:1px solid var(--rule)}
   .xlist td{padding:.3rem .5rem .3rem 0;border-bottom:1px solid var(--paper-2)}
@@ -185,6 +199,7 @@
     font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
   .band-mid{font-variant-numeric:normal;color:var(--rule-2);font-size:.7rem;
     letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  @media(max-width:560px){.band-mid{display:none}}
 
   /* chart axis hints — the bars mean nothing without these */
   .axis-hi,.axis-lo{font-size:.66rem;letter-spacing:.04em;color:var(--ink-3)}
@@ -223,6 +238,19 @@
     box-shadow:0 0 0 1px var(--ink)}
   input[type=range]:active::-webkit-slider-thumb{cursor:grabbing}
   input[type=range]:disabled::-webkit-slider-thumb{background:var(--rule-2);box-shadow:0 0 0 1px var(--rule-2)}
+
+  /* Touch: ours were ~24px against Apple's 44px floor, and a 15px slider thumb is
+     genuinely hard to drag. pointer:coarse only — a mouse keeps the tight layout. */
+  @media (pointer:coarse){
+    .seg button{padding:.6rem .9rem;font-size:.8rem}
+    .reset{padding:.6rem 0;font-size:.8rem}
+    .xbtn{padding:.5rem .8rem}
+    .why summary{padding:.5rem 0}
+    .menu b{padding:.65rem}
+    input[type=range]{height:2.75rem}
+    input[type=range]::-webkit-slider-thumb{width:26px;height:26px;margin-top:-12px}
+    .bar{min-height:2.75rem}
+  }
 
   .factor{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-top:1.3rem}
   .factor .pct{font-family:var(--serif);font-size:2.1rem;font-variant-numeric:tabular-nums;line-height:1}
@@ -781,8 +809,8 @@ function run() {
            at, still thin enough that one odd sale swings it.</div>`;
 
       $("xlist").innerHTML =
-        `<table><tr><th>house</th><th>layout</th><th>lot</th><th>sold</th><th>sold for</th><th>vs ask</th>${
-          anyAdj ? "<th>→ at today's prices</th>" : ""}</tr>${rows}</table>${tally}${legend}${warn}`;
+        `<div class="scroll"><table><tr><th>house</th><th>layout</th><th>lot</th><th>sold</th><th>sold for</th><th>vs ask</th>${
+          anyAdj ? "<th>→ at today's prices</th>" : ""}</tr>${rows}</table></div>${tally}${legend}${warn}`;
     } else {
       $("xlist").innerHTML = "";
     }

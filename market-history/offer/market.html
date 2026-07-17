@@ -38,6 +38,14 @@
   /* ── filters ── */
   .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
     gap:1rem 1.4rem;align-items:end;margin-bottom:.9rem}
+  @media(max-width:560px){
+    .filters{grid-template-columns:1fr;gap:.9rem}
+    .seg{gap:.35rem}
+    .seg .seg-lab{width:100%;margin-bottom:-.2rem}
+    .reset{margin-left:0}
+    .count{flex-wrap:wrap}
+    .sortsel{margin-left:0;width:100%}
+  }
   label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
     color:var(--ink-3);margin-bottom:.35rem;font-weight:600}
   .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
@@ -54,8 +62,11 @@
     border-bottom:1.5px solid var(--rule-2);padding:.3rem 0 .35rem;cursor:pointer;
     font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
   .towns-btn.none{color:var(--rule-2);font-style:italic}
-  .towns-menu{position:absolute;z-index:30;top:100%;left:0;right:0;min-width:22rem;
-    background:var(--paper);border:1px solid var(--rule-2);max-height:20rem;overflow:auto;
+  .towns-menu{position:absolute;z-index:30;top:100%;left:0;right:0;
+    min-width:min(22rem, calc(100vw - 2rem));   /* 22rem overflowed a 375px phone */
+    max-width:calc(100vw - 2rem);
+    background:var(--paper);border:1px solid var(--rule-2);max-height:min(20rem,50vh);
+    overflow:auto;-webkit-overflow-scrolling:touch;
     box-shadow:0 12px 24px -18px rgba(31,28,24,.5);display:none;padding:.4rem}
   .towns-menu.on{display:block}
   .towns-menu .row{display:flex;align-items:center;gap:.5rem;padding:.25rem .35rem;
@@ -71,6 +82,8 @@
   .towns-menu .acts button:hover{color:var(--ink)}
 
   .seg{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .seg-gap{width:1rem}
+  @media(max-width:560px){.seg-gap{width:100%;height:0}}
   .seg-lab{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
     font-weight:600;margin-right:.2rem}
   .seg button{background:transparent;border:1px solid var(--rule-2);color:var(--ink-3);
@@ -92,6 +105,7 @@
   .row{display:grid;grid-template-columns:5.5rem minmax(0,2.2fr) minmax(0,1fr) minmax(0,1.5fr);
     gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--rule);
     position:relative;transition:background-color .12s}
+  .price{text-align:right}
   .row:hover{background:var(--paper-2)}
   /* the whole row opens the analyser... */
   .stretch{color:inherit;text-decoration:none}
@@ -102,8 +116,20 @@
     text-decoration:none;border:1px solid var(--rule-2);padding:.15rem .45rem}
   .ext:hover{color:var(--paper);background:var(--ink);border-color:var(--ink)}
   .row.pending{opacity:.5}
-  @media(max-width:760px){.row{grid-template-columns:4rem 1fr;gap:.6rem}
-    .row .facts,.row .verdict{grid-column:2}}
+  /* Phone: thumbnail beside the address, everything else stacked under them. The old
+     rule only moved .facts — which is nested inside .price — so the price block stayed
+     an unplaced grid item and landed wherever it liked. */
+  @media(max-width:760px){
+    .row{grid-template-columns:4.5rem minmax(0,1fr);gap:.5rem .8rem;align-items:start;
+      padding:1rem 0}
+    .thumb{width:4.5rem;height:3.4rem;grid-row:span 2}
+    .price{grid-column:2;text-align:left;display:flex;align-items:baseline;gap:.6rem;
+      flex-wrap:wrap}
+    .price .facts{text-align:left !important}
+    .ask{font-size:1.2rem}
+    .verdict{grid-column:1 / -1;padding-top:.2rem;border-top:1px solid var(--paper-2);
+      margin-top:.2rem}
+  }
   .thumb{width:5.5rem;height:4rem;object-fit:cover;background:var(--paper-2);
     border:1px solid var(--rule)}
   .addr{font-family:var(--serif);font-size:1.1rem;line-height:1.25}
@@ -115,11 +141,23 @@
   .tag.stale{color:var(--ink-3);border-color:var(--rule-2)}
   .ask{font-family:var(--serif);font-size:1.35rem;font-variant-numeric:tabular-nums;
     text-align:right}
-  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums;text-align:right}
   .verdict{font-size:.8rem;line-height:1.4}
   .verdict .n{font-family:var(--serif);font-size:1.05rem;font-variant-numeric:tabular-nums}
   .verdict .over{color:var(--over)} .verdict .under{color:var(--under)}
   .verdict .none{color:var(--rule-2);font-style:italic;font-size:.75rem}
+
+  /* Touch: 44px is Apple's floor and Google's is 48. Ours were ~24px. Scoped to
+     pointer:coarse so a mouse keeps the tighter, denser layout. */
+  @media (pointer:coarse){
+    .seg button{padding:.6rem .9rem;font-size:.8rem}
+    .reset{padding:.6rem 0;font-size:.8rem}
+    .ext{padding:.5rem .8rem;font-size:.72rem}
+    .towns-btn,.towns-menu .row{padding-top:.6rem;padding-bottom:.6rem}
+    .towns-menu .row{font-size:.95rem}
+    .more button{padding:.75rem 1.5rem}
+    .sortsel{padding:.4rem 0;font-size:.85rem}
+  }
 
   .empty{padding:3rem 0;color:var(--ink-3);font-family:var(--serif);font-size:1.2rem;
     max-width:38rem}
@@ -166,7 +204,7 @@
   <span class="seg-lab">Show</span>
   <button data-st="avail" class="on">Available only</button>
   <button data-st="all">Include pending</button>
-  <span style="width:1rem"></span>
+  <span class="seg-gap"></span>
   <span class="seg-lab">Type</span>
   <button data-ty="home" class="on">Homes</button>
   <button data-ty="house">Houses only</button>
@@ -373,8 +411,8 @@ function render() {
       <div class="addr"><a class="stretch" href="index.html#${state}">${esc2(l.a)}</a>${tags}
         <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}
           ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
-      <div><div class="ask">${usdFull(l.p)}</div>
-        <div class="facts" style="text-align:right">${facts || "&nbsp;"}</div></div>
+      <div class="price"><div class="ask">${usdFull(l.p)}</div>
+        <div class="facts">${facts || "&nbsp;"}</div></div>
       <div class="verdict">${v ? `
         <span class="n ${v.weak ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
           ${v.weak ? 'style="color:var(--ink-3)"' : ""}>${
