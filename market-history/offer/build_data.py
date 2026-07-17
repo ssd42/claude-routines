@@ -274,6 +274,7 @@ def bake_listings():
         sq = num(r["sqft"])
         if sq and not (PPSF_MIN <= price / sq <= PPSF_MAX):
             sq = None
+        p0 = num(r["first_list_price"])
         out.append({
             "a": r["address"], "t": r["town"], "z": r["zip"],
             "p": int(price),
@@ -288,8 +289,12 @@ def bake_listings():
             # does not. listings.py exists precisely because the feed's number lies.
             "seen": r["first_seen"],
             "spell": int(r["spell"]),
-            "cut": r["price_changed"] == "yes",
-            "p0": int(num(r["first_list_price"]) or 0) or None,
+            # `price_changed` in listings.csv is ANY move, up or down -- 5 of the 66
+            # we have watched were RAISES, and they were all wearing a "price cut" tag.
+            # Direction is decided here, once, so the page cannot get it wrong.
+            "cut": bool(p0 and price < p0),
+            "up": bool(p0 and price > p0),
+            "p0": int(p0) if p0 else None,
             "url": r["url"] or None, "img": r["photo"] or None,
         })
     fetched = max(seen_runs) if seen_runs else None

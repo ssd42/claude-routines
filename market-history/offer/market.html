@@ -144,6 +144,7 @@
     padding:.05rem .3rem;border:1px solid;vertical-align:.1em;margin-left:.35rem}
   .tag.pend{color:var(--flag);border-color:var(--flag)}
   .tag.cut{color:var(--under);border-color:var(--under)}
+  .tag.up{color:var(--over);border-color:var(--over)}
   .tag.stale{color:var(--ink-3);border-color:var(--rule-2)}
   .ask{font-family:var(--serif);font-size:1.35rem;font-variant-numeric:tabular-nums;
     text-align:right}
@@ -216,6 +217,9 @@
   <button data-ty="home" class="on">Homes</button>
   <button data-ty="house">Houses only</button>
   <button data-ty="any">Everything</button>
+  <span class="seg-gap"></span>
+  <span class="seg-lab">Price</span>
+  <button data-cut="1" id="cut-btn">Cut since we last looked</button>
   <button id="reset" class="reset">Reset</button>
 </div>
 
@@ -235,6 +239,7 @@ const PAGE = 60;                       // rows before "show more" — 3.5k <img>
 let shown = PAGE;
 let statusMode = "avail";
 let typeMode = "home";
+let cutOnly = false;
 let picked = new Set();
 let sortBy = "value";
 
@@ -341,6 +346,7 @@ function filtered() {
     const fam = D.family[l.ty];
     if (typeMode === "home" && !fam) return false;
     if (typeMode === "house" && fam !== "house") return false;
+    if (cutOnly && !l.cut) return false;
     if (min && l.p < (min < 10000 ? min * 1000 : min)) return false;
     if (max && l.p > (max < 10000 ? max * 1000 : max)) return false;
     if (picked.size && !picked.has(l.t)) return false;
@@ -363,6 +369,7 @@ const SORTS = {
   near: ["Closest to Westfield", (a, b) =>
     (D.towns[a.t]?.dist ?? 99) - (D.towns[b.t]?.dist ?? 99)],
   newest: ["Newest listed", (a, b) => (b.seen || "").localeCompare(a.seen || "")],
+  cut: ["Biggest price cut", (a, b) => ((b.cut ? b.p0 - b.p : 0) - (a.cut ? a.p0 - a.p : 0))],
   dom: ["Longest on market", (a, b) => (b.dom || 0) - (a.dom || 0)],
 };
 
@@ -378,17 +385,24 @@ function render() {
   $("count").innerHTML =
     `<b>${rows.length.toLocaleString()}</b> ${statusMode === "avail" ? "available" : "listings"}
      ${picked.size ? "in " + picked.size + " town" + (picked.size === 1 ? "" : "s") : "across " + towns().length + " towns"}
-     ${under ? `· <b style="font-family:var(--sans);font-size:.8rem;color:var(--under)">${under}</b>
+     ${cutOnly ? `· <b style="color:var(--flag);font-family:var(--sans);font-size:.78rem">
+        only cuts we watched happen between ${M.listings.reduce((a,l)=>l.seen<a?l.seen:a,"9999")} and ${M.fetched}</b>`
+      : under ? `· <b style="font-family:var(--sans);font-size:.8rem;color:var(--under)">${under}</b>
         with a measured size are asking below what comparable homes sold for` : ""}
      <select class="sortsel" id="sort">${Object.entries(SORTS).map(([k, [lab]]) =>
         `<option value="${k}" ${k === sortBy ? "selected" : ""}>${lab}</option>`).join("")}</select>`;
   $("sort").addEventListener("change", e => { sortBy = e.target.value; save(); render(); });
 
   if (!rows.length) {
-    $("list").innerHTML = `<div class="empty">Nothing matches. ${
+    $("list").innerHTML = `<div class="empty">${cutOnly
+      ? `No price cuts match. We can only see a cut we <b>watched happen</b> — the market
+         has been observed since <b>${M.listings.reduce((a,l)=>l.seen<a?l.seen:a,"9999")}</b>,
+         so a house that cut its price before that reads as unchanged. Run
+         <code>python3 listings.py</code> weekly and this gets better every run.`
+      : `Nothing matches. ${
       statusMode === "avail" && M.listings.some(l => l.st !== "FOR_SALE")
         ? "Note that pending houses are hidden — <i>Include pending</i> shows them greyed."
-        : "Try widening the price range or clearing the town filter."}</div>`;
+        : "Try widening the price range or clearing the town filter."}`}</div>`;
     $("more").innerHTML = "";
     return;
   }
@@ -410,7 +424,9 @@ function render() {
     ].filter(Boolean).join(" · ");
     const tags = [
       pend ? `<span class="tag pend">${esc2((l.st || "").replace("_", " ").toLowerCase())}</span>` : "",
-      l.cut ? `<span class="tag cut">price cut</span>` : "",
+      l.cut ? `<span class="tag cut" title="We watched this price fall">cut ${
+        usdFull(l.p0 - l.p).replace("$", "$")}</span>` : "",
+      l.up ? `<span class="tag up" title="We watched this price RISE">+${usdFull(l.p - l.p0)}</span>` : "",
       l.spell > 1 ? `<span class="tag stale">relisted ×${l.spell}</span>` : "",
     ].join("");
     return `<div class="row ${pend ? "pending" : ""}">
@@ -450,12 +466,12 @@ function render() {
 const FIELDS = ["min", "max", "beds", "baths"];
 const KEY = "offer-market";
 function save() {
-  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked]};
+  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked], cut: cutOnly};
   FIELDS.forEach(f => { if ($(f).value) st[f] = $(f).value; });
   const blob = JSON.stringify(st);
   try { localStorage.setItem(KEY, blob); } catch (e) {}
   // only put it in the URL when it says something — a bare #{} on every page is noise
-  const bare = !st.min && !st.max && !st.beds && !st.baths && !st.towns.length &&
+  const bare = !st.min && !st.max && !st.beds && !st.baths && !st.towns.length && !st.cut &&
                st.mode === "avail" && st.type === "home" && st.sort === "value";
   try {
     history.replaceState(null, "", bare ? location.pathname
@@ -475,6 +491,8 @@ function restore() {
   if (st.mode) statusMode = st.mode;
   if (st.type) typeMode = st.type;
   if (st.sort && SORTS[st.sort]) sortBy = st.sort;
+  cutOnly = !!st.cut;
+  $("cut-btn").classList.toggle("on", cutOnly);
   document.querySelectorAll(".seg button[data-st]").forEach(x =>
     x.classList.toggle("on", x.dataset.st === statusMode));
   document.querySelectorAll(".seg button[data-ty]").forEach(x =>
@@ -494,6 +512,11 @@ document.querySelectorAll(".seg button[data-st]").forEach(b =>
     document.querySelectorAll(".seg button[data-st]").forEach(x => x.classList.toggle("on", x === b));
     render();
   }));
+$("cut-btn").addEventListener("click", () => {
+  cutOnly = !cutOnly; shown = PAGE;
+  $("cut-btn").classList.toggle("on", cutOnly);
+  save(); render();
+});
 document.querySelectorAll(".seg button[data-ty]").forEach(b =>
   b.addEventListener("click", () => {
     typeMode = b.dataset.ty; shown = PAGE; save();
@@ -517,6 +540,7 @@ document.addEventListener("click", () => $("towns-menu").classList.remove("on"))
 $("reset").addEventListener("click", () => {
   ["min", "max", "beds", "baths"].forEach(id => $(id).value = "");
   picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
+  cutOnly = false; $("cut-btn").classList.remove("on");
   try { localStorage.removeItem(KEY); } catch (e) {}
   history.replaceState(null, "", location.pathname);
   M.listings.forEach(l => delete l._v);
