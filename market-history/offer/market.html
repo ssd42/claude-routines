@@ -206,7 +206,17 @@
     <div><label for="beds">Beds min</label><input id="beds" inputmode="numeric" placeholder="3"></div>
     <div><label for="baths">Baths min</label><input id="baths" inputmode="decimal" placeholder="2"></div>
   </div>
+  <div class="pair">
+    <div><label for="likelot">Lot like <span class="opt">optional</span></label>
+      <input id="likelot" inputmode="numeric" placeholder="6,599"></div>
+    <div><label for="likesq">House sq ft like <span class="opt">optional</span></label>
+      <input id="likesq" inputmode="numeric" placeholder="1,170"></div>
+  </div>
 </form>
+<p class="fav">
+  <button type="button" id="fav-btn">★ use 524 Farley Ave</button>
+  <span id="fav-note"></span>
+</p>
 
 <div class="seg">
   <span class="seg-lab">Show</span>
@@ -220,6 +230,11 @@
   <span class="seg-gap"></span>
   <span class="seg-lab">Price</span>
   <button data-cut="1" id="cut-btn">Cut since we last looked</button>
+  <span class="seg-gap"></span>
+  <span class="seg-lab">Buffer</span>
+  <button data-buf="0.2">±20%</button>
+  <button data-buf="0.3" class="on">±30%</button>
+  <button data-buf="0.5">±50%</button>
   <button id="reset" class="reset">Reset</button>
 </div>
 
@@ -240,6 +255,14 @@ let shown = PAGE;
 let statusMode = "avail";
 let typeMode = "home";
 let cutOnly = false;
+let buffer = 0.3;
+/* Your standing search. Prefilled every visit — this tool has one user, so a blank
+   form on arrival is just a chore. Reset returns HERE, not to empty. */
+const DEFAULTS = {max: "650000", beds: "3", baths: "1.5"};
+/* 524 Farley Ave, Scotch Plains — the reference house, from the NJ MOD-IV tax record
+   (block 302 lot 9): 1,170 sqft on a 6,599 sqft lot, 50 x 132 ft. The 132ft depth is
+   the backyard that made it the favourite of 30+ open houses. It sold to someone else. */
+const FAV = {lot: "6599", sq: "1170", label: "524 Farley Ave, Scotch Plains — 1,170 sqft on a 6,599 sqft lot (50 × 132)"};
 let picked = new Set();
 let sortBy = "value";
 
@@ -339,6 +362,7 @@ function drawTowns() {
 function filtered() {
   const min = digits($("min").value), max = digits($("max").value);
   const bd = digits($("beds").value), ba = digits($("baths").value);
+  const likeLot = digits($("likelot").value), likeSq = digits($("likesq").value);
   return M.listings.filter(l => {
     if (statusMode === "avail" && l.st !== "FOR_SALE") return false;
     // "Homes" = anything with a house on it. Land/mobile/farm are a different product
@@ -347,6 +371,12 @@ function filtered() {
     if (typeMode === "home" && !fam) return false;
     if (typeMode === "house" && fam !== "house") return false;
     if (cutOnly && !l.cut) return false;
+    // Band on what we KNOW. 65% of listings publish no house sqft and 31% no lot —
+    // failing them for that would delete the houses we merely can't measure, which is
+    // the same mistake as ranking by a number we don't have. Unknown passes, and the
+    // row says so.
+    if (likeLot && l.lot && (l.lot < likeLot * (1 - buffer) || l.lot > likeLot * (1 + buffer))) return false;
+    if (likeSq && l.sq && (l.sq < likeSq * (1 - buffer) || l.sq > likeSq * (1 + buffer))) return false;
     if (min && l.p < (min < 10000 ? min * 1000 : min)) return false;
     if (max && l.p > (max < 10000 ? max * 1000 : max)) return false;
     if (picked.size && !picked.has(l.t)) return false;
@@ -375,6 +405,12 @@ const SORTS = {
 
 function render() {
   drawStamp();
+  const lk = digits($("likelot").value), lq = digits($("likesq").value);
+  $("fav-note").innerHTML = (lk || lq)
+    ? `matching <b>${[lk ? `lot ${Math.round(lk*(1-buffer)).toLocaleString()}–${Math.round(lk*(1+buffer)).toLocaleString()}` : null,
+        lq ? `house ${Math.round(lq*(1-buffer)).toLocaleString()}–${Math.round(lq*(1+buffer)).toLocaleString()} sqft` : null]
+        .filter(Boolean).join(" · ")}</b> — a listing that doesn't publish the number is kept, not dropped`
+    : `${esc2(FAV.label)}`;
   if (!M || !M.listings.length) { $("count").textContent = ""; $("list").innerHTML = ""; return; }
 
   const rows = filtered();
@@ -428,6 +464,8 @@ function render() {
         usdFull(l.p0 - l.p).replace("$", "$")}</span>` : "",
       l.up ? `<span class="tag up" title="We watched this price RISE">+${usdFull(l.p - l.p0)}</span>` : "",
       l.spell > 1 ? `<span class="tag stale">relisted ×${l.spell}</span>` : "",
+      // be explicit when a house is in the list only because we couldn't check it
+      (digits($("likelot").value) && !l.lot) ? `<span class="tag stale" title="This listing publishes no lot size — kept because we cannot rule it out">lot unknown</span>` : "",
     ].join("");
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
@@ -463,10 +501,10 @@ function render() {
    browser we take the job off it (autocomplete="off") and persist the filters
    ourselves, restoring them BEFORE the first render. The hash also makes any view a
    shareable link — the same trick index.html uses to hand a house to the analyser. */
-const FIELDS = ["min", "max", "beds", "baths"];
+const FIELDS = ["min", "max", "beds", "baths", "likelot", "likesq"];
 const KEY = "offer-market";
 function save() {
-  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked], cut: cutOnly};
+  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked], cut: cutOnly, buf: buffer};
   FIELDS.forEach(f => { if ($(f).value) st[f] = $(f).value; });
   const blob = JSON.stringify(st);
   try { localStorage.setItem(KEY, blob); } catch (e) {}
@@ -478,20 +516,26 @@ function save() {
       : location.pathname + "#" + encodeURIComponent(blob));
   } catch (e) {}
 }
+function applyDefaults() {
+  Object.entries(DEFAULTS).forEach(([f, v]) => $(f).value = v);
+}
 function restore() {
   let blob = null;
   if (location.hash.length > 1) {
     try { blob = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
   }
   if (!blob) { try { blob = localStorage.getItem(KEY); } catch (e) {} }
-  if (!blob) return;
-  let st; try { st = JSON.parse(blob); } catch (e) { return; }
+  if (!blob) { applyDefaults(); return; }        // first ever visit
+  let st; try { st = JSON.parse(blob); } catch (e) { applyDefaults(); return; }
   FIELDS.forEach(f => { if (st[f] != null) $(f).value = st[f]; });
   if (st.towns) picked = new Set(st.towns.filter(t => D.towns[t]));
   if (st.mode) statusMode = st.mode;
   if (st.type) typeMode = st.type;
   if (st.sort && SORTS[st.sort]) sortBy = st.sort;
   cutOnly = !!st.cut;
+  if (st.buf) buffer = st.buf;
+  document.querySelectorAll(".seg button[data-buf]").forEach(x =>
+    x.classList.toggle("on", +x.dataset.buf === buffer));
   $("cut-btn").classList.toggle("on", cutOnly);
   document.querySelectorAll(".seg button[data-st]").forEach(x =>
     x.classList.toggle("on", x.dataset.st === statusMode));
@@ -512,6 +556,16 @@ document.querySelectorAll(".seg button[data-st]").forEach(b =>
     document.querySelectorAll(".seg button[data-st]").forEach(x => x.classList.toggle("on", x === b));
     render();
   }));
+document.querySelectorAll(".seg button[data-buf]").forEach(b =>
+  b.addEventListener("click", () => {
+    buffer = +b.dataset.buf; shown = PAGE;
+    document.querySelectorAll(".seg button[data-buf]").forEach(x => x.classList.toggle("on", x === b));
+    save(); render();
+  }));
+$("fav-btn").addEventListener("click", () => {
+  $("likelot").value = FAV.lot; $("likesq").value = "";   // house size is open; the LOT is the point
+  shown = PAGE; save(); render();
+});
 $("cut-btn").addEventListener("click", () => {
   cutOnly = !cutOnly; shown = PAGE;
   $("cut-btn").classList.toggle("on", cutOnly);
@@ -541,6 +595,10 @@ $("reset").addEventListener("click", () => {
   ["min", "max", "beds", "baths"].forEach(id => $(id).value = "");
   picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
   cutOnly = false; $("cut-btn").classList.remove("on");
+  buffer = 0.3;
+  document.querySelectorAll(".seg button[data-buf]").forEach(x =>
+    x.classList.toggle("on", x.dataset.buf === "0.3"));
+  applyDefaults();               // Reset means "back to my standing search", not "blank"
   try { localStorage.removeItem(KEY); } catch (e) {}
   history.replaceState(null, "", location.pathname);
   M.listings.forEach(l => delete l._v);
