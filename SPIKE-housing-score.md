@@ -99,6 +99,7 @@ a grade, never rank it.
 
 | factor | w | s(x) | why |
 |---|---:|---|---|
+| **your town tier** | **14** | `S: 1.0 · A: 0.85 · B: 0.65 · C: 0.4 · D: 0.2 · F: 0` | the only **opinion** in the model — see §13. `unknown`/`unranked` stay null and drop out; they are not an F |
 | **price** | **30** | `1.0` to $750k, then linear → `0` at $950k | the hard constraint. ⚠️ Inside your $650k filter this is a **constant** — every house scores 1.0, so the heaviest factor does no ranking work. It's a gate, not a discriminator. |
 | **lot** | **16** | `0.35` at 3k → **`1.0` across 6k–14k** → `0.7` at 22k → `0.4` at 1 acre | "bigger is better, too big is a commitment". The plateau contains Farley's 6,599. |
 | **schools** | **12** | mean of the elementary/middle/high DOE deciles. `decile 2: 0` → `9+: 1.0` | **real DOE 2024-25 assessment results**, not the ACS adult-degree proxy (§10) |
@@ -337,3 +338,68 @@ of observation can't separate them. More weekly runs will.
    100×66 it isn't. MOD-IV carries `LAND_DESC` ("50 X 132").
 5. **Confidence is shown but never scored** — a 55%-known HS 80 currently ranks beside
    a 100%-known HS 80. It breaks ties and nothing more. Deliberate for now; revisit.
+
+
+---
+
+## 13. The tier list — the only opinion in the model, and the tension it exposes
+
+`tierlist/tiers.json` is hand-ranked in `tierlist/tierlist.html`. All 53 towns:
+**S 14 · A 12 · B 20 · C 6 · D 1 · F 0.** It's the one input here that isn't measured,
+and it's weighted **14** — above schools and commute, below only price.
+
+### It earns that weight because it isn't a copy of something we already have
+
+Checked before wiring it in:
+
+| tier vs | r |
+|---|---:|
+| commute | −0.29 |
+| schools | +0.41 |
+| shops | −0.34 |
+| distance from Westfield | −0.37 |
+| **town median price** | **+0.50** |
+
+Mostly independent, so it adds taste rather than re-weighting a number already in the
+model. If it had come back at r=+0.8 against schools it would have been schools wearing
+a hat, and would not deserve its own weight.
+
+### The tension it exposes, which is worth staring at
+
+> **The towns you rank highest are the ones you can least afford.**
+
+| tier | towns | houses for sale | **≤$650k** | town median |
+|---|---:|---:|---:|---:|
+| **S** | 14 | 286 | **15 (5%)** | $1,003,000 |
+| A | 12 | 284 | 39 (14%) | $725,000 |
+| B | 20 | 538 | 105 (20%) | $709,500 |
+| C | 6 | 136 | 51 (38%) | $682,500 |
+| **D** | 1 | 38 | **27 (71%)** | $533,750 |
+
+**Six of your fourteen S-tier towns have literally zero single-family houses at or
+under $650k right now:** Chatham (median $1.25M), Glen Rock ($975k), Essex Fells
+($1.45M), Glen Ridge ($1.1M), **Short Hills ($2.21M)**, Madison ($1.03M).
+
+So the tier factor mostly does its work *inside* A/B/C — which is where your budget
+actually lives. The S-tier weight is close to decorative at $650k, and that is a fact
+about the market, not about the formula.
+
+### And your other instinct — "crappy if they're in my price range" — is real
+
+| a sold house priced at… | n | median sqft |
+|---|---:|---:|
+| **<60% of its town's median** | 756 | **1,303** |
+| 60–85% | 1,768 | 1,560 |
+| 85–115% | 3,067 | 1,900 |
+| >115% | 4,751 | 3,000 |
+
+**A house at under 60% of its town's median is a third smaller than a typical one
+there.** "Affordable in a dear town" really does mean "the compromised end of it".
+
+**I did not add this as a factor, deliberately.** HS already penalises exactly what
+makes those houses cheap — `sqft` (w=7), `year built` (w=6), and the `as-is` flavour
+(−6). A separate "cheap for its town" penalty would be double-counting the same
+compromise, and it would also punish a genuine bargain for being a bargain. The
+market page's **vs-comps** already does the honest version of this: it compares a house
+to *similar-sized* houses in the same town, so it catches "cheap for what it is" rather
+than "cheap because it's small".

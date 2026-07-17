@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tier list — NJ target towns</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --paper-3:#e9e2d5;
+    --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    /* the ramp: best -> worst, earthy so it sits on paper */
+    --t-S:#2c6459; --t-A:#5a7a3e; --t-B:#8a7a2a;
+    --t-C:#a8631c; --t-D:#93401f; --t-F:#8c2f2a;
+    /* deliberately OFF the ramp — slate, not the red end */
+    --t-unknown:#4a5b6e;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:15px; line-height:1.55;
+    padding:clamp(1.5rem,4vw,3.5rem) clamp(1rem,4vw,3rem) 5rem;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:82rem;margin:0 auto}
+
+  /* ── masthead ───────────────────────────────────────── */
+  header{border-bottom:2px solid var(--ink);padding-bottom:.75rem;margin-bottom:1.4rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .stamp{margin-left:auto;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-3);text-align:right;line-height:1.5;font-variant-numeric:tabular-nums}
+  .stamp b{font-weight:600;color:var(--ink-2)}
+  .stamp.warn b{color:var(--t-F)}
+  .dot{display:inline-block;width:.4rem;height:.4rem;border-radius:50%;
+    background:var(--t-A);margin-right:.4rem;vertical-align:.05rem;
+    transition:background-color .2s ease,opacity .2s ease}
+  .stamp.busy .dot{background:var(--t-C);opacity:.4}
+  .stamp.warn .dot{background:var(--t-F)}
+
+  /* ── controls ───────────────────────────────────────── */
+  .bar{display:flex;align-items:baseline;gap:1rem 1.4rem;flex-wrap:wrap;margin-bottom:.5rem}
+  .find{position:relative;min-width:13rem}
+  .find input{width:100%;background:transparent;border:0;
+    border-bottom:1.5px solid var(--rule-2);padding:.25rem 0 .3rem;
+    font-family:var(--serif);font-size:1.05rem;color:var(--ink);border-radius:0;
+    transition:border-color .18s ease}
+  .find input:focus{outline:none;border-bottom-color:var(--ink)}
+  .find input::placeholder{color:var(--rule-2);font-style:italic}
+  .lede{font-size:.75rem;color:var(--ink-3);max-width:34rem}
+  .lede kbd{font-family:var(--sans);font-size:.68rem;font-weight:600;color:var(--ink-2);
+    border:1px solid var(--rule-2);padding:.02rem .28rem;margin:0 .05rem;
+    background:var(--paper-2)}
+  .reset{margin-left:auto;background:transparent;border:0;
+    border-bottom:1px solid var(--rule-2);color:var(--ink-3);font-family:var(--sans);
+    font-size:.75rem;padding:.2rem 0;cursor:pointer;white-space:nowrap}
+  .reset:hover{color:var(--t-F);border-bottom-color:var(--t-F)}
+
+  /* ── tier rows ──────────────────────────────────────── */
+  .rows{margin-top:1.6rem;border-top:1px solid var(--rule)}
+  .row{display:grid;grid-template-columns:5.5rem minmax(0,1fr);
+    border-bottom:1px solid var(--rule);min-height:4.6rem}
+  .badge{background:var(--tier);color:var(--paper);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:.1rem;padding:.5rem .3rem;
+    position:relative;overflow:hidden}
+  .badge .g{font-family:var(--serif);font-size:1.9rem;line-height:1;letter-spacing:-.02em}
+  .badge .n{font-size:.62rem;letter-spacing:.1em;opacity:.72;font-variant-numeric:tabular-nums}
+  .zone{display:flex;flex-wrap:wrap;align-content:flex-start;gap:.4rem;
+    padding:.65rem .7rem;transition:background-color .15s ease}
+  .zone.over{background:var(--paper-3)}
+  .zone:empty::after,.zone.blank::after{content:attr(data-empty);color:var(--rule-2);
+    font-size:.78rem;font-style:italic;align-self:center;padding-left:.2rem}
+
+  /* the unknown row is off the ramp — the break says so */
+  .row.off{border-top:1px solid var(--ink);margin-top:1.9rem;position:relative}
+  .row.off::before{content:"off the scale — no read yet, not a knock";
+    position:absolute;top:-1.35rem;left:0;font-size:.66rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);font-weight:600}
+  .badge.q .g{font-size:2.1rem}
+
+  /* ── the pool ───────────────────────────────────────── */
+  .pool-h{display:flex;align-items:baseline;gap:.7rem;margin:2.4rem 0 .7rem}
+  .pool-h h2{font-family:var(--serif);font-weight:400;font-size:1.15rem}
+  .pool-h .n{font-size:.72rem;color:var(--ink-3);font-variant-numeric:tabular-nums;
+    letter-spacing:.06em}
+  .pool-h .hint{margin-left:auto;font-size:.72rem;color:var(--ink-3);font-style:italic}
+  .pool{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    min-height:5rem;background:var(--paper-2)}
+
+  /* ── town cards ─────────────────────────────────────── */
+  .card{background:var(--paper);border:1px solid var(--rule-2);
+    padding:.32rem .5rem .34rem;cursor:grab;user-select:none;
+    display:flex;flex-direction:column;gap:.05rem;min-width:0;
+    transition:border-color .14s ease,transform .14s cubic-bezier(.22,1,.36,1),
+      opacity .14s ease,box-shadow .14s ease}
+  .card:hover{border-color:var(--ink-2);transform:translateY(-1px);
+    box-shadow:0 6px 14px -10px rgba(31,28,24,.6)}
+  .card:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+  .card.sel{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+  .card.sel .meta{color:var(--paper-3)}
+  .card.dragging{opacity:.32;cursor:grabbing}
+  .card.dim{opacity:.22}
+  .card.hit{border-color:var(--ink);box-shadow:0 0 0 2px var(--paper-3)}
+  .card .nm{font-family:var(--serif);font-size:.98rem;line-height:1.2;white-space:nowrap}
+  .card .meta{font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .card .anchor{color:var(--t-C);font-weight:700}
+  .card.sel .anchor{color:var(--paper)}
+
+  /* ── footer ─────────────────────────────────────────── */
+  footer{margin-top:2.6rem;padding-top:.9rem;border-top:1px solid var(--rule);
+    font-size:.72rem;color:var(--ink-3);max-width:44rem}
+  footer code{font-family:var(--sans);color:var(--ink-2);
+    border-bottom:1px solid var(--rule-2)}
+
+  @media(max-width:640px){
+    .row{grid-template-columns:3.6rem minmax(0,1fr)}
+    .badge .g{font-size:1.4rem}
+    .reset{margin-left:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <h1>Tier list <em>— target towns</em></h1>
+    <div class="stamp" id="stamp"><span class="dot"></span><b>loading</b></div>
+  </header>
+
+  <div class="bar">
+    <div class="find">
+      <input id="find" type="search" placeholder="find a town…" autocomplete="off"
+             spellcheck="false" aria-label="Find a town">
+    </div>
+    <p class="lede">
+      Drag, or click a card and hit
+      <kbd>S</kbd><kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>D</kbd><kbd>F</kbd> —
+      <kbd>?</kbd> for unknown, <kbd>0</kbd> back to the pool.
+    </p>
+    <button class="reset" id="reset">clear all tiers</button>
+  </div>
+
+  <div class="rows" id="rows"></div>
+
+  <div class="pool-h">
+    <h2>Not sorted yet</h2>
+    <span class="n" id="pool-n"></span>
+    <span class="hint">order is meaningful inside a tier — best first</span>
+  </div>
+  <div class="zone pool" id="pool" data-tier="unranked" data-empty="Every town is placed."></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+"use strict";
+
+/* The S->F ramp is the ranking. `unknown` is deliberately NOT its bottom rung:
+   it means "no read on this town", which is a different thing from "bad" (F) and
+   from "haven't looked" (the pool). Keep the three apart. */
+const RAMP = [
+  { k:"S", note:"would move tomorrow" },
+  { k:"A", note:"strong yes" },
+  { k:"B", note:"good, with a caveat" },
+  { k:"C", note:"fine, not exciting" },
+  { k:"D", note:"only if the price is wrong" },
+  { k:"F", note:"no" },
+];
+const UNKNOWN = { k:"unknown", glyph:"?", note:"never been, no opinion" };
+const KEYS = [...RAMP.map(t => t.k), "unknown", "unranked"];
+
+let towns = [];              // from ../zips.json, in order
+let byName = new Map();
+let state = {};              // tier key -> [town name]
+let sel = null;              // selected town name
+
+/* ── boot ─────────────────────────────────────────────── */
+(async function boot(){
+  const [zips, saved] = await Promise.all([
+    fetch("towns.json").then(r => r.json()),
+    fetch("tiers.json").then(r => r.json()).catch(() => null),
+  ]);
+  towns = zips.towns;
+  byName = new Map(towns.map(t => [t.name, t]));
+  state = reconcile(saved && saved.tiers);
+  buildRows();
+  render();
+  foot(zips);
+  say(saved ? "loaded" : "ready", saved && saved.updated);
+  /* A town added to zips.json after the last save lands in the pool; one removed
+     from zips.json drops out. The file follows zips.json, not the other way. */
+})();
+
+function reconcile(saved){
+  const next = Object.fromEntries(KEYS.map(k => [k, []]));
+  const placed = new Set();
+  if (saved) {
+    for (const k of KEYS) {
+      for (const name of (saved[k] || [])) {
+        if (byName.has(name) && !placed.has(name)) { next[k].push(name); placed.add(name); }
+      }
+    }
+  }
+  for (const t of towns) if (!placed.has(t.name)) next.unranked.push(t.name);
+  return next;
+}
+
+/* ── build the tier rows ──────────────────────────────── */
+function buildRows(){
+  const rows = document.getElementById("rows");
+  const mk = (tier, off) => {
+    const row = document.createElement("div");
+    row.className = "row" + (off ? " off" : "");
+    row.style.setProperty("--tier", `var(--t-${tier.k})`);
+    row.innerHTML = `
+      <div class="badge${off ? " q" : ""}">
+        <span class="g">${tier.glyph || tier.k}</span>
+        <span class="n" data-count="${tier.k}"></span>
+      </div>
+      <div class="zone" data-tier="${tier.k}" data-empty="${tier.note}"></div>`;
+    rows.appendChild(row);
+  };
+  RAMP.forEach(t => mk(t, false));
+  mk(UNKNOWN, true);
+  document.querySelectorAll(".zone").forEach(wireZone);
+}
+
+/* ── render ───────────────────────────────────────────── */
+function render(){
+  for (const k of KEYS) {
+    const zone = document.querySelector(`.zone[data-tier="${k}"]`);
+    zone.replaceChildren(...state[k].map(cardFor));
+    const n = document.querySelector(`[data-count="${k}"]`);
+    if (n) n.textContent = state[k].length || "";
+  }
+  document.getElementById("pool-n").textContent =
+    `${state.unranked.length} of ${towns.length} left`;
+  filter();
+}
+
+function cardFor(name){
+  const t = byName.get(name);
+  const el = document.createElement("div");
+  el.className = "card" + (name === sel ? " sel" : "");
+  el.draggable = true;
+  el.tabIndex = 0;
+  el.dataset.name = name;
+  const anchor = t.dist_mi === 0 ? ` <span class="anchor">▲ anchor</span>` : "";
+  el.innerHTML =
+    `<span class="nm">${t.name}</span>` +
+    `<span class="meta">${t.county.toLowerCase()} · ${t.dist_mi}mi${anchor}</span>`;
+  el.title = `${t.name} — ${t.county} county · ${t.dist_mi} mi from Westfield · ${t.zips.join(", ")}`;
+  el.addEventListener("dragstart", e => {
+    select(null);
+    el.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", name);
+  });
+  el.addEventListener("dragend", () => el.classList.remove("dragging"));
+  el.addEventListener("click", () => select(sel === name ? null : name));
+  el.addEventListener("focus", () => select(name));
+  return el;
+}
+
+/* Selection paints a class — it must never re-render. render() replaces every
+   card node, so selecting on focus would destroy the element being focused and
+   kill tabbing through the pool. */
+function select(name){
+  sel = name;
+  document.querySelectorAll(".card").forEach(c =>
+    c.classList.toggle("sel", c.dataset.name === sel));
+}
+
+/* ── drag + drop ──────────────────────────────────────── */
+function wireZone(zone){
+  zone.addEventListener("dragover", e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    zone.classList.add("over");
+  });
+  zone.addEventListener("dragleave", e => {
+    if (!zone.contains(e.relatedTarget)) zone.classList.remove("over");
+  });
+  zone.addEventListener("drop", e => {
+    e.preventDefault();
+    zone.classList.remove("over");
+    const name = e.dataTransfer.getData("text/plain");
+    if (byName.has(name)) move(name, zone.dataset.tier, dropIndex(zone, e.clientX, e.clientY));
+  });
+}
+
+/* Cards wrap, so a pure x-compare misreads multi-line rows. Weight the vertical
+   axis so the pointer commits to a line first, then a slot within it. */
+function dropIndex(zone, x, y){
+  const cards = [...zone.querySelectorAll(".card:not(.dragging)")];
+  if (!cards.length) return 0;
+  let at = 0, best = Infinity;
+  cards.forEach((c, i) => {
+    const b = c.getBoundingClientRect();
+    const cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+    const d = Math.hypot(x - cx, (y - cy) * 2.4);
+    if (d < best) { best = d; at = x < cx ? i : i + 1; }
+  });
+  return at;
+}
+
+function move(name, tier, at){
+  for (const k of KEYS) {
+    const i = state[k].indexOf(name);
+    if (i > -1) state[k].splice(i, 1);
+  }
+  const list = state[tier];
+  list.splice(at === undefined || at > list.length ? list.length : at, 0, name);
+  render();
+  save();
+}
+
+/* ── keyboard ─────────────────────────────────────────── */
+const HOTKEY = { s:"S", a:"A", b:"B", c:"C", d:"D", f:"F", "?":"unknown",
+                 u:"unknown", "/":"unknown", "0":"unranked" };
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target === find) { if (e.key === "Escape") { find.value = ""; filter(); find.blur(); } return; }
+  if (e.key === "Escape") { select(null); return; }
+  const tier = HOTKEY[e.key.toLowerCase()];
+  if (!sel || !tier) return;
+  e.preventDefault();
+  const keep = sel;
+  move(keep, tier, state[tier].length);   /* keyboard appends; drag positions */
+  /* move() re-rendered, so the old node is gone — re-select and re-focus the new
+     one to keep hammering hotkeys at the same town. */
+  select(keep);
+  const el = document.querySelector(`.card[data-name="${CSS.escape(keep)}"]`);
+  if (el) el.focus({ preventScroll:true });
+});
+
+/* ── find ─────────────────────────────────────────────── */
+const find = document.getElementById("find");
+find.addEventListener("input", filter);
+function filter(){
+  const q = find.value.trim().toLowerCase();
+  document.querySelectorAll(".card").forEach(c => {
+    const t = byName.get(c.dataset.name);
+    const hit = !q || t.name.toLowerCase().includes(q) ||
+      t.county.toLowerCase().includes(q) || t.zips.some(z => z.includes(q));
+    c.classList.toggle("dim", !!q && !hit);
+    c.classList.toggle("hit", !!q && hit);
+  });
+  document.querySelectorAll(".zone").forEach(z => {
+    z.classList.toggle("blank", z.children.length === 0);
+  });
+}
+
+/* ── reset ────────────────────────────────────────────── */
+document.getElementById("reset").addEventListener("click", () => {
+  const placed = towns.length - state.unranked.length;
+  if (!placed) return;
+  if (!confirm(`Send all ${placed} placed towns back to the pool?`)) return;
+  sel = null;
+  state = Object.fromEntries(KEYS.map(k => [k, k === "unranked" ? towns.map(t => t.name) : []]));
+  render();
+  save();
+});
+
+/* ── save: every change, straight to tiers.json ───────── */
+let timer = null, inflight = false, again = false;
+function save(){
+  clearTimeout(timer);
+  timer = setTimeout(flush, 180);
+}
+async function flush(){
+  if (inflight) { again = true; return; }
+  inflight = true;
+  say("saving", null, "busy");
+  try {
+    const r = await fetch("save", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ tiers: state }),
+    });
+    const j = await r.json();
+    if (!r.ok || !j.ok) throw new Error(j.error || `HTTP ${r.status}`);
+    say("saved", new Date().toISOString());
+  } catch (err) {
+    say(`save failed — ${err.message}`, null, "warn");
+  } finally {
+    inflight = false;
+    if (again) { again = false; flush(); }
+  }
+}
+
+function say(msg, iso, cls){
+  const el = document.getElementById("stamp");
+  el.className = "stamp" + (cls ? " " + cls : "");
+  const when = iso ? new Date(iso).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"}) : "";
+  el.innerHTML = `<span class="dot"></span><b>${msg}</b>${when ? " · " + when : ""}
+    <br>tiers.json`;
+}
+
+function foot(zips){
+  document.getElementById("foot").innerHTML =
+    `${towns.length} towns from <code>zips.json</code>, ordered by distance from the ` +
+    `${zips.priority_anchor_zip} anchor. Every edit rewrites <code>tiers.json</code> ` +
+    `next to this page — that file is the deliverable; this page is just the pencil. ` +
+    `Add a town to <code>zips.json</code> and it shows up in the pool on reload.`;
+}
+</script>
+</body>
+</html>

@@ -27,6 +27,7 @@ ROOT = os.path.join(HERE, os.pardir)
 SHARE = os.path.join(ROOT, "share")
 ANALYSIS = os.path.join(ROOT, "analysis")
 LISTINGS = os.path.join(ROOT, "listings.csv")
+TIERS = os.path.join(ROOT, "tierlist", "tiers.json")
 
 OUTLIER_PCT = 50.0   # beyond this the list price was a placeholder, not an ask
 MIN_SQFT = 200       # below this the sqft field is junk, not a tiny house
@@ -340,6 +341,16 @@ def main():
     tj = {r["town"]: r for r in read(os.path.join(SHARE, "trader_joes_by_town.csv"))}
     wawa = {r["town"]: r for r in read(os.path.join(SHARE, "wawa_by_town.csv"))}
     schools = {r["town"]: r for r in read(os.path.join(SHARE, "schools.csv"))}
+    # The hand-ranked tier list — OPINION, not data, and the only input here that is.
+    # Everything else in data.js is measured; this is the owner's considered ranking of
+    # where he wants to live, authored in tierlist/tierlist.html. Checked: it is largely
+    # INDEPENDENT of what HS already scores (commute r=-0.29, schools r=+0.41), so it
+    # adds a real signal rather than re-weighting one we have.
+    tier_of = {}
+    if os.path.exists(TIERS):
+        for k, towns in json.load(open(TIERS))["tiers"].items():
+            for t in towns:
+                tier_of[t] = k
     zips_doc = json.load(open(os.path.join(ROOT, "zips.json")))
 
     comps = build_comps(sales)
@@ -472,6 +483,10 @@ def main():
             # Garwood Boro, high school Clark Twp). Town-level only; verify per house.
             # NOT layers/education/ -- that is ACS adult degrees, an income proxy at
             # r=+0.87, which would score a town's wealth and call it schools.
+            # "unknown"/"unranked" are NOT the bottom of the ramp — they mean no read
+            # yet (tiers.json says so explicitly). They must stay null so the weighted
+            # mean drops them, rather than scoring as an F.
+            "tier": tier_of.get(name) if tier_of.get(name) in ("S","A","B","C","D","F") else None,
             "school": {
                 "el": num(sch.get("elementary_rating_1_to_10")),
                 "mid": num(sch.get("middle_rating_1_to_10")),

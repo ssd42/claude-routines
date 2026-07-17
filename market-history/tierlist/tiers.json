@@ -1,0 +1,74 @@
+{
+  "_doc": "Hand-ranked tiers for the market-history target towns. Authored in tierlist/tierlist.html (python3 serve.py); rewritten in full on every edit. Town names match ../zips.json. Order within a tier is meaningful — best first. Opinion, not data: nothing in aggregate.py reads this.",
+  "_unknown_rule": "'unknown' is NOT the bottom of the S-F ramp — it means no read on the town yet, good or bad. Don't sort it below F or fold it into 'unranked' (which just means not looked at yet). Ranked counts exclude both.",
+  "updated": "2026-07-17T00:42:50-04:00",
+  "source": "../zips.json — 53 ranked, 0 unknown, 0 unsorted",
+  "tiers": {
+    "S": [
+      "Westfield",
+      "Cranford",
+      "Scotch Plains",
+      "Chatham",
+      "Glen Rock",
+      "Montclair",
+      "Essex Fells",
+      "Glen Ridge",
+      "Basking Ridge",
+      "North Caldwell",
+      "Watchung",
+      "Short Hills",
+      "Warren",
+      "Madison"
+    ],
+    "A": [
+      "Garwood",
+      "Fanwood",
+      "Clark",
+      "Caldwell",
+      "Colonia",
+      "New Providence",
+      "South Orange",
+      "Livingston",
+      "Bridgewater",
+      "Bedminster",
+      "Long Hill",
+      "Franklin Lakes"
+    ],
+    "B": [
+      "Springfield",
+      "Summit",
+      "Florham Park",
+      "Cedar Grove",
+      "Verona",
+      "Roseland",
+      "Berkeley Heights",
+      "Edison",
+      "Green Brook",
+      "Metuchen",
+      "Maplewood",
+      "West Orange",
+      "Nutley",
+      "Morristown",
+      "Cedar Knolls",
+      "Towaco",
+      "Morris Plains",
+      "Mendham",
+      "Boonton",
+      "Montville"
+    ],
+    "C": [
+      "Woodbridge",
+      "Branchburg",
+      "Denville",
+      "Randolph",
+      "Chester",
+      "Long Valley"
+    ],
+    "D": [
+      "South Plainfield"
+    ],
+    "F": [],
+    "unknown": [],
+    "unranked": []
+  }
+}

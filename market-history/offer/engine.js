@@ -294,6 +294,17 @@ const HS_FACTORS = [
         : m <= 70 ? 0.75 - 0.45 * (m - 50) / 20           // 50→70: real cost
         : Math.max(0, 0.3 - 0.3 * (m - 70) / 50)},
 
+  // ── YOUR tier list. The only OPINION in the model — every other factor is measured.
+  //    It earns w=14 because it is largely independent of what HS already scores
+  //    (checked: commute r=-0.29, schools r=+0.41, shops r=-0.34), so it adds taste
+  //    rather than re-weighting a number we already have. It correlates r=+0.50 with a
+  //    town's median price, which is the honest tension: the towns you rank highest
+  //    are the ones you can least afford (S-tier: 5% of houses <=$650k; D-tier: 71%).
+  //    "unknown"/"unranked" stay null and drop out — they are not an F.
+  {k:"tier", w:14, label:"your town tier",
+   get:(l, T) => T && T.tier,
+   s:t => ({S:1, A:0.85, B:0.65, C:0.4, D:0.2, F:0}[t] ?? null)},
+
   // ── schools. NJ DOE 2024-25 district deciles, averaged across the three levels we
   //    have. A DISTRICT proxy on a zip: two houses on one street can feed different
   //    elementary schools, so this is a TOWN signal — verify the boundary for a real
