@@ -62,6 +62,10 @@ jobs:
       - name: Re-bake data.js from the committed CSVs
         working-directory: market-history
         # stdlib only — no pip install, nothing to pin.
+        # OFFER_DEPLOY marks this as the published copy, so index.html hides its link
+        # to the live-market browser — which is not deployed and would 404 here.
+        env:
+          OFFER_DEPLOY: '1'
         run: python3 offer/build_data.py
 
       - name: Assemble the site — analyser only

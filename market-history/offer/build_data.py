@@ -471,6 +471,12 @@ def main():
 
     sold = sorted(r["sold_date"] for r in sales if r["sold_date"])
     data = {
+        # Is this the PUBLISHED copy? The live-market browser is deliberately not
+        # deployed (it republishes Realtor.com inventory, hotlinks its photos, and
+        # rots ~2%/day -- see .github/workflows/pages.yml), so on the public site
+        # market.html 404s and index.html must not offer a link to it. The workflow
+        # sets OFFER_DEPLOY=1; a local build leaves it unset and the link appears.
+        "deployed": bool(os.environ.get("OFFER_DEPLOY")),
         "family": FAMILY,          # listing property_type -> comp family
         "generated": date.today().isoformat(),
         "snapshot": snap,

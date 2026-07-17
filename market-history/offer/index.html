@@ -28,6 +28,10 @@
   h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
     letter-spacing:-.015em;line-height:1.05}
   h1 em{font-style:italic;color:var(--ink-2)}
+  .to-market{font-size:.75rem;color:var(--ink-3);text-decoration:none;
+    border-bottom:1px solid var(--rule-2);white-space:nowrap}
+  .to-market:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .to-market[hidden]{display:none}
   .stamp{margin-left:auto;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
     color:var(--ink-3);text-align:right;line-height:1.5}
 
@@ -262,6 +266,7 @@
 
 <header>
   <h1>Offer Advisor <em>— what the ask is worth</em></h1>
+  <a class="to-market" id="to-market" href="market.html">browse what's on the market →</a>
   <div class="stamp" id="stamp"></div>
 </header>
 
@@ -1001,6 +1006,10 @@ $("grain-bias").innerHTML =
    So the <i>level</i> of each figure is anchored on <b>all</b> of the town's sales, and only the
    month-to-month <i>shape</i> comes from the contract subset. Reporting is very uneven by town
    (Colonia 23%, Long Valley 95%) — where it's thin, the slider coarsens.`;
+
+/* The market browser is local-only: it is withheld from the published site, so on
+   the deployed copy this link would 404. Better to not offer it than to break it. */
+$("to-market").hidden = !!D.deployed;
 
 /* masthead + the fine print, straight off the data */
 $("stamp").innerHTML =
