@@ -258,6 +258,9 @@
   <button data-ty="house">Houses only</button>
   <button data-ty="any">Everything</button>
   <span class="seg-gap"></span>
+  <span class="seg-lab">Listed</span>
+  <button data-new="1" id="new-btn">New — last 14 days</button>
+  <span class="seg-gap"></span>
   <span class="seg-lab">Price</span>
   <button data-cut="1" id="cut-btn">Cut since we last looked</button>
   <span class="seg-gap"></span>
@@ -290,8 +293,16 @@ let shown = PAGE;
 let statusMode = "avail";
 let typeMode = "home";
 let cutOnly = false;
+let newOnly = false;
 let buffer = 0.3;
 let minHS = 0;
+/* "New" is the feed's days_on_mls, counted from the FETCH, not from today — same as
+   every other number on this page. `seen` (our own first sighting) cannot do this
+   job: we have only been watching since 2026-07-13, so 90% of the file shares one
+   first_seen and a house listed in 2024 looks as new as one listed yesterday. The
+   feed's clock is the only one that reaches back before we started looking. */
+const NEW_DAYS = 14;
+const NO_DOM = M && M.listings ? M.listings.filter(l => l.dom == null).length : 0;
 /* Your standing search. Prefilled every visit — this tool has one user, so a blank
    form on arrival is just a chore. Reset returns HERE, not to empty. */
 const DEFAULTS = {max: "650000", beds: "3", baths: "1.5"};
@@ -407,6 +418,12 @@ function filtered() {
     if (typeMode === "home" && !fam) return false;
     if (typeMode === "house" && fam !== "house") return false;
     if (cutOnly && !l.cut) return false;
+    // Unknown does NOT pass here, unlike the size bands below. Those are "houses like
+    // mine", where absence of evidence must not delete a house we merely can't measure.
+    // This is a positive claim — "this hit the market in the last fortnight" — and we
+    // cannot make it about a listing that publishes no day count. Same rule as `cut`:
+    // only what we can actually show. The 68 silent ones are named under the count.
+    if (newOnly && (l.dom == null || l.dom > NEW_DAYS)) return false;
     if (minHS) { const h = l._h ?? (l._h = hsFor(l)); if (!h || h.hs < minHS) return false; }
     // Band on what we KNOW. 65% of listings publish no house sqft and 31% no lot —
     // failing them for that would delete the houses we merely can't measure, which is
@@ -435,7 +452,12 @@ const SORTS = {
   price_desc: ["Price: high to low", (a, b) => b.p - a.p],
   near: ["Closest to Westfield", (a, b) =>
     (D.towns[a.t]?.dist ?? 99) - (D.towns[b.t]?.dist ?? 99)],
-  newest: ["Newest listed", (a, b) => (b.seen || "").localeCompare(a.seen || "")],
+  // Was ranked on `seen`, OUR first sighting — which has three distinct values across
+  // the whole file (we only started watching 2026-07-13), so ~90% of the list tied and
+  // "newest" was decorative: a 2024 listing sorted level with yesterday's. The feed's
+  // day count is the only clock reaching back before we started looking. Unknown goes
+  // last — we can't call a house new to be nice to it.
+  newest: ["Newest listed", (a, b) => (a.dom ?? 1e9) - (b.dom ?? 1e9)],
   hs: ["My score (HS)", (a, b) => {
     const A = a._h, B = b._h;
     if (!A && !B) return 0;
@@ -474,13 +496,22 @@ function render() {
   rows.sort(SORTS[sortBy][1]);
 
   const under = rows.filter(l => l._v && !l._v.weak && l._v.verdict === "under").length;
+  // A filter that removes houses has to say what it removed and on whose authority.
+  // These stack (cut + new can both be on); the "under" line only shows when neither
+  // is, because it describes the whole list and stops being true once one is armed.
+  const flag = s => `· <b style="color:var(--flag);font-family:var(--sans);font-size:.78rem">${s}</b>`;
+  const notes = [];
+  if (cutOnly) notes.push(flag(`only cuts we watched happen between
+    ${M.listings.reduce((a,l)=>l.seen<a?l.seen:a,"9999")} and ${M.fetched}`));
+  if (newOnly) notes.push(flag(`on the market ${NEW_DAYS} days or less as of the
+    ${M.fetched} fetch — the feed's clock, which a relist resets${NO_DOM
+      ? `. ${NO_DOM} listings publish no day count and are left out` : ""}`));
+  if (!notes.length && under) notes.push(`· <b style="font-family:var(--sans);font-size:.8rem;color:var(--under)">${under}</b>
+    with a measured size are asking below what comparable homes sold for`);
   $("count").innerHTML =
     `<b>${rows.length.toLocaleString()}</b> ${statusMode === "avail" ? "available" : "listings"}
      ${picked.size ? "in " + picked.size + " town" + (picked.size === 1 ? "" : "s") : "across " + towns().length + " towns"}
-     ${cutOnly ? `· <b style="color:var(--flag);font-family:var(--sans);font-size:.78rem">
-        only cuts we watched happen between ${M.listings.reduce((a,l)=>l.seen<a?l.seen:a,"9999")} and ${M.fetched}</b>`
-      : under ? `· <b style="font-family:var(--sans);font-size:.8rem;color:var(--under)">${under}</b>
-        with a measured size are asking below what comparable homes sold for` : ""}
+     ${notes.join(" ")}
      <select class="sortsel" id="sort">${Object.entries(SORTS).map(([k, [lab]]) =>
         `<option value="${k}" ${k === sortBy ? "selected" : ""}>${lab}</option>`).join("")}</select>`;
   $("sort").addEventListener("change", e => { sortBy = e.target.value; save(); render(); });
@@ -491,6 +522,12 @@ function render() {
          has been observed since <b>${M.listings.reduce((a,l)=>l.seen<a?l.seen:a,"9999")}</b>,
          so a house that cut its price before that reads as unchanged. Run
          <code>python3 listings.py</code> weekly and this gets better every run.`
+      : newOnly
+      ? `Nothing listed in the last ${NEW_DAYS} days matches the rest of your filters.
+         New listings are a thin slice — <b>${M.listings.filter(l =>
+           l.dom != null && l.dom <= NEW_DAYS).length.toLocaleString()}</b> of
+         ${M.listings.length.toLocaleString()} in this snapshot — so this runs out long
+         before the other filters do. Widen the price range or the towns first.`
       : `Nothing matches. ${
       statusMode === "avail" && M.listings.some(l => l.st !== "FOR_SALE")
         ? "Note that pending houses are hidden — <i>Include pending</i> shows them greyed."
@@ -574,13 +611,14 @@ function render() {
 const FIELDS = ["min", "max", "beds", "baths", "likelot", "likesq"];
 const KEY = "offer-market";
 function save() {
-  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked], cut: cutOnly, buf: buffer, hs: minHS};
+  const st = {mode: statusMode, type: typeMode, sort: sortBy, towns: [...picked], cut: cutOnly,
+              nw: newOnly, buf: buffer, hs: minHS};
   FIELDS.forEach(f => { if ($(f).value) st[f] = $(f).value; });
   const blob = JSON.stringify(st);
   try { localStorage.setItem(KEY, blob); } catch (e) {}
   // only put it in the URL when it says something — a bare #{} on every page is noise
   const bare = !st.min && !st.max && !st.beds && !st.baths && !st.towns.length && !st.cut &&
-               st.mode === "avail" && st.type === "home" && st.sort === "value" && !st.hs;
+               !st.nw && st.mode === "avail" && st.type === "home" && st.sort === "value" && !st.hs;
   try {
     history.replaceState(null, "", bare ? location.pathname
       : location.pathname + "#" + encodeURIComponent(blob));
@@ -603,6 +641,7 @@ function restore() {
   if (st.type) typeMode = st.type;
   if (st.sort && SORTS[st.sort]) sortBy = st.sort;
   cutOnly = !!st.cut;
+  newOnly = !!st.nw;
   if (st.buf) buffer = st.buf;
   minHS = st.hs || 0;
   document.querySelectorAll(".seg button[data-hs]").forEach(x =>
@@ -610,6 +649,7 @@ function restore() {
   document.querySelectorAll(".seg button[data-buf]").forEach(x =>
     x.classList.toggle("on", +x.dataset.buf === buffer));
   $("cut-btn").classList.toggle("on", cutOnly);
+  $("new-btn").classList.toggle("on", newOnly);
   document.querySelectorAll(".seg button[data-st]").forEach(x =>
     x.classList.toggle("on", x.dataset.st === statusMode));
   document.querySelectorAll(".seg button[data-ty]").forEach(x =>
@@ -651,6 +691,11 @@ $("cut-btn").addEventListener("click", () => {
   $("cut-btn").classList.toggle("on", cutOnly);
   save(); render();
 });
+$("new-btn").addEventListener("click", () => {
+  newOnly = !newOnly; shown = PAGE;
+  $("new-btn").classList.toggle("on", newOnly);
+  save(); render();
+});
 document.querySelectorAll(".seg button[data-ty]").forEach(b =>
   b.addEventListener("click", () => {
     typeMode = b.dataset.ty; shown = PAGE; save();
@@ -679,6 +724,7 @@ $("reset").addEventListener("click", () => {
   FIELDS.forEach(f => $(f).value = "");
   picked = new Set(); statusMode = "avail"; typeMode = "home"; sortBy = "value"; shown = PAGE;
   cutOnly = false; $("cut-btn").classList.remove("on");
+  newOnly = false; $("new-btn").classList.remove("on");
   buffer = 0.3; minHS = 0;
   document.querySelectorAll(".seg button[data-hs]").forEach(x =>
     x.classList.toggle("on", x.dataset.hs === "0"));
@@ -714,7 +760,16 @@ $("fine").innerHTML = `
      has under 10 similar sales — not that the house is bad.</p>
   <p><b>Days on market resets when a seller relists.</b> That's the whole reason
      <code>listings.py</code> watches weekly — <i>relisted ×2</i> means we personally saw it
-     leave and come back, so its real clock is longer than the feed admits.</p>
+     leave and come back, so its real clock is longer than the feed admits. <b>New — last
+     ${NEW_DAYS} days</b> reads that same feed clock, so a stale house relisted last week
+     shows up as new. That is what the market will call it too.</p>
+  <p><b>"New" counts from the fetch, not from today${M && M.fetched ? " (" + M.fetched + ")" : ""}.</b>
+     ${M ? M.listings.filter(l => l.dom != null && l.dom <= NEW_DAYS).length.toLocaleString() : "—"}
+     of ${M ? M.listings.length.toLocaleString() : "—"} listings were ${NEW_DAYS} days old or
+     less then; every day this snapshot ages, that set is more wrong. ${NO_DOM
+       ? `<b>${NO_DOM} listings publish no day count at all</b> and are left out of the filter
+          rather than guessed into it — unlike the lot and sq ft bands, where an unknown stays
+          in the list. "New" is a claim; "like mine" is a question.` : ""}</p>
   <p><b>Sold data: ${D.totalSales.toLocaleString()} NJ sales, ${D.window[0]} → ${D.window[1]}.</b>
      Amenity distances and commutes are colour, never filters — they don't rank or remove a
      house here, same as everywhere else in this tool.</p>`;
