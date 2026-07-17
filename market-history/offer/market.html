@@ -119,16 +119,22 @@
   /* Phone: thumbnail beside the address, everything else stacked under them. The old
      rule only moved .facts — which is nested inside .price — so the price block stayed
      an unplaced grid item and landed wherever it liked. */
+  /* Phone: thumbnail left, EVERY piece of text in one column with ONE left edge.
+     The verdict used to span 1/-1, so it started at the page margin while the address
+     and price started past the thumbnail — a ragged left edge that reads as broken
+     even though each block was individually fine. */
   @media(max-width:760px){
-    .row{grid-template-columns:4.5rem minmax(0,1fr);gap:.5rem .8rem;align-items:start;
+    .row{grid-template-columns:4.5rem minmax(0,1fr);gap:.35rem 1rem;align-items:start;
       padding:1rem 0}
-    .thumb{width:4.5rem;height:3.4rem;grid-row:span 2}
-    .price{grid-column:2;text-align:left;display:flex;align-items:baseline;gap:.6rem;
-      flex-wrap:wrap}
-    .price .facts{text-align:left !important}
-    .ask{font-size:1.2rem}
-    .verdict{grid-column:1 / -1;padding-top:.2rem;border-top:1px solid var(--paper-2);
-      margin-top:.2rem}
+    .thumb{width:4.5rem;height:3.4rem;grid-row:span 3}
+    .addr{font-size:1.05rem}
+    .price{grid-column:2;text-align:left;display:flex;align-items:baseline;gap:.5rem;
+      flex-wrap:wrap;margin-top:.15rem}
+    .price .facts{text-align:left}
+    .ask{font-size:1.25rem}
+    .verdict{grid-column:2;margin-top:.35rem;padding-top:.45rem;
+      border-top:1px solid var(--rule)}
+    .ext{margin-top:.5rem}
   }
   .thumb{width:5.5rem;height:4rem;object-fit:cover;background:var(--paper-2);
     border:1px solid var(--rule)}
@@ -141,7 +147,8 @@
   .tag.stale{color:var(--ink-3);border-color:var(--rule-2)}
   .ask{font-family:var(--serif);font-size:1.35rem;font-variant-numeric:tabular-nums;
     text-align:right}
-  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums;text-align:right}
+  .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .price .facts{text-align:right}
   .verdict{font-size:.8rem;line-height:1.4}
   .verdict .n{font-family:var(--serif);font-size:1.05rem;font-variant-numeric:tabular-nums}
   .verdict .over{color:var(--over)} .verdict .under{color:var(--under)}
