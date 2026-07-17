@@ -35,6 +35,21 @@
   .stamp.warn b{color:var(--flag)}
   .stamp code{font-size:.75rem;background:var(--paper-2);padding:.1rem .3rem}
 
+  /* The one personal thing on the page: a fire-once action, so it takes the masthead's
+     link language ("price a single house →"), NOT .seg's outlined box — that box is
+     this page's vocabulary for a TOGGLE, and using it here read as neither button nor
+     prose. Without these rules it fell back to the browser's default button chrome,
+     which is exactly what it looked like. */
+  .fav{margin:-.2rem 0 1.2rem;font-size:.78rem;color:var(--ink-3);line-height:1.6;
+    max-width:60rem}
+  #fav-btn{background:none;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-2);cursor:pointer;font-family:var(--sans);font-size:.78rem;
+    padding:0 0 .1rem;white-space:nowrap;-webkit-appearance:none;appearance:none;
+    border-radius:0}
+  #fav-btn:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  #fav-btn .star{color:var(--flag)}
+  @media (pointer:coarse){#fav-btn{padding:.5rem 0;font-size:.85rem}}
+
   /* ── filters ── */
   .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
     gap:1rem 1.4rem;align-items:end;margin-bottom:.9rem}
