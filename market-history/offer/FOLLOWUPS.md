@@ -75,6 +75,34 @@ today it moves all the way.
 
 ---
 
+## 1c. Fill the 378 houses that publish no lot — MOD-IV has it, we already query it
+
+"Unknown" on the market page is really TWO problems, and they need opposite treatment:
+
+* **Lot — small and fixable.** Only **378 of 2,494 single-family listings (15%)** lack
+  a lot size. The other "missing" lots are **condos and townhouses, where missing is
+  CORRECT** — an attached unit owns no land. So the lot data is already 85% complete
+  for actual houses.
+  **The 378 are fillable:** NJ MOD-IV carries `CALC_ACRE` on every parcel and
+  `aggregate.py` already queries that endpoint per municipality. Join listings to
+  parcels on `address_key` (the same key `property_key` is built from) and most of the
+  378 should resolve. Watch the pagination — the endpoint caps at 1,000 rows and
+  Scotch Plains alone exceeds it, so use `resultOffset` + `orderByFields=OBJECTID` the
+  way `fetch_nj_records` does. A probe without pagination matched only 12%, which is a
+  paging artifact, not a data limit.
+
+* **House sq ft — big and NOT fixable this way.** **1,710 of 2,494 houses (69%)**
+  publish no size, and the cadastral endpoint has **no living-area field at all** (46
+  fields, none is sqft — see [`../DEFECTS.md`](../DEFECTS.md) #5). It needs the MOD-IV
+  **assessment** file, which is followup #1 above. Same root cause as the analyser's
+  single-sourced `sqft`.
+
+**Meanwhile the page ranks rather than drops** (`Closest to my lot`): an unknown sorts
+last but never leaves the list, and the row says whether it's "no land" (an attached
+home — correct) or "lot not listed" (a gap we could close).
+
+---
+
 ## 2. Let sq ft be a range, not a point
 
 Follows directly from #1. You rarely *know* the living area — you know it's "1,108

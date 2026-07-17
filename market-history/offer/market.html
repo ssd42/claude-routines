@@ -399,6 +399,15 @@ const SORTS = {
   near: ["Closest to Westfield", (a, b) =>
     (D.towns[a.t]?.dist ?? 99) - (D.towns[b.t]?.dist ?? 99)],
   newest: ["Newest listed", (a, b) => (b.seen || "").localeCompare(a.seen || "")],
+  fit: ["Closest to my lot", (a, b) => {
+    const want = digits($("likelot").value);
+    if (!want) return 0;
+    const off = l => l.lot ? Math.abs(l.lot - want) / want : Infinity;
+    const oa = off(a), ob = off(b);
+    // unknown lots go last WITHIN the list, never out of it
+    if (oa === Infinity && ob === Infinity) return 0;
+    return oa - ob;
+  }],
   cut: ["Biggest price cut", (a, b) => ((b.cut ? b.p0 - b.p : 0) - (a.cut ? a.p0 - a.p : 0))],
   dom: ["Longest on market", (a, b) => (b.dom || 0) - (a.dom || 0)],
 };
@@ -465,7 +474,11 @@ function render() {
       l.up ? `<span class="tag up" title="We watched this price RISE">+${usdFull(l.p - l.p0)}</span>` : "",
       l.spell > 1 ? `<span class="tag stale">relisted ×${l.spell}</span>` : "",
       // be explicit when a house is in the list only because we couldn't check it
-      (digits($("likelot").value) && !l.lot) ? `<span class="tag stale" title="This listing publishes no lot size — kept because we cannot rule it out">lot unknown</span>` : "",
+      (digits($("likelot").value) && !l.lot)
+        ? (D.family[l.ty] === "attached"
+            ? `<span class="tag stale" title="An attached home owns no land — this isn't missing data">no land</span>`
+            : `<span class="tag stale" title="This house publishes no lot size. Kept: we can't rule it out.">lot not listed</span>`)
+        : "",
     ].join("");
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
@@ -564,6 +577,7 @@ document.querySelectorAll(".seg button[data-buf]").forEach(b =>
   }));
 $("fav-btn").addEventListener("click", () => {
   $("likelot").value = FAV.lot; $("likesq").value = "";   // house size is open; the LOT is the point
+  sortBy = "fit";                                          // the whole point is closeness
   shown = PAGE; save(); render();
 });
 $("cut-btn").addEventListener("click", () => {
