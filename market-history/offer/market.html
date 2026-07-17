@@ -215,7 +215,7 @@
   </div>
 </form>
 <p class="fav">
-  <button type="button" id="fav-btn">★ use 524 Farley Ave</button>
+  <button type="button" id="fav-btn"><span class="star">★</span> Use 524 Farley Ave</button>
   <span id="fav-note"></span>
 </p>
 
@@ -417,10 +417,10 @@ function render() {
   drawStamp();
   const lk = digits($("likelot").value), lq = digits($("likesq").value);
   $("fav-note").innerHTML = (lk || lq)
-    ? `matching <b>${[lk ? `lot ${Math.round(lk*(1-buffer)).toLocaleString()}–${Math.round(lk*(1+buffer)).toLocaleString()}` : null,
-        lq ? `house ${Math.round(lq*(1-buffer)).toLocaleString()}–${Math.round(lq*(1+buffer)).toLocaleString()} sqft` : null]
-        .filter(Boolean).join(" · ")}</b> — a listing that doesn't publish the number is kept, not dropped`
-    : `${esc2(FAV.label)}`;
+    ? ` — matching <b>${[lk ? `lots ${Math.round(lk*(1-buffer)).toLocaleString()}–${Math.round(lk*(1+buffer)).toLocaleString()} sqft` : null,
+        lq ? `houses ${Math.round(lq*(1-buffer)).toLocaleString()}–${Math.round(lq*(1+buffer)).toLocaleString()} sqft` : null]
+        .filter(Boolean).join(" and ")}</b>. Anything that doesn't publish the number stays in the list.`
+    : ` — your favourite of 30+ open houses: <b>1,170 sqft on a 6,599 sqft lot</b> (50 × 132 ft).`;
   if (!M || !M.listings.length) { $("count").textContent = ""; $("list").innerHTML = ""; return; }
 
   const rows = filtered();
