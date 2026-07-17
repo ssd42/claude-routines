@@ -1,5 +1,5 @@
 {
- "_doc": "Fetch units for the nj_records source. MOD-IV is keyed by (COUNTY, MUN_NAME) \u2014 NOT zip (the ZIP5 field in the data is dirty). So each target town maps to one or more exact MUN_NAME strings pulled from maps.nj.gov's Cadastral layer on 2026-07-11. Some towns are SECTIONS of a larger municipality (Colonia -> Woodbridge, Basking Ridge -> Bernards, Towaco -> Montville): pulling the municipality returns the whole township, which we keep (goal = aggregate; ZIP5 lets us subset later). Some town names split into Boro + Twp (Chatham, Mendham, Boonton): both are listed. Verify a MUN_NAME against the live layer's distinct values if a fetch returns 0 rows.",
+ "_doc": "Fetch units for the nj_records source. MOD-IV is keyed by (COUNTY, MUN_NAME) \u2014 NOT zip (the ZIP5 field in the data is dirty). So each target town maps to one or more exact MUN_NAME strings pulled from maps.nj.gov's Cadastral layer (originals 2026-07-11; the 2026-07-17 additions re-verified against the live layer the same day). Some towns are SECTIONS of a larger municipality (Colonia -> Woodbridge, Basking Ridge -> Bernards, Towaco -> Montville, Martinsville -> Bridgewater, Millburn + Short Hills -> Millburn Twp, Stirling + Gillette + Millington -> Long Hill Twp): pulling the municipality returns the whole township, so the entry is marked section_of and aggregate.py subsets it to that section's ZIP5. WHEN TWO OR MORE ENTRIES SHARE ONE MUN_NAME, EVERY ONE OF THEM MUST BE section_of. Without it aggregate.py rewrites any unrecognised ZIP5 to the entry's first zip, so the non-section entry swallows its sibling's sales under the wrong zip AND the sibling's own pull re-adds them under the right one \u2014 a silent double count that coalesce_sales cannot catch, because its cross-source guard sees both copies as nj_records. That is exactly what Bridgewater was doing to Martinsville until 2026-07-17. Some town names split into Boro + Twp (Chatham, Mendham, Boonton): both are listed. Verify a MUN_NAME against the live layer's distinct values if a fetch returns 0 rows.",
  "endpoint": "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer/0",
  "municipalities": [
   {
@@ -68,6 +68,15 @@
    ]
   },
   {
+   "town": "Millburn",
+   "county": "ESSEX",
+   "mun": "MILLBURN TWP",
+   "zips": [
+    "07041"
+   ],
+   "section_of": "Millburn proper (07041) is one section of Millburn Twp; pull returns the whole township \u2014 subset by ZIP5=07041. Short Hills is a separate entry on the same municipality, so the township is fetched twice. Until 2026-07-17 only the Short Hills entry existed, so every 07041 sale was fetched and then dropped by its ZIP5=07078 filter."
+  },
+  {
    "town": "Short Hills",
    "county": "ESSEX",
    "mun": "MILLBURN TWP",
@@ -92,6 +101,15 @@
    "zips": [
     "07006"
    ]
+  },
+  {
+   "town": "West Caldwell",
+   "county": "ESSEX",
+   "mun": "WEST CALDWELL TWP",
+   "zips": [
+    "07006"
+   ],
+   "_note": "Third municipality in 07006 (with CALDWELL BORO TWP and NORTH CALDWELL TWP). Deed rows land here; scrape-only 07006 rows fall back to Caldwell per zips.json first-wins."
   },
   {
    "town": "Nutley",
@@ -242,14 +260,31 @@
    ]
   },
   {
-   "town": "Long Hill",
+   "town": "Gillette",
    "county": "MORRIS",
    "mun": "LONG HILL TWP",
    "zips": [
-    "07980",
-    "07933",
+    "07933"
+   ],
+   "section_of": "Gillette is a section of Long Hill Twp; pull returns the whole township \u2014 subset by ZIP5=07933. Its two sibling villages are separate entries on the same municipality, so the township is fetched three times. Replaced the single 'Long Hill' entry on 2026-07-17."
+  },
+  {
+   "town": "Stirling",
+   "county": "MORRIS",
+   "mun": "LONG HILL TWP",
+   "zips": [
+    "07980"
+   ],
+   "section_of": "Stirling is a section of Long Hill Twp; pull returns the whole township \u2014 subset by ZIP5=07980. Its two sibling villages are separate entries on the same municipality, so the township is fetched three times. Replaced the single 'Long Hill' entry on 2026-07-17."
+  },
+  {
+   "town": "Millington",
+   "county": "MORRIS",
+   "mun": "LONG HILL TWP",
+   "zips": [
     "07946"
-   ]
+   ],
+   "section_of": "Millington is a section of Long Hill Twp; pull returns the whole township \u2014 subset by ZIP5=07946. Its two sibling villages are separate entries on the same municipality, so the township is fetched three times. Replaced the single 'Long Hill' entry on 2026-07-17."
   },
   {
    "town": "Madison",
@@ -302,6 +337,15 @@
    ]
   },
   {
+   "town": "Morris Township",
+   "county": "MORRIS",
+   "mun": "MORRIS TWP",
+   "zips": [
+    "07960"
+   ],
+   "_note": "MORRIS TWP wraps around MORRISTOWN TOWN and shares 07960. Two distinct MUN_NAMEs, verified live 2026-07-17. Deed rows separate them; scrape-only 07960 rows fall back to Morristown."
+  },
+  {
    "town": "Randolph",
    "county": "MORRIS",
    "mun": "RANDOLPH TWP",
@@ -349,7 +393,17 @@
    "mun": "BRIDGEWATER TWP",
    "zips": [
     "08807"
-   ]
+   ],
+   "section_of": "Bridgewater proper (08807) is one section of Bridgewater Twp; pull returns the whole township \u2014 subset by ZIP5=08807. Martinsville is a separate entry on the same municipality (like Colonia/Woodbridge), so the township is fetched twice. Before 2026-07-17 this entry had NO section_of, so Martinsville's 08836 deeds were relabelled 08807 and filed under Bridgewater."
+  },
+  {
+   "town": "Martinsville",
+   "county": "SOMERSET",
+   "mun": "BRIDGEWATER TWP",
+   "zips": [
+    "08836"
+   ],
+   "section_of": "Martinsville is a section of Bridgewater Twp; pull returns the whole township \u2014 subset by ZIP5=08836. Bridgewater proper is a separate entry on the same municipality, so the township is fetched twice."
   },
   {
    "town": "Green Brook",
@@ -453,6 +507,38 @@
    "mun": "WESTFIELD TOWN",
    "zips": [
     "07090"
+   ]
+  },
+  {
+   "town": "Mountainside",
+   "county": "UNION",
+   "mun": "MOUNTAINSIDE BORO",
+   "zips": [
+    "07092"
+   ]
+  },
+  {
+   "town": "Bernardsville",
+   "county": "SOMERSET",
+   "mun": "BERNARDSVILLE BORO",
+   "zips": [
+    "07924"
+   ]
+  },
+  {
+   "town": "East Hanover",
+   "county": "MORRIS",
+   "mun": "EAST HANOVER TWP",
+   "zips": [
+    "07936"
+   ]
+  },
+  {
+   "town": "Mountain Lakes",
+   "county": "MORRIS",
+   "mun": "MOUNTAIN LAKES BORO",
+   "zips": [
+    "07046"
    ]
   }
  ]

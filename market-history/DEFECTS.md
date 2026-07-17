@@ -19,6 +19,7 @@ is a regression.
 | [`days_on_market_disagrees`](#3-days_on_market_disagrees) | MED | 1,969 | **38** | was mostly a false alarm — see below |
 | [`sold_vs_ask_extreme`](#4-sold_vs_ask_extreme) | MED | 152 | 152 | known, mitigated (source-side) |
 | [`sqft` is single-sourced](#5-sqft-is-single-sourced--there-is-no-second-opinion) | HIGH | n/a | — | **structural — unscannable** |
+| [`cross_zip_duplicate`](#6-cross_zip_duplicate--one-sale-under-two-zips-never-fuses) | HIGH | n/a | **149** | **new 2026-07-17 — open** |
 | `ask_pct_without_list_price` | HIGH | 0 | 0 | clean ✅ |
 | `no_sold_price` | HIGH | 0 | 0 | clean ✅ |
 | `no_sold_date` | HIGH | 0 | 0 | clean ✅ |
@@ -245,3 +246,63 @@ Append to `CHECKS` in `analysis/defects.py`. A check is
 Most wrap a row predicate in `each(...)`; a check that needs to see the whole set
 first — like `list_date_is_batch_sentinel`, which must learn which dates are bogus
 before it can judge a row — takes `rows` directly.
+
+---
+
+## 6. `cross_zip_duplicate` — one sale under two zips never fuses
+
+**149 pairs (~0.37% of rows), found 2026-07-17.** The same house, same sold month,
+same price, recorded **twice** — once by the deed under one zip, once by the MLS
+under another — and nothing in the pipeline can ever fuse them.
+
+**Why it is structural.** Both dedupe stages put `zip` *in the key*:
+
+```
+merge_sales    groups on (address_norm, zip, sold_month)      # aggregate.py:907
+_coalesce_pass buckets on (address_key,  zip, sold_month)     # aggregate.py:836
+```
+
+So the moment two sources disagree about a house's zip, the two copies land in
+different buckets and the cross-source coalesce — the safety net that exists
+precisely to catch one sale spelled two ways — never even compares them.
+
+**Why they disagree.** In NJ a mailing address routinely names a different place
+than the municipality. A house in Mendham Twp can post as "Randolph, NJ 07869": the
+deed comes back under `MENDHAM TWP`, the MLS lists it in `07869`, and it is one sale
+in two towns. `fetch_nj_records` makes it worse — for a unit with no `section_of` it
+rewrites any unrecognised `ZIP5` to `u["zips"][0]` (aggregate.py:485), **destroying
+the true zip on write**, so the disagreement can't even be reconstructed offline
+from `sales.csv`.
+
+**Confirmed real, not a key collision.** `110 Prospect Ave`, sold 2024-01-05 for
+$350,000 — one row `Bridgewater/08807` (listing_scrape), one row `Martinsville/08836`
+(nj_records), lot 36,155 vs 36,146 sqft. Same house.
+
+**This is not a section-split artifact.** Only ~34 of the 149 involve towns added on
+2026-07-17; the rest predate them, including **27 pairs inside Edison** and **12
+inside Montclair** — towns double-counting against *their own* second zip. It has
+been inflating counts since the multi-zip towns landed.
+
+| worst pairs | n | | | n |
+|---|--:|---|---|--:|
+| Edison ↔ Edison | 27 | | Montclair ↔ Montclair | 12 |
+| Morris Plains ↔ Morris Township | 17 | | Boonton ↔ Montville | 10 |
+| Mendham ↔ Randolph | 16 | | New Providence ↔ Summit | 9 |
+
+### Impact
+Every count, and every median computed over the affected towns, runs high — most
+sharply in Edison and Montclair. Small against 40,095 rows; not small inside one
+town-month bucket, which is the grain `by_town_month.csv` invites people to read.
+
+### Proposed fix
+Drop `zip` from the `_coalesce_pass` bucket and let the existing guards do the work
+— **different sources** + **exact price** + same `address_key` + same `sold_month`.
+Those three together are already what makes sweep 2 safe; zip adds nothing but the
+false negative. Needs a same-month/same-price/different-town false-positive count
+run first — two genuinely different houses at the same street number in adjacent
+towns is the thing to disprove. **Not attempted yet: it changes merge semantics for
+the whole dataset, so it wants its own pass, not a ride-along on a town add.**
+
+A second, deeper fix: stop discarding the true `ZIP5` at aggregate.py:485 — store it
+verbatim (the `bldg_desc` lesson) so a future repair can run offline instead of
+re-scraping.

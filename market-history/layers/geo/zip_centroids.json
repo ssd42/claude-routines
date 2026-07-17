@@ -1,5 +1,5 @@
 {
-  "_doc": "2020 ZCTA internal-point (centroid) lat/lon for every zip in zips.json. From the US Census 2024 national ZCTA gazetteer. Used by build_share.py to measure straight-line distance from a town to the nearest Seabra (poi_seabra.json). A ZCTA centroid is the zip's geographic middle, so a town-level distance is accurate to roughly a mile \u2014 good enough for a nice-to-have, not for a commute.",
+  "_doc": "2020 ZCTA internal-point (centroid) lat/lon for every zip in zips.json (the 6 added 2026-07-17 \u2014 07041, 07046, 07092, 07924, 07936, 08836 \u2014 came from the same 2024 gazetteer as the original 58). From the US Census 2024 national ZCTA gazetteer. Used by build_share.py to measure straight-line distance from a town to the nearest Seabra (poi_seabra.json). A ZCTA centroid is the zip's geographic middle, so a town-level distance is accurate to roughly a mile \u2014 good enough for a nice-to-have, not for a commute.",
   "_source": "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2024_Gazetteer/2024_Gaz_zcta_national.zip",
   "zips": {
     "07005": {
@@ -42,6 +42,10 @@
       "lat": 40.733607,
       "lon": -74.271159
     },
+    "07041": {
+      "lat": 40.722448,
+      "lon": -74.301546
+    },
     "07042": {
       "lat": 40.813487,
       "lon": -74.219011
@@ -57,6 +61,10 @@
     "07045": {
       "lat": 40.906942,
       "lon": -74.365608
+    },
+    "07046": {
+      "lat": 40.890853,
+      "lon": -74.442032
     },
     "07052": {
       "lat": 40.785755,
@@ -110,6 +118,10 @@
       "lat": 40.651644,
       "lon": -74.343447
     },
+    "07092": {
+      "lat": 40.680722,
+      "lon": -74.360292
+    },
     "07095": {
       "lat": 40.552857,
       "lon": -74.286939
@@ -154,6 +166,10 @@
       "lat": 40.67659,
       "lon": -74.427022
     },
+    "07924": {
+      "lat": 40.72577,
+      "lon": -74.591213
+    },
     "07927": {
       "lat": 40.823725,
       "lon": -74.456354
@@ -173,6 +189,10 @@
     "07933": {
       "lat": 40.695179,
       "lon": -74.456871
+    },
+    "07936": {
+      "lat": 40.818553,
+      "lon": -74.363742
     },
     "07940": {
       "lat": 40.760535,
@@ -217,6 +237,10 @@
     "08820": {
       "lat": 40.576806,
       "lon": -74.36575
+    },
+    "08836": {
+      "lat": 40.596376,
+      "lon": -74.55732
     },
     "08837": {
       "lat": 40.514281,

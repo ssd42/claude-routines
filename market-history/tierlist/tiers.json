@@ -1,8 +1,8 @@
 {
   "_doc": "Hand-ranked tiers for the market-history target towns. Authored in tierlist/tierlist.html (python3 serve.py); rewritten in full on every edit. Town names match ../zips.json. Order within a tier is meaningful — best first. Opinion, not data: nothing in aggregate.py reads this.",
   "_unknown_rule": "'unknown' is NOT the bottom of the S-F ramp — it means no read on the town yet, good or bad. Don't sort it below F or fold it into 'unranked' (which just means not looked at yet). Ranked counts exclude both.",
-  "updated": "2026-07-17T00:42:50-04:00",
-  "source": "../zips.json — 53 ranked, 0 unknown, 0 unsorted",
+  "updated": "2026-07-17T01:18:52-04:00",
+  "source": "../zips.json — 62 ranked, 1 unknown, 0 unsorted",
   "tiers": {
     "S": [
       "Westfield",
@@ -11,6 +11,7 @@
       "Chatham",
       "Glen Rock",
       "Montclair",
+      "Mountain Lakes",
       "Essex Fells",
       "Glen Ridge",
       "Basking Ridge",
@@ -24,14 +25,16 @@
       "Garwood",
       "Fanwood",
       "Clark",
+      "Mountainside",
       "Caldwell",
+      "Bernardsville",
+      "Millburn",
       "Colonia",
       "New Providence",
       "South Orange",
       "Livingston",
       "Bridgewater",
       "Bedminster",
-      "Long Hill",
       "Franklin Lakes"
     ],
     "B": [
@@ -49,10 +52,16 @@
       "West Orange",
       "Nutley",
       "Morristown",
+      "West Caldwell",
+      "Morris Township",
       "Cedar Knolls",
+      "East Hanover",
+      "Millington",
       "Towaco",
+      "Stirling",
       "Morris Plains",
       "Mendham",
+      "Gillette",
       "Boonton",
       "Montville"
     ],
@@ -68,7 +77,9 @@
       "South Plainfield"
     ],
     "F": [],
-    "unknown": [],
+    "unknown": [
+      "Martinsville"
+    ],
     "unranked": []
   }
 }
