@@ -172,17 +172,20 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
 // these are always visible. Lazy-loaded (~335 KB gzipped) on first toggle, canvas-
 // rendered so 8k polygons stay smooth on a phone. Own pane, above the choropleth fill,
 // below the pins.
-map.createPane("flood");
-map.getPane("flood").style.zIndex = 500;
-let floodLayer = null, floodState = "off";   // off | loading | on | error
+let floodLayer = null, floodState = "off", floodN = 0;
 async function ensureFlood(){
   if (floodLayer || floodState === "loading") return;
   floodState = "loading"; $("toggle-flood").textContent = "Flood — loading…";
   try {
-    const gj = await (await fetch("flood.geojson")).json();
+    const r = await fetch("flood.geojson");
+    if (!r.ok) throw new Error(r.status);
+    const gj = await r.json();
+    floodN = (gj.features||[]).length;
+    // plain canvas renderer, default overlay pane, non-interactive (never blocks clicks).
+    // Added after the choropleth so it stacks on top; pins live in a higher pane still.
     floodLayer = L.geoJSON(gj, {
-      pane:"flood", renderer:L.canvas({pane:"flood", padding:.5}),
-      style:{color:"#2b6cb0", weight:.4, fillColor:"#2b6cb0", fillOpacity:.35, opacity:.5},
+      renderer: L.canvas({padding:.5}), interactive:false,
+      style:{color:"#1e40af", weight:.6, fillColor:"#2563eb", fillOpacity:.5, opacity:.8},
     });
     floodState = "loaded";
   } catch(e){ floodState = "error"; $("toggle-flood").textContent = "Flood — unavailable"; }
@@ -259,8 +262,8 @@ $("toggle-flood").addEventListener("click", async ()=>{
   }
   await ensureFlood();
   if (floodLayer){
-    floodLayer.addTo(map); $("toggle-flood").classList.add("on");
-    $("toggle-flood").textContent = "Flood zones (on)";
+    floodLayer.addTo(map); floodLayer.bringToFront(); $("toggle-flood").classList.add("on");
+    $("toggle-flood").textContent = `Flood zones (${floodN.toLocaleString()})`;
   }
 });
 
