@@ -40,7 +40,7 @@
   /* ── the formula slab ─────────────────────────────── */
   .formula{background:var(--ink);color:var(--paper);padding:1.5rem 1.7rem;
     margin-bottom:.9rem;font-family:var(--mono);font-size:clamp(.8rem,2vw,.95rem);
-    line-height:1.9;overflow-x:auto}
+    line-height:1.9;overflow-x:auto;white-space:pre}
   .formula .c{color:#b8ab97}
   .formula b{color:#f0c674;font-weight:400}
   .formula .pos{color:#9ec7a0}
@@ -98,7 +98,7 @@
   @media(max-width:640px){.two{grid-template-columns:1fr;gap:1.4rem}
     .factor{grid-template-columns:1fr}.f-wt{text-align:left}}
   .mini{font-family:var(--mono);font-size:.85rem;background:var(--paper-2);
-    padding:1rem 1.1rem;line-height:1.8;overflow-x:auto}
+    padding:1rem 1.1rem;line-height:1.8;overflow-x:auto;white-space:pre}
   .mini b{color:var(--ink);font-weight:400;border-bottom:1px solid var(--rule-2)}
 
   footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);
@@ -341,13 +341,18 @@ function plot(f, domain, discrete, unit){
     d += (started ? "L" : "M") + px.toFixed(1) + " " + py.toFixed(1) + " ";
     started = true;
   }
-  const fmt = v => unit === "$" ? "$" + Math.round(v/1000) + "k"
-    : (v >= 1000 ? (v/1000) + "k" : v);
+  // years are not thousands ("1900", not "1.9k"); dollars carry their own prefix so
+  // they must not also get the trailing unit word appended.
+  const fmt = v => unit === "$" ? "$" + (v >= 1e6 ? (v/1e6).toFixed(1).replace(/\.0$/,"") + "M"
+                                                  : Math.round(v/1000) + "k")
+    : unit === "yr" ? String(Math.round(v))
+    : v >= 1000 ? (v/1000) + "k" : String(v);
+  const suffix = unit && unit !== "$" ? " " + unit : "";
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`
     + `<line class="zero" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}"></line>`
     + `<text class="axis" x="2" y="${y1+8}">1.0</text><text class="axis" x="2" y="${y0}">0</text>`
     + `<text class="axis" x="${x0}" y="${y0+12}">${fmt(lo)}</text>`
-    + `<text class="axis" x="${x1}" y="${y0+12}" text-anchor="end">${fmt(hi)} ${unit||""}</text>`
+    + `<text class="axis" x="${x1}" y="${y0+12}" text-anchor="end">${fmt(hi)}${suffix}</text>`
     + `<path d="${d}"></path></svg>`;
 }
 </script>
