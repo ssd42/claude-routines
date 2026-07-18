@@ -123,8 +123,8 @@ const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0
    These caveats are hard-won elsewhere in the project. On a map, colour is more persuasive
    than a flagged table, so the caveat rides in the legend, always. */
 const METRICS = {
-  appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%", good:"high",
-            dom:[5,40], cav:"2023→now, from our own sales. * = borrowed regional rate (43 towns too thin to measure)."},
+  appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%",
+            dom:[5,40], cav:"TOTAL growth 2023→today (~3 years, NOT year-over-year), from our own sold prices. Measured for 20 towns; 43 borrow the regional rate."},
   price:   {label:"Median price", fmt:usdK, good:"low",
             dom:[450000,1600000], cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
   school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", good:"high",
@@ -139,18 +139,21 @@ const METRICS = {
 };
 let metric = "appr";
 
-/* sequential ramp: pale paper → deep ink-tinted colour. `good:low` inverts, so cheap/fast = deep. */
-function ramp(t){ // t in 0..1
+/* One sequential ramp, dark = HIGH value, no hidden inversion (the old good:low flip is
+   what read as "inverted"). 3 stops for legibility: pale sand -> teal -> deep ink-teal.
+   The legend says which end is which; colour never means "good", only "more". */
+const RAMP = [[241,236,227],[127,169,155],[26,74,66]];   // pale -> teal -> deep
+function ramp(t){
   t = Math.max(0, Math.min(1, t));
-  const a = [231,226,214], b = [44,100,89];   // paper -> teal
-  return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(",")})`;
+  const seg = t < .5 ? 0 : 1, u = t < .5 ? t*2 : (t-.5)*2;
+  const a = RAMP[seg], b = RAMP[seg+1];
+  return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*u)).join(",")})`;
 }
 function colorFor(town){
   const m = METRICS[metric], v = M.metrics[town] ? M.metrics[town][metric] : null;
-  if (v == null) return "rgba(180,170,155,.25)";       // unknown = faint grey
-  if (m.cat) return m.cats[v] || "rgba(180,170,155,.25)";
-  let t = (v - m.dom[0]) / (m.dom[1] - m.dom[0]);
-  if (m.good === "low") t = 1 - t;                      // low value = "good" = deep colour
+  if (v == null) return "rgba(180,170,155,.22)";       // unknown = faint grey
+  if (m.cat) return m.cats[v] || "rgba(180,170,155,.22)";
+  const t = (v - m.dom[0]) / (m.dom[1] - m.dom[0]);    // dark = high, always
   return ramp(t);
 }
 
@@ -205,10 +208,9 @@ function drawLegend(){
       `</div><div class="cav">${m.cav}</div>`;
     return;
   }
-  const lo = m.good==="low" ? m.dom[1] : m.dom[0], hi = m.good==="low" ? m.dom[0] : m.dom[1];
   el.innerHTML = `<h4>${m.label}</h4>
-    <div class="ramp" style="background:linear-gradient(90deg, ${ramp(0)}, ${ramp(1)})"></div>
-    <div class="ends"><span>${m.fmt(m.good==="low"?hi:lo)}</span><span>${m.fmt(m.good==="low"?lo:hi)}</span></div>
+    <div class="ramp" style="background:linear-gradient(90deg, ${ramp(0)}, ${ramp(.5)}, ${ramp(1)})"></div>
+    <div class="ends"><span>${m.fmt(m.dom[0])}</span><span>${m.fmt(m.dom[1])}</span></div>
     <div class="cav">${m.cav}</div>`;
 }
 
@@ -221,7 +223,7 @@ function showTown(town){
   $("card-grid").innerHTML =
     cell("Median price", usdK(d.price), d.vsask!=null?(d.vsask>=0?"+":"")+d.vsask+"% vs ask":"") +
     cell("My tier", d.tier||"—", "") +
-    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.apprMeasured?"measured":"regional est.") +
+    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · "+(d.apprMeasured?"measured":"regional est.")):"") +
     cell("Schools", d.school!=null?d.school+"/10":"—", "DOE district") +
     cell("Income", usdK(d.income), "ACS, ±wide") +
     cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak");
@@ -229,6 +231,7 @@ function showTown(town){
   $("card").classList.add("on");
 }
 $("card-x").addEventListener("click", ()=>$("card").classList.remove("on"));
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") $("card").classList.remove("on"); });
 
 // ── metric switcher ──
 $("metrics").innerHTML = Object.entries(METRICS).map(([k,m])=>
@@ -241,12 +244,18 @@ $("metrics").addEventListener("click", e=>{
 });
 
 // ── FEMA flood toggle ──
+const FLOOD_MINZOOM = 13;   // FEMA layer 28 minScale ~1:36k — suppressed above this
+function floodLabel(){
+  if (!map.hasLayer(femaFlood)) return "Flood zones (FEMA)";
+  return map.getZoom() < FLOOD_MINZOOM ? "Flood — zoom in to see" : "Flood zones (on)";
+}
 $("toggle-flood").addEventListener("click", ()=>{
   const on = map.hasLayer(femaFlood);
-  if (on){ femaFlood.remove(); $("toggle-flood").textContent="Flood zones (FEMA)"; }
-  else { $("toggle-flood").textContent="Flood zones (FEMA)"; femaFlood.addTo(map); }
+  on ? femaFlood.remove() : femaFlood.addTo(map);
   $("toggle-flood").classList.toggle("on", !on);
+  $("toggle-flood").textContent = floodLabel();
 });
+map.on("zoomend", ()=>{ if (map.hasLayer(femaFlood)) $("toggle-flood").textContent = floodLabel(); });
 
 // ── listing pins (lean, canvas) ──
 let ptLayer = null;
