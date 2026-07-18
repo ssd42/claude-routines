@@ -39,6 +39,14 @@ PPSF_MIN, PPSF_MAX = 100, 2000
 SANE_INDEX = (0.8, 2.0)   # a 3-year town multiplier outside this is a bug, not a market
 THIN = 10            # under this a bucket is too thin to answer from
 INDEX_MIN = 10       # sales/year a town needs before it gets its OWN price index
+# ── neighbour borrowing (engine.js §borrow) — the DATA half lives here ────────────
+# A thin town can top up its comps from nearby towns, weighted down (the engine does the
+# weighting + refusal; this file just bakes the two things it needs). We bake a generous
+# neighbour list and let the ENGINE decide how many / how near / how hard to trust — so
+# all the tuning lives in one place the owner edits, not split across two files.
+NEAR_N = 8           # how many nearest towns to bake per town (engine trims further)
+NEAR_MAX_MI = 15     # don't bake a "neighbour" past this — beyond it, it's a filter, not a neighbour
+LEVEL_MIN = 8        # comps a town needs before it may LEND its price level to a re-anchor
 # Shrinkage for the seasonal SHAPE. A town-month deviation built on 29 sales is mostly
 # noise; one built on 200 is mostly signal. Weight = n/(n+SHRINK_K), so a bucket pulls
 # toward the all-towns curve in proportion to how little it knows. At n=30 a town gets
@@ -205,6 +213,61 @@ def price_index(sales):
     return regional, town_idx, newest
 
 
+def _haversine_mi(a, b):
+    """Great-circle miles between two (lat, lon) points. Straight-line, like every
+    other distance in this routine (layers/README: town-to-store is as-the-crow-flies,
+    ~1.3-1.5x drive time here). Good enough to rank who is next to whom."""
+    from math import radians, sin, cos, asin, sqrt
+    lat1, lon1, lat2, lon2 = map(radians, (a[0], a[1], b[0], b[1]))
+    h = sin((lat2 - lat1) / 2) ** 2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2) ** 2
+    return 2 * 3958.8 * asin(sqrt(h))
+
+
+def add_neighbours(towns, zips_doc, town_idx, regional, newest, comps):
+    """Bake, onto each town in `towns`, the two things the engine's borrowing needs:
+
+      near : [[town, miles], ...]  the nearest NEAR_N towns-with-sales within NEAR_MAX_MI,
+             closest first. The engine trims this further (count / distance / weight); we
+             bake generously so all the tuning stays in one file the owner edits.
+      ppsf : float                 the town's median $/sqft brought to TODAY's level, or
+             absent when the town has < LEVEL_MIN comps to measure one. Used by the engine
+             ONLY as a cross-town ratio to re-anchor a borrowed comp (see caller's note).
+    """
+    cents = json.load(open(os.path.join(ROOT, "layers", "geo",
+                                        "zip_centroids.json")))["zips"]
+
+    # town centroid = mean of its zips' ZCTA centroids (the zips we actually have a point
+    # for). A town with no located zip simply gets no neighbours — it can't be placed.
+    centre = {}
+    for t in zips_doc["towns"]:
+        pts = [(cents[z]["lat"], cents[z]["lon"]) for z in t["zips"] if z in cents]
+        if pts:
+            centre[t["name"]] = (sum(p[0] for p in pts) / len(pts),
+                                 sum(p[1] for p in pts) / len(pts))
+
+    placed = [n for n in towns if n in centre]      # only towns WITH sales can be borrowed from
+    for name in towns:
+        if name not in centre:
+            continue
+        near = sorted(
+            ((round(_haversine_mi(centre[name], centre[o]), 1), o)
+             for o in placed if o != name),
+            key=lambda x: x[0])
+        towns[name]["near"] = [[o, mi] for mi, o in near
+                               if mi <= NEAR_MAX_MI][:NEAR_N]
+
+    # per-town today-$/sqft level, from the same comp universe the engine prices against
+    by_town = defaultdict(list)
+    for c in comps:                                 # [town, sqft, .., sold, .., year, ..]
+        by_town[c[0]].append(c)
+    for name, cs in by_town.items():
+        if name not in towns or len(cs) < LEVEL_MIN:
+            continue
+        idx = town_idx.get(name) or regional        # bring each comp to today, its town's way
+        ppsf = [(c[4] / c[1]) * idx.get(str(c[6]), 1.0) for c in cs]
+        towns[name]["ppsf"] = round(st.median(ppsf), 1)
+
+
 def _days(sales, a, b):
     """Median days between two date columns, over rows carrying both."""
     out = []
@@ -326,6 +389,70 @@ def bake_listings():
     print(f"  {len(out):>5} active listings   (fetched {fetched})")
     print(f"  {avail:>5} available; {len(out)-avail} pending/contingent")
     return fetched
+
+
+def bake_map(towns):
+    """boundaries + per-town metrics + LEAN listing points -> offer/map.js, for map.html.
+
+    Three things the map needs, and nothing it doesn't:
+      * town_boundaries.geojson -- the polygons (point-in-polygon town lookup + choropleth).
+      * a per-town metric bundle -- income/schools/appreciation/tier/commute/price/flood%,
+        each already caveated elsewhere; the map only colours them.
+      * listing POINTS, stripped to lat/lon/price/type -- NOT listings.js (4 MB, most of it
+        description/photo that a map dot never shows). This is the lean payload the CTO
+        review demanded.
+    """
+    gj = os.path.join(ROOT, "layers", "geo", "town_boundaries.geojson")
+    if not os.path.exists(gj):
+        print("  ! no town_boundaries.geojson -- run layers/geo/fetch_boundaries.py. Skipping map.")
+        return
+    boundaries = json.load(open(gj))
+
+    inc = {r["town"]: num(r["median_household_income_usd"])
+           for r in read(os.path.join(SHARE, "income.csv"))}
+    by_town = {r["town"]: r for r in read(os.path.join(SHARE, "by_town.csv"))}
+
+    metrics = {}
+    for name, t in towns.items():
+        sch = t.get("school") or {}
+        sc = [x for x in (sch.get("el"), sch.get("mid"), sch.get("hs")) if x is not None]
+        metrics[name] = {
+            "income": inc.get(name),
+            "school": round(sum(sc) / len(sc), 1) if sc else None,
+            "appr": (t.get("appr") or {}).get("pct"),
+            "apprMeasured": (t.get("appr") or {}).get("measured"),
+            "tier": t.get("tier"),
+            "commute": (t.get("transit") or {}).get("min"),
+            "price": num((by_town.get(name) or {}).get("median_sold_price")),
+            "vsask": num((by_town.get(name) or {}).get("median_sold_vs_ask_pct")),
+            "dist": t.get("dist"),
+            "county": t.get("county"),
+        }
+
+    # listing points, lean. Read listings.csv directly (active + coords), not listings.js.
+    fc = os.path.join(ROOT, "layers", "flood", "flood_cache.json")
+    flood = json.load(open(fc)) if os.path.exists(fc) else {}
+    pts = []
+    for r in read(LISTINGS):
+        if r["status"] != "active" or r["mls_status"] != "FOR_SALE":
+            continue
+        lat, lon, p = num(r["lat"]), num(r["lon"]), num(r["last_list_price"])
+        if not (lat and lon and p):
+            continue
+        fk = f"{round(lat,5)},{round(lon,5)}"
+        pts.append([round(lat, 5), round(lon, 5), int(p), r["property_type"] or "",
+                    1 if (fk in flood and flood[fk]["high"]) else 0])
+
+    path = os.path.join(HERE, "map.js")
+    with open(path, "w") as fh:
+        fh.write("// GENERATED by build_data.py -- do not edit.\n")
+        fh.write("// pts row: [lat, lon, price, property_type, flood_high]\n")
+        fh.write("window.MAP = ")
+        json.dump({"boundaries": boundaries, "metrics": metrics, "points": pts,
+                   "generated": date.today().isoformat()}, fh, separators=(",", ":"))
+        fh.write(";\n")
+    print(f"map.js  {os.path.getsize(path)/1024:.0f} KB")
+    print(f"  {len(boundaries['features'])} polygons, {len(metrics)} town metrics, {len(pts)} listing points")
 
 
 def bake_sold():
@@ -592,6 +719,21 @@ def main():
         _t["appr"] = appreciation(_name)
         _t["apprSince"] = oldest
 
+    # ── neighbours + re-anchor level, for the engine's borrowing fallback ──────────
+    # Two things a thin town needs to borrow comps honestly (engine.js does the borrow):
+    #   near  — its nearest towns, so it borrows from next door, not across the county.
+    #   ppsf  — its OWN typical $/sqft at TODAY's level, used ONLY as a cross-town RATIO
+    #           (target_ppsf / neighbour_ppsf) to lift a borrowed comp onto this town's
+    #           price shelf. Green Brook and Dunellen share a ZIP but sit at different
+    #           levels; borrowing without re-anchoring would import the neighbour's level.
+    #
+    # NB this is the blended town $/sqft the LEVEL comment above (build_comps) refuses to
+    # export for DIRECT pricing — and that refusal still stands: `ppsf` is never
+    # multiplied by a house to make a price. It appears only inside a ratio of two towns
+    # measured the same way, where the size-mix bias largely cancels. Different use, and
+    # the engine flags every borrow it drives.
+    add_neighbours(towns, zips_doc, town_idx, regional, newest, comps)
+
     sold = sorted(r["sold_date"] for r in sales if r["sold_date"])
     data = {
         # Is this the PUBLISHED copy? The live-market browser is deliberately not
@@ -639,6 +781,8 @@ def main():
     bake_listings()
     print()
     bake_sold()
+    print()
+    bake_map(towns)
 
 
 if __name__ == "__main__":

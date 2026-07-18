@@ -14,6 +14,8 @@ offer/listings.js
 # same reasoning: 3.9 MB, regenerated offline from the committed share/sales.csv in a
 # second, and it changes whenever the sold data does. CI rebuilds it before deploying.
 offer/sold.js
+# same: 143 KB, regenerated offline from committed boundaries + share data.
+offer/map.js
 
 # python
 __pycache__/

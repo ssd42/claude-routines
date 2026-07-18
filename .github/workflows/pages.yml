@@ -8,6 +8,8 @@ name: pages
 #                                        sold data. Does not rot.
 #   market.html + listings.js          — the live-market browser, ~1.4 MB. Published
 #                                        deliberately (owner's call, 2026-07-17).
+#   map.html + map.js                  — the town-metrics map (Leaflet+OSM/CARTO tiles,
+#                                        FEMA flood tiles). ~143 KB data. Public record.
 #   sold.html + sold.js                — every closed sale, ~3.9 MB raw / ~1.0 MB gzipped.
 #                                        Public record; unlike the market it cannot rot.
 #
@@ -80,6 +82,8 @@ jobs:
           cp market-history/offer/listings.js  _site/
           cp market-history/offer/sold.html    _site/
           cp market-history/offer/sold.js      _site/
+          cp market-history/offer/map.html     _site/
+          cp market-history/offer/map.js       _site/
           # The market browser is only honest if it says how old it is — a stale
           # snapshot on a public URL is worse than no snapshot. Fail rather than
           # publish a page that lost its staleness stamp.

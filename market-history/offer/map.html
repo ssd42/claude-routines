@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Map — NJ market history</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --over:#8c2f2a; --under:#2c6459; --flag:#a8631c;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);
+    -webkit-font-smoothing:antialiased;overflow:hidden}
+  #map{position:absolute;inset:0;background:var(--paper-2)}
+  .leaflet-container{font-family:var(--sans)}
+
+  /* ── top bar: title + metric switcher ── */
+  .bar{position:absolute;top:0;left:0;right:0;z-index:1000;background:color-mix(in oklab,var(--paper) 92%,transparent);
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--rule);padding:.5rem .7rem;
+    display:flex;flex-direction:column;gap:.45rem}
+  .row1{display:flex;align-items:baseline;gap:.6rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:1.15rem;letter-spacing:-.01em}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .nav{margin-left:auto;display:flex;gap:.7rem}
+  .nav a{font-size:.72rem;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--rule-2)}
+  .nav a:hover{color:var(--ink)}
+  .metrics{display:flex;gap:.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.1rem}
+  .metrics button{flex:none;background:transparent;border:1px solid var(--rule-2);color:var(--ink-3);
+    font-family:var(--sans);font-size:.75rem;padding:.35rem .6rem;cursor:pointer;white-space:nowrap;border-radius:2px}
+  .metrics button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  @media (pointer:coarse){.metrics button{padding:.5rem .8rem;font-size:.8rem}}
+
+  /* ── toggles + locate (bottom-left, thumb-reachable) ── */
+  .tools{position:absolute;left:.6rem;bottom:.9rem;z-index:1000;display:flex;flex-direction:column;gap:.4rem}
+  .tools button{background:var(--paper);border:1px solid var(--rule-2);color:var(--ink-2);
+    font-family:var(--sans);font-size:.75rem;padding:.5rem .7rem;cursor:pointer;border-radius:2px;
+    box-shadow:0 2px 8px -4px rgba(31,28,24,.4);text-align:left;white-space:nowrap}
+  .tools button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  #locate{font-weight:600}
+  @media (pointer:coarse){.tools button{padding:.7rem .9rem;font-size:.85rem}}
+
+  /* ── legend (bottom-right) ── */
+  .legend{position:absolute;right:.6rem;bottom:.9rem;z-index:1000;background:var(--paper);
+    border:1px solid var(--rule);border-radius:2px;padding:.55rem .65rem;max-width:14rem;
+    box-shadow:0 2px 8px -4px rgba(31,28,24,.4);font-size:.72rem}
+  .legend h4{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.35rem}
+  .legend .ramp{height:.5rem;border-radius:2px;margin:.2rem 0}
+  .legend .ends{display:flex;justify-content:space-between;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .legend .cav{margin-top:.4rem;color:var(--ink-3);line-height:1.4;font-style:italic}
+  .legend .swatches{display:flex;flex-direction:column;gap:.15rem}
+  .legend .sw{display:flex;align-items:center;gap:.4rem}
+  .legend .sw i{width:.85rem;height:.85rem;border-radius:2px;display:inline-block}
+
+  /* ── town card (bottom sheet) ── */
+  .card{position:absolute;left:0;right:0;bottom:0;z-index:1100;background:var(--paper);
+    border-top:2px solid var(--ink);padding:.9rem 1rem 1.1rem;transform:translateY(110%);
+    transition:transform .22s cubic-bezier(.22,1,.36,1);box-shadow:0 -8px 24px -18px rgba(31,28,24,.6);
+    max-height:60vh;overflow:auto}
+  .card.on{transform:none}
+  .card .x{position:absolute;top:.6rem;right:.8rem;background:none;border:0;font-size:1.3rem;
+    color:var(--ink-3);cursor:pointer;line-height:1}
+  .card h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;letter-spacing:-.01em}
+  .card .sub{font-size:.78rem;color:var(--ink-3);margin-bottom:.7rem}
+  .card .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));gap:.6rem 1rem}
+  .card .m{border-left:2px solid var(--rule);padding-left:.5rem}
+  .card .m .k{font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .card .m .v{font-family:var(--serif);font-size:1.15rem;font-variant-numeric:tabular-nums}
+  .card .m .c{font-size:.66rem;color:var(--rule-2);font-style:italic}
+  .card .also{margin-top:.7rem;font-size:.74rem;color:var(--ink-2)}
+  .card .also a{color:var(--over);text-decoration:none;border-bottom:1px solid var(--rule-2)}
+
+  .stamp{position:absolute;top:4.6rem;right:.6rem;z-index:900;font-size:.66rem;color:var(--ink-3);
+    background:color-mix(in oklab,var(--paper) 85%,transparent);padding:.2rem .45rem;border-radius:2px}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="bar">
+  <div class="row1">
+    <h1>NJ map <em>— by the numbers</em></h1>
+    <nav class="nav"><a href="sold.html">sold</a><a href="market.html">market</a><a href="index.html">price a house</a></nav>
+  </div>
+  <div class="metrics" id="metrics"></div>
+</div>
+
+<div class="stamp" id="stamp"></div>
+
+<div class="tools">
+  <button id="locate">◎ Where am I</button>
+  <button id="toggle-flood">Flood zones (FEMA)</button>
+  <button id="toggle-points">For-sale pins</button>
+</div>
+
+<div class="legend" id="legend"></div>
+
+<div class="card" id="card">
+  <button class="x" id="card-x">×</button>
+  <h2 id="card-town"></h2>
+  <div class="sub" id="card-sub"></div>
+  <div class="grid" id="card-grid"></div>
+  <div class="also" id="card-also"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+<script src="map.js"></script>
+<script>
+"use strict";
+const M = window.MAP;
+const $ = id => document.getElementById(id);
+const usd = n => n == null ? "—" : "$" + Math.round(n).toLocaleString("en-US");
+const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0$/,"")+"M" : "$"+Math.round(n/1e3)+"K";
+
+/* ── the metrics, each with its scale, direction, formatter, and the caveat it must carry ──
+   These caveats are hard-won elsewhere in the project. On a map, colour is more persuasive
+   than a flagged table, so the caveat rides in the legend, always. */
+const METRICS = {
+  appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%", good:"high",
+            dom:[5,40], cav:"2023→now, from our own sales. * = borrowed regional rate (43 towns too thin to measure)."},
+  price:   {label:"Median price", fmt:usdK, good:"low",
+            dom:[450000,1600000], cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
+  school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", good:"high",
+            dom:[3,10], cav:"NJ DOE district decile. A DISTRICT proxy — two houses on a street can feed different schools."},
+  income:  {label:"Income", fmt:usdK, good:"high",
+            dom:[100000,250000], cav:"ACS median household income, ±$15–25k margins. An AREA statistic, never a quality ranking."},
+  commute: {label:"Commute", fmt:v=>v==null?"—":v+" min", good:"low",
+            dom:[35,90], cav:"AM-peak to Manhattan. Town-level; excludes drive to the station where there's none."},
+  tier:    {label:"My tier", cat:true, good:"high",
+            cats:{S:"#2c6459",A:"#5a8a6f",B:"#c8bda9",C:"#c99a5b",D:"#a8631c",F:"#8c2f2a"},
+            fmt:v=>v||"—", cav:"Hand-ranked preference, not data. The one opinion on the map."},
+};
+let metric = "appr";
+
+/* sequential ramp: pale paper → deep ink-tinted colour. `good:low` inverts, so cheap/fast = deep. */
+function ramp(t){ // t in 0..1
+  t = Math.max(0, Math.min(1, t));
+  const a = [231,226,214], b = [44,100,89];   // paper -> teal
+  return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(",")})`;
+}
+function colorFor(town){
+  const m = METRICS[metric], v = M.metrics[town] ? M.metrics[town][metric] : null;
+  if (v == null) return "rgba(180,170,155,.25)";       // unknown = faint grey
+  if (m.cat) return m.cats[v] || "rgba(180,170,155,.25)";
+  let t = (v - m.dom[0]) / (m.dom[1] - m.dom[0]);
+  if (m.good === "low") t = 1 - t;                      // low value = "good" = deep colour
+  return ramp(t);
+}
+
+// ── the map ──
+const map = L.map("map", {zoomControl:false, attributionControl:true}).setView([40.75,-74.45], 10);
+L.control.zoom({position:"topleft"}).addTo(map);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  attribution:'© OpenStreetMap © CARTO', subdomains:"abcd", maxZoom:19,
+}).addTo(map);
+
+// FEMA flood tiles (toggle) — the real zones, straight from FEMA, no boundaries of ours
+const femaFlood = L.tileLayer.wms("https://hazards.fema.gov/arcgis/services/public/NFHL/MapServer/WMSServer", {
+  layers:"28", format:"image/png", transparent:true, opacity:0.5, version:"1.3.0",
+});
+
+// ── choropleth ──
+let geo = null;
+function style(f){
+  return {fillColor:colorFor(f.properties.town), fillOpacity:.62, color:"#fff",
+          weight:1, opacity:.7};
+}
+function drawGeo(){
+  if (geo) geo.remove();
+  geo = L.geoJSON(M.boundaries, {
+    style,
+    onEachFeature:(f,layer)=>{
+      layer.on("click", ()=>showTown(f.properties.town));
+      layer.on("mouseover", ()=>layer.setStyle({weight:2.5, color:"#1f1c18"}));
+      layer.on("mouseout", ()=>layer.setStyle({weight:1, color:"#fff"}));
+    },
+  }).addTo(map);
+  map.fitBounds(geo.getBounds(), {padding:[20,20]});   // fit to the four corners of all towns
+}
+
+// ── legend ──
+function drawLegend(){
+  const m = METRICS[metric], el = $("legend");
+  if (m.cat){
+    el.innerHTML = `<h4>${m.label}</h4><div class="swatches">` +
+      Object.entries(m.cats).map(([k,c])=>`<div class="sw"><i style="background:${c}"></i>${k}</div>`).join("") +
+      `</div><div class="cav">${m.cav}</div>`;
+    return;
+  }
+  const lo = m.good==="low" ? m.dom[1] : m.dom[0], hi = m.good==="low" ? m.dom[0] : m.dom[1];
+  el.innerHTML = `<h4>${m.label}</h4>
+    <div class="ramp" style="background:linear-gradient(90deg, ${ramp(0)}, ${ramp(1)})"></div>
+    <div class="ends"><span>${m.fmt(m.good==="low"?hi:lo)}</span><span>${m.fmt(m.good==="low"?lo:hi)}</span></div>
+    <div class="cav">${m.cav}</div>`;
+}
+
+// ── the town card ──
+function showTown(town){
+  const d = M.metrics[town]; if (!d) return;
+  $("card-town").textContent = town;
+  $("card-sub").textContent = `${d.county ? d.county.charAt(0)+d.county.slice(1).toLowerCase()+" County · " : ""}${d.dist!=null?d.dist+" mi from Westfield":""}`;
+  const cell = (k,v,c) => `<div class="m"><div class="k">${k}</div><div class="v">${v}</div>${c?`<div class="c">${c}</div>`:""}</div>`;
+  $("card-grid").innerHTML =
+    cell("Median price", usdK(d.price), d.vsask!=null?(d.vsask>=0?"+":"")+d.vsask+"% vs ask":"") +
+    cell("My tier", d.tier||"—", "") +
+    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.apprMeasured?"measured":"regional est.") +
+    cell("Schools", d.school!=null?d.school+"/10":"—", "DOE district") +
+    cell("Income", usdK(d.income), "ACS, ±wide") +
+    cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak");
+  $("card-also").innerHTML = `<a href="sold.html">see ${town} sold homes →</a>`;
+  $("card").classList.add("on");
+}
+$("card-x").addEventListener("click", ()=>$("card").classList.remove("on"));
+
+// ── metric switcher ──
+$("metrics").innerHTML = Object.entries(METRICS).map(([k,m])=>
+  `<button data-m="${k}" class="${k===metric?"on":""}">${m.label}</button>`).join("");
+$("metrics").addEventListener("click", e=>{
+  const b = e.target.closest("button[data-m]"); if (!b) return;
+  metric = b.dataset.m;
+  document.querySelectorAll("#metrics button").forEach(x=>x.classList.toggle("on", x===b));
+  geo.setStyle(style); drawLegend();
+});
+
+// ── FEMA flood toggle ──
+$("toggle-flood").addEventListener("click", ()=>{
+  const on = map.hasLayer(femaFlood);
+  on ? femaFlood.remove() : femaFlood.addTo(map);
+  $("toggle-flood").classList.toggle("on", !on);
+});
+
+// ── listing pins (lean, canvas) ──
+let ptLayer = null;
+$("toggle-points").addEventListener("click", ()=>{
+  if (ptLayer){ ptLayer.remove(); ptLayer=null; $("toggle-points").classList.remove("on"); return; }
+  ptLayer = L.layerGroup();
+  const canvas = L.canvas({padding:.5});
+  for (const [lat,lon,price,ty,flood] of M.points){
+    L.circleMarker([lat,lon], {renderer:canvas, radius:4,
+      color: flood ? "#8c2f2a" : "#2c6459", weight:1, fillOpacity:.55})
+      .bindPopup(`<b>${usd(price)}</b><br>${ty||""}${flood?"<br>⚠ flood zone":""}`)
+      .addTo(ptLayer);
+  }
+  ptLayer.addTo(map); $("toggle-points").classList.add("on");
+});
+
+/* ── "Where am I" — point-in-polygon, NOT nearest centroid ──────────────────────────────
+   Ray-casting against the baked boundaries. CDPs (the section polygons: Short Hills,
+   Colonia...) are tested FIRST because a CDP sits inside a township — a point in Short
+   Hills must resolve to Short Hills, not to Millburn Twp around it. */
+function pointInRing(lat, lon, ring){
+  let inside = false;
+  for (let i=0, j=ring.length-1; i<ring.length; j=i++){
+    const xi=ring[i][0], yi=ring[i][1], xj=ring[j][0], yj=ring[j][1];  // [lon,lat]
+    if (((yi>lat)!==(yj>lat)) && (lon < (xj-xi)*(lat-yi)/(yj-yi)+xi)) inside=!inside;
+  }
+  return inside;
+}
+// bbox area proxy — cheap, only used to order candidates smallest-first
+function bboxArea(f){
+  const r = f.geometry.coordinates[0];
+  let x0=Infinity,y0=Infinity,x1=-Infinity,y1=-Infinity;
+  for (const [x,y] of r){ if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; }
+  return (x1-x0)*(y1-y0);
+}
+// a Polygon's first ring is the outer boundary; the rest are HOLES. A point is inside
+// only if it's in the outer ring and NOT in any hole — that's what makes Metuchen
+// (a hole inside Edison) resolve to Metuchen, not Edison.
+function inPolygon(lat, lon, coords){
+  if (!pointInRing(lat, lon, coords[0])) return false;
+  for (let h=1; h<coords.length; h++) if (pointInRing(lat, lon, coords[h])) return false;
+  return true;
+}
+let _ORDER = null;
+function orderedFeatures(){
+  if (_ORDER) return _ORDER;
+  // CDP (sections) first, then SMALLEST polygon first — so an enclosed town (Metuchen,
+  // Morristown) beats the township that surrounds it.
+  _ORDER = [...M.boundaries.features].sort((a,b)=>{
+    const k = (a.properties.kind==="cdp"?0:1)-(b.properties.kind==="cdp"?0:1);
+    return k || bboxArea(a)-bboxArea(b);
+  });
+  return _ORDER;
+}
+function townAt(lat, lon){
+  for (const f of orderedFeatures())
+    if (inPolygon(lat, lon, f.geometry.coordinates)) return f.properties.town;
+  return null;   // outside every polygon
+}
+// honest last resort when the point is in no polygon (e.g. near a CDP edge): the NEAREST
+// town, clearly labelled as "nearest", never presented as "you are in".
+function nearestTown(lat, lon){
+  let best=null, bd=Infinity;
+  for (const f of M.boundaries.features){
+    const r=f.geometry.coordinates[0];
+    let cx=0,cy=0; for(const [x,y] of r){cx+=x;cy+=y;} cx/=r.length; cy/=r.length;
+    const d=(cx-lon)**2+(cy-lat)**2;
+    if(d<bd){bd=d; best=f.properties.town;}
+  }
+  return best;
+}
+let meMarker = null;
+$("locate").addEventListener("click", ()=>{
+  if (!navigator.geolocation){ $("locate").textContent="◎ no geolocation"; return; }
+  $("locate").textContent = "◎ locating…";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:lat, longitude:lon} = pos.coords;
+    $("locate").textContent = "◎ Where am I";
+    if (meMarker) meMarker.remove();
+    meMarker = L.circleMarker([lat,lon], {radius:8, color:"#8c2f2a", weight:3,
+      fillColor:"#8c2f2a", fillOpacity:.4}).addTo(map);
+    map.setView([lat,lon], 13);
+    const town = townAt(lat, lon);
+    if (town) showTown(town);
+    else {
+      // in no polygon — offer the NEAREST town, honestly labelled, not a false "you are in"
+      const near = nearestTown(lat, lon);
+      if (near){ showTown(near); $("card-sub").textContent = "nearest town — you're just outside its mapped boundary"; }
+      else {
+        $("card-town").textContent = "Not in a tracked town";
+        $("card-sub").textContent = `${lat.toFixed(3)}, ${lon.toFixed(3)} — outside the 63 towns here.`;
+        $("card-grid").innerHTML=""; $("card-also").innerHTML="";
+        $("card").classList.add("on");
+      }
+    }
+  }, err=>{
+    // permission denied or no signal — say so, don't silently do nothing (the car reality)
+    $("locate").textContent = "◎ Where am I";
+    $("card-town").textContent = "Location unavailable";
+    $("card-sub").textContent = err.code===1
+      ? "Location permission was denied. Tap a town on the map instead."
+      : "Couldn't get a fix (no signal?). Tap a town on the map instead.";
+    $("card-grid").innerHTML=""; $("card-also").innerHTML="";
+    $("card").classList.add("on");
+  }, {enableHighAccuracy:true, timeout:10000, maximumAge:30000});
+});
+
+$("stamp").textContent = `${M.points.length} listings · data ${M.generated}`;
+
+drawGeo();
+drawLegend();
+</script>
+</body>
+</html>
