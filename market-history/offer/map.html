@@ -160,6 +160,8 @@ function colorFor(town){
 // ── the map ──
 const map = L.map("map", {zoomControl:false, attributionControl:true}).setView([40.75,-74.45], 10);
 L.control.zoom({position:"topleft"}).addTo(map);
+map.createPane("pins");                 // above the choropleth (overlayPane=400)
+map.getPane("pins").style.zIndex = 620; // below marker/tooltip panes, above polygons
 L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
   attribution:'© OpenStreetMap © CARTO', subdomains:"abcd", maxZoom:19,
 }).addTo(map);
@@ -262,10 +264,10 @@ let ptLayer = null;
 $("toggle-points").addEventListener("click", ()=>{
   if (ptLayer){ ptLayer.remove(); ptLayer=null; $("toggle-points").classList.remove("on"); return; }
   ptLayer = L.layerGroup();
-  const canvas = L.canvas({padding:.5});
+  const canvas = L.canvas({pane:"pins", padding:.5});
   for (const [lat,lon,price,ty,flood] of M.points){
-    L.circleMarker([lat,lon], {renderer:canvas, radius:4,
-      color: flood ? "#8c2f2a" : "#2c6459", weight:1, fillOpacity:.55})
+    L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:5,
+      color:"#fff", weight:1, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.9})
       .bindPopup(`<b>${usd(price)}</b><br>${ty||""}${flood?"<br>⚠ flood zone":""}`)
       .addTo(ptLayer);
   }
