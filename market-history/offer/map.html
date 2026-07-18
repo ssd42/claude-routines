@@ -161,10 +161,21 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
   attribution:'© OpenStreetMap © CARTO', subdomains:"abcd", maxZoom:19,
 }).addTo(map);
 
-// FEMA flood tiles (toggle) — the real zones, straight from FEMA, no boundaries of ours
-const femaFlood = L.tileLayer.wms("https://hazards.fema.gov/arcgis/services/public/NFHL/MapServer/WMSServer", {
-  layers:"28", format:"image/png", transparent:true, opacity:0.5, version:"1.3.0",
+// FEMA flood tiles (toggle) — real zones from FEMA's ArcGIS EXPORT endpoint. Its WMS
+// server 400s; the REST export works, so we build one export image per XYZ tile from the
+// tile's Web-Mercator bbox. `tileerror` flags the toggle loudly rather than showing a
+// blank overlay on an authoritative-looking map (the review's demand).
+const FEMA = L.TileLayer.extend({
+  getTileUrl(c){
+    const R = 20037508.342789244, n = R * 2 / Math.pow(2, c.z);
+    const x0 = -R + c.x * n, x1 = x0 + n, y1 = R - c.y * n, y0 = y1 - n;
+    return "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/export"
+      + `?bbox=${x0},${y0},${x1},${y1}&bboxSR=3857&imageSR=3857&size=256,256`
+      + "&format=png32&transparent=true&layers=show:28&f=image";
+  },
 });
+const femaFlood = new FEMA("", {opacity:0.5, maxZoom:19});
+femaFlood.on("tileerror", ()=>{ $("toggle-flood").textContent = "Flood: FEMA unavailable"; });
 
 // ── choropleth ──
 let geo = null;
@@ -232,7 +243,8 @@ $("metrics").addEventListener("click", e=>{
 // ── FEMA flood toggle ──
 $("toggle-flood").addEventListener("click", ()=>{
   const on = map.hasLayer(femaFlood);
-  on ? femaFlood.remove() : femaFlood.addTo(map);
+  if (on){ femaFlood.remove(); $("toggle-flood").textContent="Flood zones (FEMA)"; }
+  else { $("toggle-flood").textContent="Flood zones (FEMA)"; femaFlood.addTo(map); }
   $("toggle-flood").classList.toggle("on", !on);
 });
 
