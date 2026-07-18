@@ -216,7 +216,7 @@
 <header>
   <h1>On the market <em>— and what it's worth</em></h1>
   <a class="to-analyser" href="hs.html">how HS is scored →</a>
-  <a class="to-analyser" href="index.html">price a single house →</a>
+  <a class="to-analyser" href="analyser.html">price a single house →</a>
 </header>
 
 <div class="stamp" id="stamp"></div>
@@ -375,6 +375,11 @@ function valuation(l) {
           // the tail, not the median. So an unmeasured house wanders to the top of the
           // ranking on noise. Shown, but never ranked above a house we can measure.
           weak: !c.bySize,
+          // `borrowedComps` = this town had too few sales of its own, so the estimate
+          // leans on nearby towns (engine.js §borrow), re-anchored to this town's level.
+          // Like `weak`: shown, flagged, but never ranked above a house priced on its
+          // own town's sales.
+          borrowedComps: c.borrowedComps, borrowFrom: c.borrowFrom, ownN: c.ownN, effN: c.effN,
           verdict: l.p > c.hi ? "over" : l.p < c.lo ? "under" : "in"};
 }
 
@@ -452,10 +457,11 @@ function filtered() {
 }
 
 const SORTS = {
-  // Rank measured houses first, then unmeasured, then unpriceable. Within each band,
-  // by gap. Sorting all three together ranks our own ignorance to the top.
+  // Rank measured houses first, then less-certain (no size, or comps borrowed from a
+  // neighbouring town), then unpriceable. Within each band, by gap. Sorting all three
+  // together ranks our own ignorance to the top.
   value: ["Best value (measured first)", (a, b) => {
-    const rank = l => !l._v ? 2 : l._v.weak ? 1 : 0;
+    const rank = l => !l._v ? 2 : (l._v.weak || l._v.borrowedComps) ? 1 : 0;
     return rank(a) - rank(b) ||
       (a._v ? a._v.gap / a.p : 9) - (b._v ? b._v.gap / b.p : 9);
   }],
@@ -506,7 +512,7 @@ function render() {
   for (const l of rows) if (l._h === undefined) l._h = hsFor(l);
   rows.sort(SORTS[sortBy][1]);
 
-  const under = rows.filter(l => l._v && !l._v.weak && l._v.verdict === "under").length;
+  const under = rows.filter(l => l._v && !l._v.weak && !l._v.borrowedComps && l._v.verdict === "under").length;
   // A filter that removes houses has to say what it removed and on whose authority.
   // These stack (cut + new can both be on); the "under" line only shows when neither
   // is, because it describes the whole list and stops being true once one is armed.
@@ -577,7 +583,7 @@ function render() {
     ].join("");
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
-      <div class="addr"><a class="stretch" href="index.html#${state}">${esc2(l.a)}</a>${tags}
+      <div class="addr"><a class="stretch" href="analyser.html#${state}">${esc2(l.a)}</a>${tags}
         <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}${apprTag(l.t)}
           ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
       <div class="price"><div class="ask">${usdFull(l.p)}</div>
@@ -593,11 +599,16 @@ function render() {
           ${!l._h.hasText ? `<span class="off">no description — no amenity signals</span>` : ""}
         </div></details>` : ""}
         ${v ? `
-        <span class="n ${v.weak ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
-          ${v.weak ? 'style="color:var(--ink-3)"' : ""}>${
+        <span class="n ${(v.weak || v.borrowedComps) ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
+          ${(v.weak || v.borrowedComps) ? 'style="color:var(--ink-3)"' : ""}>${
           v.gap >= 0 ? "+" : "−"}${usdFull(Math.abs(v.gap))}</span> vs comps<br>
         <span style="color:var(--ink-3)">${v.weak
           ? `<i>no sq ft on this listing</i> — compared on ${l.lot ? "lot" : "beds"} only, so treat it loosely`
+          : v.borrowedComps
+          ? `<i>too few ${esc2(l.t)} sales</i> — ${v.ownN} here + comps borrowed from ${
+              v.borrowFrom.slice(0,2).map(f => esc2(f.t)).join(", ")}${
+              v.borrowFrom.length > 2 ? " +" + (v.borrowFrom.length - 2) + " more" : ""
+              }, re-anchored → ${usdFull(v.mid)}, so treat it loosely`
           : `${v.n} similar ${esc2(l.t)} sales → ${usdFull(v.mid)}${
               v.famDropped ? " · <i>mixed house types</i>" : ""}`}</span>`
         : `<span class="none">no comparable sales<br>to price this against</span>`}
@@ -618,7 +629,7 @@ function render() {
    list stayed unfiltered: the page looked filtered and wasn't. Rather than fight the
    browser we take the job off it (autocomplete="off") and persist the filters
    ourselves, restoring them BEFORE the first render. The hash also makes any view a
-   shareable link — the same trick index.html uses to hand a house to the analyser. */
+   shareable link — the same trick analyser.html uses to hand a house to the analyser. */
 const FIELDS = ["min", "max", "beds", "baths", "likelot", "likesq"];
 const KEY = "offer-market";
 function save() {
