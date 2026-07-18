@@ -105,7 +105,7 @@ a grade, never rank it.
 | **schools** | **12** | mean of the elementary/middle/high DOE deciles. `decile 2: 0` → `9+: 1.0` | **real DOE 2024-25 assessment results**, not the ACS adult-degree proxy (§10) |
 | **commute to NY** | **12** | `≤35min: 1.0` → `50min: 0.75` → `70min: 0.30` → `0` by 120 | **the one amenity that isn't a nice-to-have.** Real range: 30–119 min, median 50 |
 | **beds** | **11** | `<3: 0.25` · `3: 0.80` · `4: 1.0` · `5+: 1.0` | 3 is the floor; the penalty is steep, the reward for 5+ is nil |
-| **year built** | **6** | `1900: 0.20` → `2010+: 1.0` | halved — see §5. Condition is scored from the copy instead |
+| **year built** | **6** | `<1940: 0.20` (flat, low) → `1940: 0.30` → `2010+: 1.0` | pre-1940 scores low regardless of looks — 1930s wiring/plumbing. 524 Farley (1950) sits just above the cliff at ~0.44. Half weight — condition is scored from the copy too |
 | **shops nearby** | **5** | mean of TJ / Wawa / Seabra miles. `≤2mi: 1.0` → `6mi: 0.6` → `0.1` by 16mi | **low on purpose** — "closer is better, but don't give it many points". Averaged so one distant chain can't sink a town |
 | **time on market** | **8** | `≤7d: 0.5` (neutral) → `90d: 1.0` → `150d: 0.6` → `0.25` by 300 | **measured, not assumed** — see §11 |
 | **house, not a condo** | **8** | `house: 1.0` · `multi: 0.55` · `attached: 0.2` | |
@@ -132,7 +132,7 @@ a grade, never rank it.
 | signal | pts | why we alone can see it |
 |---|---:|---|
 | **cut its price** | **+4** | we watched it fall between runs; `price_changes` is empty on every sold row |
-| **relisted** | **−3** | the days-on-market reset. `listings.py` exists for this |
+| ~~relisted~~ | ~~−3~~ | **disabled 2026-07-18** (owner's call, "not for now"). Mechanism intact — one-line restore in `HS_WATCHED`. |
 
 ### And a third number, which matters as much as the score
 

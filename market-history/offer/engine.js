@@ -357,7 +357,10 @@ const HS_FACTORS = [
   //    copy instead (see HS_FLAVOUR), where it belongs.
   {k:"year", w:6, label:"year built",
    get:l => l.yr,
-   s:y => y >= 2010 ? 1 : y <= 1900 ? 0.2 : 0.2 + 0.8 * (y - 1900) / 110},
+   // Pre-1940 scores LOW and flat (0.2) rather than sitting mid-ramp — a 1935 build is
+   // 1930s wiring/plumbing/insulation regardless of how pretty it is. From 1940 it
+   // climbs to full at 2010+. 524 Farley (1950) lands at ~0.44, just above the cliff.
+   s:y => y < 1940 ? 0.2 : y >= 2010 ? 1 : 0.3 + 0.7 * (y - 1940) / 70},
 
   // ── shops. LOW weight on purpose: the ask was "closer is better, but don't give it
   //    many points". Averaged across the three so one distant chain can't sink a town.
@@ -393,7 +396,9 @@ const HS_FLAVOUR = [
    observed, so unlike the text signals they are never a guess. */
 const HS_WATCHED = [
   {k:"cut",     pts:+4, label:"cut its price",  test:l => !!l.cut},
-  {k:"relist",  pts:-3, label:"relisted",       test:l => (l.spell || 1) > 1},
+  // DISABLED 2026-07-18 (owner's call — "not for now, can change it up later"). Restore
+  // by uncommenting; the mechanism and the -3 are intact.
+  // {k:"relist",  pts:-3, label:"relisted",       test:l => (l.spell || 1) > 1},
 ];
 const HS_FLAVOUR_CAP = 12;
 
