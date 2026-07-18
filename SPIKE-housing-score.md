@@ -116,9 +116,9 @@ a grade, never rank it.
 
 | signal | pts | found in |
 |---|---:|---|
+| **central air** | **+7** | 7% |
 | **renovated / updated** | **+5** | 41% |
 | garage | **+4** | 51% |
-| central air | **+6** | 7% |
 | driveway | **+2** | 13% |
 | window/wall AC only | **−3** | 2% |
 | **as-is / needs work / TLC** | **−6** | 14% |
@@ -154,10 +154,15 @@ driveway; the 87% that don't mention it aren't driveway-less, they just didn't s
 this scores *"the agent bothered to type the word"*. I'd **drop it** — or, better,
 infer it: `garage ⇒ driveway`, which lifts it to 51% coverage and is nearly always true.
 
-**Central AC (+3, 7%) barely moves anything.** 93% of houses get nothing, so it can't
-differentiate. Keep it (it's free and it's real when present), but expect it to decide
-almost nothing. **The 2% that mention window units are the more valuable signal** — that
-one is a genuine negative and it's *deliberately* stated.
+**Central AC — now +7 (was +6), on the owner's call 2026-07-18: "give slightly more value
+to a reference to an existing A/C system."** It is the strongest positive flavour signal,
+just above renovated (+5). Worth being clear-eyed about what that buys, though: only ~7%
+of listings mention central air, so 93% of houses get nothing from it and it still decides
+almost nothing *on average* — the bump makes it count *when it is present*, not more often.
+Push it higher if you want it to bite harder; it's one line in `HS_FLAVOUR`. **The 2% that
+mention window units are still the more valuable signal** — a deliberately-stated negative
+(−3). Note also that FLAVOUR is capped at ±12, so central air cannot single-handedly move
+a house more than a grade even at +7.
 
 **The in-ground pool penalty is the best amenity signal you have.** 12% coverage, and
 sellers *always* advertise a pool — nobody hides one. So absence really does mean

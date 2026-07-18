@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How HS is scored — the housing score, in full</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --paper-3:#e9e2d5;
+    --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --pos:#2c6459; --neg:#8c2f2a; --flag:#a8631c;
+    --curve:#4a5b6e;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+    --mono:"iA Writer Mono","SF Mono","Berkeley Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:15px;line-height:1.55;
+    padding:clamp(1.5rem,4vw,3.5rem) clamp(1rem,4vw,3rem) 6rem;
+    -webkit-font-smoothing:antialiased}
+  .sheet{max-width:60rem;margin:0 auto}
+
+  /* ── masthead ─────────────────────────────────────── */
+  header{border-bottom:2px solid var(--ink);padding-bottom:.8rem;margin-bottom:1.6rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.6vw,2.5rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .back{margin-left:auto;font-size:.75rem;color:var(--ink-3);text-decoration:none;
+    border-bottom:1px solid var(--rule-2);white-space:nowrap}
+  .back:hover{color:var(--ink);border-bottom-color:var(--ink)}
+  .lede{font-size:1.05rem;color:var(--ink-2);max-width:46rem;margin-bottom:.4rem;
+    font-family:var(--serif)}
+  .src{font-size:.72rem;color:var(--ink-3);margin-bottom:2.6rem;max-width:46rem}
+  .src code{font-family:var(--mono);font-size:.68rem;color:var(--ink-2);
+    background:var(--paper-2);padding:.05rem .3rem}
+
+  /* ── the formula slab ─────────────────────────────── */
+  .formula{background:var(--ink);color:var(--paper);padding:1.5rem 1.7rem;
+    margin-bottom:.9rem;font-family:var(--mono);font-size:clamp(.8rem,2vw,.95rem);
+    line-height:1.9;overflow-x:auto}
+  .formula .c{color:#b8ab97}
+  .formula b{color:#f0c674;font-weight:400}
+  .formula .pos{color:#9ec7a0}
+  .rail{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.8rem;color:var(--ink-3);
+    margin-bottom:2.8rem}
+  .rail b{color:var(--ink-2);font-weight:600}
+
+  section{margin-bottom:2.8rem}
+  h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;letter-spacing:-.01em;
+    margin-bottom:.3rem;display:flex;align-items:baseline;gap:.7rem}
+  h2 .tot{font-family:var(--sans);font-size:.72rem;color:var(--ink-3);
+    letter-spacing:.04em;font-variant-numeric:tabular-nums}
+  .say{color:var(--ink-2);max-width:46rem;margin-bottom:1.4rem;font-size:.92rem}
+  .say b{color:var(--ink)}
+
+  /* ── factor cards ─────────────────────────────────── */
+  .factor{border-top:1px solid var(--rule);padding:1.1rem 0;
+    display:grid;grid-template-columns:1fr auto;gap:.2rem 1.5rem;align-items:baseline}
+  .factor:last-child{border-bottom:1px solid var(--rule)}
+  .f-name{font-family:var(--serif);font-size:1.2rem}
+  .f-key{font-family:var(--mono);font-size:.66rem;color:var(--ink-3);margin-left:.5rem}
+  .f-wt{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .f-wt .n{font-family:var(--serif);font-size:1.5rem}
+  .f-wt .of{font-size:.68rem;color:var(--ink-3);letter-spacing:.05em}
+  .bar{grid-column:1/-1;height:3px;background:var(--paper-3);margin:.15rem 0 .5rem;
+    position:relative}
+  .bar i{position:absolute;inset:0 auto 0 0;background:var(--curve)}
+  .f-note{grid-column:1/-1;font-size:.85rem;color:var(--ink-2);max-width:44rem}
+  .f-plot{grid-column:1/-1;margin-top:.7rem}
+  .f-plot svg{display:block;width:100%;height:78px;overflow:visible}
+  .f-plot .axis{font-family:var(--mono);font-size:9px;fill:var(--ink-3)}
+  .f-plot path{fill:none;stroke:var(--curve);stroke-width:1.6}
+  .f-plot .zero{stroke:var(--rule-2);stroke-width:1;stroke-dasharray:2 2}
+  .f-src{grid-column:1/-1;font-family:var(--mono);font-size:.7rem;color:var(--ink-3);
+    margin-top:.5rem;white-space:pre-wrap;word-break:break-word;
+    padding:.4rem .6rem;background:var(--paper-2);border-left:2px solid var(--rule-2)}
+
+  /* ── flavour table ────────────────────────────────── */
+  .flav{border-collapse:collapse;width:100%;font-size:.9rem}
+  .flav th{text-align:left;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;padding:.4rem .6rem;border-bottom:1px solid var(--rule-2)}
+  .flav th:last-child,.flav td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+  .flav td{padding:.5rem .6rem;border-bottom:1px solid var(--rule)}
+  .flav .lab{font-family:var(--serif);font-size:1.02rem}
+  .flav .re{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);
+    display:block;margin-top:.1rem;word-break:break-word}
+  .pts{font-family:var(--serif);font-size:1.2rem;font-weight:400}
+  .pts.p{color:var(--pos)} .pts.n{color:var(--neg)}
+  .watched td{background:var(--paper-2)}
+  .cap{font-size:.8rem;color:var(--ink-2);margin-top:.9rem;padding-left:.6rem;
+    border-left:2px solid var(--flag)}
+
+  /* ── conf + scale ─────────────────────────────────── */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+  @media(max-width:640px){.two{grid-template-columns:1fr;gap:1.4rem}
+    .factor{grid-template-columns:1fr}.f-wt{text-align:left}}
+  .mini{font-family:var(--mono);font-size:.85rem;background:var(--paper-2);
+    padding:1rem 1.1rem;line-height:1.8;overflow-x:auto}
+  .mini b{color:var(--ink);font-weight:400;border-bottom:1px solid var(--rule-2)}
+
+  footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);
+    font-size:.75rem;color:var(--ink-3);max-width:46rem}
+  footer a{color:var(--ink-2)}
+  .err{background:#f3e4e0;border:1px solid var(--neg);color:var(--neg);
+    padding:1rem 1.2rem;font-size:.9rem;margin-bottom:2rem}
+  .err[hidden]{display:none}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <h1>How <em>HS</em> is scored</h1>
+    <a class="back" href="market.html">← back to the market</a>
+  </header>
+
+  <p class="lede">One number, 0–100, for how much <em>you'd</em> like a house — not what
+    it's worth. Taste, made explicit, so it can be argued with.</p>
+  <p class="src">Everything below is read <b>live from the code that actually runs</b> —
+    <code>engine.js</code> → <code>HS_FACTORS</code> / <code>HS_FLAVOUR</code>. The curves are
+    drawn by sampling each real scoring function, and the weights are the real weights, so
+    this page cannot drift from what the market list shows. Change a dial in the code and
+    reload — it moves here too.</p>
+
+  <div class="err" id="err" hidden></div>
+
+  <div class="formula" id="formula"></div>
+  <div class="rail" id="rail"></div>
+
+  <section id="base">
+    <h2>Base — the part we measure <span class="tot" id="base-tot"></span></h2>
+    <p class="say">A <b>weighted mean</b>, not a sum — that's the whole trick. A factor we
+      can't read (no sqft, unranked town) drops out of the top <em>and</em> bottom of the
+      fraction, so it neither helps nor hurts; it just makes the rest count for
+      proportionally more. That is <b>"don't penalise a missing field"</b> done with
+      arithmetic instead of good intentions. Each factor scores 0→1 on the curve shown,
+      then counts for its weight.</p>
+    <div id="factors"></div>
+  </section>
+
+  <section id="flavour">
+    <h2>Flavour — the part we read off the copy <span class="tot" id="flav-tot"></span></h2>
+    <p class="say">Points added or subtracted <b>only when the words are actually there</b> —
+      a missing mention never docks a house. Mined from the listing text, except the last
+      block, which is what <b>we</b> saw by watching between runs. The whole sum is capped,
+      because a chatty agent writes a better-sounding listing for the same house.</p>
+    <table class="flav">
+      <thead><tr><th>signal</th><th>points</th></tr></thead>
+      <tbody id="flav-rows"></tbody>
+    </table>
+    <p class="cap" id="cap"></p>
+  </section>
+
+  <section>
+    <div class="two">
+      <div>
+        <h2>Confidence</h2>
+        <p class="say">Shown next to every score, never hidden. How much of the model
+          actually ran — two houses at <b>HS 78</b> aren't the same claim if one scored on
+          half the factors.</p>
+        <div class="mini" id="conf"></div>
+      </div>
+      <div>
+        <h2>The scale</h2>
+        <p class="say">Base is scaled to <b>88</b> so flavour has real room. So structured
+          data alone tops out at 88, and <b>100 means excellent fundamentals AND everything
+          you want is actually written down</b> — rare, and it says something.</p>
+        <div class="mini" id="scale"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<!-- engine.js does `const D = window.OFFER_DATA; const THIN = D.thin` at load. This page
+     needs none of the data — only the HS_* tables and their scoring functions, which touch
+     no data — so a one-key stub is enough to let the real engine define them. -->
+<script>window.OFFER_DATA = { thin: 0 };</script>
+<script src="engine.js"></script>
+<script>
+"use strict";
+try {
+  render();
+} catch (e) {
+  const el = document.getElementById("err");
+  el.hidden = false;
+  el.textContent = "Couldn't read the scoring tables from engine.js — its shape may have "
+    + "changed. (" + e.message + ")";
+  throw e;
+}
+
+function render() {
+  const FAC = HS_FACTORS, FLAV = HS_FLAVOUR, WATCH = HS_WATCHED, CAP = HS_FLAVOUR_CAP;
+  const totW = FAC.reduce((a, f) => a + f.w, 0);
+
+  // ── the formula slab ──────────────────────────────────
+  document.getElementById("formula").innerHTML =
+    `<span class="c">// clamped to 0–100</span>\n`
+    + `HS      = round( <b>BASE</b>×0.88 + <b>FLAVOUR</b> )\n\n`
+    + `<b>BASE</b>    = 100 × Σ(wᵢ·sᵢ) ⁄ Σ(wᵢ)   <span class="c">// only factors we KNOW</span>\n`
+    + `<b>FLAVOUR</b> = clamp(−${CAP}, +${CAP},  Σ points)   <span class="c">// from the listing copy</span>`;
+
+  document.getElementById("rail").innerHTML =
+    `<span><b>${FAC.length}</b> base factors</span>`
+    + `<span>weights total <b>${totW}</b></span>`
+    + `<span><b>${FLAV.length + WATCH.length}</b> flavour signals</span>`
+    + `<span>flavour capped <b>±${CAP}</b></span>`
+    + `<span>base scaled to <b>88</b></span>`;
+
+  document.getElementById("base-tot").textContent = `${FAC.length} factors · Σw = ${totW}`;
+
+  // ── factor cards, heaviest first ──────────────────────
+  const NOTE = {
+    price:"The hard constraint, and the heaviest dial. Full marks under $750k, worthless by $950k. Inside a tight budget filter it's a near-constant — a gate, not a discriminator.",
+    lot:"Bigger is better; too big is a commitment. The plateau (6k–14k sqft) is the sweet spot; an acre-plus reads as a project.",
+    commute:"The one amenity that isn't a nice-to-have — a daily cost. Real range across the towns is 30–119 min, median 50.",
+    tier:"The only opinion in the model — your hand-ranked town tiers. Everything else is measured. Weighted high because it's largely independent of what the other factors already capture. 'unknown' / 'unranked' drop out; they are not an F.",
+    school:"NJ DOE 2024-25 district deciles, averaged across elementary / middle / high. A district proxy on a zip — verify the boundary for a real house. Deliberately NOT the adult-degree data, which is the income map wearing a hat.",
+    dom:"Measured, not assumed: the share of listings cutting price peaks at 1–3 months and collapses past four. Fresh is neutral (no leverage, no info); a long sit is stubborn, not a bargain.",
+    type:"You want a house, not a condo. Attached homes score lower rather than being ruled out.",
+    beds:"3 is the floor and the penalty below it is steep; 5+ adds nothing over 4.",
+    baths:"Climbs to full at 2.5+.",
+    sqft:"Low weight on purpose — only ~a third of houses publish a size, so a big weight would swing the mean wildly between those that do and those that don't.",
+    year:"Half the weight the first draft gave it. 'Newer' is really a proxy for 'not a project' — so condition is scored from the copy instead. Pre-1940 scores low and flat regardless of looks.",
+    appr:"Small weight — it correlates with price (already the heaviest factor), so its independent signal is modest, and past growth doesn't promise future. A borrowed regional rate still scores.",
+    flood:"Per-house, not per-town, so HS keeps discriminating within a town. A high-risk FEMA zone means mandatory insurance and real risk; unknown drops out.",
+    shops:"Low on purpose — 'closer is better, but don't give it many points.' Averaged across the three chains so one distant store can't sink a town.",
+  };
+  const UNIT = {price:"$", commute:"min", dom:"days", lot:"sqft", sqft:"sqft", year:"yr",
+    school:"decile", tier:"tier", beds:"beds", baths:"baths", appr:"%", shops:"mi", type:""};
+  const DOMAIN = {
+    price:[300000,1100000], lot:[0,45000], commute:[20,120], school:[1,10], dom:[0,300],
+    beds:[1,6], baths:[1,4], sqft:[600,2400], year:[1900,2025], appr:[0,45], shops:[0,18],
+  };
+  const DISCRETE = {
+    tier:[["S","S"],["A","A"],["B","B"],["C","C"],["D","D"],["F","F"]],
+    type:[["house","house"],["multi","multi-fam"],["attached","attached"]],
+    flood:[[0,"safe (X)"],[1,"high-risk"]],
+  };
+
+  const host = document.getElementById("factors");
+  const maxW = Math.max(...FAC.map(f => f.w));
+  [...FAC].sort((a, b) => b.w - a.w).forEach(f => {
+    const el = document.createElement("div");
+    el.className = "factor";
+    const pct = Math.round(100 * f.w / totW);
+    el.innerHTML =
+      `<div class="f-name">${f.label}<span class="f-key">${f.k}</span></div>`
+      + `<div class="f-wt"><span class="n">${f.w}</span> <span class="of">/ ${totW} · ${pct}%</span></div>`
+      + `<div class="bar"><i style="width:${(100 * f.w / maxW).toFixed(1)}%"></i></div>`
+      + `<div class="f-note">${NOTE[f.k] || ""}</div>`
+      + `<div class="f-plot">${plot(f, DOMAIN[f.k], DISCRETE[f.k], UNIT[f.k])}</div>`
+      + `<div class="f-src">s(${UNIT[f.k] || "x"}) = ${fnBody(f.s)}</div>`;
+    host.appendChild(el);
+  });
+
+  // ── flavour + watched ─────────────────────────────────
+  const rows = document.getElementById("flav-rows");
+  const row = (label, pts, re, watched) => {
+    const tr = document.createElement("tr");
+    if (watched) tr.className = "watched";
+    const cls = pts >= 0 ? "p" : "n";
+    tr.innerHTML = `<td><span class="lab">${label}</span>`
+      + (re ? `<span class="re">${String(re)}</span>`
+            : `<span class="re">— from our own watching, not the copy</span>`)
+      + `</td><td><span class="pts ${cls}">${pts >= 0 ? "+" : ""}${pts}</span></td>`;
+    rows.appendChild(tr);
+  };
+  [...FLAV].sort((a, b) => b.pts - a.pts).forEach(f => row(f.label, f.pts, f.re, false));
+  WATCH.forEach(f => row(f.label, f.pts, null, true));
+  const posSum = FLAV.filter(f => f.pts > 0).reduce((a, f) => a + f.pts, 0)
+    + WATCH.filter(f => f.pts > 0).reduce((a, f) => a + f.pts, 0);
+  document.getElementById("flav-tot").textContent =
+    `${FLAV.length + WATCH.length} signals · capped ±${CAP}`;
+  document.getElementById("cap").innerHTML =
+    `The signals present can sum past the cap — positives alone reach +${posSum} — but the total is `
+    + `clamped to <b>±${CAP}</b>. That's the guard against scoring an agent's word count instead of the house.`;
+
+  // ── confidence + scale ────────────────────────────────
+  document.getElementById("conf").innerHTML =
+    `CONFIDENCE\n  = Σ(wᵢ <b>known</b>) ⁄ Σ(wᵢ <b>all</b>)\n\n`
+    + `price+beds+baths only\n  → 50 ⁄ ${totW} = <b>${Math.round(100*(30+11+9)/totW)}%</b>\n`
+    + `everything present\n  → ${totW} ⁄ ${totW} = <b>100%</b>\n\n`
+    + `<span style="color:var(--ink-3)">rank by HS, break ties on this —\nnever the reverse.</span>`;
+  document.getElementById("scale").innerHTML =
+    `structured data alone\n  base ≤ 100 → ×0.88 → <b>≤ 88</b>\n\n`
+    + `+ flavour (≤ +${CAP})\n  → the last ${100-88+0} points are\n    "and it's actually written down"\n\n`
+    + `HS = <b>0 … 100</b>`;
+
+  document.getElementById("foot").innerHTML =
+    `A preference model, so "wrong" only means wrong <em>for you</em> — that's a bug report, `
+    + `not a disagreement. The dials live in <a href="engine.js">engine.js</a> `
+    + `(<code style="font-family:var(--mono)">HS_FACTORS</code> / `
+    + `<code style="font-family:var(--mono)">HS_FLAVOUR</code>); the reasoning behind each is in `
+    + `<b>SPIKE-housing-score.md</b>. Change a weight, reload this page, and it moves.`;
+}
+
+// pull a readable one-liner out of the real scoring function's source
+function fnBody(fn){
+  let s = String(fn);
+  s = s.replace(/^\s*[a-zA-Z0-9_$]*\s*=>\s*/, "");   // strip "x =>"
+  s = s.replace(/^\(\s*[^)]*\)\s*=>\s*/, "");        // strip "(x) =>"
+  s = s.replace(/\s+/g, " ").trim();
+  return s.length > 200 ? s.slice(0, 200) + " …" : s;
+}
+
+// sample the REAL scoring function across its domain and draw it — continuous or discrete
+function plot(f, domain, discrete, unit){
+  const W = 520, H = 78, padL = 30, padR = 8, padB = 16, padT = 6;
+  const x0 = padL, x1 = W - padR, y0 = H - padB, y1 = padT;
+  const sy = v => y0 - (Math.max(0, Math.min(1, v))) * (y0 - y1);
+
+  if (discrete){
+    const n = discrete.length, bw = (x1 - x0) / n;
+    let bars = "", labs = "";
+    discrete.forEach(([val, lab], i) => {
+      let s = 0; try { s = Math.max(0, Math.min(1, f.s(val))); } catch(e){}
+      const bx = x0 + i * bw + bw * 0.18, w = bw * 0.64;
+      bars += `<rect x="${bx.toFixed(1)}" y="${sy(s).toFixed(1)}" width="${w.toFixed(1)}" `
+        + `height="${(y0 - sy(s)).toFixed(1)}" fill="var(--curve)"></rect>`
+        + `<text class="axis" x="${(bx + w/2).toFixed(1)}" y="${(sy(s)-3).toFixed(1)}" text-anchor="middle">${s.toFixed(2)}</text>`;
+      labs += `<text class="axis" x="${(bx + w/2).toFixed(1)}" y="${(y0+11).toFixed(1)}" text-anchor="middle">${lab}</text>`;
+    });
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`
+      + `<line class="zero" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}"></line>`
+      + `<text class="axis" x="2" y="${y1+8}">1.0</text><text class="axis" x="2" y="${y0}">0</text>`
+      + bars + labs + `</svg>`;
+  }
+
+  const [lo, hi] = domain, N = 120;
+  let d = "", started = false;
+  for (let i = 0; i <= N; i++){
+    const x = lo + (hi - lo) * i / N;
+    let s; try { s = f.s(x); } catch(e){ s = null; }
+    if (s == null || Number.isNaN(s)) continue;
+    const px = x0 + (x1 - x0) * i / N, py = sy(s);
+    d += (started ? "L" : "M") + px.toFixed(1) + " " + py.toFixed(1) + " ";
+    started = true;
+  }
+  const fmt = v => unit === "$" ? "$" + Math.round(v/1000) + "k"
+    : (v >= 1000 ? (v/1000) + "k" : v);
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">`
+    + `<line class="zero" x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}"></line>`
+    + `<text class="axis" x="2" y="${y1+8}">1.0</text><text class="axis" x="2" y="${y0}">0</text>`
+    + `<text class="axis" x="${x0}" y="${y0+12}">${fmt(lo)}</text>`
+    + `<text class="axis" x="${x1}" y="${y0+12}" text-anchor="end">${fmt(hi)} ${unit||""}</text>`
+    + `<path d="${d}"></path></svg>`;
+}
+</script>
+</body>
+</html>
