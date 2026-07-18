@@ -27,3 +27,6 @@ __pycache__/
 *webhook*
 *.key
 *.pem
+
+# LOCAL-ONLY working notes — never committed (personal TODOs / plans).
+*.LOCAL.md
