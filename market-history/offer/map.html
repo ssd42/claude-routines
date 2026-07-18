@@ -51,7 +51,9 @@
     border:1px solid var(--ink);border-radius:2px;padding:.7rem;width:12rem;
     box-shadow:0 4px 16px -6px rgba(31,28,24,.5);display:none;flex-direction:column;gap:.45rem}
   .fpanel.on{display:flex}
+  .fpanel .fhead{display:flex;align-items:center;justify-content:space-between}
   .fpanel h4{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .fpanel .fx{background:none;border:0;font-size:1.2rem;line-height:1;color:var(--ink-3);cursor:pointer;padding:0 .1rem}
   .fpanel label{font-size:.74rem;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
   .fpanel input{width:5.6rem;font-family:var(--sans);font-size:.82rem;padding:.3rem .4rem;
     border:1px solid var(--rule-2);border-radius:2px;background:#fff;color:var(--ink)}
@@ -93,6 +95,30 @@
   .stamp{position:absolute;top:4.6rem;right:.6rem;z-index:900;font-size:.66rem;color:var(--ink-3);
     background:color-mix(in oklab,var(--paper) 85%,transparent);padding:.2rem .45rem;border-radius:2px}
   .pop-addr{font-size:.82rem;color:var(--ink-2);margin:.15rem 0 .1rem}
+
+  /* ── phone tuning ── */
+  @media (max-width:480px){
+    h1{font-size:1rem}
+    .nav{gap:.5rem}
+    .nav a{font-size:.66rem}
+    /* fade the right edge of the metric strip so it reads as "scroll for more"
+       (Commute / Property tax / My tier live off-screen otherwise) */
+    .metrics{-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);
+             mask-image:linear-gradient(90deg,#000 88%,transparent)}
+    /* the stamp was hidden behind the (taller, 2-row) bar — drop it just below */
+    .stamp{top:5.9rem}
+    /* narrow the legend + collapse its caveat behind a tap, so it stops colliding with
+       the bottom-left tools. Swatches (the part you glance at) stay visible; tap to read
+       the caveat. */
+    .legend{max-width:10.5rem}
+    .legend h4{cursor:pointer}
+    .legend h4::after{content:" ⓘ";color:var(--rule-2)}
+    .legend .cav{display:none}
+    .legend.show-cav .cav{display:block}
+    .legend.show-cav h4::after{content:" ×"}
+    /* 16px stops iOS Safari from auto-zooming the page when a filter field is focused */
+    .fpanel input{font-size:16px}
+  }
 </style>
 </head>
 <body>
@@ -116,7 +142,7 @@
 </div>
 
 <div class="fpanel" id="filter-panel">
-  <h4>Filter houses</h4>
+  <div class="fhead"><h4>Filter houses</h4><button id="f-close" class="fx" aria-label="close">×</button></div>
   <label>Min price <input id="f-minp" type="number" inputmode="numeric" placeholder="any"></label>
   <label>Max price <input id="f-maxp" type="number" inputmode="numeric" placeholder="any"></label>
   <label>Min beds <input id="f-minbd" type="number" inputmode="numeric" placeholder="any"></label>
@@ -138,7 +164,7 @@
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <!-- ?v bumps with BUILD below so a new deploy always fetches fresh data, never a cached
      map.js against new map.html (that mismatch showed pins with "? bd" and no link). -->
-<script src="map.js?v=18h"></script>
+<script src="map.js?v=18k"></script>
 <script>
 "use strict";
 const M = window.MAP;
@@ -316,6 +342,8 @@ function showTown(town){
 }
 $("card-x").addEventListener("click", ()=>$("card").classList.remove("on"));
 document.addEventListener("keydown", e=>{ if(e.key==="Escape") $("card").classList.remove("on"); });
+// tap the legend (on a phone) to reveal/hide the metric's caveat
+$("legend").addEventListener("click", ()=>$("legend").classList.toggle("show-cav"));
 
 // ── metric switcher ──
 $("metrics").innerHTML = Object.entries(METRICS).map(([k,m])=>
@@ -324,6 +352,7 @@ $("metrics").addEventListener("click", e=>{
   const b = e.target.closest("button[data-m]"); if (!b) return;
   metric = b.dataset.m;
   document.querySelectorAll("#metrics button").forEach(x=>x.classList.toggle("on", x===b));
+  b.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});  // pull an off-screen metric into view
   geo.setStyle(style); drawLegend();
 });
 
@@ -383,10 +412,13 @@ $("toggle-points").addEventListener("click", ()=>{
 });
 
 // ── filter panel ──
+function closeFilter(){ $("filter-panel").classList.remove("on"); $("toggle-filter").classList.remove("on"); }
 $("toggle-filter").addEventListener("click", ()=>{
   const open = $("filter-panel").classList.toggle("on");
   $("toggle-filter").classList.toggle("on", open);
 });
+// the panel covers the toggle button, so it needs its own close (× in the header)
+$("f-close").addEventListener("click", closeFilter);
 const numOrNull = el => { const v = parseFloat(el.value); return isFinite(v) ? v : null; };
 $("f-apply").addEventListener("click", ()=>{
   FILT.minP  = numOrNull($("f-minp"));   FILT.maxP  = numOrNull($("f-maxp"));
@@ -495,7 +527,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18h";   // keep the map.js?v= query above in sync when you bump this
+const BUILD = "b07-18k";   // keep the map.js?v= query above in sync when you bump this
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();
