@@ -1,0 +1,64 @@
+town,county,avg_residential_tax,effective_rate_pct,avg_residential_value,dca_municipality,is_section
+Basking Ridge,SOMERSET,14733,1.605,873237,Bernards Township,1
+Bedminster,SOMERSET,6840,1.195,568181,Bedminster Township,0
+Berkeley Heights,UNION,14152,1.573,321610,Berkeley Heights Township,0
+Bernardsville,SOMERSET,18511,1.859,975586,Bernardsville Borough,0
+Boonton,MORRIS,13514,1.751,532590,Boonton Township,0
+Branchburg,SOMERSET,10679,1.552,624904,Branchburg Township,0
+Bridgewater,SOMERSET,10962,1.65,576521,Bridgewater Township,0
+Caldwell,ESSEX,13918,2.12,427390,Caldwell Borough,0
+Cedar Grove,ESSEX,12465,1.775,478973,Cedar Grove Township,0
+Cedar Knolls,MORRIS,8800,1.423,428983,Hanover Township,1
+Chatham,MORRIS,18371,1.396,873497,Chatham Township,0
+Chester,MORRIS,17283,1.901,668118,Chester Township,0
+Clark,UNION,11951,1.816,526709,Clark Township,0
+Colonia,MIDDLESEX,9597,2.08,79752,Woodbridge Township,1
+Cranford,UNION,13728,1.889,189415,Cranford Township,0
+Denville,MORRIS,11462,1.831,411101,Denville Township,0
+East Hanover,MORRIS,9467,1.363,357083,East Hanover Township,0
+Edison,MIDDLESEX,10584,1.7,184897,Edison Township,0
+Essex Fells,ESSEX,21888,1.682,947342,Essex Fells Borough,0
+Fanwood,UNION,14756,2.047,473033,Fanwood Borough,0
+Florham Park,MORRIS,11468,1.116,678476,Florham Park Borough,0
+Franklin Lakes,BERGEN,20710,1.385,1088076,Franklin Lakes Borough,0
+Garwood,UNION,11724,2.075,410264,Garwood Borough,0
+Gillette,MORRIS,13699,1.936,622466,Long Hill Township,1
+Glen Ridge,ESSEX,23673,2.043,674911,Glen Ridge Borough,0
+Glen Rock,BERGEN,20138,2.138,591156,Glen Rock Borough,0
+Green Brook,SOMERSET,14809,2.037,697163,Green Brook Township,0
+Livingston,ESSEX,18465,1.751,729727,Livingston Township,0
+Long Valley,MORRIS,13292,2.066,442634,Washington Township,1
+Madison,MORRIS,15897,1.358,705283,Madison Borough,0
+Maplewood,ESSEX,19378,2.314,807155,Maplewood Township,0
+Martinsville,SOMERSET,10962,1.65,576521,Bridgewater Township,1
+Mendham,MORRIS,21284,1.67,1157991,Mendham Township,0
+Metuchen,MIDDLESEX,13818,2.143,190473,Metuchen Borough,0
+Millburn,ESSEX,26292,1.414,1302529,Millburn Township,0
+Millington,MORRIS,13699,1.936,622466,Long Hill Township,1
+Montclair,ESSEX,22487,1.979,639628,Montclair Township,0
+Montville,MORRIS,14424,1.832,539745,Montville Township,0
+Morris Plains,MORRIS,11737,1.735,460732,Morris Plains Borough,0
+Morris Township,MORRIS,11253,1.436,571922,Morris Township,0
+Morristown,MORRIS,11175,1.592,635270,Morristown Town,0
+Mountain Lakes,MORRIS,24089,2.012,1048118,Mountain Lakes Borough,0
+Mountainside,UNION,13303,1.424,633778,Mountainside Borough,0
+New Providence,UNION,16228,1.8,309624,New Providence Borough,0
+North Caldwell,ESSEX,18469,1.644,800484,North Caldwell Borough,0
+Nutley,ESSEX,13314,2.201,493362,Nutley Township,0
+Randolph,MORRIS,14453,2.097,493076,Randolph Township,0
+Roseland,ESSEX,11911,1.743,639995,Roseland Borough,0
+Scotch Plains,UNION,15818,1.933,128092,Scotch Plains Township,0
+Short Hills,ESSEX,26292,1.414,1302529,Millburn Township,1
+South Orange,ESSEX,22717,2.295,879273,South Orange Village Township,1
+South Plainfield,MIDDLESEX,9154,1.946,125139,South Plainfield Borough,0
+Springfield,UNION,12971,1.988,538099,Springfield Township,0
+Stirling,MORRIS,13699,1.936,622466,Long Hill Township,1
+Summit,UNION,19697,1.378,440642,Summit City,0
+Towaco,MORRIS,14424,1.832,539745,Montville Township,1
+Verona,ESSEX,13788,2.049,435752,Verona Township,0
+Warren,SOMERSET,16986,1.767,969669,Warren Township,0
+Watchung,SOMERSET,18258,1.877,935740,Watchung Borough,0
+West Caldwell,ESSEX,12371,1.715,450020,West Caldwell Township,0
+West Orange,ESSEX,16162,2.626,615472,West Orange Township,0
+Westfield,UNION,18940,1.661,826690,Westfield Town,0
+Woodbridge,MIDDLESEX,9597,2.08,79752,Woodbridge Township,0

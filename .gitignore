@@ -31,3 +31,4 @@ credentials.json
 .idea/
 .vscode/
 *.swp
+market-history/layers/tax/*.xls

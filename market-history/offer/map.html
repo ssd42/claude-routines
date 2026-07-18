@@ -92,6 +92,7 @@
 
   .stamp{position:absolute;top:4.6rem;right:.6rem;z-index:900;font-size:.66rem;color:var(--ink-3);
     background:color-mix(in oklab,var(--paper) 85%,transparent);padding:.2rem .45rem;border-radius:2px}
+  .pop-addr{font-size:.82rem;color:var(--ink-2);margin:.15rem 0 .1rem}
 </style>
 </head>
 <body>
@@ -135,7 +136,9 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
-<script src="map.js"></script>
+<!-- ?v bumps with BUILD below so a new deploy always fetches fresh data, never a cached
+     map.js against new map.html (that mismatch showed pins with "? bd" and no link). -->
+<script src="map.js?v=18h"></script>
 <script>
 "use strict";
 const M = window.MAP;
@@ -158,6 +161,8 @@ const METRICS = {
             cav:"ACS median household income, ±$15–25k margins. An AREA statistic, never a quality ranking."},
   commute: {label:"Commute", fmt:v=>v==null?"—":v+" min", scheme:"reds",
             cav:"AM-peak to Manhattan. Town-level; excludes drive to the station where there's none."},
+  tax:     {label:"Property tax", fmt:usdK, scheme:"browns",
+            cav:"AVG residential tax BILL (NJ DCA 2025). Tracks home value, so a pricey town looks high even at a low rate — the town card shows the effective RATE, which is the fairer town-to-town compare."},
   tier:    {label:"My tier", cat:true,
             cats:{S:"#2c6459",A:"#5a8a6f",B:"#c8bda9",C:"#c99a5b",D:"#a8631c",F:"#8c2f2a"},
             fmt:v=>v||"—", cav:"Hand-ranked preference, not data. The one opinion on the map."},
@@ -176,6 +181,7 @@ const SCHEMES = {
   blues:  ["#eff3ff","#bdd7e7","#6baed6","#3182bd","#08519c"],
   oranges:["#feedde","#fdbe85","#fd8d3c","#e6550d","#a63603"],
   reds:   ["#fee5d9","#fcae91","#fb6a4a","#de2d26","#a50f15"],
+  browns: ["#f6e8c3","#dfc27d","#bf812d","#8c510a","#543005"],
 };
 const NODATA = "rgba(180,170,155,.22)";                 // unknown = faint grey
 /* Break a metric into up to 5 classes at quantiles OF THE DISTINCT values (not the raw
@@ -302,7 +308,9 @@ function showTown(town){
     cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · "+(d.apprMeasured?"measured":"regional est.")):"") +
     cell("Schools", d.school!=null?d.school+"/10":"—", "DOE district") +
     cell("Income", usdK(d.income), "ACS, ±wide") +
-    cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak");
+    cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak") +
+    cell("Property tax", usdK(d.tax),
+         d.taxRate!=null ? d.taxRate+"% eff. rate"+(d.taxSection?" · township":"")+" · ~"+usdK(d.taxRate/100*700000)+" on $700K" : "");
   $("card-also").innerHTML = `<a href="sold.html">see ${town} sold homes →</a>`;
   $("card").classList.add("on");
 }
@@ -350,17 +358,18 @@ function renderPins(){
   // to the town underneath.
   const canvas = L.canvas({pane:"pins", padding:.5, tolerance:8});
   let n = 0;
-  for (const [lat,lon,price,ty,flood,beds,baths,url] of M.points){
+  for (const [lat,lon,price,ty,flood,beds,baths,url,addr] of M.points){
     if (!passFilter(price, beds, baths)) continue;
     n++;
-    // popup fields (property_type, url) are SCRAPED — treat as untrusted. HTML-encode any
-    // interpolated text, and only accept an http(s) url before putting it in an href (blocks
+    // popup fields (address, property_type, url) are SCRAPED — treat as untrusted. HTML-encode
+    // any interpolated text, and only accept an http(s) url before putting it in an href (blocks
     // javascript:/data: schemes). build_data.py drops bad schemes too; this is defence in depth.
     const safeUrl = /^https?:\/\//i.test(url||"") ? esc(url) : "";
     const link = safeUrl ? `<br><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">view listing →</a>` : "";
+    const addrLine = addr ? `<div class="pop-addr">${esc(addr)}</div>` : "";
     L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:6,
       color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95})
-      .bindPopup(`<b>${usd(price)}</b><br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${esc(ty||"")}${flood?"<br>⚠ flood zone":""}${link}`)
+      .bindPopup(`<b>${usd(price)}</b>${addrLine}<br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${esc(ty||"")}${flood?"<br>⚠ flood zone":""}${link}`)
       .addTo(ptLayer);
   }
   ptLayer.addTo(map);
@@ -486,7 +495,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18f";
+const BUILD = "b07-18h";   // keep the map.js?v= query above in sync when you bump this
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();
