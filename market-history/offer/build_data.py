@@ -446,9 +446,13 @@ def bake_map(towns):
             continue
         fk = f"{round(lat,5)},{round(lon,5)}"
         bd, ba = num(r.get("beds")), num(r.get("baths"))
+        # only ship an http(s) url — never a javascript:/data: scheme into the popup href
+        u = (r.get("url") or "").strip()
+        if not u.lower().startswith(("http://", "https://")):
+            u = ""
         pts.append([round(lat, 5), round(lon, 5), int(p), r["property_type"] or "",
                     1 if (fk in flood and flood[fk]["high"]) else 0,
-                    int(bd) if bd else None, ba if ba else None, r.get("url") or ""])
+                    int(bd) if bd else None, ba if ba else None, u])
 
     path = os.path.join(HERE, "map.js")
     with open(path, "w") as fh:

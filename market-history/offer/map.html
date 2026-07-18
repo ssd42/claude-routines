@@ -140,6 +140,7 @@
 "use strict";
 const M = window.MAP;
 const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&"'<>]/g, c=>({"&":"&amp;",'"':"&quot;","'":"&#39;","<":"&lt;",">":"&gt;"}[c]));
 const usd = n => n == null ? "—" : "$" + Math.round(n).toLocaleString("en-US");
 const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0$/,"")+"M" : "$"+Math.round(n/1e3)+"K";
 
@@ -352,10 +353,14 @@ function renderPins(){
   for (const [lat,lon,price,ty,flood,beds,baths,url] of M.points){
     if (!passFilter(price, beds, baths)) continue;
     n++;
-    const link = url ? `<br><a href="${url}" target="_blank" rel="noopener">view listing →</a>` : "";
+    // popup fields (property_type, url) are SCRAPED — treat as untrusted. HTML-encode any
+    // interpolated text, and only accept an http(s) url before putting it in an href (blocks
+    // javascript:/data: schemes). build_data.py drops bad schemes too; this is defence in depth.
+    const safeUrl = /^https?:\/\//i.test(url||"") ? esc(url) : "";
+    const link = safeUrl ? `<br><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">view listing →</a>` : "";
     L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:6,
       color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95})
-      .bindPopup(`<b>${usd(price)}</b><br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${ty||""}${flood?"<br>⚠ flood zone":""}${link}`)
+      .bindPopup(`<b>${usd(price)}</b><br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${esc(ty||"")}${flood?"<br>⚠ flood zone":""}${link}`)
       .addTo(ptLayer);
   }
   ptLayer.addTo(map);
@@ -481,7 +486,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18e";
+const BUILD = "b07-18f";
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();
