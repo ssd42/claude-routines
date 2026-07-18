@@ -1,4 +1,4 @@
-// SHARED COMP ENGINE — loaded by BOTH index.html (the analyser) and market.html
+// SHARED COMP ENGINE — loaded by BOTH analyser.html (the analyser) and market.html
 // (the browser). It lives here so the two pages CANNOT disagree: if the market list
 // says a house is $31k under comps and the analyser says something else when you
 // click it, that's the worst bug this tool could have. One engine, one answer.
@@ -7,12 +7,28 @@
 // Exports (as globals, because file:// blocks ES modules): D, $, MONTHS, THIN, usd,
 // usdK, pctStr, digits, med, quart, TIERS, indexFor, indexIsBorrowed, comps,
 // compsExact, flipPoint, lotContext, factor.
+//
+// ── MAP OF THIS FILE ──────────────────────────────────────────────────────────
+//   money/quantile helpers         usd, usdK, med, quart, wquant
+//   §LEVEL   what a house is worth  comps() / compsExact() — comparable sales, town + size
+//     └ §borrow                     compsBorrow() — a thin town tops up from its neighbours
+//   §fragile how sure is that       flipPoint(), lotContext()
+//   §HS      how much YOU'd like it  hsFor() — a PREFERENCE score, never a valuation
+//   §SEASONAL best month to buy      factor() — town × month sold-vs-ask
+//
+// ── WHERE THE KNOBS ARE (the "what should count, and how much" surface) ─────────
+//   THIN            below this many comps a bucket refuses to answer (baked in build_data.py)
+//   TIERS           the size/beds/baths tolerance ladder comps() widens along
+//   LOT_TOLS        how far lot size may drift before it's dropped as a filter
+//   BORROW_*        §borrow: how many neighbours, how far, how hard to trust them
+//   HS_FACTORS      the weighted preference model — every factor's weight and scoring curve
+//   HS_FLAVOUR      text-mined ± points (garage, pool, as-is …), capped at HS_FLAVOUR_CAP
+// Change a number in one of these and the whole tool moves with it — that is the point.
 "use strict";
 
 const D = window.OFFER_DATA;
 const $ = id => document.getElementById(id);
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const LIST_TO_CLOSE = 63;            // median days, list -> close (share/README)
 const THIN = D.thin;                 // under this a bucket answers nothing
 
 const usd = n => "$" + Math.round(n).toLocaleString("en-US");
@@ -58,10 +74,6 @@ const TIERS = [
    too thin for their own curve borrow the regional one, and the page SAYS so. */
 const indexFor = town => D.townIndex[town] || D.priceIndex;
 const indexIsBorrowed = town => !D.townIndex[town];
-function ppsfOf(c, mode, ix) {
-  const raw = c[4] / c[1];
-  return mode === "idx" ? raw * (ix[c[6]] || 1) : raw;
-}
 /* Comps match on whatever you gave us. Both HOUSE sq ft and LOT sq ft are optional;
    supply either, or both, and the engine uses what it has.
 
@@ -118,6 +130,119 @@ function compsExact(town, sqft, beds, baths, mode, lot) {
       // needs no index adjustment either. Ties break on price, high to low.
       .sort((a, b) => b.year - a.year || b.month - a.month || b.sold - a.sold),
   };
+}
+
+/* ══ §borrow — a thin town tops up its comps from its nearest neighbours ═══════════
+   When a town's OWN comps can't reach THIN even at the widest tier, comps() refuses.
+   That guards against a confident-but-wrong number, but it also silences the smallest
+   towns completely. The fix mirrors the borrowed price index: pool in comps from the
+   nearest towns, count each PARTIALLY (weight falls with distance), and lift its $/sqft
+   onto THIS town's price shelf via the ratio of the two towns' levels — so we borrow the
+   SHAPE of the market next door, never its price level (Green Brook 349 $/sqft borrowing
+   from Warren must not inherit Warren's level). Always flagged, never silent.
+
+   It runs ONLY where we can re-anchor honestly: house sq ft known AND this town has a
+   measured `ppsf` level (both baked by build_data.py). No sq ft, or no level → we refuse
+   exactly as before. Size-less borrowing (re-anchoring raw prices) is deliberately left
+   for later; the ratio trick is only clean in $/sqft space.
+
+   The four knobs below are the whole tuning surface — widen them to borrow more freely,
+   tighten them to trust only close neighbours. */
+const BORROW_NEIGHBOURS = 5;    // at most this many towns may lend to one query
+const BORROW_MAX_MI = 8;        // and none further away than this
+const BORROW_MIN_W = 0.15;      // a far lender still counts a little, never zero
+const borrowWeight = mi => Math.max(BORROW_MIN_W, Math.min(1, 1 - mi / BORROW_MAX_MI));
+
+/* Weighted quantiles: a borrowed comp counts as its weight, an own-town comp as 1.
+   Standard weighted quantile — the value where cumulative weight crosses q, averaging the
+   two straddling values when it lands exactly on a boundary (so with equal weights the
+   MEDIAN matches quart()'s averaging convention). The p25/p75 picks can sit one comp
+   apart from quart()'s integer-index ones on some counts — immaterial on a set we are
+   already flagging as borrowed and telling the reader to treat loosely. */
+function wquant(items) {                       // items: [{v, w}], every w > 0
+  const s = [...items].sort((a, b) => a.v - b.v);
+  const total = s.reduce((sum, x) => sum + x.w, 0);
+  const at = q => {
+    const target = q * total;
+    let cum = 0;
+    for (let i = 0; i < s.length; i++) {
+      cum += s[i].w;
+      if (cum > target) return s[i].v;
+      if (cum === target) return i + 1 < s.length ? (s[i].v + s[i + 1].v) / 2 : s[i].v;
+    }
+    return s[s.length - 1].v;
+  };
+  return [at(0.5), at(0.25), at(0.75)];
+}
+
+/* The borrowing pass. Returns a comps()-shaped result (mid/lo/hi/tier/sales) marked
+   `borrowedComps`, plus `ownN`/`effN`/`borrowFrom` so the page can show exactly whose
+   sales it leaned on. Returns null (→ caller refuses) when it can't re-anchor. */
+function compsBorrow(town, sqft, beds, baths, mode, fam) {
+  const home = D.towns[town];
+  const targetPpsf = home && home.ppsf;
+  if (!sqft || !targetPpsf || !home.near) return null;   // can't re-anchor → refuse as before
+
+  // lenders: the nearest towns within range that carry a level of their own to scale by
+  const lenders = home.near
+    .filter(([t, mi]) => mi <= BORROW_MAX_MI && D.towns[t] && D.towns[t].ppsf)
+    .slice(0, BORROW_NEIGHBOURS);
+  if (!lenders.length) return null;
+  const wOf = {}, miOf = {};
+  for (const [t, mi] of lenders) { wOf[t] = borrowWeight(mi); miOf[t] = mi; }
+
+  const yearOK = c => mode !== "recent" || D.recentYears.includes(String(c[6]));
+  const famOK  = c => !fam || c[9] === fam;
+  const toToday = (c, t) => mode === "idx" ? (indexFor(t)[c[6]] || 1) : 1;
+
+  // one pooled record per usable comp. Own town: full weight, its own value. A lender:
+  // its $/sqft brought to today (its OWN curve) then lifted to this town's level, weighted.
+  const pool = [];
+  for (const c of D.comps) {
+    if (!yearOK(c) || !famOK(c)) continue;
+    if (c[0] === town) {
+      const ppsf = (c[4] / c[1]) * toToday(c, town);
+      pool.push({c, from: town, w: 1, ppsf, val: ppsf * sqft});
+    } else if (c[0] in wOf) {
+      const ppsf = (c[4] / c[1]) * toToday(c, c[0]) * (targetPpsf / D.towns[c[0]].ppsf);
+      pool.push({c, from: c[0], w: wOf[c[0]], ppsf, val: ppsf * sqft});
+    }
+  }
+
+  // same size/beds/baths ladder as the home engine; accept on EFFECTIVE n (Σ weights).
+  // Lot is deliberately not a filter here — we are already in fallback territory and a
+  // borrowed lot means little across a town line.
+  for (const t of TIERS) {
+    const hit = pool.filter(p =>
+      Math.abs(p.c[1] - sqft) / sqft <= t.sq &&
+      (beds  === null || Math.abs(p.c[2] - beds)  <= t.bd) &&
+      (baths === null || Math.abs(p.c[3] - baths) <= t.ba));
+    const effN = hit.reduce((sum, p) => sum + p.w, 0);
+    if (effN < THIN) continue;
+
+    const [mid, lo, hi] = wquant(hit.map(p => ({v: p.val, w: p.w})));
+    const byTown = {};
+    for (const p of hit) if (p.from !== town) {
+      byTown[p.from] = byTown[p.from] || {t: p.from, n: 0, mi: miOf[p.from], w: wOf[p.from]};
+      byTown[p.from].n++;
+    }
+    return {
+      tier: t, n: hit.length, mid, lo, hi,
+      ppsf: wquant(hit.map(p => ({v: p.ppsf, w: p.w})))[0],
+      bySize: true, degraded: true,
+      borrowedComps: true,
+      ownN: hit.filter(p => p.from === town).length,
+      effN: Math.round(effN),
+      borrowFrom: Object.values(byTown).sort((a, b) => b.n - a.n),
+      borrowed: mode === "idx" && indexIsBorrowed(town),   // the SEPARATE index flag
+      sales: hit
+        .sort((a, b) => b.c[6] - a.c[6] || b.c[8] - a.c[8] || b.c[4] - a.c[4])
+        .map(p => ({sqft:p.c[1], beds:p.c[2], baths:p.c[3], year:p.c[6], lot:p.c[7],
+                    month:p.c[8], vsAsk:p.c[5], sold:p.c[4], today:p.c[4] * toToday(p.c, p.from),
+                    val:p.val, town:p.from, w:p.w, borrowed: p.from !== town})),
+    };
+  }
+  return null;
 }
 
 /* `fam` (optional): "house" | "attached" | "multi". When given, comps are matched to
@@ -203,6 +328,10 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
   let r = ladder();
   if (!r && wantFam) { wantFam = null; r = ladder(); }   // pool the types, and flag it
   if (r) return r;
+  // own town is too thin at every tier — before refusing, try borrowing from next door
+  // (§borrow). Returns null when it can't re-anchor, so the refusal below still stands.
+  const b = compsBorrow(town, sqft, beds, baths, mode, fam || null);
+  if (b) return b;
   return {failed:true, strict:strictN, noSize:!sqft};
 
 }
