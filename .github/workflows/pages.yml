@@ -84,6 +84,7 @@ jobs:
           cp market-history/offer/sold.js      _site/
           cp market-history/offer/map.html     _site/
           cp market-history/offer/map.js       _site/
+          cp market-history/layers/flood/flood_zones.geojson _site/flood.geojson
           # The market browser is only honest if it says how old it is — a stale
           # snapshot on a public URL is worse than no snapshot. Fail rather than
           # publish a page that lost its staleness stamp.
