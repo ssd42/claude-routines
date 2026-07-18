@@ -46,6 +46,20 @@
   #locate{font-weight:600}
   @media (pointer:coarse){.tools button{padding:.7rem .9rem;font-size:.85rem}}
 
+  /* ── filter panel (pops over the tools when open) ── */
+  .fpanel{position:absolute;left:.6rem;bottom:.9rem;z-index:1001;background:var(--paper);
+    border:1px solid var(--ink);border-radius:2px;padding:.7rem;width:12rem;
+    box-shadow:0 4px 16px -6px rgba(31,28,24,.5);display:none;flex-direction:column;gap:.45rem}
+  .fpanel.on{display:flex}
+  .fpanel h4{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .fpanel label{font-size:.74rem;color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+  .fpanel input{width:5.6rem;font-family:var(--sans);font-size:.82rem;padding:.3rem .4rem;
+    border:1px solid var(--rule-2);border-radius:2px;background:#fff;color:var(--ink)}
+  .fpanel .fbtns{display:flex;gap:.4rem;margin-top:.15rem}
+  .fpanel .fbtns button{flex:1;font-family:var(--sans);font-size:.78rem;padding:.45rem;cursor:pointer;
+    border:1px solid var(--rule-2);border-radius:2px;background:var(--paper);color:var(--ink-2)}
+  .fpanel .fbtns #f-apply{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
   /* ── legend (bottom-right) ── */
   .legend{position:absolute;right:.6rem;bottom:.9rem;z-index:1000;background:var(--paper);
     border:1px solid var(--rule);border-radius:2px;padding:.55rem .65rem;max-width:14rem;
@@ -96,7 +110,17 @@
 <div class="tools">
   <button id="locate">◎ Where am I</button>
   <button id="toggle-flood">Flood zones (FEMA)</button>
-  <button id="toggle-points">For-sale pins</button>
+  <button id="toggle-points">For-sale houses</button>
+  <button id="toggle-filter">⚑ Filter houses</button>
+</div>
+
+<div class="fpanel" id="filter-panel">
+  <h4>Filter houses</h4>
+  <label>Min price <input id="f-minp" type="number" inputmode="numeric" placeholder="any"></label>
+  <label>Max price <input id="f-maxp" type="number" inputmode="numeric" placeholder="any"></label>
+  <label>Min beds <input id="f-minbd" type="number" inputmode="numeric" placeholder="any"></label>
+  <label>Min baths <input id="f-minba" type="number" inputmode="numeric" placeholder="any"></label>
+  <div class="fbtns"><button id="f-clear">Clear</button><button id="f-apply">Apply</button></div>
 </div>
 
 <div class="legend" id="legend"></div>
@@ -123,38 +147,70 @@ const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0
    These caveats are hard-won elsewhere in the project. On a map, colour is more persuasive
    than a flagged table, so the caveat rides in the legend, always. */
 const METRICS = {
-  appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%",
-            dom:[5,40], cav:"TOTAL growth 2023→today (~3 years, NOT year-over-year), from our own sold prices. Measured for 20 towns; 43 borrow the regional rate."},
-  price:   {label:"Median price", fmt:usdK, good:"low",
-            dom:[450000,1600000], cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
-  school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", good:"high",
-            dom:[3,10], cav:"NJ DOE district decile. A DISTRICT proxy — two houses on a street can feed different schools."},
-  income:  {label:"Income", fmt:usdK, good:"high",
-            dom:[100000,250000], cav:"ACS median household income, ±$15–25k margins. An AREA statistic, never a quality ranking."},
-  commute: {label:"Commute", fmt:v=>v==null?"—":v+" min", good:"low",
-            dom:[35,90], cav:"AM-peak to Manhattan. Town-level; excludes drive to the station where there's none."},
-  tier:    {label:"My tier", cat:true, good:"high",
+  appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%", scheme:"greens",
+            cav:"TOTAL growth 2023→today (~3 years, NOT year-over-year), from our own sold prices. Measured for 20 towns; 43 borrow the regional rate."},
+  price:   {label:"Median price", fmt:usdK, scheme:"purples",
+            cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
+  school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", scheme:"blues",
+            cav:"NJ DOE district decile. A DISTRICT proxy — two houses on a street can feed different schools."},
+  income:  {label:"Income", fmt:usdK, scheme:"oranges",
+            cav:"ACS median household income, ±$15–25k margins. An AREA statistic, never a quality ranking."},
+  commute: {label:"Commute", fmt:v=>v==null?"—":v+" min", scheme:"reds",
+            cav:"AM-peak to Manhattan. Town-level; excludes drive to the station where there's none."},
+  tier:    {label:"My tier", cat:true,
             cats:{S:"#2c6459",A:"#5a8a6f",B:"#c8bda9",C:"#c99a5b",D:"#a8631c",F:"#8c2f2a"},
             fmt:v=>v||"—", cav:"Hand-ranked preference, not data. The one opinion on the map."},
 };
 let metric = "appr";
 
-/* One sequential ramp, dark = HIGH value, no hidden inversion (the old good:low flip is
-   what read as "inverted"). 3 stops for legibility: pale sand -> teal -> deep ink-teal.
-   The legend says which end is which; colour never means "good", only "more". */
-const RAMP = [[241,236,227],[127,169,155],[26,74,66]];   // pale -> teal -> deep
-function ramp(t){
-  t = Math.max(0, Math.min(1, t));
-  const seg = t < .5 ? 0 : 1, u = t < .5 ? t*2 : (t-.5)*2;
-  const a = RAMP[seg], b = RAMP[seg+1];
-  return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*u)).join(",")})`;
+/* Each metric gets its OWN single-hue sequential palette, classed into 5 bins — so the
+   towns fall into a few clearly-different colours instead of one near-uniform gradient.
+   Dark = HIGH value, always (no good/bad inversion; the legend names the metric). Bins are
+   DATA QUANTILES (quintiles), so every colour holds roughly a fifth of the towns — that's
+   what makes the differences legible. Distinct hues also mean you can tell at a glance which
+   metric you're on. ColorBrewer 5-class sequential ramps (colour-blind-safe). */
+const SCHEMES = {
+  greens: ["#edf8e9","#bae4b3","#74c476","#31a354","#006d2c"],
+  purples:["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"],
+  blues:  ["#eff3ff","#bdd7e7","#6baed6","#3182bd","#08519c"],
+  oranges:["#feedde","#fdbe85","#fd8d3c","#e6550d","#a63603"],
+  reds:   ["#fee5d9","#fcae91","#fb6a4a","#de2d26","#a50f15"],
+};
+const NODATA = "rgba(180,170,155,.22)";                 // unknown = faint grey
+/* Break a metric into up to 5 classes at quantiles OF THE DISTINCT values (not the raw
+   values). Appreciation has 43 towns sharing ONE regional estimate; raw-value quantiles
+   would collapse every break onto that single number (a legend of "+16.6% – +16.6%").
+   Distinct-value quantiles spread the breaks across the real range, so measured outliers
+   keep their own colour and the shared-value mass sits in one bin. Ties are de-duped, which
+   naturally drops a metric to fewer classes when it truly has fewer distinct levels. */
+function makeBins(vals){
+  const uniq = [...new Set(vals.filter(v=>v!=null))].sort((a,b)=>a-b);
+  if (uniq.length <= 1) return {breaks:[], n:1};
+  const k = Math.min(5, uniq.length);
+  const brk = [];
+  for (let i=1;i<k;i++) brk.push(uniq[Math.round(i*(uniq.length-1)/k)]);
+  const breaks = [...new Set(brk)].sort((a,b)=>a-b);
+  return {breaks, n:breaks.length+1};
+}
+// n colours sampled evenly from a scheme, so a 3-class metric uses light/mid/dark
+function schemeColors(scheme, n){
+  const c = SCHEMES[scheme];
+  if (n >= c.length) return c;
+  if (n <= 1) return [c[c.length-1]];
+  return Array.from({length:n}, (_,i)=> c[Math.round(i*(c.length-1)/(n-1))]);
+}
+function classOf(v, breaks){ let i=0; while(i<breaks.length && v>=breaks[i]) i++; return i; }
+for (const k in METRICS){
+  const m = METRICS[k]; if (m.cat) continue;
+  const bins = makeBins(Object.values(M.metrics).map(d=>d[k]));
+  m._breaks = bins.breaks;
+  m._colors = schemeColors(m.scheme, bins.n);
 }
 function colorFor(town){
   const m = METRICS[metric], v = M.metrics[town] ? M.metrics[town][metric] : null;
-  if (v == null) return "rgba(180,170,155,.22)";       // unknown = faint grey
-  if (m.cat) return m.cats[v] || "rgba(180,170,155,.22)";
-  const t = (v - m.dom[0]) / (m.dom[1] - m.dom[0]);    // dark = high, always
-  return ramp(t);
+  if (v == null) return NODATA;
+  if (m.cat) return m.cats[v] || NODATA;
+  return m._colors[classOf(v, m._breaks)];
 }
 
 // ── the map ──
@@ -213,16 +269,24 @@ function drawGeo(){
 // ── legend ──
 function drawLegend(){
   const m = METRICS[metric], el = $("legend");
+  let rows;
   if (m.cat){
-    el.innerHTML = `<h4>${m.label}</h4><div class="swatches">` +
-      Object.entries(m.cats).map(([k,c])=>`<div class="sw"><i style="background:${c}"></i>${k}</div>`).join("") +
-      `</div><div class="cav">${m.cav}</div>`;
-    return;
+    rows = Object.entries(m.cats).map(([k,c]) => ({c, lab:k}));
+  } else {
+    // one swatch per class, labelled with its value range (dark = high, listed high→low)
+    const b = m._breaks, cols = m._colors;
+    rows = cols.map((c,i) => {
+      let lab;
+      if (cols.length===1)          lab = "all towns";
+      else if (i===0)               lab = "< " + m.fmt(b[0]);
+      else if (i===cols.length-1)   lab = "≥ " + m.fmt(b[b.length-1]);
+      else                          lab = m.fmt(b[i-1]) + " – " + m.fmt(b[i]);
+      return {c, lab};
+    }).reverse();   // darkest (highest) on top
   }
-  el.innerHTML = `<h4>${m.label}</h4>
-    <div class="ramp" style="background:linear-gradient(90deg, ${ramp(0)}, ${ramp(.5)}, ${ramp(1)})"></div>
-    <div class="ends"><span>${m.fmt(m.dom[0])}</span><span>${m.fmt(m.dom[1])}</span></div>
-    <div class="cav">${m.cav}</div>`;
+  el.innerHTML = `<h4>${m.label}</h4><div class="swatches">` +
+    rows.map(r=>`<div class="sw"><i style="background:${r.c}"></i>${r.lab}</div>`).join("") +
+    `</div><div class="cav">${m.cav}</div>`;
 }
 
 // ── the town card ──
@@ -267,22 +331,62 @@ $("toggle-flood").addEventListener("click", async ()=>{
   }
 });
 
-// ── listing pins (lean, canvas) ──
+// ── for-sale house pins (houses only, lean canvas) + filter ──
 let ptLayer = null;
-$("toggle-points").addEventListener("click", ()=>{
-  if (ptLayer){ ptLayer.remove(); ptLayer=null; $("toggle-points").classList.remove("on"); return; }
+const FILT = {minP:null, maxP:null, minBd:null, minBa:null};
+function passFilter(price, beds, baths){
+  if (FILT.minP  != null && price < FILT.minP)  return false;
+  if (FILT.maxP  != null && price > FILT.maxP)  return false;
+  if (FILT.minBd != null && (beds  == null || beds  < FILT.minBd)) return false;
+  if (FILT.minBa != null && (baths == null || baths < FILT.minBa)) return false;
+  return true;
+}
+function renderPins(){
+  if (ptLayer) ptLayer.remove();
   ptLayer = L.layerGroup();
   // tolerance:8 widens the tap target well past the 6px dot — a near-miss (fat finger on a
-  // phone, or a pin sitting under the flood wash) still registers as a pin click, not a
-  // fall-through to the town underneath.
+  // phone, or a pin under the flood wash) still registers as a pin click, not a fall-through
+  // to the town underneath.
   const canvas = L.canvas({pane:"pins", padding:.5, tolerance:8});
-  for (const [lat,lon,price,ty,flood] of M.points){
+  let n = 0;
+  for (const [lat,lon,price,ty,flood,beds,baths,url] of M.points){
+    if (!passFilter(price, beds, baths)) continue;
+    n++;
+    const link = url ? `<br><a href="${url}" target="_blank" rel="noopener">view listing →</a>` : "";
     L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:6,
       color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95})
-      .bindPopup(`<b>${usd(price)}</b><br>${ty||""}${flood?"<br>⚠ flood zone":""}`)
+      .bindPopup(`<b>${usd(price)}</b><br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${ty||""}${flood?"<br>⚠ flood zone":""}${link}`)
       .addTo(ptLayer);
   }
-  ptLayer.addTo(map); $("toggle-points").classList.add("on");
+  ptLayer.addTo(map);
+  $("toggle-points").classList.add("on");
+  $("toggle-points").textContent = `Houses (${n.toLocaleString()})`;
+}
+$("toggle-points").addEventListener("click", ()=>{
+  if (ptLayer){ ptLayer.remove(); ptLayer=null; $("toggle-points").classList.remove("on");
+    $("toggle-points").textContent = "For-sale houses"; return; }
+  renderPins();
+});
+
+// ── filter panel ──
+$("toggle-filter").addEventListener("click", ()=>{
+  const open = $("filter-panel").classList.toggle("on");
+  $("toggle-filter").classList.toggle("on", open);
+});
+const numOrNull = el => { const v = parseFloat(el.value); return isFinite(v) ? v : null; };
+$("f-apply").addEventListener("click", ()=>{
+  FILT.minP  = numOrNull($("f-minp"));   FILT.maxP  = numOrNull($("f-maxp"));
+  FILT.minBd = numOrNull($("f-minbd"));  FILT.minBa = numOrNull($("f-minba"));
+  renderPins();                                   // turns pins on (or refreshes) with the filter
+  $("filter-panel").classList.remove("on"); $("toggle-filter").classList.remove("on");
+  const active = Object.values(FILT).some(v=>v!=null);
+  $("toggle-filter").textContent = active ? "⚑ Filter (on)" : "⚑ Filter houses";
+});
+$("f-clear").addEventListener("click", ()=>{
+  ["f-minp","f-maxp","f-minbd","f-minba"].forEach(id=>$(id).value="");
+  FILT.minP=FILT.maxP=FILT.minBd=FILT.minBa=null;
+  $("toggle-filter").textContent = "⚑ Filter houses";
+  if (ptLayer) renderPins();
 });
 
 /* ── "Where am I" — point-in-polygon, NOT nearest centroid ──────────────────────────────
@@ -377,7 +481,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18d";
+const BUILD = "b07-18e";
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();
