@@ -151,7 +151,7 @@
   <h1>Sold <em>— what houses actually went for</em></h1>
   <nav class="nav">
     <a href="market.html">on the market →</a>
-    <a href="index.html">price a house →</a>
+    <a href="analyser.html">price a house →</a>
   </nav>
 </header>
 
@@ -222,7 +222,7 @@
 /* This page is AGNOSTIC to the other two. It borrows read-only helpers from engine.js
    ($, usd, digits) and the town list from data.js, and it touches nothing they own —
    no shared state, its own storage key, its own data file. Breaking sold.html cannot
-   break market.html or index.html, and vice versa. */
+   break market.html or analyser.html, and vice versa. */
 const S = window.SOLD;
 const PAGE = 80;
 let shown = PAGE, picked = new Set(), days = 0, ty = "", sortBy = "newest";

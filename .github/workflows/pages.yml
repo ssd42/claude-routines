@@ -75,8 +75,9 @@ jobs:
       - name: Assemble the site
         run: |
           mkdir -p _site
-          cp market-history/offer/index.html   _site/
-          cp market-history/offer/market.html  _site/
+          cp market-history/offer/index.html    _site/
+          cp market-history/offer/analyser.html _site/
+          cp market-history/offer/market.html   _site/
           cp market-history/offer/engine.js    _site/
           cp market-history/offer/data.js      _site/
           cp market-history/offer/listings.js  _site/
