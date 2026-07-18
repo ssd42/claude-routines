@@ -277,6 +277,16 @@ function matcher(q) {
   };
 }
 
+function apprTag(town){
+  const a = D.towns[town] && D.towns[town].appr;
+  if (!a) return "";
+  const since = (D.towns[town].apprSince || "").slice(2);
+  return ` · <span title="${a.measured ? "measured from this town's own sales"
+    : "borrowed regional rate — too few sales to measure this town"}"
+    style="color:${a.pct>=20?"var(--under)":a.pct<12?"var(--ink-3)":"var(--ink-2)"}">+${a.pct}%${
+    a.measured?"":"*"}</span>`;
+}
+
 function towns() {
   const c = {};
   for (const r of S.rows) c[r[COL.town]] = (c[r[COL.town]] || 0) + 1;
@@ -379,7 +389,7 @@ function render() {
           r[COL.listPrice] ? `<br><span style="color:var(--rule-2)">asked ${usdF(r[COL.listPrice])}</span>` : ""}`;
     return `<div class="row">
       <div class="addr">${esc2(r[COL.addr])}<div class="t">${esc2(r[COL.town])}${
-        D.towns[r[COL.town]]?.dist != null ? " · " + D.towns[r[COL.town]].dist + "mi from Westfield" : ""}</div></div>
+        D.towns[r[COL.town]]?.dist != null ? " · " + D.towns[r[COL.town]].dist + "mi from Westfield" : ""}${apprTag(r[COL.town])}</div></div>
       <div class="facts">${facts || "&nbsp;"}</div>
       <div class="price">${usdF(r[COL.price])}</div>
       <div><div class="ask">${vs}</div><div class="when">${r[COL.date]}</div></div>
@@ -468,6 +478,8 @@ $("fine").innerHTML = `
      field at all — both only ever lived in the listing description, which the sold
      dataset never stored. A filter that silently hides 94% of the market is worse than
      no filter.</p>
+  <p><b>Town appreciation</b> next to each town ("+14% since '23") is 2023→now growth from our
+     own sold data; a <b>*</b> means the town was too thin to measure and shows the regional rate.</p>
   <p><b>Searching a town matches the town field, never the address text.</b> <i>10 Cranford
      Rd</i> is a house in Glen Rock, and there are <i>Westfield Ave</i> addresses in Clark.</p>`;
 

@@ -362,6 +362,23 @@ const HS_FACTORS = [
    // climbs to full at 2010+. 524 Farley (1950) lands at ~0.44, just above the cliff.
    s:y => y < 1940 ? 0.2 : y >= 2010 ? 1 : 0.3 + 0.7 * (y - 1940) / 70},
 
+  // ── town appreciation. SMALL weight on purpose: it correlates r=+0.61 with price
+  //    (already w=30), so its independent signal is modest, and past appreciation does
+  //    not promise future. Rewards a town whose value is climbing (your equity climbs
+  //    with it). Measured for 20 towns; the rest borrow the regional curve (T.appr.measured
+  //    says which) but still score -- a borrowed rate is a real regional fact.
+  {k:"appr", w:4, label:"town appreciation",
+   get:(l, T) => T && T.appr ? T.appr.pct : null,
+   s:p => Math.max(0, Math.min(1, (p - 5) / 35))},   // +5% -> 0, +40% -> 1
+
+  // ── flood. A per-HOUSE factor (FEMA zone at the listing's point), not town-level, so
+  //    it keeps HS discriminating WITHIN a town. High-risk (SFHA: A/AE/V/VE) is a real
+  //    penalty -- mandatory flood insurance, often thousands a year, plus the risk. X is
+  //    fine. Unknown (no coords, or fetch gap) drops out of the weighted mean.
+  {k:"flood", w:8, label:"flood risk",
+   get:l => l.flood == null ? null : l.flood,      // 1 = high-risk zone, 0 = minimal
+   s:hi => hi ? 0 : 1},
+
   // ── shops. LOW weight on purpose: the ask was "closer is better, but don't give it
   //    many points". Averaged across the three so one distant chain can't sink a town.
   {k:"shops", w:5, label:"shops nearby",
@@ -379,7 +396,7 @@ const HS_FACTORS = [
 const HS_FLAVOUR = [
   {k:"reno",     pts:+5, label:"renovated",        re:/renovat|updated|remodel|new kitchen/i},
   {k:"garage",   pts:+4, label:"garage",           re:/\bgarage\b/i},
-  {k:"ac",       pts:+6, label:"central air",      re:/central (air|a\/?c)|central-air/i},
+  {k:"ac",       pts:+7, label:"central air",      re:/central (air|a\/?c)|central-air/i},
   {k:"drive",    pts:+2, label:"driveway",         re:/\bdrive ?way\b/i},
   {k:"wallac",   pts:-3, label:"window/wall AC",   re:/window (unit|a\/?c)|wall (unit|a\/?c)|ductless|mini[- ]split/i},
   {k:"asis",     pts:-6, label:"as-is / needs work", re:/\bas[- ]is\b|handyman|\btlc\b|needs work|investor/i},

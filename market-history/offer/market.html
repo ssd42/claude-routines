@@ -381,6 +381,16 @@ const usdFull = n => "$" + Math.round(n).toLocaleString("en-US");
 const esc2 = s => String(s == null ? "" : s).replace(/[&<>"]/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
+function apprTag(town){
+  const a = D.towns[town] && D.towns[town].appr;
+  if (!a) return "";
+  const since = (D.towns[town].apprSince || "").slice(2);
+  return ` · <span title="${a.measured ? "measured from this town's own sales"
+    : "borrowed regional rate — too few sales to measure this town"}"
+    style="color:${a.pct>=20?"var(--under)":a.pct<12?"var(--ink-3)":"var(--ink-2)"}">+${a.pct}%${
+    a.measured?"":"*"}</span>`;
+}
+
 function towns() {
   if (!M || !M.listings) return [];
   const counts = {};
@@ -567,7 +577,7 @@ function render() {
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
       <div class="addr"><a class="stretch" href="index.html#${state}">${esc2(l.a)}</a>${tags}
-        <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}
+        <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}${apprTag(l.t)}
           ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
       <div class="price"><div class="ask">${usdFull(l.p)}</div>
         <div class="facts">${facts || "&nbsp;"}</div></div>

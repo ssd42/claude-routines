@@ -258,6 +258,10 @@ def bake_listings():
     if not os.path.exists(LISTINGS):
         print("  ! no listings.csv -- run `python3 listings.py` (LOCAL ONLY). Skipping.")
         return None
+    # FEMA flood zones per point, from layers/flood/fetch_flood.py. Keyed by rounded
+    # lat/lon; a listing with no cached point just gets flood=None and drops from HS.
+    fc = os.path.join(ROOT, "layers", "flood", "flood_cache.json")
+    flood = json.load(open(fc)) if os.path.exists(fc) else {}
     rows = read(LISTINGS)
     out, seen_runs = [], set()
     for r in rows:
@@ -294,6 +298,11 @@ def bake_listings():
             # we have watched were RAISES, and they were all wearing a "price cut" tag.
             # Direction is decided here, once, so the page cannot get it wrong.
             "cut": bool(p0 and price < p0),
+            # FEMA high-risk flag: 1 = SFHA (A/AE/V/VE), 0 = minimal, absent = unknown
+            # (no coords or fetch gap), which drops out of the HS weighted mean.
+            "flood": (lambda k: (1 if flood[k]["high"] else 0) if k in flood else None)(
+                f"{round(num(r['lat']),5)},{round(num(r['lon']),5)}"
+                if r.get("lat") and r.get("lon") else ""),
             "up": bool(p0 and price > p0),
             "p0": int(p0) if p0 else None,
             "url": r["url"] or None, "img": r["photo"] or None,
@@ -565,6 +574,23 @@ def main():
         }
 
     regional, town_idx, newest = price_index(sales)
+
+    # Per-town appreciation, resolved once: the price index's oldest-year multiplier is
+    # exactly "scale an old price up to today", so multiplier-1 IS the appreciation. A
+    # town uses its OWN curve where it has one (20 towns) and borrows the regional curve
+    # otherwise (43) -- flagged, the same contract as the analyser's index. Correlates
+    # r=+0.61 with price, so it earns only a small HS weight; here it is both an HS input
+    # and the one location factor shown on the pages.
+    oldest = min(regional)
+    def appreciation(town):
+        ix = town_idx.get(town)
+        if ix:
+            return {"pct": round(100 * (ix[oldest] - 1), 1), "measured": True}
+        return {"pct": round(100 * (regional[oldest] - 1), 1), "measured": False}
+
+    for _name, _t in towns.items():
+        _t["appr"] = appreciation(_name)
+        _t["apprSince"] = oldest
 
     sold = sorted(r["sold_date"] for r in sales if r["sold_date"])
     data = {

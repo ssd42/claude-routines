@@ -1,0 +1,27 @@
+FLOOD ZONES — FEMA NFHL, per listing point
+==========================================
+flood_cache.json — {"lat,lon": {"zone": "X"|"AE"|..., "high": bool}}, keyed by a
+listing's rounded coordinates. Built by fetch_flood.py.
+
+SOURCE
+  FEMA National Flood Hazard Layer (NFHL), public ArcGIS MapServer layer 28.
+  https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28
+  No key, cloud-safe. Queried once per unique listing point, cached (a parcel's zone
+  rarely changes, so a cached answer is durable).
+
+WHAT high MEANS
+  high=true  -> Special Flood Hazard Area (A, AE, AH, AO, AR, A99, V, VE): the 1%-annual
+               "100-year" floodplain, where flood insurance is federally mandated.
+  high=false -> zone X or outside every mapped polygon = minimal risk.
+  As of the 2026-07-18 build: 73 of 3,551 points (2.1%) are high-risk.
+
+WHY LISTINGS-ONLY
+  It is keyed to coordinates, and only listings carry lat/lon (sold rows come from deed
+  records with none). That is exactly right: flood feeds HS, and HS runs on listings.
+
+CAVEATS
+  * FEMA is mid-remap in parts of NJ; a zone can change on a future map.
+  * A point-in-polygon test answers "does the STRUCTURE's point sit in the zone", not
+    "does any part of the parcel touch it" -- 93 Gaywood is ~1% in AE but its point may
+    read X. The structure test is the one that matters for the house.
+  * ~47 listings had no usable coordinate and get flood=None (drops from the HS mean).
