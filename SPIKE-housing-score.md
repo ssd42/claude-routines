@@ -118,7 +118,7 @@ a grade, never rank it.
 |---|---:|---|
 | **renovated / updated** | **+5** | 41% |
 | garage | **+4** | 51% |
-| central air | **+3** | 7% |
+| central air | **+6** | 7% |
 | driveway | **+2** | 13% |
 | window/wall AC only | **−3** | 2% |
 | **as-is / needs work / TLC** | **−6** | 14% |

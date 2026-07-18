@@ -379,7 +379,7 @@ const HS_FACTORS = [
 const HS_FLAVOUR = [
   {k:"reno",     pts:+5, label:"renovated",        re:/renovat|updated|remodel|new kitchen/i},
   {k:"garage",   pts:+4, label:"garage",           re:/\bgarage\b/i},
-  {k:"ac",       pts:+3, label:"central air",      re:/central (air|a\/?c)|central-air/i},
+  {k:"ac",       pts:+6, label:"central air",      re:/central (air|a\/?c)|central-air/i},
   {k:"drive",    pts:+2, label:"driveway",         re:/\bdrive ?way\b/i},
   {k:"wallac",   pts:-3, label:"window/wall AC",   re:/window (unit|a\/?c)|wall (unit|a\/?c)|ductless|mini[- ]split/i},
   {k:"asis",     pts:-6, label:"as-is / needs work", re:/\bas[- ]is\b|handyman|\btlc\b|needs work|investor/i},
