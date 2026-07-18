@@ -59,7 +59,14 @@
       "K": ["POR", "COL", "COD", "UZB"],
       "L": ["ENG", "CRO", "PAN", "GHA"]
     },
-    "thirds": ["SEN", "IRN", "ALG", "CIV", "SWE", "CZE", "SCO", "BIH"] },
+    "thirds": ["SEN", "IRN", "ALG", "CIV", "SWE", "CZE", "SCO", "BIH"],
+    "ko": {
+      "r16": ["GER", "FRA", "KOR", "NED", "COL", "ESP", "TUR", "BEL", "BRA", "NOR", "MEX", "ENG", "ARG", "USA", "SUI", "POR"],
+      "qf": ["NED", "FRA", "ESP", "BEL", "BRA", "ENG", "ARG", "POR"],
+      "sf": ["FRA", "ESP", "POR", "ENG"],
+      "final": ["FRA", "POR"],
+      "champion": "FRA"
+    } },
     { "name": "Luis", "username": "SandwichLuis", "groups": {
       "A": ["MEX", "KOR", "CZE", "RSA"],
       "B": ["CAN", "SUI", "QAT", "BIH"],

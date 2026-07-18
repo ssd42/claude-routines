@@ -1,8 +1,14 @@
 # bracket-challenge — agent notes
 
-Daily **provisional** leaderboard for a friend-league FIFA WC2026 Bracket
-Challenge (group stage only). See [`README.md`](README.md) for the full
-description, scoring rules, and run command.
+Daily leaderboard for a friend-league FIFA WC2026 Bracket Challenge, run end to
+end (group stage → knockouts → final) as **one cumulative total**. See
+[`README.md`](README.md) for the full description, scoring rules, and run
+command.
+
+**Phase now: KNOCKOUTS.** The group stage is over and `standings.json` is final,
+so every player's group total is frozen. The board now swings on knockout
+results only: `knockouts.json` is the live truth (the knockout analogue of
+`standings.json`), and knockout points add **on top** of the frozen group total.
 
 ## Independence
 This routine is self-contained (see the root [`../CLAUDE.md`](../CLAUDE.md)).
@@ -15,8 +21,18 @@ explicitly asked.
 - `score.py` is **deterministic** — same inputs must give the same board. Keep it
   pure; no network, no clock-dependent behavior beyond the date you pass in.
 - State/memory lives in `history/<date>.json`: a run reads yesterday's snapshot
-  (for ▲▼ arrows) and writes today's. Don't break that contract.
-- Standings come from independent `sources.json` reconciled by 2-of-3 consensus.
+  (for ▲▼ arrows) and writes today's. Snapshots now carry the `group`/`ko` split
+  alongside `total`/`rank`; older group-only snapshots lack those keys and that's
+  fine (arrows only need `total`/`rank`). Don't break that contract.
+- Group tables (`standings.json`, now final) and knockout results
+  (`knockouts.json`, live) both come from independent `sources.json` reconciled
+  by 2-of-3 consensus.
+- Knockout scoring is cumulative (R16 +20, QF +30, SF +40, Final +75, Champ +100)
+  and **adds to the frozen group total**. `score.py` auto-loads `knockouts.json`
+  and switches the board to GROUP+KNOCKOUT mode once it holds any result — no flag.
+- Each player's knockout picks live in `predictions.steven.json` under a `ko`
+  block (`r16`/`qf`/`sf`/`final`/`champion`). The lists nest; you only have to
+  place a team at its deepest predicted round and `score.py` propagates it back.
 - Delivery target (Slack channel) is in `job.json`. Secrets stay out of the repo.
 
 ## Operational notes from prod runs (read before running)
@@ -31,6 +47,15 @@ Hard-won lessons from real scheduled runs — follow these to avoid known traps:
   targeted query per group (e.g. `2026 World Cup Group C standings Scotland Haiti
   score`). Budget **two** search rounds per group; if still unresolved, mark the
   group disputed and move on.
+- **Knockout phase: fetch RESULTS, not tables.** The group tables are final and
+  frozen — don't re-fetch them. Instead resolve which teams *advanced* each round
+  via WebSearch (e.g. `2026 World Cup Round of 32 results June 28`), and write the
+  winners into `knockouts.json` under the round they reached. Same 2-of-3
+  consensus; a knockout result is usually unambiguous (a team is through or out),
+  so a disputed/extra-time/penalties game just needs one good confirmation of who
+  advanced. You only have to add a team to its **furthest** round so far —
+  `score.py` credits the earlier rounds automatically. Don't invent results for
+  games not yet played; leave those rounds empty until they happen.
 - **Git push-permission check: keep it simple.** Just run `git push --dry-run
   origin main` — git still negotiates auth, nothing is written. Do **not** use
   the `git commit --allow-empty` + `--dry-run` + `git reset --soft HEAD~1`

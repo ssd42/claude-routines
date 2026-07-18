@@ -1,0 +1,11 @@
+{
+  "_doc": "ACTUAL knockout-stage progression for WC2026 (the live truth the scorer reconciles each run, the knockout analogue of standings.json). Each array lists every team that has reached AT LEAST that round, FIFA 3-letter codes. Fill in as rounds complete; partial is fine. You only have to add a team to its FURTHEST round so far — score.py auto-propagates it back to the earlier rounds (so a team in `qf` is automatically credited for `r16` too). Reaching the Round of 16 = winning your Round-of-32 match (R32 itself awards no knockout points; that was the group stage's job).",
+  "_source": "official 2026 WC knockout results via WebSearch consensus — same 2-of-3 independent-source rule as the group standings (see sources.json).",
+  "_scoring": "cumulative per round: r16 +20, qf +30, sf +40, final +75, champion +100. A team that goes all the way banks 20+30+40+75+100 = 265 for whoever predicted it that far.",
+  "_updated": "",
+  "r16": [],
+  "qf": [],
+  "sf": [],
+  "final": [],
+  "champion": null
+}
