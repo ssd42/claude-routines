@@ -272,10 +272,13 @@ let ptLayer = null;
 $("toggle-points").addEventListener("click", ()=>{
   if (ptLayer){ ptLayer.remove(); ptLayer=null; $("toggle-points").classList.remove("on"); return; }
   ptLayer = L.layerGroup();
-  const canvas = L.canvas({pane:"pins", padding:.5});
+  // tolerance:8 widens the tap target well past the 6px dot — a near-miss (fat finger on a
+  // phone, or a pin sitting under the flood wash) still registers as a pin click, not a
+  // fall-through to the town underneath.
+  const canvas = L.canvas({pane:"pins", padding:.5, tolerance:8});
   for (const [lat,lon,price,ty,flood] of M.points){
-    L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:5,
-      color:"#fff", weight:1, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.9})
+    L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:6,
+      color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95})
       .bindPopup(`<b>${usd(price)}</b><br>${ty||""}${flood?"<br>⚠ flood zone":""}`)
       .addTo(ptLayer);
   }
@@ -373,7 +376,9 @@ $("locate").addEventListener("click", ()=>{
   }, {enableHighAccuracy:true, timeout:10000, maximumAge:30000});
 });
 
-$("stamp").textContent = `${M.points.length} listings · data ${M.generated}`;
+// BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
+const BUILD = "b07-18d";
+$("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();
 drawLegend();
