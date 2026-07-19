@@ -298,29 +298,37 @@ function style(f){
   return {fillColor:colorFor(f.properties.town), fillOpacity:.62, color:"#fff",
           weight:1, opacity:.7};
 }
+let townLayer = {};                    // town name -> its polygon, for map-level hover/click
 function drawGeo(){
   if (geo) geo.remove();
+  townLayer = {};
   geo = L.geoJSON(M.boundaries, {
     style,
-    onEachFeature:(f,layer)=>{
-      layer.on("click", ()=>showTown(f.properties.town));
-      layer.on("mouseover", ()=>layer.setStyle({weight:2.5, color:"#1f1c18"}));
-      layer.on("mouseout", ()=>layer.setStyle({weight:1, color:"#fff"}));
-    },
+    onEachFeature:(f,layer)=>{ townLayer[f.properties.town] = layer; },
   }).addTo(map);
   map.fitBounds(geo.getBounds(), {padding:[20,20]});   // fit to the four corners of all towns
 }
 
-// Select a town from a MAP click, resolved by point-in-polygon (townAt). The polygon
-// layer above has its own click handler, but it only fires when nothing is layered over
-// it — the for-sale-house pins live in a canvas pane ON TOP of the polygons, and a canvas
-// swallows the clicks it doesn't land on a dot. Routing selection through the map click
-// (which still fires on those "misses") makes towns selectable whether the pins are shown
-// or not. A pin's own click has bubblingMouseEvents:false, so it won't reach here.
+// Town CLICK and HOVER are both driven from MAP-level events resolved by point-in-polygon
+// (townAt), NOT from the polygons' own handlers. The for-sale-house pins live in a canvas
+// pane ON TOP of the polygons, and that canvas swallows every mouse event that doesn't land
+// on a dot — so the polygons' own click/mouseover never fire once pins are shown. Map-level
+// events still fire on those "misses", so selection and the border highlight work whether
+// the pins are on or off. (A pin's own click has bubblingMouseEvents:false, so clicking a
+// house doesn't also select the town under it.)
 map.on("click", e => {
   const town = townAt(e.latlng.lat, e.latlng.lng);
   if (town) showTown(town);
 });
+let hovered = null;
+function setHover(town){
+  if (town === hovered) return;
+  if (hovered && townLayer[hovered]) townLayer[hovered].setStyle({weight:1, color:"#fff"});
+  hovered = town;
+  if (town && townLayer[town]) townLayer[town].setStyle({weight:2.5, color:"#1f1c18"});
+}
+map.on("mousemove", e => setHover(townAt(e.latlng.lat, e.latlng.lng)));
+map.on("mouseout",  () => setHover(null));
 
 // ── legend ──
 function drawLegend(){
