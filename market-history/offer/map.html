@@ -326,6 +326,9 @@ map.on("click", e => {
 function drawLegend(){
   const m = METRICS[metric], el = $("legend");
   let rows;
+  // appreciation carries its own as-of (external Zillow/FHFA layer, refreshed on its own
+  // cadence, not by a sales rehydrate) — show it so a stale index is visible.
+  const cav = m.cav + (metric==="appr" && M.apprAsof ? ` As of ${M.apprAsof}.` : "");
   if (m.cat){
     rows = Object.entries(m.cats).map(([k,c]) => ({c, lab:k}));
   } else {
@@ -342,7 +345,7 @@ function drawLegend(){
   }
   el.innerHTML = `<h4>${m.label}</h4><div class="swatches">` +
     rows.map(r=>`<div class="sw"><i style="background:${r.c}"></i>${r.lab}</div>`).join("") +
-    `</div><div class="cav">${m.cav}</div>`;
+    `</div><div class="cav">${cav}</div>`;
 }
 
 // ── the town card ──
@@ -555,7 +558,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18m";   // keep the map.js?v= query above in sync when you bump this
+const BUILD = "b07-18n";   // keep the map.js?v= query above in sync when you bump this
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();

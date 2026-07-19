@@ -46,6 +46,24 @@ merged into a sales file; never a filter).
 Top-level `zips.json` / `nj_municipalities.json` / `sources.json` are **config**
 (what to scrape), not data — that's why they stay out of `layers/`.
 
+### Layers refresh on their OWN cadence — a sales rehydrate does NOT recompute them
+A layer's data comes from an **external source**, not from our scraped sales, so
+re-scraping `sales.csv` gives it nothing new — `build_data.py`/`build_share.py` just
+re-read the committed layer CSV unchanged. Refresh a layer by re-running its own
+`fetch_*.py` when its **source** publishes, not when we rehydrate sales:
+
+| layer | source | refresh when | local-only? |
+|-------|--------|--------------|-------------|
+| `appreciation/` | Zillow ZHVI + FHFA HPI | ZHVI ~monthly, FHFA ~yearly | yes (≈160MB DL + `openpyxl`) |
+| `tax/` | NJ DCA Property Tax Tables | yearly (new `YYtaxes.xls`) | yes (`xlrd`) |
+| `geo/`, `flood/` | Census TIGER / FEMA NFHL | rarely (boundaries/remaps) | no |
+
+These `fetch_*.py` are **local prep** (big downloads / non-stdlib parsers) — they
+can't run in the cloud routine; they write a small committed CSV/GeoJSON that CI
+reads. Each stamps its own as-of (e.g. appreciation's `asof`), surfaced on the page
+so a stale layer shows visibly rather than silently. So: appreciation/tax are **not**
+part of `aggregate.py`; refresh them deliberately, on the source's clock.
+
 `state/` is **machine bookkeeping**, not data: `state.json` (fetch cursors — which
 zip pulled when) and `provenance.json` (every source's value for every merged
 field). Committed, because the repo is the DB — but nobody opens them to answer a
