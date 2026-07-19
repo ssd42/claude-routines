@@ -303,6 +303,17 @@ function drawGeo(){
   map.fitBounds(geo.getBounds(), {padding:[20,20]});   // fit to the four corners of all towns
 }
 
+// Select a town from a MAP click, resolved by point-in-polygon (townAt). The polygon
+// layer above has its own click handler, but it only fires when nothing is layered over
+// it — the for-sale-house pins live in a canvas pane ON TOP of the polygons, and a canvas
+// swallows the clicks it doesn't land on a dot. Routing selection through the map click
+// (which still fires on those "misses") makes towns selectable whether the pins are shown
+// or not. A pin's own click has bubblingMouseEvents:false, so it won't reach here.
+map.on("click", e => {
+  const town = townAt(e.latlng.lat, e.latlng.lng);
+  if (town) showTown(town);
+});
+
 // ── legend ──
 function drawLegend(){
   const m = METRICS[metric], el = $("legend");
@@ -375,6 +386,12 @@ $("toggle-flood").addEventListener("click", async ()=>{
 
 // ── for-sale house pins (houses only, lean canvas) + filter ──
 let ptLayer = null;
+// ONE persistent canvas renderer, reused every render. Creating a fresh L.canvas() per
+// render (as this used to) LEAKED a full-map canvas into the "pins" pane on every toggle:
+// they stacked up and — sitting above the choropleth — swallowed town clicks, so once you
+// had ever shown the pins you could no longer select a town. tolerance:8 widens the tap
+// target past the 6px dot so a near-miss still hits the pin, not a fall-through.
+const pinsCanvas = L.canvas({pane:"pins", padding:.5, tolerance:8});
 const FILT = {minP:null, maxP:null, minBd:null, minBa:null};
 function passFilter(price, beds, baths){
   if (FILT.minP  != null && price < FILT.minP)  return false;
@@ -386,10 +403,6 @@ function passFilter(price, beds, baths){
 function renderPins(){
   if (ptLayer) ptLayer.remove();
   ptLayer = L.layerGroup();
-  // tolerance:8 widens the tap target well past the 6px dot — a near-miss (fat finger on a
-  // phone, or a pin under the flood wash) still registers as a pin click, not a fall-through
-  // to the town underneath.
-  const canvas = L.canvas({pane:"pins", padding:.5, tolerance:8});
   let n = 0;
   for (const [lat,lon,price,ty,flood,beds,baths,url,addr] of M.points){
     if (!passFilter(price, beds, baths)) continue;
@@ -400,8 +413,11 @@ function renderPins(){
     const safeUrl = /^https?:\/\//i.test(url||"") ? esc(url) : "";
     const link = safeUrl ? `<br><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">view listing →</a>` : "";
     const addrLine = addr ? `<div class="pop-addr">${esc(addr)}</div>` : "";
-    L.circleMarker([lat,lon], {renderer:canvas, pane:"pins", radius:6,
-      color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95})
+    L.circleMarker([lat,lon], {renderer:pinsCanvas, pane:"pins", radius:6,
+      color:"#fff", weight:1.5, fillColor: flood ? "#8c2f2a" : "#2c6459", fillOpacity:.95,
+      // don't let a pin click bubble to the map's click handler, or clicking a house would
+      // ALSO open the town card underneath it
+      bubblingMouseEvents:false})
       .bindPopup(`<b>${usd(price)}</b>${addrLine}<br>${beds!=null?beds+" bd":"? bd"} · ${baths!=null?baths+" ba":"? ba"} · ${esc(ty||"")}${flood?"<br>⚠ flood zone":""}${link}`)
       .addTo(ptLayer);
   }
