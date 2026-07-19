@@ -32,3 +32,4 @@ credentials.json
 .vscode/
 *.swp
 market-history/layers/tax/*.xls
+market-history/layers/appreciation/zhvi_zip.csv

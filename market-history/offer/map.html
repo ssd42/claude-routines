@@ -164,7 +164,7 @@
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <!-- ?v bumps with BUILD below so a new deploy always fetches fresh data, never a cached
      map.js against new map.html (that mismatch showed pins with "? bd" and no link). -->
-<script src="map.js?v=18k"></script>
+<script src="map.js?v=18l"></script>
 <script>
 "use strict";
 const M = window.MAP;
@@ -178,7 +178,7 @@ const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0
    than a flagged table, so the caveat rides in the legend, always. */
 const METRICS = {
   appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%", scheme:"greens",
-            cav:"TOTAL growth 2023→today (~3 years, NOT year-over-year), from our own sold prices. Measured for 20 towns; 43 borrow the regional rate."},
+            cav:"Zillow ZHVI by ZIP — typical home value 2023→2026 (~3yr TOTAL, not year-over-year). Town-specific for all 63; a smoothed index, not a per-house number."},
   price:   {label:"Median price", fmt:usdK, scheme:"purples",
             cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
   school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", scheme:"blues",
@@ -210,6 +210,7 @@ const SCHEMES = {
   browns: ["#f6e8c3","#dfc27d","#bf812d","#8c510a","#543005"],
 };
 const NODATA = "rgba(180,170,155,.22)";                 // unknown = faint grey
+const ESTIMATE = "#cdc4b4";                             // borrowed regional est. (not measured) = flat grey
 /* Break a metric into up to 5 classes at quantiles OF THE DISTINCT values (not the raw
    values). Appreciation has 43 towns sharing ONE regional estimate; raw-value quantiles
    would collapse every break onto that single number (a legend of "+16.6% – +16.6%").
@@ -240,9 +241,12 @@ for (const k in METRICS){
   m._colors = schemeColors(m.scheme, bins.n);
 }
 function colorFor(town){
-  const m = METRICS[metric], v = M.metrics[town] ? M.metrics[town][metric] : null;
+  const m = METRICS[metric], d = M.metrics[town], v = d ? d[metric] : null;
   if (v == null) return NODATA;
   if (m.cat) return m.cats[v] || NODATA;
+  // appreciation is MEASURED for only 20 towns; the rest borrow one regional average. Don't
+  // paint a borrowed guess as if it were a town-specific measurement — grey it out instead.
+  if (metric === "appr" && d && d.apprMeasured === false) return ESTIMATE;
   return m._colors[classOf(v, m._breaks)];
 }
 
@@ -331,7 +335,7 @@ function showTown(town){
   $("card-grid").innerHTML =
     cell("Median price", usdK(d.price), d.vsask!=null?(d.vsask>=0?"+":"")+d.vsask+"% vs ask":"") +
     cell("My tier", d.tier||"—", "") +
-    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · "+(d.apprMeasured?"measured":"regional est.")):"") +
+    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · Zillow ZHVI"):"") +
     cell("Schools", d.school!=null?d.school+"/10":"—", "DOE district") +
     cell("Income", usdK(d.income), "ACS, ±wide") +
     cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak") +
@@ -527,7 +531,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18k";   // keep the map.js?v= query above in sync when you bump this
+const BUILD = "b07-18l";   // keep the map.js?v= query above in sync when you bump this
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();

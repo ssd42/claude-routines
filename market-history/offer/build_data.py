@@ -720,22 +720,29 @@ def main():
 
     regional, town_idx, newest = price_index(sales)
 
-    # Per-town appreciation, resolved once: the price index's oldest-year multiplier is
-    # exactly "scale an old price up to today", so multiplier-1 IS the appreciation. A
-    # town uses its OWN curve where it has one (20 towns) and borrows the regional curve
-    # otherwise (43) -- flagged, the same contract as the analyser's index. Correlates
-    # r=+0.61 with price, so it earns only a small HS weight; here it is both an HS input
-    # and the one location factor shown on the pages.
+    # Per-town appreciation. PREFER Zillow ZHVI by ZIP (layers/appreciation): a real,
+    # town-specific number for all 63 towns from ONE consistent source. Our internal
+    # size-controlled index only cleared its bar for ~20 towns and the other 43 borrowed a
+    # single regional average -- so the map painted 43 towns the identical value, a borrowed
+    # guess dressed as measurement. ZHVI also sanity-corrects thin internal reads (Summit
+    # was +48% internally, +27% here). The internal index (regional/town_idx) is untouched
+    # and still adjusts comps in the analyser; this only changes the displayed appreciation.
+    # Fallback to the internal index if the Zillow layer isn't present.
     oldest = min(regional)
+    appr_csv = os.path.join(ROOT, "layers", "appreciation", "appreciation_by_town.csv")
+    zappr = {r["town"]: r for r in read(appr_csv)} if os.path.exists(appr_csv) else {}
     def appreciation(town):
+        za = zappr.get(town)
+        if za:
+            return {"pct": num(za["appr_pct"]), "measured": True, "src": "zhvi"}
         ix = town_idx.get(town)
         if ix:
-            return {"pct": round(100 * (ix[oldest] - 1), 1), "measured": True}
-        return {"pct": round(100 * (regional[oldest] - 1), 1), "measured": False}
+            return {"pct": round(100 * (ix[oldest] - 1), 1), "measured": True, "src": "internal"}
+        return {"pct": round(100 * (regional[oldest] - 1), 1), "measured": False, "src": "regional"}
 
     for _name, _t in towns.items():
         _t["appr"] = appreciation(_name)
-        _t["apprSince"] = oldest
+        _t["apprSince"] = (zappr.get(_name) or {}).get("start_month", oldest)
 
     # ── neighbours + re-anchor level, for the engine's borrowing fallback ──────────
     # Two things a thin town needs to borrow comps honestly (engine.js does the borrow):
