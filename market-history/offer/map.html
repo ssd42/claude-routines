@@ -164,7 +164,11 @@
   integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <!-- ?v bumps with BUILD below so a new deploy always fetches fresh data, never a cached
      map.js against new map.html (that mismatch showed pins with "? bd" and no link). -->
-<script src="map.js?v=18l"></script>
+<!-- Load the data with a per-load cache-buster (rounded to 5 min). GitHub Pages caches THIS
+     html ~10 min, and a cached html used to keep pulling a stale map.js — showing old
+     appreciation. This inline document.write runs on every page load even from a cached html,
+     so the DATA is never more than ~5 min stale regardless of the html cache. -->
+<script>document.write('<scr'+'ipt src="map.js?t='+Math.floor(Date.now()/3e5)+'"></scr'+'ipt>');</script>
 <script>
 "use strict";
 const M = window.MAP;
@@ -178,7 +182,7 @@ const usdK = n => n == null ? "—" : n>=1e6 ? "$"+(n/1e6).toFixed(2).replace(/0
    than a flagged table, so the caveat rides in the legend, always. */
 const METRICS = {
   appr:    {label:"Appreciation", fmt:v=>v==null?"—":"+"+v+"%", scheme:"greens",
-            cav:"Zillow ZHVI by ZIP — typical home value 2023→2026 (~3yr TOTAL, not year-over-year). Town-specific for all 63; a smoothed index, not a per-house number."},
+            cav:"CONSENSUS of Zillow ZHVI + FHFA HPI — two independent mix-controlled indexes, averaged. ~3yr TOTAL (not year-over-year), town-specific by ZIP. Our own sold data was too mix-noisy to use directly."},
   price:   {label:"Median price", fmt:usdK, scheme:"purples",
             cav:"Median SOLD price. A town median hides the spread — the per-house pages show that."},
   school:  {label:"Schools", fmt:v=>v==null?"—":v.toFixed(1)+"/10", scheme:"blues",
@@ -200,14 +204,18 @@ let metric = "appr";
    Dark = HIGH value, always (no good/bad inversion; the legend names the metric). Bins are
    DATA QUANTILES (quintiles), so every colour holds roughly a fifth of the towns — that's
    what makes the differences legible. Distinct hues also mean you can tell at a glance which
-   metric you're on. ColorBrewer 5-class sequential ramps (colour-blind-safe). */
+   metric you're on. ColorBrewer sequential ramps (colour-blind-safe), but starting one
+   step IN: ColorBrewer's palest class (e.g. #eff3ff) is tuned for white PAPER and washes
+   out to nothing over the light-grey CARTO basemap at 62% fill — the lowest quintile
+   looked see-through. These floors are the 2nd class of each 6-class ramp, so the bottom
+   bin keeps a legible tint while the ramp still runs light→dark. */
 const SCHEMES = {
-  greens: ["#edf8e9","#bae4b3","#74c476","#31a354","#006d2c"],
-  purples:["#f2f0f7","#cbc9e2","#9e9ac8","#756bb1","#54278f"],
-  blues:  ["#eff3ff","#bdd7e7","#6baed6","#3182bd","#08519c"],
-  oranges:["#feedde","#fdbe85","#fd8d3c","#e6550d","#a63603"],
-  reds:   ["#fee5d9","#fcae91","#fb6a4a","#de2d26","#a50f15"],
-  browns: ["#f6e8c3","#dfc27d","#bf812d","#8c510a","#543005"],
+  greens: ["#c7e9c0","#a1d99b","#74c476","#31a354","#006d2c"],
+  purples:["#dadaeb","#bcbddc","#9e9ac8","#756bb1","#54278f"],
+  blues:  ["#c6dbef","#9ecae1","#6baed6","#3182bd","#08519c"],
+  oranges:["#fdd0a2","#fdae6b","#fd8d3c","#e6550d","#a63603"],
+  reds:   ["#fcbba1","#fc9272","#fb6a4a","#de2d26","#a50f15"],
+  browns: ["#e9d8a6","#dfc27d","#bf812d","#8c510a","#543005"],
 };
 const NODATA = "rgba(180,170,155,.22)";                 // unknown = faint grey
 const ESTIMATE = "#cdc4b4";                             // borrowed regional est. (not measured) = flat grey
@@ -346,7 +354,7 @@ function showTown(town){
   $("card-grid").innerHTML =
     cell("Median price", usdK(d.price), d.vsask!=null?(d.vsask>=0?"+":"")+d.vsask+"% vs ask":"") +
     cell("My tier", d.tier||"—", "") +
-    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · Zillow ZHVI"):"") +
+    cell("Appreciation", d.appr!=null?"+"+d.appr+"%":"—", d.appr!=null?("~"+(Math.pow(1+d.appr/100,1/3)*100-100).toFixed(1)+"%/yr · Zillow+FHFA avg"):"") +
     cell("Schools", d.school!=null?d.school+"/10":"—", "DOE district") +
     cell("Income", usdK(d.income), "ACS, ±wide") +
     cell("Commute", d.commute!=null?d.commute+" min":"—", "AM peak") +
@@ -547,7 +555,7 @@ $("locate").addEventListener("click", ()=>{
 });
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
-const BUILD = "b07-18l";   // keep the map.js?v= query above in sync when you bump this
+const BUILD = "b07-18m";   // keep the map.js?v= query above in sync when you bump this
 $("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
 
 drawGeo();

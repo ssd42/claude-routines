@@ -734,7 +734,7 @@ def main():
     def appreciation(town):
         za = zappr.get(town)
         if za:
-            return {"pct": num(za["appr_pct"]), "measured": True, "src": "zhvi"}
+            return {"pct": num(za["appr_pct"]), "measured": True, "src": "blend"}
         ix = town_idx.get(town)
         if ix:
             return {"pct": round(100 * (ix[oldest] - 1), 1), "measured": True, "src": "internal"}

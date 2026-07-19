@@ -33,3 +33,4 @@ credentials.json
 *.swp
 market-history/layers/tax/*.xls
 market-history/layers/appreciation/zhvi_zip.csv
+market-history/layers/appreciation/hpi_at_zip5.xlsx
