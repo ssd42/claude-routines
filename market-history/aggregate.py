@@ -77,6 +77,13 @@ STATE_DIR = os.path.join(BASE_DIR, "state")
 STATE_FILE = os.path.join(STATE_DIR, "state.json")
 PROV_FILE = os.path.join(STATE_DIR, "provenance.json")
 
+# Drift alarm (warn-only; see end of main). A source is compared against what the SAME
+# zips returned last run. Tuned to be quiet: only fires below 40% of last time, and only
+# when there was a meaningful prior to compare against — a zip that returned 6 rows last
+# week returning 2 this week is noise, not drift.
+DRIFT_FLOOR = 0.40       # under this share of the prior pull, say something
+DRIFT_MIN_PRIOR = 200    # ...but only if the prior pull was at least this big
+
 REDFIN_ZIP_URL = os.environ.get(
     "MARKET_HISTORY_REDFIN_URL",
     "https://redfin-public-data.s3.us-west-2.amazonaws.com/redfin_market_tracker/zip_code_market_tracker.tsv000.gz",
@@ -278,6 +285,26 @@ def _open_redfin_stream(fixture):
                 yield raw.decode("utf-8", "replace")
 
 
+def _unq(s):
+    """Strip a TSV field's surrounding double quotes.
+
+    Redfin changed this file's shape without notice: fields that used to be bare
+    (`period_begin`, `2023-06-01`) are now quoted AND the header is upper-cased
+    (`"PERIOD_BEGIN"`, `"2026-01-01"`). That silently broke the parse for weeks —
+    the columns matched nothing, every row was skipped, and the run still exited 0.
+
+    Both shapes are handled deliberately: the committed fixture is still in the OLD
+    format, and normalising rather than switching means the next flip back (or a
+    partial one) doesn't break us again. Quoting must be stripped from VALUES too,
+    not just headers — `"2026-01-01"[:7]` is `"2026-0`, which would fail the month
+    filter in a way that looks like "no data" rather than a bug.
+    """
+    if s is None:
+        return None
+    s = s.strip()
+    return s[1:-1] if len(s) >= 2 and s[0] == '"' and s[-1] == '"' else s
+
+
 def fetch_redfin_dc(zips, since, fixture=False, limit=None):
     """Stream Redfin's zip-month TSV, keep target zips since `since` month."""
     z2t = zip_to_town()
@@ -289,15 +316,23 @@ def fetch_redfin_dc(zips, since, fixture=False, limit=None):
         cells = line.rstrip("\n").split("\t")
         if header is None:
             header = cells
-            idx = {name: j for j, name in enumerate(header)}
+            # normalise: unquote + lowercase, so either shape of the file maps to the
+            # names below (see _unq)
+            idx = {(_unq(name) or "").lower(): j for j, name in enumerate(header)}
             missing = [c for c in ("region", "period_begin", "period_end", "property_type") if c not in idx]
             if missing:
-                sys.stderr.write(f"[redfin_dc] WARNING: missing columns {missing}; header={header[:8]}...\n")
+                # Bail NOW rather than stream a ~2GB national file to produce nothing.
+                # Returning empty trips main()'s zero-row check, which exits non-zero.
+                sys.stderr.write(
+                    f"[redfin_dc] ABORT: columns {missing} not found — the file's shape "
+                    f"changed again.\n[redfin_dc] header was: {header[:8]}...\n"
+                    "[redfin_dc] map the new names in fetch_redfin_dc (see _unq).\n")
+                return []
             continue
 
         def col(name):
             j = idx.get(name)
-            return cells[j] if j is not None and j < len(cells) else None
+            return _unq(cells[j]) if j is not None and j < len(cells) else None
 
         m = re.search(r"(\d{5})", col("region") or "")
         if not m:
@@ -1059,7 +1094,13 @@ def main():
 
     os.makedirs(RAW_DIR, exist_ok=True)
     os.makedirs(STATE_DIR, exist_ok=True)
+    # snapshot the cursors BEFORE update_state() overwrites them — this is the only
+    # record of how many rows each source returned last time, which is what turns
+    # "did it return nothing?" into "did it return far less than it used to?" (see the
+    # drift check at the end of main).
+    prior_state = load_json(STATE_FILE) if os.path.exists(STATE_FILE) else {}
     market_new, sales_new = [], []
+    fetched = {}                 # src -> rows it returned, so a silent zero can't hide
     for src in requested:
         fn = SOURCE_FNS.get(src)
         if not fn:
@@ -1079,6 +1120,7 @@ def main():
             rows = fn(zips, args.since, fixture=args.fixture, limit=args.limit)
             with open(raw_path, "w") as f:
                 json.dump(rows, f, indent=2)
+        fetched[src] = len(rows)
         for r in rows:
             (market_new if r.get("grain") == "zip_month" else sales_new).append(r)
 
@@ -1119,6 +1161,42 @@ def main():
         f"sales.csv:  {len(sales_rows)} sale rows ({conflicted} with field conflicts)\n"
         f"sources run: {', '.join(requested)}  |  since {args.since}"
     )
+
+    # ---- a source that returned NOTHING must not look like a success ----------------
+    # redfin_dc did exactly this for weeks: the provider renamed its TSV columns, the
+    # parser matched none of them, and the run still printed a tidy summary and exited 0.
+    # Nothing downstream reads market.csv, so nobody noticed. A fetcher returning zero
+    # rows is the single loudest symptom of upstream drift, so say so and exit non-zero.
+    # Everything above is already written — the failing source cost us its own data, not
+    # anyone else's. NB with a very small --zip slice a genuine zero is possible (a
+    # municipality with no deeds in the window); read the message, don't just re-run.
+    # A zero is only the LOUDEST shape of drift. The commoner one is partial: a renamed
+    # column that kills most rows, a filter that quietly narrows. That still writes a
+    # cursor and exits 0, so compare each source against what the SAME zips returned last
+    # run. WARN ONLY, never exit: real listing volume genuinely swings, and a fetcher that
+    # fails the build on a quiet week is a fetcher people start ignoring. Zero stays fatal
+    # (below) because zero is never legitimate for a source that returned thousands.
+    sys.stdout.flush()                     # stderr is unbuffered; keep the order readable
+    for src, n in sorted(fetched.items()):
+        was = prior_state.get(src, {})
+        prior = sum(v.get("rows", 0) for z, v in was.items()
+                    if isinstance(v, dict) and z in zips)
+        if n and prior >= DRIFT_MIN_PRIOR and n < prior * DRIFT_FLOOR:
+            sys.stderr.write(
+                f"\n!! {src} returned {n} rows where the same zips gave {prior} last run "
+                f"({n / prior:.0%}).\n"
+                "   Could be a quiet week; could be upstream drift that is silently\n"
+                "   dropping most rows. Worth a look before you trust this pull.\n")
+
+    empty = [s for s, n in fetched.items() if n == 0]
+    if empty:
+        sys.stderr.write(
+            "\n!! " + ", ".join(empty) + " returned 0 rows.\n"
+            "   That is almost always upstream drift (renamed columns, moved URL,\n"
+            "   changed auth) rather than 'no data' — check the source's own warnings\n"
+            "   above. Other sources' data WAS written; this run is marked failed so a\n"
+            "   pipeline can't mistake an empty pull for a good one.\n")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
