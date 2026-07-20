@@ -21,34 +21,12 @@ Sections: **Ideas** (not thought through) → **Ready** (spec'd enough to build)
 
 ## Ready
 
-### Map page — more fields
-Three are nearly free because `share/by_town.csv` already rolls them up per town; they'd
-just need a metric entry + palette on `map.html`:
-
-- **Sold-vs-ask %** (`median_sold_vs_ask_pct`) — bidding heat / negotiating room. Already
-  shown in the town card, just not as a choropleth.
-- **Days on market** (`median_dom`) — pace, and therefore leverage.
-- **% selling at or under ask** (`pct_at_or_under_ask`) — how often you can actually get a
-  deal, not just the average.
-
-A bit more work, computable from `sales.csv`:
-- **Price per sqft (median)** — the honest cross-town value number. Raw median price
-  conflates "expensive town" with "town of big houses".
-- **Price-cut share among active listings** — leading indicator of softening.
-- **Housing stock character** — median lot, median sqft, median year built.
-
-Already spiked, deliberately NOT shown yet (see `SPIKE-hs-location-factors.md`):
-- **Crime** (§3) and **airport/highway/rail noise** (§4). Both are HS inputs only. Crime
-  especially is close to a wealth proxy, and a "safety" colour on a map reads as gospel.
-  Decide deliberately before putting either on the page.
-
-**Size:** the first three are small. **Open question:** the metric strip already scrolls on
-a phone at 7 metrics — do we group these under a "market heat" submenu rather than adding
-six more buttons?
+*(empty)*
 
 ---
 
 ## Ideas
+
 
 ### Suggest more towns like the ones I already track
 We track 63 towns that came from one original list. There are ~565 NJ municipalities — we
@@ -105,25 +83,87 @@ HS alongside your notes when helping? **Depends on:** persistence, above — oth
 notes are trapped on one device.
 **Size:** medium-large.
 
-### NJ repair-cost reference
-A doc of what common NJ home work actually costs: roof, HVAC, electrical panel, windows,
-kitchen, bath, foundation/waterproofing, sewer line, **oil tank removal** (very NJ),
-asbestos / knob-and-tube, chimney.
+### Estimate what a favourited house will need
+**What you'd see:** star a house, and on the next scheduled run it comes back with a rough
+budget for what it probably needs — something like *"likely $45k–$85k: kitchen looks original
+($31k to refresh, $60–90k to gut), radiators and no AC (+$10–25k), oil heat — get a tank sweep
+before anything else."* Then two favourites can be compared honestly: a $700k house needing
+$80k of work against a $760k one that's done.
 
-**Why:** it turns "needs work" into a number, so an as-is listing can be compared honestly
-against a renovated one. Eventually the analyser could adjust an ask by estimated
-remediation instead of just flagging `as-is`.
+**Why Claude and not code.** The signal is mostly in the listing's own prose, and it's fuzzy:
+*"charming original details"* often means an untouched 1940s kitchen; *"newer roof"* is a claim
+with no date; *"freshly painted"* sometimes hides more than it says. Rules and regex can't weigh
+that. Claude can — and can say *which phrase* it inferred from, which is what makes the answer
+checkable. It reads two things: the listing, and [`REPAIR-COSTS-NJ.md`](REPAIR-COSTS-NJ.md).
 
-**Sourcing:** regional contractor averages to start, and — better — **your own quotes as
-they come in**, which are real local prices. Flag which is which; a national average is not
-a Union County quote.
-**Open questions:** static reference doc, or a data layer the analyser consumes? Do we log
-your real quotes over time?
-**Size:** doc first (small), layer later.
+**How it would work.** A scheduled run reads the favourites, and for each one hands Claude the
+listing (description text, year built, heating/AC type, beds/baths/sqft, lot) plus the cost doc,
+and gets back line items with ranges, the phrase or fact each was inferred from, and a
+confidence. Output is written per house and committed — the repo is already the database.
+
+**The thing to get right — don't let it invent precision.** This is the project's oldest rule
+and it applies hardest here: an LLM will cheerfully turn *"needs TLC"* into `$62,400`. Rules
+for the output: **ranges only, never point estimates**; every line must name what it was
+inferred from; anything it's guessing at must say so; and it must total to a **range with a
+floor and a ceiling**, not an average.
+
+Three known weaknesses to design around:
+1. **The listing is the seller's marketing** — it omits problems by construction, so any
+   text-driven estimate is systematically optimistic. It should say so, every time.
+2. **Facts beat prose.** *Year built + heating type* are more reliable than adjectives: a 1928
+   house with no updates mentioned very likely has 100-amp service, possible knob-and-tube,
+   asbestos pipe wrap, radiators and no AC, and maybe a buried oil tank. Lead with those priors
+   and treat the description as weaker evidence on top.
+3. **It has never seen the house.** The honest framing is *"what to budget for and what to ask
+   the inspector"* — never *"this house needs $60k."*
+
+**Open questions:** only new favourites, or re-run everything when the cost doc changes? Does it
+also read your notes on the house? Should it flag the single highest-risk item (usually the oil
+tank) separately from the budget? **Depends on:** favourites existing, above.
+
+### Map page — more fields — DEPRIORITIZED
+**Status:** deprioritized 2026-07-20. The ask was "*think about* more fields for the maps
+page" — a question, not a decision. The specific fields below are **Claude's suggestions
+that were offered and passed on** (when asked to pick, the owner chose property taxes only,
+which is built and shipped). Keep them here as options to react to later, not as a plan.
+Three are nearly free because `share/by_town.csv` already rolls them up per town; they'd
+just need a metric entry + palette on `map.html`:
+
+- **Sold-vs-ask %** (`median_sold_vs_ask_pct`) — bidding heat / negotiating room. Already
+  shown in the town card, just not as a choropleth.
+- **Days on market** (`median_dom`) — pace, and therefore leverage.
+- **% selling at or under ask** (`pct_at_or_under_ask`) — how often you can actually get a
+  deal, not just the average.
+
+A bit more work, computable from `sales.csv`:
+- **Price per sqft (median)** — the honest cross-town value number. Raw median price
+  conflates "expensive town" with "town of big houses".
+- **Price-cut share among active listings** — leading indicator of softening.
+- **Housing stock character** — median lot, median sqft, median year built.
+
+Already spiked, deliberately NOT shown yet (see `SPIKE-hs-location-factors.md`):
+- **Crime** (§3) and **airport/highway/rail noise** (§4). Both are HS inputs only. Crime
+  especially is close to a wealth proxy, and a "safety" colour on a map reads as gospel.
+  Decide deliberately before putting either on the page.
+
+**Size:** the first three are small. **Open question:** the metric strip already scrolls on
+a phone at 7 metrics — do we group these under a "market heat" submenu rather than adding
+six more buttons?
+
 
 ---
 
 ## Done
+
+- **NJ repair-cost reference** — written: [`REPAIR-COSTS-NJ.md`](REPAIR-COSTS-NJ.md). What common
+  work costs in Union/Essex/Morris/Somerset/Middlesex, with 45 sources and lead-gen marketing
+  numbers labelled as such. Covers the asks (central AC, modernising a kitchen, roof) plus the
+  NJ-specific ones that decide deals — buried oil tank, radon, asbestos, the 100→200A panel,
+  historic-district windows, pool removal. Ends with an empty table to log **your own quotes**,
+  which will beat every published average in it. *(2026-07-20)*
+  Still open, now tracked as its own card above: feeding these numbers into an estimate for a
+  favourited house.
+
 
 - **"New — last 14 days" on the market page** — already built and live. Uses
   **days-on-market**, not `first_seen`, deliberately: with first-seen, a house listed in
