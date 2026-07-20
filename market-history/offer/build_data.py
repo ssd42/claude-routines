@@ -345,6 +345,20 @@ def bake_listings():
         p0 = num(r["first_list_price"])
         out.append({
             "a": r["address"], "t": r["town"], "z": r["zip"],
+            # `ts` = why we believe that town, emitted ONLY when we could not verify it.
+            # Absent means exactly one thing: the listing's own coordinates fell inside
+            # that town's boundary. "zip"/"nocoord" mean we fell back to the ZIP's label
+            # (a ZIP is a mail route, not a municipality — 08812 covers Dunellen AND Green
+            # Brook); "unchecked" means the column was missing entirely, i.e. this file
+            # never went through relabel_listings.py.
+            #
+            # The `or "unchecked"` is load-bearing, not defensive noise. Written the
+            # obvious way (`x if x != "polygon" else None`) a MISSING column yields None,
+            # which is falsy in JS — so an un-relabelled file would render every town as
+            # VERIFIED. A confidence flag must fail toward doubt: anything that isn't a
+            # positive "polygon" is unverified.
+            "ts": None if r.get("town_source") == "polygon"
+                  else (r.get("town_source") or "unchecked"),
             "p": int(price),
             "bd": num(r["beds"]), "ba": num(r["baths"]),
             "sq": int(sq) if sq else None,

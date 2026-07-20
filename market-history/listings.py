@@ -72,6 +72,10 @@ ZIPS_FILE = os.path.join(BASE, "zips.json")
 
 sys.path.insert(0, BASE)
 from aggregate import address_key, today  # noqa: E402  (same-folder reuse)
+# Imported at module level ON PURPOSE, not inside main(). A scrape takes ~3 minutes of
+# network; if this module were broken or its boundary file missing, a deferred import
+# would only blow up AFTER all that work. Fail at startup instead.
+import relabel_listings  # noqa: E402  (same-folder reuse)
 
 
 def property_key(address, zip_code):
@@ -89,6 +93,13 @@ def property_key(address, zip_code):
 COLS = [
     "property_key",          # address_key + zip. The identity of the HOUSE.
     "address", "zip", "town",
+    # How that town was decided: `polygon` = the listing's own coordinates fell inside
+    # that town's boundary (verified); `zip`/`nocoord` = we fell back to the ZIP's label
+    # and could NOT verify it. A ZIP is a mail route, not a municipality, so the fallback
+    # is a best guess (08812 covers Dunellen AND Green Brook). Written by
+    # relabel_listings.py, which main() runs at the end of every scrape — this column
+    # must stay in COLS or the writer's extrasaction="ignore" silently drops it.
+    "town_source",
     "spell",                 # 1 = first time we ever saw it listed, 2 = relisted once, ...
     "mls_id",                # a relist usually gets a NEW one — corroborates the spell split
     "list_date",             # what the feed claims this listing began (may itself be a relist)
@@ -320,6 +331,26 @@ def main():
         w.writerows(rows)
     print("\nwrote listings.csv (%d spells across %d properties)"
           % (len(rows), len(spells)))
+
+    # Resolve every town from its coordinates, right here, every run. New spells arrive
+    # carrying only the ZIP's label (see the `town`/`town_source` note in COLS), and a ZIP
+    # is not a municipality — so without this the file ships unverified towns until someone
+    # remembers to re-run it by hand. It is idempotent and needs no network.
+    #
+    # Deliberately AFTER listings.csv is written, and deliberately non-fatal: the scrape is
+    # the expensive, unrepeatable part (it is forward-only — a missed run is a relist we
+    # can never observe again). If the boundary check fails, we keep the scrape and say the
+    # towns are unverified, which the pages now render honestly as `town_source=unchecked`.
+    # Losing three minutes of network to a missing GeoJSON would be the worse trade.
+    print("\n— verifying towns against boundaries —")
+    try:
+        relabel_listings.relabel()
+    except Exception as e:                                   # noqa: BLE001 — see above
+        sys.stderr.write(
+            f"\n!! town verification FAILED ({type(e).__name__}: {e}).\n"
+            "   listings.csv IS written and the scrape is safe — but its towns are the\n"
+            "   ZIP's label, unverified. Fix the cause and re-run:\n"
+            "       python3 relabel_listings.py\n")
 
 
 if __name__ == "__main__":

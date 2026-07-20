@@ -1,15 +1,15 @@
 {
  "corrected": {
-  "1097|cambridge|08807": {
-   "old": "Bridgewater",
-   "new": "Martinsville",
-   "zip": "08807"
+  "182|lake|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
   }
  },
  "tally": {
-  "polygon_agree": 3376,
+  "polygon_agree": 3389,
   "polygon_corrected": 1,
-  "outside": 348,
+  "outside": 349,
   "nocoord": 231
  }
 }

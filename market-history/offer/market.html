@@ -162,6 +162,10 @@
   .tag.cut{color:var(--under);border-color:var(--under)}
   .tag.up{color:var(--over);border-color:var(--over)}
   .tag.stale{color:var(--ink-3);border-color:var(--rule-2)}
+  /* "town unverified" — quieter than a .tag on purpose. It rides on ~15% of rows, so a
+     bordered badge would shout; this reads as a footnote you can hover for the reason. */
+  .unv{font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;color:var(--rule-2);
+    border-bottom:1px dotted var(--rule-2);margin-left:.3rem;cursor:help;white-space:nowrap}
   .ask{font-family:var(--serif);font-size:1.35rem;font-variant-numeric:tabular-nums;
     text-align:right}
   .facts{font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -351,6 +355,15 @@ function drawStamp() {
    Zillow shows you the ask. This shows the ask against what similar houses in that
    town actually sold for. It calls the SAME comps() the analyser uses (engine.js),
    so the number here and the number after you click cannot disagree. */
+/* Why a town couldn't be verified — keyed by the `ts` the bake emits. The fallback for an
+   unknown key is `unchecked`, so a new reason added upstream still reads as doubt rather
+   than silently borrowing the wrong explanation. */
+const UNV_WHY = {
+  zip: "This house's coordinates fall outside every town boundary we hold, so we could not verify its town. The town shown is the one its ZIP is labelled with — and a ZIP is a mail route, not a municipality (08812 covers Dunellen AND Green Brook).",
+  nocoord: "This listing publishes no map coordinates, so we could not check which town it is actually in. The town shown is the one its ZIP is labelled with — and a ZIP is a mail route, not a municipality.",
+  unchecked: "This snapshot was built without the town-boundary check, so no town on it has been verified against a map. Every town here is the label on its ZIP — a mail route, not a municipality.",
+};
+
 function valuation(l) {
   if (!D.towns[l.t]) return null;              // not a town we hold sales for
   // Land, mobile homes and farms are not houses. There is no honest way to price a
@@ -380,6 +393,15 @@ function valuation(l) {
           // Like `weak`: shown, flagged, but never ranked above a house priced on its
           // own town's sales.
           borrowedComps: c.borrowedComps, borrowFrom: c.borrowFrom, ownN: c.ownN, effN: c.effN,
+          // `unverifiedTown` = we could not confirm this house is even IN the town whose
+          // sales we just priced it against (see UNV_WHY). That makes it a stronger reason
+          // to distrust the number than `weak` or `borrowedComps`, not a weaker one: those
+          // two are the right town measured loosely, this may be the WRONG TOWN measured
+          // precisely. Flagging the town label but ranking the number at full confidence
+          // was the bug — a Dunellen house priced off Green Brook comps could top "best
+          // value". Same treatment as the other two: shown, greyed, never ranked above a
+          // house we can place.
+          unverifiedTown: !!l.ts,
           verdict: l.p > c.hi ? "over" : l.p < c.lo ? "under" : "in"};
 }
 
@@ -461,7 +483,8 @@ const SORTS = {
   // neighbouring town), then unpriceable. Within each band, by gap. Sorting all three
   // together ranks our own ignorance to the top.
   value: ["Best value (measured first)", (a, b) => {
-    const rank = l => !l._v ? 2 : (l._v.weak || l._v.borrowedComps) ? 1 : 0;
+    const rank = l => !l._v ? 2
+      : (l._v.weak || l._v.borrowedComps || l._v.unverifiedTown) ? 1 : 0;
     return rank(a) - rank(b) ||
       (a._v ? a._v.gap / a.p : 9) - (b._v ? b._v.gap / b.p : 9);
   }],
@@ -512,7 +535,8 @@ function render() {
   for (const l of rows) if (l._h === undefined) l._h = hsFor(l);
   rows.sort(SORTS[sortBy][1]);
 
-  const under = rows.filter(l => l._v && !l._v.weak && !l._v.borrowedComps && l._v.verdict === "under").length;
+  const under = rows.filter(l => l._v && !l._v.weak && !l._v.borrowedComps
+                                 && !l._v.unverifiedTown && l._v.verdict === "under").length;
   // A filter that removes houses has to say what it removed and on whose authority.
   // These stack (cut + new can both be on); the "under" line only shows when neither
   // is, because it describes the whole list and stops being true once one is armed.
@@ -584,7 +608,7 @@ function render() {
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
       <div class="addr"><a class="stretch" href="analyser.html#${state}">${esc2(l.a)}</a>${tags}
-        <div class="t">${esc2(l.t)}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}${apprTag(l.t)}
+        <div class="t">${esc2(l.t)}${l.ts ? `<span class="unv" title="${UNV_WHY[l.ts] || UNV_WHY.unchecked}">town unverified</span>` : ""}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}${apprTag(l.t)}
           ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
       <div class="price"><div class="ask">${usdFull(l.p)}</div>
         <div class="facts">${facts || "&nbsp;"}</div></div>
@@ -599,10 +623,14 @@ function render() {
           ${!l._h.hasText ? `<span class="off">no description — no amenity signals</span>` : ""}
         </div></details>` : ""}
         ${v ? `
-        <span class="n ${(v.weak || v.borrowedComps) ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
-          ${(v.weak || v.borrowedComps) ? 'style="color:var(--ink-3)"' : ""}>${
+        <span class="n ${(v.weak || v.borrowedComps || v.unverifiedTown) ? "" : v.verdict === "over" ? "over" : v.verdict === "under" ? "under" : ""}"
+          ${(v.weak || v.borrowedComps || v.unverifiedTown) ? 'style="color:var(--ink-3)"' : ""}>${
           v.gap >= 0 ? "+" : "−"}${usdFull(Math.abs(v.gap))}</span> vs comps<br>
-        <span style="color:var(--ink-3)">${v.weak
+        <span style="color:var(--ink-3)">${v.unverifiedTown
+          ? `<i>we can't confirm this house is in ${esc2(l.t)}</i> — so these are ${
+              esc2(l.t)} sales priced against a house that may not be in ${esc2(l.t)}.
+              The gap is the least trustworthy number in this row`
+          : v.weak
           ? `<i>no sq ft on this listing</i> — compared on ${l.lot ? "lot" : "beds"} only, so treat it loosely`
           : v.borrowedComps
           ? `<i>too few ${esc2(l.t)} sales</i> — ${v.ownN} here + comps borrowed from ${
@@ -780,6 +808,14 @@ $("fine").innerHTML = `
   <p><b>Sq ft is on only ~31% of listings, lot on ~75%.</b> A house with neither is priced on
      beds and baths alone, and says so when you open it. "No comparable sales" means the town
      has under 10 similar sales — not that the house is bad.</p>
+  <p><b>"Town unverified" means we couldn't check which town a house is really in.</b>
+     Every listing's town is resolved from its own map coordinates against the town
+     boundaries — but ${M ? M.listings.filter(l => l.ts).length.toLocaleString() : "—"} of
+     ${M ? M.listings.length.toLocaleString() : "—"} either publish no coordinates or land
+     outside every boundary we hold, so they fall back to the label on their <b>ZIP</b>.
+     A ZIP is a mail route, not a municipality: 08812 covers <b>Dunellen and Green
+     Brook</b>, so a Dunellen house can read as Green Brook. Those rows are marked, and
+     their comps are priced against the town shown — treat both loosely.</p>
   <p><b>Days on market resets when a seller relists.</b> That's the whole reason
      <code>listings.py</code> watches weekly — <i>relisted ×2</i> means we personally saw it
      leave and come back, so its real clock is longer than the feed admits. <b>New — last

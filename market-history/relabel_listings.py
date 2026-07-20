@@ -102,10 +102,12 @@ def num(v):
         return None
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--dry-run", action="store_true")
-    args = ap.parse_args()
+def relabel(dry_run=False):
+    """Resolve every listing's town from its coordinates. Exposed as a function so
+    `listings.py` can run it automatically at the end of a scrape — the scrape rewrites
+    listings.csv from its own column list, which is how `town_source` used to get
+    dropped, leaving the towns unverified until someone remembered to re-run this."""
+    args = argparse.Namespace(dry_run=dry_run)
 
     polys = load_polygons()
     with open(LISTINGS, newline="") as fh:
@@ -174,6 +176,12 @@ def main():
     json.dump({"corrected": audit, "tally": tally}, open(AUDIT, "w"), indent=1)
     print(f"\nwrote listings.csv (+ town_source) and {os.path.relpath(AUDIT, HERE)} "
           f"({len(audit)} reversible corrections)")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true")
+    relabel(dry_run=ap.parse_args().dry_run)
 
 
 if __name__ == "__main__":
