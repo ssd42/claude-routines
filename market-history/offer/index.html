@@ -3,110 +3,86 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NJ market history — the tools</title>
+<title>The house hunt — NJ sale data</title>
 <style>
   /* Same paper/ink language as the tools it links to — this is their masthead, not a
-     different site. Light-only, like its siblings. */
+     different site. Light-only, like its siblings.
+
+     NOTE: no -webkit-font-smoothing:antialiased here, deliberately. On macOS it thins the
+     type and against this warm paper it reads washed-out/blurry. Default (subpixel)
+     rendering is crisper and warmer. */
   :root{
-    --paper:#f7f4ee; --paper-2:#f1ece3; --rule:#ddd5c7; --rule-2:#c8bda9;
-    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072; --flag:#a8631c;
+    --paper:#f7f4ee; --paper-2:#efe9de; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#4a443b; --ink-3:#7d7367; --flag:#a8631c;
     --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
     --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;
-    line-height:1.55;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) 5rem;
-    -webkit-font-smoothing:antialiased}
-  .sheet{max-width:52rem;margin:0 auto}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:17px;line-height:1.5;
+    padding:clamp(2rem,7vw,4.5rem) clamp(1.25rem,5vw,3rem) 4rem}
+  .sheet{max-width:40rem;margin:0 auto}
 
-  header{border-bottom:2px solid var(--ink);padding-bottom:1rem;margin-bottom:.4rem}
-  h1{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,6vw,3rem);
-    letter-spacing:-.02em;line-height:1.02}
+  /* masthead — one line of what this is, then get out of the way */
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,7vw,3rem);
+    letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
   h1 em{font-style:italic;color:var(--ink-2)}
-  .lede{margin-top:.8rem;max-width:40rem;color:var(--ink-2);font-size:.98rem;line-height:1.6}
+  .lede{margin-top:.7rem;color:var(--ink-2);font-size:1rem}
 
-  /* each tool: one big click target — number, name, one honest line, an arrow */
-  ol.tools{list-style:none;counter-reset:tool}
-  .tool a{display:grid;grid-template-columns:2.6rem 1fr auto;align-items:baseline;
-    gap:.2rem 1.1rem;text-decoration:none;color:inherit;
-    padding:1.3rem .6rem 1.3rem .2rem;border-bottom:1px solid var(--rule);
-    transition:background-color .12s}
-  .tool a:hover{background:var(--paper-2)}
-  .tool .num{font-family:var(--serif);font-size:1rem;color:var(--rule-2);
-    font-variant-numeric:tabular-nums;padding-top:.15rem}
-  .tool .name{font-family:var(--serif);font-size:1.4rem;line-height:1.15;color:var(--ink)}
-  .tool .name em{font-style:italic;color:var(--ink-2);font-size:1.05rem}
-  .tool a:hover .name{text-decoration:underline;text-decoration-color:var(--rule-2)}
-  .tool .desc{grid-column:2;margin-top:.35rem;color:var(--ink-3);font-size:.9rem;
-    max-width:34rem;line-height:1.5}
-  .tool .desc b{color:var(--ink-2);font-weight:600}
-  .tool .go{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
-    color:var(--ink-3);white-space:nowrap;padding-top:.35rem}
-  .tool a:hover .go{color:var(--flag)}
-  @media(max-width:520px){
-    .tool a{grid-template-columns:1.8rem 1fr;padding:1.1rem .2rem}
-    .tool .go{grid-column:2;padding-top:.5rem}
-    .tool .desc{grid-column:2}
+  /* the four destinations. No cards, no icons, no numbers — a name you understand at a
+     glance and one line telling you when you'd want it. */
+  ul{list-style:none;margin-top:clamp(2rem,5vw,2.8rem);
+     border-top:1px solid var(--rule)}
+  a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.3rem 1rem;
+    text-decoration:none;color:inherit;padding:1.35rem .25rem;
+    border-bottom:1px solid var(--rule);transition:background-color .13s ease}
+  a:hover,a:focus-visible{background:var(--paper-2)}
+  a:focus-visible{outline:2px solid var(--flag);outline-offset:-2px}
+  .name{font-family:var(--serif);font-size:1.45rem;line-height:1.2;letter-spacing:-.01em}
+  .what{grid-column:1;color:var(--ink-2);font-size:.95rem;max-width:30rem}
+  .go{color:var(--rule-2);font-size:1.2rem;line-height:1;transition:color .13s ease,transform .13s ease}
+  a:hover .go,a:focus-visible .go{color:var(--flag);transform:translateX(3px)}
+
+  footer{margin-top:2.2rem;color:var(--ink-3);font-size:.87rem;max-width:32rem}
+
+  /* phone: keep the tap target tall, let the arrow sit with the name */
+  @media(max-width:480px){
+    body{font-size:16px}
+    a{padding:1.2rem .1rem}
+    .name{font-size:1.3rem}
   }
-
-  footer{margin-top:2.4rem;padding-top:1.2rem;border-top:1px solid var(--rule);
-    font-size:.8rem;color:var(--ink-3);line-height:1.6}
-  footer a{color:var(--ink-2);text-decoration-color:var(--rule-2)}
-  footer a:hover{color:var(--ink)}
-  footer .ref{margin-top:.5rem}
 </style>
 </head>
 <body>
 <div class="sheet">
 
-  <header>
-    <h1>NJ market history <em>— the tools</em></h1>
-    <p class="lede">Three years of public New Jersey sale records — deeds, listings and market
-      aggregates — hydrated, deduped and cleaned into one dataset, then turned into a few
-      tools for pricing and browsing houses around Westfield. Everything below reads the
-      same numbers, so they can't disagree.</p>
-  </header>
+  <h1>The house hunt <em>— Westfield &amp; around</em></h1>
+  <p class="lede">Four tools, built on three years of real New Jersey sale records.</p>
 
-  <ol class="tools">
-    <li class="tool"><a href="analyser.html">
-      <span class="num">01</span>
-      <span class="name">Price a single house <em>— what an ask is worth</em></span>
-      <span class="go">open →</span>
-      <span class="desc">Paste one house's beds, baths, size and asking price and see what
-        <b>comparable local sales</b> say it's worth — seasonally adjusted, with every comp
-        shown and every assumption flagged. Thin towns now borrow from their neighbours.</span>
+  <ul>
+    <li><a href="analyser.html">
+      <span class="name">Price a house</span><span class="go">→</span>
+      <span class="what">Is an asking price fair? Check one house against similar local sales.</span>
     </a></li>
 
-    <li class="tool"><a href="market.html">
-      <span class="num">02</span>
-      <span class="name">On the market <em>— and what it's worth</em></span>
-      <span class="go">open →</span>
-      <span class="desc">Browse what's for sale right now across the target towns, each listing
-        priced against comparable sales, with a housing score. <b>A dated snapshot, not a live
-        feed</b> — it says how old it is at the top.</span>
+    <li><a href="market.html">
+      <span class="name">What's for sale</span><span class="go">→</span>
+      <span class="what">Everything on the market now, each priced against comparable sales.</span>
     </a></li>
 
-    <li class="tool"><a href="map.html">
-      <span class="num">03</span>
-      <span class="name">The map <em>— by the numbers</em></span>
-      <span class="go">open →</span>
-      <span class="desc">Every town on a map, coloured by <b>price, schools, commute,
-        appreciation and flood risk</b> — with the live listings dropped on top as points.</span>
+    <li><a href="map.html">
+      <span class="name">Compare towns</span><span class="go">→</span>
+      <span class="what">A map of every town — prices, schools, taxes, commute, flood risk.</span>
     </a></li>
 
-    <li class="tool"><a href="sold.html">
-      <span class="num">04</span>
-      <span class="name">Every sale <em>— what houses actually went for</em></span>
-      <span class="go">open →</span>
-      <span class="desc">Search the whole dataset of <b>closed sales</b>. Public record, so
-        unlike the market page it can't go stale.</span>
+    <li><a href="sold.html">
+      <span class="name">What sold</span><span class="go">→</span>
+      <span class="what">Search 40,000 closed sales and see what houses actually went for.</span>
     </a></li>
-  </ol>
+  </ul>
 
-  <footer>
-    <p>Built from public-record NJ sale data. Not a valuation, and never advice — a way to
-      argue with an asking price using what similar houses actually sold for.</p>
-  </footer>
+  <footer>Public-record NJ sale data — not a valuation. A way to argue with an asking price
+    using what similar houses actually sold for.</footer>
 
 </div>
 </body>
