@@ -444,9 +444,13 @@ def main():
     with (SHARE / "income.csv").open("w", newline="") as f:
         w = csv.DictWriter(f, icols)
         w.writeheader()
-        for r in sorted(inc, key=lambda r: (dist.get(zip_town[r["zip_code"]], 999),
-                                            zip_town[r["zip_code"]], r["zip_code"])):
-            town = zip_town[r["zip_code"]]
+        # Trust the row's OWN town, not a zip->town lookup. Two municipalities can share
+        # one postal ZIP (Mendham Borough + Mendham Township on 07945; Haledon + North
+        # Haledon on 07508), so zip_town collapses both onto whichever town won -- the
+        # other silently vanished from share/income.csv and then from the pages.
+        _t = lambda r: r.get("town") or zip_town[r["zip_code"]]
+        for r in sorted(inc, key=lambda r: (dist.get(_t(r), 999), _t(r), r["zip_code"])):
+            town = _t(r)
             w.writerow({
                 "town": town,
                 "zip": r["zip_code"],
