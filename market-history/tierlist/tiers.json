@@ -1,8 +1,8 @@
 {
   "_doc": "Hand-ranked tiers for the market-history target towns. Authored in tierlist/tierlist.html (python3 serve.py); rewritten in full on every edit. Town names match ../zips.json. Order within a tier is meaningful — best first. Opinion, not data: nothing in aggregate.py reads this.",
   "_unknown_rule": "'unknown' is NOT the bottom of the S-F ramp — it means no read on the town yet, good or bad. Don't sort it below F or fold it into 'unranked' (which just means not looked at yet). Ranked counts exclude both.",
-  "updated": "2026-07-17T01:18:52-04:00",
-  "source": "../zips.json — 62 ranked, 1 unknown, 0 unsorted",
+  "updated": "2026-07-20T15:30:04-04:00",
+  "source": "../zips.json — 75 ranked, 0 unknown, 0 unsorted",
   "tiers": {
     "S": [
       "Westfield",
@@ -13,56 +13,67 @@
       "Montclair",
       "Mountain Lakes",
       "Essex Fells",
+      "Clark",
       "Glen Ridge",
       "Basking Ridge",
       "North Caldwell",
       "Watchung",
       "Short Hills",
       "Warren",
-      "Madison"
+      "Madison",
+      "Franklin Lakes",
+      "Caldwell",
+      "Colonia",
+      "Bridgewater",
+      "Cedar Grove"
     ],
     "A": [
       "Garwood",
       "Fanwood",
-      "Clark",
       "Mountainside",
-      "Caldwell",
       "Bernardsville",
+      "Berkeley Heights",
       "Millburn",
-      "Colonia",
       "New Providence",
       "South Orange",
       "Livingston",
-      "Bridgewater",
+      "Morristown",
+      "Wayne",
       "Bedminster",
-      "Franklin Lakes"
+      "Morris Plains",
+      "Roseland",
+      "Cedar Knolls",
+      "Haledon",
+      "East Hanover",
+      "Millington",
+      "Stirling",
+      "Gillette",
+      "Totowa",
+      "Hanover Township",
+      "North Haledon",
+      "Fairfield"
     ],
     "B": [
       "Springfield",
       "Summit",
       "Florham Park",
-      "Cedar Grove",
       "Verona",
-      "Roseland",
-      "Berkeley Heights",
       "Edison",
       "Green Brook",
       "Metuchen",
       "Maplewood",
+      "Parsippany-Troy Hills",
+      "Pompton Lakes",
+      "Mendham Township",
+      "Woodland Park",
       "West Orange",
       "Nutley",
-      "Morristown",
       "West Caldwell",
       "Morris Township",
-      "Cedar Knolls",
-      "East Hanover",
-      "Millington",
       "Towaco",
-      "Stirling",
-      "Morris Plains",
       "Mendham",
-      "Gillette",
       "Boonton",
+      "Pompton Plains",
       "Montville"
     ],
     "C": [
@@ -71,15 +82,15 @@
       "Denville",
       "Randolph",
       "Chester",
-      "Long Valley"
+      "Long Valley",
+      "Martinsville",
+      "Elmwood Park"
     ],
     "D": [
       "South Plainfield"
     ],
     "F": [],
-    "unknown": [
-      "Martinsville"
-    ],
+    "unknown": [],
     "unranked": []
   }
 }

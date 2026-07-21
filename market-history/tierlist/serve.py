@@ -21,6 +21,11 @@ import webbrowser
 
 HERE = pathlib.Path(__file__).resolve().parent
 ZIPS = HERE.parent / "zips.json"
+# Proposed-but-not-adopted towns. They are deliberately NOT in zips.json, because that file
+# is the scrape config -- a town listed there gets hydrated on the next run. Candidates are
+# merged into the editor's town list so they can be TIERED, while staying invisible to the
+# scraper. No tier, no hydration; promotion into zips.json is the deliberate second step.
+CANDIDATES = HERE / "candidates.json"
 OUT = HERE / "tiers.json"
 PORT = int(os.environ.get("TIERLIST_PORT", "8777"))
 
@@ -39,7 +44,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if self.path in ("/", "/index.html"):
             self.path = "/tierlist.html"
         if self.path == "/towns.json":
-            return self._send(json.loads(ZIPS.read_text()))
+            doc = json.loads(ZIPS.read_text())
+            if CANDIDATES.exists():
+                have = {t["name"] for t in doc["towns"]}
+                for c in json.loads(CANDIDATES.read_text()).get("candidates", []):
+                    if c["name"] not in have:
+                        doc["towns"].append({**c, "candidate": True})
+            return self._send(doc)
         if self.path == "/tiers.json":
             saved = json.loads(OUT.read_text()) if OUT.exists() else None
             return self._send(saved)

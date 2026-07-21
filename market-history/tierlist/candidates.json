@@ -1,0 +1,24 @@
+{
+  "_doc": "Towns PROPOSED for the target set but not yet adopted. Deliberately kept OUT of ../zips.json, because zips.json is the scrape config -- anything listed there gets hydrated on the next run. A town lands here first, gets a tier in tierlist.html, and only then is it promoted into zips.json and scraped. That is the gate: no tier, no hydration.",
+  "_promote": "When a candidate earns a tier, move its entry into ../zips.json (name/county/zips/dist_mi) and delete it here. Check the `note` field first -- several of these overlap towns already tracked and would double-count a ZIP.",
+  "added": "2026-07-20",
+  "candidates": [
+    {"name": "Hanover Township", "county": "MORRIS", "zips": ["07981", "07927"], "dist_mi": 13,
+     "note": "OVERLAP: 07927 is Cedar Knolls, already tracked and tiered B. Hanover Twp contains it. Promoting both double-counts that ZIP -- decide which entry owns 07927 first."},
+    {"name": "Parsippany-Troy Hills", "county": "MORRIS", "zips": ["07054", "07034"], "dist_mi": 14},
+    {"name": "Fairfield", "county": "ESSEX", "zips": ["07004"], "dist_mi": 16},
+    {"name": "Mendham Township", "county": "MORRIS", "zips": ["07945"], "dist_mi": 16,
+     "note": "OVERLAP: shares postal ZIP 07945 with Mendham (Borough), already tracked and tiered B. They are two separate municipalities on one ZIP -- a ZIP-keyed scrape cannot tell them apart."},
+    {"name": "Woodland Park", "county": "PASSAIC", "zips": ["07424"], "dist_mi": 18},
+    {"name": "Totowa", "county": "PASSAIC", "zips": ["07512"], "dist_mi": 19},
+    {"name": "Wayne", "county": "PASSAIC", "zips": ["07470"], "dist_mi": 21},
+    {"name": "Elmwood Park", "county": "BERGEN", "zips": ["07407"], "dist_mi": 21},
+    {"name": "Pompton Plains", "county": "MORRIS", "zips": ["07444"], "dist_mi": 22,
+     "note": "Not a municipality -- a section of Pequannock Township (which is not tracked). Same shape as Cedar Knolls/Towaco in the existing set, so it works, but its tax and school figures resolve to Pequannock."},
+    {"name": "North Haledon", "county": "PASSAIC", "zips": ["07508"], "dist_mi": 22,
+     "note": "OVERLAP: 07508 covers BOTH North Haledon and Haledon; Haledon has no separate ZIP. Promoting both double-counts 07508."},
+    {"name": "Haledon", "county": "PASSAIC", "zips": ["07508"], "dist_mi": 22,
+     "note": "OVERLAP: shares ZIP 07508 with North Haledon -- see above. A ZIP-keyed scrape returns one pool of sales for both towns."},
+    {"name": "Pompton Lakes", "county": "PASSAIC", "zips": ["07442"], "dist_mi": 24}
+  ]
+}
