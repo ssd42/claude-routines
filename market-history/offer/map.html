@@ -31,6 +31,11 @@
   .nav{margin-left:auto;display:flex;gap:.7rem}
   .nav a{font-size:.72rem;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--rule-2)}
   .nav a:hover{color:var(--ink)}
+  /* home — this page has no masthead kicker like the sheet pages do: the bar floats over
+     a full-bleed map, so a second row would eat map. It leads the nav instead, darker
+     than its siblings so it reads as the way out rather than one more destination. */
+  .nav a.home{color:var(--ink-2);border-bottom-color:var(--ink-3)}
+  .nav a.home:hover{color:var(--flag);border-bottom-color:var(--flag)}
   .metrics{display:flex;gap:.3rem;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:.1rem}
   .metrics button{flex:none;background:transparent;border:1px solid var(--rule-2);color:var(--ink-3);
     font-family:var(--sans);font-size:.75rem;padding:.35rem .6rem;cursor:pointer;white-space:nowrap;border-radius:2px}
@@ -99,6 +104,10 @@
   /* ── phone tuning ── */
   @media (max-width:480px){
     h1{font-size:1rem}
+    /* .row1 does not wrap and the body clips, so the four nav links and the title have to
+       share one line. The subtitle is decoration and the nav is the way out of the page --
+       drop the subtitle rather than let "← all tools" clip off the edge. */
+    h1 em{display:none}
     .nav{gap:.5rem}
     .nav a{font-size:.66rem}
     /* fade the right edge of the metric strip so it reads as "scroll for more"
@@ -127,7 +136,7 @@
 <div class="bar">
   <div class="row1">
     <h1>NJ map <em>— by the numbers</em></h1>
-    <nav class="nav"><a href="sold.html">sold</a><a href="market.html">market</a><a href="index.html">price a house</a></nav>
+    <nav class="nav"><a class="home" href="index.html">← all tools</a><a href="sold.html">sold</a><a href="market.html">market</a><a href="analyser.html">price a house</a></nav>
   </div>
   <div class="metrics" id="metrics"></div>
 </div>

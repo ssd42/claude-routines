@@ -28,6 +28,14 @@
   h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
     letter-spacing:-.015em;line-height:1.05}
   h1 em{font-style:italic;color:var(--ink-2)}
+  /* home — the masthead kicker: the site's name above the headline, the way a paper
+     prints it. Own row (flex-basis:100%) so it leads the header instead of competing
+     with the nav on the right. Every page carries one, always in this spot. */
+  .home{flex:0 0 100%;font-family:var(--serif);font-size:.85rem;color:var(--ink-3);
+    text-decoration:none}
+  .home:hover,.home:focus-visible{color:var(--flag)}
+  .home i{font-style:normal;display:inline-block;transition:transform .13s ease}
+  .home:hover i{transform:translateX(-3px)}
   .to-market{font-size:.75rem;color:var(--ink-3);text-decoration:none;
     border-bottom:1px solid var(--rule-2);white-space:nowrap}
   .to-market:hover{color:var(--ink);border-bottom-color:var(--ink)}
@@ -293,6 +301,7 @@
 <div class="sheet">
 
 <header>
+  <a class="home" href="index.html"><i>←</i> The house hunt</a>
   <h1>Offer Advisor <em>— what the ask is worth</em></h1>
   <a class="to-market" id="to-market" href="market.html">browse what's on the market →</a>
   <div class="stamp" id="stamp"></div>
