@@ -267,6 +267,25 @@ def add_neighbours(towns, zips_doc, town_idx, regional, newest, comps):
         ppsf = [(c[4] / c[1]) * idx.get(str(c[6]), 1.0) for c in cs]
         towns[name]["ppsf"] = round(st.median(ppsf), 1)
 
+        # ...and the SAME figure inside each size band. price_index() above goes to real
+        # trouble to be size-controlled, and explains why: a blended $/sqft is really a
+        # statement about a town's TYPICAL house, because small houses carry a far higher
+        # rate. `ppsf` was skipping that, and §borrow leans on it as a cross-town ratio --
+        # so a big house borrowed from next door got lifted by a rate measured off 1,800sqft
+        # stock. That is how a Nutley house came back at $1.75m and sold for $675k: Nutley's
+        # blended $377/sqft applied to a nominally 5,537sqft subject. Banding both sides of
+        # that ratio compares like with like. Bands under BAND_MIN are omitted, and the
+        # engine falls back to the blended figure when a band is missing.
+        band_ppsf = defaultdict(list)
+        for c, p in zip(cs, ppsf):
+            b = _band(c[1])
+            if b:
+                band_ppsf[b].append(p)
+        banded = {str(lo): round(st.median(v), 1)
+                  for (lo, _hi), v in band_ppsf.items() if len(v) >= BAND_MIN}
+        if banded:
+            towns[name]["ppsfBand"] = banded
+
 
 def _days(sales, a, b):
     """Median days between two date columns, over rows carrying both."""
@@ -793,6 +812,9 @@ def main():
         "totalSales": len(sales),
         "compUniverse": len(comps),
         "thin": THIN,
+        # The lower edge of each size band, exported so §borrow can pick the right banded
+        # $/sqft without engine.js keeping its own copy of SIZE_BANDS to drift out of step.
+        "sizeBands": [lo for lo, _hi in SIZE_BANDS],
         "seasonOf": SEASONS,
         "zipToTown": zip_to_town,
         "towns": towns,

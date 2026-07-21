@@ -178,14 +178,35 @@ function wquant(items) {                       // items: [{v, w}], every w > 0
 /* The borrowing pass. Returns a comps()-shaped result (mid/lo/hi/tier/sales) marked
    `borrowedComps`, plus `ownN`/`effN`/`borrowFrom` so the page can show exactly whose
    sales it leaned on. Returns null (→ caller refuses) when it can't re-anchor. */
+/* Which $/sqft to lift a borrowed comp by. A town's blended rate is really a statement
+   about its TYPICAL house -- small homes carry a far higher rate -- so scaling a large
+   subject by it invents a mansion. Nutley blends to $377/sqft but its 2,500sqft+ stock
+   runs $299, and that 26% gap is most of why a nominally 5,537sqft house there came back
+   at $1.75m against a $675k sale. build_data.py now measures the rate inside the same
+   SIZE_BANDS the drift index has always used; take the subject's band on BOTH sides of the
+   ratio so we compare like with like, and fall back to the blended figure when a town is
+   too thin to carry that band. */
+function ppsfFor(town, sqft) {
+  const t = D.towns[town];
+  if (!t) return null;
+  const edges = D.sizeBands;
+  if (sqft && edges && t.ppsfBand) {
+    let lo = null;
+    for (const e of edges) if (sqft >= e) lo = e;     // edges ascend; take the last cleared
+    const banded = lo != null && t.ppsfBand[String(lo)];
+    if (banded) return banded;
+  }
+  return t.ppsf || null;
+}
+
 function compsBorrow(town, sqft, beds, baths, mode, fam) {
   const home = D.towns[town];
-  const targetPpsf = home && home.ppsf;
+  const targetPpsf = ppsfFor(town, sqft);
   if (!sqft || !targetPpsf || !home.near) return null;   // can't re-anchor → refuse as before
 
   // lenders: the nearest towns within range that carry a level of their own to scale by
   const lenders = home.near
-    .filter(([t, mi]) => mi <= BORROW_MAX_MI && D.towns[t] && D.towns[t].ppsf)
+    .filter(([t, mi]) => mi <= BORROW_MAX_MI && D.towns[t] && ppsfFor(t, sqft))
     .slice(0, BORROW_NEIGHBOURS);
   if (!lenders.length) return null;
   const wOf = {}, miOf = {};
@@ -204,7 +225,7 @@ function compsBorrow(town, sqft, beds, baths, mode, fam) {
       const ppsf = (c[4] / c[1]) * toToday(c, town);
       pool.push({c, from: town, w: 1, ppsf, val: ppsf * sqft});
     } else if (c[0] in wOf) {
-      const ppsf = (c[4] / c[1]) * toToday(c, c[0]) * (targetPpsf / D.towns[c[0]].ppsf);
+      const ppsf = (c[4] / c[1]) * toToday(c, c[0]) * (targetPpsf / ppsfFor(c[0], sqft));
       pool.push({c, from: c[0], w: wOf[c[0]], ppsf, val: ppsf * sqft});
     }
   }
@@ -280,7 +301,12 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
   };
 
   // try the whole ladder type-matched; only if NOTHING clears it do we pool the types.
-  const ladder = () => {
+  // A type-matched set this small is thin enough that its quartiles are shaky -- but it is
+  // still describing the RIGHT KIND of home, which matters more. Below ~5 the quartiles
+  // stop meaning anything at all, so that is the floor.
+  const THIN_FAM = 6;
+
+  const ladder = (min) => {
     if (!sqft && lot) {
       // NOT the TIERS ladder here. Its tolerances are sqft-shaped and its last rung
       // drops beds/baths entirely -- harmless when sqft anchors the set, catastrophic
@@ -292,7 +318,7 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
         for (const t of [{id:"L1", tag:"lot-matched · beds ±0 · baths ±0.5", bd:0, ba:.5},
                          {id:"L2", tag:"lot-matched · beds ±1 · baths ±1",   bd:1, ba:1}]) {
           const hit = D.comps.filter(c => ok(c, t, lt));
-          if (hit.length >= THIN) { const r = build(hit, t, lt); r.noSize = true; return r; }
+          if (hit.length >= min) { const r = build(hit, t, lt); r.noSize = true; return r; }
         }
       return null;
     }
@@ -305,7 +331,7 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
           (!wantFam || c[9] === wantFam) &&
           (beds  === null || Math.abs(c[2] - beds)  <= t.bd) &&
           (baths === null || Math.abs(c[3] - baths) <= t.ba));
-        if (hit.length >= THIN) { const r = build(hit, t, null); r.noSize = true; return r; }
+        if (hit.length >= min) { const r = build(hit, t, null); r.noSize = true; return r; }
       }
       return null;
     }
@@ -313,25 +339,51 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
       for (const lt of LOT_TOLS)
         for (const t of TIERS) {
           const hit = D.comps.filter(c => ok(c, t, lt));
-          if (hit.length >= THIN) return build(hit, t, lt);
+          if (hit.length >= min) return build(hit, t, lt);
         }
     }
     for (const t of TIERS) {
       const hit = D.comps.filter(c => ok(c, t, null));
       if (t.id === "t1") strictN = hit.length;
-      if (hit.length >= THIN) return build(hit, t, null);
+      if (hit.length >= min) return build(hit, t, null);
     }
     return null;
   };
 
   let strictN = 0;
-  let r = ladder();
-  if (!r && wantFam) { wantFam = null; r = ladder(); }   // pool the types, and flag it
+  let r = ladder(THIN);
+  /* A thin set of the RIGHT kind of home beats a fat set of the wrong kind.
+     Before this rung existed, a Wayne condo whose own type had only 8 comps at its size
+     fell straight through to the pooled set -- 47 houses and 4 condos -- and came back
+     $1.14m against a $625k sale, +83%. Wayne's attached homes alone said $748k, +20%.
+     Measured across 2026, dropping the family carried a +10.5% median bias on attached
+     homes versus +0.0% where it never fired: the pooled answer is confidently wrong, not
+     merely uncertain. So try type-matched again at a lower floor first, and SAY it was
+     thin rather than quietly padding the sample with the wrong houses. */
   if (r) return r;
-  // own town is too thin at every tier — before refusing, try borrowing from next door
-  // (§borrow). Returns null when it can't re-anchor, so the refusal below still stands.
+
+  /* ORDER MATTERS HERE, and it is not the intuitive order. Measured across the 2026 sales:
+       - compsBorrow is ALREADY type-matched (it takes `fam`), so a borrowed set is the
+         right kind of home off MORE data. Putting the thin rung above it downgraded 29
+         estimates (15.8% -> 17.9% mean error) and halved their p25-p75 coverage.
+       - Pooling the types is the only rung that answers with the WRONG kind of home, and
+         it carried a +10.5% median overestimate on attached homes. It goes last.
+     So: borrow from next door before answering thin, and answer thin before pooling.
+     compsBorrow returns null when it can't re-anchor, so the chain continues below. */
   const b = compsBorrow(town, sqft, beds, baths, mode, fam || null);
   if (b) return b;
+
+  /* A thin set of the RIGHT kind of home still beats a fat set of the wrong kind. A Wayne
+     condo with only 8 attached comps at its size fell through to 47 houses and 4 condos
+     and came back $1.14m against a $625k sale, +83%; its own type said +33%. Flagged
+     `thinFam` because quartiles off 6-9 sales are genuinely shakier -- coverage on this
+     rung runs ~38% against the 50% a p25-p75 band should hit, so the band is over-confident
+     and the page must say so rather than print it like any other answer. */
+  r = ladder(THIN_FAM);
+  if (r) { r.thinFam = true; return r; }
+
+  if (wantFam) { wantFam = null; r = ladder(THIN); }   // pool the types, and flag it
+  if (r) return r;
   return {failed:true, strict:strictN, noSize:!sqft};
 
 }
