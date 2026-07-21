@@ -55,6 +55,7 @@ SECTION_MAP = {
     "Millington": "Long Hill Township", "South Orange": "South Orange Village Township",
     "Martinsville": "Bridgewater Township", "Basking Ridge": "Bernards Township",
     "Cedar Knolls": "Hanover Township", "Towaco": "Montville Township",
+    "Pompton Plains": "Pequannock Township",
     "Long Valley": "Washington Township",
 }
 
