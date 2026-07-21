@@ -1,15 +1,21 @@
 # market-history
 
+> 🏃 **Just want to run something?** → **[RUNBOOK.md](RUNBOOK.md)** — the order to run
+> things in when you want to *refresh the data* or *add a town*. This file explains how
+> the pieces work; the runbook tells you which to run and when.
+
 Aggregate **3 years of NJ sold + market data** across multiple free sources,
 **dedupe** it, resolve conflicts, and emit **CSVs**. Re-runnable — every run
 pulls more data and merges it into the committed CSVs. Not a dashboard, not a
 decision tool (yet): the sole job right now is to **hydrate a clean dataset**.
 
-> **Status: SPIKE.** All three data layers are live. `sales.csv` holds **~26k
+> **Status: SPIKE.** All three data layers are live. `sales.csv` holds **~40k
 > real NJ sales, 2023-07 → present**, merged across MOD-IV deed records and
-> Realtor.com sold listings (~4.7k matched in both). `market.csv` (zip-month
-> trends via redfin_dc) is verified on a fixture; its first real pull is pending
-> (large national download). `listing_scrape` is **local-only** (403s in cloud).
+> Realtor.com sold listings. `market.csv` (zip-month trends via redfin_dc) is
+> **populated: 6,072 zip-month rows across all 63 towns, first real pull
+> 2026-07-20** — it had silently returned nothing until then, because the
+> provider renamed its columns (see `_unq` in `aggregate.py`).
+> `listing_scrape` is **local-only** (403s in cloud).
 
 ## What it produces
 | file | grain | filled by | holds |

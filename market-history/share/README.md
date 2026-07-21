@@ -93,8 +93,8 @@
 
 ---
 
-Real New Jersey home sales, **2023-07-01 → 2026-07-15**, across **63 towns** —
-**40,095 sales**. Built by the `market-history` routine, which stitches together
+Real New Jersey home sales, **2023-07-01 → 2026-07-20**, across **75 towns** —
+**47,207 sales**. Built by the `market-history` routine, which stitches together
 county deed records and MLS sold-listings and dedupes them into one row per sale.
 
 > The town count grows as more towns are scraped. **`by_town.csv` is always the
