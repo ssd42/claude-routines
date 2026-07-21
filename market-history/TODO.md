@@ -21,39 +21,7 @@ Sections: **Ideas** (not thought through) → **Ready** (spec'd enough to build)
 
 ## Ready
 
-### Finish the three fixes the backtest turned up
-The new *How right are we?* page grades every 2026 sale against what we said it was worth.
-It found three concrete defects. One is fixed; two are not.
-
-1. ✅ **Condos priced off houses.** When a town had too few of one kind of home, we quietly
-   started pricing it against a different kind. Attached homes came out **10% too dear**
-   across the board. Fixed by answering off a smaller set of the right kind instead —
-   that bias is now ~2.6%, and the worst case went from +83% to +33%.
-2. ⬜ **Borrowing from next door inflates big houses.** When a town is too thin we top up
-   from neighbours and re-scale by that town's price per square foot — but that rate is a
-   blend of its *typical* houses, so applying it to a large one invents a mansion. It is
-   the reason one Nutley house was valued at $1.75m and sold for $675k; the town's own
-   four comparable sales would have said $802k. Measure the rate in size bands, the way
-   the market-drift correction beside it already does.
-3. ⬜ **How old a house is doesn't count for anything.** We never look at the year it was
-   built. Houses from before 1920 come out ~9% too dear. It's a real effect and cheap to
-   add — but be honest about the size of it: it recovers about 7 points of a 160-point
-   miss, so it is a polish item, not a rescue.
-
-**Watch out for:** an answer built on a handful of sales lands inside its own stated range
-only ~38% of the time, against the ~50% it should. Those ranges are too narrow for how
-little they know, and should widen or say so.
-**Size:** small each. Do them one at a time — the backtest can now tell you whether a
-change helped, and that only works if one thing moves at a time.
-
-### Decide whether "How right are we?" goes public
-The front page now links to it, but the publish step copies pages by name and doesn't
-include it — so on the live site that link is broken until someone decides.
-
-Worth an actual think rather than a reflex: the page is candid about the tool losing to
-the asking price. That is exactly what you want privately and a strange thing to publish.
-**Either** add it to the publish list, **or** drop the front-page card and keep it local.
-**Size:** one line, either way.
+*(empty)*
 
 ---
 
@@ -96,6 +64,75 @@ merge, not an afternoon's work.
 **Size:** large — highest ceiling on this list, wrong thing to start before the cheap wins
 are banked.
 
+
+### Let a model learn the price instead of us hand-tuning the rules
+Feed everything we scrape into a trained model and see if it beats the comp formula.
+
+**The honest sizing first:** only ~6,900 sales carry the full set of fields, which
+splits to **5,700 to train on and 1,160 to test**. That is small — small enough that
+a neural net is the wrong tool. On tabular data at this size, gradient boosting beats
+neural nets reliably. Same idea, better-suited machine, and it's what most real
+valuation models actually run.
+
+**Two traps that would waste the effort.** Feed it the asking price and it will score
+~4% error by mostly learning "sold ≈ ask" — impressive-looking and useless, because it
+assumes the ask is right, which is the thing we're trying to check. So: one model that
+never sees the ask ("what's it worth"), and one that predicts sold-over-ask ("will it
+go above"). And split the data **by date**, not at random — a random split leaks 2026
+sales into training and flatters the score.
+
+**Where it would run.** Training needs real libraries, so it's a local offline step
+like the other fetch scripts, never the cloud routine. The result ships as plain
+numbers baked into the page — no runtime dependency, nothing to install to browse.
+
+**What to expect:** maybe 7–9% against today's 9.9%. Real but not transformative,
+for the same reason everything else plateaus — condition isn't in the features.
+
+**Start with the cheapest version:** ridge regression on today's fields, an hour,
+graded on the backtest. If a straight line can't beat the comps, boosting probably
+won't either, and that's an hour spent instead of a week.
+
+**Fits naturally with:** a rewrite onto a real framework and a server, if that ever
+happens — at which point the model could retrain on a schedule instead of by hand.
+**Size:** medium for the real version, an hour for the probe. **Do after:** the
+ask-anchoring card above.
+
+### A skill that appraises one listing, and says why
+Hand Claude a single listing and get back an estimate *with its reasoning* — "the
+kitchen photos look 1990s", "it backs onto Route 22", "0.8mi to the station, uphill".
+
+**Why this is the strongest idea on the board.** Every plateau this session has come
+down to the same thing: the formula cannot see condition, and condition is most of
+what separates two houses identical on paper — one town had them selling from $438k to
+$951k. But that information isn't missing from the world, only from our columns. It's
+sitting in the listing photos and the description, which a model can actually read.
+
+**It must adjust our number, never replace it.** The comp engine is anchored to
+thousands of real sales and is honestly calibrated; an LLM asked for a price from
+scratch will produce a confident number from nothing. So the shape is: comps give the
+anchor, the skill gives an adjustment and the reasons. "Comps say $720k; the photos
+show an original kitchen and it faces a four-lane road, so call it $660–690k, and
+here's the evidence for each."
+
+**Guardrails, same as the repair-estimate card below — this is the project's oldest
+rule and it bites hardest here.** Ranges, never point estimates. Every claim names the
+photo or phrase it came from, so you can check it. Anything it's guessing gets said
+out loud. And it never sees the asking price before forming a view, or it will simply
+agree with it.
+
+**Two things we could feed it that we don't use yet:** listings carry coordinates, so
+*this house* to *that station* is computable rather than the town-level average we
+show now — same for a big road. And the description text already ships in the data.
+
+**Why a skill and not a button on the page.** The pages are static, on a public repo,
+with no server and no secret — they cannot call a model, and no amount of wanting will
+change that. A skill runs locally or on the routine and writes its answer into the
+repo, which is exactly how everything else here already works.
+
+**Open questions:** every listing, or only favourites? Does its verdict get committed
+so we can grade it against the eventual sale — which the backtest could do for free?
+**Overlaps heavily with** "Estimate what a favourited house will need" below; these
+may be one skill with two outputs rather than two. **Size:** medium.
 
 ### Suggest more towns like the ones I already track
 We track 63 towns that came from one original list. There are ~565 NJ municipalities — we
@@ -227,6 +264,33 @@ six more buttons?
 ---
 
 ## Done
+
+### Finish the three fixes the backtest turned up — DONE 2026-07-21
+All three shipped, each measured on the backtest before and after.
+
+1. **Condos priced off houses.** A thin town used to fall through to pricing a home
+   against a different *kind* of home. Attached stock ran 10.5% too dear; now 1.9%.
+   The fix was mostly an ordering change — borrowing from next door was already
+   type-matched, so it belongs above the pooled fallback, not below it.
+2. **Borrowing inflated big houses.** We re-scaled borrowed sales by a town's blended
+   price per square foot, which really describes its *typical* house — 21–29% off for
+   large ones. Now measured inside size bands. Borrowed estimates land inside their
+   own stated range 53% of the time, up from 46%.
+3. **How old a house is now counts.** Comps match within 15 years, widening to 30,
+   then dropped. **This was the only one of the four changes that moved the overall
+   number for real** — 10.49% → 9.86% median error, and it survives a significance
+   test where the others were noise.
+
+Honest total: 10.70% → 9.86% across all four. Two ways of being *wrong* are gone,
+which matters more than the average. What did **not** get fixed is old houses — the
+age ramp only flattened a quarter, and none of the six worst misses moved. That
+residual is condition, and condition is not in this data.
+
+### Decide whether "How right are we?" goes public — DONE 2026-07-21
+Published. It's linked from the front page and copied by the deploy step, candour
+about losing to the asking price included.
+
+
 
 - **NJ repair-cost reference** — written: [`REPAIR-COSTS-NJ.md`](REPAIR-COSTS-NJ.md). What common
   work costs in Union/Essex/Morris/Somerset/Middlesex, with 45 sources and lead-gen marketing
