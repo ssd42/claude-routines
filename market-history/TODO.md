@@ -21,11 +21,80 @@ Sections: **Ideas** (not thought through) → **Ready** (spec'd enough to build)
 
 ## Ready
 
-*(empty)*
+### Finish the three fixes the backtest turned up
+The new *How right are we?* page grades every 2026 sale against what we said it was worth.
+It found three concrete defects. One is fixed; two are not.
+
+1. ✅ **Condos priced off houses.** When a town had too few of one kind of home, we quietly
+   started pricing it against a different kind. Attached homes came out **10% too dear**
+   across the board. Fixed by answering off a smaller set of the right kind instead —
+   that bias is now ~2.6%, and the worst case went from +83% to +33%.
+2. ⬜ **Borrowing from next door inflates big houses.** When a town is too thin we top up
+   from neighbours and re-scale by that town's price per square foot — but that rate is a
+   blend of its *typical* houses, so applying it to a large one invents a mansion. It is
+   the reason one Nutley house was valued at $1.75m and sold for $675k; the town's own
+   four comparable sales would have said $802k. Measure the rate in size bands, the way
+   the market-drift correction beside it already does.
+3. ⬜ **How old a house is doesn't count for anything.** We never look at the year it was
+   built. Houses from before 1920 come out ~9% too dear. It's a real effect and cheap to
+   add — but be honest about the size of it: it recovers about 7 points of a 160-point
+   miss, so it is a polish item, not a rescue.
+
+**Watch out for:** an answer built on a handful of sales lands inside its own stated range
+only ~38% of the time, against the ~50% it should. Those ranges are too narrow for how
+little they know, and should widen or say so.
+**Size:** small each. Do them one at a time — the backtest can now tell you whether a
+change helped, and that only works if one thing moves at a time.
+
+### Decide whether "How right are we?" goes public
+The front page now links to it, but the publish step copies pages by name and doesn't
+include it — so on the live site that link is broken until someone decides.
+
+Worth an actual think rather than a reflex: the page is candid about the tool losing to
+the asking price. That is exactly what you want privately and a strange thing to publish.
+**Either** add it to the publish list, **or** drop the front-page card and keep it local.
+**Size:** one line, either way.
 
 ---
 
 ## Ideas
+
+### Stop competing with the asking price — use it
+The single biggest idea to come out of the backtest, and it reframes the whole tool.
+
+Our estimate misses the true sale price by about **10.7%**. Just believing the asking price
+misses by **4.0%**. That looked like a failure until you see how the big firms do it: their
+published error is roughly 2% for a house that's on the market and 7% for one that isn't —
+same model, same company. The difference is that when a house is listed, they feed the
+model *the asking price*. It carries most of the signal, because someone walked the house.
+
+**So stop producing a from-scratch price and then comparing it to the ask.** Predict the
+**gap** instead — "worth about 8% under what they're asking, and here's how sure we are."
+That is the question you actually have, and it's the one the tool is best placed to answer.
+
+**Why it's not just cosmetic:** it changes what the page says, not only how accurate it is.
+And the backtest can grade it directly — does a house we call underpriced actually sell
+above its ask? If that holds, the tool earns its keep even at 10% error. If it's flat, it
+doesn't, and that is worth knowing.
+**Open questions:** does the ask become an input to one blended number, or stay a separate
+opinion shown beside ours? What do we show for a house that isn't for sale?
+**Size:** medium. **Do after:** the three fixes above, so the measurement stays clean.
+
+### Find what the same house sold for last time
+The biggest missing ingredient, and the one that would help most with the thing we're
+blindest to.
+
+What a house sold for in 2019, carried forward by how its town has moved since, beats any
+comparable sale — because it's the *same house*, with the same kitchen and the same roof.
+It quietly encodes condition, which is exactly what we cannot see and what explains most of
+our worst misses. Identical houses on paper sold from $438k to $951k in one town; nothing
+we hold explains that spread, but a prior sale price would go a long way.
+
+**The catch:** our records hold only the most recent sale per property. The state's annual
+sales files carry the full history, so the data exists — but it's a new source to pull and
+merge, not an afternoon's work.
+**Size:** large — highest ceiling on this list, wrong thing to start before the cheap wins
+are banked.
 
 
 ### Suggest more towns like the ones I already track
@@ -59,6 +128,10 @@ Options worth weighing (a spike, not a decision):
   infra, auth, and a secret; breaks the current "no server, no secrets" property.
 - **A per-device token in `localStorage` writing to a private gist** — token never enters
   the repo. Pragmatic middle ground; think through the failure and leak modes.
+
+**Spiked, and decided:** [`offer/SPIKE-persistence.md`](offer/SPIKE-persistence.md) — a
+Cloudflare Worker + Workers KV under a random unguessable id kept in the browser, plus
+export/import a JSON file so nothing is trapped. No login. Answers the open questions below.
 
 **Open questions:** is this just you + partner (2 devices, low stakes)? Is "share a link"
 enough, or do we need true background sync? Willing to run *any* infra?
