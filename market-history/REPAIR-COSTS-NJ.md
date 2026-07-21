@@ -183,6 +183,44 @@ bathroom work in older housing.
 
 ## The NJ landmines — check these *before* you fall in love
 
+### A damp basement — the one that hides behind a finished wall
+
+Added 2026-07-21, because a real appraisal hit it and this document had nothing to say. If a
+basement smells musty, or there is a **dedicated dehumidifier running**, that is not a quirk —
+it is active water management, and the seller knows.
+
+**The finish is the problem, not the smell.** An unfinished damp basement is a known quantity
+you can look at. A *finished* one means the question is what is behind the drywall, and
+framing and insulation against a damp block wall is exactly where concealed mould grows. Treat
+a finished basement in a house with a dehumidifier as a room you cannot inspect.
+
+| Item | Typical NJ | Notes |
+|---|---|---|
+| **Whole job, most houses** | **$5,000 – $12,000** | full perimeter drainage, good pump with battery backup, wall treatment |
+| Range across all severities | $3,000 – $15,000 | |
+| Basic interior system | $2,500 – $5,000 | interior drainage, basic pump, vapour barrier |
+| **Interior french drain** | **$6,000 – $10,000** | under-slab, the usual answer for block foundations |
+| French drain, interior *or* exterior | $5,000 – $15,000 | exterior means excavating the foundation |
+| Sump pump, standard | $800 – $1,500 | installed |
+| Sump pump, dual + battery backup | $1,800 – $3,000 | the backup is the point — pumps fail in the storm |
+| **Mould remediation** | **$1,000 – $4,000** | severity-dependent |
+| Mould, by area | $50 – $75 / sq ft | how the big numbers happen |
+| Foundation crack repair | $75 – $150 / linear ft | |
+
+**Three things worth knowing before you talk to anyone.**
+
+1. **An interior system does not stop water — it manages it.** It collects what comes through
+   and pumps it out. Sellers describing a basement as "waterproofed" usually mean this.
+2. **Tearing out finished walls to inspect or remediate is its own cost**, and it is not in the
+   numbers above. A finished basement can easily double the job.
+3. **Damp basement and radon travel together** — the same block-wall and slab pathways carry
+   both. If one is present, test for the other; mitigation is $3,000–$5,000 on a complex block
+   foundation (see Radon, below).
+
+> **For a buyer:** a musty finished basement is a **$5,000–$12,000 exposure with a fat tail**,
+> and unlike a roof you cannot see what you are buying. Get a moisture reading and a mould
+> inspection inside the contingency period — not a look and a sniff.
+
 ### Buried oil tank — the deal-killer
 
 If the house ever had oil heat, this is the item that can end a purchase. **Order a tank sweep
