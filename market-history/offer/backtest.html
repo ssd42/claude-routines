@@ -306,11 +306,11 @@
     <input id="minBa" type="number" inputmode="decimal" step="any" min="0" placeholder="any"></div>
   <div><label for="sort">Sort</label>
     <select id="sort">
+      <option value="date:desc">most recent sale</option>
       <option value="miss:desc">biggest miss first</option>
       <option value="miss:asc">closest first</option>
       <option value="signed:desc">we were most OVER</option>
       <option value="signed:asc">we were most UNDER</option>
-      <option value="date:desc">most recent sale</option>
       <option value="sold:desc">sold price, high to low</option>
       <option value="sold:asc">sold price, low to high</option>
       <option value="addr:asc">address A–Z</option>
@@ -679,7 +679,7 @@ const SORTERS = {
 // priciest house. Only the address reads better ascending.
 const FIRST_DIR = {addr:"asc", miss:"desc", est:"desc", askEst:"desc", ask:"desc",
                    sold:"desc", date:"desc", signed:"desc"};
-let sort = {key:"miss", dir:"desc"};
+let sort = {key:"date", dir:"desc"};
 
 function view() {
   const q = els.q.value.trim().toLowerCase();
@@ -959,7 +959,7 @@ document.getElementById("reset").addEventListener("click", () => {
   els.q.value = "";
   applyDefaults();
   picked = new Set();
-  sort = {key:"miss", dir:"desc"};
+  sort = {key:"date", dir:"desc"};
   shown = 100; drawTowns(); draw();
 });
 
