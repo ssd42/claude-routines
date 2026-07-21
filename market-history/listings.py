@@ -115,6 +115,14 @@ COLS = [
     "beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
     "lat", "lon",            # listings carry these on ~100% of rows; sales.csv has NONE
     "url", "photo",
+    # The feed HAS carried these three all along and we were dropping them on the floor.
+    # Fill on the 2026-07-20 pull: garage 56%, ac_type 8%, solar 1%. Only garage is
+    # really usable; ac_type and solar are thin enough to be a bonus, not a field you can
+    # filter on. Kept anyway — they cost nothing, they are already fetched, and a thin
+    # structured field still beats inferring the same thing from marketing prose.
+    "garage",                # number of bays, as the feed reports it ("2", "3")
+    "ac_type",               # "central" | "window" — thin, but unambiguous where present
+    "solar",
     # ---- VOLATILE: re-read every run, because they move while the spell is open.
     "mls_status",            # FOR_SALE | PENDING | CONTINGENT — the MLS's own state.
                              # NOT the same as `status` above: a PENDING house is still
@@ -124,8 +132,12 @@ COLS = [
                              # will send you to a house that has an accepted offer.
     "days_on_mls",           # what the feed claims. A relist resets it — that is the
                              # whole reason this file exists. Trust first_seen instead.
-    # The listing copy, VERBATIM (trimmed to 900 chars). It is the only place garage /
-    # pool / central-air / condition exist — no structured field carries them. Stored
+    # The listing copy, VERBATIM (trimmed to 900 chars). It used to be the only place
+    # garage / central-air / condition existed; garage and ac_type are now structured
+    # columns above (the feed always had them, we were discarding them). The text is
+    # still the ONLY source for condition, pool, and roof/remodel claims, and it is
+    # still the fallback wherever those columns are empty — which for ac_type is 92%
+    # of rows. Stored
     # raw rather than pre-parsed, for the reason DEFECTS.md learned the hard way with
     # bldg_desc: the garage parser was wrong for months and fixing it needed a whole
     # re-scrape, because we had thrown the source string away. Keep the text and the
@@ -210,6 +222,9 @@ def scrape(zips, dry):
                 "photo": g("primary_photo") or "",
                 "mls_status": str(g("status") or "").upper(),
                 "days_on_mls": int(g("days_on_mls")) if g("days_on_mls") is not None else "",
+                "garage": g("garage") or "",
+                "ac_type": str(g("ac_type") or "").lower(),
+                "solar": "yes" if g("solar") else "",
                 "text": re.sub(r"\s+", " ", str(g("text") or ""))[:900],
             }
             n += 1
