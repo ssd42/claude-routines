@@ -39,8 +39,19 @@ NJ = "34"
 OFFSET = 0.0007          # ~70m simplification in degrees -- smooth enough, small enough
 
 # our town name -> the name TIGER uses, where they differ
+# Where a bare BASENAME matches MORE THAN ONE municipality, nearest-to-centroid cannot
+# separate them -- Mendham borough and Mendham township are adjacent and share ZIP 07945,
+# so the centroid is effectively the same point. Pin those by LSAD code instead.
+# LSADC: 21 = borough, 44 = township, 25 = city, 43 = town.
+LSAD_FIX = {
+    "Mendham": "21",            # the Borough
+    "Mendham Township": "44",   # the Township -- a separate municipality on the same ZIP
+}
+
 NAME_FIX = {
     "Morris Township": "Morris",     # TIGER county-subdivision NAME is bare
+    "Hanover Township": "Hanover",   # TIGER BASENAME drops the "Township"
+    "Mendham Township": "Mendham",   # ...and collides with the Borough -- see LSAD_FIX
     "West Caldwell": "West Caldwell",
     "Long Hill": "Stirling",         # the township has no CDP; use its main village
     "South Orange": "South Orange Village",
@@ -52,7 +63,7 @@ def _cxy(rings):
     return sum(p[1] for p in pts) / len(pts), sum(p[0] for p in pts) / len(pts)  # lat, lon
 
 
-def query(layer, name, near):
+def query(layer, name, near, lsad=None):
     """Simplified rings for a BASENAME on a TIGER layer, NJ only.
 
     `near` = the town's own (lat, lon). NJ has duplicate municipality names across
@@ -61,7 +72,8 @@ def query(layer, name, near):
     never the largest (largest picked the wrong Springfield, 49mi away).
     """
     q = urllib.parse.urlencode({
-        "where": f"BASENAME='{name}' AND STATE='{NJ}'",   # BASENAME is the bare town
+        "where": (f"BASENAME='{name}' AND STATE='{NJ}'"
+                  + (f" AND LSADC='{lsad}'" if lsad else "")),   # BASENAME is the bare town
         "outFields": "NAME", "returnGeometry": "true", "outSR": "4326",
         "maxAllowableOffset": OFFSET, "f": "json",
     })
@@ -97,10 +109,10 @@ def main():
         # falls to its CDP -- which sits INSIDE the parent township's polygon. At read
         # time we test CDPs before municipalities, so a point in the section resolves to
         # the section and everywhere else in the township resolves to the township.
-        rings = query(SUBDIV, tiger, near)
+        rings = query(SUBDIV, tiger, near, LSAD_FIX.get(name))
         kind = "muni"
         if not rings:
-            rings = query(CDP, tiger, near)
+            rings = query(CDP, tiger, near)   # CDPs have no borough/township collision
             kind = "cdp"
 
         if not rings:
