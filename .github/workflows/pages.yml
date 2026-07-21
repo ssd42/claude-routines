@@ -86,6 +86,10 @@ jobs:
           cp market-history/offer/map.html     _site/
           cp market-history/offer/map.js       _site/
           cp market-history/offer/backtest.html _site/
+          # Not optional: market/sold/backtest all call presetMatch() while drawing the
+          # town picker, so a missing towns-groups.js is a ReferenceError that takes the
+          # whole picker down, not a chip row that quietly fails to appear.
+          cp market-history/offer/towns-groups.js _site/
           cp market-history/layers/flood/flood_zones.geojson _site/flood.geojson
           # The market browser is only honest if it says how old it is — a stale
           # snapshot on a public URL is worse than no snapshot. Fail rather than

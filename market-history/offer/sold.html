@@ -66,6 +66,24 @@
   .pair{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;align-items:end}
   @media(max-width:560px){.filters{grid-template-columns:1fr;gap:.9rem}}
 
+  /* town presets — chips under the picker, see towns-groups.js */
+  /* Its own full-width row UNDER the filter grid, never a cell inside it: in a
+     minmax(9rem,...) column the chips wrapped onto three lines, dragged the Towns label
+     onto two, and knocked every other field off the shared baseline. */
+  .presets{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:0 0 1.1rem}
+  .preset-lab{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600}
+  .preset-hint{font-size:.72rem;color:var(--rule-2);font-style:italic;margin-right:.2rem}
+  .presets button{background:transparent;border:1px solid var(--rule-2);color:var(--ink-2);
+    font-family:var(--sans);font-size:.74rem;padding:.25rem .6rem;cursor:pointer;
+    text-align:left;line-height:1.25}
+  /* the member towns, so the chip says what it does without being clicked */
+  .presets button i{display:block;font-style:normal;font-size:.66rem;color:var(--ink-3)}
+  .presets button:hover{border-color:var(--ink-2);color:var(--ink)}
+  .presets button.on{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .presets button.on i{color:var(--rule-2)}
+  .presets .preset-note{font-size:.68rem;color:var(--flag);font-style:italic}
+  @media (pointer:coarse){.presets button{padding:.45rem .7rem;font-size:.78rem}}
   .towns{position:relative}
   .towns-btn{width:100%;text-align:left;background:transparent;border:0;
     border-bottom:1.5px solid var(--rule-2);padding:.3rem 0 .35rem;cursor:pointer;
@@ -200,6 +218,9 @@
   </div>
 </form>
 
+<div class="presets" id="presets"></div>
+
+
 <div class="seg">
   <span class="seg-lab">Sold</span>
   <button data-days="30">last 30 days</button>
@@ -225,6 +246,7 @@
 </div>
 <script src="data.js"></script>
 <script src="engine.js"></script>
+<script src="towns-groups.js"></script>
 <script src="sold.js"></script>
 <script>
 "use strict";
@@ -312,9 +334,27 @@ function drawTowns() {
         ${esc2(t)} <span>${dist != null ? dist + "mi · " : ""}${n.toLocaleString()}</span></label>`).join("");
   const b = $("towns-btn");
   b.classList.toggle("none", !picked.size);
+  // While the selection exactly equals a preset, wear its name (see market.html).
+  const avail = new Set(towns().map(x => x.t));
+  const hit = presetMatch(picked, avail);
   b.textContent = !picked.size ? "every town"
+    : hit ? hit.name
     : picked.size <= 2 ? [...picked].join(", ") : picked.size + " towns";
+  drawPresetChips($("presets"), picked, avail, presetNote);
 }
+let presetNote = "";
+
+$("presets").addEventListener("click", e => {
+  // closest(), not e.target: the chip contains an <i> listing its towns, so a click that
+  // lands on that text has the <i> as its target and carries no data-preset.
+  const p = presetById(e.target.closest("button[data-preset]")?.dataset.preset || "");
+  if (!p) return;
+  const r = applyPreset(p, new Set(towns().map(x => x.t)));
+  picked = r.picked;
+  presetNote = r.missing.length
+    ? `${r.missing.join(", ")} — no sales on record there` : "";
+  shown = PAGE; save(); drawTowns(); render();
+});
 
 /* Presets count back from the NEWEST SALE WE HOLD, not from today. The window ends a
    couple of days behind real time, so "last 30 days" measured from today would quietly
