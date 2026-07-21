@@ -1,15 +1,540 @@
 {
  "corrected": {
-  "182|lake|07960": {
+  "24|lakeside|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "2|thompson|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "350|parsippany|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "55|intervale|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "5|drexel|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "94|redgate|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "951|northbeverwyck|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "37|foxhill|07834": {
+   "old": "Denville",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07834"
+  },
+  "56|highwood|07834": {
+   "old": "Denville",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07834"
+  },
+  "5|fern|07834": {
+   "old": "Denville",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07834"
+  },
+  "143|mendham|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "15|exmoor|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "17|exmoor|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "18|horizon|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "19|exmoor|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "19|yardley|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "211|mountainside|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "235|mountainside|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "251|mountainside|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "2|cobblefield|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "2|coefarm|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "3|connet|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "54|hardscrabble|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "5|burnett|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "5|calai|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "5|coefarm|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "61|tingley|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "6|greenhill|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "7|calai|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "7|cobblefield|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "8|cherry|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "9|langford|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "9|pitney|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "1093|littleton|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "10|brookstone|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "11|laurel|07950": {
+   "old": "Morris Plains",
+   "new": "Hanover Township",
+   "zip": "07950"
+  },
+  "11|wiley|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "11|wood|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "16|trowbridge|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "18|guilford|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "1|yacendab|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "20|whitewood|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "22|averell|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2350|state1013|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2350|state1018|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2350|state108|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2350|state109|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "23|forest|07950": {
+   "old": "Morris Plains",
+   "new": "Hanover Township",
+   "zip": "07950"
+  },
+  "2467|101b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|1022-6|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|route10b5|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state101b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state102a|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state102b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state103b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state104a|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state105a|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state105b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state106a|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state107b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state108a|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state10|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|statert10bldg141b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2559|state10|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "286|summerhill|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "37|continental|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "41|beverly|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "438|olddover|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "45|averell45|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "56|rookwood56|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "56|rookwood|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "643|olddover|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "775|tabor|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "78|averell|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "78|forest|07950": {
+   "old": "Morris Plains",
+   "new": "Hanover Township",
+   "zip": "07950"
+  },
+  "7|southwood|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "81|poplar|07950": {
+   "old": "Morris Plains",
+   "new": "Hanover Township",
+   "zip": "07950"
+  },
+  "84|stockton|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "89|moraine|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "90|jame|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "94|edgefield|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "9|brookstone|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "9|cros|07950": {
+   "old": "Morris Plains",
+   "new": "Hanover Township",
+   "zip": "07950"
+  },
+  "4|ascot|07960": {
    "old": "Morristown",
-   "new": "Morris Township",
+   "new": "Mendham Township",
    "zip": "07960"
+  },
+  "4|dogwood|07960": {
+   "old": "Morristown",
+   "new": "Mendham Township",
+   "zip": "07960"
+  },
+  "5|buddy|07960": {
+   "old": "Morristown",
+   "new": "Mendham Township",
+   "zip": "07960"
+  },
+  "67|woodland|07960": {
+   "old": "Morristown",
+   "new": "Mendham Township",
+   "zip": "07960"
+  },
+  "107|rockledge1|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "107|rockledge|07508": {
+   "old": "North Haledon",
+   "new": "Totowa",
+   "zip": "07508"
+  },
+  "1305|gatherings1305|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "1305|gathering|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "176|pompton|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "17|albanese|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "19|willie|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "1|lewi|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "21|north13th|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "22|norwood|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "24|richardscott|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "301|burhan|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "304|heights3|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "304|height|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "31|kossuth|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "34|b|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "69|buschmann|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "8|kossuth|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "34|longridge|07869": {
+   "old": "Randolph",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07869"
   }
  },
  "tally": {
-  "polygon_agree": 3389,
-  "polygon_corrected": 1,
-  "outside": 349,
-  "nocoord": 231
+  "polygon_agree": 3878,
+  "polygon_corrected": 106,
+  "outside": 314,
+  "nocoord": 244
  }
 }

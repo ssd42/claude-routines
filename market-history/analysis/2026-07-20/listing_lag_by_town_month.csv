@@ -1,4 +1,16 @@
 county,town,close_month,month_num,sales_all,n_lag,median_days_list_to_close,pct_listed_same_month,pct_listed_1mo_before,pct_listed_2mo_before,pct_listed_3mo_before,pct_listed_4mo_or_more_before,pct_fresh,pct_aged,thin
+BERGEN,Elmwood Park,Jan,1,30,5,122,0.0,0.0,20.0,20.0,60.0,0.0,100.0,yes
+BERGEN,Elmwood Park,Feb,2,26,4,92,0.0,25.0,0.0,50.0,25.0,25.0,75.0,yes
+BERGEN,Elmwood Park,Mar,3,22,7,93,0.0,0.0,28.6,28.6,42.9,0.0,100.0,yes
+BERGEN,Elmwood Park,Apr,4,42,9,80,0.0,0.0,44.4,22.2,33.3,0.0,100.0,yes
+BERGEN,Elmwood Park,May,5,20,4,71,0.0,0.0,50.0,25.0,25.0,0.0,100.0,yes
+BERGEN,Elmwood Park,Jun,6,23,8,66,0.0,25.0,25.0,37.5,12.5,25.0,75.0,yes
+BERGEN,Elmwood Park,Jul,7,42,10,68,0.0,10.0,40.0,30.0,20.0,10.0,90.0,
+BERGEN,Elmwood Park,Aug,8,43,7,62,0.0,14.3,57.1,14.3,14.3,14.3,85.7,yes
+BERGEN,Elmwood Park,Sep,9,46,10,88,0.0,20.0,30.0,20.0,30.0,20.0,80.0,
+BERGEN,Elmwood Park,Oct,10,36,10,65,0.0,20.0,50.0,20.0,10.0,20.0,80.0,
+BERGEN,Elmwood Park,Nov,11,44,8,53,0.0,37.5,50.0,0.0,12.5,37.5,62.5,yes
+BERGEN,Elmwood Park,Dec,12,43,7,86,0.0,0.0,28.6,42.9,28.6,0.0,100.0,yes
 BERGEN,Franklin Lakes,Jan,1,17,1,119,0.0,0.0,0.0,0.0,100.0,0.0,100.0,yes
 BERGEN,Franklin Lakes,Feb,2,19,7,101,0.0,0.0,0.0,71.4,28.6,0.0,100.0,yes
 BERGEN,Franklin Lakes,Mar,3,27,5,111,0.0,0.0,40.0,0.0,60.0,0.0,100.0,yes
@@ -59,6 +71,18 @@ ESSEX,Essex Fells,Sep,9,11,2,82,0.0,0.0,50.0,0.0,50.0,0.0,100.0,yes
 ESSEX,Essex Fells,Oct,10,7,3,62,0.0,0.0,66.7,33.3,0.0,0.0,100.0,yes
 ESSEX,Essex Fells,Nov,11,5,2,88,0.0,50.0,0.0,0.0,50.0,50.0,50.0,yes
 ESSEX,Essex Fells,Dec,12,5,2,88,0.0,0.0,0.0,50.0,50.0,0.0,100.0,yes
+ESSEX,Fairfield,Jan,1,15,4,94,0.0,25.0,0.0,25.0,50.0,25.0,75.0,yes
+ESSEX,Fairfield,Feb,2,15,4,82,0.0,0.0,75.0,0.0,25.0,0.0,100.0,yes
+ESSEX,Fairfield,Mar,3,10,2,62,0.0,0.0,100.0,0.0,0.0,0.0,100.0,yes
+ESSEX,Fairfield,Apr,4,19,5,42,0.0,40.0,40.0,20.0,0.0,40.0,60.0,yes
+ESSEX,Fairfield,May,5,20,3,37,0.0,33.3,33.3,33.3,0.0,33.3,66.7,yes
+ESSEX,Fairfield,Jun,6,22,8,74,0.0,0.0,62.5,25.0,12.5,0.0,100.0,yes
+ESSEX,Fairfield,Jul,7,27,9,59,0.0,22.2,66.7,11.1,0.0,22.2,77.8,yes
+ESSEX,Fairfield,Aug,8,34,12,68,0.0,8.3,66.7,25.0,0.0,8.3,91.7,
+ESSEX,Fairfield,Sep,9,35,14,64,0.0,14.3,50.0,21.4,14.3,14.3,85.7,
+ESSEX,Fairfield,Oct,10,24,8,93,0.0,0.0,25.0,50.0,25.0,0.0,100.0,yes
+ESSEX,Fairfield,Nov,11,18,6,68,0.0,0.0,66.7,16.7,16.7,0.0,100.0,yes
+ESSEX,Fairfield,Dec,12,22,2,90,0.0,50.0,0.0,0.0,50.0,50.0,50.0,yes
 ESSEX,Glen Ridge,Jan,1,17,9,65,0.0,0.0,55.6,44.4,0.0,0.0,100.0,yes
 ESSEX,Glen Ridge,Feb,2,10,7,50,0.0,42.9,28.6,14.3,14.3,42.9,57.1,yes
 ESSEX,Glen Ridge,Mar,3,23,18,54,0.0,27.8,72.2,0.0,0.0,27.8,72.2,
@@ -368,6 +392,18 @@ MORRIS,Gillette,Sep,9,11,8,64,0.0,0.0,62.5,25.0,12.5,0.0,100.0,yes
 MORRIS,Gillette,Oct,10,8,5,71,0.0,0.0,60.0,0.0,40.0,0.0,100.0,yes
 MORRIS,Gillette,Nov,11,14,11,70,0.0,27.3,45.5,18.2,9.1,27.3,72.7,
 MORRIS,Gillette,Dec,12,9,5,61,0.0,20.0,40.0,40.0,0.0,20.0,80.0,yes
+MORRIS,Hanover Township,Jan,1,21,9,48,0.0,44.4,33.3,11.1,11.1,44.4,55.6,yes
+MORRIS,Hanover Township,Feb,2,13,1,28,0.0,100.0,0.0,0.0,0.0,100.0,0.0,yes
+MORRIS,Hanover Township,Mar,3,18,6,61,0.0,33.3,50.0,16.7,0.0,33.3,66.7,yes
+MORRIS,Hanover Township,Apr,4,20,14,56,0.0,35.7,50.0,14.3,0.0,35.7,64.3,
+MORRIS,Hanover Township,May,5,27,9,43,0.0,44.4,33.3,11.1,11.1,44.4,55.6,yes
+MORRIS,Hanover Township,Jun,6,33,15,55,0.0,33.3,33.3,26.7,6.7,33.3,66.7,
+MORRIS,Hanover Township,Jul,7,35,13,55,0.0,23.1,61.5,15.4,0.0,23.1,76.9,
+MORRIS,Hanover Township,Aug,8,34,15,48,0.0,46.7,33.3,20.0,0.0,46.7,53.3,
+MORRIS,Hanover Township,Sep,9,38,16,56,0.0,25.0,56.2,18.8,0.0,25.0,75.0,
+MORRIS,Hanover Township,Oct,10,33,19,53,0.0,31.6,31.6,26.3,10.5,31.6,68.4,
+MORRIS,Hanover Township,Nov,11,33,15,53,0.0,26.7,46.7,13.3,13.3,26.7,73.3,
+MORRIS,Hanover Township,Dec,12,25,13,57,0.0,38.5,38.5,23.1,0.0,38.5,61.5,
 MORRIS,Long Valley,Jan,1,32,20,108,5.0,5.0,10.0,30.0,50.0,10.0,90.0,
 MORRIS,Long Valley,Feb,2,22,14,60,0.0,42.9,14.3,7.1,35.7,42.9,57.1,
 MORRIS,Long Valley,Mar,3,29,16,71,0.0,6.2,68.8,6.2,18.8,6.2,93.8,
@@ -392,18 +428,30 @@ MORRIS,Madison,Sep,9,36,21,59,0.0,19.0,47.6,28.6,4.8,19.0,81.0,
 MORRIS,Madison,Oct,10,34,22,56,0.0,36.4,40.9,13.6,9.1,36.4,63.6,
 MORRIS,Madison,Nov,11,45,28,54,0.0,32.1,53.6,7.1,7.1,32.1,67.9,
 MORRIS,Madison,Dec,12,43,22,72,0.0,4.5,50.0,31.8,13.6,4.5,95.5,
-MORRIS,Mendham,Jan,1,30,19,106,0.0,15.8,21.1,26.3,36.8,15.8,84.2,
-MORRIS,Mendham,Feb,2,18,10,62,0.0,30.0,40.0,0.0,30.0,30.0,70.0,
-MORRIS,Mendham,Mar,3,27,17,65,0.0,11.8,52.9,0.0,35.3,11.8,88.2,
-MORRIS,Mendham,Apr,4,44,34,61,0.0,20.6,44.1,11.8,23.5,20.6,79.4,
-MORRIS,Mendham,May,5,47,29,58,3.4,27.6,44.8,13.8,10.3,31.0,69.0,
-MORRIS,Mendham,Jun,6,54,41,72,4.9,9.8,36.6,31.7,17.1,14.6,85.4,
-MORRIS,Mendham,Jul,7,66,39,72,2.6,15.4,38.5,25.6,17.9,17.9,82.1,
-MORRIS,Mendham,Aug,8,55,44,64,2.3,11.4,52.3,18.2,15.9,13.6,86.4,
-MORRIS,Mendham,Sep,9,46,28,70,0.0,7.1,42.9,32.1,17.9,7.1,92.9,
-MORRIS,Mendham,Oct,10,46,30,79,6.7,16.7,13.3,36.7,26.7,23.3,76.7,
-MORRIS,Mendham,Nov,11,38,22,66,0.0,18.2,40.9,22.7,18.2,18.2,81.8,
-MORRIS,Mendham,Dec,12,36,27,66,3.7,11.1,40.7,22.2,22.2,14.8,85.2,
+MORRIS,Mendham,Jan,1,26,17,106,0.0,11.8,23.5,29.4,35.3,11.8,88.2,
+MORRIS,Mendham,Feb,2,16,9,63,0.0,22.2,44.4,0.0,33.3,22.2,77.8,yes
+MORRIS,Mendham,Mar,3,21,14,68,0.0,7.1,57.1,0.0,35.7,7.1,92.9,
+MORRIS,Mendham,Apr,4,32,27,60,0.0,22.2,40.7,11.1,25.9,22.2,77.8,
+MORRIS,Mendham,May,5,41,28,58,3.6,28.6,46.4,14.3,7.1,32.1,67.9,
+MORRIS,Mendham,Jun,6,47,40,73,5.0,7.5,37.5,32.5,17.5,12.5,87.5,
+MORRIS,Mendham,Jul,7,47,34,72,2.9,17.6,35.3,26.5,17.6,20.6,79.4,
+MORRIS,Mendham,Aug,8,35,32,68,3.1,15.6,40.6,21.9,18.8,18.8,81.2,
+MORRIS,Mendham,Sep,9,29,21,69,0.0,4.8,47.6,23.8,23.8,4.8,95.2,
+MORRIS,Mendham,Oct,10,28,23,86,8.7,13.0,8.7,39.1,30.4,21.7,78.3,
+MORRIS,Mendham,Nov,11,29,20,65,0.0,15.0,45.0,20.0,20.0,15.0,85.0,
+MORRIS,Mendham,Dec,12,30,24,65,4.2,8.3,45.8,20.8,20.8,12.5,87.5,
+MORRIS,Mendham Township,Jan,1,4,2,129,0.0,50.0,0.0,0.0,50.0,50.0,50.0,yes
+MORRIS,Mendham Township,Feb,2,2,1,10,0.0,100.0,0.0,0.0,0.0,100.0,0.0,yes
+MORRIS,Mendham Township,Mar,3,6,3,63,0.0,33.3,33.3,0.0,33.3,33.3,66.7,yes
+MORRIS,Mendham Township,Apr,4,12,7,66,0.0,14.3,57.1,14.3,14.3,14.3,85.7,yes
+MORRIS,Mendham Township,May,5,6,1,103,0.0,0.0,0.0,0.0,100.0,0.0,100.0,yes
+MORRIS,Mendham Township,Jun,6,7,1,43,0.0,100.0,0.0,0.0,0.0,100.0,0.0,yes
+MORRIS,Mendham Township,Jul,7,19,5,70,0.0,0.0,60.0,20.0,20.0,0.0,100.0,yes
+MORRIS,Mendham Township,Aug,8,20,12,62,0.0,0.0,83.3,8.3,8.3,0.0,100.0,
+MORRIS,Mendham Township,Sep,9,17,7,70,0.0,14.3,28.6,57.1,0.0,14.3,85.7,yes
+MORRIS,Mendham Township,Oct,10,18,7,59,0.0,28.6,28.6,28.6,14.3,28.6,71.4,yes
+MORRIS,Mendham Township,Nov,11,9,2,58,0.0,50.0,0.0,50.0,0.0,50.0,50.0,yes
+MORRIS,Mendham Township,Dec,12,6,3,94,0.0,33.3,0.0,33.3,33.3,33.3,66.7,yes
 MORRIS,Millington,Jan,1,4,3,128,0.0,0.0,0.0,33.3,66.7,0.0,100.0,yes
 MORRIS,Millington,Feb,2,5,2,128,0.0,0.0,50.0,0.0,50.0,0.0,100.0,yes
 MORRIS,Millington,Mar,3,6,3,132,0.0,33.3,0.0,0.0,66.7,33.3,66.7,yes
@@ -476,6 +524,30 @@ MORRIS,Mountain Lakes,Sep,9,26,12,76,8.3,8.3,50.0,8.3,25.0,16.7,83.3,
 MORRIS,Mountain Lakes,Oct,10,24,13,96,0.0,15.4,15.4,30.8,38.5,15.4,84.6,
 MORRIS,Mountain Lakes,Nov,11,20,8,64,0.0,0.0,75.0,12.5,12.5,0.0,100.0,yes
 MORRIS,Mountain Lakes,Dec,12,18,8,75,0.0,12.5,37.5,25.0,25.0,12.5,87.5,yes
+MORRIS,Parsippany-Troy Hills,Jan,1,82,27,63,0.0,29.6,44.4,18.5,7.4,29.6,70.4,
+MORRIS,Parsippany-Troy Hills,Feb,2,65,29,93,0.0,10.3,20.7,27.6,41.4,10.3,89.7,
+MORRIS,Parsippany-Troy Hills,Mar,3,65,36,48,0.0,36.1,44.4,8.3,11.1,36.1,63.9,
+MORRIS,Parsippany-Troy Hills,Apr,4,77,34,52,2.9,29.4,52.9,8.8,5.9,32.4,67.6,
+MORRIS,Parsippany-Troy Hills,May,5,84,31,59,0.0,32.3,38.7,19.4,9.7,32.3,67.7,
+MORRIS,Parsippany-Troy Hills,Jun,6,96,42,57,0.0,14.3,73.8,7.1,4.8,14.3,85.7,
+MORRIS,Parsippany-Troy Hills,Jul,7,120,48,60,0.0,33.3,35.4,22.9,8.3,33.3,66.7,
+MORRIS,Parsippany-Troy Hills,Aug,8,158,43,56,0.0,32.6,44.2,20.9,2.3,32.6,67.4,
+MORRIS,Parsippany-Troy Hills,Sep,9,117,41,53,0.0,26.8,53.7,14.6,4.9,26.8,73.2,
+MORRIS,Parsippany-Troy Hills,Oct,10,123,48,49,0.0,35.4,45.8,14.6,4.2,35.4,64.6,
+MORRIS,Parsippany-Troy Hills,Nov,11,133,48,61,2.1,20.8,52.1,8.3,16.7,22.9,77.1,
+MORRIS,Parsippany-Troy Hills,Dec,12,98,29,70,0.0,17.2,41.4,31.0,10.3,17.2,82.8,
+MORRIS,Pompton Plains,Jan,1,23,9,71,0.0,0.0,66.7,11.1,22.2,0.0,100.0,yes
+MORRIS,Pompton Plains,Feb,2,17,9,81,0.0,22.2,22.2,11.1,44.4,22.2,77.8,yes
+MORRIS,Pompton Plains,Mar,3,26,20,61,0.0,25.0,55.0,10.0,10.0,25.0,75.0,
+MORRIS,Pompton Plains,Apr,4,23,11,40,9.1,36.4,54.5,0.0,0.0,45.5,54.5,
+MORRIS,Pompton Plains,May,5,33,17,58,0.0,23.5,64.7,5.9,5.9,23.5,76.5,
+MORRIS,Pompton Plains,Jun,6,30,18,60,0.0,22.2,44.4,27.8,5.6,22.2,77.8,
+MORRIS,Pompton Plains,Jul,7,28,15,80,0.0,26.7,26.7,33.3,13.3,26.7,73.3,
+MORRIS,Pompton Plains,Aug,8,32,20,67,0.0,10.0,55.0,25.0,10.0,10.0,90.0,
+MORRIS,Pompton Plains,Sep,9,27,17,55,0.0,35.3,35.3,11.8,17.6,35.3,64.7,
+MORRIS,Pompton Plains,Oct,10,27,18,82,0.0,22.2,27.8,27.8,22.2,22.2,77.8,
+MORRIS,Pompton Plains,Nov,11,27,17,65,0.0,29.4,29.4,35.3,5.9,29.4,70.6,
+MORRIS,Pompton Plains,Dec,12,21,8,62,0.0,12.5,62.5,12.5,12.5,12.5,87.5,yes
 MORRIS,Randolph,Jan,1,46,22,79,0.0,9.1,36.4,27.3,27.3,9.1,90.9,
 MORRIS,Randolph,Feb,2,54,24,74,8.3,16.7,25.0,20.8,29.2,25.0,75.0,
 MORRIS,Randolph,Mar,3,48,29,56,6.9,27.6,48.3,10.3,6.9,34.5,65.5,
@@ -511,6 +583,73 @@ MORRIS,Towaco,Sep,9,8,6,87,0.0,16.7,16.7,50.0,16.7,16.7,83.3,yes
 MORRIS,Towaco,Oct,10,7,4,90,0.0,50.0,0.0,0.0,50.0,50.0,50.0,yes
 MORRIS,Towaco,Nov,11,6,4,86,0.0,0.0,50.0,0.0,50.0,0.0,100.0,yes
 MORRIS,Towaco,Dec,12,18,11,79,9.1,9.1,27.3,45.5,9.1,18.2,81.8,
+PASSAIC,Haledon,Mar,3,5,3,49,0.0,0.0,66.7,33.3,0.0,0.0,100.0,yes
+PASSAIC,Haledon,Jun,6,7,3,71,0.0,0.0,66.7,0.0,33.3,0.0,100.0,yes
+PASSAIC,Haledon,Jul,7,15,8,74,0.0,37.5,25.0,12.5,25.0,37.5,62.5,yes
+PASSAIC,Haledon,Aug,8,14,4,40,0.0,25.0,75.0,0.0,0.0,25.0,75.0,yes
+PASSAIC,Haledon,Sep,9,18,3,66,0.0,0.0,66.7,33.3,0.0,0.0,100.0,yes
+PASSAIC,Haledon,Oct,10,14,6,93,0.0,33.3,0.0,33.3,33.3,33.3,66.7,yes
+PASSAIC,Haledon,Nov,11,8,3,58,0.0,0.0,66.7,33.3,0.0,0.0,100.0,yes
+PASSAIC,North Haledon,Jan,1,46,17,83,0.0,17.6,35.3,23.5,23.5,17.6,82.4,
+PASSAIC,North Haledon,Feb,2,36,11,73,9.1,0.0,45.5,18.2,27.3,9.1,90.9,
+PASSAIC,North Haledon,Mar,3,29,17,72,0.0,11.8,47.1,11.8,29.4,11.8,88.2,
+PASSAIC,North Haledon,Apr,4,35,15,74,0.0,20.0,26.7,33.3,20.0,20.0,80.0,
+PASSAIC,North Haledon,May,5,43,19,75,0.0,10.5,31.6,26.3,31.6,10.5,89.5,
+PASSAIC,North Haledon,Jun,6,47,22,64,0.0,22.7,45.5,22.7,9.1,22.7,77.3,
+PASSAIC,North Haledon,Jul,7,48,25,68,0.0,12.0,44.0,36.0,8.0,12.0,88.0,
+PASSAIC,North Haledon,Aug,8,45,23,51,4.3,26.1,39.1,17.4,13.0,30.4,69.6,
+PASSAIC,North Haledon,Sep,9,42,18,84,0.0,5.6,38.9,33.3,22.2,5.6,94.4,
+PASSAIC,North Haledon,Oct,10,45,16,68,0.0,12.5,25.0,50.0,12.5,12.5,87.5,
+PASSAIC,North Haledon,Nov,11,42,8,91,0.0,0.0,25.0,50.0,25.0,0.0,100.0,yes
+PASSAIC,North Haledon,Dec,12,41,18,82,0.0,0.0,44.4,16.7,38.9,0.0,100.0,
+PASSAIC,Pompton Lakes,Jan,1,36,19,75,0.0,5.3,42.1,31.6,21.1,5.3,94.7,
+PASSAIC,Pompton Lakes,Feb,2,29,16,70,6.2,31.2,31.2,18.8,12.5,37.5,62.5,
+PASSAIC,Pompton Lakes,Mar,3,41,19,85,0.0,10.5,36.8,26.3,26.3,10.5,89.5,
+PASSAIC,Pompton Lakes,Apr,4,37,22,60,0.0,22.7,45.5,22.7,9.1,22.7,77.3,
+PASSAIC,Pompton Lakes,May,5,42,18,63,0.0,16.7,50.0,16.7,16.7,16.7,83.3,
+PASSAIC,Pompton Lakes,Jun,6,48,28,57,0.0,25.0,53.6,10.7,10.7,25.0,75.0,
+PASSAIC,Pompton Lakes,Jul,7,60,33,59,0.0,21.2,60.6,15.2,3.0,21.2,78.8,
+PASSAIC,Pompton Lakes,Aug,8,52,26,66,0.0,15.4,53.8,15.4,15.4,15.4,84.6,
+PASSAIC,Pompton Lakes,Sep,9,50,32,62,0.0,15.6,46.9,18.8,18.8,15.6,84.4,
+PASSAIC,Pompton Lakes,Oct,10,41,19,78,0.0,5.3,36.8,36.8,21.1,5.3,94.7,
+PASSAIC,Pompton Lakes,Nov,11,44,19,69,0.0,0.0,52.6,31.6,15.8,0.0,100.0,
+PASSAIC,Pompton Lakes,Dec,12,34,14,58,0.0,28.6,42.9,14.3,14.3,28.6,71.4,
+PASSAIC,Totowa,Jan,1,24,7,98,0.0,0.0,28.6,28.6,42.9,0.0,100.0,yes
+PASSAIC,Totowa,Feb,2,21,7,90,0.0,14.3,0.0,57.1,28.6,14.3,85.7,yes
+PASSAIC,Totowa,Mar,3,23,10,72,0.0,30.0,30.0,20.0,20.0,30.0,70.0,
+PASSAIC,Totowa,Apr,4,23,10,60,0.0,10.0,60.0,20.0,10.0,10.0,90.0,
+PASSAIC,Totowa,May,5,24,9,57,0.0,0.0,88.9,0.0,11.1,0.0,100.0,yes
+PASSAIC,Totowa,Jun,6,28,12,77,0.0,8.3,50.0,25.0,16.7,8.3,91.7,
+PASSAIC,Totowa,Jul,7,38,17,65,0.0,11.8,52.9,17.6,17.6,11.8,88.2,
+PASSAIC,Totowa,Aug,8,43,17,66,0.0,11.8,47.1,23.5,17.6,11.8,88.2,
+PASSAIC,Totowa,Sep,9,39,14,76,0.0,7.1,35.7,35.7,21.4,7.1,92.9,
+PASSAIC,Totowa,Oct,10,34,14,80,0.0,14.3,35.7,28.6,21.4,14.3,85.7,
+PASSAIC,Totowa,Nov,11,33,10,84,0.0,30.0,10.0,40.0,20.0,30.0,70.0,
+PASSAIC,Totowa,Dec,12,32,13,83,7.7,0.0,30.8,15.4,46.2,7.7,92.3,
+PASSAIC,Wayne,Jan,1,147,78,77,0.0,10.3,38.5,32.1,19.2,10.3,89.7,
+PASSAIC,Wayne,Feb,2,102,49,86,0.0,20.4,30.6,20.4,28.6,20.4,79.6,
+PASSAIC,Wayne,Mar,3,109,62,63,0.0,16.1,58.1,9.7,16.1,16.1,83.9,
+PASSAIC,Wayne,Apr,4,127,76,59,2.6,26.3,39.5,15.8,15.8,28.9,71.1,
+PASSAIC,Wayne,May,5,149,72,65,1.4,18.1,45.8,22.2,12.5,19.4,80.6,
+PASSAIC,Wayne,Jun,6,190,117,61,0.9,22.2,51.3,19.7,6.0,23.1,76.9,
+PASSAIC,Wayne,Jul,7,211,124,64,3.2,17.7,47.6,25.0,6.5,21.0,79.0,
+PASSAIC,Wayne,Aug,8,190,100,63,1.0,19.0,46.0,22.0,12.0,20.0,80.0,
+PASSAIC,Wayne,Sep,9,176,97,70,0.0,16.5,44.3,22.7,16.5,16.5,83.5,
+PASSAIC,Wayne,Oct,10,215,106,69,1.9,21.7,35.8,26.4,14.2,23.6,76.4,
+PASSAIC,Wayne,Nov,11,178,87,69,0.0,19.5,40.2,27.6,12.6,19.5,80.5,
+PASSAIC,Wayne,Dec,12,147,83,63,2.4,9.6,54.2,16.9,16.9,12.0,88.0,
+PASSAIC,Woodland Park,Jan,1,63,18,92,0.0,11.1,22.2,22.2,44.4,11.1,88.9,
+PASSAIC,Woodland Park,Feb,2,51,15,70,0.0,20.0,53.3,20.0,6.7,20.0,80.0,
+PASSAIC,Woodland Park,Mar,3,42,22,60,0.0,13.6,54.5,9.1,22.7,13.6,86.4,
+PASSAIC,Woodland Park,Apr,4,67,33,60,0.0,27.3,45.5,15.2,12.1,27.3,72.7,
+PASSAIC,Woodland Park,May,5,72,33,59,0.0,24.2,45.5,12.1,18.2,24.2,75.8,
+PASSAIC,Woodland Park,Jun,6,76,36,54,0.0,33.3,30.6,22.2,13.9,33.3,66.7,
+PASSAIC,Woodland Park,Jul,7,83,48,64,0.0,25.0,37.5,25.0,12.5,25.0,75.0,
+PASSAIC,Woodland Park,Aug,8,55,32,74,0.0,15.6,43.8,28.1,12.5,15.6,84.4,
+PASSAIC,Woodland Park,Sep,9,53,24,68,0.0,8.3,50.0,25.0,16.7,8.3,91.7,
+PASSAIC,Woodland Park,Oct,10,65,27,80,0.0,22.2,22.2,25.9,29.6,22.2,77.8,
+PASSAIC,Woodland Park,Nov,11,53,22,88,0.0,4.5,27.3,40.9,27.3,4.5,95.5,
+PASSAIC,Woodland Park,Dec,12,83,33,72,3.0,18.2,33.3,21.2,24.2,21.2,78.8,
 SOMERSET,Basking Ridge,Jan,1,66,38,66,2.6,10.5,55.3,21.1,10.5,13.2,86.8,
 SOMERSET,Basking Ridge,Feb,2,48,34,70,0.0,20.6,41.2,17.6,20.6,20.6,79.4,
 SOMERSET,Basking Ridge,Mar,3,50,33,58,0.0,33.3,36.4,12.1,18.2,33.3,66.7,

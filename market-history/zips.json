@@ -1,85 +1,626 @@
 {
-  "_doc": "Target NJ towns/zips for the market-history aggregation job. INDEPENDENT COPY — seeded from house-hunt/criteria.json on 2026-07-11, but this routine owns it now. Do NOT import house-hunt's file (see ../CLAUDE.md independence rule); edit here freely and the two can diverge.",
-  "_zip_label_rule": "A zip maps to exactly ONE town (zip_to_town is FIRST-wins by the order below). This is only the FALLBACK label, used for listing_scrape-only rows; a row with an nj_records deed behind it takes its town from the municipality instead. Two shared zips: 07006 (Caldwell / North Caldwell / West Caldwell — Caldwell listed first, so scrape-only 07006 sales fall back to 'Caldwell') and 07960 (Morristown / Morris Township — Morristown first, so scrape-only 07960 sales fall back to 'Morristown'). In BOTH cases the trailing towns are deed-visible only; do not reorder them above their zip's first-listed town or every historical scrape label flips.",
-  "_dist_mi_rule": "Approximate miles from the 07090 anchor — a SORT KEY, not a measurement. The original 53 were hand-entered (seeded from house-hunt) and are noisy: measured against ZCTA centroids their implied ratio to straight-line ranges ~0.86–1.6, and Chatham (17) / Madison (17) look overstated by ~6–9 while Glen Rock (22) / Franklin Lakes (24) look understated by ~9. The 11 towns added 2026-07-17 were derived instead: straight-line from the zip's ZCTA centroid to 07090's, scaled by the median ratio of that town's 5 nearest already-listed neighbours (a single global ratio inverts the western Somerset towns). Towns sharing a zip share a dist_mi — it comes from the zip centroid, so West Caldwell=16 matches Caldwell and Morris Township=19 matches Morristown. Don't read precision into it.",
-  "_county_rule": "county per town, from nj_municipalities.json (MOD-IV is keyed on COUNTY+MUN_NAME, so it is authoritative there), cross-checked against the county field on deed-sourced sales rows \u2014 all 52 towns with deed rows agree. Cedar Knolls and Towaco have no nj_municipalities entry of their own; both were resolved against the live maps.nj.gov Cadastral layer on 2026-07-13 (07927 -> MORRIS/HANOVER TWP, 07082 -> MORRIS/MONTVILLE TWP). Cedar Knolls has no deed rows at all, so its county is endpoint-verified but not sales-corroborated.",
-  "priority_anchor_zip": "07090",
-  "towns": [
-    { "name": "Westfield",        "county": "UNION",    "zips": ["07090"], "dist_mi": 0,
-      "note": "The priority anchor itself. It is a TARGET TOWN, not just a reference point — dist_mi 0. Originally omitted because this file was seeded from house-hunt/criteria.json, where 07090 appears only as priority_anchor_zip; that made sense for a scout looking for listings NEAR here, but market-history needs the anchor's own sales as the baseline every other town is compared against." },
-    { "name": "Cranford",         "county": "UNION",    "zips": ["07016"], "dist_mi": 2 },
-    { "name": "Garwood",          "county": "UNION",    "zips": ["07027"], "dist_mi": 2 },
-    { "name": "Fanwood",          "county": "UNION",    "zips": ["07023"], "dist_mi": 3 },
-    { "name": "Scotch Plains",    "county": "UNION",    "zips": ["07076"], "dist_mi": 3 },
-    { "name": "Mountainside",     "county": "UNION",    "zips": ["07092"], "dist_mi": 3,
-      "note": "Added 2026-07-17. Borders Westfield; its own zip, its own borough (MOUNTAINSIDE BORO), so no shared-zip or section subtlety. Sends high-schoolers to Governor Livingston in Berkeley Heights." },
-    { "name": "Clark",            "county": "UNION",    "zips": ["07066"], "dist_mi": 4 },
-    { "name": "Springfield",      "county": "UNION",    "zips": ["07081"], "dist_mi": 5 },
-    { "name": "Watchung",         "county": "SOMERSET", "zips": ["07069"], "dist_mi": 5 },
-    { "name": "Colonia",          "county": "MIDDLESEX","zips": ["07067"], "dist_mi": 6 },
-    { "name": "Summit",           "county": "UNION",    "zips": ["07901"], "dist_mi": 6 },
-    { "name": "Berkeley Heights", "county": "UNION",    "zips": ["07922"], "dist_mi": 7 },
-    { "name": "New Providence",   "county": "UNION",    "zips": ["07974"], "dist_mi": 7 },
-    { "name": "Millburn",         "county": "ESSEX",    "zips": ["07041"], "dist_mi": 7,
-      "note": "Added 2026-07-17. Millburn proper — the OTHER half of MILLBURN TWP, whose 07078 half is already listed as Short Hills. Both are section_of the same municipality subset by their own zip (the Woodbridge/Colonia pattern), so the township is fetched twice and neither swallows the other. Before this entry existed, Short Hills' section filter DROPPED every 07041 sale on the floor — Millburn proper was fetched and discarded, not missing." },
-    { "name": "Short Hills",      "county": "ESSEX",    "zips": ["07078"], "dist_mi": 8 },
-    { "name": "South Plainfield", "county": "MIDDLESEX","zips": ["07080"], "dist_mi": 8 },
-    { "name": "Warren",           "county": "SOMERSET", "zips": ["07059"], "dist_mi": 8 },
-    { "name": "Edison",           "county": "MIDDLESEX","zips": ["08820", "08817", "08837"], "dist_mi": 9 },
-    { "name": "Green Brook",      "county": "SOMERSET", "zips": ["08812"], "dist_mi": 9 },
-    { "name": "Metuchen",         "county": "MIDDLESEX","zips": ["08840"], "dist_mi": 9 },
-    { "name": "Woodbridge",       "county": "MIDDLESEX","zips": ["07095"], "dist_mi": 10 },
-    { "name": "Gillette",         "county": "MORRIS",   "zips": ["07933"], "dist_mi": 10,
-      "note": "Added 2026-07-17 — see Stirling." },
-    { "name": "Stirling",         "county": "MORRIS",   "zips": ["07980"], "dist_mi": 10,
-      "note": "Added 2026-07-17, replacing the single 'Long Hill' entry. Long Hill Twp IS Stirling + Gillette + Millington; it held all three zips, so its 333 sales were already section-separable and were relabelled by zip in place — no re-scrape. Split because the file's convention is the name people say (Colonia, Basking Ridge, Towaco, Short Hills), and nobody says Long Hill. All three are section_of LONG HILL TWP subset by their own zip, so the township is fetched three times and no sale is counted twice." },
-    { "name": "Maplewood",        "county": "ESSEX",    "zips": ["07040"], "dist_mi": 11 },
-    { "name": "South Orange",     "county": "ESSEX",    "zips": ["07079"], "dist_mi": 11 },
-    { "name": "Millington",       "county": "MORRIS",   "zips": ["07946"], "dist_mi": 11,
-      "note": "Added 2026-07-17 — see Stirling. Meyersville sits in 07946 too and lands here." },
-    { "name": "Livingston",       "county": "ESSEX",    "zips": ["07039"], "dist_mi": 12 },
-    { "name": "Bridgewater",      "county": "SOMERSET", "zips": ["08807"], "dist_mi": 13 },
-    { "name": "Martinsville",     "county": "SOMERSET", "zips": ["08836"], "dist_mi": 13,
-      "note": "Added 2026-07-17. A section of BRIDGEWATER TWP, which was already being pulled WITHOUT section_of — so aggregate.py was rewriting every 08836 deed's zip to 08807 and filing it under Bridgewater. Martinsville's sales were never missing, they were mislabelled, and the true ZIP5 was destroyed on write. Fixing it required marking Bridgewater section_of 08807 and re-fetching the township; the 744 stale Bridgewater deed rows were purged first, because a re-fetch alone would have added 08836 rows ALONGSIDE the old 08807 copies (different merge key, same source — coalesce_sales' cross-source guard would not have caught it)." },
-    { "name": "West Orange",      "county": "ESSEX",    "zips": ["07052"], "dist_mi": 13 },
-    { "name": "Basking Ridge",    "county": "SOMERSET", "zips": ["07920"], "dist_mi": 14 },
-    { "name": "Glen Ridge",       "county": "ESSEX",    "zips": ["07028"], "dist_mi": 14 },
-    { "name": "Verona",           "county": "ESSEX",    "zips": ["07044"], "dist_mi": 14 },
-    { "name": "East Hanover",     "county": "MORRIS",   "zips": ["07936"], "dist_mi": 15,
-      "note": "Added 2026-07-17. EAST HANOVER TWP is its own municipality — distinct from the HANOVER TWP that Cedar Knolls (07927) resolves to. Verified as separate MUN_NAMEs on the live Cadastral layer, so the two do not collide." },
-    { "name": "Essex Fells",      "county": "ESSEX",    "zips": ["07021"], "dist_mi": 15 },
-    { "name": "Florham Park",     "county": "MORRIS",   "zips": ["07932"], "dist_mi": 15 },
-    { "name": "Montclair",        "county": "ESSEX",    "zips": ["07042", "07043"], "dist_mi": 15 },
-    { "name": "Roseland",         "county": "ESSEX",    "zips": ["07068"], "dist_mi": 15 },
-    { "name": "Caldwell",         "county": "ESSEX",    "zips": ["07006"], "dist_mi": 16 },
-    { "name": "Cedar Grove",      "county": "ESSEX",    "zips": ["07009"], "dist_mi": 16 },
-    { "name": "North Caldwell",   "county": "ESSEX",    "zips": ["07006"], "dist_mi": 16,
-      "note": "shares 07006 with Caldwell (listed first, so it wins the zip fallback) and West Caldwell. Only deed-backed (nj_records) rows separate the three; scrape-only 07006 sales land under Caldwell." },
-    { "name": "West Caldwell",    "county": "ESSEX",    "zips": ["07006"], "dist_mi": 16,
-      "note": "Added 2026-07-17 — the third town in 07006, which _zip_label_rule already named but towns[] never listed. Same deal as North Caldwell: WEST CALDWELL TWP is its own municipality so deed rows land here correctly, but scrape-only 07006 sales still fall back to Caldwell. dist_mi 16 matches its 07006 siblings by construction — one zip centroid, one distance." },
-    { "name": "Bedminster",       "county": "SOMERSET", "zips": ["07921"], "dist_mi": 17 },
-    { "name": "Chatham",          "county": "MORRIS",   "zips": ["07928"], "dist_mi": 17 },
-    { "name": "Madison",          "county": "MORRIS",   "zips": ["07940"], "dist_mi": 17 },
-    { "name": "Nutley",           "county": "ESSEX",    "zips": ["07110"], "dist_mi": 17 },
-    { "name": "Branchburg",       "county": "SOMERSET", "zips": ["08876"], "dist_mi": 18 },
-    { "name": "Morristown",       "county": "MORRIS",   "zips": ["07960"], "dist_mi": 19 },
-    { "name": "Morris Township",  "county": "MORRIS",   "zips": ["07960"], "dist_mi": 19,
-      "note": "Added 2026-07-17. MORRIS TWP is a separate municipality that wraps around MORRISTOWN TOWN and shares its 07960 zip — verified as two distinct MUN_NAMEs on the live Cadastral layer. Must stay listed AFTER Morristown: first-wins means Morristown keeps the 07960 scrape fallback, and reordering these two would silently reassign every historical scrape-only 07960 row. Deed rows separate the two correctly. Same shape as the 07006 Caldwells." },
-    { "name": "Bernardsville",    "county": "SOMERSET", "zips": ["07924"], "dist_mi": 19,
-      "note": "Added 2026-07-17. BERNARDSVILLE BORO is its own municipality — not to be confused with the BERNARDS TWP that Basking Ridge (07920) is a section of. Verified distinct on the live layer." },
-    { "name": "Cedar Knolls",     "county": "MORRIS",   "zips": ["07927"], "dist_mi": 20 },
-    { "name": "Morris Plains",    "county": "MORRIS",   "zips": ["07950"], "dist_mi": 21 },
-    { "name": "Denville",         "county": "MORRIS",   "zips": ["07834"], "dist_mi": 22 },
-    { "name": "Glen Rock",        "county": "BERGEN",   "zips": ["07452"], "dist_mi": 22 },
-    { "name": "Mendham",          "county": "MORRIS",   "zips": ["07945"], "dist_mi": 22 },
-    { "name": "Boonton",          "county": "MORRIS",   "zips": ["07005"], "dist_mi": 23 },
-    { "name": "Montville",        "county": "MORRIS",   "zips": ["07045"], "dist_mi": 23 },
-    { "name": "Mountain Lakes",   "county": "MORRIS",   "zips": ["07046"], "dist_mi": 23,
-      "note": "Added 2026-07-17. MOUNTAIN LAKES BORO, its own municipality and zip — no shared-zip or section handling needed." },
-    { "name": "Franklin Lakes",   "county": "BERGEN",   "zips": ["07417"], "dist_mi": 24 },
-    { "name": "Towaco",           "county": "MORRIS",   "zips": ["07082"], "dist_mi": 25 },
-    { "name": "Randolph",         "county": "MORRIS",   "zips": ["07869"], "dist_mi": 25 },
-    { "name": "Chester",          "county": "MORRIS",   "zips": ["07930"], "dist_mi": 26 },
-    { "name": "Long Valley",      "county": "MORRIS",   "zips": ["07853"], "dist_mi": 29 }
-  ]
+ "_doc": "Target NJ towns/zips for the market-history aggregation job. INDEPENDENT COPY \u2014 seeded from house-hunt/criteria.json on 2026-07-11, but this routine owns it now. Do NOT import house-hunt's file (see ../CLAUDE.md independence rule); edit here freely and the two can diverge.",
+ "_zip_label_rule": "A zip maps to exactly ONE town (zip_to_town is FIRST-wins by the order below). This is only the FALLBACK label, used for listing_scrape-only rows; a row with an nj_records deed behind it takes its town from the municipality instead. Two shared zips: 07006 (Caldwell / North Caldwell / West Caldwell \u2014 Caldwell listed first, so scrape-only 07006 sales fall back to 'Caldwell') and 07960 (Morristown / Morris Township \u2014 Morristown first, so scrape-only 07960 sales fall back to 'Morristown'). In BOTH cases the trailing towns are deed-visible only; do not reorder them above their zip's first-listed town or every historical scrape label flips.",
+ "_dist_mi_rule": "Approximate miles from the 07090 anchor \u2014 a SORT KEY, not a measurement. The original 53 were hand-entered (seeded from house-hunt) and are noisy: measured against ZCTA centroids their implied ratio to straight-line ranges ~0.86\u20131.6, and Chatham (17) / Madison (17) look overstated by ~6\u20139 while Glen Rock (22) / Franklin Lakes (24) look understated by ~9. The 11 towns added 2026-07-17 were derived instead: straight-line from the zip's ZCTA centroid to 07090's, scaled by the median ratio of that town's 5 nearest already-listed neighbours (a single global ratio inverts the western Somerset towns). Towns sharing a zip share a dist_mi \u2014 it comes from the zip centroid, so West Caldwell=16 matches Caldwell and Morris Township=19 matches Morristown. Don't read precision into it.",
+ "_county_rule": "county per town, from nj_municipalities.json (MOD-IV is keyed on COUNTY+MUN_NAME, so it is authoritative there), cross-checked against the county field on deed-sourced sales rows \u2014 all 52 towns with deed rows agree. Cedar Knolls and Towaco have no nj_municipalities entry of their own; both were resolved against the live maps.nj.gov Cadastral layer on 2026-07-13 (07927 -> MORRIS/HANOVER TWP, 07082 -> MORRIS/MONTVILLE TWP). Cedar Knolls has no deed rows at all, so its county is endpoint-verified but not sales-corroborated.",
+ "priority_anchor_zip": "07090",
+ "towns": [
+  {
+   "name": "Westfield",
+   "county": "UNION",
+   "zips": [
+    "07090"
+   ],
+   "dist_mi": 0,
+   "note": "The priority anchor itself. It is a TARGET TOWN, not just a reference point \u2014 dist_mi 0. Originally omitted because this file was seeded from house-hunt/criteria.json, where 07090 appears only as priority_anchor_zip; that made sense for a scout looking for listings NEAR here, but market-history needs the anchor's own sales as the baseline every other town is compared against."
+  },
+  {
+   "name": "Cranford",
+   "county": "UNION",
+   "zips": [
+    "07016"
+   ],
+   "dist_mi": 2
+  },
+  {
+   "name": "Garwood",
+   "county": "UNION",
+   "zips": [
+    "07027"
+   ],
+   "dist_mi": 2
+  },
+  {
+   "name": "Fanwood",
+   "county": "UNION",
+   "zips": [
+    "07023"
+   ],
+   "dist_mi": 3
+  },
+  {
+   "name": "Scotch Plains",
+   "county": "UNION",
+   "zips": [
+    "07076"
+   ],
+   "dist_mi": 3
+  },
+  {
+   "name": "Mountainside",
+   "county": "UNION",
+   "zips": [
+    "07092"
+   ],
+   "dist_mi": 3,
+   "note": "Added 2026-07-17. Borders Westfield; its own zip, its own borough (MOUNTAINSIDE BORO), so no shared-zip or section subtlety. Sends high-schoolers to Governor Livingston in Berkeley Heights."
+  },
+  {
+   "name": "Clark",
+   "county": "UNION",
+   "zips": [
+    "07066"
+   ],
+   "dist_mi": 4
+  },
+  {
+   "name": "Springfield",
+   "county": "UNION",
+   "zips": [
+    "07081"
+   ],
+   "dist_mi": 5
+  },
+  {
+   "name": "Watchung",
+   "county": "SOMERSET",
+   "zips": [
+    "07069"
+   ],
+   "dist_mi": 5
+  },
+  {
+   "name": "Colonia",
+   "county": "MIDDLESEX",
+   "zips": [
+    "07067"
+   ],
+   "dist_mi": 6
+  },
+  {
+   "name": "Summit",
+   "county": "UNION",
+   "zips": [
+    "07901"
+   ],
+   "dist_mi": 6
+  },
+  {
+   "name": "Berkeley Heights",
+   "county": "UNION",
+   "zips": [
+    "07922"
+   ],
+   "dist_mi": 7
+  },
+  {
+   "name": "New Providence",
+   "county": "UNION",
+   "zips": [
+    "07974"
+   ],
+   "dist_mi": 7
+  },
+  {
+   "name": "Millburn",
+   "county": "ESSEX",
+   "zips": [
+    "07041"
+   ],
+   "dist_mi": 7,
+   "note": "Added 2026-07-17. Millburn proper \u2014 the OTHER half of MILLBURN TWP, whose 07078 half is already listed as Short Hills. Both are section_of the same municipality subset by their own zip (the Woodbridge/Colonia pattern), so the township is fetched twice and neither swallows the other. Before this entry existed, Short Hills' section filter DROPPED every 07041 sale on the floor \u2014 Millburn proper was fetched and discarded, not missing."
+  },
+  {
+   "name": "Short Hills",
+   "county": "ESSEX",
+   "zips": [
+    "07078"
+   ],
+   "dist_mi": 8
+  },
+  {
+   "name": "South Plainfield",
+   "county": "MIDDLESEX",
+   "zips": [
+    "07080"
+   ],
+   "dist_mi": 8
+  },
+  {
+   "name": "Warren",
+   "county": "SOMERSET",
+   "zips": [
+    "07059"
+   ],
+   "dist_mi": 8
+  },
+  {
+   "name": "Edison",
+   "county": "MIDDLESEX",
+   "zips": [
+    "08820",
+    "08817",
+    "08837"
+   ],
+   "dist_mi": 9
+  },
+  {
+   "name": "Green Brook",
+   "county": "SOMERSET",
+   "zips": [
+    "08812"
+   ],
+   "dist_mi": 9
+  },
+  {
+   "name": "Metuchen",
+   "county": "MIDDLESEX",
+   "zips": [
+    "08840"
+   ],
+   "dist_mi": 9
+  },
+  {
+   "name": "Woodbridge",
+   "county": "MIDDLESEX",
+   "zips": [
+    "07095"
+   ],
+   "dist_mi": 10
+  },
+  {
+   "name": "Gillette",
+   "county": "MORRIS",
+   "zips": [
+    "07933"
+   ],
+   "dist_mi": 10,
+   "note": "Added 2026-07-17 \u2014 see Stirling."
+  },
+  {
+   "name": "Stirling",
+   "county": "MORRIS",
+   "zips": [
+    "07980"
+   ],
+   "dist_mi": 10,
+   "note": "Added 2026-07-17, replacing the single 'Long Hill' entry. Long Hill Twp IS Stirling + Gillette + Millington; it held all three zips, so its 333 sales were already section-separable and were relabelled by zip in place \u2014 no re-scrape. Split because the file's convention is the name people say (Colonia, Basking Ridge, Towaco, Short Hills), and nobody says Long Hill. All three are section_of LONG HILL TWP subset by their own zip, so the township is fetched three times and no sale is counted twice."
+  },
+  {
+   "name": "Maplewood",
+   "county": "ESSEX",
+   "zips": [
+    "07040"
+   ],
+   "dist_mi": 11
+  },
+  {
+   "name": "South Orange",
+   "county": "ESSEX",
+   "zips": [
+    "07079"
+   ],
+   "dist_mi": 11
+  },
+  {
+   "name": "Millington",
+   "county": "MORRIS",
+   "zips": [
+    "07946"
+   ],
+   "dist_mi": 11,
+   "note": "Added 2026-07-17 \u2014 see Stirling. Meyersville sits in 07946 too and lands here."
+  },
+  {
+   "name": "Livingston",
+   "county": "ESSEX",
+   "zips": [
+    "07039"
+   ],
+   "dist_mi": 12
+  },
+  {
+   "name": "Bridgewater",
+   "county": "SOMERSET",
+   "zips": [
+    "08807"
+   ],
+   "dist_mi": 13
+  },
+  {
+   "name": "Martinsville",
+   "county": "SOMERSET",
+   "zips": [
+    "08836"
+   ],
+   "dist_mi": 13,
+   "note": "Added 2026-07-17. A section of BRIDGEWATER TWP, which was already being pulled WITHOUT section_of \u2014 so aggregate.py was rewriting every 08836 deed's zip to 08807 and filing it under Bridgewater. Martinsville's sales were never missing, they were mislabelled, and the true ZIP5 was destroyed on write. Fixing it required marking Bridgewater section_of 08807 and re-fetching the township; the 744 stale Bridgewater deed rows were purged first, because a re-fetch alone would have added 08836 rows ALONGSIDE the old 08807 copies (different merge key, same source \u2014 coalesce_sales' cross-source guard would not have caught it)."
+  },
+  {
+   "name": "West Orange",
+   "county": "ESSEX",
+   "zips": [
+    "07052"
+   ],
+   "dist_mi": 13
+  },
+  {
+   "name": "Basking Ridge",
+   "county": "SOMERSET",
+   "zips": [
+    "07920"
+   ],
+   "dist_mi": 14
+  },
+  {
+   "name": "Glen Ridge",
+   "county": "ESSEX",
+   "zips": [
+    "07028"
+   ],
+   "dist_mi": 14
+  },
+  {
+   "name": "Verona",
+   "county": "ESSEX",
+   "zips": [
+    "07044"
+   ],
+   "dist_mi": 14
+  },
+  {
+   "name": "East Hanover",
+   "county": "MORRIS",
+   "zips": [
+    "07936"
+   ],
+   "dist_mi": 15,
+   "note": "Added 2026-07-17. EAST HANOVER TWP is its own municipality \u2014 distinct from the HANOVER TWP that Cedar Knolls (07927) resolves to. Verified as separate MUN_NAMEs on the live Cadastral layer, so the two do not collide."
+  },
+  {
+   "name": "Essex Fells",
+   "county": "ESSEX",
+   "zips": [
+    "07021"
+   ],
+   "dist_mi": 15
+  },
+  {
+   "name": "Florham Park",
+   "county": "MORRIS",
+   "zips": [
+    "07932"
+   ],
+   "dist_mi": 15
+  },
+  {
+   "name": "Montclair",
+   "county": "ESSEX",
+   "zips": [
+    "07042",
+    "07043"
+   ],
+   "dist_mi": 15
+  },
+  {
+   "name": "Roseland",
+   "county": "ESSEX",
+   "zips": [
+    "07068"
+   ],
+   "dist_mi": 15
+  },
+  {
+   "name": "Caldwell",
+   "county": "ESSEX",
+   "zips": [
+    "07006"
+   ],
+   "dist_mi": 16
+  },
+  {
+   "name": "Cedar Grove",
+   "county": "ESSEX",
+   "zips": [
+    "07009"
+   ],
+   "dist_mi": 16
+  },
+  {
+   "name": "North Caldwell",
+   "county": "ESSEX",
+   "zips": [
+    "07006"
+   ],
+   "dist_mi": 16,
+   "note": "shares 07006 with Caldwell (listed first, so it wins the zip fallback) and West Caldwell. Only deed-backed (nj_records) rows separate the three; scrape-only 07006 sales land under Caldwell."
+  },
+  {
+   "name": "West Caldwell",
+   "county": "ESSEX",
+   "zips": [
+    "07006"
+   ],
+   "dist_mi": 16,
+   "note": "Added 2026-07-17 \u2014 the third town in 07006, which _zip_label_rule already named but towns[] never listed. Same deal as North Caldwell: WEST CALDWELL TWP is its own municipality so deed rows land here correctly, but scrape-only 07006 sales still fall back to Caldwell. dist_mi 16 matches its 07006 siblings by construction \u2014 one zip centroid, one distance."
+  },
+  {
+   "name": "Bedminster",
+   "county": "SOMERSET",
+   "zips": [
+    "07921"
+   ],
+   "dist_mi": 17
+  },
+  {
+   "name": "Chatham",
+   "county": "MORRIS",
+   "zips": [
+    "07928"
+   ],
+   "dist_mi": 17
+  },
+  {
+   "name": "Madison",
+   "county": "MORRIS",
+   "zips": [
+    "07940"
+   ],
+   "dist_mi": 17
+  },
+  {
+   "name": "Nutley",
+   "county": "ESSEX",
+   "zips": [
+    "07110"
+   ],
+   "dist_mi": 17
+  },
+  {
+   "name": "Branchburg",
+   "county": "SOMERSET",
+   "zips": [
+    "08876"
+   ],
+   "dist_mi": 18
+  },
+  {
+   "name": "Morristown",
+   "county": "MORRIS",
+   "zips": [
+    "07960"
+   ],
+   "dist_mi": 19
+  },
+  {
+   "name": "Morris Township",
+   "county": "MORRIS",
+   "zips": [
+    "07960"
+   ],
+   "dist_mi": 19,
+   "note": "Added 2026-07-17. MORRIS TWP is a separate municipality that wraps around MORRISTOWN TOWN and shares its 07960 zip \u2014 verified as two distinct MUN_NAMEs on the live Cadastral layer. Must stay listed AFTER Morristown: first-wins means Morristown keeps the 07960 scrape fallback, and reordering these two would silently reassign every historical scrape-only 07960 row. Deed rows separate the two correctly. Same shape as the 07006 Caldwells."
+  },
+  {
+   "name": "Bernardsville",
+   "county": "SOMERSET",
+   "zips": [
+    "07924"
+   ],
+   "dist_mi": 19,
+   "note": "Added 2026-07-17. BERNARDSVILLE BORO is its own municipality \u2014 not to be confused with the BERNARDS TWP that Basking Ridge (07920) is a section of. Verified distinct on the live layer."
+  },
+  {
+   "name": "Cedar Knolls",
+   "county": "MORRIS",
+   "zips": [
+    "07927"
+   ],
+   "dist_mi": 20
+  },
+  {
+   "name": "Morris Plains",
+   "county": "MORRIS",
+   "zips": [
+    "07950"
+   ],
+   "dist_mi": 21
+  },
+  {
+   "name": "Denville",
+   "county": "MORRIS",
+   "zips": [
+    "07834"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "Glen Rock",
+   "county": "BERGEN",
+   "zips": [
+    "07452"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "Mendham",
+   "county": "MORRIS",
+   "zips": [
+    "07945"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "Boonton",
+   "county": "MORRIS",
+   "zips": [
+    "07005"
+   ],
+   "dist_mi": 23
+  },
+  {
+   "name": "Montville",
+   "county": "MORRIS",
+   "zips": [
+    "07045"
+   ],
+   "dist_mi": 23
+  },
+  {
+   "name": "Mountain Lakes",
+   "county": "MORRIS",
+   "zips": [
+    "07046"
+   ],
+   "dist_mi": 23,
+   "note": "Added 2026-07-17. MOUNTAIN LAKES BORO, its own municipality and zip \u2014 no shared-zip or section handling needed."
+  },
+  {
+   "name": "Franklin Lakes",
+   "county": "BERGEN",
+   "zips": [
+    "07417"
+   ],
+   "dist_mi": 24
+  },
+  {
+   "name": "Towaco",
+   "county": "MORRIS",
+   "zips": [
+    "07082"
+   ],
+   "dist_mi": 25
+  },
+  {
+   "name": "Randolph",
+   "county": "MORRIS",
+   "zips": [
+    "07869"
+   ],
+   "dist_mi": 25
+  },
+  {
+   "name": "Chester",
+   "county": "MORRIS",
+   "zips": [
+    "07930"
+   ],
+   "dist_mi": 26
+  },
+  {
+   "name": "Long Valley",
+   "county": "MORRIS",
+   "zips": [
+    "07853"
+   ],
+   "dist_mi": 29
+  },
+  {
+   "name": "Hanover Township",
+   "county": "MORRIS",
+   "zips": [
+    "07981"
+   ],
+   "dist_mi": 13
+  },
+  {
+   "name": "Parsippany-Troy Hills",
+   "county": "MORRIS",
+   "zips": [
+    "07054",
+    "07034"
+   ],
+   "dist_mi": 14
+  },
+  {
+   "name": "Fairfield",
+   "county": "ESSEX",
+   "zips": [
+    "07004"
+   ],
+   "dist_mi": 16
+  },
+  {
+   "name": "Mendham Township",
+   "county": "MORRIS",
+   "zips": [
+    "07945"
+   ],
+   "dist_mi": 16
+  },
+  {
+   "name": "Woodland Park",
+   "county": "PASSAIC",
+   "zips": [
+    "07424"
+   ],
+   "dist_mi": 18
+  },
+  {
+   "name": "Totowa",
+   "county": "PASSAIC",
+   "zips": [
+    "07512"
+   ],
+   "dist_mi": 19
+  },
+  {
+   "name": "Wayne",
+   "county": "PASSAIC",
+   "zips": [
+    "07470"
+   ],
+   "dist_mi": 21
+  },
+  {
+   "name": "Elmwood Park",
+   "county": "BERGEN",
+   "zips": [
+    "07407"
+   ],
+   "dist_mi": 21
+  },
+  {
+   "name": "Pompton Plains",
+   "county": "MORRIS",
+   "zips": [
+    "07444"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "North Haledon",
+   "county": "PASSAIC",
+   "zips": [
+    "07508"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "Haledon",
+   "county": "PASSAIC",
+   "zips": [
+    "07508"
+   ],
+   "dist_mi": 22
+  },
+  {
+   "name": "Pompton Lakes",
+   "county": "PASSAIC",
+   "zips": [
+    "07442"
+   ],
+   "dist_mi": 24
+  }
+ ]
 }

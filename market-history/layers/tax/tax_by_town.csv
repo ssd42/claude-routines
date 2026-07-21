@@ -17,7 +17,9 @@ Cranford,UNION,13728,1.889,189415,Cranford Township,0
 Denville,MORRIS,11462,1.831,411101,Denville Township,0
 East Hanover,MORRIS,9467,1.363,357083,East Hanover Township,0
 Edison,MIDDLESEX,10584,1.7,184897,Edison Township,0
+Elmwood Park,BERGEN,10738,1.958,335454,Elmwood Park Borough,0
 Essex Fells,ESSEX,21888,1.682,947342,Essex Fells Borough,0
+Fairfield,ESSEX,11045,1.468,530788,Fairfield Township,0
 Fanwood,UNION,14756,2.047,473033,Fanwood Borough,0
 Florham Park,MORRIS,11468,1.116,678476,Florham Park Borough,0
 Franklin Lakes,BERGEN,20710,1.385,1088076,Franklin Lakes Borough,0
@@ -26,12 +28,15 @@ Gillette,MORRIS,13699,1.936,622466,Long Hill Township,1
 Glen Ridge,ESSEX,23673,2.043,674911,Glen Ridge Borough,0
 Glen Rock,BERGEN,20138,2.138,591156,Glen Rock Borough,0
 Green Brook,SOMERSET,14809,2.037,697163,Green Brook Township,0
+Haledon,PASSAIC,12583,2.497,231821,Haledon Borough,0
+Hanover Township,MORRIS,8800,1.423,428983,Hanover Township,0
 Livingston,ESSEX,18465,1.751,729727,Livingston Township,0
 Long Valley,MORRIS,13292,2.066,442634,Washington Township,1
 Madison,MORRIS,15897,1.358,705283,Madison Borough,0
 Maplewood,ESSEX,19378,2.314,807155,Maplewood Township,0
 Martinsville,SOMERSET,10962,1.65,576521,Bridgewater Township,1
 Mendham,MORRIS,21284,1.67,1157991,Mendham Township,0
+Mendham Township,MORRIS,21284,1.67,1157991,Mendham Township,0
 Metuchen,MIDDLESEX,13818,2.143,190473,Metuchen Borough,0
 Millburn,ESSEX,26292,1.414,1302529,Millburn Township,0
 Millington,MORRIS,13699,1.936,622466,Long Hill Township,1
@@ -44,7 +49,11 @@ Mountain Lakes,MORRIS,24089,2.012,1048118,Mountain Lakes Borough,0
 Mountainside,UNION,13303,1.424,633778,Mountainside Borough,0
 New Providence,UNION,16228,1.8,309624,New Providence Borough,0
 North Caldwell,ESSEX,18469,1.644,800484,North Caldwell Borough,0
+North Haledon,PASSAIC,12223,1.928,383578,North Haledon Borough,0
 Nutley,ESSEX,13314,2.201,493362,Nutley Township,0
+Parsippany-Troy Hills,MORRIS,10851,2.299,314365,Parsippany-Troy Hills Township,0
+Pompton Lakes,PASSAIC,11553,2.443,279678,Pompton Lakes Borough,0
+Pompton Plains,MORRIS,10574,1.718,575249,Pequannock Township,1
 Randolph,MORRIS,14453,2.097,493076,Randolph Township,0
 Roseland,ESSEX,11911,1.743,639995,Roseland Borough,0
 Scotch Plains,UNION,15818,1.933,128092,Scotch Plains Township,0
@@ -54,11 +63,14 @@ South Plainfield,MIDDLESEX,9154,1.946,125139,South Plainfield Borough,0
 Springfield,UNION,12971,1.988,538099,Springfield Township,0
 Stirling,MORRIS,13699,1.936,622466,Long Hill Township,1
 Summit,UNION,19697,1.378,440642,Summit City,0
+Totowa,PASSAIC,11852,1.522,404019,Totowa Borough,0
 Towaco,MORRIS,14424,1.832,539745,Montville Township,1
 Verona,ESSEX,13788,2.049,435752,Verona Township,0
 Warren,SOMERSET,16986,1.767,969669,Warren Township,0
 Watchung,SOMERSET,18258,1.877,935740,Watchung Borough,0
+Wayne,PASSAIC,13867,2.148,231208,Wayne Township,0
 West Caldwell,ESSEX,12371,1.715,450020,West Caldwell Township,0
 West Orange,ESSEX,16162,2.626,615472,West Orange Township,0
 Westfield,UNION,18940,1.661,826690,Westfield Town,0
 Woodbridge,MIDDLESEX,9597,2.08,79752,Woodbridge Township,0
+Woodland Park,PASSAIC,11946,2.161,347806,Woodland Park Borough,0

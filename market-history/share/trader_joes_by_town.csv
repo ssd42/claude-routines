@@ -27,10 +27,12 @@ Millington,11,8.5,Trader Joe's - Westfield,Westfield
 South Orange,11,2.6,Trader Joe's - Millburn,Millburn
 Livingston,12,3.3,Trader Joe's - Florham Park,Florham Park
 Bridgewater,13,14.7,Trader Joe's - Westfield,Westfield
+Hanover Township,13,,,
 Martinsville,13,11.6,Trader Joe's - Westfield,Westfield
 West Orange,13,4.7,Trader Joe's - Millburn,Millburn
 Basking Ridge,14,10.9,Trader Joe's - Westfield,Westfield
 Glen Ridge,14,3.7,Trader Joe's - Clifton,Clifton
+Parsippany-Troy Hills,14,,,
 Verona,14,5.0,Trader Joe's - Clifton,Clifton
 East Hanover,15,2.6,Trader Joe's - Florham Park,Florham Park
 Essex Fells,15,6.7,Trader Joe's - Florham Park,Florham Park
@@ -39,6 +41,8 @@ Montclair,15,2.9,Trader Joe's - Clifton,Clifton
 Roseland,15,4.9,Trader Joe's - Florham Park,Florham Park
 Caldwell,16,7.2,Trader Joe's - Clifton,Clifton
 Cedar Grove,16,4.6,Trader Joe's - Clifton,Clifton
+Fairfield,16,,,
+Mendham Township,16,7.7,Trader Joe's - Denville,Denville
 North Caldwell,16,7.2,Trader Joe's - Clifton,Clifton
 West Caldwell,16,7.2,Trader Joe's - Clifton,Clifton
 Bedminster,17,17.0,Trader Joe's - Denville,Denville
@@ -46,18 +50,26 @@ Chatham,17,4.5,Trader Joe's - Florham Park,Florham Park
 Madison,17,2.4,Trader Joe's - Florham Park,Florham Park
 Nutley,17,1.1,Trader Joe's - Clifton,Clifton
 Branchburg,18,18.1,Trader Joe's - Westfield,Westfield
+Woodland Park,18,,,
 Bernardsville,19,10.6,Trader Joe's - Denville,Denville
 Morris Township,19,5.8,Trader Joe's - Florham Park,Florham Park
 Morristown,19,5.8,Trader Joe's - Florham Park,Florham Park
+Totowa,19,,,
 Cedar Knolls,20,4.0,Trader Joe's - Denville,Denville
+Elmwood Park,21,,,
 Morris Plains,21,2.0,Trader Joe's - Denville,Denville
+Wayne,21,,,
 Denville,22,1.8,Trader Joe's - Denville,Denville
 Glen Rock,22,2.8,Trader Joe's - Paramus,Paramus
+Haledon,22,,,
 Mendham,22,7.7,Trader Joe's - Denville,Denville
+North Haledon,22,,,
+Pompton Plains,22,,,
 Boonton,23,6.7,Trader Joe's - Denville,Denville
 Montville,23,8.0,Trader Joe's - Wayne,Wayne
 Mountain Lakes,23,3.9,Trader Joe's - Denville,Denville
 Franklin Lakes,24,3.6,Trader Joe's - Wayne,Wayne
+Pompton Lakes,24,,,
 Randolph,25,4.0,Trader Joe's - Denville,Denville
 Towaco,25,6.4,Trader Joe's - Wayne,Wayne
 Chester,26,10.9,Trader Joe's - Denville,Denville

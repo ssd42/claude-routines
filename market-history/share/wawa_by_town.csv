@@ -27,10 +27,12 @@ Millington,11,5.0,Wawa - North Plainfield,North Plainfield,
 South Orange,11,1.8,Wawa - Maplewood,Maplewood,
 Livingston,12,3.7,Wawa - East Hanover,East Hanover,
 Bridgewater,13,3.3,Wawa - Bridgewater,Bridgewater,
+Hanover Township,13,,,,
 Martinsville,13,2.0,Wawa - Bridgewater,Bridgewater,
 West Orange,13,2.5,Wawa - Orange,Orange,
 Basking Ridge,14,7.0,Wawa - North Plainfield,North Plainfield,yes
 Glen Ridge,14,2.3,Wawa - Belleville,Belleville,
+Parsippany-Troy Hills,14,,,,
 Verona,14,4.2,Wawa - Fairfield,Fairfield,
 East Hanover,15,1.5,Wawa - East Hanover,East Hanover,
 Essex Fells,15,4.1,Wawa - Pine Brook,Pine Brook,
@@ -39,6 +41,8 @@ Montclair,15,3.1,Wawa - Orange,Orange,
 Roseland,15,2.9,Wawa - Parsippany,Parsippany,
 Caldwell,16,2.6,Wawa - Fairfield,Fairfield,
 Cedar Grove,16,3.2,Wawa - Fairfield,Fairfield,
+Fairfield,16,,,,
+Mendham Township,16,6.5,Wawa - Randolph,Randolph,yes
 North Caldwell,16,2.6,Wawa - Fairfield,Fairfield,
 West Caldwell,16,2.6,Wawa - Fairfield,Fairfield,
 Bedminster,17,8.5,Wawa - Bridgewater,Bridgewater,yes
@@ -46,18 +50,26 @@ Chatham,17,4.7,Wawa - Springfield,Springfield,
 Madison,17,3.9,Wawa - East Hanover,East Hanover,
 Nutley,17,3.1,Wawa - Belleville,Belleville,
 Branchburg,18,5.6,Wawa - Hillsborough,Hillsborough,yes
+Woodland Park,18,,,,
 Bernardsville,19,9.9,Wawa - Randolph,Randolph,yes
 Morris Township,19,6.3,Wawa - East Hanover,East Hanover,yes
 Morristown,19,6.3,Wawa - East Hanover,East Hanover,yes
+Totowa,19,,,,
 Cedar Knolls,20,3.5,Wawa - East Hanover,East Hanover,
+Elmwood Park,21,,,,
 Morris Plains,21,2.9,Wawa - Mountain Lakes,Mountain Lakes,
+Wayne,21,,,,
 Denville,22,1.2,Wawa - Mountain Lakes,Mountain Lakes,
 Glen Rock,22,9.2,Wawa - Fairfield,Fairfield,yes
+Haledon,22,,,,
 Mendham,22,6.5,Wawa - Randolph,Randolph,yes
+North Haledon,22,,,,
+Pompton Plains,22,,,,
 Boonton,23,4.2,Wawa - Mountain Lakes,Mountain Lakes,
 Montville,23,3.5,Wawa - Pine Brook,Pine Brook,
 Mountain Lakes,23,1.2,Wawa - Mountain Lakes,Mountain Lakes,
 Franklin Lakes,24,9.0,Wawa - Fairfield,Fairfield,yes
+Pompton Lakes,24,,,,
 Randolph,25,2.2,Wawa - Randolph,Randolph,
 Towaco,25,4.5,Wawa - Fairfield,Fairfield,
 Chester,26,9.0,Wawa - Randolph,Randolph,yes

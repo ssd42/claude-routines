@@ -303,14 +303,6 @@
    ]
   },
   {
-   "town": "Mendham",
-   "county": "MORRIS",
-   "mun": "MENDHAM TWP",
-   "zips": [
-    "07945"
-   ]
-  },
-  {
    "town": "Montville",
    "county": "MORRIS",
    "mun": "MONTVILLE TWP",
@@ -539,6 +531,109 @@
    "mun": "MOUNTAIN LAKES BORO",
    "zips": [
     "07046"
+   ]
+  },
+  {
+   "town": "Hanover Township",
+   "county": "MORRIS",
+   "mun": "HANOVER TWP",
+   "zips": [
+    "07981"
+   ],
+   "section_of": "Hanover proper (Whippany, 07981) is one section of Hanover Twp; the pull returns the whole township \u2014 subset by ZIP5=07981. Cedar Knolls (07927) is a separate entry on the same municipality, so the township is fetched twice \u2014 same shape as Millburn/Short Hills. This also closes a gap: Cedar Knolls had NO nj_records entry, so it was listing_scrape-only until now."
+  },
+  {
+   "town": "Parsippany-Troy Hills",
+   "county": "MORRIS",
+   "mun": "PARSIPPANY TR HLS TWP",
+   "zips": [
+    "07054",
+    "07034"
+   ],
+   "note": "MUN_NAME is abbreviated 'PARSIPPANY TR HLS TWP' \u2014 verified live 2026-07-20. Covers Parsippany (07054) and Lake Hiawatha (07034)."
+  },
+  {
+   "town": "Fairfield",
+   "county": "ESSEX",
+   "mun": "FAIRFIELD TWP",
+   "zips": [
+    "07004"
+   ]
+  },
+  {
+   "town": "Mendham Township",
+   "county": "MORRIS",
+   "mun": "MENDHAM TWP",
+   "zips": [
+    "07945"
+   ],
+   "note": "Mendham Borough and Mendham Township are SEPARATE municipalities sharing postal ZIP 07945. MENDHAM TWP was previously fetched under the 'Mendham' town label; it now belongs to this entry, so the two stop being pooled. nj_records separates them cleanly by MUN_NAME; listing_scrape is ZIP-keyed and cannot, so those listings are separated by the coordinate relabel instead. Sales committed BEFORE 2026-07-20 still carry the pooled 'Mendham' label."
+  },
+  {
+   "town": "Woodland Park",
+   "county": "PASSAIC",
+   "mun": "WOODLAND PARK BORO",
+   "zips": [
+    "07424"
+   ]
+  },
+  {
+   "town": "Totowa",
+   "county": "PASSAIC",
+   "mun": "TOTOWA BORO",
+   "zips": [
+    "07512"
+   ]
+  },
+  {
+   "town": "Wayne",
+   "county": "PASSAIC",
+   "mun": "WAYNE TWP",
+   "zips": [
+    "07470"
+   ]
+  },
+  {
+   "town": "Elmwood Park",
+   "county": "BERGEN",
+   "mun": "ELMWOOD PARK BORO",
+   "zips": [
+    "07407"
+   ]
+  },
+  {
+   "town": "Pompton Plains",
+   "county": "MORRIS",
+   "mun": "PEQUANNOCK TWP",
+   "zips": [
+    "07444"
+   ],
+   "section_of": "Pompton Plains is a section of Pequannock Twp (not itself a municipality); the pull returns all of Pequannock \u2014 subset by ZIP5=07444."
+  },
+  {
+   "town": "North Haledon",
+   "county": "PASSAIC",
+   "mun": "NORTH HALEDON BORO",
+   "zips": [
+    "07508"
+   ],
+   "note": "Shares postal ZIP 07508 with Haledon, which is a separate municipality. nj_records separates them by MUN_NAME; listing_scrape is ZIP-keyed and cannot, so those listings are separated by the coordinate relabel."
+  },
+  {
+   "town": "Haledon",
+   "county": "PASSAIC",
+   "mun": "HALEDON BORO",
+   "zips": [
+    "07508"
+   ],
+   "note": "Shares postal ZIP 07508 with North Haledon \u2014 see that entry. Haledon has no ZIP of its own."
+  },
+  {
+   "town": "Pompton Lakes",
+   "county": "PASSAIC",
+   "mun": "POMPTON LAKES BORO",
+   "zips": [
+    "07442"
    ]
   }
  ]
