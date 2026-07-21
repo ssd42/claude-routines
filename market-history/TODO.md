@@ -15,7 +15,75 @@ Sections: **Ideas** (not thought through) → **Ready** (spec'd enough to build)
 
 ## Doing
 
-*(empty)*
+### The over-priced old houses — BUILT 2026-07-21, awaiting review
+Came out of asking why six houses came back 20–52% too dear. Not committed yet. **It does
+not fix those six** — see the honest scoring at the bottom.
+
+**Size no longer counts double, and each town gets its own curve.** We used to assume a
+house worth $400 a square foot stays worth $400 a square foot however big it gets. It
+doesn't — the kitchen, the roof and the land are already paid for in the first 1,500 feet,
+so bigger houses fetch less per foot. Because the comparable sales we pull tend to be
+*smaller* than the house we're pricing (58% of the time), that assumption quietly marked up
+the bigger ones.
+
+Rather than one number for all of North Jersey, we now work out from each town's own sales
+how fast price actually climbs with floor area. It differs a lot, and the differences make
+sense — an extra square foot is worth nearly full freight in Montville, Chatham and Summit,
+and about half that in Woodbridge, Cranford and Colonia. Towns with too few sales fall back
+to the all-sales curve, exactly as thin towns already borrow the regional price trend.
+
+What it buys: houses well above their comparables used to come back 3.7% too dear and now
+come back 1.2% too dear, while the ones below barely move. **The headline accuracy number
+hardly shifts** (9.8% → 9.6%) because this only bites at the extremes. Per-town versus one
+global number was a coin flip head to head (better on 505 of 1,121 graded sales, worse on
+501) — it's in because it's *derived from each town's data* rather than picked by trial and
+error, it matches how the price trend already works, and "what does an extra square foot
+buy here" is now a question we can answer and show. Accuracy is not the argument.
+
+**Tried and thrown away the same day — worth not repeating.** Reading the listing for what
+shape the house is in: when the copy says as-is, needs work, handyman or TLC, price the
+house near the bottom of its comparable range instead of the middle. Removed within the
+hour, because **there is no way to prove it works.** Our sold-sale records don't keep the
+listing write-up, so it can't be graded against a single past sale — only 40 old sales
+still have their text and just 4 of those say as-is. It would have quietly moved prices on
+live listings with nothing checking it. The diagnosis behind it still looks right; the fix
+should wait until we can score it. **To make it gradeable:** start keeping the listing
+write-up when a house we're watching sells. A few months of that and this becomes a
+measurement instead of a guess.
+
+**Honest scoring against the six houses that started this.** Their misses went from
++51.6/+37.3/+36.5/+25.8/+23.1/+19.5% to +52.6/+35.4/+34.0/+22.5/+24.7/+20.6% — mean
+improvement under a point, and two got *worse*. The size fix is real, but it is not their
+problem; their problem is condition, and we can't see condition.
+
+**Decided against 2026-07-21: leaning on the asking price instead of our own number.**
+It scores better and it is the wrong trade. Our estimate is not trying to guess what a
+house will sell for — it says what the house would be worth *in normal shape for its town,
+size and age*, and the GAP between that and what they're asking is the entire point of the
+tool for a buyer. Lean on the ask and we can never say a house is worth more than they're
+asking, which is the only reason to have it.
+
+And the gap earns its keep — measured over 1,121 sales:
+
+| our estimate vs the ask | how often it beat its ask | by how much |
+|---|---|---|
+| below the ask by 10%+   | 56% | +0.6% |
+| 10–20% above the ask    | 76% | +4.6% |
+| 35%+ above the ask      | 76% | +5.6% |
+| *every house*           | *66%* | *+2.5%* |
+
+A house our comps put well above its ask gets bid up 76% of the time against a 56% floor.
+That is a real call, and it is the one worth grading ourselves on. **The "our typical miss"
+number on the How-right-are-we page is measuring the wrong thing** and makes the tool look
+worse than it is.
+
+The six are the tail of that top bucket — the 24% where the gap was a wreck rather than a
+bargain. Which is the question actually worth answering: **when our number sits far above
+the ask, is that a bargain or a wreck?** Both look identical to us today. The repair
+budget is the honest lever on it — a $270k gap on 416 Jerusalem is far more than any
+plausible repair bill, and that is itself a tell.
+
+**Next:** eyeball it on the page before committing.
 
 ---
 
@@ -26,27 +94,6 @@ Sections: **Ideas** (not thought through) → **Ready** (spec'd enough to build)
 ---
 
 ## Ideas
-
-### Stop competing with the asking price — use it
-The single biggest idea to come out of the backtest, and it reframes the whole tool.
-
-Our estimate misses the true sale price by about **10.7%**. Just believing the asking price
-misses by **4.0%**. That looked like a failure until you see how the big firms do it: their
-published error is roughly 2% for a house that's on the market and 7% for one that isn't —
-same model, same company. The difference is that when a house is listed, they feed the
-model *the asking price*. It carries most of the signal, because someone walked the house.
-
-**So stop producing a from-scratch price and then comparing it to the ask.** Predict the
-**gap** instead — "worth about 8% under what they're asking, and here's how sure we are."
-That is the question you actually have, and it's the one the tool is best placed to answer.
-
-**Why it's not just cosmetic:** it changes what the page says, not only how accurate it is.
-And the backtest can grade it directly — does a house we call underpriced actually sell
-above its ask? If that holds, the tool earns its keep even at 10% error. If it's flat, it
-doesn't, and that is worth knowing.
-**Open questions:** does the ask become an input to one blended number, or stay a separate
-opinion shown beside ours? What do we show for a house that isn't for sale?
-**Size:** medium. **Do after:** the three fixes above, so the measurement stays clean.
 
 ### Find what the same house sold for last time
 The biggest missing ingredient, and the one that would help most with the thing we're

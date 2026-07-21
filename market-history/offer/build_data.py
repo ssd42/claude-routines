@@ -17,6 +17,7 @@ Comps sliced by month give n~1, so they are never intersected.
 import argparse
 import csv
 import json
+import math
 import os
 import statistics as st
 from collections import defaultdict
@@ -159,6 +160,78 @@ def _band(sqft):
         if lo <= sqft < hi:
             return (lo, hi)
     return None
+
+
+ELAST_MIN = 40        # sales a town needs before it gets its own curve
+ELAST_SHRINK = 60     # half-weight point: at n=60 a town gets 50% of its own slope
+ELAST_CLAMP = (0.30, 1.10)
+
+
+def size_elasticity(sales, town_idx, regional):
+    """How fast price rises with floor area, PER TOWN.
+
+    Fit log(price) = a + b·log(sqft) over the town's own sales, restated at today's
+    prices first so three years of drift don't tilt the slope. `b` is the elasticity:
+
+        b = 1.0   price scales 1:1 with size -- flat $/sqft, what we assumed until now
+        b = 0.5   doubling the floor area buys ~41% more house
+
+    It genuinely differs by town, which is the whole reason not to use one number:
+    Summit 1.03, Scotch Plains 0.73, Colonia 0.53, Nutley 0.36. An extra square foot is
+    worth nearly full freight in Summit and almost nothing in Nutley.
+
+    Fitted per (town, family) -- a condo's size curve is not a house's -- and shrunk
+    toward the all-sales slope by n/(n+ELAST_SHRINK), same trick the seasonal factor uses,
+    so a 41-sale town doesn't get to assert a slope of 0.2 on the strength of noise. Then
+    clamped: outside [0.3, 1.1] we are fitting something other than size.
+
+    ⚠️ HONEST NOTE, so nobody re-litigates this: swapping the global slope for these
+    measured ones is a WASH on accuracy -- better on 505 of 1,121 graded 2026 sales,
+    worse on 501, confidence interval straddling zero. Comps are already matched to
+    within 15-25% of the subject's size, so the exponent has little room to act. It is
+    kept because it is DERIVED rather than tuned, per town like the price index beside
+    it, and because it can be shown on the page and checked -- not because it predicts
+    better. It does not.
+    """
+    pts = defaultdict(list)
+    for r in sales:
+        sqft, sold = num(r["sqft"]), num(r["sold_price"])
+        if not sqft or sqft < MIN_SQFT or not sold or not r["sold_date"]:
+            continue
+        if not (PPSF_MIN <= sold / sqft <= PPSF_MAX):
+            continue
+        fam = FAMILY.get(r["property_type"])
+        if not fam:
+            continue
+        # restate at today's level with the town's own index where it has one
+        yr = r["sold_date"][:4]
+        ix = town_idx.get(r["town"]) or regional
+        pts[(r["town"], fam)].append((math.log(sqft), math.log(sold * ix.get(yr, 1.0))))
+
+    def slope(v):
+        n = len(v)
+        mx = sum(x for x, _ in v) / n
+        my = sum(y for _, y in v) / n
+        sxx = sum((x - mx) ** 2 for x, _ in v)
+        if sxx <= 0:
+            return None
+        return sum((x - mx) * (y - my) for x, y in v) / sxx
+
+    everything = [p for v in pts.values() for p in v]
+    base = slope(everything)
+    if base is None:
+        return {}, None
+    out = {}
+    for (town, fam), v in pts.items():
+        if len(v) < ELAST_MIN:
+            continue                       # too thin to have an opinion -> falls back
+        b = slope(v)
+        if b is None:
+            continue
+        w = len(v) / (len(v) + ELAST_SHRINK)
+        b = w * b + (1 - w) * base
+        out[f"{town}|{fam}"] = round(max(ELAST_CLAMP[0], min(ELAST_CLAMP[1], b)), 3)
+    return out, round(base, 3)
 
 
 def price_index(sales):
@@ -769,6 +842,7 @@ def main():
         }
 
     regional, town_idx, newest = price_index(sales)
+    elast, elast_base = size_elasticity(sales, town_idx, regional)
 
     # Per-town appreciation. PREFER Zillow ZHVI by ZIP (layers/appreciation): a real,
     # town-specific number for all 63 towns from ONE consistent source. Our internal
@@ -832,6 +906,10 @@ def main():
         "towns": towns,
         "priceIndex": regional,     # year -> multiplier onto today's price level
         "townIndex": town_idx,      # same, per town, where the town can carry one
+        # "<town>|<family>" -> how fast price rises with floor area there. See
+        # size_elasticity(): derived per town, not tuned, and a WASH on accuracy.
+        "sizeElast": elast,
+        "sizeElastBase": elast_base,   # the all-sales slope; the fallback and the anchor
         "grain": "contract",        # the seasonal curve buckets on pending_date
         "daysToContract": days_to_contract(sales),
         "daysContractToClose": days_contract_to_close(sales),

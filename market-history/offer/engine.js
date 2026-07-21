@@ -100,6 +100,50 @@ const LOT_TOLS = [0.30, 0.50];
 const ERA_TOLS = [15, 30];
 const LOT_ONLY_TOLS = [0.20, 0.35, 0.50];
 
+/* ── §SIZE — value does not scale 1:1 with floor area ─────────────────────────────
+   Until 2026-07-21 a comp was rescaled by (subject_sqft / comp_sqft), i.e. flat $/sqft:
+   double the floor area, double the price. Houses don't work that way -- $/sqft FALLS as
+   size rises, because land, kitchen and services are already paid for in the first
+   1,500sqft. Flat scaling therefore overprices a subject that is bigger than its comps.
+
+   That is not a rare corner. Comps are drawn from a ±15-25% band, but a town's size
+   distribution is dense at the small end, so the pool's median sqft sits BELOW the
+   subject in 58% of cases. Measured over the 1,121 gradeable 2026 sales, median error by
+   how far the subject sat above its own pool:
+
+       subject vs pool median sqft     -6.3%    +0.0%    +3.9%   +12.8%
+       median error at b=1.00          -2.23%   -0.83%   +0.37%  +3.67%     spread 5.90pp
+       median error at b=0.75          -0.96%   -0.92%   -0.05%  +1.21%     spread 2.17pp
+
+   A pure level shift would move all four columns together; this flattens the GRADIENT,
+   which is what makes it a size correction rather than a thumb on the scale. Overall
+   median |error| barely moves (9.79% -> 9.71%) because the effect only bites in the
+   tails -- that is expected, and is not a reason to think it did nothing.
+
+   ── the exponent is the TOWN's own, like the price index above ──────────────────
+   build_data.py fits log(price) ~ log(sqft) per (town, family) over that town's sales
+   restated at today's prices, shrunk toward the all-sales slope so a thin town can't
+   assert a wild one. It varies a lot, and the variation is real:
+
+       Summit 1.03   Maplewood 0.93   Basking Ridge 0.88   Scotch Plains 0.73
+       Edison 0.70   Colonia 0.53     Woodbridge 0.39      Nutley 0.36
+
+   An extra square foot is worth nearly full freight in Summit and almost nothing in
+   Nutley. A town with too few sales (or a shape we don't fit) falls back to
+   D.sizeElastBase, the all-sales slope, exactly as a thin town borrows the regional
+   price index -- and, like that, it is a fact the page can show rather than a constant
+   someone picked.
+
+   ⚠️ Do not expect this to predict better than one global number; measured, it doesn't.
+   Per-town beat a flat 0.75 on 505 of 1,121 graded 2026 sales and lost on 501, a
+   confidence interval straddling zero. Comps are already size-matched to ±15-25%, so
+   the exponent has little room to act. It is here because it is DERIVED rather than
+   swept for, and because "what does size buy in this town" is a question worth being
+   able to answer. Accuracy is not the argument. */
+const SIZE_ELAST_FALLBACK = 0.75;
+const sizeElast = (town, fam) =>
+  (D.sizeElast && D.sizeElast[town + "|" + fam]) || D.sizeElastBase || SIZE_ELAST_FALLBACK;
+
 /* "Match exactly" — the tightest filter the data allows, with the 10-comp floor
    DISABLED. Everywhere else the tool refuses to answer from a handful of sales; here
    you've asked to see them anyway, so it answers and shouts about the sample size.
@@ -111,7 +155,11 @@ const EXACT_LOT = 0.20;
 function compsExact(town, sqft, beds, baths, mode, lot) {
   const ix = indexFor(town);
   const mult = c => (mode === "idx" ? (ix[c[6]] || 1) : 1);
-  const valOf = c => sqft ? (c[4] / c[1]) * mult(c) * sqft : c[4] * mult(c);
+  // same §SIZE scaling as comps(); at ±10% sqft the correction is small, but the two
+  // paths must not disagree about what a comp is worth to this house
+  const valOf = c => sqft
+    ? c[4] * mult(c) * Math.pow(sqft / c[1], sizeElast(c[0], c[9]))
+    : c[4] * mult(c);
   const hit = D.comps.filter(c =>
     c[0] === town &&
     (mode !== "recent" || D.recentYears.includes(String(c[6]))) &&
@@ -207,6 +255,10 @@ function ppsfFor(town, sqft) {
 
 function compsBorrow(town, sqft, beds, baths, mode, fam) {
   const home = D.towns[town];
+  // dollars this comp implies for a `sqft` house, scaled by §SIZE rather than flat $/sqft
+  // a lender's sale scales on the LENDER's curve -- borrowing the shape of that market is
+  // the whole point of this path; only its price LEVEL gets re-anchored to ours
+  const sizeVal = (price, c) => price * Math.pow(sqft / c[1], sizeElast(c[0], c[9]));
   const targetPpsf = ppsfFor(town, sqft);
   if (!sqft || !targetPpsf || !home.near) return null;   // can't re-anchor → refuse as before
 
@@ -228,11 +280,15 @@ function compsBorrow(town, sqft, beds, baths, mode, fam) {
   for (const c of D.comps) {
     if (!yearOK(c) || !famOK(c)) continue;
     if (c[0] === town) {
+      // §SIZE applies here too — `ppsf` stays a true $/sqft for display, but the dollars
+      // this comp implies for THIS house scale by the same sub-linear exponent as comps()
       const ppsf = (c[4] / c[1]) * toToday(c, town);
-      pool.push({c, from: town, w: 1, ppsf, val: ppsf * sqft});
+      pool.push({c, from: town, w: 1, ppsf, val: sizeVal(c[4] * toToday(c, town), c)});
     } else if (c[0] in wOf) {
-      const ppsf = (c[4] / c[1]) * toToday(c, c[0]) * (targetPpsf / ppsfFor(c[0], sqft));
-      pool.push({c, from: c[0], w: wOf[c[0]], ppsf, val: ppsf * sqft});
+      const anchor = targetPpsf / ppsfFor(c[0], sqft);
+      const ppsf = (c[4] / c[1]) * toToday(c, c[0]) * anchor;
+      pool.push({c, from: c[0], w: wOf[c[0]], ppsf,
+                 val: sizeVal(c[4] * toToday(c, c[0]) * anchor, c)});
     }
   }
 
@@ -283,9 +339,16 @@ function comps(town, sqft, beds, baths, mode, lot, fam, built) {
   if (!sqft && !lot && beds === null && baths === null) return null;
   const ix = indexFor(town);
   const mult = c => (mode === "idx" ? (ix[c[6]] || 1) : 1);
-  // dollars for THIS house: rescale by $/sqft when we know its size, else take the
-  // comp's own sold price
-  const valOf = c => sqft ? (c[4] / c[1]) * mult(c) * sqft : c[4] * mult(c);
+  // dollars for THIS house: rescale by SIZE when we know it, else take the comp's own
+  // sold price. The exponent is §SIZE -- value climbs with floor area, but slower than
+  // 1:1, so a subject bigger than its comps is no longer scaled up flat.
+  // The curve is the one belonging to the comp's OWN town and family -- that sale is what
+  // we are rescaling, so "what does size buy where this house sold" is the right question.
+  // In the main path that town is always the subject's; when types get pooled it keeps a
+  // condo on the condo curve.
+  const valOf = c => sqft
+    ? c[4] * mult(c) * Math.pow(sqft / c[1], sizeElast(c[0], c[9]))
+    : c[4] * mult(c);
 
   let wantFam = fam || null;
   const ok = (c, t, lt, et) =>
