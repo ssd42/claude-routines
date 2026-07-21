@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backtest — NJ market history</title>
+<!--
+  BACKTEST — grade the comp engine against houses that have already sold this year.
+
+  Every other page asks the engine "what is this house worth?" and you have to take the
+  answer on faith. This page asks the only question that can actually settle it: for a
+  house that ALREADY sold, what did we say, and what did it really go for?
+
+  Two independent predictions per house, both graded against the true sale price:
+    1. COMP ESTIMATE   comps() — what similar houses in that town sold for
+    2. ASK × SEASON    factor() — the ask, moved by that town's sold-vs-ask in that month
+
+  ...and one naive baseline that neither is allowed to duck:
+    3. THE ASK ITSELF  "just believe the sticker". If the engine cannot beat this,
+                       the engine is not earning its keep, and this page will say so.
+
+  ── LEAKAGE: the thing that makes or breaks this page ────────────────────────────
+  Every house tested is ALSO sitting in D.comps. Predict it naively and it helps price
+  itself -- the errors come back beautiful and mean nothing. So before each house is
+  estimated we pull that house out of the comp universe, and put it back after. The
+  count of houses we failed to locate for removal is reported in the stamp; it should
+  be zero, and if it is not, the numbers on this page are optimistic.
+
+  Two residual leaks we accept rather than engineer around, stated plainly instead of
+  hidden: the town price index and the seasonal factors were both built from all sales,
+  including the subject. One house among thousands barely moves either.
+
+  Restricting to the CURRENT year is what keeps this honest in a second way -- the
+  index barely has to reach to restate a 2026 sale at 2026 prices, so we are grading
+  the comp logic, not the appreciation curve.
+
+  Depends on: data.js, engine.js, sold.js -- same three globals sold.html loads.
+-->
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --over:#8c2f2a; --under:#2c6459; --flag:#a8631c;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;
+    line-height:1.55;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) 6rem;
+    -webkit-font-smoothing:antialiased}
+  .sheet{max-width:86rem;margin:0 auto}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:.75rem;margin-bottom:1rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.75rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  /* home — the masthead kicker: the site's name above the headline, the way a paper
+     prints it. Own row (flex-basis:100%) so it leads the header instead of competing
+     with the nav on the right. Every page carries one, always in this spot. */
+  .home{flex:0 0 100%;font-family:var(--serif);font-size:.85rem;color:var(--ink-3);
+    text-decoration:none}
+  .home:hover,.home:focus-visible{color:var(--flag)}
+  .home i{font-style:normal;display:inline-block;transition:transform .13s ease}
+  .home:hover i{transform:translateX(-3px)}
+  .nav{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap}
+  .nav a{font-size:.75rem;color:var(--ink-3);text-decoration:none;
+    border-bottom:1px solid var(--rule-2);white-space:nowrap}
+  .nav a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+  .stamp{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;font-size:.8rem;
+    padding:.6rem .8rem;border:1px solid var(--rule);margin-bottom:1.2rem;color:var(--ink-2)}
+  .stamp b{color:var(--ink)}
+  .stamp.warn{border-color:var(--flag);background:color-mix(in oklab,var(--flag) 7%,transparent)}
+  .stamp.warn b{color:var(--flag)}
+
+  .lede{font-family:var(--serif);font-size:1.02rem;color:var(--ink-2);max-width:52rem;
+    margin-bottom:1.6rem;line-height:1.5}
+
+  /* ── scoreboard ── */
+  .board{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+    gap:0;border:1px solid var(--rule-2);margin-bottom:.7rem}
+  .card{padding:.85rem 1rem;border-right:1px solid var(--rule)}
+  .card:last-child{border-right:0}
+  .card h3{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;margin-bottom:.45rem}
+  .card .big{font-family:var(--serif);font-size:1.85rem;line-height:1;
+    font-variant-numeric:tabular-nums}
+  .card .sub{font-size:.73rem;color:var(--ink-3);margin-top:.35rem;line-height:1.4}
+  .card.win{background:color-mix(in oklab,var(--under) 8%,transparent)}
+  .card.lose{background:color-mix(in oklab,var(--over) 7%,transparent)}
+  @media(max-width:560px){.card{border-right:0;border-bottom:1px solid var(--rule)}}
+
+  .verdict{font-family:var(--serif);font-size:1.05rem;padding:.75rem 1rem;
+    border:1px solid var(--rule-2);border-top:0;margin-bottom:1.6rem;color:var(--ink-2)}
+  .verdict b{color:var(--ink);font-style:normal}
+  .verdict.good{border-color:var(--under);color:var(--ink)}
+  .verdict.bad{border-color:var(--over);color:var(--ink)}
+
+  /* ── filters ── */
+  .filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1rem 1.4rem;align-items:end;margin-bottom:1rem}
+  label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:.35rem;font-weight:600}
+  .opt{text-transform:none;letter-spacing:0;font-weight:400;font-size:.72rem;
+    color:var(--rule-2);font-style:italic}
+
+  /* multi-town picker — same control as market.html / sold.html */
+  .towns{position:relative}
+  .towns-btn{width:100%;text-align:left;background:transparent;border:0;
+    border-bottom:1.5px solid var(--rule-2);padding:.3rem 0 .35rem;cursor:pointer;
+    font-family:var(--serif);font-size:1.15rem;color:var(--ink)}
+  .towns-btn.none{color:var(--rule-2);font-style:italic}
+  .towns-menu{position:absolute;z-index:30;top:100%;left:0;right:0;
+    min-width:min(22rem, calc(100vw - 2rem));max-width:calc(100vw - 2rem);
+    background:var(--paper);border:1px solid var(--rule-2);max-height:min(20rem,50vh);
+    overflow:auto;-webkit-overflow-scrolling:touch;padding:.4rem;display:none;
+    box-shadow:0 12px 24px -18px rgba(31,28,24,.5)}
+  .towns-menu.on{display:block}
+  .towns-menu .row{display:flex;align-items:center;gap:.5rem;padding:.25rem .35rem;
+    font-size:.85rem;cursor:pointer;border:0}
+  .towns-menu .row:hover{background:var(--paper-2)}
+  .towns-menu .row input{width:auto;border:0}
+  .towns-menu .row span{color:var(--ink-3);font-size:.75rem;margin-left:auto;
+    font-variant-numeric:tabular-nums}
+  .towns-menu .acts{display:flex;gap:.8rem;padding:.3rem .35rem .5rem;
+    border-bottom:1px solid var(--rule);margin-bottom:.3rem}
+  .towns-menu .acts button{background:none;border:0;font-family:var(--sans);font-size:.72rem;
+    color:var(--ink-3);cursor:pointer;text-decoration:underline}
+  @media (pointer:coarse){
+    .towns-btn,.towns-menu .row{padding-top:.6rem;padding-bottom:.6rem}
+  }
+  input,select{width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--rule-2);
+    padding:.3rem 0 .35rem;font-family:var(--serif);font-size:1.15rem;color:var(--ink);
+    border-radius:0}
+  input:focus,select:focus{outline:none;border-bottom-color:var(--ink)}
+  input::placeholder{color:var(--rule-2);font-style:italic}
+  @media(max-width:560px){.filters{grid-template-columns:1fr;gap:.9rem}}
+
+  .count{border-top:1px solid var(--rule);padding-top:.8rem;margin-bottom:.2rem;
+    font-size:.8rem;color:var(--ink-3);display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+  .count b{color:var(--ink);font-family:var(--serif);font-size:1.1rem}
+  .reset{margin-left:auto;background:none;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-3);font-family:var(--sans);font-size:.75rem;cursor:pointer;padding:.2rem 0}
+  .reset:hover{color:var(--over);border-bottom-color:var(--over)}
+
+  /* ── table ── */
+  .head,.row{display:grid;
+    grid-template-columns:minmax(0,2.2fr) minmax(0,1.35fr) minmax(0,1.2fr) minmax(0,.95fr) minmax(0,.95fr) minmax(0,1fr);
+    gap:.9rem;align-items:baseline;padding:.65rem 0;border-bottom:1px solid var(--rule)}
+  .head{border-bottom:1.5px solid var(--ink-2);position:sticky;top:0;background:var(--paper);
+    z-index:5;padding-top:.3rem}
+  .head span{font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600}
+  .head .r,.row .r{text-align:right}
+  /* every header is a sort control; the arrow only shows on the active one */
+  .head span{cursor:pointer;user-select:none;display:block}
+  .head span:hover{color:var(--ink)}
+  .head span.on{color:var(--ink);border-bottom:1.5px solid var(--ink);padding-bottom:.15rem}
+  .head span i{font-style:normal;opacity:.55;margin-left:.25rem}
+  #rows .row{position:relative;transition:background-color .12s}
+  .row:hover{background:var(--paper-2)}
+  /* the whole row opens the analyser with this house loaded — same affordance as
+     market.html, so a row that looks clickable there is clickable here too */
+  .stretch{color:inherit;text-decoration:none}
+  .stretch::after{content:"";position:absolute;inset:0}
+  #rows .row:hover .addr{text-decoration:underline;text-decoration-color:var(--rule-2);
+    text-underline-offset:.18em}
+  .addr{font-family:var(--serif);font-size:1.02rem;line-height:1.3}
+  .addr .t{font-size:.74rem;color:var(--ink-3);font-family:var(--sans);display:block}
+  .facts{font-size:.72rem;color:var(--ink-3);font-variant-numeric:tabular-nums;display:block}
+  .est{font-family:var(--serif);font-size:1.05rem;font-variant-numeric:tabular-nums;text-align:right}
+  .est .rng{display:block;font-family:var(--sans);font-size:.7rem;color:var(--ink-3)}
+  .est .tier{display:block;font-family:var(--sans);font-size:.66rem;color:var(--rule-2);
+    font-style:italic}
+  .money{font-family:var(--serif);font-size:1.05rem;font-variant-numeric:tabular-nums;
+    text-align:right}
+  .pct{font-variant-numeric:tabular-nums;text-align:right;font-size:.9rem}
+  .o{color:var(--over)} .u{color:var(--under)}
+  .miss{font-family:var(--serif);font-size:1.1rem;font-variant-numeric:tabular-nums;
+    text-align:right}
+  .miss .d{display:block;font-family:var(--sans);font-size:.7rem;color:var(--ink-3)}
+  .in{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--under);margin-left:.35rem;vertical-align:middle}
+  .out{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    border:1px solid var(--rule-2);margin-left:.35rem;vertical-align:middle}
+  .na{color:var(--rule-2);font-style:italic;font-size:.78rem;text-align:right}
+  /* scoped to #rows: the town menu also uses .row, and must not sprout stacked
+     labels or a two-column grid on a phone */
+  @media(max-width:760px){
+    .head{display:none}
+    #rows .row,#pins .row{grid-template-columns:1fr 1fr;gap:.3rem .9rem;padding:.9rem 0}
+    #rows .row .addr,#pins .row .addr{grid-column:1/-1}
+    #rows .est,#rows .money,#rows .pct,#rows .miss,
+    #pins .est,#pins .money,#pins .na,#pins .miss{text-align:left}
+    #rows .row>*::before,#pins .row>*:not(.unpin)::before{content:attr(data-l);display:block;
+      font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+      font-family:var(--sans);font-weight:600}
+  }
+  /* ── pinned live listings ── */
+  /* ── where we go wrong ── */
+  .diag{border:1px solid var(--rule-2);margin-bottom:1.6rem}
+  .diag summary{padding:.6rem .9rem;cursor:pointer;font-family:var(--sans);font-size:.8rem;
+    color:var(--ink-2);list-style:none;display:flex;align-items:baseline;gap:.6rem}
+  .diag summary::-webkit-details-marker{display:none}
+  .diag summary::before{content:"▸";color:var(--ink-3)}
+  .diag[open] summary::before{content:"▾"}
+  .diag summary b{color:var(--ink)}
+  .diag .body{padding:0 .9rem 1rem;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.4rem}
+  .diag h4{font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+    font-weight:600;margin-bottom:.5rem;border-bottom:1px solid var(--rule);padding-bottom:.3rem}
+  .bar{display:grid;grid-template-columns:minmax(0,1fr) 2.6rem 3.2rem;gap:.5rem;
+    align-items:center;padding:.22rem 0;font-size:.78rem}
+  .bar .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bar .n{color:var(--ink-3);font-size:.7rem;text-align:right;font-variant-numeric:tabular-nums}
+  .bar .v{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--serif);
+    font-size:.95rem}
+  .bar .track{grid-column:1/-1;height:2px;background:var(--rule);margin-top:-.1rem}
+  .bar .fill{height:2px;background:var(--over)}
+  .diag .thin{color:var(--rule-2);font-style:italic;font-size:.72rem;margin-top:.5rem}
+
+  .find{position:relative;margin-bottom:1rem}
+  .find-menu{position:absolute;z-index:30;top:100%;left:0;right:0;background:var(--paper);
+    border:1px solid var(--rule-2);max-height:min(22rem,50vh);overflow:auto;padding:.3rem;
+    display:none;box-shadow:0 12px 24px -18px rgba(31,28,24,.5)}
+  .find-menu.on{display:block}
+  .find-menu .hit{display:flex;gap:.6rem;align-items:baseline;padding:.4rem .45rem;
+    cursor:pointer;font-size:.85rem}
+  .find-menu .hit:hover{background:var(--paper-2)}
+  .find-menu .hit b{font-family:var(--serif);font-weight:400;font-size:1rem}
+  .find-menu .hit .w{color:var(--ink-3);font-size:.75rem}
+  .find-menu .hit .p{margin-left:auto;font-variant-numeric:tabular-nums;font-family:var(--serif)}
+  .find-menu .none{padding:.5rem .45rem;color:var(--ink-3);font-style:italic;font-size:.8rem}
+
+  #pins .row{background:color-mix(in oklab,var(--flag) 6%,transparent);
+    border-bottom:1px solid var(--rule-2);position:relative}
+  #pins .row:first-child{border-top:1px solid var(--rule-2)}
+  .pinlab{font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--flag);
+    font-weight:600;display:flex;align-items:center;gap:.5rem}
+  /* Sits inside the address cell, not floated over the far-right column where it landed
+     on top of the number it was meant to sit beside. z-index clears the row-wide
+     analyser link, or the × would just open the analyser. */
+  .unpin{position:relative;z-index:2;background:none;border:1px solid var(--rule-2);
+    cursor:pointer;color:var(--ink-3);font-family:var(--sans);font-size:.62rem;
+    letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:.1rem .4rem;
+    line-height:1.4}
+  .unpin:hover{color:var(--over);border-color:var(--over)}
+  @media (pointer:coarse){.unpin{padding:.3rem .6rem}}
+  .pinhint{font-size:.72rem;color:var(--ink-3);font-style:italic;padding:.5rem 0 0}
+
+  .more{text-align:center;padding:1.6rem 0}
+  .more button{background:transparent;border:1px solid var(--rule-2);color:var(--ink-2);
+    font-family:var(--sans);font-size:.8rem;padding:.5rem 1.4rem;cursor:pointer}
+  .more button:hover{border-color:var(--ink);color:var(--ink)}
+  .note{font-size:.75rem;color:var(--ink-3);margin-top:2rem;padding-top:1rem;
+    border-top:1px solid var(--rule);max-width:52rem;line-height:1.6}
+  .note b{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <a class="home" href="index.html"><i>←</i> The house hunt</a>
+  <h1>Backtest <em>— what we said, what it sold for</em></h1>
+  <nav class="nav">
+    <a href="analyser.html">Analyser</a>
+    <a href="market.html">Market</a>
+    <a href="sold.html">Sold</a>
+    <a href="map.html">Map</a>
+  </nav>
+</header>
+
+<div class="stamp" id="stamp">working…</div>
+
+<p class="lede">
+  Every house below has already closed, so there is a right answer. We re-ran the comp
+  engine on each one <em>with that house removed from its own comp set</em>, and put the
+  estimate next to what it actually sold for.
+</p>
+
+<div class="board" id="board"></div>
+<div class="verdict" id="verdict"></div>
+
+<details class="diag" id="diag">
+  <summary><b>Where we go wrong</b> — the same houses, cut by town, type and comp quality</summary>
+  <div class="body" id="diag-body"></div>
+</details>
+
+<div class="filters">
+  <div><label for="q">Search</label>
+    <input id="q" placeholder="address or town"></div>
+  <div class="towns">
+    <label>Towns <span class="opt">optional — all if none picked</span></label>
+    <button class="towns-btn none" id="towns-btn" type="button">every town</button>
+    <div class="towns-menu" id="towns-menu"></div>
+  </div>
+  <div><label for="type">Type</label>
+    <select id="type"><option value="">all types</option></select></div>
+  <div><label for="maxPrice">Max sold price <span class="opt">$</span></label>
+    <input id="maxPrice" type="number" inputmode="numeric" step="any" placeholder="no cap"></div>
+  <div><label for="minBd">Min beds</label>
+    <input id="minBd" type="number" inputmode="numeric" step="any" min="0" placeholder="any"></div>
+  <div><label for="minBa">Min baths</label>
+    <input id="minBa" type="number" inputmode="decimal" step="any" min="0" placeholder="any"></div>
+  <div><label for="sort">Sort</label>
+    <select id="sort">
+      <option value="miss:desc">biggest miss first</option>
+      <option value="miss:asc">closest first</option>
+      <option value="signed:desc">we were most OVER</option>
+      <option value="signed:asc">we were most UNDER</option>
+      <option value="date:desc">most recent sale</option>
+      <option value="sold:desc">sold price, high to low</option>
+      <option value="sold:asc">sold price, low to high</option>
+      <option value="addr:asc">address A–Z</option>
+    </select></div>
+</div>
+
+<div class="find">
+  <label for="find">Compare a house that's on the market now
+    <span class="opt">pins it above the sold rows — no sale price yet, so nothing to grade</span></label>
+  <input id="find" placeholder="type an address or town from the live listings…" autocomplete="off">
+  <div class="find-menu" id="find-menu"></div>
+</div>
+
+<div class="count"><b id="n">0</b> <span id="nlab">houses</span>
+  <button class="reset" id="reset">reset</button></div>
+
+<div class="head" id="head">
+  <span data-k="addr">House</span>
+  <span data-k="est"    class="r">Our estimate</span>
+  <span data-k="askEst" class="r">Ask × season</span>
+  <span data-k="ask"    class="r">Asked</span>
+  <span data-k="sold"   class="r">Sold</span>
+  <span data-k="miss"   class="r">Our miss</span>
+</div>
+<div id="pins"></div>
+<div id="rows"></div>
+<div class="more" id="more" style="display:none"><button id="moreBtn">show more</button></div>
+
+<p class="note" id="foot"></p>
+
+</div>
+
+<script src="data.js"></script>
+<script src="engine.js"></script>
+<script src="sold.js"></script>
+<script src="listings.js"></script>
+<script>
+"use strict";
+// ── the sold rows, by position (see the header comment in sold.js) ──────────────
+const A=0, T=1, DATE=2, SOLD=3, BD=4, BA=5, SQ=6, LOT=7, YR=8, TYPE=9, ASK=10, VSASK=11;
+
+// vs-ask is absent on a handful of rows; never let one null blank the whole table.
+const pct1 = p => p == null ? "—" : (p >= 0 ? "+" : "") + p.toFixed(1) + "%";
+const medOf = a => { const s = [...a].sort((x,y)=>x-y), h = s.length>>1;
+                     return s.length ? (s.length % 2 ? s[h] : (s[h-1]+s[h])/2) : null; };
+
+// ── which year are we grading? ──────────────────────────────────────────────────
+// Read it off the data rather than the clock, so the page still says something true
+// when it is opened against an older snapshot.
+const YEAR = String(Math.max(...SOLD_ROWS_YEARS()));
+function SOLD_ROWS_YEARS(){ return window.SOLD.rows.map(r => +r[DATE].slice(0,4)); }
+
+// ── the subjects ────────────────────────────────────────────────────────────────
+// A house is gradeable only if it has an ask AND the shape the engine needs. That is
+// a minority of sales -- most rows are deed records with no listing detail at all --
+// and the stamp says so out loud, because a backtest on a non-random 20% is evidence,
+// not proof.
+// A sale is only worth grading against if it is believable enough to be a COMP. These are
+// build_data.py's own thresholds, restated here because sold.js ships no quality flag --
+// keep them in step if that file changes.
+//
+// This is not fussiness. The rows it removes are mostly houses whose LOT SIZE landed in
+// the sqft column ("19,998 sqft"), plus placeholder $300,000 asks and a $250 nominal
+// transfer. The engine then faithfully prices a 20,000sqft mansion and misses by a mile,
+// and those fake misses sort straight to the top of the table -- burying the real ones.
+// Grading ourselves against a sale we would never have used as a comp is not a fair test
+// in either direction.
+const PPSF_MIN = 100, PPSF_MAX = 2000, MIN_SQFT = 200;
+
+// A flat $100/sqft floor is nearly useless here: it catches a $250 transfer and almost
+// nothing else, because $122/sqft is absurd in Nutley and ordinary in Paterson. What
+// actually identifies a broken sqft figure is the house's $/sqft against ITS OWN town and
+// property type. Ten rows in the 2026 set sit below 60% of that local norm, and those ten
+// average ~106% error against ~14% for everything else — they are the visible top of the
+// biggest-miss table and they are almost all lot size leaked into the sqft column.
+// Buckets under 8 sales get no opinion; a norm from 3 sales is not a norm.
+const TOWNFAM_PPSF = (() => {
+  const g = {};
+  D.comps.forEach(c => { const k = c[0] + "|" + c[9]; (g[k] = g[k] || []).push(c[4] / c[1]); });
+  const out = {};
+  Object.entries(g).forEach(([k, v]) => { if (v.length >= 8) out[k] = medOf(v); });
+  return out;
+})();
+const REL_FLOOR = 0.60;
+let droppedRel = 0;
+
+const gradeable = r => {
+  if (!r[ASK] || !r[SQ] || r[BD] == null || r[BA] == null) return false;
+  if (r[SQ] < MIN_SQFT) return false;
+  const ppsf = r[SOLD] / r[SQ];
+  if (ppsf < PPSF_MIN || ppsf > PPSF_MAX) return false;
+  // build_data.py nulls vs_ask when |sold − ask| exceeds its outlier cut, so a null here
+  // IS the pipeline saying it does not believe this ask. Reuse that judgement.
+  if (r[VSASK] == null) return false;
+  const norm = TOWNFAM_PPSF[r[T] + "|" + (D.family[r[TYPE]] || "")];
+  if (norm && ppsf < norm * REL_FLOOR) { droppedRel++; return false; }
+  return true;
+};
+
+const thisYear = window.SOLD.rows.filter(r => r[DATE].startsWith(YEAR));
+const all = thisYear.filter(gradeable);
+// snapshot BEFORE the next filter, which calls gradeable() again and would double-count
+const relDropped = droppedRel;
+const excluded = thisYear.filter(r =>
+  r[ASK] && r[SQ] && r[BD] != null && r[BA] != null && !gradeable(r)).length;
+const totalThisYear = thisYear.length;
+
+// ── leakage: find each subject's own row in the comp universe ───────────────────
+// D.comps rows are [town, sqft, beds, baths, sold, pct, year, lot, month, fam] and carry
+// no address, so we match on the shape+price+date fingerprint. Collisions are possible
+// in principle; in practice a same-town, same-size, same-beds, same-baths, same-price,
+// same-month pair is the same house.
+const compKey = c => [c[0], c[1], c[2], c[3], c[4], c[6], c[8]].join("|");
+const rowKey  = r => [r[T], Math.round(r[SQ]), r[BD], r[BA], r[SOLD],
+                      +r[DATE].slice(0,4), +r[DATE].slice(5,7)].join("|");
+const byKey = new Map();
+D.comps.forEach((c, i) => { const k = compKey(c); if (!byKey.has(k)) byKey.set(k, []); byKey.get(k).push(i); });
+
+const ALL_COMPS = D.comps;
+let unmatched = 0;
+
+// ── run the engine, once, on load ───────────────────────────────────────────────
+const results = all.map(r => {
+  const fam = D.family[r[TYPE]] || null;
+  const lot = r[LOT] && r[LOT] > 500 ? r[LOT] : null;
+
+  // pull this house out of its own comp set
+  const hits = byKey.get(rowKey(r));
+  if (hits && hits.length) {
+    const drop = new Set(hits);
+    D.comps = ALL_COMPS.filter((_, i) => !drop.has(i));
+  } else {
+    unmatched++;
+    D.comps = ALL_COMPS;      // not in the universe at all -- nothing to leak
+  }
+
+  const c = comps(r[T], r[SQ], r[BD], r[BA], "idx", lot, fam);
+  const f = factor(r[T], +r[DATE].slice(5,7), "idx");
+  D.comps = ALL_COMPS;        // always restore, even when the estimate failed
+
+  const est   = c && !c.failed && c.mid ? c.mid : null;
+  const seasonPct = f ? f.pct : null;
+  // the second, independent prediction: believe the ask, then move it by what that
+  // town does to asks in that month.
+  const askEst = seasonPct != null ? r[ASK] * (1 + seasonPct / 100) : null;
+
+  return {
+    r, est, c, askEst, seasonPct,
+    ask: r[ASK], sold: r[SOLD],
+    err:    est != null ? est - r[SOLD] : null,
+    errPct: est != null ? (est - r[SOLD]) / r[SOLD] * 100 : null,
+    askErrPct:  askEst != null ? (askEst - r[SOLD]) / r[SOLD] * 100 : null,
+    rawAskErrPct: (r[ASK] - r[SOLD]) / r[SOLD] * 100,
+    inRange: c && !c.failed && c.lo != null && c.hi != null
+             ? (r[SOLD] >= c.lo && r[SOLD] <= c.hi) : null,
+  };
+});
+
+const priced = results.filter(x => x.est != null);
+
+// ── the scoreboard ──────────────────────────────────────────────────────────────
+// Recomputed on whatever the filters currently show, NOT once over everything. With a
+// default price cap and bed/bath floor in place, a fixed board would advertise an
+// accuracy figure for houses the table below isn't showing -- which is the sort of quiet
+// mismatch that makes a number worse than useless. Filter to your range, and the grade
+// you see is the grade for your range.
+function scoreboard(set) {
+  const absErr    = set.map(x => Math.abs(x.errPct));
+  const signErr   = set.map(x => x.errPct);
+  const askAbs    = set.filter(x => x.askErrPct != null).map(x => Math.abs(x.askErrPct));
+  const rawAskAbs = set.map(x => Math.abs(x.rawAskErrPct));
+  const ranged    = set.filter(x => x.inRange !== null);
+  const hit       = ranged.filter(x => x.inRange).length;
+
+  const mErr    = medOf(absErr), mBias = medOf(signErr);
+  const mAsk    = medOf(askAbs), mRaw  = medOf(rawAskAbs);
+  const hitRate = ranged.length ? hit / ranged.length * 100 : null;
+  const within5  = absErr.filter(v => v <= 5).length  / (absErr.length || 1) * 100;
+  const within10 = absErr.filter(v => v <= 10).length / (absErr.length || 1) * 100;
+  const beatsAsk = mErr != null && mRaw != null && mErr < mRaw;
+  const filtered = set.length !== priced.length;
+
+  document.getElementById("board").innerHTML = `
+    <div class="card">
+      <h3>Houses graded</h3>
+      <div class="big">${set.length.toLocaleString()}</div>
+      <div class="sub">${filtered
+        ? `of ${priced.length.toLocaleString()} gradeable — your filters`
+        : `of ${totalThisYear.toLocaleString()} ${YEAR} sales`} · ${
+        new Set(set.map(x=>x.r[T])).size} towns</div>
+    </div>
+    <div class="card ${beatsAsk ? "win" : "lose"}">
+      <h3>Our typical miss</h3>
+      <div class="big">${mErr != null ? mErr.toFixed(1) + "%" : "—"}</div>
+      <div class="sub">median gap between our estimate and the true price</div>
+    </div>
+    <div class="card">
+      <h3>Just believing the ask</h3>
+      <div class="big">${mRaw != null ? mRaw.toFixed(1) + "%" : "—"}</div>
+      <div class="sub">the baseline we have to beat to be worth anything</div>
+    </div>
+    <div class="card">
+      <h3>Ask × season</h3>
+      <div class="big">${mAsk != null ? mAsk.toFixed(1) + "%" : "—"}</div>
+      <div class="sub">the ask, moved by that town's month</div>
+    </div>
+    <div class="card">
+      <h3>Landed in our range</h3>
+      <div class="big">${hitRate != null ? hitRate.toFixed(0) + "%" : "—"}</div>
+      <div class="sub">true price inside our p25–p75 — a p25–p75 band should catch about
+        half by construction, so near 50% means the range is honest · ${
+        within5.toFixed(0)}% within 5%, ${within10.toFixed(0)}% within 10%</div>
+    </div>
+    <div class="card">
+      <h3>Bias</h3>
+      <div class="big ${mBias > 1 ? "o" : mBias < -1 ? "u" : ""}">${mBias != null ? pct1(mBias) : "—"}</div>
+      <div class="sub">${mBias == null ? "" : mBias > 1 ? "we lean HIGH" : mBias < -1 ? "we lean LOW" : "no meaningful lean — we are not systematically off in one direction"}</div>
+    </div>`;
+
+  const v = document.getElementById("verdict");
+  const scope = filtered ? "On the houses you've filtered to, the" : "The";
+  if (mErr == null) {
+    v.className = "verdict";
+    v.textContent = "Nothing gradeable under these filters.";
+  } else if (beatsAsk) {
+    v.className = "verdict good";
+    v.innerHTML = `${scope} engine beats the sticker — typical miss <b>${mErr.toFixed(1)}%</b>
+      against the ask's <b>${mRaw.toFixed(1)}%</b>, about
+      <b>$${Math.round(700000*(mRaw-mErr)/100).toLocaleString()}</b> closer to the truth on a
+      $700k house. That is the whole case for the tool.`;
+  } else {
+    v.className = "verdict bad";
+    v.innerHTML = `<b>${filtered ? "Here too, the" : "The"} asking price is the better guess.</b>
+      Our typical miss is <b>${mErr.toFixed(1)}%</b> against the ask's <b>${mRaw.toFixed(1)}%</b>.
+      Worth remembering what each one knows: the ask was set by someone who walked through
+      the house, and we only know its town, size and room count — we cannot see a gut
+      renovation or a rotten roof. The engine's job is to spot where that ask is
+      <em>wrong</em>, not to reproduce it.`;
+  }
+}
+
+// ── where we go wrong ───────────────────────────────────────────────────────────
+// One big number ("we miss by 10.8%") tells you nothing about what to fix. These cuts do:
+// if the error is concentrated in thin towns or in houses whose comps had to be widened,
+// that is a fixable data problem. If it is flat across every cut, the model itself is the
+// limit and no amount of tuning saves it.
+//
+// MIN_N exists because a town with 3 sales will produce a wild median and sit at the top
+// looking like a crisis. Anything thinner is pooled into one honest "too thin to judge"
+// line rather than silently dropped.
+const MIN_N = 8;
+
+function cut(set, keyOf) {
+  const g = {};
+  set.forEach(x => { const k = keyOf(x); if (k == null) return;
+                     (g[k] = g[k] || []).push(Math.abs(x.errPct)); });
+  const rows = [], thin = [];
+  Object.entries(g).forEach(([k, v]) =>
+    (v.length >= MIN_N ? rows : thin).push({k, n: v.length, m: medOf(v)}));
+  rows.sort((a, b) => b.m - a.m);
+  return {rows, thinN: thin.reduce((s, t) => s + t.n, 0), thinK: thin.length};
+}
+
+function bars(title, {rows, thinN, thinK}, limit) {
+  if (!rows.length) return `<div><h4>${title}</h4><div class="thin">not enough here to judge</div></div>`;
+  const worst = rows[0].m || 1;
+  return `<div><h4>${title}</h4>` + rows.slice(0, limit || 99).map(r => `
+    <div class="bar">
+      <span class="nm" title="${esc2(r.k)}">${esc2(r.k)}</span>
+      <span class="n">${r.n}</span>
+      <span class="v">${r.m.toFixed(1)}%</span>
+      <span class="track"><span class="fill" style="width:${(r.m / worst * 100).toFixed(1)}%"></span></span>
+    </div>`).join("") +
+    (thinK ? `<div class="thin">${thinK} more with under ${MIN_N} sales (${thinN} houses)
+      — too thin to judge</div>` : ``) + `</div>`;
+}
+
+function diagnostics(set) {
+  if (!set.length) { document.getElementById("diag-body").innerHTML =
+    `<div class="thin">nothing selected</div>`; return; }
+  const band = x => x.sold < 4e5 ? "under $400k" : x.sold < 6e5 ? "$400–600k"
+                  : x.sold < 8e5 ? "$600–800k" : x.sold < 12e5 ? "$800k–1.2m" : "over $1.2m";
+  // c.degraded = comps() had to widen its size/bed/bath tolerances to find enough.
+  // c.borrowed = the town was too thin and leaned on its neighbours. Both are the engine
+  // telling you, at estimate time, that it was working with less. If the error tracks
+  // them, the engine already knows when to distrust itself — which is worth a lot.
+  // Two DIFFERENT flags that both read as "borrowed", and conflating them hides the
+  // finding: `borrowedComps` = comps pulled from neighbouring towns (engine.js §borrow),
+  // `borrowed` = this town was too thin to measure its own price index so it used the
+  // regional one. market.html reads borrowedComps for the first; so do we now.
+  // `thinFam` = the new rung that keeps the property type rather than pooling.
+  const quality = x => !x.c ? null
+    : x.c.borrowedComps ? "comps borrowed from neighbours"
+    : x.c.famDropped ? "type dropped — priced off other kinds of home"
+    : x.c.thinFam ? "own type, thin sample"
+    : x.c.borrowed ? "regional price index"
+    : x.c.degraded ? "tolerances widened"
+    : "clean tier-1 comps";
+  const depth = x => !x.c ? null : x.c.n < 15 ? "under 15 comps"
+    : x.c.n < 40 ? "15–40 comps" : "40+ comps";
+
+  document.getElementById("diag-body").innerHTML =
+    bars("Worst towns", cut(set, x => x.r[T]), 12) +
+    bars("By property type", cut(set, x => x.r[TYPE])) +
+    bars("By comp quality", cut(set, quality)) +
+    bars("By how many comps", cut(set, depth)) +
+    bars("By price band", cut(set, band));
+
+  document.getElementById("diag").querySelector("summary b").textContent =
+    `Where we go wrong — ${set.length.toLocaleString()} houses`;
+}
+
+// ── filters ─────────────────────────────────────────────────────────────────────
+const esc2 = s => String(s == null ? "" : s).replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const selY = document.getElementById("type");
+[...new Set(priced.map(x => x.r[TYPE]))].sort().forEach(t => selY.add(new Option(t, t)));
+
+// Towns are a multi-select, same control as market.html and sold.html — comparing two
+// or three towns side by side is the whole point of a page about where we go wrong.
+// The count beside each town is how many houses we could grade there, which is the
+// number that decides whether its error rate means anything.
+let picked = new Set();
+const townCounts = priced.reduce((m, x) => (m[x.r[T]] = (m[x.r[T]] || 0) + 1, m), {});
+const townList = Object.keys(townCounts)
+  .sort((a, b) => (D.towns?.[a]?.dist ?? 99) - (D.towns?.[b]?.dist ?? 99) || a.localeCompare(b));
+
+function drawTowns() {
+  document.getElementById("towns-menu").innerHTML =
+    `<div class="acts"><button data-none="1">clear</button></div>` +
+    townList.map(t => {
+      const dist = D.towns?.[t]?.dist;
+      return `<label class="row"><input type="checkbox" value="${esc2(t)}" ${
+        picked.has(t) ? "checked" : ""}> ${esc2(t)}
+        <span>${dist != null ? dist + "mi · " : ""}${townCounts[t].toLocaleString()}</span></label>`;
+    }).join("");
+  const b = document.getElementById("towns-btn");
+  b.classList.toggle("none", !picked.size);
+  b.textContent = !picked.size ? "every town"
+    : picked.size <= 2 ? [...picked].join(", ") : picked.size + " towns";
+}
+
+const els = {q:document.getElementById("q"), type:selY,
+             maxPrice:document.getElementById("maxPrice"),
+             minBd:document.getElementById("minBd"), minBa:document.getElementById("minBa"),
+             sort:document.getElementById("sort")};
+let shown = 100;
+
+// ── one sort state, two ways to drive it ────────────────────────────────────────
+// Clicking a column header and picking from the dropdown must never disagree, so both
+// write into the same {key, dir} and the dropdown is re-synced after either. The
+// dropdown is not decoration: the header row is hidden under 760px, so on a phone it
+// is the ONLY way to sort.
+const SORTERS = {
+  addr:   (a,b) => (a.r[A] + a.r[T]).localeCompare(b.r[A] + b.r[T]),
+  est:    (a,b) => a.est - b.est,
+  askEst: (a,b) => (a.askEst ?? -Infinity) - (b.askEst ?? -Infinity),
+  ask:    (a,b) => a.ask - b.ask,
+  sold:   (a,b) => a.sold - b.sold,
+  date:   (a,b) => a.r[DATE].localeCompare(b.r[DATE]),
+  signed: (a,b) => a.errPct - b.errPct,          // negative (under) → positive (over)
+  miss:   (a,b) => Math.abs(a.errPct) - Math.abs(b.errPct),
+};
+// Clicking a header the first time should show the interesting end: biggest miss,
+// priciest house. Only the address reads better ascending.
+const FIRST_DIR = {addr:"asc", miss:"desc", est:"desc", askEst:"desc", ask:"desc",
+                   sold:"desc", date:"desc", signed:"desc"};
+let sort = {key:"miss", dir:"desc"};
+
+function view() {
+  const q = els.q.value.trim().toLowerCase();
+  const cap  = parseFloat(els.maxPrice.value);
+  const mbd  = parseFloat(els.minBd.value);
+  const mba  = parseFloat(els.minBa.value);
+
+  const out = priced.filter(x =>
+    (!picked.size || picked.has(x.r[T])) &&
+    (!els.type.value || x.r[TYPE] === els.type.value) &&
+    (isNaN(cap) || x.sold   <= cap) &&
+    (isNaN(mbd) || x.r[BD]  >= mbd) &&
+    (isNaN(mba) || x.r[BA]  >= mba) &&
+    (!q || (x.r[A] + " " + x.r[T]).toLowerCase().includes(q)));
+
+  const cmp = SORTERS[sort.key] || SORTERS.miss;
+  out.sort((a,b) => sort.dir === "asc" ? cmp(a,b) : cmp(b,a));
+  return out;
+}
+
+// ── pin a live listing above the graded rows ────────────────────────────────────
+// A house that is still for sale has no sale price, so it cannot be graded -- but it CAN
+// be run through the same engine and shown in the same columns. That is the point: the
+// rows below tell you how much to trust the estimate, and the pinned row is the estimate
+// you actually care about, sitting in the same units right above the evidence.
+//
+// No leakage handling here, and none needed: D.comps is closed sales only, so a house
+// that hasn't sold was never in it.
+const MK = (window.MARKET && window.MARKET.listings) || [];
+const SEASON_M = +D.generated.slice(5, 7);   // no sale month to use, so price it as of now
+let pins = [];
+
+// Same refusal market.html makes: if the comps and the ask disagree by more than 3x they
+// are not describing the same thing (a 552sqft "house" asking $690k is land), and we
+// cannot tell which is wrong. Saying nothing beats printing a fantasy bargain.
+function estimateListing(l) {
+  const fam = D.family[l.ty];
+  if (!fam) return null;
+  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot && l.lot > 500 ? l.lot : null, fam);
+  if (!c || c.failed || !c.mid) return null;
+  const ratio = c.mid / l.p;
+  if (ratio > 3 || ratio < 1 / 3) return null;
+  return c;
+}
+
+function drawPins() {
+  document.getElementById("pins").innerHTML = pins.map((l, i) => {
+    const c = estimateListing(l);
+    const f = factor(l.t, SEASON_M, "idx");
+    const askEst = f ? l.p * (1 + f.pct / 100) : null;
+    const facts = [l.bd != null ? l.bd + "bd" : null, l.ba != null ? l.ba + "ba" : null,
+                   l.sq ? l.sq.toLocaleString() + " sqft" : "sqft not listed",
+                   l.lot ? (l.lot / 43560).toFixed(2) + " ac" : null,
+                   l.yr || null].filter(Boolean).join(" · ");
+    // For a sold house the last column is how badly we missed. Nothing here has sold, so
+    // it shows the only comparison available: our value against what they're asking.
+    const gapPct = c ? (c.mid - l.p) / l.p * 100 : null;
+    return `<div class="row">
+      <div class="addr"><span class="pinlab">on the market${
+        l.st === "PENDING" ? " · pending" : ""}
+        <button class="unpin" data-i="${i}" title="remove this pin">× remove</button></span>
+        <a class="stretch" href="analyser.html#${listingHash(l)}">${esc2(l.a)}</a>
+        <span class="t">${esc2(l.t)} · ${esc2(l.ty || "")}${
+          l.dom != null ? " · " + l.dom + "d on market" : ""}</span>
+        <span class="facts">${facts}</span></div>
+      <div class="${c ? "est" : "na"}" data-l="Our estimate">${
+        c ? usd(c.mid) + `<span class="rng">${usdK(c.lo)} – ${usdK(c.hi)}</span>
+              <span class="tier">${c.n} comps${c.degraded ? " · widened" : ""}${
+                c.bySize ? "" : " · no sqft published"}</span>`
+          : "can't price this one"}</div>
+      <div class="${askEst != null ? "est" : "na"}" data-l="Ask × season">${
+        askEst != null ? usd(askEst) + `<span class="rng">${pct1(f.pct)} seasonal</span>` : "no season"}</div>
+      <div class="money" data-l="Asked">${usd(l.p)}</div>
+      <div class="na" data-l="Sold">still listed</div>
+      <div class="${gapPct == null ? "na" : "miss " + (gapPct > 0 ? "u" : "o")}" data-l="Our value vs ask">${
+        gapPct == null ? "—"
+          : pct1(gapPct) + `<span class="d">${gapPct > 0 ? "under" : "over"} asking</span>`}</div>
+    </div>`;
+  }).join("") + (pins.length
+    ? `<div class="pinhint">Last column is <b>our value against the asking price</b>, not a
+        miss — these haven't sold, so there is nothing to be wrong about yet.</div>`
+    : ``);
+}
+
+document.getElementById("pins").addEventListener("click", e => {
+  const i = e.target.dataset.i;
+  if (i == null) return;
+  pins.splice(+i, 1); drawPins();
+});
+
+// ── the listing search ──────────────────────────────────────────────────────────
+const findEl = document.getElementById("find"), findMenu = document.getElementById("find-menu");
+
+// Matching is per-WORD, not one contiguous substring. The old substring test failed on
+// anything but an exact prefix run: "Fanwood Ave" found nothing because the data says
+// "12 Fanwood Ave" -- fine -- but "n main" found nothing either, and neither did any query
+// whose words were in a different order than the address. Splitting into words and
+// requiring all of them (in any order) fixes both.
+//
+// The synonym pass exists because addresses are stored abbreviated ("St", "N") while
+// people type them out ("Street", "North"). Folded both directions to the short form.
+const ABBR = {street:"st", avenue:"ave", road:"rd", drive:"dr", lane:"ln", court:"ct",
+              place:"pl", terrace:"ter", boulevard:"blvd", circle:"cir", parkway:"pkwy",
+              heights:"hts", square:"sq", trail:"trl", highway:"hwy",
+              north:"n", south:"s", east:"e", west:"w", mount:"mt", saint:"st"};
+const normWords = s => String(s).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()
+  .split(" ").filter(Boolean).map(w => ABBR[w] || w);
+// precomputed once: rebuilding it per keystroke over 4,000 listings is wasteful
+const HAY = MK.map(l => normWords(l.a + " " + l.t).join(" "));
+
+function drawFind() {
+  const words = normWords(findEl.value);
+  if (!words.length) { findMenu.classList.remove("on"); return; }
+  const hits = [];
+  for (let i = 0; i < MK.length && hits.length < 12; i++)
+    if (words.every(w => HAY[i].includes(w))) hits.push(MK[i]);
+  findMenu.innerHTML = hits.length
+    ? hits.map(l => `<div class="hit" data-u="${esc2(l.url || l.a + "|" + l.t)}">
+        <b>${esc2(l.a)}</b> <span class="w">${esc2(l.t)}${
+          l.st === "PENDING" ? " · pending" : ""}</span>
+        <span class="p">${usd(l.p)}</span></div>`).join("")
+    : `<div class="none">No match among the ${MK.length.toLocaleString()} houses on the
+        market as of ${window.MARKET.fetched}. This searches listings only — a house that
+        has already sold won't be here, it's in the table below.</div>`;
+  findMenu.classList.add("on");
+}
+findEl.addEventListener("input", drawFind);
+findEl.addEventListener("click", e => { e.stopPropagation(); drawFind(); });
+findMenu.addEventListener("click", e => {
+  e.stopPropagation();
+  const u = e.target.closest(".hit")?.dataset.u;
+  if (!u) return;
+  const l = MK.find(x => (x.url || x.a + "|" + x.t) === u);
+  // pin the same house twice and you'd compare it to itself
+  if (l && !pins.some(p => (p.url || p.a + "|" + p.t) === u)) pins.push(l);
+  findEl.value = ""; findMenu.classList.remove("on");
+  drawPins();
+});
+document.addEventListener("click", () => findMenu.classList.remove("on"));
+
+// ── hand a house to the analyser ────────────────────────────────────────────────
+// analyser.html restores itself from a JSON blob in the hash (its FIELDS + m/mode/exact),
+// so a row here can open it fully loaded — click a house we got badly wrong and land on
+// the full comp breakdown that explains why. Values go over as strings because the
+// analyser writes them straight into input.value.
+//
+// Two choices worth stating: we send the ASK, not the sold price, because the analyser's
+// job is "what should I pay against this sticker" — handing it the answer would defeat
+// the point. And we send the month it SOLD, so the seasonal factor there matches the one
+// this page graded it on.
+const analyserHash = r => encodeURIComponent(JSON.stringify({
+  street: r[A], town: r[T],
+  ask:   String(r[ASK]),
+  sqft:  String(r[SQ]),
+  beds:  String(r[BD]),
+  baths: String(r[BA]),
+  lot:   r[LOT] && r[LOT] > 500 ? String(r[LOT]) : "",
+  m:     String(+r[DATE].slice(5, 7)),
+  mode:  "idx",
+}));
+
+// Same contract for a live listing, which uses the market.html field names and has no
+// sale month — so it prices as of the snapshot, exactly as the pinned row does.
+const listingHash = l => encodeURIComponent(JSON.stringify({
+  street: l.a, town: l.t,
+  ask:   String(l.p),
+  sqft:  l.sq ? String(l.sq) : "",
+  beds:  l.bd != null ? String(l.bd) : "",
+  baths: l.ba != null ? String(l.ba) : "",
+  lot:   l.lot && l.lot > 500 ? String(l.lot) : "",
+  m:     String(SEASON_M),
+  mode:  "idx",
+}));
+
+function draw() {
+  const out = view();
+  scoreboard(out);
+  diagnostics(out);
+  document.getElementById("n").textContent = out.length.toLocaleString();
+  document.getElementById("nlab").textContent = out.length === 1 ? "house" : "houses";
+
+  const slice = out.slice(0, shown);
+  document.getElementById("rows").innerHTML = slice.map(x => {
+    const r = x.r, c = x.c;
+    const facts = [r[BD] + "bd", r[BA] + "ba", r[SQ].toLocaleString() + " sqft",
+                   r[LOT] ? (r[LOT]/43560).toFixed(2) + " ac" : null,
+                   r[YR] || null].filter(Boolean).join(" · ");
+    const cls = x.errPct > 0 ? "o" : "u";
+    return `<div class="row">
+      <div class="addr"><a class="stretch" href="analyser.html#${analyserHash(r)}">${esc2(r[A])}</a>
+        <span class="t">${r[T]} · ${r[TYPE]} · sold ${r[DATE]}</span>
+        <span class="facts">${facts}</span></div>
+      <div class="est" data-l="Our estimate">${usd(x.est)}
+        <span class="rng">${usdK(c.lo)} – ${usdK(c.hi)}${
+          x.inRange === true ? '<i class="in" title="true price landed inside"></i>'
+                             : '<i class="out" title="true price fell outside"></i>'}</span>
+        <span class="tier">${c.n} comps${c.degraded ? " · widened" : ""}${c.thinFam ? " · own type, thin" : ""}${
+                c.famDropped ? " · TYPE DROPPED" : ""}${
+                c.borrowedComps ? " · borrowed from next door" : ""}</span></div>
+      <div class="${x.askEst != null ? "est" : "na"}" data-l="Ask × season">${
+        x.askEst != null
+          ? usd(x.askEst) + `<span class="rng">${pct1(x.seasonPct)} seasonal</span>`
+          : "no season"}</div>
+      <div class="money" data-l="Asked">${usd(x.ask)}</div>
+      <div class="money" data-l="Sold">${usd(x.sold)}
+        <span class="rng ${r[VSASK] > 0 ? "o" : "u"}">${pct1(r[VSASK])} vs ask</span></div>
+      <div class="miss ${cls}" data-l="Our miss">${pct1(x.errPct)}
+        <span class="d">${x.err > 0 ? "+" : "−"}${usdK(Math.abs(x.err))}</span></div>
+    </div>`;
+  }).join("");
+
+  const more = document.getElementById("more");
+  more.style.display = out.length > shown ? "block" : "none";
+
+  // header arrows + the dropdown both reflect the live sort state
+  document.querySelectorAll("#head span").forEach(s => {
+    const on = s.dataset.k === sort.key;
+    s.classList.toggle("on", on);
+    s.querySelector("i")?.remove();
+    if (on) s.insertAdjacentHTML("beforeend",
+      `<i>${sort.dir === "asc" ? "▲" : "▼"}</i>`);
+  });
+  const val = `${sort.key}:${sort.dir}`;
+  els.sort.value = [...els.sort.options].some(o => o.value === val) ? val : "";
+}
+
+document.getElementById("head").addEventListener("click", e => {
+  const k = e.target.closest("span")?.dataset.k;
+  if (!k) return;
+  // same column again just flips direction; a new column starts at its useful end
+  sort = k === sort.key ? {key:k, dir: sort.dir === "asc" ? "desc" : "asc"}
+                        : {key:k, dir: FIRST_DIR[k] || "desc"};
+  shown = 100; draw();
+});
+els.sort.addEventListener("change", () => {
+  if (!els.sort.value) return;
+  const [key, dir] = els.sort.value.split(":");
+  sort = {key, dir};
+  shown = 100; draw();
+});
+
+[els.q, els.type, els.maxPrice, els.minBd, els.minBa].forEach(e =>
+  e.addEventListener(e.tagName === "INPUT" ? "input" : "change", () => { shown = 100; draw(); }));
+
+// stopPropagation so the document-level closer below doesn't shut the menu we just
+// opened, and so ticking a box doesn't close it mid-selection.
+document.getElementById("towns-btn").addEventListener("click", e => {
+  e.stopPropagation(); document.getElementById("towns-menu").classList.toggle("on"); });
+document.getElementById("towns-menu").addEventListener("click", e => {
+  e.stopPropagation();
+  if (e.target.dataset.none) picked = new Set();
+  else if (e.target.type === "checkbox")
+    e.target.checked ? picked.add(e.target.value) : picked.delete(e.target.value);
+  else return;
+  shown = 100; drawTowns(); draw();
+});
+document.addEventListener("click", () =>
+  document.getElementById("towns-menu").classList.remove("on"));
+
+document.getElementById("moreBtn").addEventListener("click", () => { shown += 200; draw(); });
+// The page opens on the range you actually buy in, and `reset` returns to it rather than
+// to "everything" — resetting to a market you're not shopping is not a useful home base.
+// Clear the three boxes by hand to see the whole market.
+// Type defaults to Single Family because that is what he is buying. Note this is a
+// PREFERENCE, not a correction: attached homes actually grade BETTER than houses overall
+// (9.1% vs 11.1% median error), so hiding them does not make the engine look better and
+// is not pretending to. They stay in the dropdown, and they stay in the scrape.
+const DEFAULTS = {maxPrice: "700000", minBd: "3", minBa: "1.1", type: "Single Family"};
+function applyDefaults() {
+  els.maxPrice.value = DEFAULTS.maxPrice;
+  els.minBd.value    = DEFAULTS.minBd;
+  els.minBa.value    = DEFAULTS.minBa;
+  els.type.value     = [...els.type.options].some(o => o.value === DEFAULTS.type)
+    ? DEFAULTS.type : "";
+}
+document.getElementById("reset").addEventListener("click", () => {
+  els.q.value = "";
+  applyDefaults();
+  picked = new Set();
+  sort = {key:"miss", dir:"desc"};
+  shown = 100; drawTowns(); draw();
+});
+
+// ── stamp + footnote ────────────────────────────────────────────────────────────
+const failed = results.length - priced.length;
+const stamp = document.getElementById("stamp");
+stamp.innerHTML = `Snapshot <b>${D.snapshot}</b> · grading <b>${YEAR}</b> sales ·
+  <b>${all.length.toLocaleString()}</b> had enough detail to price` +
+  (failed ? ` · <b>${failed}</b> the engine refused to price (too few comps)` : ``) +
+  (excluded ? ` · <b>${excluded}</b> thrown out as unbelievable sales (lot size in the sqft
+    column, placeholder asks, nominal transfers)${relDropped
+      ? `, <b>${relDropped}</b> of them for selling under ${Math.round(REL_FLOOR * 100)}% of
+         their own town's $/sqft` : ``}` : ``) +
+  ` · <b>${(all.length - unmatched).toLocaleString()}</b> removed from their own comp set` +
+  (unmatched
+    // Not a problem, and worth saying so rather than leaving it to look like one: these
+    // never entered the comp universe in the first place (build_data.py threw them out on
+    // implausible $/sqft -- usually a lot size that leaked into the sqft column), so there
+    // is nothing of theirs in D.comps to leak.
+    ? ` · the other <b>${unmatched}</b> were never comps to begin with, so nothing to remove`
+    : ``);
+
+document.getElementById("foot").innerHTML = `
+  <b>How to read this.</b> “Our estimate” is what the comp engine says the house was worth,
+  computed with that house taken out of the comp pool so it cannot price itself. The dot
+  next to the range is filled when the true sale price landed inside our p25–p75 and hollow
+  when it fell outside — that hit rate is the honest measure of whether the range means
+  anything. “Ask × season” is a separate, simpler prediction: take the asking price and move
+  it by what that town does in that month.<br><br>
+  <b>What this cannot tell you.</b> Only ${all.length.toLocaleString()} of
+  ${totalThisYear.toLocaleString()} ${YEAR} sales carry the sqft, beds, baths and asking price
+  the engine needs — the rest are deed records with no listing detail. Those are not missing at
+  random, so treat this as a strong signal about the houses we can see, not a verdict on the
+  whole market. The town price index and seasonal factors were also built from all sales
+  including these ones; that leak is tiny per house but it is not zero.`;
+
+applyDefaults();
+drawTowns();
+drawPins();
+draw();
+</script>
+</body>
+</html>
