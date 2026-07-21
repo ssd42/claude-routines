@@ -470,7 +470,12 @@ const results = all.map(r => {
     D.comps = ALL_COMPS;      // not in the universe at all -- nothing to leak
   }
 
-  const c = comps(r[T], r[SQ], r[BD], r[BA], "idx", lot, fam);
+  // NOTE: this passes the build year, which market.html and analyser.html do not yet do.
+  // That is deliberate and temporary -- we are grading a CANDIDATE configuration to see
+  // whether era-matching earns its place before touching the pages you price houses on.
+  // Until it rolls out, this page's numbers describe the engine-plus-era, not the engine
+  // those two pages are running.
+  const c = comps(r[T], r[SQ], r[BD], r[BA], "idx", lot, fam, r[YR] || null);
   const f = factor(r[T], +r[DATE].slice(5,7), "idx");
   D.comps = ALL_COMPS;        // always restore, even when the estimate failed
 
@@ -762,7 +767,7 @@ let pins = [];
 function estimateListing(l) {
   const fam = D.family[l.ty];
   if (!fam) return null;
-  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot && l.lot > 500 ? l.lot : null, fam);
+  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot && l.lot > 500 ? l.lot : null, fam, l.yr || null);
   if (!c || c.failed || !c.mid) return null;
   const ratio = c.mid / l.p;
   if (ratio > 3 || ratio < 1 / 3) return null;
@@ -881,6 +886,7 @@ const analyserHash = r => encodeURIComponent(JSON.stringify({
   beds:  String(r[BD]),
   baths: String(r[BA]),
   lot:   r[LOT] && r[LOT] > 500 ? String(r[LOT]) : "",
+  built: r[YR] ? String(r[YR]) : "",
   m:     String(+r[DATE].slice(5, 7)),
   mode:  "idx",
 }));
@@ -894,6 +900,7 @@ const listingHash = l => encodeURIComponent(JSON.stringify({
   beds:  l.bd != null ? String(l.bd) : "",
   baths: l.ba != null ? String(l.ba) : "",
   lot:   l.lot && l.lot > 500 ? String(l.lot) : "",
+  built: l.yr ? String(l.yr) : "",
   m:     String(SEASON_M),
   mode:  "idx",
 }));

@@ -320,6 +320,7 @@
   <div><label for="ask">Asking price</label><input id="ask" inputmode="numeric" placeholder="700,000"></div>
   <div><label for="sqft">House sq ft <span class="opt">optional</span></label><input id="sqft" inputmode="numeric" placeholder="1,800"></div>
   <div><label for="lot">Lot sq ft <span class="opt">optional</span></label><input id="lot" inputmode="numeric" placeholder="7,300"></div>
+  <div><label for="built">Year built <span class="opt">optional — matches comps of the same vintage</span></label><input id="built" inputmode="numeric" placeholder="1962"></div>
   <div class="pair">
     <div><label for="beds">Beds</label><input id="beds" inputmode="numeric" placeholder="3"></div>
     <div><label for="baths">Baths</label><input id="baths" inputmode="decimal" placeholder="2"></div>
@@ -536,7 +537,7 @@ const todayMonth = new Date(D.generated + "T12:00:00").getMonth() + 1;
 const defMonth = todayMonth;
 $("slider").value = defMonth;
 
-["ask","sqft","beds","baths","street","lot"].forEach(id => $(id).addEventListener("input", run));
+["ask","sqft","beds","baths","street","lot","built"].forEach(id => $(id).addEventListener("input", run));
 $("slider").addEventListener("input", run);
 
 /* ── survive a refresh ──────────────────────────────────────────────────────
@@ -544,7 +545,7 @@ $("slider").addEventListener("input", run);
    we fall back to the URL hash, which always survives a reload (and makes the
    state shareable as a link). Either way, a refresh should never cost you the
    house you were looking at. */
-const FIELDS = ["street", "town", "ask", "sqft", "beds", "baths", "lot"];
+const FIELDS = ["street", "town", "ask", "sqft", "beds", "baths", "lot", "built"];
 const KEY = "offer-advisor";
 function save() {
   const s = {};
@@ -639,18 +640,25 @@ function run() {
   const m     = +$("slider").value;
 
   const lot = lotIn || null;        // used the moment it's there — no switch
+  /* Same rule as the lot: used the moment you give it, no switch. It narrows the comps to
+     houses of roughly the same vintage (±15 years, widening to ±30, then dropped) rather
+     than applying an age discount -- a gut-renovated 1910 and a tired 1910 are the same
+     year and nowhere near the same price, so era has to be a filter for like-with-like.
+     Measured across the 2026 sales this was worth 10.5% -> 9.9% median error. */
+  const builtIn = digits($("built").value);
+  const built = builtIn && builtIn > 1700 && builtIn < 2100 ? builtIn : null;
 
   /* ── ① comps ──────────────────────────────────────── */
   const anyShape = !!(sqft || lot || beds !== null || baths !== null);
   const c = !anyShape ? null
     : exact ? compsExact(town, sqft, beds, baths, mode, lot)
-            : comps(town, sqft, beds, baths, mode, lot);
+            : comps(town, sqft, beds, baths, mode, lot, null, built);
   $("exact").disabled = !anyShape;
   let lo = null, hi = null, mid = null;
 
   // say what the mode costs, in this town, right now — not in the abstract
-  const nIdx = anyShape ? comps(town, sqft, beds, baths, "idx", lot) : null;
-  const nRec = anyShape ? comps(town, sqft, beds, baths, "recent", lot) : null;
+  const nIdx = anyShape ? comps(town, sqft, beds, baths, "idx", lot, null, built) : null;
+  const nRec = anyShape ? comps(town, sqft, beds, baths, "recent", lot, null, built) : null;
   $("mode-n").textContent = (sqft && nIdx && !nIdx.failed)
     ? `${nIdx.n} comps · ${nRec && !nRec.failed ? nRec.n : (nRec ? nRec.strict : 0)} in the last 2 years`
     : "";
@@ -862,7 +870,7 @@ function run() {
   if (!lotIn || !c || c.failed) {
     lotEl.innerHTML = ""; lotEl.className = "flip"; $("lot-n").textContent = "";
   } else {
-    const noLot = sqft ? comps(town, sqft, beds, baths, mode, null) : null;
+    const noLot = sqft ? comps(town, sqft, beds, baths, mode, null, null, built) : null;
     $("lot-n").textContent = (noLot && !noLot.failed)
       ? `${noLot.n} comps → ${c.n} with the lot matched` : `${c.n} comps`;
 

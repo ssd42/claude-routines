@@ -405,7 +405,7 @@ function valuation(l) {
   // would put them straight at the top — a $99,900 lot reading as $500k underpriced.
   const fam = D.family[l.ty];
   if (!fam) return null;
-  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot, fam);
+  const c = comps(l.t, l.sq, l.bd, l.ba, "idx", l.lot, fam, l.yr || null);
   if (!c || c.failed) return null;
   // If the comps and the ask disagree by more than 3x, they are not describing the
   // same thing and we cannot tell which is wrong. A 552sqft Edison "house" asking
@@ -643,6 +643,10 @@ function render() {
       street: l.a, town: l.t, ask: String(l.p),
       sqft: l.sq ? String(l.sq) : "", beds: l.bd ? String(l.bd) : "",
       baths: l.ba ? String(l.ba) : "", lot: l.lot ? String(l.lot) : "",
+      // forward the build year too: this page now prices with it, so omitting it would
+      // make the analyser disagree with the row you clicked -- the one bug engine.js's
+      // header says this tool must never have.
+      built: l.yr ? String(l.yr) : "",
       m: String(new Date(D.generated + "T12:00:00").getMonth() + 1), mode: "idx",
     }));
     const facts = [

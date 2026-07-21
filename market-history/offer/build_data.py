@@ -128,8 +128,20 @@ def build_comps(sales):
         fam = FAMILY.get(r["property_type"] or "")
         if not fam:
             continue          # land / manufactured / unknown -- not a house, not a comp
+        # When it was BUILT, as an optional 11th field (0 = unknown), on 98.7% of the comp
+        # universe. Nothing used it before, and it was the last dimension the engine was
+        # blind to that the data actually carries: a 1910 house and a 2005 house of the
+        # same size in the same town are not the same product, and the backtest measures
+        # pre-1920 stock coming out ~9% too dear.
+        #
+        # Like lot, it is a FILTER, not an adjustment. A global "old houses are worth 9%
+        # less" is exactly the false precision the lot note above refuses -- a gut-
+        # renovated 1910 colonial and a tired one are the same year and nowhere near the
+        # same price. Matching era to era lets the comps carry that instead of a constant.
+        built = num(r["year_built"])
+        built = int(built) if built and 1700 < built < 2100 else 0
         out.append([r["town"], int(sqft), beds, baths, int(sold), round(pct, 2), year, lot,
-                    month, fam])
+                    month, fam, built])
     return out
 
 

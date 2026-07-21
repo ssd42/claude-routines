@@ -92,6 +92,12 @@ const indexIsBorrowed = town => !D.townIndex[town];
    want to relax. If nothing in the town sits on a comparable lot, the lot is DROPPED
    and the page says so. */
 const LOT_TOLS = [0.30, 0.50];
+/* How far the BUILD YEAR may drift before era stops being a filter. Same shape as the lot
+   tolerances above and the same reasoning: match like with like rather than apply a
+   blanket "old houses are worth less", which would price a gut-renovated 1910 colonial
+   identically to a tired one. `null` is the last rung -- era dropped, and the result says
+   so -- because a town with nothing of your vintage should still get an answer. */
+const ERA_TOLS = [15, 30];
 const LOT_ONLY_TOLS = [0.20, 0.35, 0.50];
 
 /* "Match exactly" — the tightest filter the data allows, with the 10-comp floor
@@ -273,7 +279,7 @@ function compsBorrow(town, sqft, beds, baths, mode, fam) {
    pooled set and FLAG it (`famDropped`), same as every other tier here: widen, say so,
    or refuse. Costs ~26% of queries at the tight tier, which is the price of not being
    confidently wrong about 1,600 attached homes. */
-function comps(town, sqft, beds, baths, mode, lot, fam) {
+function comps(town, sqft, beds, baths, mode, lot, fam, built) {
   if (!sqft && !lot && beds === null && baths === null) return null;
   const ix = indexFor(town);
   const mult = c => (mode === "idx" ? (ix[c[6]] || 1) : 1);
@@ -282,19 +288,21 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
   const valOf = c => sqft ? (c[4] / c[1]) * mult(c) * sqft : c[4] * mult(c);
 
   let wantFam = fam || null;
-  const ok = (c, t, lt) =>
+  const ok = (c, t, lt, et) =>
     c[0] === town &&
     (mode !== "recent" || D.recentYears.includes(String(c[6]))) &&
     (!wantFam || c[9] === wantFam) &&
     (beds  === null || Math.abs(c[2] - beds)  <= t.bd) &&
     (baths === null || Math.abs(c[3] - baths) <= t.ba) &&
     (!sqft || Math.abs(c[1] - sqft) / sqft <= t.sq) &&
-    (lt === null || (c[7] && Math.abs(c[7] - lot) / lot <= lt));
+    (lt === null || (c[7] && Math.abs(c[7] - lot) / lot <= lt)) &&
+    (et === null || !built || (c[10] && Math.abs(c[10] - built) <= et));
 
-  const build = (hit, t, lotTol) => {
+  const build = (hit, t, lotTol, eraTol) => {
     const [mid, p25, p75] = quart(hit.map(valOf));
     return {tier:t, n:hit.length, mid, lo:p25, hi:p75,
             ppsf: sqft ? med(hit.map(c => (c[4] / c[1]) * mult(c))) : null,
+            eraTol, eraDropped: !!built && eraTol == null,
             degraded: t.id !== "t1", lotTol, lotDropped: !!lot && lotTol === null,
             bySize: !!sqft, fam: wantFam, famDropped: !!fam && !wantFam,
             borrowed: mode === "idx" && indexIsBorrowed(town)};
@@ -306,7 +314,7 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
   // stop meaning anything at all, so that is the floor.
   const THIN_FAM = 6;
 
-  const ladder = (min) => {
+  const ladder = (min, et) => {
     if (!sqft && lot) {
       // NOT the TIERS ladder here. Its tolerances are sqft-shaped and its last rung
       // drops beds/baths entirely -- harmless when sqft anchors the set, catastrophic
@@ -317,8 +325,8 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
       for (const lt of LOT_ONLY_TOLS)
         for (const t of [{id:"L1", tag:"lot-matched · beds ±0 · baths ±0.5", bd:0, ba:.5},
                          {id:"L2", tag:"lot-matched · beds ±1 · baths ±1",   bd:1, ba:1}]) {
-          const hit = D.comps.filter(c => ok(c, t, lt));
-          if (hit.length >= min) { const r = build(hit, t, lt); r.noSize = true; return r; }
+          const hit = D.comps.filter(c => ok(c, t, lt, et));
+          if (hit.length >= min) { const r = build(hit, t, lt, et); r.noSize = true; return r; }
         }
       return null;
     }
@@ -330,28 +338,37 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
           (mode !== "recent" || D.recentYears.includes(String(c[6]))) &&
           (!wantFam || c[9] === wantFam) &&
           (beds  === null || Math.abs(c[2] - beds)  <= t.bd) &&
-          (baths === null || Math.abs(c[3] - baths) <= t.ba));
-        if (hit.length >= min) { const r = build(hit, t, null); r.noSize = true; return r; }
+          (baths === null || Math.abs(c[3] - baths) <= t.ba) &&
+          (et === null || !built || (c[10] && Math.abs(c[10] - built) <= et)));
+        if (hit.length >= min) { const r = build(hit, t, null, et); r.noSize = true; return r; }
       }
       return null;
     }
     if (lot) {
       for (const lt of LOT_TOLS)
         for (const t of TIERS) {
-          const hit = D.comps.filter(c => ok(c, t, lt));
-          if (hit.length >= min) return build(hit, t, lt);
+          const hit = D.comps.filter(c => ok(c, t, lt, et));
+          if (hit.length >= min) return build(hit, t, lt, et);
         }
     }
     for (const t of TIERS) {
-      const hit = D.comps.filter(c => ok(c, t, null));
+      const hit = D.comps.filter(c => ok(c, t, null, et));
       if (t.id === "t1") strictN = hit.length;
-      if (hit.length >= min) return build(hit, t, null);
+      if (hit.length >= min) return build(hit, t, null, et);
     }
     return null;
   };
 
   let strictN = 0;
-  let r = ladder(THIN);
+  /* Era widens BEFORE anything else relaxes, and is dropped before the type is. The order
+     is a claim about which dimension matters most: a same-size same-town house from the
+     wrong decade is still a closer comp than a different KIND of home, so era gives way
+     first. When it is dropped the result says so (`eraDropped`) rather than pretending the
+     comps were vintage-matched. `built` is optional -- pass nothing and this rung is
+     skipped entirely and the engine behaves exactly as it did before. */
+  let r = null;
+  if (built) for (const et of ERA_TOLS) { r = ladder(THIN, et); if (r) break; }
+  if (!r) r = ladder(THIN, null);
   /* A thin set of the RIGHT kind of home beats a fat set of the wrong kind.
      Before this rung existed, a Wayne condo whose own type had only 8 comps at its size
      fell straight through to the pooled set -- 47 houses and 4 condos -- and came back
@@ -379,10 +396,10 @@ function comps(town, sqft, beds, baths, mode, lot, fam) {
      `thinFam` because quartiles off 6-9 sales are genuinely shakier -- coverage on this
      rung runs ~38% against the 50% a p25-p75 band should hit, so the band is over-confident
      and the page must say so rather than print it like any other answer. */
-  r = ladder(THIN_FAM);
+  r = ladder(THIN_FAM, null);
   if (r) { r.thinFam = true; return r; }
 
-  if (wantFam) { wantFam = null; r = ladder(THIN); }   // pool the types, and flag it
+  if (wantFam) { wantFam = null; r = ladder(THIN, null); }   // pool the types, and flag it
   if (r) return r;
   return {failed:true, strict:strictN, noSize:!sqft};
 
