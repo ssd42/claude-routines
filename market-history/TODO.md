@@ -278,6 +278,23 @@ Three known weaknesses to design around:
 also read your notes on the house? Should it flag the single highest-risk item (usually the oil
 tank) separately from the budget? **Depends on:** favourites existing, above.
 
+### Get more towns onto their own price trend
+**Noticed 2026-07-23 during a data refresh — a loose end, not urgent.**
+
+To age an old sale up to today's money, the tool needs to know how fast prices rose in that
+town. Where a town has enough of its own sales it uses its own trend; where it doesn't, it
+falls back to a single regional average and says so on the page. Right now only **24 of the
+75 towns** clear the bar for their own trend — the other 51 are leaning on the regional
+number. That's the intended safety net, not a bug, and it's honest about it. But a town
+whose prices actually moved differently from the region gets aged wrong, and that quietly
+feeds into every estimate there.
+
+The 51 are mostly the sparser outer-ring towns we added later. Worth a look at whether the
+bar can come down a little, or the trend measured over a slightly looser grouping, so more
+towns carry their own number instead of borrowing. A code comment still says "46 of 53,"
+written before the town list grew — so this drifted without anyone deciding it.
+**Size:** small-to-medium investigation. **Do when:** convenient; nothing breaks meanwhile.
+
 ### Map page — more fields — DEPRIORITIZED
 **Status:** deprioritized 2026-07-20. The ask was "*think about* more fields for the maps
 page" — a question, not a decision. The specific fields below are **Claude's suggestions
