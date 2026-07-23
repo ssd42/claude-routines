@@ -1,1056 +1,1111 @@
 {
   "listing_scrape": {
     "07004": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-09",
-      "rows": 173
+      "rows": 175
     },
     "07005": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
-      "rows": 469
+      "rows": 468
     },
     "07006": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-18",
-      "rows": 662
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 667
     },
     "07009": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 398
-    },
-    "07016": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 657
-    },
-    "07021": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-05-18",
-      "rows": 68
-    },
-    "07023": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 226
-    },
-    "07027": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-02",
-      "rows": 133
-    },
-    "07028": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 282
-    },
-    "07034": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 225
-    },
-    "07039": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 1076
-    },
-    "07040": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 850
-    },
-    "07041": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-10",
-      "rows": 263
-    },
-    "07042": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 711
-    },
-    "07043": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 454
-    },
-    "07044": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 519
-    },
-    "07045": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-20",
       "rows": 401
     },
-    "07046": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 168
+    "07016": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 661
     },
-    "07052": {
-      "last_fetched": "2026-07-20",
+    "07021": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-06",
+      "rows": 69
+    },
+    "07023": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 229
+    },
+    "07027": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-09",
+      "rows": 135
+    },
+    "07028": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 285
+    },
+    "07034": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 229
+    },
+    "07039": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1081
+    },
+    "07040": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 859
+    },
+    "07041": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-10",
+      "rows": 262
+    },
+    "07042": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 715
+    },
+    "07043": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 457
+    },
+    "07044": {
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
-      "rows": 1641
-    },
-    "07054": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
       "rows": 521
     },
+    "07045": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 403
+    },
+    "07046": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-15",
+      "rows": 167
+    },
+    "07052": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1646
+    },
+    "07054": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 526
+    },
     "07059": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 669
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 671
     },
     "07066": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-19",
-      "rows": 360
+      "rows": 361
     },
     "07067": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-15",
       "rows": 505
     },
     "07068": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 191
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 192
     },
     "07069": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 191
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 193
     },
     "07076": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 666
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 671
     },
     "07078": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 478
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 479
     },
     "07079": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
-      "rows": 576
+      "rows": 577
     },
     "07080": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 586
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 587
     },
     "07081": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
-      "rows": 497
+      "rows": 499
     },
     "07082": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-13",
-      "rows": 180
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 182
     },
     "07090": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 1000
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1006
     },
     "07092": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-06",
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-17",
       "rows": 225
     },
     "07095": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 614
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 615
     },
     "07110": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
       "rows": 788
     },
     "07407": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 246
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 247
     },
     "07417": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-14",
-      "rows": 216
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 218
     },
     "07424": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 684
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 689
     },
     "07442": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-15",
-      "rows": 404
+      "rows": 408
     },
     "07444": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 249
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 251
     },
     "07452": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-14",
-      "rows": 264
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 265
     },
     "07470": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 1552
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1558
     },
     "07508": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-18",
-      "rows": 469
+      "rows": 473
     },
     "07512": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 264
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 268
     },
     "07834": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 772
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 775
     },
     "07853": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 398
-    },
-    "07869": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 757
-    },
-    "07901": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 738
-    },
-    "07920": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 1028
-    },
-    "07921": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 490
-    },
-    "07922": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
       "rows": 400
     },
+    "07869": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 762
+    },
+    "07901": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 741
+    },
+    "07920": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 1030
+    },
+    "07921": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-17",
+      "rows": 491
+    },
+    "07922": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 402
+    },
     "07924": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 331
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 333
     },
     "07927": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-14",
-      "rows": 91
+      "rows": 92
     },
     "07928": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 789
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 792
     },
     "07930": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 332
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-17",
+      "rows": 333
     },
     "07932": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 357
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 361
     },
     "07933": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-07",
-      "rows": 117
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 118
     },
     "07936": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-09",
-      "rows": 410
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 413
     },
     "07940": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 450
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 453
     },
     "07945": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 403
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 405
     },
     "07946": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-16",
       "rows": 88
     },
     "07950": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
-      "rows": 724
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 733
     },
     "07960": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 1432
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1440
     },
     "07974": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-14",
-      "rows": 379
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 381
     },
     "07980": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-02",
       "rows": 65
     },
     "07981": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-13",
-      "rows": 268
+      "rows": 269
     },
     "08807": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-15",
-      "rows": 1163
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 1174
     },
     "08812": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 460
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 463
     },
     "08817": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-07-17",
       "rows": 971
     },
     "08820": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 906
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-20",
+      "rows": 910
     },
     "08836": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-10",
-      "rows": 135
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-21",
+      "rows": 137
     },
     "08837": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-13",
-      "rows": 358
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-17",
+      "rows": 357
     },
     "08840": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-17",
-      "rows": 529
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-22",
+      "rows": 531
     },
     "08876": {
-      "last_fetched": "2026-07-20",
-      "latest": "2026-07-16",
+      "last_fetched": "2026-07-23",
+      "latest": "2026-07-17",
       "rows": 709
     }
   },
   "nj_records": {
     "07004": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 134
     },
     "07005": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-03",
       "rows": 189
     },
     "07006": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 331
     },
     "07009": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 158
     },
     "07016": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-27",
       "rows": 360
     },
     "07021": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-06",
       "rows": 33
     },
     "07023": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-06",
       "rows": 118
     },
     "07027": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 64
     },
     "07028": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 121
     },
     "07034": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 109
     },
     "07039": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-19",
       "rows": 549
     },
     "07040": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 415
     },
     "07041": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-09",
       "rows": 123
     },
     "07042": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-17",
       "rows": 337
     },
     "07043": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-16",
       "rows": 196
     },
     "07044": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 236
     },
     "07045": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-17",
       "rows": 252
     },
     "07046": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-10",
       "rows": 80
     },
     "07052": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2025-01-21",
       "rows": 802
     },
     "07054": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 556
     },
     "07059": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 250
     },
     "07066": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-24",
       "rows": 216
     },
     "07067": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-19",
       "rows": 268
     },
     "07068": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-17",
       "rows": 99
     },
     "07069": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-26",
       "rows": 99
     },
     "07076": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 359
     },
     "07078": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 235
     },
     "07079": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 236
     },
     "07080": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 339
     },
     "07081": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 251
     },
     "07082": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 92
     },
     "07090": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 523
     },
     "07092": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-06",
       "rows": 139
     },
     "07095": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-17",
       "rows": 280
     },
     "07110": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 434
     },
     "07407": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-11-20",
       "rows": 200
     },
     "07417": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-11-15",
       "rows": 139
     },
     "07424": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 136
     },
     "07442": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 198
     },
     "07444": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 137
     },
     "07452": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-11-05",
       "rows": 179
     },
     "07470": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 801
     },
     "07508": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 211
     },
     "07512": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-10",
       "rows": 163
     },
     "07834": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-04",
       "rows": 375
     },
     "07853": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 198
     },
     "07869": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 377
     },
     "07901": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 341
     },
     "07920": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-30",
       "rows": 531
     },
     "07921": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-30",
       "rows": 285
     },
     "07922": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-05",
       "rows": 208
     },
     "07924": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-10",
       "rows": 157
     },
     "07928": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-17",
       "rows": 417
     },
     "07930": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 178
     },
     "07932": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 205
     },
     "07933": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-09",
       "rows": 47
     },
     "07936": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 229
     },
     "07940": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-19",
       "rows": 224
     },
     "07945": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-11",
       "rows": 195
     },
     "07946": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-11-25",
       "rows": 37
     },
     "07950": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-20",
       "rows": 189
     },
     "07960": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-16",
       "rows": 626
     },
     "07974": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 198
     },
     "07980": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-11-22",
       "rows": 33
     },
     "07981": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 116
     },
     "08807": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-27",
       "rows": 566
     },
     "08812": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-23",
       "rows": 105
     },
     "08817": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 471
     },
     "08820": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-18",
       "rows": 552
     },
     "08836": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-07",
       "rows": 76
     },
     "08837": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-13",
       "rows": 157
     },
     "08840": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-19",
       "rows": 238
     },
     "08876": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2024-12-19",
       "rows": 235
     }
   },
   "redfin_dc": {
+    "07004": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 80
+    },
     "07005": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 98
     },
     "07006": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 146
     },
     "07009": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 129
     },
     "07016": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 101
     },
     "07021": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 69
     },
     "07023": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 75
     },
     "07027": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 97
     },
     "07028": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 106
     },
+    "07034": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 77
+    },
     "07039": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 123
     },
     "07040": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 130
     },
     "07041": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 110
     },
     "07042": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 141
     },
     "07043": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 121
     },
     "07044": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 126
     },
     "07045": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 91
     },
     "07046": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "07052": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 165
     },
+    "07054": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 87
+    },
     "07059": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 72
     },
     "07066": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 75
     },
     "07067": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 75
     },
     "07068": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 91
     },
     "07069": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "07076": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 90
     },
     "07078": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "07079": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 113
     },
     "07080": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 101
     },
     "07081": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 81
     },
     "07082": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 75
     },
     "07090": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 110
     },
     "07092": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "07095": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 120
     },
     "07110": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 152
     },
+    "07407": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 131
+    },
     "07417": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 95
     },
+    "07424": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 165
+    },
+    "07442": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 141
+    },
+    "07444": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 107
+    },
     "07452": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 84
     },
+    "07470": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 142
+    },
+    "07508": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 138
+    },
+    "07512": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 117
+    },
     "07834": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 97
     },
     "07853": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 69
     },
     "07869": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 86
     },
     "07901": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 100
     },
     "07920": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 92
     },
     "07921": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 93
     },
     "07922": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 72
     },
     "07924": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 98
     },
     "07927": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 74
     },
     "07928": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 95
     },
     "07930": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 70
     },
     "07932": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 73
     },
     "07933": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "07936": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 77
     },
     "07940": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 98
     },
     "07945": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 75
     },
     "07946": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 64
     },
     "07950": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 124
     },
     "07960": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 139
     },
     "07974": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 92
     },
     "07980": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 70
     },
+    "07981": {
+      "last_fetched": "2026-07-23",
+      "latest": "2026-05-31",
+      "rows": 81
+    },
     "08807": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 109
     },
     "08812": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 110
     },
     "08817": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 134
     },
     "08820": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 93
     },
     "08836": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 66
     },
     "08837": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 115
     },
     "08840": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 90
     },
     "08876": {
-      "last_fetched": "2026-07-20",
+      "last_fetched": "2026-07-23",
       "latest": "2026-05-31",
       "rows": 105
     }
