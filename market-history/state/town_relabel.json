@@ -1,50 +1,9 @@
 {
- "corrected": {
-  "2|jared|07945": {
-   "old": "Mendham",
-   "new": "Randolph",
-   "zip": "07945"
-  },
-  "2467|1astate10|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "2467|state108b|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "56|unionhill|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "21|fillmore|07960": {
-   "old": "Morristown",
-   "new": "Morris Township",
-   "zip": "07960"
-  },
-  "35|hancock|07960": {
-   "old": "Morristown",
-   "new": "Morris Township",
-   "zip": "07960"
-  },
-  "328|hobart|07508": {
-   "old": "North Haledon",
-   "new": "Haledon",
-   "zip": "07508"
-  },
-  "44|leonhard|07508": {
-   "old": "North Haledon",
-   "new": "Haledon",
-   "zip": "07508"
-  }
- },
+ "corrected": {},
  "tally": {
-  "polygon_agree": 4128,
-  "polygon_corrected": 8,
-  "outside": 328,
-  "nocoord": 244
+  "polygon_agree": 4419,
+  "polygon_corrected": 0,
+  "outside": 353,
+  "nocoord": 247
  }
 }

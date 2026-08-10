@@ -35,6 +35,7 @@ market-history/layers/tax/*.xls
 market-history/layers/appreciation/zhvi_zip.csv
 market-history/layers/appreciation/hpi_at_zip5.xlsx
 market-history/layers/income/*.dat
+market-history/layers/education/*.dat
 
 # Appraiser verdicts: contain a real address, condition commentary on someone else's
 # home, and the maximum we would pay for it. See offer/SPIKE-appraiser.md section 12.
