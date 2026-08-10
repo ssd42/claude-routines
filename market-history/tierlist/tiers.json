@@ -1,7 +1,7 @@
 {
   "_doc": "Hand-ranked tiers for the market-history target towns. Authored in tierlist/tierlist.html (python3 serve.py); rewritten in full on every edit. Town names match ../zips.json. Order within a tier is meaningful — best first. Opinion, not data: nothing in aggregate.py reads this.",
   "_unknown_rule": "'unknown' is NOT the bottom of the S-F ramp — it means no read on the town yet, good or bad. Don't sort it below F or fold it into 'unranked' (which just means not looked at yet). Ranked counts exclude both.",
-  "updated": "2026-07-20T15:30:04-04:00",
+  "updated": "2026-08-10T17:10:07-04:00",
   "source": "../zips.json — 75 ranked, 0 unknown, 0 unsorted",
   "tiers": {
     "S": [
@@ -20,12 +20,14 @@
       "Watchung",
       "Short Hills",
       "Warren",
+      "West Orange",
       "Madison",
       "Franklin Lakes",
       "Caldwell",
       "Colonia",
       "Bridgewater",
-      "Cedar Grove"
+      "Cedar Grove",
+      "Metuchen"
     ],
     "A": [
       "Garwood",
@@ -38,7 +40,6 @@
       "South Orange",
       "Livingston",
       "Morristown",
-      "Wayne",
       "Bedminster",
       "Morris Plains",
       "Roseland",
@@ -46,28 +47,27 @@
       "Haledon",
       "East Hanover",
       "Millington",
+      "Edison",
       "Stirling",
       "Gillette",
       "Totowa",
+      "Wayne",
       "Hanover Township",
       "North Haledon",
-      "Fairfield"
+      "Fairfield",
+      "Verona",
+      "Nutley",
+      "Springfield"
     ],
     "B": [
-      "Springfield",
       "Summit",
       "Florham Park",
-      "Verona",
-      "Edison",
       "Green Brook",
-      "Metuchen",
       "Maplewood",
       "Parsippany-Troy Hills",
       "Pompton Lakes",
       "Mendham Township",
       "Woodland Park",
-      "West Orange",
-      "Nutley",
       "West Caldwell",
       "Morris Township",
       "Towaco",
