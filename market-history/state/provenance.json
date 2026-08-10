@@ -1755,6 +1755,12 @@
       "nj_records": 1900
     }
   },
+  "16 parker road|07930|2024-12": {
+    "garage": {
+      "listing_scrape": 2,
+      "nj_records": 1
+    }
+  },
   "16 robertson court|07960|2024-04": {
     "lot_sqft": {
       "listing_scrape": 4792,
