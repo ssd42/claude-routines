@@ -37,8 +37,43 @@ quoted phrase gets deleted, not softened.
 
 ```bash
 cd market-history/appraise
-python3 prepare.py "12 Maple Ave" --town Cranford     # stage 0 — blind + sealed records
+
+# stage 0 — PREFER fetch.py: drop any listing link (or a plain address) and it works
+python3 fetch.py "https://www.zillow.com/homedetails/12-Maple-Ave-Cranford-NJ-07016/123_zpid/"
+python3 fetch.py "12 Maple Ave, Cranford, NJ 07016"
+
+# stage 0 — prepare.py is the older path: looks the house up in our own listings.csv
+python3 prepare.py "12 Maple Ave" --town Cranford
+
 python3 context.py                                     # stages 1,2,5,6 — all deterministic
+python3 photos.py                                      # stage 3 survey — every photo, small
+python3 photos.py --detail 5 11 17                     # stage 3 detail — the ones that matter
+python3 save.py                                        # archive + write the de-identified grade row
+```
+
+**`fetch.py` is the entry point to reach for** (its own docstring: *"the version that should have
+existed first"*). It takes a **Zillow, Redfin, Realtor or plain-address** input, uses the link
+**only to extract an address** — nothing is fetched from the site pasted — and writes the price
+straight to the sealed record. It is a **non-model process**, which is what keeps the blinding
+plumbing rather than instruction. It falls back to `listings.csv` when the scrape is
+rate-limited, so a house we already hold still appraises offline.
+
+**Running more than one house in a session:** `run/` is a **single shared working directory** —
+the next `fetch.py` overwrites the previous subject, and `photos.py` overwrites `run/photos/`
+**in place** (the `--detail` pass replaces the survey image at the same filename, it does not
+write a subdirectory). So: **finish and `save.py` each house before starting the next.** Once
+archived, the images live under `appraisals/<key>/<date>/photos/` and can be re-read there — do
+that rather than re-fetching when a photo claim is challenged later.
+
+**Note the `|` in `<property_key>`** (e.g. `271valleyrd|07066`). It breaks unquoted shell paths
+and IDE links — always quote it.
+
+**Cropping is part of stage 3.** PIL is available. Small print on floor plans and small objects in
+exteriors need it:
+```python
+from PIL import Image
+im = Image.open('run/photos/16.jpg'); box = (215, 225, 415, 300)
+im.crop(box).resize(((box[2]-box[0])*5, (box[3]-box[1])*5), Image.LANCZOS).save('/tmp/x.png')
 ```
 
 `context.json` now holds the comp anchor with its honesty flags, three real recent sales
@@ -76,6 +111,49 @@ Non-negotiable before any range is produced:
   wiring no matter how new the panel looks), visible ductwork or its absence, radiators,
   water staining, and what the mirrors reveal in adjacent rooms.
 
+**THE FLOOR PLAN IS THE MOST VALUABLE IMAGE IN ANY GALLERY. Look for it first.**
+
+> Added 2026-08-17. On a Clark ranch the last two images were floor-plan pages, and one line of
+> small print — `TOTAL: 1316 sq. ft · 1st floor: 1010 sq. ft · EXCLUDED: BASEMENT 474…` — decided
+> the entire appraisal. The listing published **no sqft**, so the comp engine fell to a lot-only
+> tier and anchored at **$670,198** against a comp set of 1,357–2,344 sqft. The house is **1,010
+> sqft above grade.** Nothing else in 17 photos came close to mattering as much.
+
+- **Scan the gallery for plan pages before reading rooms.** They are usually last, often small
+  files, and they frequently carry **stated square footage and every room dimension.**
+- **Pull them with `--detail` and crop in.** The totals line is set in small type; at survey size
+  it is unreadable. Use PIL to crop and upscale — `Image.crop().resize(..., LANCZOS)`.
+- **Read the EXCLUDED AREAS line, not just the total.** NJ appraisal convention excludes
+  below-grade area from headline sqft, so a marketed total that folds in finished basement is not
+  the number a lender's appraiser will use. That gap is often the whole story on a flip.
+- **When there is no plan, say size is unverified** and let the band stay wide. Do not reconstruct
+  a number from massing and then lean on it.
+
+**RE-PULL ANY CONDITION READ THAT ENTERS THE RANGE. The survey pass runs pessimistic.**
+
+> Added 2026-08-17, from three errors in one session, all in the same direction — the 640px survey
+> pass makes things look worse than they are:
+> - Read vertical **staining** on a stucco rear; at full size most of it was **pergola shadow**.
+> - Read a floor as **stripped to subfloor**; at full size it was **worn, soiled carpet**.
+> - Nearly missed an **outdoor AC condenser** entirely — it was a grey smudge beside a hot tub
+>   until the owner pushed back and it was cropped at 5×, revealing the louvred coil, the service
+>   disconnect on the wall above and the lineset running down.
+
+The survey pass tells you **what a room is**. It does not tell you **what condition it is in.**
+Anything that becomes an adjustment must be re-pulled at `--detail` and, if still ambiguous,
+cropped and upscaled. **State the correction when a detail pass reverses a survey read** — those
+reversals went the seller's way twice and the buyer's way once, so the bias is real and worth
+showing.
+
+**THE STRUCTURED RECORD AND THE PHOTOS EACH LIE IN DIFFERENT DIRECTIONS.** Reconcile, don't pick:
+- `ac_type` was **null on all three houses**; one of them plainly had central air. **A null column
+  is "not recorded", never "not present".**
+- **Do not infer fuel from an appliance.** A gas range was read as natural gas; the MLS said
+  **propane**, which is a different running cost, means no gas main, and puts the *oil* tank
+  question back on the table for a pre-1960 house.
+- The MLS listed a **sump pump** that appears in no photograph. Absence of evidence in a gallery
+  is not evidence of absence — and a sump under a *finished* basement is a major finding.
+
 **What photographs cannot tell you, ever** — say so rather than implying otherwise:
 smell, damp, noise, how a room feels at its actual size, or what is behind a finished
 wall. On that same house I wrote "no visible water staining" from a basement photo and
@@ -102,6 +180,23 @@ and genuinely new; transit is town-level and the packet says so. **None of these
 the value range** — `market-history/layers/README.md` is explicit that amenity layers are
 never filters or scores. They go in the narrative and the ruling.
 
+> **Terrain, when a buyer asks about grading, drainage or a sloped yard** (added 2026-08-17).
+> USGS 3DEP serves elevation through a **keyless public API**, and North Jersey returns
+> **1-metre LiDAR** — fine enough to characterise a suburban lot:
+> ```
+> https://epqs.nationalmap.gov/v1/json?x=<lon>&y=<lat>&units=Feet&wkid=4326
+> ```
+> Sample a grid (`lat/lon` are in the blind record), fit a plane, and report **relief across the
+> parcel** and **slope % and aspect**. On a Clark lot this returned ~4 ft of relief at a uniform
+> ~4% — which settled the buyer's question, because it showed **a slope, not a mound**: nothing to
+> cart away, so levelling means cut-and-fill plus retaining.
+>
+> **Two caveats to state every time:** 3DEP is a **bare-earth** model, so the house is filtered out
+> and its footprint interpolated; and check the returned `AcquisitionDate` — the Clark tile was
+> flown **2014**, so recent spoil piles or regrading are simply not in it.
+>
+> **This is context, not valuation.** Like every other location layer, it may not move the range.
+
 **Stage 7 — reconcile.** Produce the range. Rules: no point estimate; every adjustment
 names its evidence; a weaker comp set widens the band rather than tightening the story —
 check `anchor.thinFam`, `degraded`, `eraDropped`, `famDropped`, `lotDropped`. Depart from
@@ -114,6 +209,33 @@ What did you take from marketing as fact? **These objections ship in the output*
 
 **Stage 8 — the ask.** Now read `subject_sealed.json`. Compare, and say plainly whether
 the house is mispriced in either direction.
+
+> ### ⚠️ `days_on_mls` IS PER-MLS-NUMBER, NOT PER-PROPERTY. It understates badly.
+> Added 2026-08-17. A Clark house reported **33 days**. Its real exposure was **~205 days across
+> four MLS numbers and two selling campaigns**, including a listing that was **withdrawn unsold**
+> and a five-month gap for a renovation. Every relist resets the counter.
+>
+> **This value is written into every row of `appraisal-grades/`**, so the committed track record
+> currently carries a misleadingly low number on any house that has been relisted. Treat it as a
+> **floor on market exposure, never a measurement.**
+>
+> **After unsealing, always check the full price history** before drawing any conclusion about
+> why a house hasn't sold:
+> - `listings.csv` → the `spell` column is our own relisting counter, but it only counts spells
+>   **we have observed** — it starts at 1 for anything first seen recently.
+> - `sales.csv` → prior sales of the same address. This is how a **flip** is identified, and it is
+>   the single most valuable thing at stage 8: purchase price, purchase date, and what the beds/
+>   baths were *then* (a "3bd/1.0ba" purchase now marketed as 2 baths tells you where the second
+>   bathroom came from — and if it's below grade, it barely counts).
+> - The buyer's own Zillow/Redfin history if offered — **it will contain campaigns our data never
+>   saw.** Ours began mid-campaign on that Clark house and showed one price cut; the full record
+>   showed nine.
+>
+> **Do not build a narrative on an absence in our data.** On that house an over-confident theory
+> ("contracts dying at appraisal") was constructed, then retracted on partial evidence, then had
+> to be un-retracted when the full history arrived. **Say what our data covers and where it stops.**
+> The tell that no deal ever died: there was **no `Pending` event in either campaign** — the house
+> had never gone under contract at all.
 
 **Stage 9 — the works.** Using photos, prose and `year_built`, against
 `market-history/REPAIR-COSTS-NJ.md`: what it needs to **move in**, and what it will want
