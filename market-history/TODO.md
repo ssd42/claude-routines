@@ -95,6 +95,27 @@ plausible repair bill, and that is itself a tell.
 
 ## Ideas
 
+### "Days on market" is badly wrong for any house that's been relisted
+Found 2026-08-17 while appraising a Clark house. It reported **33 days on the market**. It had
+actually been for sale for about **205 days across two separate campaigns** — listed, cut, cut
+again, withdrawn unsold, renovated for five months, relisted, then cut three more times.
+
+Every time a house comes off and goes back on it gets a new listing number, and the counter
+starts again from zero. So the number we record is whatever the *current* listing says, not how
+long the house has really been sitting.
+
+This matters more than it sounds. How long something has been for sale is one of the strongest
+signals that a price is wrong — and we're reading it far too low on exactly the houses where it
+would tell us the most. **It's also being written into the appraisal scorecard**, so the record
+we're keeping of how well we price houses currently carries a misleading number on every
+relisted one.
+
+**The catch:** we can only count the times we've watched a house come and go ourselves, and we
+started watching most of them recently. The full history exists on the big listing sites but not
+in anything we pull. A partial fix is cheap — add up the stretches we *have* seen and record that
+alongside the site's number, plus a flag saying "we've seen this house listed before."
+**Size:** small for the partial fix, large for the real one.
+
 ### Find what the same house sold for last time
 The biggest missing ingredient, and the one that would help most with the thing we're
 blindest to.
