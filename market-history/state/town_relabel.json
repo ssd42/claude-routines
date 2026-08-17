@@ -1,150 +1,110 @@
 {
  "corrected": {
-  "56|libertyridge|07920": {
-   "old": "Basking Ridge",
-   "new": "Bedminster",
-   "zip": "07920"
-  },
-  "17|rockawayvalley|07005": {
-   "old": "Boonton",
-   "new": "Montville",
-   "zip": "07005"
-  },
-  "61|intervale|07005": {
-   "old": "Boonton",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07005"
-  },
-  "40|newland|08807": {
+  "1008|carteret|08807": {
    "old": "Bridgewater",
    "new": "Martinsville",
    "zip": "08807"
   },
-  "15|byron|07006": {
+  "1117|cambridge|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "1250|sherlin|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "1941|mountaintop|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "11|farrington|07006": {
+   "old": "Caldwell",
+   "new": "West Caldwell",
+   "zip": "07006"
+  },
+  "11|maywood|07006": {
    "old": "Caldwell",
    "new": "North Caldwell",
    "zip": "07006"
   },
-  "244|westville|07006": {
+  "33|beverly|07006": {
    "old": "Caldwell",
    "new": "West Caldwell",
    "zip": "07006"
   },
-  "34|cavell|07006": {
-   "old": "Caldwell",
-   "new": "West Caldwell",
-   "zip": "07006"
+  "185|eastcliff|07067": {
+   "old": "Colonia",
+   "new": "Woodbridge",
+   "zip": "07067"
   },
-  "4|cypres|07006": {
-   "old": "Caldwell",
-   "new": "North Caldwell",
-   "zip": "07006"
-  },
-  "56|orton|07006": {
-   "old": "Caldwell",
-   "new": "West Caldwell",
-   "zip": "07006"
-  },
-  "|l1101fairfield|07006": {
-   "old": "Caldwell",
-   "new": "West Caldwell",
-   "zip": "07006"
-  },
-  "67|foxhill|07834": {
-   "old": "Denville",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07834"
-  },
-  "159|mountainside|07945": {
+  "302|mendham|07945": {
    "old": "Mendham",
    "new": "Mendham Township",
    "zip": "07945"
   },
-  "237|mountainside|07945": {
-   "old": "Mendham",
-   "new": "Mendham Township",
-   "zip": "07945"
+  "51|federal|08840": {
+   "old": "Metuchen",
+   "new": "Woodbridge",
+   "zip": "08840"
   },
-  "2|ballantine|07945": {
-   "old": "Mendham",
-   "new": "Mendham Township",
-   "zip": "07945"
+  "118|pinebrook|07045": {
+   "old": "Montville",
+   "new": "Towaco",
+   "zip": "07045"
   },
-  "1511|longhill|07946": {
-   "old": "Millington",
-   "new": "Stirling",
-   "zip": "07946"
-  },
-  "12|medford|07950": {
+  "2467|state106b|07950": {
    "old": "Morris Plains",
    "new": "Parsippany-Troy Hills",
    "zip": "07950"
   },
-  "2350|state1021|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "2467|state10|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "24|beverly|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "56|rookwood|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "67|patriot|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "94|edgefield|07950": {
-   "old": "Morris Plains",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07950"
-  },
-  "17|ellsworth|07960": {
+  "12|colonial|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "36|eastmain|07960": {
-   "old": "Morristown",
-   "new": "Mendham Township",
-   "zip": "07960"
-  },
-  "36|main|07960": {
-   "old": "Morristown",
-   "new": "Mendham Township",
-   "zip": "07960"
-  },
-  "480|sussex|07960": {
+  "12|jone|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "5|pletcher|07960": {
+  "16|fieldstone|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "50|stoneridge|07901": {
-   "old": "Summit",
-   "new": "New Providence",
-   "zip": "07901"
+  "1|aldrich|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "3|alvord|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "3|tracy|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "4|foxchase|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "7|carolinefoster|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
   }
  },
  "tally": {
-  "polygon_agree": 4807,
-  "polygon_corrected": 28,
-  "outside": 383,
-  "nocoord": 242
+  "polygon_agree": 5058,
+  "polygon_corrected": 20,
+  "outside": 411,
+  "nocoord": 252
  }
 }
