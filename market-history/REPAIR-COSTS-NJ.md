@@ -680,6 +680,34 @@ labeled in place: Angi, HomeAdvisor, HomeGuide, Fixr, Thumbtack, Modernize.
   replacement** was not confirmed. Check with the town before assuming vinyl is allowed.
 - **Radon tier is municipal, not county-level** — look up the specific town.
 
+### Unpriced items — things this document cannot cost at all
+
+Added 2026-08-17 after three appraisals in one session (Colonia ×2, Clark) each hit items with
+**no section here**. Logged rather than guessed, because the appraiser's standing rule is that a
+missing section *is itself a finding* — that is how the damp-basement section above came to exist.
+
+**Each line is: what's missing · why it came up · what would close it.**
+
+| Missing | Came up as | What would close it |
+|---|---|---|
+| **Stucco repair / patching** | A 1944 Colonia house with a stucco rear showing cracking and patch discoloration. Siding and exterior repaint are covered; **stucco is not mentioned anywhere in this document.** | Two or three NJ stucco contractor quotes: patch-and-paint vs. partial re-coat vs. full re-stucco, and whether EIFS vs. traditional changes it. Ask specifically about the lead-paint RRP premium on pre-1978 stucco. |
+| **GFCI / minor electrical remediation** | Hit on **two of three houses** — a non-GFCI receptacle beside a bathroom vanity in one, an aged non-GFCI in a 1940s bath in the other. Cheap, but there is no line to quote. | Trivial to source: an NJ electrician's per-device rate for GFCI replacement, plus the "whole-house device swap" price. Worth adding because it appears on nearly every older house. |
+| **Flood insurance premiums** | A house in **FEMA Zone AE**. Flood is mentioned here only in passing, for a driveway permit trigger. | This is a **recurring carrying cost, not a repair** — arguably it belongs beside holding costs rather than here. Needs NFIP/private quotes by zone and by elevation-certificate outcome. |
+| **Indoor above-ground oil tank decommissioning** | A 1940 house with a **275-gal tank in the basement, in service.** The buried-tank section is thorough; an indoor tank is a different, cheaper, unregulated job and gets no mention. | An NJ tank contractor's price to pump, cut and remove a 275-gal basement tank, plus whether any closure documentation is produced. |
+| **Propane — tanks and running cost** | A 1952 Clark house on **"Owned Propane"** forced-air, with no tank visible in 17 photos (so likely buried). | Cost to inspect/replace/remove an owned tank, buried vs. above-ground; and a **$/BTU comparison against natural gas** so the permanent operating penalty can be quantified. Also: what it costs to connect to the gas main where one is available. |
+| **Skylight replacement / reflashing** | Two skylights on a **low-slope addition roof** — a classic leak path. The roof section mentions skylight flashing only as a reason Cost-vs-Value runs high. | Per-unit replacement and reflash pricing, and the low-slope surcharge. |
+| **Pier / post foundations under an addition** | A sunroom sitting on **posts over open air**, skirting partly missing. | Cost to enclose/insulate an open underfloor, and to underpin piers to frost depth if they aren't. |
+| **Cutting in or restoring an exterior door** | Wanting backyard access on a house whose only rear opening is a side door off a stair vestibule. | Price for a new opening with header in a framed wall vs. restoring an existing opening, plus exterior steps and a code-compliant landing. |
+| **Excavation, regrading and retaining walls** | A ~4% sloping rear yard on a 58 ft wide lot. | $/cubic yard for cut-fill-and-haul in North/Central NJ, and retaining wall $/face-ft with the height at which an engineer becomes mandatory. |
+| **Topographic survey** | The only way to settle the grading question definitively. | An NJ licensed surveyor's price for a residential topo — small, but it gates every grading decision. |
+| **Flooring** | **Surprisingly absent.** Needed to estimate a renovation on all three houses — LVP, engineered, site-finished hardwood, refinishing existing, and carpet removal/disposal. | $/sqft installed for each, plus refinishing. This is one of the most common line items in any renovation and its absence is the biggest hole in this document. |
+| **Accessory apartment / basement unit** | A finished basement with its **own full bath, laundry and private entrance**, marketed without ever using the word. | Not really a cost — it is a **zoning and valuation** question: what a legal accessory unit is worth in these towns, and what legalising one costs where it is permitted at all. |
+| **Electric fireplace inserts** | A linear insert in a slatted feature wall. Trivial, noted for completeness. | Unit + install pricing. |
+
+> **For a future agent:** treat this table as a work queue. Each row closed with real sourced
+> numbers makes the next appraisal better, and the appraiser is instructed to **refuse to quote a
+> figure that is not in this document** — so an open row here is a number an appraisal cannot give.
+
 ---
 
 ## Keep your own numbers
