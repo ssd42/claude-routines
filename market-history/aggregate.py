@@ -107,6 +107,12 @@ SALES_COLS = [
     "list_price", "sold_price", "sold_vs_ask_abs", "sold_vs_ask_pct",
     "price_changes", "sqft", "beds", "baths", "lot_sqft", "year_built",
     "garage", "solar", "ac_type", "property_type",
+    # MOD-IV tax + assessment (added 2026-08-27). `tax_billed` is the REAL amount the
+    # town charged — 100% populated where MOD-IV has the parcel, so a computed tax should
+    # be rare and is always marked as such (build_share.py picks the tier and stamps
+    # `tax_basis`). The assessed trio is what the town says the parcel is worth, which in
+    # a town that has not revalued in decades is nothing like what it just sold for.
+    "tax_billed", "assessed_value", "land_value", "imprvt_value",
     "county", "municipality", "prop_class", "nu_code", "bldg_desc",
     "mls", "mls_id",
     "conflicts", "flags", "_sources", "_fetched",
@@ -417,6 +423,15 @@ _GARAGE_RE = re.compile(r"\b(\d)?\s*([ABDU]G)\b")
 # is left NULL, which is the honest answer. Do not re-add this.
 
 
+def _pos_int(v):
+    """MOD-IV money field -> int, or None. 0 means 'not assessed', not 'worth $0'."""
+    try:
+        n = int(float(v))
+    except (TypeError, ValueError):
+        return None
+    return n if n > 0 else None
+
+
 def _parse_bldg_desc(desc):
     """Garage stalls from MOD-IV BLDG_DESC. Returns None when unstated.
 
@@ -480,8 +495,37 @@ def fetch_nj_records(zips, since, fixture=False, limit=None):
     lo = f"{int(since[2:4]):02d}{int(since[5:7]):02d}01" if len(since) >= 7 else f"{int(since[2:4]):02d}0101"
     today_d = datetime.date.today()
     hi = f"{today_d.year % 100:02d}{today_d.month:02d}{today_d.day:02d}"
+    # LAST_YR_TX / NET_VALUE / LAND_VAL / IMPRVT_VAL added 2026-08-27. MOD-IV is an
+    # ASSESSMENT file, so all four were sitting on the endpoint we already query every
+    # run — we were just not asking for them. No extra requests, cloud-safe.
+    #
+    # LAST_YR_TX IS THE REAL BILL. Not an estimate, not rate x anything: the actual
+    # dollar amount billed on that parcel, straight off the assessment record. Measured
+    # 2026-08-27 it is populated on 800/800 (100%) of qualifying sale rows in both
+    # Woodbridge and Cranford. Prefer it over any calculation, always.
+    #
+    # (The name is why we missed it for so long: grepping the field list for "TAX" does
+    # not match "LAST_YR_TX". It had been on the endpoint the whole time.)
+    #
+    # NET_VALUE + the town rate is the FALLBACK for when LAST_YR_TX is absent, and
+    # LAND_VAL / IMPRVT_VAL carry the split — which is what tells you whether you are
+    # buying a tear-down-priced lot or a house, and gives the Chapter 123 ratio against
+    # sold_price (done BY HAND for 496 Outlook).
+    #
+    # Why the assessed base matters even when we have the bill: it is stale on purpose.
+    # Woodbridge has not revalued since 1986 and Van Decker bars a sale-triggered
+    # reassessment, so its implied rate is 12.689 per $100 assessed against Cranford's
+    # 6.779, and its spread is 10.58-32.37 against Cranford's 6.31-7.09. A bill there has
+    # no stable relation to what the house just sold for, so price x rate is not a poor
+    # estimate, it is the wrong quantity. That is the whole reason 384 Maplewood pays
+    # ~$3k less than 496 Outlook with an extra room.
+    #
+    # The RATE is town-grain and lives in layers/tax/ — deliberately NOT joined here.
+    # aggregate.py never reads layers/ (CLAUDE.md, two-grain rule); build_share.py does
+    # the join, and picks the tier, at share time.
     out_fields = ("PROP_LOC,ZIP5,COUNTY,MUN_NAME,SALE_PRICE,DEED_DATE,SALES_CODE,"
-                  "PROP_CLASS,YR_CONSTR,CALC_ACRE,BLDG_DESC")
+                  "PROP_CLASS,YR_CONSTR,CALC_ACRE,BLDG_DESC,"
+                  "LAST_YR_TX,NET_VALUE,LAND_VAL,IMPRVT_VAL")
 
     rows = []
     units = [u for u in cfg["municipalities"] if not zips or (set(u["zips"]) & zips)]
@@ -538,6 +582,16 @@ def fetch_nj_records(zips, since, fixture=False, limit=None):
                 # re-scraping. ~12 chars/row. This is what the garage bug cost us: it
                 # was only findable by going back out to the network.
                 "bldg_desc": bldg_desc,
+                # THE REAL BILL — what the town actually charged on this parcel last
+                # year. Everything downstream prefers this over any computed figure.
+                "tax_billed": _pos_int(a.get("LAST_YR_TX")),
+                # The assessed base, straight off the assessment record. NOT an estimate
+                # and NOT derived from the sale price — that is the entire point.
+                # Nullable like everything else here: a parcel with no assessment struck
+                # yet returns 0/None, and a missing assessment must never drop the sale.
+                "assessed_value": _pos_int(a.get("NET_VALUE")),
+                "land_value": _pos_int(a.get("LAND_VAL")),
+                "imprvt_value": _pos_int(a.get("IMPRVT_VAL")),
                 "prop_class": a.get("PROP_CLASS"),
                 "nu_code": code or None,
                 "property_type": NJ_CLASS.get(a.get("PROP_CLASS") or "", None),

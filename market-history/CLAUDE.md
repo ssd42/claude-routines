@@ -17,6 +17,28 @@ is purely to *hydrate a clean dataset*, not to decide or dashboard anything.
 - Matches nj by `address_norm+zip+sold_month`; deed-date vs MLS-close-date lag is
   tolerated (`DATE_FIELDS`, ±21d) so it doesn't false-flag as a conflict.
 
+### What the HomeHarvest feed ACTUALLY returns (pinned: 0.8.18, checked 2026-08-27)
+Field facts kept **here**, in one table, because they were previously scattered in
+comments and two contradicting ones lived in the repo at once: `appraise/context.py`
+said "the live feed has no tax field" while `listings.py` said "the feed has ALWAYS
+returned these". The second was wrong, and five columns wrote blanks for weeks.
+
+| we want | reality |
+|---|---|
+| `tax`, `assessed_value` | **Never on the wire.** Gated on `extra_property_data`, which 0.8.18 hard-codes to `False` (`core/scrapers/__init__.py:101`, "TODO: temporarily disabled"), overwriting the caller. 0.8.18 is the **latest** — no upgrade fixes it. Use MOD-IV instead (below). |
+| `garage` | Real, but the column is **`parking_garage`**. `g("garage")` returned `None` on every row ever scraped. |
+| `ac_type`, `solar` | **No such HomeHarvest column exists.** Text-mined only — that is what `aggregate.py`'s listing_scrape does, and the ~1%/6% in this file refers to *that* path, not to a feed field. |
+| `full_baths`/`half_baths` | Real and reliable (96% of active rows). `baths` sums halves, so gate on `baths_full`. |
+
+**Pin the version.** That `TODO` could flip back at any release and silently change
+what the feed returns.
+
+**A blank column looks exactly like a sparse one.** `aggregate.py` already stops loudly
+when a whole *source* returns nothing; `listings.py` now does the same at *column* grain
+(`_assert_cols_covered()` at import, `report_fill()` after each write, `KNOWN_BLANK` for
+documented-empty fields). If you add a column, the guard tells you on the next run
+whether it actually wrote anything — do not assume it did.
+
 ## nj_records (live) — key facts before you touch it
 - Statewide `maps.nj.gov` Cadastral MOD-IV layer, ONE endpoint for all counties,
   queried **per municipality** from `nj_municipalities.json` (the `ZIP5` field is
@@ -26,6 +48,31 @@ is purely to *hydrate a clean dataset*, not to decide or dashboard anything.
 - Filters: `PROP_CLASS='2'` (residential), drop SR1A non-usable codes 01–33 and
   sub-`--min-price` nominal deeds, `DEED_DATE` bounded both ends as a string range.
 - **~1-yr data lag** (assessment data): recent sales come from `listing_scrape`.
+- **`LAST_YR_TX` is the REAL TAX BILL** — the actual dollars billed on that parcel,
+  not a rate calculation. 100% populated on sampled towns (Woodbridge, Cranford),
+  on the endpoint we already query, so it costs nothing extra and is cloud-safe.
+  It sat there unnoticed for weeks because grepping the field list for `TAX` does
+  not match `LAST_YR_TX`. **Always prefer it to any computed figure.**
+  Fetched alongside `NET_VALUE` / `LAND_VAL` / `IMPRVT_VAL` (the assessed base and
+  its land/building split → the Chapter 123 ratio against `sold_price`).
+- **Never estimate a NJ tax bill as `price × rate`.** Woodbridge has not revalued
+  since 1986 and Van Decker bars a sale-triggered reassessment, so its implied rate
+  is **12.689 per $100 assessed** against Cranford's **6.779**, and its spread is
+  10.58–32.37 against Cranford's 6.31–7.09. The bill tracks a stale assessed base
+  with no stable relation to the price — so `price × rate` is not an imprecise
+  estimate there, it is the wrong quantity. Measured on 496 Outlook: the modelled
+  estimate said $14,300/yr, the real bill is **$12,026** — a 19% error that straddles
+  the under-$13k tax criterion, i.e. it fails a house that actually passes.
+- **Two DCA rates, not interchangeable.** `layers/tax/` now carries both:
+  `general_rate_pct` (col 28) is per $100 of **assessed** value — pair it with
+  `NET_VALUE`; `effective_rate_pct` (col 39) is per $100 of **market** value — pair
+  it with a price. Crossing them is wrong by the equalization ratio.
+- `appraise/parcel.py` looks the bill up for **one address** (sold or not — an active
+  listing is not in `sales.csv`). Matching is deliberately strict: exact normalised
+  number+street, then a street-*type*-insensitive retry, and it **refuses on 0 or >1
+  hits**. A wrong parcel would hand back a confident real-looking number for the house
+  next door, so `None` is the right answer and callers fall back to a labelled estimate
+  (`_holding_cost()` in `appraise/context.py`: `billed` → `assessed` → `modelled`).
 - Holds the latest sale per parcel → a home sold twice in the window shows once;
   SR1A annual files would give full multi-sale history if needed later.
 

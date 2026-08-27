@@ -113,16 +113,57 @@ COLS = [
     # market and hand a house to the analyser. STABLE per spell (a house does not
     # grow a bedroom mid-listing), so they are written once, when the spell opens.
     "beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
+    # `baths` above SUMS halves (1 full + 2 half reads as 2.0), which is worse than
+    # useless for this buyer: his gate is TWO SHOWERS ("we shower almost always at the
+    # same time"), and a powder room has none. 324 Green St, Woodbridge reads baths=2.0
+    # and its copy says "1 full bathroom, and 2 convenient half baths" -- ONE shower, and
+    # the summed column cannot see it. The feed has always returned these two separately
+    # (we were already reading them at the g() call below and then discarding the split).
+    # Keep `baths` for continuity; gate and score on `baths_full`.
+    "baths_full", "baths_half",
     "lat", "lon",            # listings carry these on ~100% of rows; sales.csv has NONE
     "url", "photo",
-    # The feed HAS carried these three all along and we were dropping them on the floor.
-    # Fill on the 2026-07-20 pull: garage 56%, ac_type 8%, solar 1%. Only garage is
-    # really usable; ac_type and solar are thin enough to be a bonus, not a field you can
-    # filter on. Kept anyway — they cost nothing, they are already fetched, and a thin
-    # structured field still beats inferring the same thing from marketing prose.
-    "garage",                # number of bays, as the feed reports it ("2", "3")
-    "ac_type",               # "central" | "window" — thin, but unambiguous where present
-    "solar",
+    # ⚠️ CORRECTED 2026-08-27. The note here used to read "the feed HAS carried these
+    # three all along... fill: garage 56%, ac_type 8%, solar 1%". That was measured off
+    # the raw HomeHarvest frame, NOT off listings.csv — and all three have been written
+    # as BLANK on every run since they were added. Committed listings.csv at HEAD:
+    # 0/5741 on all three. Two separate causes, both verified against homeharvest 0.8.18:
+    #   * `garage` is the WRONG NAME. HomeHarvest calls the column `parking_garage`
+    #     (utils.py:56), so g("garage") has always returned None. Fixed at the g() call.
+    #   * `ac_type` and `solar` are NOT HomeHarvest columns AT ALL — no such fields exist
+    #     in its output. They can only ever come from mining the description text, which
+    #     is what aggregate.py's listing_scrape does (hence the ~1%/6% quoted in
+    #     CLAUDE.md — that is a DIFFERENT code path). Reading them as feed fields here
+    #     cannot work. Kept in COLS so the schema is stable and the intent is on record;
+    #     see KNOWN_BLANK below, which is what stops the guard nagging about them.
+    "garage",                # number of bays, from `parking_garage`
+    "ac_type",               # text-mined only — always blank here. See KNOWN_BLANK.
+    "solar",                 # text-mined only — always blank here. See KNOWN_BLANK.
+    # ⚠️ The 2026-08-24 note claimed "HomeHarvest sets extra_property_data=True by
+    # default, so we were already paying for them on the wire". That is NOT TRUE of the
+    # installed version and these two came back 0/6104 on the 2026-08-27 run.
+    # homeharvest 0.8.18 (the LATEST release — no upgrade fixes it) hard-codes
+    #     self.extra_property_data = False   # TODO: temporarily disabled
+    # in core/scrapers/__init__.py:101, overwriting whatever the caller passes; `tax` and
+    # `assessed_value` are produced ONLY inside process_extra_property_details
+    # (processors.py:235-236), gated on that flag. So they are never on the wire.
+    # This was already known and written down — appraise/context.py:179 says "the live
+    # feed ... has no tax field" and predates the 08-24 change. Two contradicting true
+    # statements lived in this repo at once; that is why CLAUDE.md now carries one
+    # feed-reality table instead of facts buried in comments.
+    #
+    # THE REAL SOURCE IS MOD-IV, and it is better than the scraper would have been:
+    # NET_VALUE (assessed base, per parcel, cloud-safe, already fetched every run) x the
+    # DCA general tax rate. That is correct for exactly the reason the 08-24 note cared
+    # about — Woodbridge has not revalued since 1986 and Van Decker bars a sale-triggered
+    # reassessment, so a Colonia bill tracks a STALE assessed base. Multiplying the real
+    # assessed base by the real rate captures that; rate x price cannot. See aggregate.py
+    # (assessed_value / land_value / imprvt_value) and layers/tax/ (general_rate_pct).
+    # Those are SALE-grain, so they populate sales.csv, not this file — putting tax on an
+    # ACTIVE listing still needs an address join to the parcel table (TODO.md).
+    # STABLE per spell either way: a tax bill does not move while a house sits.
+    "tax",                   # annual $, as billed. Blank here — see KNOWN_BLANK.
+    "assessed_value",        # $ — Chapter 123 check. Blank here — see KNOWN_BLANK.
     # ---- VOLATILE: re-read every run, because they move while the spell is open.
     "mls_status",            # FOR_SALE | PENDING | CONTINGENT — the MLS's own state.
                              # NOT the same as `status` above: a PENDING house is still
@@ -144,6 +185,122 @@ COLS = [
     # next parser fix re-applies to three years of history offline.
     "text",
 ]
+
+# --------------------------------------------------------------------------- #
+# Column bookkeeping — the guard that would have caught five dead columns       #
+# --------------------------------------------------------------------------- #
+# COLS above is the CSV SCHEMA. It is not what gets written. A row is assembled
+# in main() from SPELL_KEYS + STABLE + VOLATILE + VOLATILE_TEXT, and those two
+# lists were maintained separately and SILENTLY DIVERGED: `tax`,
+# `assessed_value`, `garage`, `ac_type` and `solar` all sat in COLS but in none
+# of the write tuples, so nothing could ever write them — DictWriter just emitted
+# the empty string, forever, on every run.
+#
+# Nobody noticed for five weeks because A COLUMN OF BLANKS LOOKS EXACTLY LIKE A
+# SPARSE COLUMN. aggregate.py already guards the equivalent failure one level up
+# (it stops loudly when a whole SOURCE returns nothing, added after the trend
+# feed silently died for weeks). This is that same guard at COLUMN grain, which
+# is where it was missing. Both are cheap; both only exist because the silent
+# version cost real data.
+#
+# These tuples live at module scope, not inside main(), specifically so
+# _assert_cols_covered() can run at IMPORT — no network, no scrape, microseconds.
+
+# Written by hand when a spell opens or continues, not copied from an observation.
+# `town_source` is the exception: relabel_listings.relabel() writes it after the
+# scrape (see the note in COLS), so it is legitimately absent from the row dict here.
+SPELL_KEYS = ("property_key", "address", "zip", "town", "town_source", "spell",
+              "mls_id", "list_date", "first_seen", "last_seen",
+              "first_list_price", "last_list_price", "observations",
+              "status", "gone_on", "price_changed")
+
+# STABLE: a house does not grow a bedroom, move, or get re-billed mid-spell.
+# Written once when the spell opens, and backfilled onto older spells ONLY where
+# blank — never overwriting an observation we already made.
+STABLE = ("beds", "baths", "baths_full", "baths_half", "sqft", "lot_sqft",
+          "year_built", "property_type", "lat", "lon", "url", "photo",
+          "garage", "ac_type", "solar", "tax", "assessed_value")
+
+# VOLATILE: re-read every run, because they move while the spell is open.
+VOLATILE = ("mls_status", "days_on_mls")
+
+# The copy can be rewritten mid-spell (a stale listing gets a refresh), so re-read it.
+VOLATILE_TEXT = ("text",)
+
+# WHY a column is allowed to be 100% empty. The fill-rate guard warns about any
+# other COLS field that comes back 0%. Every entry here is a VERIFIED FACT about
+# the feed (homeharvest 0.8.18, checked 2026-08-27) with the evidence attached —
+# not a licence to stop caring about the column. Delete an entry the moment its
+# reason stops being true, and the guard will start telling you about it again.
+KNOWN_BLANK = {
+    "tax": "extra_property_data hard-disabled in homeharvest 0.8.18 "
+           "(core/scrapers/__init__.py:101, 'TODO: temporarily disabled') — the "
+           "field is never on the wire. Real source is MOD-IV NET_VALUE x the DCA "
+           "general rate; see aggregate.py + layers/tax/.",
+    "assessed_value": "same cause as `tax`. MOD-IV carries it directly, per parcel.",
+    "ac_type": "not a HomeHarvest column at all — text-mined only (aggregate.py).",
+    "solar": "not a HomeHarvest column at all — text-mined only (aggregate.py).",
+}
+
+
+def _assert_cols_covered():
+    """Every COLS entry must be writable by something. Runs at import.
+
+    This is the whole lesson of 2026-08-27 in six lines: the schema and the
+    writers are two hand-maintained lists, so make their divergence a crash
+    instead of a silent blank column.
+    """
+    written = set(SPELL_KEYS) | set(STABLE) | set(VOLATILE) | set(VOLATILE_TEXT)
+    unwritable = [c for c in COLS if c not in written]
+    if unwritable:
+        raise AssertionError(
+            "listings.py: %r are in COLS but in none of SPELL_KEYS / STABLE / "
+            "VOLATILE / VOLATILE_TEXT, so nothing can ever write them and they "
+            "would ship as blank columns. Add each to the tuple it belongs in."
+            % (unwritable,))
+    orphan = [c for c in sorted(written) if c not in COLS]
+    if orphan:
+        raise AssertionError(
+            "listings.py: %r are written but missing from COLS, so DictWriter's "
+            "extrasaction='ignore' would silently drop them." % (orphan,))
+    stale = [c for c in KNOWN_BLANK if c not in COLS]
+    if stale:
+        raise AssertionError(
+            "listings.py: KNOWN_BLANK names %r, which are no longer in COLS. "
+            "Drop the entries." % (stale,))
+
+
+_assert_cols_covered()
+
+
+def report_fill(rows):
+    """Print how full every column actually is, and shout about the empty ones.
+
+    The point is the 0% line. A brand-new column that silently writes nothing
+    looks identical to a column that is merely thin, and that is precisely how
+    five fields survived five weeks of clean-looking runs.
+    """
+    n = len(rows)
+    if not n:
+        return
+    filled = {c: sum(1 for r in rows if str(r.get(c, "")).strip()) for c in COLS}
+    print("\n— column fill (%d rows) —" % n)
+    for c in COLS:
+        pct = 100.0 * filled[c] / n
+        mark = "" if filled[c] else ("  (known: %s)" % KNOWN_BLANK[c].split(" — ")[0]
+                                     if c in KNOWN_BLANK else "   <-- EMPTY")
+        print("  %-18s %6d  %5.1f%%%s" % (c, filled[c], pct, mark))
+
+    surprises = [c for c in COLS if not filled[c] and c not in KNOWN_BLANK]
+    if surprises:
+        sys.stderr.write(
+            "\n!! %d column(s) wrote NOTHING and have no recorded reason: %s\n"
+            "   A blank column looks exactly like a sparse one, so this will not\n"
+            "   show up anywhere else. Either the feed renamed the field, or it is\n"
+            "   missing from STABLE/VOLATILE, or it never existed. Check, then\n"
+            "   either fix the mapping or add it to KNOWN_BLANK with the evidence.\n"
+            % (len(surprises), ", ".join(surprises)))
+
 
 # Realtor.com's for_sale feed includes homes that already have an accepted offer.
 AVAILABLE = {"FOR_SALE"}
@@ -212,6 +369,8 @@ def scrape(zips, dry):
                 # must not be dropped here.
                 "beds": int(g("beds")) if g("beds") else "",
                 "baths": (full + 0.5 * half) or "",
+                "baths_full": int(full) if full else "",
+                "baths_half": int(half) if half else "",
                 "sqft": int(g("sqft")) if g("sqft") else "",
                 "lot_sqft": int(g("lot_sqft")) if g("lot_sqft") else "",
                 "year_built": int(g("year_built")) if g("year_built") else "",
@@ -222,9 +381,14 @@ def scrape(zips, dry):
                 "photo": g("primary_photo") or "",
                 "mls_status": str(g("status") or "").upper(),
                 "days_on_mls": int(g("days_on_mls")) if g("days_on_mls") is not None else "",
-                "garage": g("garage") or "",
+                # `parking_garage`, NOT `garage` — HomeHarvest's column name
+                # (utils.py:56). g("garage") returned None on every row ever scraped.
+                "garage": g("parking_garage") or "",
                 "ac_type": str(g("ac_type") or "").lower(),
                 "solar": "yes" if g("solar") else "",
+                "tax": int(float(g("tax"))) if g("tax") else "",
+                "assessed_value": (int(float(g("assessed_value")))
+                                   if g("assessed_value") else ""),
                 "text": re.sub(r"\s+", " ", str(g("text") or ""))[:900],
             }
             n += 1
@@ -259,11 +423,9 @@ def main():
 
     new_spells, relists, continued, ended = 0, 0, 0, 0
 
-    STABLE = ("beds", "baths", "sqft", "lot_sqft", "year_built", "property_type",
-              "lat", "lon", "url", "photo")
-    # the copy can be rewritten mid-spell (a stale listing gets a refresh), so re-read it
-    VOLATILE_TEXT = ("text",)
-    VOLATILE = ("mls_status", "days_on_mls")
+    # STABLE / VOLATILE / VOLATILE_TEXT are module-level now, checked against COLS at
+    # import by _assert_cols_covered(). They used to be defined here, out of sight of
+    # the schema they are supposed to match — which is how five columns went dead.
 
     for key, obs in live.items():
         cur = active.get(key)
@@ -346,6 +508,10 @@ def main():
         w.writerows(rows)
     print("\nwrote listings.csv (%d spells across %d properties)"
           % (len(rows), len(spells)))
+
+    # Report on what was actually WRITTEN, not on what the feed handed us. The two are
+    # not the same thing — that distinction is the entire bug this guard exists for.
+    report_fill(rows)
 
     # Resolve every town from its coordinates, right here, every run. New spells arrive
     # carrying only the ZIP's label (see the `town`/`town_source` note in COLS), and a ZIP

@@ -149,6 +149,85 @@ def recent_sales(town, beds, baths, sqft, months=18, k=3):
     return picked
 
 
+def _holding_cost(subj, anchor, tax):
+    """Annual property tax for the subject: REAL BILL FIRST, estimate only as a fallback.
+
+    Three tiers, best to worst, each stamped with `tier` and `confidence` so a real
+    number is never mistaken for a modelled one:
+
+      1. `billed`   — MOD-IV LAST_YR_TX, the ACTUAL amount billed on this parcel.
+      2. `assessed` — this parcel's real assessed base x the town's GENERAL rate.
+                      Real base, real rate; only the year may be off.
+      3. `modelled` — the town's EFFECTIVE rate x OUR OWN value estimate. Two guesses
+                      stacked, and in a stale-assessment town not even the right
+                      quantity. This used to be the only tier.
+
+    Tiers 1 and 2 make the price irrelevant to the tax, which is the point: Woodbridge
+    bills against a base frozen in 1986, so what the house sells for in 2026 tells you
+    nothing about the bill. Tier 3 assumes the opposite and is wrong there by a lot.
+
+    A refusal is always safe -- we fall to the next tier rather than guess a parcel.
+    """
+    rate_eff = tax.get("effective_rate_pct")
+    rate_gen = tax.get("general_rate_pct")
+
+    rec = None
+    try:
+        import parcel
+        rec = parcel.lookup(subj.get("address"), subj.get("town"))
+    except Exception:
+        rec = None          # never let a tax lookup take down the appraisal
+
+    # --- tier 1: the real bill -------------------------------------------------
+    if rec and rec.get("tax_billed"):
+        bill = rec["tax_billed"]
+        return {
+            "annual_estimate": round(bill), "monthly_estimate": round(bill / 12),
+            "tier": "billed", "confidence": "actual",
+            "basis": f"MOD-IV LAST_YR_TX on parcel {rec.get('pams_pin') or '?'} "
+                     f"({rec.get('prop_loc')})",
+            "assessed_value": rec.get("assessed_value"),
+            "land_value": rec.get("land_value"),
+            "imprvt_value": rec.get("imprvt_value"),
+            "warning": "This is the ACTUAL amount billed on this parcel last year, not "
+                       "an estimate. It predates any reassessment or appeal since, and "
+                       "NJ bills rise yearly — treat it as a floor, and still confirm "
+                       "on the listing.",
+        }
+
+    # --- tier 2: real assessed base x the real general rate --------------------
+    if rec and rec.get("assessed_value") and rate_gen:
+        bill = rec["assessed_value"] * rate_gen / 100
+        return {
+            "annual_estimate": round(bill), "monthly_estimate": round(bill / 12),
+            "tier": "assessed", "confidence": "computed_from_real_base",
+            "basis": f"this parcel's assessed ${rec['assessed_value']:,} x the town's "
+                     f"{rate_gen}% general rate (per $100 assessed)",
+            "assessed_value": rec.get("assessed_value"),
+            "land_value": rec.get("land_value"),
+            "imprvt_value": rec.get("imprvt_value"),
+            "warning": "Computed, but from this parcel's REAL assessed base and the "
+                       "town's real general rate — not from the asking price. The "
+                       "parcel had no billed amount on record.",
+        }
+
+    # --- tier 3: the old estimate-on-an-estimate -------------------------------
+    if rate_eff and not anchor.get("failed"):
+        bill = anchor["mid"] * rate_eff / 100
+        return {
+            "annual_estimate": round(bill), "monthly_estimate": round(bill / 12),
+            "tier": "modelled", "confidence": "estimate_on_an_estimate",
+            "basis": f"{rate_eff}% effective rate x our value estimate",
+            "warning": "ESTIMATE ON AN ESTIMATE. Not this house's bill — the town's "
+                       "effective rate applied to our own number. We could not match "
+                       "this address to a parcel record. In a town that has not "
+                       "revalued (Woodbridge/Colonia) this can be badly wrong, because "
+                       "the real bill tracks a stale assessed base, not the price. "
+                       "Verify on the listing.",
+        }
+    return None
+
+
 def main():
     subj = json.loads((RUN / "subject_blind.json").read_text())
     D = C.load()
@@ -185,15 +264,9 @@ def main():
             for t in csv.DictReader(open(tp)):
                 if t["town"] == subj["town"]:
                     tax = {"effective_rate_pct": num(t.get("effective_rate_pct")),
+                           "general_rate_pct": num(t.get("general_rate_pct")),
                            "town_avg_bill": num(t.get("avg_residential_tax"))}
-    rate = tax.get("effective_rate_pct")
-    hold = None
-    if rate and not anchor.get("failed"):
-        hold = {"annual_estimate": round(anchor["mid"] * rate / 100),
-                "monthly_estimate": round(anchor["mid"] * rate / 100 / 12),
-                "basis": f"{rate}% effective rate x our value estimate",
-                "warning": "ESTIMATE ON AN ESTIMATE. Not this house's bill — the town's "
-                           "effective rate applied to our own number. Verify on the listing."}
+    hold = _holding_cost(subj, anchor, tax)
 
     ctx = {
         "subject": {k: subj.get(k) for k in

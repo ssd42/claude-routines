@@ -20,7 +20,14 @@ Sheet "Municipal Tax Summary", one row per municipality (565 of them). Columns u
   30 Average Total Property Taxes (the avg residential BILL, $)     <- the headline number
   39 CY Total EQ Rate           (equalized/effective rate per $100) <- estimate YOUR bill:
                                                                         price * rate / 100
+  28 CY Total Rate              (GENERAL rate, per $100 ASSESSED)   <- assessed * rate / 100
   29 Average Residential Property Value (assessed; context only)
+
+TWO RATES, NOT INTERCHANGEABLE (learned 2026-08-27). Col 39 is per $100 of MARKET value,
+col 28 per $100 of ASSESSED value; they differ by the equalization ratio. Pair each with
+the matching base or the answer is wrong by that ratio. Neither is the first choice any
+more: MOD-IV's LAST_YR_TX carries the ACTUAL BILLED AMOUNT per parcel (100% populated on
+sampled towns), so a rate calculation is now the FALLBACK for parcels we cannot match.
 
 LOCAL PREP, like listing_scrape. The DCA file is binary .xls (BIFF), so parsing needs
 `xlrd` (pip install xlrd) -- a data-prep dependency, NOT a runtime one. CI/build only ever
@@ -47,6 +54,16 @@ SRC = f"https://www.nj.gov/dca/dlgs/resources/Property_Tax/{TAX_YEAR}_data/{TAX_
 RAW = os.path.join(HERE, f"{TAX_YEAR}taxes.xls")   # gitignored transient source
 
 C_MUNI, C_COUNTY, C_VALUE, C_BILL, C_EQRATE = 1, 2, 29, 30, 39
+# Column 28, "CY Total Rate" — the GENERAL tax rate, per $100 of ASSESSED value.
+# This is NOT interchangeable with C_EQRATE (39, "CY Total EQ Rate"), which is per $100
+# of MARKET value. The two differ by the equalization ratio (cols 32/33), and in a town
+# that has not revalued they differ enormously: Woodbridge bills ~12.7 per $100 assessed
+# against an equalized ~2.x. Multiply an ASSESSED base by the EQ rate and you understate
+# the bill by the ratio — in exactly the stale-assessment towns the number matters most.
+#   assessed base (MOD-IV NET_VALUE) x C_GENRATE / 100  -> annual bill
+#   market price                     x C_EQRATE  / 100  -> annual bill
+# Added 2026-08-27 as the FALLBACK for MOD-IV's LAST_YR_TX (the real billed amount).
+C_GENRATE = 28
 
 # our section towns -> the parent municipality (exact DCA name) they inherit, same county
 SECTION_MAP = {
@@ -85,6 +102,7 @@ def main():
             continue
         rec = {"muni": muni, "county": county,
                "bill": sh.cell_value(r, C_BILL), "rate": sh.cell_value(r, C_EQRATE),
+               "genrate": sh.cell_value(r, C_GENRATE),
                "value": sh.cell_value(r, C_VALUE)}
         by_exact[(muni, county.lower())] = rec
         by_bare[(bare(muni), county.lower())] = rec
@@ -108,6 +126,12 @@ def main():
             "town": name, "county": county,
             "avg_residential_tax": round(bill),
             "effective_rate_pct": round(rec["rate"], 3),   # per $100 of market value
+            # per $100 of ASSESSED value — pair this with MOD-IV NET_VALUE, never with a
+            # sale price. Blank if DCA left the cell empty; the consumer must handle that
+            # rather than silently substituting the equalized rate (see C_GENRATE note).
+            "general_rate_pct": (round(rec["genrate"], 4)
+                                 if isinstance(rec["genrate"], (int, float))
+                                 and rec["genrate"] > 0 else ""),
             "avg_residential_value": round(rec["value"]),
             "dca_municipality": rec["muni"],
             "is_section": int(section),

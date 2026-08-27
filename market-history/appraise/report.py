@@ -346,7 +346,7 @@ def render(ctx, v, sealed, demo=False):
   <table>
     <tr><th>Flood zone (this house)</th><td>{loc.get('flood_zone') or 'not in a mapped zone'}</td></tr>
     {''.join(f"<tr><th>Nearest {k.replace('_',' ')}</th><td>{x['miles']} mi — {x['which']}</td></tr>" for k,x in stores.items())}
-    {f"<tr><th>Estimated tax</th><td>~{usd(hold['annual_estimate'])}/yr (~{usd(hold['monthly_estimate'])}/mo) — <em>{hold['warning']}</em></td></tr>" if hold else ''}
+    {f"<tr><th>{'Property tax (actual)' if hold.get('tier') == 'billed' else 'Estimated tax'}</th><td>{'' if hold.get('tier') == 'billed' else '~'}{usd(hold['annual_estimate'])}/yr ({'' if hold.get('tier') == 'billed' else '~'}{usd(hold['monthly_estimate'])}/mo) — <em>{hold['warning']}</em><br><small>{hold.get('basis','')}</small></td></tr>" if hold else ''}
   </table>
 
   <p class="foot">

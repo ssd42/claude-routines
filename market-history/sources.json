@@ -155,6 +155,18 @@
     "flags": [
       "listing_scrape",
       "nj_records"
+    ],
+    "assessed_value": [
+      "nj_records"
+    ],
+    "land_value": [
+      "nj_records"
+    ],
+    "imprvt_value": [
+      "nj_records"
+    ],
+    "tax_billed": [
+      "nj_records"
     ]
   },
   "conflict_tolerance": {
