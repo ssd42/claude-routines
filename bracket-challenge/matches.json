@@ -1,96 +1,816 @@
 {
   "_doc": "Day-by-day game log — the single reference the race page reads. Keyed by the actual date each match was PLAYED (not when the board updated). Codes are FIFA 3-letter; flags are added by race.py at build time. Hand-editable: fix or add a game here and re-run `python3 race.py`.",
-  "_source": "2026 FIFA World Cup official group-stage schedule + results, verified against ESPN / Yahoo Sports / FIFA / Al Jazeera (June 2026). Group-stage matchday 3 for Groups G-L (Jun 26-27) not yet played.",
+  "_source": "Group stage: 2026 FIFA World Cup official schedule + results, verified against ESPN / Yahoo Sports / FIFA / Al Jazeera. Matchday 3 (Groups G-L, Jun 26-27) added 2026-08-20, each fixture cross-checked two ways: web sources (olympics.com, NBC, Yahoo, Wikipedia group pages) AND arithmetic against the frozen final tables in standings.json (final table minus recorded MD1+MD2 = the MD3 line). All twelve reconcile exactly. Knockouts added 2026-08-20 from Wikipedia's per-round articles plus ESPN / FIFA / CNN / FOX / olympics.com match reports; R16-onward scores agree with knockouts.json's own consensus notes except where noted in _corrections. Sources disagree by a day on some R32 dates; the dedicated round-of-32 article's dates are used.",
   "by_date": {
     "2026-06-11": [
-      {"group": "A", "home": "MEX", "hs": 2, "as": 0, "away": "RSA"},
-      {"group": "A", "home": "KOR", "hs": 2, "as": 1, "away": "CZE"}
+      {
+        "group": "A",
+        "home": "MEX",
+        "hs": 2,
+        "as": 0,
+        "away": "RSA"
+      },
+      {
+        "group": "A",
+        "home": "KOR",
+        "hs": 2,
+        "as": 1,
+        "away": "CZE"
+      }
     ],
     "2026-06-12": [
-      {"group": "B", "home": "CAN", "hs": 1, "as": 1, "away": "BIH"},
-      {"group": "D", "home": "USA", "hs": 4, "as": 1, "away": "PAR"}
+      {
+        "group": "B",
+        "home": "CAN",
+        "hs": 1,
+        "as": 1,
+        "away": "BIH"
+      },
+      {
+        "group": "D",
+        "home": "USA",
+        "hs": 4,
+        "as": 1,
+        "away": "PAR"
+      }
     ],
     "2026-06-13": [
-      {"group": "B", "home": "SUI", "hs": 1, "as": 1, "away": "QAT"},
-      {"group": "C", "home": "BRA", "hs": 1, "as": 1, "away": "MAR"},
-      {"group": "C", "home": "SCO", "hs": 1, "as": 0, "away": "HAI"},
-      {"group": "D", "home": "AUS", "hs": 2, "as": 0, "away": "TUR"}
+      {
+        "group": "B",
+        "home": "SUI",
+        "hs": 1,
+        "as": 1,
+        "away": "QAT"
+      },
+      {
+        "group": "C",
+        "home": "BRA",
+        "hs": 1,
+        "as": 1,
+        "away": "MAR"
+      },
+      {
+        "group": "C",
+        "home": "SCO",
+        "hs": 1,
+        "as": 0,
+        "away": "HAI"
+      },
+      {
+        "group": "D",
+        "home": "AUS",
+        "hs": 2,
+        "as": 0,
+        "away": "TUR"
+      }
     ],
     "2026-06-14": [
-      {"group": "E", "home": "GER", "hs": 7, "as": 1, "away": "CUW"},
-      {"group": "E", "home": "CIV", "hs": 1, "as": 0, "away": "ECU"},
-      {"group": "F", "home": "NED", "hs": 2, "as": 2, "away": "JPN"},
-      {"group": "F", "home": "SWE", "hs": 5, "as": 1, "away": "TUN"}
+      {
+        "group": "E",
+        "home": "GER",
+        "hs": 7,
+        "as": 1,
+        "away": "CUW"
+      },
+      {
+        "group": "E",
+        "home": "CIV",
+        "hs": 1,
+        "as": 0,
+        "away": "ECU"
+      },
+      {
+        "group": "F",
+        "home": "NED",
+        "hs": 2,
+        "as": 2,
+        "away": "JPN"
+      },
+      {
+        "group": "F",
+        "home": "SWE",
+        "hs": 5,
+        "as": 1,
+        "away": "TUN"
+      }
     ],
     "2026-06-15": [
-      {"group": "G", "home": "BEL", "hs": 1, "as": 1, "away": "EGY"},
-      {"group": "G", "home": "IRN", "hs": 2, "as": 2, "away": "NZL"},
-      {"group": "H", "home": "ESP", "hs": 0, "as": 0, "away": "CPV"},
-      {"group": "H", "home": "KSA", "hs": 1, "as": 1, "away": "URU"}
+      {
+        "group": "G",
+        "home": "BEL",
+        "hs": 1,
+        "as": 1,
+        "away": "EGY"
+      },
+      {
+        "group": "G",
+        "home": "IRN",
+        "hs": 2,
+        "as": 2,
+        "away": "NZL"
+      },
+      {
+        "group": "H",
+        "home": "ESP",
+        "hs": 0,
+        "as": 0,
+        "away": "CPV"
+      },
+      {
+        "group": "H",
+        "home": "KSA",
+        "hs": 1,
+        "as": 1,
+        "away": "URU"
+      }
     ],
     "2026-06-16": [
-      {"group": "I", "home": "FRA", "hs": 3, "as": 1, "away": "SEN"},
-      {"group": "I", "home": "NOR", "hs": 4, "as": 1, "away": "IRQ"},
-      {"group": "J", "home": "ARG", "hs": 3, "as": 0, "away": "ALG"}
+      {
+        "group": "I",
+        "home": "FRA",
+        "hs": 3,
+        "as": 1,
+        "away": "SEN"
+      },
+      {
+        "group": "I",
+        "home": "NOR",
+        "hs": 4,
+        "as": 1,
+        "away": "IRQ"
+      },
+      {
+        "group": "J",
+        "home": "ARG",
+        "hs": 3,
+        "as": 0,
+        "away": "ALG"
+      }
     ],
     "2026-06-17": [
-      {"group": "J", "home": "AUT", "hs": 3, "as": 1, "away": "JOR"},
-      {"group": "K", "home": "POR", "hs": 1, "as": 1, "away": "COD"},
-      {"group": "K", "home": "COL", "hs": 3, "as": 1, "away": "UZB"},
-      {"group": "L", "home": "ENG", "hs": 4, "as": 2, "away": "CRO"},
-      {"group": "L", "home": "GHA", "hs": 1, "as": 0, "away": "PAN"}
+      {
+        "group": "J",
+        "home": "AUT",
+        "hs": 3,
+        "as": 1,
+        "away": "JOR"
+      },
+      {
+        "group": "K",
+        "home": "POR",
+        "hs": 1,
+        "as": 1,
+        "away": "COD"
+      },
+      {
+        "group": "K",
+        "home": "COL",
+        "hs": 3,
+        "as": 1,
+        "away": "UZB"
+      },
+      {
+        "group": "L",
+        "home": "ENG",
+        "hs": 4,
+        "as": 2,
+        "away": "CRO"
+      },
+      {
+        "group": "L",
+        "home": "GHA",
+        "hs": 1,
+        "as": 0,
+        "away": "PAN"
+      }
     ],
     "2026-06-18": [
-      {"group": "A", "home": "CZE", "hs": 1, "as": 1, "away": "RSA"},
-      {"group": "A", "home": "MEX", "hs": 1, "as": 0, "away": "KOR"},
-      {"group": "B", "home": "SUI", "hs": 4, "as": 1, "away": "BIH"},
-      {"group": "B", "home": "CAN", "hs": 6, "as": 0, "away": "QAT"}
+      {
+        "group": "A",
+        "home": "CZE",
+        "hs": 1,
+        "as": 1,
+        "away": "RSA"
+      },
+      {
+        "group": "A",
+        "home": "MEX",
+        "hs": 1,
+        "as": 0,
+        "away": "KOR"
+      },
+      {
+        "group": "B",
+        "home": "SUI",
+        "hs": 4,
+        "as": 1,
+        "away": "BIH"
+      },
+      {
+        "group": "B",
+        "home": "CAN",
+        "hs": 6,
+        "as": 0,
+        "away": "QAT"
+      }
     ],
     "2026-06-19": [
-      {"group": "C", "home": "MAR", "hs": 1, "as": 0, "away": "SCO"},
-      {"group": "C", "home": "BRA", "hs": 3, "as": 0, "away": "HAI"},
-      {"group": "D", "home": "USA", "hs": 2, "as": 0, "away": "AUS"},
-      {"group": "D", "home": "PAR", "hs": 1, "as": 0, "away": "TUR"}
+      {
+        "group": "C",
+        "home": "MAR",
+        "hs": 1,
+        "as": 0,
+        "away": "SCO"
+      },
+      {
+        "group": "C",
+        "home": "BRA",
+        "hs": 3,
+        "as": 0,
+        "away": "HAI"
+      },
+      {
+        "group": "D",
+        "home": "USA",
+        "hs": 2,
+        "as": 0,
+        "away": "AUS"
+      },
+      {
+        "group": "D",
+        "home": "PAR",
+        "hs": 1,
+        "as": 0,
+        "away": "TUR"
+      }
     ],
     "2026-06-20": [
-      {"group": "E", "home": "GER", "hs": 2, "as": 1, "away": "CIV"},
-      {"group": "E", "home": "ECU", "hs": 0, "as": 0, "away": "CUW"},
-      {"group": "F", "home": "NED", "hs": 5, "as": 1, "away": "SWE"},
-      {"group": "F", "home": "JPN", "hs": 4, "as": 0, "away": "TUN"}
+      {
+        "group": "E",
+        "home": "GER",
+        "hs": 2,
+        "as": 1,
+        "away": "CIV"
+      },
+      {
+        "group": "E",
+        "home": "ECU",
+        "hs": 0,
+        "as": 0,
+        "away": "CUW"
+      },
+      {
+        "group": "F",
+        "home": "NED",
+        "hs": 5,
+        "as": 1,
+        "away": "SWE"
+      },
+      {
+        "group": "F",
+        "home": "JPN",
+        "hs": 4,
+        "as": 0,
+        "away": "TUN"
+      }
     ],
     "2026-06-21": [
-      {"group": "G", "home": "BEL", "hs": 0, "as": 0, "away": "IRN"},
-      {"group": "G", "home": "EGY", "hs": 3, "as": 1, "away": "NZL"},
-      {"group": "H", "home": "ESP", "hs": 4, "as": 0, "away": "KSA"},
-      {"group": "H", "home": "URU", "hs": 2, "as": 2, "away": "CPV"}
+      {
+        "group": "G",
+        "home": "BEL",
+        "hs": 0,
+        "as": 0,
+        "away": "IRN"
+      },
+      {
+        "group": "G",
+        "home": "EGY",
+        "hs": 3,
+        "as": 1,
+        "away": "NZL"
+      },
+      {
+        "group": "H",
+        "home": "ESP",
+        "hs": 4,
+        "as": 0,
+        "away": "KSA"
+      },
+      {
+        "group": "H",
+        "home": "URU",
+        "hs": 2,
+        "as": 2,
+        "away": "CPV"
+      }
     ],
     "2026-06-22": [
-      {"group": "I", "home": "FRA", "hs": 3, "as": 0, "away": "IRQ"},
-      {"group": "I", "home": "NOR", "hs": 3, "as": 2, "away": "SEN"},
-      {"group": "J", "home": "ARG", "hs": 1, "as": 0, "away": "AUT"},
-      {"group": "J", "home": "JOR", "hs": 2, "as": 1, "away": "ALG"}
+      {
+        "group": "I",
+        "home": "FRA",
+        "hs": 3,
+        "as": 0,
+        "away": "IRQ"
+      },
+      {
+        "group": "I",
+        "home": "NOR",
+        "hs": 3,
+        "as": 2,
+        "away": "SEN"
+      },
+      {
+        "group": "J",
+        "home": "ARG",
+        "hs": 2,
+        "as": 0,
+        "away": "AUT",
+        "corrected": true
+      },
+      {
+        "group": "J",
+        "home": "JOR",
+        "hs": 1,
+        "as": 2,
+        "away": "ALG",
+        "corrected": true
+      }
     ],
     "2026-06-23": [
-      {"group": "K", "home": "POR", "hs": 5, "as": 0, "away": "UZB"},
-      {"group": "K", "home": "COL", "hs": 1, "as": 0, "away": "COD"},
-      {"group": "L", "home": "ENG", "hs": 0, "as": 0, "away": "GHA"},
-      {"group": "L", "home": "CRO", "hs": 1, "as": 0, "away": "PAN"}
+      {
+        "group": "K",
+        "home": "POR",
+        "hs": 5,
+        "as": 0,
+        "away": "UZB"
+      },
+      {
+        "group": "K",
+        "home": "COL",
+        "hs": 1,
+        "as": 0,
+        "away": "COD"
+      },
+      {
+        "group": "L",
+        "home": "ENG",
+        "hs": 0,
+        "as": 0,
+        "away": "GHA"
+      },
+      {
+        "group": "L",
+        "home": "CRO",
+        "hs": 1,
+        "as": 0,
+        "away": "PAN"
+      }
     ],
     "2026-06-24": [
-      {"group": "A", "home": "MEX", "hs": 3, "as": 0, "away": "CZE"},
-      {"group": "A", "home": "RSA", "hs": 1, "as": 0, "away": "KOR"},
-      {"group": "B", "home": "SUI", "hs": 2, "as": 1, "away": "CAN"},
-      {"group": "B", "home": "BIH", "hs": 3, "as": 1, "away": "QAT"},
-      {"group": "C", "home": "BRA", "hs": 3, "as": 0, "away": "SCO"},
-      {"group": "C", "home": "MAR", "hs": 4, "as": 2, "away": "HAI"}
+      {
+        "group": "A",
+        "home": "MEX",
+        "hs": 3,
+        "as": 0,
+        "away": "CZE"
+      },
+      {
+        "group": "A",
+        "home": "RSA",
+        "hs": 1,
+        "as": 0,
+        "away": "KOR"
+      },
+      {
+        "group": "B",
+        "home": "SUI",
+        "hs": 2,
+        "as": 1,
+        "away": "CAN"
+      },
+      {
+        "group": "B",
+        "home": "BIH",
+        "hs": 3,
+        "as": 1,
+        "away": "QAT"
+      },
+      {
+        "group": "C",
+        "home": "BRA",
+        "hs": 3,
+        "as": 0,
+        "away": "SCO"
+      },
+      {
+        "group": "C",
+        "home": "MAR",
+        "hs": 4,
+        "as": 2,
+        "away": "HAI"
+      }
     ],
     "2026-06-25": [
-      {"group": "D", "home": "TUR", "hs": 3, "as": 2, "away": "USA"},
-      {"group": "D", "home": "PAR", "hs": 0, "as": 0, "away": "AUS"},
-      {"group": "E", "home": "CIV", "hs": 2, "as": 0, "away": "CUW"},
-      {"group": "E", "home": "ECU", "hs": 2, "as": 1, "away": "GER"},
-      {"group": "F", "home": "JPN", "hs": 1, "as": 1, "away": "SWE"},
-      {"group": "F", "home": "NED", "hs": 3, "as": 1, "away": "TUN"}
+      {
+        "group": "D",
+        "home": "TUR",
+        "hs": 3,
+        "as": 2,
+        "away": "USA"
+      },
+      {
+        "group": "D",
+        "home": "PAR",
+        "hs": 0,
+        "as": 0,
+        "away": "AUS"
+      },
+      {
+        "group": "E",
+        "home": "CIV",
+        "hs": 2,
+        "as": 0,
+        "away": "CUW"
+      },
+      {
+        "group": "E",
+        "home": "ECU",
+        "hs": 2,
+        "as": 1,
+        "away": "GER"
+      },
+      {
+        "group": "F",
+        "home": "JPN",
+        "hs": 1,
+        "as": 1,
+        "away": "SWE"
+      },
+      {
+        "group": "F",
+        "home": "NED",
+        "hs": 3,
+        "as": 1,
+        "away": "TUN"
+      }
+    ],
+    "2026-06-26": [
+      {
+        "group": "G",
+        "home": "EGY",
+        "hs": 1,
+        "as": 1,
+        "away": "IRN"
+      },
+      {
+        "group": "G",
+        "home": "NZL",
+        "hs": 1,
+        "as": 5,
+        "away": "BEL"
+      },
+      {
+        "group": "H",
+        "home": "CPV",
+        "hs": 0,
+        "as": 0,
+        "away": "KSA"
+      },
+      {
+        "group": "H",
+        "home": "URU",
+        "hs": 0,
+        "as": 1,
+        "away": "ESP"
+      },
+      {
+        "group": "I",
+        "home": "NOR",
+        "hs": 1,
+        "as": 4,
+        "away": "FRA"
+      },
+      {
+        "group": "I",
+        "home": "SEN",
+        "hs": 5,
+        "as": 0,
+        "away": "IRQ"
+      }
+    ],
+    "2026-06-27": [
+      {
+        "group": "J",
+        "home": "ALG",
+        "hs": 3,
+        "as": 3,
+        "away": "AUT"
+      },
+      {
+        "group": "J",
+        "home": "JOR",
+        "hs": 1,
+        "as": 3,
+        "away": "ARG"
+      },
+      {
+        "group": "K",
+        "home": "COL",
+        "hs": 0,
+        "as": 0,
+        "away": "POR"
+      },
+      {
+        "group": "K",
+        "home": "COD",
+        "hs": 3,
+        "as": 1,
+        "away": "UZB"
+      },
+      {
+        "group": "L",
+        "home": "ENG",
+        "hs": 2,
+        "as": 0,
+        "away": "PAN"
+      },
+      {
+        "group": "L",
+        "home": "CRO",
+        "hs": 2,
+        "as": 1,
+        "away": "GHA"
+      }
+    ],
+    "2026-06-28": [
+      {
+        "round": "R32",
+        "home": "RSA",
+        "hs": 0,
+        "as": 1,
+        "away": "CAN"
+      }
+    ],
+    "2026-06-29": [
+      {
+        "round": "R32",
+        "home": "BRA",
+        "hs": 2,
+        "as": 1,
+        "away": "JPN"
+      },
+      {
+        "round": "R32",
+        "home": "GER",
+        "hs": 1,
+        "as": 1,
+        "away": "PAR",
+        "note": "PAR 4–3 pens"
+      },
+      {
+        "round": "R32",
+        "home": "NED",
+        "hs": 1,
+        "as": 1,
+        "away": "MAR",
+        "note": "MAR 3–2 pens"
+      }
+    ],
+    "2026-06-30": [
+      {
+        "round": "R32",
+        "home": "CIV",
+        "hs": 1,
+        "as": 2,
+        "away": "NOR"
+      },
+      {
+        "round": "R32",
+        "home": "FRA",
+        "hs": 3,
+        "as": 0,
+        "away": "SWE"
+      }
+    ],
+    "2026-07-01": [
+      {
+        "round": "R32",
+        "home": "MEX",
+        "hs": 2,
+        "as": 0,
+        "away": "ECU"
+      },
+      {
+        "round": "R32",
+        "home": "ENG",
+        "hs": 2,
+        "as": 1,
+        "away": "COD"
+      },
+      {
+        "round": "R32",
+        "home": "BEL",
+        "hs": 3,
+        "as": 2,
+        "away": "SEN",
+        "note": "a.e.t."
+      },
+      {
+        "round": "R32",
+        "home": "USA",
+        "hs": 2,
+        "as": 0,
+        "away": "BIH"
+      }
+    ],
+    "2026-07-02": [
+      {
+        "round": "R32",
+        "home": "ESP",
+        "hs": 3,
+        "as": 0,
+        "away": "AUT"
+      },
+      {
+        "round": "R32",
+        "home": "POR",
+        "hs": 2,
+        "as": 1,
+        "away": "CRO"
+      },
+      {
+        "round": "R32",
+        "home": "SUI",
+        "hs": 2,
+        "as": 0,
+        "away": "ALG"
+      },
+      {
+        "round": "R32",
+        "home": "AUS",
+        "hs": 1,
+        "as": 1,
+        "away": "EGY",
+        "note": "EGY 4–2 pens"
+      }
+    ],
+    "2026-07-03": [
+      {
+        "round": "R32",
+        "home": "ARG",
+        "hs": 3,
+        "as": 2,
+        "away": "CPV",
+        "note": "a.e.t."
+      },
+      {
+        "round": "R32",
+        "home": "COL",
+        "hs": 1,
+        "as": 0,
+        "away": "GHA"
+      }
+    ],
+    "2026-07-04": [
+      {
+        "round": "R16",
+        "home": "CAN",
+        "hs": 0,
+        "as": 3,
+        "away": "MAR"
+      },
+      {
+        "round": "R16",
+        "home": "PAR",
+        "hs": 0,
+        "as": 1,
+        "away": "FRA"
+      }
+    ],
+    "2026-07-05": [
+      {
+        "round": "R16",
+        "home": "BRA",
+        "hs": 1,
+        "as": 2,
+        "away": "NOR"
+      }
+    ],
+    "2026-07-06": [
+      {
+        "round": "R16",
+        "home": "MEX",
+        "hs": 2,
+        "as": 3,
+        "away": "ENG"
+      },
+      {
+        "round": "R16",
+        "home": "POR",
+        "hs": 0,
+        "as": 1,
+        "away": "ESP"
+      }
+    ],
+    "2026-07-07": [
+      {
+        "round": "R16",
+        "home": "USA",
+        "hs": 1,
+        "as": 4,
+        "away": "BEL"
+      },
+      {
+        "round": "R16",
+        "home": "ARG",
+        "hs": 3,
+        "as": 2,
+        "away": "EGY"
+      },
+      {
+        "round": "R16",
+        "home": "COL",
+        "hs": 0,
+        "as": 0,
+        "away": "SUI",
+        "note": "SUI 4–3 pens"
+      }
+    ],
+    "2026-07-09": [
+      {
+        "round": "QF",
+        "home": "MAR",
+        "hs": 0,
+        "as": 2,
+        "away": "FRA"
+      }
+    ],
+    "2026-07-10": [
+      {
+        "round": "QF",
+        "home": "ESP",
+        "hs": 2,
+        "as": 1,
+        "away": "BEL"
+      }
+    ],
+    "2026-07-11": [
+      {
+        "round": "QF",
+        "home": "NOR",
+        "hs": 1,
+        "as": 2,
+        "away": "ENG",
+        "note": "a.e.t."
+      },
+      {
+        "round": "QF",
+        "home": "ARG",
+        "hs": 3,
+        "as": 1,
+        "away": "SUI"
+      }
+    ],
+    "2026-07-14": [
+      {
+        "round": "SF",
+        "home": "ESP",
+        "hs": 2,
+        "as": 0,
+        "away": "FRA"
+      }
+    ],
+    "2026-07-15": [
+      {
+        "round": "SF",
+        "home": "ARG",
+        "hs": 2,
+        "as": 1,
+        "away": "ENG"
+      }
+    ],
+    "2026-07-18": [
+      {
+        "round": "3RD",
+        "home": "FRA",
+        "hs": 4,
+        "as": 6,
+        "away": "ENG"
+      }
+    ],
+    "2026-07-19": [
+      {
+        "round": "F",
+        "home": "ESP",
+        "hs": 1,
+        "as": 0,
+        "away": "ARG",
+        "note": "a.e.t. · Ferran Torres 106'"
+      }
     ]
-  }
+  },
+  "_corrections": [
+    "2026-06-22 ARG v AUT was recorded 1-0; actual 2-0. 2026-06-22 JOR v ALG was recorded 2-1 to Jordan; actual 1-2 to Algeria. Both were wrong: with them, Group J could not be reconciled against standings.json (Algeria needed +4 pts from one game, Jordan -3). Corrected per Wikipedia's Group J match list -- after which the group balances exactly AND independently yields the ALG 3-3 AUT matchday-3 result the same source reports. Both are flagged `corrected` and show a tag on the page.",
+    "knockouts.json records 'ARG 3-2 CPV (aet)' as a ROUND OF 16 result and lists CPV among the teams that reached the R16. That game was actually the ROUND OF 32 tie on Jul 3 (ESPN, CNN, FIFA, Wikipedia). Cape Verde lost it and never reached the R16; EGYPT did, beating Australia 4-2 on pens in the R32, then losing 3-2 to Argentina in the R16 on Jul 7. matches.json reflects the true rounds. knockouts.json is NOT changed here -- fixing it changes league scoring, which is a separate call."
+  ]
 }

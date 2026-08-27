@@ -2,84 +2,112 @@
   {
     "name": "Brent",
     "username": "bjl6",
-    "total": 1830,
+    "group": 1830,
+    "ko": 240,
+    "total": 2070,
     "rank": 1
   },
   {
     "name": "Filipe",
     "username": "Xino com x",
+    "group": 1670,
+    "ko": 0,
     "total": 1670,
     "rank": 2
   },
   {
     "name": "Silvia",
     "username": "sjaramil",
+    "group": 1600,
+    "ko": 0,
     "total": 1600,
     "rank": 3
   },
   {
     "name": "Steven Coelho",
     "username": "SteveRabbit",
+    "group": 1520,
+    "ko": 0,
     "total": 1520,
     "rank": 4
   },
   {
     "name": "Steven Dias",
     "username": "stevenpybots",
+    "group": 1420,
+    "ko": 0,
     "total": 1420,
     "rank": 5
   },
   {
     "name": "Ronald",
     "username": "Ronaldmendez",
+    "group": 1390,
+    "ko": 0,
     "total": 1390,
     "rank": 6
   },
   {
     "name": "Cesar",
     "username": "ccesar",
+    "group": 1270,
+    "ko": 0,
     "total": 1270,
     "rank": 7
   },
   {
     "name": "Luis",
     "username": "SandwichLuis",
+    "group": 1240,
+    "ko": 0,
     "total": 1240,
     "rank": 8
   },
   {
     "name": "Joao Pedro",
     "username": "UniqueUserName1234",
+    "group": 1210,
+    "ko": 0,
     "total": 1210,
     "rank": 9
   },
   {
     "name": "Wilbert",
     "username": "Portillo15",
+    "group": 1210,
+    "ko": 0,
     "total": 1210,
     "rank": 9
   },
   {
     "name": "Dan",
     "username": "DoctorDan",
+    "group": 1090,
+    "ko": 0,
     "total": 1090,
     "rank": 11
   },
   {
     "name": "Omar",
     "username": "Tejada08",
+    "group": 1010,
+    "ko": 0,
     "total": 1010,
     "rank": 12
   },
   {
     "name": "Dani",
     "username": "Danigu",
+    "group": 930,
+    "ko": 0,
     "total": 930,
     "rank": 13
   },
   {
     "name": "Karen",
     "username": "MendezZ40",
+    "group": 780,
+    "ko": 0,
     "total": 780,
     "rank": 14
   }

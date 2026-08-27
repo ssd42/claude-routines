@@ -20,6 +20,9 @@ import webbrowser
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 START_DATE = "2026-06-11"  # opening day — everyone at 0 before any games
+END_DATE = "2026-07-20"    # day after the final (ESP 1-0 ARG, Jul 19) — the
+                           # tournament is over, so every later snapshot is a
+                           # duplicate of this one and adds flat frames.
 
 # FIFA 3-letter code -> flag emoji (SCO/ENG use the subdivision flags). Kept here
 # (not in matches.json) so the game-log reference stays clean and hand-editable.
@@ -42,6 +45,8 @@ def load_history():
     days = []
     for path in sorted(glob.glob(os.path.join(HERE, "history", "*.json"))):
         date = os.path.splitext(os.path.basename(path))[0]
+        if date > END_DATE:
+            continue
         with open(path) as f:
             rows = json.load(f)
         days.append({
@@ -269,7 +274,7 @@ HTML = r"""<!DOCTYPE html>
   @keyframes beat{50%{box-shadow:0 0 0 6px oklch(0.78 0.15 150 / 0)}}
   .games{padding:7px; display:flex; flex-direction:column; gap:6px; min-height:140px}
   .game{
-    display:grid; grid-template-columns:18px 1fr auto; align-items:center; gap:9px;
+    display:grid; grid-template-columns:30px 1fr auto; align-items:center; gap:9px;
     padding:9px 10px; border-radius:9px; background:oklch(0.26 0.018 158 / .5);
     border:1px solid transparent;
     animation:slidein .5s var(--ease) both;
@@ -278,6 +283,10 @@ HTML = r"""<!DOCTYPE html>
   .game .grp{
     font-size:10px; font-weight:800; color:var(--faint);
     border:1px solid var(--line); border-radius:5px; padding:2px 0; text-align:center;
+  }
+  .game .grp.ko{
+    font-size:9px; color:var(--gold); border-color:var(--gold-deep);
+    background:oklch(0.70 0.14 72 / .12);
   }
   .game .fix{font-size:13px; font-weight:500; display:flex; gap:6px; align-items:baseline}
   .game .fix .t{font-weight:700; letter-spacing:.01em}
@@ -502,7 +511,7 @@ function renderGames(date){
   const el=document.getElementById('games');
   const list=matches[date]||[];
   if(!list.length){
-    el.innerHTML=`<div class="empty"><b>No results in yet</b>Matchday 3 for Groups G–L is still to come (Jun 26–27).</div>`;
+    el.innerHTML=`<div class="empty"><b>Rest day</b>No matches played on this date.</div>`;
     return;
   }
   el.innerHTML=list.map(g=>{
@@ -510,9 +519,10 @@ function renderGames(date){
     const t1=`<span class="${homeWin?'t':awayWin?'loser':'t'}">${g.home_flag} ${g.home}</span>`;
     const t2=`<span class="${awayWin?'t':homeWin?'loser':'t'}">${g.away} ${g.away_flag}</span>`;
     return `<div class="game${g.corrected?' corr':''}">
-      <span class="grp">${g.group}</span>
+      <span class="grp${g.round?' ko':''}">${g.round||g.group}</span>
       <span class="fix">${t1}<span style="color:var(--faint)">v</span>${t2}</span>
       <span class="sc">${g.hs}–${g.as}</span>
+      ${g.note?`<span class="tag">${g.note}</span>`:''}
       ${g.corrected?'<span class="tag">↺ score corrected</span>':''}
     </div>`;
   }).join('');
