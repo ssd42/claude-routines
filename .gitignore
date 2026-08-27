@@ -42,3 +42,10 @@ market-history/layers/education/*.dat
 # Only the de-identified rows in appraise/appraisal-grades/ are ever committed.
 market-history/appraise/appraisals/
 market-history/appraise/run/
+
+# Screenshots dropped at the repo root while working on a design (trifecta-*.png,
+# mobile-*.png, final-desktop.png, four-towns.png and friends). Nothing in the repo
+# references them, they run ~400 KB each, and git history is forever on a public
+# repo — so they stay local. A screenshot that IS documentation belongs next to the
+# thing it documents, committed deliberately, not loose in the root.
+/*.png
