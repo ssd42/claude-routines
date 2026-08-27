@@ -86,6 +86,12 @@ jobs:
           cp market-history/offer/map.html     _site/
           cp market-history/offer/map.js       _site/
           cp market-history/offer/backtest.html _site/
+          # The HS formula explainer. Static, 26 KB, and its ONLY dependency is
+          # engine.js (copied above) — it stubs `window.OFFER_DATA = {thin:0}` and reads
+          # the real HS_FACTORS/HS_FLAVOUR tables out of the live engine, so it can never
+          # drift from the model it documents. Published so the score shown on market.html
+          # is explainable to anyone we hand it to.
+          cp market-history/offer/hs.html      _site/
           # Not optional: market/sold/backtest all call presetMatch() while drawing the
           # town picker, so a missing towns-groups.js is a ReferenceError that takes the
           # whole picker down, not a chip row that quietly fails to appear.

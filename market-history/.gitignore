@@ -28,5 +28,19 @@ __pycache__/
 *.key
 *.pem
 
-# LOCAL-ONLY working notes — never committed (personal TODOs / plans).
+# LOCAL-ONLY working notes — never committed (personal TODOs / plans, and the
+# buyer-requirements docs, which contain budget and household detail).
 *.LOCAL.md
+*.LOCAL.txt
+*.LOCAL.py
+buyer-brief/
+
+# Claude Project export — the same buyer/budget detail as the .LOCAL docs, just
+# split across many files, so the *.LOCAL.md pattern above does not catch it.
+claude-project/
+
+# The priorities page WRITES priorities.json — your own answers about what you want
+# in a house and where you'd bend. Same class as the .LOCAL docs above: personal, and
+# this repo is public. The tool (README/serve.py/priorities.html) is committed; your
+# answers are not. Guarded before the file exists rather than after.
+priorities/priorities.json

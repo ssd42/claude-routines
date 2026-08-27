@@ -533,9 +533,12 @@ function lotContext(town, sqft, lot) {
    touch whether you WANT it. */
 
 const HS_FACTORS = [
-  // ── the hard constraint. Full marks under $750k, worthless by $950k.
+  // ── the hard constraint. Full marks under $675k, worthless by $800k. Tightened from
+  //    750k/950k on the owner's call (2026-08-19): the old band scored most of the market
+  //    as merely "a bit expensive", and at w=30 that let price quietly stop discriminating.
+  //    The drop is also twice as steep now -- 125k of runway instead of 200k.
   {k:"price", w:30, label:"price",
-   get:l => l.p, s:p => p <= 750000 ? 1 : Math.max(0, 1 - (p - 750000) / 200000)},
+   get:l => l.p, s:p => p <= 650000 ? 1 : Math.max(0, 1 - (p - 650000) / 50000)},
 
   // ── "bigger is better; too big is a commitment". The plateau contains 524 Farley
   //    (6,599 sqft), the favourite of 30+ open houses.
@@ -606,8 +609,22 @@ const HS_FACTORS = [
    s:b => b < 3 ? 0.25 : b === 3 ? 0.8 : 1},              // 3 is the floor; 5+ adds nothing
 
   {k:"baths", w:9, label:"baths",
-   get:l => l.ba,
-   s:b => b < 1.5 ? 0.25 : b < 2 ? 0.7 : b < 2.5 ? 0.85 : 1},
+   // Scored on FULL baths where we have them (`baf`, added 2026-08-24). The requirement
+   // is TWO SIMULTANEOUS SHOWERS -- owner, 2026-08-24: "2 full bathrooms is the min now",
+   // "we shower almost always at the same time". A powder room has no shower, and `ba`
+   // SUMS halves: 1 full + 2 half reads as 2.0 and would sail straight through. That is
+   // not hypothetical -- 324 Green St, Woodbridge is exactly that, and it has ONE shower.
+   //   < 2 full         -> 0.25   the gate, however many powder rooms there are
+   //     2 full         -> 0.85
+   //     2 full + half  -> 1.0    (what used to be scored as "2.5")
+   //   >= 3 full        -> 1.0
+   // A BELOW-GRADE full bath COUNTS -- his call, 2026-08-24 ("if in the basement its fine
+   // right?"). It is a resale markdown, not a disqualification, and the feed does not say
+   // which floor a bath is on anyway.
+   // Falls back to the old summed curve when `baf` is absent (every row scraped before
+   // 2026-08-24), so this is additive and never silently re-scores history.
+   get:l => (l.baf != null ? l.baf + (l.ba > l.baf ? 0.5 : 0) : l.ba),
+   s:b => b < 2 ? 0.25 : b < 2.5 ? 0.85 : 1},
 
   {k:"sqft", w:7, label:"house size",
    get:l => l.sq,
@@ -642,6 +659,35 @@ const HS_FACTORS = [
 
   // ── shops. LOW weight on purpose: the ask was "closer is better, but don't give it
   //    many points". Averaged across the three so one distant chain can't sink a town.
+  // TAXES. Added 2026-08-24 on the owner's call. NJ property tax is a permanent
+  // component of the payment -- ~$1,000/mo on a $12.4k bill, roughly a fifth of the
+  // monthly cost -- and it was missing from this model entirely while being one of the
+  // few things he has ever stated as a hard number: "under 11k taxes is the ideal up to
+  // 13k is possible more than that is really hard to swallow", then "13k yeah thats a
+  // better cap on taxes".
+  //
+  // THE CURVE IS FLAT TO 13k, ON HIS EXPLICIT INSTRUCTION ("points shouldn't be lost
+  // until after 13k"). An earlier draft sloped down from 11k and he rejected it -- and
+  // he was right: he accepted 496 Outlook's $12,440 without hesitating, which a
+  // from-11k slope would have quietly marked down. $11k is where he'd PREFER to land,
+  // not where the scoring starts to bite. Zero by 16k, same flat-then-cliff shape as
+  // `price`.
+  //
+  // ⚠️ This must be the BILLED amount, never rate x price. Rate x price is just price
+  // wearing a hat -- it would double-count the heaviest factor in the model (w=30) and
+  // add zero ranking information within a town. Worse, it is WRONG in his main town:
+  // Woodbridge has not revalued since 1986 and West Milford Twp. v. Van Decker bars a
+  // sale-triggered reassessment, so a Colonia bill tracks a stale assessed base. That
+  // is why 384 Maplewood pays ~$3k less than 496 Outlook while having an extra room.
+  //
+  // Null until listings.csv is rehydrated with the `tax` column (2026-08-24) -- and a
+  // null drops out of BOTH sides of the weighted mean, so this factor is simply inert
+  // rather than wrong on older rows. That is the whole point of the mean-over-known
+  // design; see CONFIDENCE.
+  {k:"tax", w:10, label:"property taxes", fmt:v => "$" + Math.round(v/100)/10 + "k/yr",
+   get:l => l.tax,
+   s:t => t <= 13000 ? 1 : Math.max(0, 1 - (t - 13000) / 3000)},
+
   {k:"shops", w:5, label:"shops nearby",
    get:(l, T) => {
      if (!T) return null;
@@ -663,7 +709,50 @@ const HS_FLAVOUR = [
   {k:"asis",     pts:-6, label:"as-is / needs work", re:/\bas[- ]is\b|handyman|\btlc\b|needs work|investor/i},
   // the best amenity signal we have: nobody hides a pool, so absence really is absence
   {k:"pool",     pts:-8, label:"in-ground pool",   re:/in[- ]?ground pool|inground|gunite|heated pool/i},
+  // A basement AT ALL is its own fact, separate from finishing one: 29% of listings
+  // mention a basement, only 17% call it finished, so ~1 in 8 houses has one the score
+  // was blind to. These STACK on purpose -- having the space is worth something, and
+  // finishing it is worth more again, so a finished basement lands at +5 and a bare one
+  // at +2. Plural matters: a two-family advertises "finished basementS", which \bbasement\b
+  // misses -- and a term that fails to fire on the very houses the +3 fires on would break
+  // the stacking silently. Negation is a non-issue, measured: "no basement" appears once in
+  // 5,391 descriptions, so this needs no guard against it.
+  {k:"bsmtany",  pts:+2, label:"a basement",       re:/\bbasements?\b/i},
   {k:"bsmt",     pts:+3, label:"finished basement", re:/finished basement/i},
+  // ── Solar, three-way and STACKING (2026-08-20, owner's call: "not a definitely not,
+  //    but it would be nice to not value it as highly"). A flat penalty would be wrong,
+  //    because the objection is to LEASES, not to panels: a lease or PPA is an inherited
+  //    contract that complicates financing and resale, while an owned array is a genuine
+  //    plus on the bills. And the copy usually says which -- so the score can too.
+  //
+  //    Measured on all 5,741 descriptions: 46 real panel mentions (0.80%) -- 5 clearly
+  //    leased, 10 clearly owned, 30 silent on ownership, 1 ambiguous. Landing points:
+  //      leased    -4 + -4  =  -8   the thing actually objected to; matches the pool
+  //      unstated  -4       =  -4   the default, and a real unknown worth diligence
+  //      owned     -4 + +4  =   0   neutral, not a bonus -- panels still complicate a
+  //                                 reroof, and an SREC deal can still ride along
+  //    The one ambiguous line ("sellers have paid off the LEASE on the solar panels")
+  //    fires both and lands at -4, which is the honest answer for a sentence that says
+  //    owned and leased in the same breath. Stacking gets that for free -- same
+  //    mechanism as bsmtany/bsmt above.
+  //
+  //    THE REGEX REQUIRES A PANEL WORD, NEVER A BARE "solar". 12 listings advertise a
+  //    "solarium"; a naive /solar/i would have docked every one of them. Zero are caught.
+  //
+  // ⚠ ABSENCE IS NOT ABSENCE HERE -- the opposite of the pool rule directly above.
+  //    Nobody hides a pool, but plenty of sellers never mention panels. listings.csv HAS
+  //    a `solar` column and it is empty on all 5,741 rows, so the copy is the only signal
+  //    we have. 538 Cicilia Pl (Scotch Plains, 2026-08-20) has a visible rooftop array and
+  //    solar=True in sales.csv, and its description does not contain the word -- so this
+  //    rule does not fire on the very house that prompted it. Fixing that means filling
+  //    the scraper's solar column, not widening these patterns.
+  //    Known miss, accepted: 1 listing whose panels serve a pool only still scores -4.
+  {k:"solar",      pts:-4, label:"solar panels",
+   re:/solar[- ]?(panel|array|system|electric|energy|shingle|instal)|photovoltaic|\bpv\s+(system|panel|array)|sunrun|sunnova|powerwall|\bsrecs?\b/i},
+  {k:"solarlease", pts:-4, label:"…on a lease / PPA",
+   re:/(leas\w+|rented)\s+(?:[\w-]+\s+){0,3}solar|solar\s+(?:[\w-]+\s+){0,3}(leas\w+|ppa\b)|power\s+purchase\s+agreement/i},
+  {k:"solarowned", pts:+4, label:"…owned outright",
+   re:/(owned?|paid[- ]?off|fully\s+paid|purchased)\s+(?:[\w-]+\s+){0,5}solar|solar\s+(?:[\w-]+\s+){0,4}(are\s+|is\s+)?(fully\s+)?(owned|paid[- ]?off|paid\s+in\s+full)/i},
   {k:"deck",     pts:+2, label:"deck / patio",     re:/\bdeck\b|\bpatio\b/i},
   {k:"fence",    pts:+2, label:"fenced yard",      re:/\bfenced\b|fully fenced/i},
 ];

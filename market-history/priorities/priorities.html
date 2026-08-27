@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What you want — the housing score, and where you'd bend</title>
+<style>
+  /* Same paper/ink language as tierlist.html and the offer/ pages — this is a
+     sibling tool, not a different site. */
+  :root{
+    --paper:#f7f4ee; --paper-2:#f1ece3; --paper-3:#e9e2d5;
+    --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#544d43; --ink-3:#8a8072;
+    --pos:#2c6459; --neg:#8c2f2a; --flag:#a8631c; --curve:#4a5b6e;
+
+    /* The stance palette is deliberately NOT a good→bad ramp. These are five
+       rungs of ONE question — how much does missing this cost — so one hue at
+       falling strength, not five unrelated colours pretending to be categories.
+       The gate and the off switch sit OUTSIDE that scale and get their own ink:
+       a deal-breaker is not "even more weight", it is a filter, and skip is not
+       "the least weight", it is absence. */
+    --s-gate:#1f1c18;   /* ink — a wall, off the scale entirely */
+    --s-big:#2c6459;    /* the ramp: deep… */
+    --s-some:#4e7f74;   /* …mid… */
+    --s-little:#79968d; /* …faint */
+    --s-skip:#8a8072;   /* grey — switched off */
+    --s-none:#c8bda9;
+
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+    --mono:"iA Writer Mono","SF Mono","Berkeley Mono",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:15px;line-height:1.55;
+    padding:clamp(1.5rem,4vw,3.5rem) clamp(1rem,4vw,3rem) 6rem;
+    -webkit-font-smoothing:antialiased}
+  .sheet{max-width:64rem;margin:0 auto}
+
+  /* ── masthead ───────────────────────────────────────── */
+  header{border-bottom:2px solid var(--ink);padding-bottom:.75rem;margin-bottom:1.3rem;
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,3.4vw,2.4rem);
+    letter-spacing:-.015em;line-height:1.05}
+  h1 em{font-style:italic;color:var(--ink-2)}
+  .stamp{margin-left:auto;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--ink-3);text-align:right;line-height:1.5;font-variant-numeric:tabular-nums}
+  .stamp b{font-weight:600;color:var(--ink-2)}
+  .stamp.warn b{color:var(--neg)}
+  .dot{display:inline-block;width:.4rem;height:.4rem;border-radius:50%;
+    background:var(--pos);margin-right:.4rem;vertical-align:.05rem;
+    transition:background-color .2s ease,opacity .2s ease}
+  .stamp.busy .dot{background:var(--flag);opacity:.4}
+  .stamp.warn .dot{background:var(--neg)}
+  .lede{color:var(--ink-2);max-width:44rem;margin-bottom:1.6rem}
+  .lede b{font-weight:600;color:var(--ink)}
+
+  /* ── the anatomy strip: how 100 points get made ─────── */
+  .anat{border:1px solid var(--rule);background:var(--paper-2);
+    padding:.9rem 1rem 1rem;margin-bottom:2.2rem}
+  .anat h2{font-family:var(--serif);font-weight:400;font-size:1.05rem;margin-bottom:.5rem}
+  .split{display:flex;height:1.5rem;border:1px solid var(--rule-2);margin:.55rem 0 .45rem}
+  .split span{display:flex;align-items:center;justify-content:center;
+    font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);
+    white-space:nowrap;overflow:hidden}
+  .split .b{background:var(--curve)}
+  .split .f{background:var(--flag)}
+  .anat p{font-size:.82rem;color:var(--ink-2);max-width:52rem}
+  .anat p+p{margin-top:.4rem}
+
+  /* ── section heads ──────────────────────────────────── */
+  section{margin-top:2.6rem}
+  .sh{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
+    border-bottom:1px solid var(--ink);padding-bottom:.35rem;margin-bottom:.2rem}
+  .sh h2{font-family:var(--serif);font-weight:400;font-size:1.35rem;letter-spacing:-.01em}
+  .sh .n{font-size:.72rem;color:var(--ink-3);letter-spacing:.07em;
+    text-transform:uppercase;font-variant-numeric:tabular-nums}
+  .sh .hint{margin-left:auto;font-size:.75rem;color:var(--ink-3);font-style:italic;
+    max-width:26rem;text-align:right}
+  .subhead{font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;margin:1.5rem 0 .1rem;
+    display:flex;align-items:baseline;gap:.5rem}
+  .subhead::after{content:"";flex:1;border-bottom:1px solid var(--rule)}
+
+  /* ── a factor row ───────────────────────────────────── */
+  .row{border-bottom:1px solid var(--rule);padding:.7rem .1rem .6rem;
+    display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.15rem .9rem;
+    align-items:start;transition:background-color .13s ease}
+  .row:focus-within{background:var(--paper-2)}
+  .row.set{border-left:var(--stw,3px) solid var(--st);padding-left:.6rem;margin-left:-.7rem}
+  .row .head{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;min-width:0}
+  .row .nm{font-family:var(--serif);font-size:1.12rem;line-height:1.2}
+  .row .pts{font-variant-numeric:tabular-nums;font-size:.74rem;font-weight:600;
+    letter-spacing:.04em;color:var(--ink-3)}
+  .row .pts.up{color:var(--pos)} .row .pts.down{color:var(--neg)}
+  .row .off{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--neg);border:1px solid var(--neg);padding:0 .25rem}
+  .row .new{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--paper);background:var(--flag);padding:.05rem .3rem}
+  .row .what{font-size:.87rem;color:var(--ink-2);max-width:40rem}
+  .row .now{font-size:.79rem;color:var(--ink-3);max-width:40rem;margin-top:.12rem}
+  .row .now b{color:var(--ink-2);font-weight:600}
+
+  /* weight bar — how loud this factor is TODAY, drawn to scale against the
+     loudest one. Neutral ink: it is a fact about the model, not a verdict. */
+  .wbar{display:flex;align-items:center;gap:.4rem;margin-top:.3rem;max-width:22rem}
+  .wbar .t{flex:1;height:.42rem;background:var(--paper-3);position:relative;overflow:hidden}
+  .wbar .t i{position:absolute;inset:0 auto 0 0;background:var(--ink-2)}
+  .wbar .v{font-size:.68rem;color:var(--ink-3);font-variant-numeric:tabular-nums;
+    letter-spacing:.05em;white-space:nowrap}
+
+  /* ── the stance control ─────────────────────────────── */
+  .stance{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem}
+  .seg{display:flex;border:1px solid var(--rule-2);background:var(--paper)}
+  .seg button{appearance:none;background:transparent;border:0;border-right:1px solid var(--rule);
+    font-family:var(--sans);font-size:.7rem;color:var(--ink-3);cursor:pointer;
+    padding:.32rem .5rem;white-space:nowrap;letter-spacing:.02em;
+    transition:background-color .12s ease,color .12s ease}
+  .seg button:last-child{border-right:0}
+  .seg button:hover{background:var(--paper-3);color:var(--ink)}
+  .seg button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+  .seg button.on{background:var(--sc);color:var(--paper);font-weight:600}
+  .more{background:transparent;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-3);font-family:var(--sans);font-size:.7rem;cursor:pointer;padding:.05rem 0}
+  .more:hover{color:var(--flag);border-bottom-color:var(--flag)}
+
+  /* ── the drawer: the curve, the real rule, your line ── */
+  .drawer{grid-column:1/-1;display:none;padding:.85rem 0 .3rem;gap:1.4rem}
+  .row.open .drawer{display:flex;flex-wrap:wrap}
+  .viz{flex:0 0 auto}
+  .viz svg{display:block}
+  .viz .cap{font-size:.66rem;color:var(--ink-3);letter-spacing:.05em;margin-top:.15rem}
+  .fields{flex:1 1 20rem;min-width:16rem;display:flex;flex-direction:column;gap:.6rem}
+  .fld label{display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-3);font-weight:600;margin-bottom:.15rem}
+  .fld input{width:100%;background:transparent;border:0;border-bottom:1.5px solid var(--rule-2);
+    padding:.22rem 0 .28rem;font-family:var(--serif);font-size:1rem;color:var(--ink);
+    border-radius:0;transition:border-color .16s ease}
+  .fld input:focus{outline:none;border-bottom-color:var(--ink)}
+  .fld input::placeholder{color:var(--rule-2);font-style:italic;font-size:.92rem}
+  details.code{margin-top:.2rem}
+  details.code summary{font-size:.68rem;color:var(--ink-3);cursor:pointer;
+    letter-spacing:.06em;text-transform:uppercase}
+  details.code summary:hover{color:var(--flag)}
+  details.code pre{font-family:var(--mono);font-size:.7rem;line-height:1.5;
+    background:var(--paper-2);border:1px solid var(--rule);padding:.5rem .6rem;
+    margin-top:.35rem;overflow-x:auto;color:var(--ink-2);white-space:pre}
+  .src{font-size:.72rem;color:var(--ink-3);font-style:italic;max-width:34rem}
+
+  /* ── the "not in the score yet" bench ───────────────── */
+  .addbar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:flex-end;
+    padding:.9rem 0 .3rem;border-bottom:1px solid var(--rule)}
+  .addbar .fld{flex:1 1 14rem}
+  .addbar button{appearance:none;background:var(--ink);color:var(--paper);border:0;
+    font-family:var(--sans);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:.42rem .9rem;cursor:pointer}
+  .addbar button:hover{background:var(--flag)}
+  .del{background:transparent;border:0;color:var(--rule-2);cursor:pointer;font-size:1rem;
+    line-height:1;padding:.2rem .3rem}
+  .del:hover{color:var(--neg)}
+  .empty{color:var(--rule-2);font-style:italic;font-size:.85rem;padding:1rem .1rem}
+
+  /* ── the either/or ──────────────────────────────────── */
+  .duel{border:1px solid var(--rule-2);background:var(--paper-2);padding:1.1rem 1.2rem}
+  .duel .q{font-family:var(--serif);font-size:1.05rem;color:var(--ink-2);margin-bottom:.8rem}
+  .pair{display:flex;gap:.8rem;flex-wrap:wrap}
+  .pair button{flex:1 1 13rem;appearance:none;background:var(--paper);
+    border:1px solid var(--rule-2);padding:.75rem .85rem;cursor:pointer;text-align:left;
+    font-family:var(--sans);transition:border-color .13s ease,transform .13s ease}
+  .pair button:hover{border-color:var(--ink);transform:translateY(-1px)}
+  .pair button:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+  .pair .t{font-family:var(--serif);font-size:1.08rem;color:var(--ink);display:block}
+  .pair .s{font-size:.75rem;color:var(--ink-3);display:block;margin-top:.1rem}
+  .duel .foot{display:flex;align-items:baseline;gap:1rem;margin-top:.8rem;flex-wrap:wrap}
+  .duel .foot button{background:transparent;border:0;border-bottom:1px solid var(--rule-2);
+    color:var(--ink-3);font-family:var(--sans);font-size:.75rem;cursor:pointer;padding:.15rem 0}
+  .duel .foot button:hover{color:var(--flag);border-bottom-color:var(--flag)}
+  .duel .tally{font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .log{margin-top:.9rem;font-size:.78rem;color:var(--ink-3)}
+  .log div{padding:.12rem 0}
+  .log b{color:var(--ink-2);font-weight:600}
+
+  /* ── view switch ────────────────────────────────────── */
+  .bar{display:flex;align-items:baseline;gap:.6rem 1.2rem;flex-wrap:wrap;margin:.9rem 0 .2rem}
+  .bar .lbl{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .bar .seg button{font-size:.72rem;padding:.3rem .6rem}
+  .bar .seg button.on{background:var(--ink);color:var(--paper)}
+  .bar .left{margin-left:auto;font-size:.75rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+  .key{display:flex;flex-wrap:wrap;gap:.1rem 1.1rem;font-size:.75rem;color:var(--ink-2);
+    margin-top:.5rem}
+  .key i{font-style:normal;display:inline-block;width:.55rem;height:.55rem;
+    margin-right:.35rem;vertical-align:.02rem}
+  .key span{white-space:nowrap}
+  .key b{font-weight:600;color:var(--ink)}
+
+  footer{margin-top:3rem;padding-top:.9rem;border-top:1px solid var(--rule);
+    font-size:.76rem;color:var(--ink-3);max-width:48rem}
+  footer code{font-family:var(--mono);font-size:.72rem;color:var(--ink-2)}
+  footer p+p{margin-top:.5rem}
+
+  @media(max-width:720px){
+    .row{grid-template-columns:minmax(0,1fr)}
+    .stance{align-items:flex-start;margin-top:.4rem}
+    .seg{flex-wrap:wrap}
+    .sh .hint{margin-left:0;text-align:left}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header>
+    <h1>What you want <em>— and where you'd bend</em></h1>
+    <div class="stamp" id="stamp"><span class="dot"></span><b>loading</b></div>
+  </header>
+
+  <p class="lede">Everything the housing score looks at, pulled live out of the code that
+  computes it. For each one, answer a single question — <b>how much does missing this
+  actually cost you?</b> — and where your own line sits. Nothing here asks you to rank 26
+  things against each other; each is judged on its own. Then tell me what's missing.</p>
+
+  <div class="anat" id="anat"></div>
+
+  <div class="bar">
+    <span class="lbl">Order</span>
+    <div class="seg" id="view">
+      <button data-v="weight" class="on">Loudest first</button>
+      <button data-v="stance">By what I said</button>
+      <button data-v="model">As the code reads</button>
+    </div>
+    <span class="left" id="left"></span>
+  </div>
+  <div class="key" id="key"></div>
+
+  <section id="sec-factors">
+    <div class="sh">
+      <h2>The measured things</h2><span class="n" id="n-factors"></span>
+      <span class="hint">Facts about the house or the town. An unknown one drops out of the
+        average — it never counts against a house.</span>
+    </div>
+    <div id="factors"></div>
+  </section>
+
+  <section id="sec-words">
+    <div class="sh">
+      <h2>The words we look for</h2><span class="n" id="n-words"></span>
+      <span class="hint">Read off the listing copy, so only ever counted when the words are
+        actually there — never assumed from silence. The ones in red are penalties, and their
+        buttons flip to the avoidance wording.</span>
+    </div>
+    <div id="words"></div>
+  </section>
+
+  <section id="sec-watched">
+    <div class="sh">
+      <h2>What we watched ourselves</h2><span class="n" id="n-watched"></span>
+      <span class="hint">Not from the copy — things our own daily scrape saw happen.</span>
+    </div>
+    <div id="watched"></div>
+  </section>
+
+  <section id="sec-wants">
+    <div class="sh">
+      <h2>Not in the score yet</h2><span class="n" id="n-wants"></span>
+      <span class="hint">Anything you care about that nothing above measures. Each one is a
+        request for me to go find the data.</span>
+    </div>
+    <div class="addbar">
+      <div class="fld"><label for="w-name">The thing</label>
+        <input id="w-name" placeholder="quiet street · walk to the train · flat back yard…"
+               autocomplete="off"></div>
+      <div class="fld" style="flex:1 1 18rem"><label for="w-note">Why, or what good looks like</label>
+        <input id="w-note" placeholder="optional — the more specific, the more I can measure"
+               autocomplete="off"></div>
+      <button id="w-add">Add</button>
+    </div>
+    <div id="wants"></div>
+  </section>
+
+  <section id="sec-duel">
+    <div class="sh">
+      <h2>One or the other</h2><span class="n" id="n-trades"></span>
+      <span class="hint">The stances say what you'd give up. These say what you'd give it up
+        <em>for</em> — which is the part that sets the weights.</span>
+    </div>
+    <div class="duel" id="duel"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+"use strict";
+
+/* ══ what each thing MEANS ════════════════════════════════════════════════════
+   engine.js is the source of truth for the weights, the curves and the words —
+   this page never guesses those, it reads them (see serve.py). What lives here is
+   only the English: what the factor is, what the rule currently amounts to in a
+   sentence, where the data comes from, and a curve to draw.
+
+   The drawn curve is a MIRROR of engine.js and could drift, so every row also
+   shows the real rule verbatim one click away, and serve.py fingerprints the whole
+   scored region — change engine.js and this page says so on the next load.
+
+   A key here that engine.js has dropped just disappears. A key engine.js gains
+   that is missing here still renders, flagged NEW, with no English. Neither can
+   silently hide a factor, which is the one failure that would make the page lie. */
+
+const clamp = x => Math.max(0, Math.min(1, x));
+const usd = n => "$" + (n >= 1000 ? Math.round(n / 1000) + "k" : n);
+
+const PLAIN = {
+  price: {
+    what: "What it costs.",
+    now: "Full marks under <b>$675k</b>. Straight down from there and worth nothing by <b>$800k</b> — past that the price factor contributes zero however good the house is.",
+    src: "The asking price on the listing.",
+    curve: {d:[400000, 1000000], f:p => p <= 675000 ? 1 : clamp(1 - (p - 675000) / 125000),
+            fmt: usd, ticks:[400000, 675000, 800000, 1000000]},
+  },
+  lot: {
+    what: "How much land comes with it.",
+    now: "<b>6,000–14,000 sq ft</b> is the sweet spot — roughly ⅛ to ⅓ of an acre. Under 3,000 is nearly a write-off. Past half an acre it starts counting <em>against</em> the house, as a job to keep up.",
+    src: "Lot size off the listing. The plateau was set to contain 524 Farley — the favourite of 30-odd open houses.",
+    curve: {d:[1000, 45000], f:x => x < 3000 ? .25 : x < 6000 ? .25 + .75 * (x - 3000) / 3000
+            : x <= 14000 ? 1 : x <= 22000 ? 1 - .3 * (x - 14000) / 8000
+            : Math.max(.3, .7 - .3 * (x - 22000) / 21560),
+            fmt: x => (x / 1000).toFixed(0) + "k", ticks:[1000, 6000, 14000, 22000, 45000]},
+  },
+  commute: {
+    what: "Getting to Manhattan by train.",
+    now: "<b>35 minutes or less</b> is full marks. 50 is still fine. 70 is a real cost. Past two hours it's a zero.",
+    src: "Station-to-Penn/Hoboken time for the town's station — a TOWN number, not this house's front door.",
+    curve: {d:[20, 120], f:m => m <= 35 ? 1 : m <= 50 ? 1 - .25 * (m - 35) / 15
+            : m <= 70 ? .75 - .45 * (m - 50) / 20 : Math.max(0, .3 - .3 * (m - 70) / 50),
+            fmt: m => m + "m", ticks:[20, 35, 50, 70, 120]},
+  },
+  tier: {
+    what: "Where the town sits on your own S–F list.",
+    now: "Your tier list, straight through: <b>S</b> full marks down to <b>F</b> zero. A town you haven't ruled on drops out entirely — it is <em>not</em> treated as an F.",
+    src: "tierlist/tiers.json — your hand-ranking. The only opinion in the model; everything else is measured.",
+    bars: [["S", 1], ["A", .85], ["B", .65], ["C", .4], ["D", .2], ["F", 0]],
+  },
+  school: {
+    what: "How the town's schools rank against the rest of New Jersey.",
+    now: "State deciles averaged across elementary, middle and high. <b>Bottom two deciles score zero</b>, 9th and 10th score full marks.",
+    src: "NJ DOE 2024-25 district deciles. A DISTRICT number pinned to a town — two houses on the same street can feed different elementary schools, so verify the boundary on a house you actually like.",
+    curve: {d:[1, 10], f:d => clamp((d - 2) / 7), fmt: d => "d" + d, ticks:[1, 2, 5, 9, 10]},
+  },
+  dom: {
+    what: "How long it's been sitting unsold.",
+    now: "Brand new scores middling — no leverage, no information. <b>1 to 3 months</b> is the window where sellers actually move. Past five months it falls away again: a house nobody has touched in that long is usually stubborn or broken, not a bargain.",
+    src: "Days on market from the feed, corrected by our own watching when a listing gets pulled and re-posted.",
+    curve: {d:[0, 300], f:d => d <= 7 ? .5 : d <= 30 ? .5 + .3 * (d - 7) / 23
+            : d <= 90 ? .8 + .2 * (d - 30) / 60 : d <= 150 ? 1 - .4 * (d - 90) / 60
+            : Math.max(.25, .6 - .35 * (d - 150) / 150),
+            fmt: d => d + "d", ticks:[0, 30, 90, 150, 300]},
+  },
+  type: {
+    what: "A house, not a condo.",
+    now: "Single-family gets full marks, a multi-family <b>0.55</b>, anything attached <b>0.2</b>. Attached homes aren't ruled out here — that's the Type filter's job — they just don't get to score like a house.",
+    src: "Property type on the listing.",
+    bars: [["house", 1], ["multi", .55], ["condo / attached", .2]],
+  },
+  beds: {
+    what: "Bedrooms.",
+    now: "<b>Three is the floor</b> and scores 0.8. Four or more is full marks. Under three drops to 0.25. Five adds nothing over four.",
+    src: "Bed count on the listing.",
+    bars: [["2", .25], ["3", .8], ["4", 1], ["5+", 1]],
+  },
+  baths: {
+    what: "Bathrooms.",
+    now: "Under 1.5 scores 0.25. Two gets <b>0.85</b>. <b>2.5 or more</b> is full marks.",
+    src: "Bath count on the listing, halves included.",
+    bars: [["1", .25], ["1.5", .7], ["2", .85], ["2.5+", 1]],
+  },
+  sqft: {
+    what: "How big the house itself is.",
+    now: "Under 1,000 sq ft scores 0.4, climbing to full marks at <b>1,800</b>. Bigger than that adds nothing — the land is what carries size here, not the house.",
+    src: "Living area off the listing. Missing on a fair number of listings, in which case it drops out.",
+    curve: {d:[600, 3500], f:x => x < 1000 ? .4 : x < 1800 ? .4 + .6 * (x - 1000) / 800 : 1,
+            fmt: x => (x / 1000).toFixed(1) + "k", ticks:[600, 1000, 1800, 3500]},
+  },
+  year: {
+    what: "When it was built.",
+    now: "Anything <b>before 1940 is flat 0.2</b> — that's 1930s wiring, plumbing and insulation however pretty it looks. From 1940 it climbs to full marks at 2010. Deliberately at half the weight the first draft gave it: 'newer' is really a proxy for 'not a project', and condition gets read off the copy instead.",
+    src: "Year built on the listing. 524 Farley is a 1950 build and lands at 0.44, just above the cliff.",
+    curve: {d:[1900, 2025], f:y => y < 1940 ? .2 : y >= 2010 ? 1 : .3 + .7 * (y - 1940) / 70,
+            fmt: String, ticks:[1900, 1940, 2010, 2025]},
+  },
+  appr: {
+    what: "Whether the town's prices are climbing.",
+    now: "<b>+5%</b> over the window scores zero, <b>+40%</b> full marks. Small weight on purpose — it moves with price, which is already the heaviest thing here, and past growth doesn't promise future growth.",
+    src: "Zillow ZHVI + FHFA. Measured for 20 towns; the rest borrow the regional curve, which is still a real regional fact.",
+    curve: {d:[0, 45], f:p => clamp((p - 5) / 35), fmt: p => "+" + p + "%", ticks:[0, 5, 20, 40, 45]},
+  },
+  flood: {
+    what: "Whether it sits in a flood zone.",
+    binary: true,
+    now: "<b>All or nothing.</b> Inside a FEMA high-risk zone scores zero; anywhere else full marks. There is no middle — the mandatory insurance is either owed or it isn't.",
+    src: "FEMA flood maps at this house's exact coordinates. One of the very few things scored PER HOUSE rather than per town, so it can still tell two houses on one street apart.",
+    bars: [["outside a flood zone", 1], ["high-risk zone (A/AE/V/VE)", 0]],
+  },
+  shops: {
+    what: "How far to the shops.",
+    now: "Distance to Trader Joe's, Wawa and Seabra, averaged so one distant chain can't sink a town. <b>2 miles or less</b> is full marks, tailing off to nearly nothing past 16. Low weight, on your own instruction: closer is better, but don't give it many points.",
+    src: "Hand-curated store lists, measured to the town centre — a town number, not a walk from the door.",
+    curve: {d:[0, 20], f:mi => mi <= 2 ? 1 : mi <= 6 ? 1 - .4 * (mi - 2) / 4
+            : Math.max(.1, .6 - .5 * (mi - 6) / 10),
+            fmt: mi => mi + "mi", ticks:[0, 2, 6, 16, 20]},
+  },
+};
+
+/* The words. All binary by nature — the phrase is in the copy or it isn't. */
+const PLAIN_W = {
+  ac:     {what:"Central air.", note:"The biggest single word-bonus in the model. A house without ducts is a real retrofit, not a weekend."},
+  reno:   {what:"The words renovated, updated, remodelled, or new kitchen."},
+  garage: {what:"A garage of any kind."},
+  bsmtany:{what:"A basement of any kind — finished or not.", note:"Stacks with the one below, so a finished basement scores both: +5 all in, +2 for a bare one. 29% of listings mention a basement, only 17% call it finished."},
+  bsmt:   {what:"A finished basement — living space, not storage.", note:"On top of the +2 above, not instead of it."},
+  drive:  {what:"A driveway."},
+  deck:   {what:"A deck or a patio."},
+  fence:  {what:"A fenced yard."},
+  wallac: {what:"Window units, wall units, or mini-splits.", note:"Only bites when there's no central air mentioned to outrank it."},
+  asis:   {what:"As-is, handyman, TLC, needs work, investor.", note:"The agent telling you it's a project, in the polite words."},
+  pool:   {what:"An in-ground pool.", note:"Counts AGAINST the house — upkeep, insurance, and a hole where the yard was. It's also the most trustworthy signal in the set: nobody hides a pool, so silence here really does mean there isn't one."},
+};
+const PLAIN_O = {
+  cut:    {what:"We watched the price come down.", note:"Not from the copy — our own daily scrape saw yesterday's number and today's."},
+  relist: {what:"Pulled and re-posted to reset the day count.", note:"Switched off on your call, 18 Jul 2026. The mechanism and the −3 are still sitting there, one uncommented line away."},
+};
+
+/* ══ the five stances ═════════════════════════════════════════════════════════
+   Three rungs of one question — how much does missing this cost — bracketed by two
+   things that are NOT on that scale.
+
+   `gate` is a filter, not a heavy weight: "I walk" is a different verb from "it
+   scores badly", and no amount of weight reproduces it. `skip` is absence, not the
+   smallest weight. Only big/some/little are comparable to each other.
+
+   This replaced a rung called "would trade" (2026-08-19). It read as a category and
+   wasn't one: EVERY non-deal-breaker is tradeable, so it said nothing that "not a
+   gate" hadn't already said, and it collided with "nice to have" — two buttons, no
+   reason to pick either.
+
+   Four of the scored things are PENALTIES, not features — a pool, as-is, wall AC, a
+   relist. Asking "really want?" about a −8 is incoherent: want the pool, or want it
+   gone? So a negative item keeps the same five keys and flips the words to the
+   avoidance side. Same scale, same file, sentence that actually parses. */
+const STANCES = [
+  {k:"gate",   w:4, label:"Won't budge",     blurb:"a gate, not a score",
+   hint:"Get this wrong and I walk, whatever else the house has.",
+   avoid:"Won't touch it",   avoidHint:"See this and I walk, whatever else the house has."},
+  {k:"big",    w:3, label:"Really want",     blurb:"missing it costs a lot",
+   hint:"Missing it costs a lot. I'd still go and look.",
+   avoid:"Counts hard against", avoidHint:"Counts hard against it. I'd still go and look."},
+  {k:"some",   w:2, label:"Somewhat want",   blurb:"missing it costs something",
+   hint:"Missing it costs something real, but not much.",
+   avoid:"Counts against",   avoidHint:"Counts against it, but not much."},
+  {k:"little", w:1, label:"Barely",          blurb:"costs almost nothing",
+   hint:"I'd notice. It wouldn't change anything.",
+   avoid:"Barely bothers me", avoidHint:"I'd notice. It wouldn't change anything."},
+  {k:"skip",   w:1, label:"Doesn't matter",  blurb:"stop scoring it",
+   hint:"Take this out of the score entirely.",
+   avoid:"Doesn't matter",   avoidHint:"Take this out of the score entirely."},
+];
+const SK = Object.fromEntries(STANCES.map(s => [s.k, s]));
+
+/* ── state ────────────────────────────────────────────── */
+let model = null;             // live from engine.js via serve.py
+let sheet = {stances:{}, wants:[], trades:[]};
+let view = "weight";
+let rows = [];                // {id, kind, key, name, w, pts, ...}
+let maxW = 1;                 // the heaviest factor — the bar's full scale
+const openRows = new Set();   // row ids with the drawer open — survives a re-render
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ── boot ─────────────────────────────────────────────── */
+(async function boot(){
+  const [m, saved] = await Promise.all([
+    fetch("model.json").then(r => r.json()),
+    fetch("priorities.json").then(r => r.json()).catch(() => null),
+  ]);
+  if (m.error) return say(m.error, null, "warn");
+  model = m;
+  if (saved) sheet = {stances:saved.stances || {}, wants:saved.wants || [], trades:saved.trades || []};
+
+  buildRows();
+  anatomy();
+  legend();
+  render();
+  foot();
+
+  /* The model is fingerprinted end to end. If it moved since the last save, the
+     sheet is answers to a slightly different question — say so rather than
+     letting the two drift apart quietly. */
+  if (saved && saved.model_fingerprint && saved.model_fingerprint !== model.fingerprint)
+    say("the score changed since you last ruled — re-check", null, "warn");
+  else say(saved ? "loaded" : "ready", saved && saved.updated);
+})();
+
+function buildRows(){
+  rows = [];
+  maxW = Math.max(...model.factors.map(f => f.w), 1);
+  for (const f of model.factors) {
+    const p = PLAIN[f.k] || {};
+    rows.push({id:f.k, kind:"factor", name:f.label, w:f.w, ...p, engine:f.src, rule:f.rule,
+               unknown:!PLAIN[f.k]});
+  }
+  for (const f of model.flavour) {
+    const p = PLAIN_W[f.k] || {};
+    rows.push({id:"w:" + f.k, kind:"word", name:f.label, pts:f.pts, binary:true,
+               match:f.match, engine:f.src, unknown:!PLAIN_W[f.k], ...p});
+  }
+  for (const f of model.watched) {
+    const p = PLAIN_O[f.k] || {};
+    rows.push({id:"o:" + f.k, kind:"watch", name:f.label, pts:f.pts, binary:true,
+               disabled:f.disabled, engine:f.src, unknown:!PLAIN_O[f.k], ...p});
+  }
+}
+
+/* ── the anatomy strip ────────────────────────────────── */
+function anatomy(){
+  const base = Math.round(model.base_scale * 100), cap = model.cap;
+  const live = model.watched.filter(w => !w.disabled).length;
+  $("#anat").innerHTML = `
+    <h2>How the number gets made</h2>
+    <div class="split">
+      <span class="b" style="flex:${base}">${base} from the measured things</span>
+      <span class="f" style="flex:${cap}">±${cap} from the words</span>
+    </div>
+    <p><b>${model.factors.length} measured things</b> become a weighted average — not a sum.
+      A factor we don't know about drops out of the top <em>and</em> the bottom of that average,
+      so a missing field never counts against a house; it just makes everything else count for
+      proportionally more. The result is scaled to <b>${base}</b>, which is the honest ceiling
+      on structured data alone: we can't know a house has a garage if nobody wrote it down.</p>
+    <p>Then <b>${model.flavour.length} words</b> mined out of the listing copy, plus
+      <b>${live} thing${live === 1 ? "" : "s"} our own scrape watched happen</b>, add or subtract
+      up to <b>±${cap}</b>. That cap is doing real work: chatty agents write longer blurbs, and
+      longer blurbs mention more features while saying nothing about price. Uncapped, the score
+      would quietly rank estate agents.</p>
+    <p>Every score also carries a <b>confidence</b> — how much of the model actually ran on that
+      house. Two houses both at 78 are not the same claim if one of them only knew half the story.</p>`;
+}
+
+function legend(){
+  $("#key").innerHTML = STANCES.map(s =>
+    `<span><i style="background:var(--s-${s.k})"></i><b>${s.label}</b> — ${esc(s.hint)}</span>`).join("");
+}
+
+/* ── render ───────────────────────────────────────────── */
+function render(){
+  const F = rows.filter(r => r.kind === "factor");
+  const W = rows.filter(r => r.kind === "word");
+  const O = rows.filter(r => r.kind === "watch");
+
+  paint($("#factors"), order(F));
+  paint($("#words"), order(W));
+  paint($("#watched"), order(O));
+  wants();
+  duel();
+
+  $("#n-factors").textContent = `${F.length} · ${model.total_weight} weight`;
+  $("#n-words").textContent = `${W.length} · capped at ±${model.cap}`;
+  $("#n-watched").textContent = `${O.length}`;
+  $("#n-wants").textContent = `${sheet.wants.length}`;
+  $("#n-trades").textContent = `${sheet.trades.length} answered`;
+
+  const ruled = rows.filter(r => st(r.id)).length;
+  $("#left").textContent = ruled === rows.length
+    ? `all ${rows.length} ruled on`
+    : `${rows.length - ruled} of ${rows.length} still unruled`;
+}
+
+const st = id => (sheet.stances[id] || {}).stance || null;
+const fld = (id, k) => (sheet.stances[id] || {})[k] || "";
+
+/* Sorting only ever changes ORDER — never what a row is worth. In stance view the
+   groups are labelled, so nobody has to infer meaning from position. */
+const loud = r => r.w != null ? r.w : r.pts != null ? Math.abs(r.pts) : 0;
+
+function order(list){
+  if (view === "model") return list;
+  if (view === "weight") return [...list].sort((a, b) => loud(b) - loud(a));
+  const rank = Object.fromEntries(STANCES.map((s, i) => [s.k, i]));
+  return [...list].sort((a, b) => {
+    const ra = st(a.id) ? rank[st(a.id)] : 99, rb = st(b.id) ? rank[st(b.id)] : 99;
+    return ra - rb || loud(b) - loud(a);
+  });
+}
+
+function paint(host, list){
+  host.replaceChildren();
+  let group = null;
+  for (const r of list) {
+    if (view === "stance") {
+      const g = st(r.id) || "none";
+      if (g !== group) {
+        group = g;
+        const h = document.createElement("div");
+        h.className = "subhead";
+        const anyNeg = list.some(x => x.pts != null && x.pts < 0);
+        h.textContent = g === "none" ? "not ruled on yet"
+          : (anyNeg && SK[g].avoid !== SK[g].label ? SK[g].label + " · " + SK[g].avoid
+                                                   : SK[g].label) + " — " + SK[g].blurb;
+        host.appendChild(h);
+      }
+    }
+    host.appendChild(rowEl(r));
+  }
+  if (!list.length) host.innerHTML = `<p class="empty">Nothing here.</p>`;
+}
+
+function rowEl(r){
+  const el = document.createElement("div");
+  const s = st(r.id);
+  const neg = r.pts != null && r.pts < 0;   // a penalty — flip to the avoidance wording
+  el.className = "row" + (s ? " set" : "") + (openRows.has(r.id) ? " open" : "");
+  el.dataset.id = r.id;
+  el.tabIndex = 0;
+  if (s) { el.style.setProperty("--st", `var(--s-${s})`);
+           el.style.setProperty("--stw", SK[s].w + "px"); }
+
+  const w = r.w != null
+    ? `<div class="wbar"><span class="t"><i style="width:${100 * r.w / maxW}%"></i></span>
+         <span class="v">weight ${r.w} of ${model.total_weight}</span></div>`
+    : "";
+  const pts = r.pts != null
+    ? `<span class="pts ${r.pts > 0 ? "up" : "down"}">${r.pts > 0 ? "+" : ""}${r.pts} pts</span>` : "";
+
+  el.innerHTML = `
+    <div>
+      <div class="head">
+        <span class="nm">${esc(r.name)}</span>
+        ${pts}
+        ${r.disabled ? `<span class="off">switched off</span>` : ""}
+        ${r.unknown ? `<span class="new">new — no note yet</span>` : ""}
+      </div>
+      ${r.what ? `<p class="what">${esc(r.what)}</p>` : ""}
+      ${r.now ? `<p class="now">${r.now}</p>` : ""}
+      ${r.note ? `<p class="now">${esc(r.note)}</p>` : ""}
+      ${w}
+    </div>
+    <div class="stance">
+      <div class="seg">${STANCES.map(x =>
+        `<button data-s="${x.k}" class="${s === x.k ? "on" : ""}"
+           title="${esc(neg ? x.avoidHint : x.hint)}"
+           style="--sc:var(--s-${x.k})">${neg ? x.avoid : x.label}</button>`).join("")}</div>
+      <button class="more">${label(r.id)} ▾</button>
+    </div>
+    <div class="drawer"></div>`;
+
+  el.querySelectorAll(".seg button").forEach(b =>
+    b.addEventListener("click", () => setStance(r.id, b.dataset.s === s ? null : b.dataset.s)));
+  el.querySelector(".more").addEventListener("click", () => toggle(el, r));
+  if (openRows.has(r.id)) fillDrawer(el, r);
+  return el;
+}
+
+const label = id => openRows.has(id) ? "less" : "why this number, and my line";
+
+/* The drawer is built on first open, not on render: 26 sparklines and 26 code
+   blocks up front is a lot of DOM for something you look at one row at a time. */
+function toggle(el, r){
+  const now = el.classList.toggle("open");
+  now ? openRows.add(r.id) : openRows.delete(r.id);
+  el.querySelector(".more").textContent = label(r.id) + " ▾";
+  if (now) fillDrawer(el, r);
+}
+
+function fillDrawer(el, r){
+  const d = el.querySelector(".drawer");
+  if (d.dataset.built) return;
+  d.dataset.built = "1";
+
+  const viz = r.curve ? spark(r.curve) : r.bars ? barViz(r.bars) : "";
+  d.innerHTML = `
+    ${viz ? `<div class="viz">${viz}<div class="cap">what the rule scores, across the real range</div></div>` : ""}
+    <div class="fields">
+      ${r.src ? `<p class="src">${esc(r.src)}</p>` : ""}
+      ${r.match ? `<p class="src">Matches: <code>${esc(r.match)}</code></p>` : ""}
+      <div class="fld"><label>My line</label>
+        <input data-f="line" value="${esc(fld(r.id, "line"))}"
+          placeholder="${esc(linePlaceholder(r))}"></div>
+      <div class="fld"><label>Why — or what I'd swap it for</label>
+        <input data-f="note" value="${esc(fld(r.id, "note"))}"
+          placeholder="the reasoning matters more than the answer"></div>
+      <details class="code"><summary>the actual rule, from engine.js</summary>
+        <pre>${esc(r.engine)}</pre></details>
+    </div>`;
+  d.querySelectorAll("input").forEach(i => {
+    i.addEventListener("input", () => setField(r.id, i.dataset.f, i.value));
+  });
+}
+
+function linePlaceholder(r){
+  if (r.binary) return "yes / no — and what it'd take to change that";
+  return "your own threshold, in your words — it's allowed to disagree with the curve";
+}
+
+/* ── the curve pictures ───────────────────────────────── */
+/* Drawn from the mirrored function above, so it is an illustration, not evidence.
+   The verbatim rule sits directly underneath for anyone who wants the truth. */
+function spark(c){
+  const W = 300, H = 92, PL = 4, PR = 4, PT = 15, PB = 18;
+  const [lo, hi] = c.d, N = 90;
+  const x = v => PL + (W - PL - PR) * (v - lo) / (hi - lo);
+  const y = s => PT + (H - PT - PB) * (1 - clamp(s));
+  let pts = [];
+  for (let i = 0; i <= N; i++) {
+    const v = lo + (hi - lo) * i / N;
+    pts.push(`${x(v).toFixed(1)},${y(c.f(v)).toFixed(1)}`);
+  }
+  const grid = [0, .5, 1].map(g =>
+    `<line x1="${PL}" x2="${W - PR}" y1="${y(g)}" y2="${y(g)}"
+       stroke="var(--rule)" stroke-width="1"/>`).join("");
+  const ticks = c.ticks.map(t =>
+    `<line x1="${x(t)}" x2="${x(t)}" y1="${y(0)}" y2="${y(0) + 3}" stroke="var(--rule-2)"/>
+     <text x="${x(t)}" y="${H - 5}" font-size="9" fill="var(--ink-3)"
+       text-anchor="${t === lo ? "start" : t === hi ? "end" : "middle"}">${esc(c.fmt(t))}</text>`).join("");
+  return `<svg width="${W}" height="${H}" role="img" aria-label="scoring curve">
+    ${grid}
+    <text x="${PL}" y="${y(1) - 4}" font-size="8" fill="var(--ink-3)">full marks</text>
+    <polyline points="${pts.join(" ")}" fill="none" stroke="var(--curve)" stroke-width="2"
+      stroke-linejoin="round"/>
+    ${ticks}</svg>`;
+}
+
+function barViz(bars){
+  const W = 300, RH = 17, H = bars.length * RH + 14, LW = 118;
+  const body = bars.map((b, i) => {
+    const y = i * RH + 4, w = (W - LW - 30) * b[1];
+    return `<text x="${LW - 6}" y="${y + 11}" font-size="10" fill="var(--ink-2)"
+        text-anchor="end">${esc(b[0])}</text>
+      <rect x="${LW}" y="${y + 2}" width="${W - LW - 30}" height="10" fill="var(--paper-3)"/>
+      <rect x="${LW}" y="${y + 2}" width="${Math.max(w, 0.5)}" height="10" fill="var(--curve)"/>
+      <text x="${W - 26}" y="${y + 11}" font-size="9" fill="var(--ink-3)">${b[1].toFixed(2)}</text>`;
+  }).join("");
+  return `<svg width="${W}" height="${H}" role="img" aria-label="what each case scores">${body}</svg>`;
+}
+
+/* ── edits ────────────────────────────────────────────── */
+function setStance(id, s){
+  const cur = sheet.stances[id] || {stance:null, line:"", note:""};
+  sheet.stances[id] = {...cur, stance:s};
+  render();
+  save();
+  const el = document.querySelector(`.row[data-id="${CSS.escape(id)}"]`);
+  if (el) el.focus({preventScroll:true});
+}
+
+/* Typing must NOT re-render — that would replace the input under the cursor. */
+function setField(id, k, v){
+  const cur = sheet.stances[id] || {stance:null, line:"", note:""};
+  sheet.stances[id] = {...cur, [k]:v};
+  save();
+}
+
+/* ── keyboard: 1-5 on the focused row, 0 to clear ─────── */
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (/^(INPUT|TEXTAREA)$/.test(e.target.tagName)) {
+    if (e.key === "Escape") e.target.blur();
+    return;
+  }
+  const row = e.target.closest && e.target.closest(".row");
+  if (!row || !row.dataset.id) return;   // the bench rows have no model key
+  if (e.key >= "1" && e.key <= String(STANCES.length)) {
+    e.preventDefault();
+    setStance(row.dataset.id, STANCES[+e.key - 1].k);
+  } else if (e.key === "0") {
+    e.preventDefault();
+    setStance(row.dataset.id, null);
+  }
+});
+
+/* ── the bench: things the score can't see yet ────────── */
+function wants(){
+  const host = $("#wants");
+  host.replaceChildren();
+  if (!sheet.wants.length) {
+    host.innerHTML = `<p class="empty">Nothing yet. This is the useful half — the score can
+      only weigh what it can measure, so anything you keep noticing at open houses and
+      don't see above belongs here.</p>`;
+    return;
+  }
+  sheet.wants.forEach((w, i) => {
+    const el = document.createElement("div");
+    const s = w.stance;
+    el.className = "row" + (s ? " set" : "");
+    if (s) { el.style.setProperty("--st", `var(--s-${s})`);
+             el.style.setProperty("--stw", SK[s].w + "px"); }
+    el.innerHTML = `
+      <div>
+        <div class="head"><span class="nm">${esc(w.name)}</span>
+          <span class="new" style="background:var(--curve)">not measured yet</span></div>
+        ${w.note ? `<p class="what">${esc(w.note)}</p>` : ""}
+      </div>
+      <div class="stance">
+        <div class="seg">${STANCES.map(x =>
+          `<button data-s="${x.k}" class="${s === x.k ? "on" : ""}" title="${esc(x.hint)}"
+             style="--sc:var(--s-${x.k})">${x.label}</button>`).join("")}
+          </div>
+        <button class="del" title="remove">✕</button>
+      </div>`;
+    el.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+      sheet.wants[i].stance = b.dataset.s === s ? null : b.dataset.s;
+      render(); save();
+    }));
+    el.querySelector(".del").addEventListener("click", () => {
+      if (!confirm(`Remove "${w.name}"?`)) return;
+      sheet.wants.splice(i, 1); render(); save();
+    });
+    host.appendChild(el);
+  });
+}
+
+$("#w-add").addEventListener("click", addWant);
+$("#w-name").addEventListener("keydown", e => { if (e.key === "Enter") addWant(); });
+$("#w-note").addEventListener("keydown", e => { if (e.key === "Enter") addWant(); });
+function addWant(){
+  const name = $("#w-name").value.trim();
+  if (!name) return $("#w-name").focus();
+  sheet.wants.push({name, stance:null, note:$("#w-note").value.trim()});
+  $("#w-name").value = ""; $("#w-note").value = "";
+  render(); save();
+  $("#w-name").focus();
+}
+
+/* ══ one or the other ═════════════════════════════════════════════════════════
+   Stances are absolute judgements and people are bad at those in isolation —
+   everything sounds important on its own. A forced either/or is the cheapest
+   honest measurement of RELATIVE weight there is, and unlike the stances it
+   produces something a weight can actually be derived from.
+
+   Only "really want" and "somewhat want" are eligible: a gate isn't tradeable by
+   definition, and the bottom two rungs aren't worth a question. */
+function eligible(){
+  const a = rows.filter(r => ["big", "some"].includes(st(r.id)))
+                .map(r => ({id:r.id, name:r.name, sub:SK[st(r.id)].label}));
+  const b = sheet.wants.filter(w => ["big", "some"].includes(w.stance))
+                .map(w => ({id:"want:" + w.name, name:w.name, sub:"not measured yet"}));
+  return a.concat(b);
+}
+
+const pairKey = (a, b) => [a, b].sort().join("␟");
+
+function nextPair(){
+  const E = eligible();
+  if (E.length < 2) return null;
+  const asked = new Set(sheet.trades.map(t => pairKey(t.a, t.b)));
+  const seen = {};
+  for (const t of sheet.trades) { seen[t.a] = (seen[t.a] || 0) + 1; seen[t.b] = (seen[t.b] || 0) + 1; }
+  let best = null, bestCost = Infinity;
+  for (let i = 0; i < E.length; i++)
+    for (let j = i + 1; j < E.length; j++) {
+      if (asked.has(pairKey(E[i].id, E[j].id))) continue;
+      // Spread coverage: prefer the pair whose members have been asked about least.
+      const cost = (seen[E[i].id] || 0) + (seen[E[j].id] || 0);
+      if (cost < bestCost) { bestCost = cost; best = [E[i], E[j]]; }
+    }
+  return best;
+}
+
+function duel(){
+  const host = $("#duel");
+  const E = eligible();
+  if (E.length < 2) {
+    host.innerHTML = `<p class="empty" style="padding:0">Mark at least two things
+      <b>Really want</b> or <b>Somewhat want</b> above, and this will start asking you to
+      choose between them.</p>`;
+    return;
+  }
+  const pair = nextPair();
+  const log = sheet.trades.slice(-4).reverse().map(t => {
+    const nm = id => (rows.find(r => r.id === id) || {}).name || id.replace(/^want:/, "");
+    const other = t.pick === t.a ? t.b : t.a;
+    return `<div>kept <b>${esc(nm(t.pick))}</b> over ${esc(nm(other))}</div>`;
+  }).join("");
+
+  host.innerHTML = pair ? `
+    <p class="q">You can fix one of these on the same house, not both. Which do you take?</p>
+    <div class="pair">
+      ${pair.map(p => `<button data-id="${esc(p.id)}" data-o="${esc(pair.find(q => q !== p).id)}">
+        <span class="t">${esc(p.name)}</span><span class="s">${esc(p.sub)}</span></button>`).join("")}
+    </div>
+    <div class="foot">
+      <button id="d-skip">skip this one</button>
+      ${sheet.trades.length ? `<button id="d-undo">undo the last answer</button>` : ""}
+      <span class="tally">${sheet.trades.length} answered · ${Math.max(0, E.length * (E.length - 1) / 2 - sheet.trades.length)} pairs left</span>
+    </div>
+    ${log ? `<div class="log">${log}</div>` : ""}`
+    : `<p class="q">That's every pair — ${sheet.trades.length} answers on ${E.length} things.</p>
+       ${log ? `<div class="log">${log}</div>` : ""}
+       <div class="foot">${sheet.trades.length ? `<button id="d-undo">undo the last answer</button>` : ""}</div>`;
+
+  host.querySelectorAll(".pair button").forEach(b => b.addEventListener("click", () => {
+    sheet.trades.push({a:b.dataset.id, b:b.dataset.o, pick:b.dataset.id,
+                       at:new Date().toISOString()});
+    render(); save();
+  }));
+  // "Skip" records nothing and must not silently look like an answer — it just
+  // parks the pair by marking it asked with no pick.
+  const sk = host.querySelector("#d-skip");
+  if (sk) sk.addEventListener("click", () => {
+    sheet.trades.push({a:pair[0].id, b:pair[1].id, pick:null, at:new Date().toISOString()});
+    render(); save();
+  });
+  const un = host.querySelector("#d-undo");
+  if (un) un.addEventListener("click", () => { sheet.trades.pop(); render(); save(); });
+}
+
+/* ── view switch ──────────────────────────────────────── */
+$("#view").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  view = b.dataset.v;
+  $("#view").querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  render();
+});
+
+/* ── save: every change, straight to priorities.json ──── */
+let timer = null, inflight = false, again = false;
+function save(){ clearTimeout(timer); timer = setTimeout(flush, 200); }
+async function flush(){
+  if (inflight) { again = true; return; }
+  inflight = true;
+  say("saving", null, "busy");
+  try {
+    const r = await fetch("save", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(sheet),
+    });
+    const j = await r.json();
+    if (!r.ok || !j.ok) throw new Error(j.error || `HTTP ${r.status}`);
+    say("saved", new Date().toISOString());
+  } catch (err) {
+    say(`save failed — ${err.message}`, null, "warn");
+  } finally {
+    inflight = false;
+    if (again) { again = false; flush(); }
+  }
+}
+
+function say(msg, iso, cls){
+  const el = $("#stamp");
+  el.className = "stamp" + (cls ? " " + cls : "");
+  const when = iso ? new Date(iso).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"}) : "";
+  el.innerHTML = `<span class="dot"></span><b>${esc(msg)}</b>${when ? " · " + when : ""}<br>priorities.json`;
+}
+
+function foot(){
+  $("#foot").innerHTML = `
+    <p>Everything above is read out of <code>offer/engine.js</code> every time this page
+      loads — the weights, the words and the rules are the real ones, not a description of
+      them. Change the model and this page changes with it; add a factor and it shows up
+      here flagged, waiting for a plain-English note. Nothing on this page writes back to
+      the model.</p>
+    <p>Your answers go to <code>priorities.json</code> next to this file. That's the
+      deliverable: it's what I read before touching a weight or a curve. The middle three
+      rungs are a magnitude and do map to weight; <b>won't budge</b> does not — it's a
+      filter, and no amount of weight reproduces "I walk". A row left blank means
+      <em>not decided</em>, which is never read as zero.</p>
+    <p><b>Keys:</b> <code>1</code>–<code>5</code> set the stance on whichever row has focus,
+      <code>0</code> clears it. Every change saves on its own.</p>`;
+}
+</script>
+</body>
+</html>

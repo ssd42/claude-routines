@@ -487,6 +487,15 @@ def bake_listings():
             "up": bool(p0 and price > p0),
             "p0": int(p0) if p0 else None,
             "url": r["url"] or None, "img": r["photo"] or None,
+            # Annual tax as BILLED (listings.csv `tax`), not rate x price. Absent on
+            # every row scraped before 2026-08-24 -- which is fine and deliberate: HS
+            # drops an unknown factor out of BOTH sides of the weighted mean, so the
+            # tax factor simply does not apply until a rehydrate fills the column.
+            "tax": int(num(r.get("tax")) or 0) or None,
+            # FULL baths, separately from the summed `ba`. The gate is two showers, and
+            # `ba` sums halves -- see the listings.py note. Null on rows scraped before
+            # 2026-08-24; engine.js falls back to `ba` when it is absent.
+            "baf": int(num(r.get("baths_full")) or 0) or None,
             # The listing copy. It is the ONLY place garage / pool / central air /
             # condition live, and HS mines it in the browser rather than here so a
             # pattern fix needs no re-scrape — the same reason listings.csv stores it

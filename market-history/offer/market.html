@@ -344,7 +344,12 @@ const NEW_DAYS = 14;
 const NO_DOM = M && M.listings ? M.listings.filter(l => l.dom == null).length : 0;
 /* Your standing search. Prefilled every visit — this tool has one user, so a blank
    form on arrival is just a chore. Reset returns HERE, not to empty. */
-const DEFAULTS = {max: "650000", beds: "3", baths: "1.5"};
+// baths default raised 1.5 -> 2 on the owner's call (2026-08-24): "we do want the second we
+// need it since we shower almost always at the same time". 1.5 was never his number -- it came
+// from house-hunt/criteria.json. A powder room cannot satisfy two simultaneous showers; a
+// BELOW-GRADE full bath can, and does count (he corrected that explicitly), so the filter is on
+// the count, not on where they are.
+const DEFAULTS = {max: "650000", beds: "3", baths: "2"};
 /* 524 Farley Ave, Scotch Plains — the reference house, from the NJ MOD-IV tax record
    (block 302 lot 9): 1,170 sqft on a 6,599 sqft lot, 50 x 132 ft. The 132ft depth is
    the backyard that made it the favourite of 30+ open houses. It sold to someone else. */
@@ -532,7 +537,13 @@ function filtered() {
     if (max && l.p > (max < 10000 ? max * 1000 : max)) return false;
     if (picked.size && !picked.has(l.t)) return false;
     if (bd && (l.bd == null || l.bd < bd)) return false;
-    if (ba && (l.ba == null || l.ba < ba)) return false;
+    // Filter on FULL baths where the row has them. `l.ba` sums halves, so 1 full + 2 half
+    // reads as 2.0 and would pass a "2 baths min" filter with ONE shower -- 324 Green St,
+    // Woodbridge is exactly that. Rows scraped before 2026-08-24 have no `baf` and fall
+    // back to the summed value, which is the old (over-permissive) behaviour rather than
+    // a silent exclusion.
+    if (ba && ((l.baf != null ? l.baf : l.ba) == null
+               || (l.baf != null ? l.baf : l.ba) < ba)) return false;
     return true;
   });
 }

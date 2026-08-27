@@ -26,6 +26,20 @@ WHAT TO PULL AT FULL SIZE
 Kitchen and baths (finish age), the utility/mechanical room (boiler, panel, water heater,
 water staining), any room with visible outlets, and anything the survey pass left you
 unsure about. Establishing shots, yards, and empty staged rooms almost never need it.
+
+run/photos IS STAMPED WITH THE SUBJECT, AND WIPED WHEN IT CHANGES
+-----------------------------------------------------------------
+Added 2026-08-20, after a real contamination. `run/` is ONE shared working directory and
+both passes wrote NN.jpg in place, deleting nothing. A 16-photo Scotch Plains listing was
+appraised straight after a 17-photo Clark one, so `17.jpg` -- a photograph of a different
+house -- survived into the new subject's archive, and save.py duly reported "17 of 16
+available (106% coverage)".
+
+That is worse than a miscount. The archive exists so a "photo 4" citation can be checked
+in six months, and a stale file makes the gallery quietly wrong about which house it
+shows. So the directory now carries a `.subject` stamp: any pass whose subject does not
+match the stamp wipes the directory first, and a survey pass also drops any NN.jpg past
+the end of the current gallery. Cross-house leakage cannot survive either check.
 """
 import argparse, json, re, subprocess, sys, urllib.request
 from pathlib import Path
@@ -71,6 +85,22 @@ def grab(url, dest):
     return dest.stat().st_size
 
 
+def claim(out, subj):
+    """Make `out` belong to THIS subject, wiping whatever the last house left behind.
+
+    Returns the number of stale files removed, so the caller can say so out loud -- a
+    silent wipe would hide the very cross-house leak this exists to stop."""
+    stamp = out / ".subject"
+    key = f"{subj.get('address','?')}|{subj.get('zip','')}".lower().replace(" ", "")
+    if stamp.exists() and stamp.read_text().strip() == key:
+        return 0
+    stale = sorted(p for p in out.glob("*.jpg"))
+    for p in stale:
+        p.unlink()
+    stamp.write_text(key + "\n")
+    return len(stale)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--detail", nargs="*", type=int, default=None,
@@ -84,6 +114,8 @@ def main():
         sys.exit("no photos on this listing")
     out = RUN / "photos"
     out.mkdir(parents=True, exist_ok=True)
+    if wiped := claim(out, subj):
+        print(f"  cleared {wiped} photo(s) from the previous subject")
 
     if a.detail:
         w, h, retina, tag, want = 1024, 768, True, "detail", a.detail
@@ -101,6 +133,14 @@ def main():
             got += 1; px += delivered_px(p)   # measured, never assumed
         except Exception as e:
             print(f"  {i}: {type(e).__name__}")
+
+    if tag == "survey":
+        # Same subject, shorter gallery than last time: the stamp matched, so claim()
+        # kept everything. Anything past the end is no longer part of this listing.
+        for p in out.glob("*.jpg"):
+            if not p.stem.isdigit() or not (1 <= int(p.stem) <= len(urls)):
+                p.unlink()
+                print(f"  dropped {p.name}: past the end of a {len(urls)}-photo gallery")
 
     print(f"{tag}: {got} photo(s), {px/1e6:.1f}M pixels delivered")
     if tag == "survey":
