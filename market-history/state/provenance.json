@@ -2143,6 +2143,12 @@
       "nj_records": 1
     }
   },
+  "19 currey lane|07052|2024-12": {
+    "year_built": {
+      "listing_scrape": 1996,
+      "nj_records": 1989
+    }
+  },
   "19 eagle nest road|07960|2024-05": {
     "year_built": {
       "listing_scrape": 1981,
@@ -3323,6 +3329,12 @@
     "garage": {
       "listing_scrape": 2,
       "nj_records": 1
+    }
+  },
+  "26 sunset road|07039|2024-06": {
+    "year_built": {
+      "listing_scrape": 2013,
+      "nj_records": 2008
     }
   },
   "26 winding way|07924|2024-08": {
@@ -4805,6 +4817,12 @@
       "nj_records": 1993
     }
   },
+  "39 lapis circle|07052|2023-09": {
+    "year_built": {
+      "listing_scrape": 1993,
+      "nj_records": 1989
+    }
+  },
   "39 manor road|07039|2024-11": {
     "year_built": {
       "listing_scrape": 2024,
@@ -4893,6 +4911,12 @@
     "year_built": {
       "listing_scrape": 1980,
       "nj_records": 1985
+    }
+  },
+  "4 goodhill road|07006|2024-02": {
+    "lot_sqft": {
+      "listing_scrape": 26136,
+      "nj_records": 23479
     }
   },
   "4 hage terrace|07052|2023-07": {
@@ -5753,6 +5777,12 @@
       "nj_records": 1
     }
   },
+  "5 knutsen drive|07052|2023-12": {
+    "year_built": {
+      "listing_scrape": 1996,
+      "nj_records": 1989
+    }
+  },
   "5 reed road|07960|2024-07": {
     "sold_price": {
       "listing_scrape": 1050000,
@@ -5799,6 +5829,12 @@
     "garage": {
       "listing_scrape": 2,
       "nj_records": 1
+    }
+  },
+  "50 larkin circle|07052|2024-04": {
+    "year_built": {
+      "listing_scrape": 1994,
+      "nj_records": 1992
     }
   },
   "50 laurel place|07006|2024-05": {
@@ -6419,6 +6455,12 @@
       "nj_records": 1900
     }
   },
+  "61 larkin circle|07052|2024-03": {
+    "year_built": {
+      "listing_scrape": 1997,
+      "nj_records": 1992
+    }
+  },
   "610 donato circle|07076|2024-05": {
     "year_built": {
       "listing_scrape": 2006,
@@ -6677,6 +6719,12 @@
       "nj_records": 258000
     }
   },
+  "68 hart drive|07052|2023-09": {
+    "year_built": {
+      "listing_scrape": 1994,
+      "nj_records": 1992
+    }
+  },
   "68 kingswood road|08876|2024-04": {
     "lot_sqft": {
       "listing_scrape": 1307,
@@ -6829,6 +6877,12 @@
     "lot_sqft": {
       "listing_scrape": 32670,
       "nj_records": 6599
+    }
+  },
+  "7 paris circle|07052|2024-11": {
+    "year_built": {
+      "listing_scrape": 1995,
+      "nj_records": 1992
     }
   },
   "7 park avenue|07040|2023-09": {
@@ -7331,6 +7385,12 @@
       "nj_records": 1986
     }
   },
+  "8 mcchesney court|07052|2024-02": {
+    "year_built": {
+      "listing_scrape": 1997,
+      "nj_records": 1992
+    }
+  },
   "8 merrywood court|07960|2024-10": {
     "lot_sqft": {
       "listing_scrape": 123275,
@@ -7365,6 +7425,12 @@
     "year_built": {
       "listing_scrape": 1950,
       "nj_records": 1962
+    }
+  },
+  "80 old road|07039|2023-09": {
+    "year_built": {
+      "listing_scrape": 2020,
+      "nj_records": 1911
     }
   },
   "80 south edgewood road|07921|2024-12": {
@@ -7533,6 +7599,12 @@
     "sold_date": {
       "listing_scrape": "2024-02-29",
       "nj_records": "2024-02-05"
+    }
+  },
+  "86 durrell street|07044|2023-09": {
+    "lot_sqft": {
+      "listing_scrape": 14810,
+      "nj_records": 7501
     }
   },
   "86 lowell road|07452|2023-09": {
