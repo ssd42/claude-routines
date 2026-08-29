@@ -314,10 +314,10 @@ const usd = n => "$" + (n >= 1000 ? Math.round(n / 1000) + "k" : n);
 const PLAIN = {
   price: {
     what: "What it costs.",
-    now: "Full marks under <b>$675k</b>. Straight down from there and worth nothing by <b>$800k</b> — past that the price factor contributes zero however good the house is.",
+    now: "Full marks under <b>$650k</b> — your budget. Straight down from there and worth nothing by <b>$700k</b>: only 50k of runway, so price stays sharp rather than scoring most of the market as merely 'a bit expensive'.",
     src: "The asking price on the listing.",
-    curve: {d:[400000, 1000000], f:p => p <= 675000 ? 1 : clamp(1 - (p - 675000) / 125000),
-            fmt: usd, ticks:[400000, 675000, 800000, 1000000]},
+    curve: {d:[400000, 900000], f:p => p <= 650000 ? 1 : clamp(1 - (p - 650000) / 50000),
+            fmt: usd, ticks:[400000, 650000, 700000, 900000]},
   },
   lot: {
     what: "How much land comes with it.",
@@ -329,12 +329,11 @@ const PLAIN = {
             fmt: x => (x / 1000).toFixed(0) + "k", ticks:[1000, 6000, 14000, 22000, 45000]},
   },
   commute: {
-    what: "Getting to Manhattan by train.",
-    now: "<b>35 minutes or less</b> is full marks. 50 is still fine. 70 is a real cost. Past two hours it's a zero.",
-    src: "Station-to-Penn/Hoboken time for the town's station — a TOWN number, not this house's front door.",
-    curve: {d:[20, 120], f:m => m <= 35 ? 1 : m <= 50 ? 1 - .25 * (m - 35) / 15
-            : m <= 70 ? .75 - .45 * (m - 50) / 20 : Math.max(0, .3 - .3 * (m - 70) / 50),
-            fmt: m => m + "m", ticks:[20, 35, 50, 70, 120]},
+    what: "Getting to Manhattan, door to desk.",
+    now: "The whole journey, not just the train: <b>15 minutes to reach the station</b>, the ride, then <b>15 from the terminal to your desk</b>. <b>An hour or less</b> is full marks, and it's <b>zero at two hours</b>. The fall is gentle at first and bites late — 70 minutes against 60 is barely a different life, 115 against 105 very much is.",
+    src: "Station-to-Penn/PABT time for the town's station, plus 15 at each end. 39 of 75 towns have NO station at all, and their train figure never included the drive to reach one — so before this they were credited with a commute they don't have.",
+    curve: {d:[50, 150], f:d => d <= 60 ? 1 : Math.max(0, 1 - Math.pow((d - 60) / 60, 2)),
+            fmt: d => d + "m", ticks:[50, 60, 90, 120, 150]},
   },
   tier: {
     what: "Where the town sits on your own S–F list.",
@@ -365,15 +364,15 @@ const PLAIN = {
   },
   beds: {
     what: "Bedrooms.",
-    now: "<b>Three is the floor</b> and scores 0.8. Four or more is full marks. Under three drops to 0.25. Five adds nothing over four.",
-    src: "Bed count on the listing.",
-    bars: [["2", .25], ["3", .8], ["4", 1], ["5+", 1]],
+    now: "<b>Three is the baseline and scores full marks</b> — it stopped being marked down for meeting your own requirement. Two drops to 0.45, one or none to 0.2. Extra bedrooms are a <em>bonus</em> instead: <b>+3 at four, +5 at five</b>, added on top rather than taken off three.",
+    src: "Bed count on the listing. The bonus sits outside this curve because 1.0 is the ceiling here — once three earns full marks a fourth bedroom has nowhere left to go.",
+    bars: [["2", .45], ["3", 1], ["4", 1], ["5+", 1]],
   },
   baths: {
     what: "Bathrooms.",
-    now: "Under 1.5 scores 0.25. Two gets <b>0.85</b>. <b>2.5 or more</b> is full marks.",
-    src: "Bath count on the listing, halves included.",
-    bars: [["1", .25], ["1.5", .7], ["2", .85], ["2.5+", 1]],
+    now: "Scored on <b>FULL</b> baths, because the requirement is two simultaneous showers and a powder room has none. Under two full is <b>0.25</b> however many half baths there are. Two full gets <b>0.85</b>, two full plus a half is full marks. A basement full bath counts.",
+    src: "Full and half baths, read separately from the listing. The old summed count let 1 full + 2 half read as '2.0' and sail through — 324 Green St, Woodbridge is exactly that, and it has one shower.",
+    bars: [["1", .25], ["1.5", .25], ["2", .85], ["2.5+", 1]],
   },
   sqft: {
     what: "How big the house itself is.",
@@ -401,6 +400,13 @@ const PLAIN = {
     now: "<b>All or nothing.</b> Inside a FEMA high-risk zone scores zero; anywhere else full marks. There is no middle — the mandatory insurance is either owed or it isn't.",
     src: "FEMA flood maps at this house's exact coordinates. One of the very few things scored PER HOUSE rather than per town, so it can still tell two houses on one street apart.",
     bars: [["outside a flood zone", 1], ["high-risk zone (A/AE/V/VE)", 0]],
+  },
+  tax: {
+    what: "The annual property tax bill.",
+    now: "<b>Flat full marks to $13k</b> — nothing is lost below that, on your explicit call. Then straight down, <b>zero by $16k</b>. In NJ this is a permanent part of the payment: a $12.4k bill is about $1,000 a month, roughly a fifth of the monthly cost.",
+    src: "The ACTUAL BILLED amount off the parcel record (MOD-IV LAST_YR_TX) — never rate x price. Rate x price is just price wearing a hat: it would double-count the heaviest factor in the model and tell you nothing new within a town. It is also simply wrong in Woodbridge, which has not revalued since 1986, so a Colonia bill tracks a stale assessed base. Blank until a listing is matched to its parcel, and a blank drops out rather than scoring badly.",
+    curve: {d:[6000, 18000], f:t => t <= 13000 ? 1 : clamp(1 - (t - 13000) / 3000),
+            fmt: t => "$" + (t / 1000) + "k", ticks:[6000, 13000, 16000, 18000]},
   },
   shops: {
     what: "How far to the shops.",

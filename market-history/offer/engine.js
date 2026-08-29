@@ -532,11 +532,21 @@ function lotContext(town, sqft, lot) {
    (2026-07-17). The line: amenities never touch what a house is WORTH; they may
    touch whether you WANT it. */
 
+/* The two ends of the journey layers/transit does not measure. It reports AM-peak
+   STATION to NY Penn / PABT; you still have to get to the platform and then from the
+   terminal to your desk. 15 each, the midpoint of the owner's 10-20 (2026-08-28). */
+const COMMUTE_TO_STATION = 15;
+const COMMUTE_STATION_TO_DESK = 15;
+
 const HS_FACTORS = [
-  // ── the hard constraint. Full marks under $675k, worthless by $800k. Tightened from
-  //    750k/950k on the owner's call (2026-08-19): the old band scored most of the market
-  //    as merely "a bit expensive", and at w=30 that let price quietly stop discriminating.
-  //    The drop is also twice as steep now -- 125k of runway instead of 200k.
+  // ── the hard constraint. Full marks to $650k -- the top of the stated budget --
+  //    and worthless by $700k. Tightened from 750k/950k on the owner's call
+  //    (2026-08-19): the old band scored most of the market as merely "a bit
+  //    expensive", and at w=30 that let price quietly stop discriminating.
+  //    ⚠️ This note used to read "675k / 800k ... 125k of runway", which the code has
+  //    not done for some time -- priorities.html mirrored the COMMENT and so drew the
+  //    wrong curve until 2026-08-28. The numbers below are the model; a comment is not.
+  //    Only 50k of runway, so the drop is steep on purpose.
   {k:"price", w:30, label:"price",
    get:l => l.p, s:p => p <= 650000 ? 1 : Math.max(0, 1 - (p - 650000) / 50000)},
 
@@ -551,12 +561,36 @@ const HS_FACTORS = [
         : Math.max(0.3, 0.7 - 0.3 * (x - 22000) / 21560)},// an acre+ is a project
 
   // ── the commute is the one amenity that is not a nice-to-have.
-  {k:"commute", w:12, label:"commute to NY",
-   get:(l, T) => T && T.transit && T.transit.min,
-   s:m => m <= 35 ? 1
-        : m <= 50 ? 1 - 0.25 * (m - 35) / 15              // 35→50: still good
-        : m <= 70 ? 0.75 - 0.45 * (m - 50) / 20           // 50→70: real cost
-        : Math.max(0, 0.3 - 0.3 * (m - 70) / 50)},
+  //
+  // DOOR-TO-DESK, not station-to-station (owner's call, 2026-08-28: "we need to
+  // accommodate 10-20 mins to get to the station and 10-20 minutes from station to
+  // office", "it goes to 0 after 2 hours"). layers/transit measures AM-peak minutes
+  // from the town's STATION to NY Penn / PABT — so both ends of the real journey were
+  // missing from the score. We add 15 + 15.
+  //
+  // That is not a cosmetic correction: the transit layer's own caveats say, of the
+  // towns with no station, "train_minutes_to_manhattan is the ride from the NEAREST
+  // station and EXCLUDES the drive/park time to reach it. Add 10-20 min." 39 of our 75
+  // towns (52%) have no station, and nothing had ever applied it. Colonia and Clark
+  // were being credited with a commute neither actually has.
+  //
+  // ⚠️ The +15 to reach the station is applied UNIFORMLY, which is the owner's call and
+  // a simplification: walking to your own station is not the same as a 2-3 mile drive
+  // to somebody else's, and T.transit.hasStation is available here if we ever want to
+  // charge the station-less towns more.
+  //
+  // THE CURVE IS CONVEX ON PURPOSE. Zero at 120 (two hours door-to-desk). Between 60
+  // and ~85 it costs almost nothing, then it accelerates — 70 vs 60 minutes is barely
+  // a different life, 115 vs 105 very much is. The old curve did the opposite: it
+  // decayed FASTEST through 50-70 and slowest in the tail, so an extra 10 minutes hurt
+  // more at 50→60 than at 80→90, and 39% of our towns sat in that steepest band. It
+  // gave full marks only under 35 station-to-station, which just 7 of 75 towns met
+  // while the median town sat at 54 — so a typical town opened at 0.66 before anything
+  // else was judged. Median town score under this curve is 0.84 against 0.66.
+  {k:"commute", w:12, label:"commute to NY", fmt:v => Math.round(v) + " min door-to-desk",
+   get:(l, T) => T && T.transit && T.transit.min != null
+                 ? T.transit.min + COMMUTE_TO_STATION + COMMUTE_STATION_TO_DESK : null,
+   s:d => d <= 60 ? 1 : Math.max(0, 1 - Math.pow((d - 60) / 60, 2))},
 
   // ── YOUR tier list. The only OPINION in the model — every other factor is measured.
   //    It earns w=14 because it is largely independent of what HS already scores
@@ -604,9 +638,24 @@ const HS_FACTORS = [
    get:l => D.family[l.ty] || null,
    s:f => f === "house" ? 1 : f === "multi" ? 0.55 : 0.2},
 
+  // ── 3 BEDS IS THE BASELINE, AND A BASELINE SCORES FULL MARKS (owner's call,
+  //    2026-08-28: "3 beds is our baseline, how are we losing points from having 3
+  //    beds? ... rooms should decay at 2 or less, three is the baseline and more
+  //    increases score"). This used to score 3 beds at 0.80 against a 4-bed's 1.00,
+  //    which marked a house down for meeting the stated requirement — backwards.
+  //
+  //    WHY THE BONUS IS NOT IN THIS FACTOR. Inside a 0-1 scored factor 1.0 is the
+  //    ceiling, so "3 is fine AND 4 is better" cannot both be true here: the moment 3
+  //    earns full marks, a 4th bedroom has nowhere to go. So the factor became a pure
+  //    GATE and the reward moved to HS_WATCHED, which is additive and sits outside the
+  //    weighted mean — the same structured (non-text) mechanism `cut` already uses.
+  //    Net effect: a 3-bed stops losing ~1.4 HS, and a 4-bed still ranks above it.
+  //
+  //    2 decays rather than cliff-edges because the requirement is 3 beds PLUS two
+  //    offices — a 2-bed is genuinely short, not merely smaller.
   {k:"beds", w:11, label:"beds",
    get:l => l.bd,
-   s:b => b < 3 ? 0.25 : b === 3 ? 0.8 : 1},              // 3 is the floor; 5+ adds nothing
+   s:b => b >= 3 ? 1 : b === 2 ? 0.45 : 0.2},
 
   {k:"baths", w:9, label:"baths",
    // Scored on FULL baths where we have them (`baf`, added 2026-08-24). The requirement
@@ -763,6 +812,12 @@ const HS_FLAVOUR = [
    observed, so unlike the text signals they are never a guess. */
 const HS_WATCHED = [
   {k:"cut",     pts:+4, label:"cut its price",  test:l => !!l.cut},
+  // Extra bedrooms, as a BONUS rather than a penalty on 3 — see the `beds` factor for
+  // why this cannot live there. They STACK like bsmtany/bsmt: a 4-bed lands at +3, a
+  // 5-bed at +5. The ask is 3 beds and two offices, so rooms past the third are doing
+  // real work here rather than being surplus.
+  {k:"bed4",    pts:+3, label:"4+ bedrooms",    test:l => l.bd >= 4},
+  {k:"bed5",    pts:+2, label:"5+ bedrooms",    test:l => l.bd >= 5},
   // DISABLED 2026-07-18 (owner's call — "not for now, can change it up later"). Restore
   // by uncommenting; the mechanism and the -3 are intact.
   // {k:"relist",  pts:-3, label:"relisted",       test:l => (l.spell || 1) > 1},
