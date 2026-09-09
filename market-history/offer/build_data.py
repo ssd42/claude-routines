@@ -81,6 +81,39 @@ def num(v):
         return None
 
 
+def dom_days(r):
+    """Days on market for a listing -- what the "New - last N days" filter reads.
+
+    Written the obvious way (`int(num(r["days_on_mls"]) or 0) or None`) this line
+    had two bugs that both pointed the same way: they hid the NEWEST houses from
+    the filter whose whole job is to show new houses.
+
+      1. `days_on_mls == 0` is a house listed TODAY, not a missing value. The
+         trailing `or None` mapped it to "unknown" -- 118 listings on 2026-09-09.
+      2. The feed publishes no day count AT ALL for the very freshest listings
+         (all 12 blanks on 2026-09-09 were listed that same month). Those were
+         also mapped to "unknown".
+
+    market.html drops `dom == null` from the new-listings filter, so all 130 fell
+    out -- exactly the cohort being searched for. Missing must not collapse into
+    zero, and zero must not collapse into missing.
+
+    We hold `list_date` and our own `last_seen` observation, so when the feed is
+    silent we measure the spell ourselves rather than discard the row. That is a
+    FLOOR like any DOM here (a relist resets the feed's clock -- see README), but
+    a floor beats dropping the house out of the list entirely.
+    """
+    d = num(r.get("days_on_mls"))
+    if d is not None:
+        return int(d)
+    try:
+        listed = date.fromisoformat(r["list_date"])
+        seen = date.fromisoformat(r["last_seen"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    return max((seen - listed).days, 0)
+
+
 def quartiles(xs):
     """median, p25, p75 of a non-empty list."""
     s = sorted(xs)
@@ -470,7 +503,7 @@ def bake_listings():
             "yr": int(num(r["year_built"]) or 0) or None,
             "ty": r["property_type"] or None,
             "st": r["mls_status"] or None,
-            "dom": int(num(r["days_on_mls"]) or 0) or None,
+            "dom": dom_days(r),
             # first_seen is OUR observation and survives a relist reset; days_on_mls
             # does not. listings.py exists precisely because the feed's number lies.
             "seen": r["first_seen"],

@@ -42,6 +42,11 @@ on:
       - 'market-history/offer/**'
       - 'market-history/share/**'
       - 'market-history/analysis/**'
+      # listings.js is BUILT from this file and is gitignored, so a run of
+      # listings.py that touches nothing else would publish nothing without it.
+      # That is the common case: the weekly local scrape commits listings.csv
+      # alone, and the market page would silently stay at the previous fetch.
+      - 'market-history/listings.csv'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
