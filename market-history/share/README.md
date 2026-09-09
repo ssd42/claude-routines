@@ -44,7 +44,7 @@
    Cranford that are **not** Westfield sales. A raw text search returns both and
    gets the count wrong. Filter on the `town` field, always.
 
-3. **If the date falls outside 2023-07-01 → 2026-07-13, say so.** Don't project a
+3. **If the date falls outside 2023-07-01 → 2026-09-08, say so.** Don't project a
    trend forward or backward. There is no 2022 data and no future data.
 
 4. **Always state the sample size next to the number.** 12 sales and 1,741 sales
@@ -93,8 +93,8 @@
 
 ---
 
-Real New Jersey home sales, **2023-07-01 → 2026-07-22**, across **75 towns** —
-**47,441 sales**. Built by the `market-history` routine, which stitches together
+Real New Jersey home sales, **2023-07-01 → 2026-09-08**, across **75 towns** —
+**50,268 sales**. Built by the `market-history` routine, which stitches together
 county deed records and MLS sold-listings and dedupes them into one row per sale.
 
 > The town count grows as more towns are scraped. **`by_town.csv` is always the
