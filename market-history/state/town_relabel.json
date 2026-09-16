@@ -1,165 +1,145 @@
 {
  "corrected": {
-  "1015|lakeview|07920": {
-   "old": "Basking Ridge",
-   "new": "Martinsville",
-   "zip": "07920"
+  "10|boonton|07005": {
+   "old": "Boonton",
+   "new": "Montville",
+   "zip": "07005"
   },
-  "463|victoria|08807": {
+  "1|woodside|07005": {
+   "old": "Boonton",
+   "new": "Montville",
+   "zip": "07005"
+  },
+  "1087|buxton|08807": {
    "old": "Bridgewater",
    "new": "Martinsville",
    "zip": "08807"
   },
-  "873|sunsetridge|08807": {
+  "4|mcmanu|08807": {
    "old": "Bridgewater",
    "new": "Martinsville",
    "zip": "08807"
   },
-  "2|midvale|07006": {
+  "7|linberger|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "139|forest|07006": {
    "old": "Caldwell",
    "new": "West Caldwell",
    "zip": "07006"
   },
-  "56|roosevelt|07006": {
+  "26|arbor|07006": {
    "old": "Caldwell",
    "new": "North Caldwell",
    "zip": "07006"
   },
-  "7|barnsdale|07006": {
+  "57|francine|07006": {
+   "old": "Caldwell",
+   "new": "West Caldwell",
+   "zip": "07006"
+  },
+  "75|evergreen|07006": {
    "old": "Caldwell",
    "new": "North Caldwell",
    "zip": "07006"
   },
-  "7|farmstead|07006": {
-   "old": "Caldwell",
-   "new": "North Caldwell",
-   "zip": "07006"
-  },
-  "45|oldmill|07930": {
-   "old": "Chester",
-   "new": "Mendham Township",
-   "zip": "07930"
-  },
-  "4|birch|07834": {
-   "old": "Denville",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07834"
-  },
-  "159|mountainsidmountainside|07945": {
+  "12|thackery|07945": {
    "old": "Mendham",
    "new": "Mendham Township",
    "zip": "07945"
   },
-  "16|penderhill|07945": {
+  "5|buddy|07945": {
    "old": "Mendham",
    "new": "Mendham Township",
    "zip": "07945"
   },
-  "5|abbington|07945": {
-   "old": "Mendham",
-   "new": "Mendham Township",
-   "zip": "07945"
-  },
-  "1|condict|07950": {
-   "old": "Morris Plains",
-   "new": "Morris Township",
-   "zip": "07950"
-  },
-  "26|meslar|07950": {
-   "old": "Morris Plains",
-   "new": "Morris Township",
-   "zip": "07950"
-  },
-  "5|rockyheight|07950": {
-   "old": "Morris Plains",
-   "new": "Denville",
-   "zip": "07950"
-  },
-  "627|olddover|07950": {
+  "45|unionhill|07950": {
    "old": "Morris Plains",
    "new": "Parsippany-Troy Hills",
    "zip": "07950"
   },
-  "12|whitneyfarm|07960": {
+  "9|delmar|07950": {
+   "old": "Morris Plains",
+   "new": "Morris Township",
+   "zip": "07950"
+  },
+  "10|fillmore|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "13|chadwell|07960": {
+  "14|sandspring|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "15|victoria|07960": {
+  "21|symor|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "188|sussex|07960": {
+  "311|pitney|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "1|buckleyhill|07960": {
+  "5|gerhard|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "23|hancock|07960": {
+  "601|pitney601|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "33|bradwahl|07960": {
+  "73|canfield|07960": {
    "old": "Morristown",
    "new": "Morris Township",
    "zip": "07960"
   },
-  "7|foxchase|07960": {
-   "old": "Morristown",
-   "new": "Morris Township",
-   "zip": "07960"
-  },
-  "110|c|07508": {
+  "101|tilt|07508": {
    "old": "North Haledon",
    "new": "Haledon",
    "zip": "07508"
   },
-  "385|mason|07508": {
+  "1|haledon|07508": {
    "old": "North Haledon",
    "new": "Haledon",
    "zip": "07508"
   },
-  "606|skyline6|07508": {
+  "367|westclinton|07508": {
    "old": "North Haledon",
    "new": "Haledon",
    "zip": "07508"
   },
-  "606|skyline|07508": {
+  "411|heights8|07508": {
    "old": "North Haledon",
    "new": "Haledon",
    "zip": "07508"
   },
-  "73|buschmann|07508": {
+  "411|height|07508": {
    "old": "North Haledon",
    "new": "Haledon",
    "zip": "07508"
   },
-  "47|longridge|07869": {
-   "old": "Randolph",
-   "new": "Parsippany-Troy Hills",
-   "zip": "07869"
+  "56|norwood|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
   },
-  "35|tolstoi|07424": {
-   "old": "Woodland Park",
-   "new": "Cedar Grove",
-   "zip": "07424"
+  "10|weis|07082": {
+   "old": "Towaco",
+   "new": "Montville",
+   "zip": "07082"
   }
  },
  "tally": {
-  "polygon_agree": 5792,
-  "polygon_corrected": 31,
-  "outside": 479,
-  "nocoord": 260
+  "polygon_agree": 6150,
+  "polygon_corrected": 27,
+  "outside": 509,
+  "nocoord": 261
  }
 }
