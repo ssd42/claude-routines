@@ -160,6 +160,46 @@ NJ practical bands for a full bath: budget from **$16,500**, mid-grade **$26,000
 **Biggest cost avoidance in a refresh: reglaze the tub ($500–$900) instead of replacing it.**
 Replacing the tub is what drags in the tile surround, the valve, and often the subfloor.
 
+### Ventilation — the cheapest line here and the one most often missing
+
+*Added 2026-09-01, from a Colonia ranch whose below-grade bathroom had a tub, no window and no
+fan — and whose wall panel was failing above the surround and broken behind the toilet as a
+direct result.*
+
+**A bathroom does not need a window.** IRC R303.3, adopted in NJ through the Uniform
+Construction Code, gives two compliant options: an openable window of **≥3 sq ft, half of it
+openable**, *or* **artificial light plus mechanical ventilation**. Nearly every new-construction
+bathroom is windowless and fine. **Windowless *and* fanless is the defect** — and it is
+extremely common in owner-finished basements.
+
+Required rate: **50 CFM intermittent, or 20 CFM continuous** (IRC M1505).
+
+| Job | Cost |
+|---|---|
+| Swap an existing fan, duct and wiring already in place | **$250 – $550** |
+| **New fan, open joist/attic access above, short duct out a rim joist or gable wall** | **$450 – $1,100** |
+| New fan where the ceiling is finished and there is no access — includes drywall patch and paint | **$900 – $2,000+** |
+| Roof-terminated instead of wall-terminated | add **$150 – $400** (flashing a roof penetration) |
+| Fan unit only — builder-grade 50–80 CFM | $25 – $80 |
+| Fan unit only — quiet 0.3–1.0 sone, 80–110 CFM (Panasonic / Broan) | $150 – $400 |
+
+**Three things that make a fan installation worthless, in order of how often they're found:**
+
+1. **It must terminate outdoors.** Venting into an attic, a soffit, or a joist bay is the single
+   most common defect an inspector writes up, and it is not compliant — it just relocates the
+   moisture into your framing.
+2. **Insulate the duct where it runs through unconditioned space**, or warm wet air condenses
+   inside the pipe and runs back down into the fan housing.
+3. **Rigid or semi-rigid duct, short and straight.** Every elbow and every foot of flex costs
+   you real CFM against the 50 you are required to move.
+
+> **The fan is rarely the point.** A basement bathroom with no fan is usually a bathroom with no
+> **permit** — and that means the drain, the wiring and the framing were never inspected either.
+> **Ask for the permit and final inspection before pricing the fan.** One question resolves three
+> unknowns, and the answer sometimes reprices the whole room.
+
+*Sources: 🔵 [Manta — NJ bath fan installation](https://www.manta.com/cost-bathroom-fan-installation-weehawken-nj) · ⚠️ [lead-gen] [HomeGuide](https://homeguide.com/costs/cost-to-install-bathroom-exhaust-fan) · [HomeAdvisor Jersey City](https://www.homeadvisor.com/tloc/Jersey-City-NJ/Bath-Exhaust-Fan-Install/) · [Homewyse](https://homewyse.com/services/cost_to_install_bathroom_fan.html) · 🟢 [NJ DCA construction codes](https://www.nj.gov/dca/codes/codreg/current.shtml)*
+
 **What actually sets the price of adding a bath — the drain, not the supply.** Water lines are
 easy. The **waste line needs continuous ¼"-per-foot slope** back to the main stack, and there's
 only so much depth in a joist bay. More than ~10–15 ft from the stack and it often can't be
@@ -178,6 +218,67 @@ bathroom work in older housing.
 
 > A bathroom addition recoups ~52% — worse than remodeling one. The case for adding a bath is
 > that a 4-bed/1-bath is hard to sell, not that the money comes back.
+
+---
+
+## Flooring
+
+*Added 2026-09-01. This was logged as **"the biggest hole in this document"** — it is the most
+common line item in any renovation and it had no section at all.*
+
+**The single most valuable fact in this section: refinishing the oak you already have costs
+about a third of replacing it**, and most North/Central NJ housing built 1920–1965 has
+site-finished oak under the carpet. **Pull up a corner before you price anything.**
+
+### New floors, installed
+
+| Material | NJ installed $/sq ft | 1,000 sq ft |
+|---|---|---|
+| Laminate | $4 – $8 | $4,000 – $8,000 |
+| **LVP / luxury vinyl plank, mid-grade** | **$5 – $10** | **$5,000 – $10,000** |
+| LVP, rigid-core premium with underlayment | $10 – $14 | $10,000 – $14,000 |
+| Carpet, with pad | $3 – $7 | $3,000 – $7,000 |
+| **Engineered hardwood** | **$8 – $16** | **$8,000 – $16,000** |
+| Solid hardwood, site-finished (new install) | $10 – $20 | $10,000 – $20,000 |
+| Porcelain / ceramic tile | $11 – $25 | $11,000 – $25,000 |
+
+### Refinishing what's already there
+
+| Job | NJ $/sq ft | 1,000 sq ft |
+|---|---|---|
+| **Sand and refinish, full** | **$4 – $8** | **$4,000 – $7,000** |
+| **Buff and recoat** (existing finish intact, no bare wood) | **$2 – $3** | $2,000 – $3,000 |
+| Dustless sanding | add $0.50 – $1.00 | add $500 – $1,000 |
+| Board replacement, damaged areas | add $2 – $5 per affected board | — |
+
+**Buff-and-recoat is the move most people miss.** If the finish is worn but not broken through
+to bare wood anywhere, you get ~80% of the result for ~40% of the money and one day of
+disruption instead of three. It stops being an option the moment there's a single spot sanded
+through, a pet stain, or water damage — those need the full cut.
+
+### Demolition and prep — the part that isn't on the flooring quote
+
+| Job | Cost |
+|---|---|
+| Carpet + pad removal, staple-down, incl. disposal | **$0.70 – $1.60/sq ft** |
+| Carpet removal, **double glue-down** | **$3 – $5/sq ft** ⚠️ *4× the staple-down price* |
+| Haul and dump fees | $0.45 – $0.60/sq ft, or $50 – $100 flat |
+| Subfloor levelling / self-levelling compound | $1 – $3/sq ft where needed |
+
+**⚠️ Subfloor prep is the classic change order.** LVP and laminate are thin and unforgiving —
+they telegraph every dip in an 80-year-old subfloor, and click-lock joints eventually separate
+over a floor that isn't flat. A quote that says nothing about levelling is a quote that hasn't
+looked. On pre-1960 housing, **assume some levelling and ask what triggers it.**
+
+**Two more NJ-specific traps:**
+- **Pre-1980 sheet vinyl and its black mastic can contain asbestos.** Do not let anyone dry-scrape
+  or sand it. Either float over it or have it removed by a licensed abatement firm — see the
+  asbestos section. Testing is cheap; discovering it mid-demo is not.
+- **Below grade, wood is the wrong answer.** Solid hardwood should not go on a slab or below
+  grade at all, and engineered needs a moisture test on the slab first. This is why finished
+  basements here are almost always LVP — it isn't a downgrade, it's the correct material.
+
+*Sources: 🔵 [Gorsegner Brothers NJ](https://www.gorsegnerbrothers.com/resources/hardwood-floor-refinishing-cost-nj/) · [IAC Home Improvement NJ](https://iachomeimprovement.com/sand-refinish-hardwood-floors-nj/) · [RenoCanvas NJ](https://www.renocanvas.com/average-costs/new-jersey/flooring-replacement) · ⚠️ [lead-gen] [HomeGuide flooring](https://homeguide.com/costs/flooring-installation-cost) · [HomeGuide carpet removal](https://homeguide.com/costs/carpet-removal-cost) · [Angi refinishing](https://www.angi.com/articles/hardwood-floor-refinishing-cost-and-other-factors.htm)*
 
 ---
 
@@ -266,6 +367,33 @@ Property Condition Disclosure.
 
 *Sources: 🟢 [NJDEP Unregulated Heating Oil Tank FAQs](https://dep.nj.gov/srp/unregulated/unregulated-faqs/) · [NJDEP UST program](https://dep.nj.gov/srp/unregulated/) · [PUST fund fact sheet](https://dep.nj.gov/grantandloanprograms/fact-sheets/unregulated-heating-oil-underground-storage-tank/) · 🔵 [Curren Environmental NJ](https://www.currenenvironmental.com/how-much-does-an-oil-tank-removal-cost-in-new-jersey) · [ERC/oiltankremovalnj](https://oiltankremovalnj.us/how-much-does-soil-remediation-cost/)*
 
+### Indoor above-ground oil tank — a completely different, much cheaper job
+
+*Added 2026-09-01. A 1940 house with a **275-gal tank in the basement, still in service**. The
+buried-tank section above is thorough and it does not apply here.*
+
+| Job | Cost |
+|---|---|
+| **275-gal basement/garage tank — pump, disconnect, remove, dispose** | **$600 – $1,500** |
+| Tank must be cut apart to get it out (narrow stair, finished basement) | add **$100 – $300** |
+| Remaining fuel removal | $0.50 – $1.50/gal → a half-full 275 adds **$70 – $200** |
+
+**Why this is a $1,000 job and a buried tank is a $1,600–$100,000+ gate:** an indoor
+above-ground tank is **not a regulated UST**. There is no NJDEP closure requirement, no
+mandatory soil sampling, and any competent contractor may do the work — you are not restricted
+to a closure-certified firm. It is essentially a demolition-and-disposal job.
+
+**The one thing that changes that:** if the tank or its lines have **leaked onto the slab or
+into a floor drain**, you are into remediation and none of the numbers above hold. Look under
+and behind the tank for staining, and smell the space. Oil on a basement slab is visible and
+obvious — this is one of the few landmines you can actually rule out yourself in ten seconds.
+
+**No closure documentation is normally produced**, so there is nothing to hand a future buyer.
+**Get the contractor's disposal manifest in writing anyway** — it's free at the time and it is
+the only evidence the tank ever left.
+
+*Sources: 🔵 [tankremovers.com — above-ground removal](https://tankremovers.com/blog/above-ground-oil-tank-removal-cost) · [NJ Oil Tank Removal](https://nj-oil-tank-removal.com/cost/) · [Curren Environmental NJ](https://www.currenenvironmental.com/how-much-does-an-oil-tank-removal-cost-in-new-jersey) · 🟢 [NJDEP unregulated tank FAQs](https://dep.nj.gov/srp/unregulated/unregulated-faqs/)*
+
 ### Radon
 
 | | Cost |
@@ -320,6 +448,36 @@ of any boiler number below.**
 **Most pre-1970 NJ housing is still on 100 amps.** This upgrade gets quietly triggered by almost
 everything desirable: central AC, a heat pump, a dormer or addition, a standby generator, an EV
 charger. Budget it as a near-certainty on an older house you plan to modernize.
+
+### GFCI and small device work — cheap, and on almost every older house
+
+*Added 2026-09-01. This hit **two of three houses** in one appraisal session and had no line.*
+
+| Job | Cost |
+|---|---|
+| **First GFCI on a visit** (the trip charge dominates) | **$150 – $300** |
+| Each additional device in the same visit | **$60 – $120** |
+| Standard receptacle replacement | $100 – $250 |
+| **Whole-house device sweep** — kitchen, baths, laundry, garage, exterior (8–14 devices) | **$700 – $1,600** |
+| Electrician hourly | $50 – $130/hr, minimum trip $100 – $200 |
+
+**Never price these one at a time.** The trip charge is most of the cost of a single device, so
+one GFCI is $200 and eight are $900. **Batch every small electrical item into one visit** — and
+batch them with the panel upgrade if you're doing one.
+
+**What a 1950s–60s NJ house typically needs:** GFCI protection at kitchen counters, every
+bathroom, laundry, garage, unfinished basement and all exterior receptacles. Two-prong
+(ungrounded) receptacles anywhere mean the branch wiring is ungrounded no matter how modern the
+panel looks — the code-compliant cheap fix is a GFCI plus a "No Equipment Ground" label, **not**
+swapping in three-prong receptacles, which is both illegal and the most common thing a flipper
+does.
+
+**⚠️ Verify before relying on it:** contractor sources reference a **2026 NEC requirement for
+GFCI protection on outdoor AC condensers** with an NJ compliance date of **September 1, 2026**.
+That is from installer marketing, not from NJ DCA — **confirm against the adopted NJ code**
+before treating it as a requirement or a negotiating point.
+
+*Sources: 🔵 [NJ outlet installation cost guide](https://electrical-cost-guide.com/outlet-installation-cost/new-jersey) · [Malfettone Electric NJ](https://malfettoneelectric.com/blog/nec-2026-gfci-outdoor-ac-nj) *(unverified — see warning)* · ⚠️ [lead-gen] [HomeGuide GFCI](https://homeguide.com/costs/gfci-outlet-cost) · [Angi](https://www.angi.com/articles/how-much-should-it-cost-electrician-replace-combination-gfci-switch-and-receptacle.htm)*
 
 ---
 
@@ -474,6 +632,35 @@ common in pre-1980 stock. Budget **$3–$8/sq ft** for abatement (**+$6,000–$1
 house) and have it quoted **separately by a licensed abatement firm**, never bundled into a
 siding bid. Three-story work roughly **doubles** per-square-foot labor.
 
+### Stucco
+
+*Added 2026-09-01. Came up on a 1944 Colonia house with a cracked, patch-discoloured stucco rear
+and no section here to price it.*
+
+| Job | Cost |
+|---|---|
+| **Localized crack patch and paint** | **$400 – $1,500** |
+| Partial re-coat, one elevation | **$2,500 – $6,000** |
+| **Full re-stucco, whole house** | **$9,000 – $16,000+** |
+| By area, small repairs / complex or high work | $8 – $20/sq ft · up to $50/sq ft |
+
+**⚠️ Ask which system it is before you price anything — this is the whole question.**
+**Traditional three-coat stucco** over lath breathes and its cracks are usually cosmetic.
+**EIFS / synthetic stucco** is a foam-and-acrylic system, and the pre-drainage-plane generations
+of it **trap water against the sheathing**. There the visible crack is not the problem; the
+rotted sheathing and framing behind it is, and the repair is structural, not cosmetic. A patch
+quote on undiagnosed EIFS is worthless.
+
+**Patch colour never matches.** Stucco cures to its final shade over weeks and existing stucco
+has weathered — which is exactly why the Colonia house showed patch discolouration. If
+appearance matters, the real scope is **patch plus a full elevation re-coat or paint**, not the
+patch alone. Price it that way or be disappointed.
+
+**⚠️ Pre-1978 → EPA RRP applies** once you disturb more than 20 sq ft of painted exterior.
+Same **+$1,500–$4,000** premium as any other exterior work.
+
+*Sources: 🔵 [Team PlasterPro NJ](https://teamplasterpro.com/stucco-repair-cost-nj/) · [ZD Stucco Repair NJ](https://zdstuccorepair.com/prices-of-stucco-repair-and-installation-in-new-jersey-in-2025/) · [This Old House](https://www.thisoldhouse.com/siding/stucco-repair-cost) · ⚠️ [lead-gen] [HomeGuide](https://homeguide.com/costs/stucco-repair-cost)*
+
 ### Windows — and the historic-district trap
 
 | Type | Per window | Full colonial (~22 windows) |
@@ -509,6 +696,12 @@ rehabilitation of a qualified historic property.
 | Copper gutters | $3,000 – $8,000 |
 | Fascia repair (the classic hidden cost) | $6 – $20/lf → **+$1,000 – $3,500** |
 | Gutter guards | $3 – $28/lf ⚠️ *10× spread — roofer-installed mesh vs. branded direct-sales* |
+| **Downspout extension, above grade — per downspout** | **$40 – $90** |
+| Downspout extensions, 2–4 downspouts as one visit | **$150 – $500** |
+| **Window well cover** — stock polycarbonate, retail *(material only, not a survey figure)* | $75 – $250 |
+| Window well cover — custom-fit or metal grate | $250 – $600 |
+| Window well rebuild / replacement, per well incl. cover | **$600 – $2,500** (most $1,100 – $1,800) |
+| Window well drain tied to daylight or a sump | $1,000 – $2,500 |
 | Underground downspout drainage | $3,200 – $8,500 |
 | **Chimney Level 2 inspection** (standard at sale) | **$200 – $500** |
 | Chimney cap / flashing / crown | $150–$450 · $300–$800 · $600–$1,200 |
@@ -530,6 +723,31 @@ essentially every repaint of an older NJ house, since 20 sq ft of scraping happe
 hour. It requires a certified firm, a certified renovator on site, and 10-foot ground
 containment. **Premium: +$1,500–$4,000.** Penalties run to $49,772 per violation per day, so
 legitimate contractors will not skip it.
+
+**⚠️ Try the $60 fix before the $6,000 one.** *Added 2026-09-01 — this document previously had
+only the **$3,200–$8,500** underground drainage line, so an appraisal that found a downspout
+discharging at the foundation had no choice but to quote the full-job ceiling for what was
+realistically a few hundred dollars of extension and a well cover.* Water at a foundation is
+almost always **roof water that was never carried away**, and the order of escalation is:
+extend the downspouts → cover and clear the window wells → regrade the first 6–10 ft away from
+the wall → *only then* underground drainage or an interior french drain
+($6,000–$10,000, see the damp-basement section). **A contractor who opens at the french drain
+without walking your downspouts first is selling, not diagnosing.**
+
+### Exterior door and trim rot
+
+| Job | Cost |
+|---|---|
+| Early-stage rot, epoxy consolidation + prime and paint | **$150 – $350** |
+| Partial jamb / brickmould replacement | **$350 – $700** |
+| **Full exterior door jamb replacement** | **$400 – $900** |
+| Fascia repair | $6 – $20/lf → +$1,000 – $3,500 |
+
+Garage-door jambs are the usual find here — they sit at grade, take splash-back off the
+driveway, and are the last thing anyone paints. **Probe with a screwdriver before pricing:**
+if it goes in softly and keeps going, the rot has reached the framing behind and this stops
+being a trim repair. **Pre-1978 → RRP applies** if the work disturbs more than 20 sq ft of
+painted surface, which a single jamb usually does not.
 
 ---
 
@@ -664,7 +882,16 @@ kitchen (47%) · upscale bath (40%) · pool (56%) · upscale kitchen (34%) · **
 [Chapter Design-Build](https://www.hellochapter.com/blog/new-jersey-kitchen-renovation-cost-guide/) ·
 [Curren Environmental](https://www.currenenvironmental.com/how-much-does-an-oil-tank-removal-cost-in-new-jersey) ·
 [The 5th Wall Co (egress/basement)](https://www.the5thwallco.com/blog/basement-egress-window-cost-nj) ·
-[R&E Roofing (gutters)](https://randeroofing.com/blog/gutter-installation-cost-nj/)
+[R&E Roofing (gutters)](https://randeroofing.com/blog/gutter-installation-cost-nj/) ·
+[Gorsegner Brothers (floor refinishing NJ)](https://www.gorsegnerbrothers.com/resources/hardwood-floor-refinishing-cost-nj/) ·
+[IAC Home Improvement (sand & refinish NJ)](https://iachomeimprovement.com/sand-refinish-hardwood-floors-nj/) ·
+[Team PlasterPro (stucco NJ)](https://teamplasterpro.com/stucco-repair-cost-nj/) ·
+[ZD Stucco Repair NJ](https://zdstuccorepair.com/prices-of-stucco-repair-and-installation-in-new-jersey-in-2025/) ·
+[tankremovers.com (above-ground tanks)](https://tankremovers.com/blog/above-ground-oil-tank-removal-cost) ·
+[NJ Oil Tank Removal](https://nj-oil-tank-removal.com/cost/) ·
+[NJ outlet/GFCI cost guide](https://electrical-cost-guide.com/outlet-installation-cost/new-jersey) ·
+[Malfettone Electric (NEC 2026 GFCI — unverified)](https://malfettoneelectric.com/blog/nec-2026-gfci-outdoor-ac-nj) ·
+[RenoCanvas NJ flooring](https://www.renocanvas.com/average-costs/new-jersey/flooring-replacement)
 
 **⚠️ Lead-generation sites — advertising, not survey data.** Used only to bracket ranges, always
 labeled in place: Angi, HomeAdvisor, HomeGuide, Fixr, Thumbtack, Modernize.
@@ -679,6 +906,12 @@ labeled in place: Angi, HomeAdvisor, HomeGuide, Fixr, Thumbtack, Modernize.
 - **Whether Cranford, Westfield and Summit's preservation bodies bind private-home window
   replacement** was not confirmed. Check with the town before assuming vinyl is allowed.
 - **Radon tier is municipal, not county-level** — look up the specific town.
+- **The 2026 NEC GFCI requirement for outdoor AC condensers** (NJ compliance date reported as
+  1 Sept 2026) comes from **installer marketing, not NJ DCA.** Added 2026-09-01. Confirm against
+  the adopted NJ code before treating it as a requirement, a cost, or a negotiating point.
+- **Window well *cover-only* pricing is retail bracketing, not survey data.** The sourced figures
+  cover full well replacement and well drains; the $75–$600 cover line is stock-product pricing
+  and is labeled as such in place.
 
 ### Unpriced items — things this document cannot cost at all
 
@@ -688,19 +921,25 @@ missing section *is itself a finding* — that is how the damp-basement section 
 
 **Each line is: what's missing · why it came up · what would close it.**
 
+> **Closed 2026-09-01** — researched against NJ and national sources, now live sections above:
+> **Flooring** (was flagged as "the biggest hole in this document") · **GFCI / minor electrical**
+> · **Stucco repair** · **Indoor above-ground oil tank decommissioning**.
+>
+> Also added the same day, from a Colonia ranch appraisal that hit three items with no line:
+> **bathroom exhaust ventilation** (in *Bathrooms*), **downspout extensions and window well
+> covers** (in *Gutters* — previously only the $3,200–$8,500 underground job existed, which
+> forced an appraisal to quote a full-job ceiling for a few hundred dollars of work), and
+> **exterior door and trim rot** (in *Gutters, chimney, exterior paint*).
+
 | Missing | Came up as | What would close it |
 |---|---|---|
-| **Stucco repair / patching** | A 1944 Colonia house with a stucco rear showing cracking and patch discoloration. Siding and exterior repaint are covered; **stucco is not mentioned anywhere in this document.** | Two or three NJ stucco contractor quotes: patch-and-paint vs. partial re-coat vs. full re-stucco, and whether EIFS vs. traditional changes it. Ask specifically about the lead-paint RRP premium on pre-1978 stucco. |
-| **GFCI / minor electrical remediation** | Hit on **two of three houses** — a non-GFCI receptacle beside a bathroom vanity in one, an aged non-GFCI in a 1940s bath in the other. Cheap, but there is no line to quote. | Trivial to source: an NJ electrician's per-device rate for GFCI replacement, plus the "whole-house device swap" price. Worth adding because it appears on nearly every older house. |
 | **Flood insurance premiums** | A house in **FEMA Zone AE**. Flood is mentioned here only in passing, for a driveway permit trigger. | This is a **recurring carrying cost, not a repair** — arguably it belongs beside holding costs rather than here. Needs NFIP/private quotes by zone and by elevation-certificate outcome. |
-| **Indoor above-ground oil tank decommissioning** | A 1940 house with a **275-gal tank in the basement, in service.** The buried-tank section is thorough; an indoor tank is a different, cheaper, unregulated job and gets no mention. | An NJ tank contractor's price to pump, cut and remove a 275-gal basement tank, plus whether any closure documentation is produced. |
 | **Propane — tanks and running cost** | A 1952 Clark house on **"Owned Propane"** forced-air, with no tank visible in 17 photos (so likely buried). | Cost to inspect/replace/remove an owned tank, buried vs. above-ground; and a **$/BTU comparison against natural gas** so the permanent operating penalty can be quantified. Also: what it costs to connect to the gas main where one is available. |
 | **Skylight replacement / reflashing** | Two skylights on a **low-slope addition roof** — a classic leak path. The roof section mentions skylight flashing only as a reason Cost-vs-Value runs high. | Per-unit replacement and reflash pricing, and the low-slope surcharge. |
 | **Pier / post foundations under an addition** | A sunroom sitting on **posts over open air**, skirting partly missing. | Cost to enclose/insulate an open underfloor, and to underpin piers to frost depth if they aren't. |
 | **Cutting in or restoring an exterior door** | Wanting backyard access on a house whose only rear opening is a side door off a stair vestibule. | Price for a new opening with header in a framed wall vs. restoring an existing opening, plus exterior steps and a code-compliant landing. |
 | **Excavation, regrading and retaining walls** | A ~4% sloping rear yard on a 58 ft wide lot. | $/cubic yard for cut-fill-and-haul in North/Central NJ, and retaining wall $/face-ft with the height at which an engineer becomes mandatory. |
 | **Topographic survey** | The only way to settle the grading question definitively. | An NJ licensed surveyor's price for a residential topo — small, but it gates every grading decision. |
-| **Flooring** | **Surprisingly absent.** Needed to estimate a renovation on all three houses — LVP, engineered, site-finished hardwood, refinishing existing, and carpet removal/disposal. | $/sqft installed for each, plus refinishing. This is one of the most common line items in any renovation and its absence is the biggest hole in this document. |
 | **Accessory apartment / basement unit** | A finished basement with its **own full bath, laundry and private entrance**, marketed without ever using the word. | Not really a cost — it is a **zoning and valuation** question: what a legal accessory unit is worth in these towns, and what legalising one costs where it is permitted at all. |
 | **Electric fireplace inserts** | A linear insert in a slatted feature wall. Trivial, noted for completeness. | Unit + install pricing. |
 
