@@ -1,9 +1,170 @@
 {
- "corrected": {},
+ "corrected": {
+  "1|masar|07005": {
+   "old": "Boonton",
+   "new": "Montville",
+   "zip": "07005"
+  },
+  "350|parsippany|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "39|woodcrest|07005": {
+   "old": "Boonton",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07005"
+  },
+  "2|timberline|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "961|sunsetridge|08807": {
+   "old": "Bridgewater",
+   "new": "Martinsville",
+   "zip": "08807"
+  },
+  "10|klimback|07006": {
+   "old": "Caldwell",
+   "new": "West Caldwell",
+   "zip": "07006"
+  },
+  "10|rosemere|07006": {
+   "old": "Caldwell",
+   "new": "West Caldwell",
+   "zip": "07006"
+  },
+  "143|veazy|07006": {
+   "old": "Caldwell",
+   "new": "North Caldwell",
+   "zip": "07006"
+  },
+  "19|debaun|07006": {
+   "old": "Caldwell",
+   "new": "West Caldwell",
+   "zip": "07006"
+  },
+  "231|mountain|07006": {
+   "old": "Caldwell",
+   "new": "North Caldwell",
+   "zip": "07006"
+  },
+  "38|brookside|07006": {
+   "old": "Caldwell",
+   "new": "North Caldwell",
+   "zip": "07006"
+  },
+  "23|horizon|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "251|mountainside|07945": {
+   "old": "Mendham",
+   "new": "Mendham Township",
+   "zip": "07945"
+  },
+  "136|isabelle|08840": {
+   "old": "Metuchen",
+   "new": "Woodbridge",
+   "zip": "08840"
+  },
+  "11|tallwood|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "22|dartford|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state104b|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "2467|state107|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "5|wiley|07950": {
+   "old": "Morris Plains",
+   "new": "Parsippany-Troy Hills",
+   "zip": "07950"
+  },
+  "10|ame|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "16|prospect|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "1|ellyn|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "28|raven|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "49|raynor|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "67|woodland|07960": {
+   "old": "Morristown",
+   "new": "Mendham Township",
+   "zip": "07960"
+  },
+  "70|keat|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "76|keat|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "7|davenport|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "9|canterbury|07960": {
+   "old": "Morristown",
+   "new": "Morris Township",
+   "zip": "07960"
+  },
+  "21|ida|07508": {
+   "old": "North Haledon",
+   "new": "Haledon",
+   "zip": "07508"
+  },
+  "15|crescent|07512": {
+   "old": "Totowa",
+   "new": "Woodland Park",
+   "zip": "07512"
+  },
+  "22|jarombek|07082": {
+   "old": "Towaco",
+   "new": "Montville",
+   "zip": "07082"
+  }
+ },
  "tally": {
-  "polygon_agree": 6222,
-  "polygon_corrected": 0,
-  "outside": 509,
-  "nocoord": 262
+  "polygon_agree": 6537,
+  "polygon_corrected": 32,
+  "outside": 533,
+  "nocoord": 261
  }
 }

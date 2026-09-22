@@ -1,5 +1,4 @@
 {
-  "full_hydrate": "2026-09-15",
-  "_doc": "Date of the last FULL hydrate — every zip. The pages show this as their last-updated stamp. hydrate.py writes it only after a full sales+listings run; a --town/--zip partial leaves it, so a narrow refresh cannot advertise the whole set as current.",
-  "_seeded": "2026-09-22 — set to the last full rehydrate (commit 87a933e, 'rehydrate on the 2026-09-15 data'). The 2026-09-22 runs were scoped to 6 zips and deliberately did not move it."
+  "full_hydrate": "2026-09-22",
+  "_doc": "Date of the last FULL hydrate \u2014 every zip. The pages show this as their last-updated stamp. hydrate.py writes it only after a full sales+listings run; a --town/--zip partial leaves it, so a narrow refresh cannot advertise the whole set as current."
 }
