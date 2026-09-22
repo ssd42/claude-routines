@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Relative residential desirability – Springfield, Colonia, Wayne (NJ)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#eef1f4;--ink:#1d2733;--muted:#5b6876;--rule:#cfd6dd;--survey:#2f5d8a;--warn:#a0431f;--ok:#2d6a3e;
+  font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;color:var(--ink);background:var(--paper)}
+#app{display:grid;grid-template-columns:390px 1fr;height:100%}
+#panel{overflow-y:auto;border-right:1px solid var(--rule);padding:18px 20px 40px}
+#map{height:100%;background:#dde3e8}
+h1{font-size:1.1rem;line-height:1.3;margin:0 0 4px}
+.sub{color:var(--muted);font-size:.84rem;margin:0 0 12px;line-height:1.45}
+h2{font-size:.95rem;margin:20px 0 8px;padding-top:12px;border-top:1px solid var(--rule)}
+p,li{font-size:.86rem;line-height:1.5}
+.towns{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:10px 0 6px;border:1px solid var(--survey);border-radius:6px;overflow:hidden}
+.towns button{font:inherit;font-size:.9rem;font-weight:600;border:0;border-right:1px solid var(--survey);background:#fff;color:var(--survey);padding:9px 4px;cursor:pointer}
+.towns button:last-child{border-right:0}
+.towns button[aria-pressed="true"]{background:var(--survey);color:#fff}
+.towns button:disabled{opacity:.55;cursor:wait}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 4px}
+.tabs button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:#fff;padding:6px 10px;border-radius:4px;cursor:pointer;color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab{display:none}.tab.on{display:block}
+#status{font-size:.84rem;background:#fff;border:1px solid var(--rule);border-left:4px solid var(--survey);padding:10px 12px;margin:8px 0;line-height:1.45}
+#status.err{border-left-color:var(--warn)}
+#townnote{font-size:.82rem;color:var(--muted);line-height:1.45;margin:4px 0 0}
+.layer-row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.86rem}
+.ramp{height:12px;border-radius:2px;background:linear-gradient(90deg,#d7372f,#f39c3d,#f2e35c,#a6d96a,#4caf50,#1a7a3a);margin:6px 0 2px}
+.ramp-lbl{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted)}
+.slider{display:grid;grid-template-columns:130px 1fr 34px;align-items:center;gap:6px;font-size:.82rem;margin:4px 0}
+.slider input{width:100%}
+table{border-collapse:collapse;width:100%;font-size:.82rem}
+td,th{padding:4px 6px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+.pass{color:var(--ok);font-weight:700}.fail{color:var(--warn);font-weight:700}
+.card{background:#fff;border:1px solid var(--rule);padding:12px;border-radius:4px}
+.big{font-size:1.6rem;font-weight:700}
+.tag{display:inline-block;font-size:.72rem;padding:1px 6px;border-radius:3px;background:#e3e8ee;color:var(--muted);margin-left:4px}
+.addr{display:flex;gap:6px;margin:6px 0}
+.addr input{flex:1;font:inherit;font-size:.9rem;padding:7px 8px;border:1px solid var(--rule);border-radius:4px;min-width:0}
+.addr button{font:inherit;font-size:.85rem;padding:7px 12px;border:0;border-radius:4px;background:var(--survey);color:#fff;cursor:pointer}
+.star-icon{font-size:26px;line-height:26px;color:#111;text-shadow:0 0 3px #fff,0 0 6px #fff}
+.muni-label{background:none;border:none;box-shadow:none;font-weight:700;color:#3b4a5a;font-size:12px;text-shadow:0 0 3px #fff,0 0 3px #fff;white-space:nowrap}
+.leaflet-popup-content{font-family:inherit;font-size:.82rem;line-height:1.45;min-width:220px}
+.leaflet-popup-content table td{padding:2px 4px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline-offset:2px}
+.home{display:inline-block;font-size:.82rem;color:var(--muted);text-decoration:none;margin:0 0 10px}
+.home:hover,.home:focus-visible{color:var(--survey)}
+@media (max-width:820px){
+  #app{grid-template-columns:1fr;grid-template-rows:58vh auto;height:auto}
+  #map{height:58vh;grid-row:1}
+  #panel{grid-row:2;border-right:none;border-top:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<aside id="panel">
+  <a class="home" href="index.html">← all tools</a>
+  <h1>Relative residential desirability</h1>
+  <p class="sub">Geometry is loaded live from Census TIGER, OpenStreetMap and FEMA. Colors compare locations within the selected town only, never across towns.</p>
+  <div class="towns" role="group" aria-label="Town">
+    <button data-town="colonia" aria-pressed="true">Colonia</button>
+    <button data-town="springfield" aria-pressed="false">Springfield</button>
+    <button data-town="wayne" aria-pressed="false">Wayne</button>
+  </div>
+  <p id="townnote"></p>
+  <div id="status">Starting…</div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="t-layers">Map</button>
+    <button role="tab" aria-selected="false" data-tab="t-addr">Address</button>
+    <button role="tab" aria-selected="false" data-tab="t-checks">Checks</button>
+    <button role="tab" aria-selected="false" data-tab="t-method">Method</button>
+    <button role="tab" aria-selected="false" data-tab="t-sources">Sources</button>
+  </div>
+
+  <section id="t-layers" class="tab on">
+    <h2>Overlay</h2>
+    <div id="layer-radios"></div>
+    <div class="ramp"></div>
+    <div class="ramp-lbl"><span>Weakest in this town</span><span>Middle</span><span>Strongest</span></div>
+    <div class="layer-row"><label><input type="checkbox" id="show-sales" checked> Recent single-family sales (dots)</label></div>
+    <div class="layer-row"><label><input type="checkbox" id="show-flood"> FEMA flood zones outline</label></div>
+    <h2>Composite weights</h2>
+    <p class="sub">Shared across towns. The composite is re-ranked within the selected town after each change.</p>
+    <div id="sliders"></div>
+    <h2>Market snapshot</h2>
+    <div id="market"><p class="sub">Waiting for data…</p></div>
+    <h2>Saved data</h2>
+    <p class="sub" id="offline-note">Everything a town downloads is saved in this browser, so reloading and switching towns reuse it instead of refetching.</p>
+    <div class="addr"><button id="save-data">Save data file</button><button id="refresh-town" style="background:#5b6876">Refresh this town</button></div>
+    <p class="sub">"Save data file" downloads nj-map-data.json. Put it next to this HTML file and it loads from there on any browser, even with an empty cache. "Refresh this town" discards its saved data and fetches fresh copies.</p>
+  </section>
+
+  <section id="t-addr" class="tab">
+    <h2>Check an address</h2>
+    <p class="sub">Enter a house number and street in the selected town. It is placed only if two independent geocoders land on that street inside the town boundary.</p>
+    <div class="addr"><input id="addr-in" placeholder="e.g. 45 Brook St" autocomplete="off"><button id="addr-go">Check</button></div>
+    <div id="addr-report"></div>
+  </section>
+
+  <section id="t-checks" class="tab"><p class="sub">Automated geographic checks for the selected town. If a critical check fails, the overlay is not drawn.</p><div id="checks"></div><div id="addr-checks"></div></section>
+
+  <section id="t-method" class="tab">
+    <h2>Units</h2>
+    <p>Analytical hexagons generated for this map (about 140 m across in Springfield and Colonia, about 225 m in Wayne because the township is roughly five times larger). They are not neighborhoods and have no official status.</p>
+    <div id="town-method"></div>
+    <h2>Factors (each 0–100)</h2>
+    <p><b>Housing value</b>: inverse-distance-weighted log sale price of recent single-family sales, shrunk toward the town median where few sales are nearby. Condos, likely townhouse-community sales and land are excluded. Prices are not size-adjusted.</p>
+    <p><b>Major-road exposure</b>: distance to motorway/trunk roads (influence to 450 m) and primary/secondary arterials (to 200/120 m). Higher = quieter.</p>
+    <p><b>Non-residential adjacency</b>: distance to OSM commercial, retail or industrial land use, fading out by 250 m.</p>
+    <p><b>Flood</b>: share of each cell in FEMA's 1% (Special Flood Hazard Area) or 0.2% zones, sampled at 7 points. If FEMA does not respond, distance to OSM streams is used and labeled as a proxy.</p>
+    <p><b>Amenities</b>: straight-line distance to the nearest public park/field and nearest school.</p>
+    <h2>Left out on purpose</h2>
+    <p><b>Resident sentiment</b> (not enough location-specific evidence; listing copy is marketing), <b>crime</b> (only town-level data), and <b>school attendance zones</b> (not reliably published for all three towns). Weight 0 for each.</p>
+    <h2>Why towns can't be compared by color</h2>
+    <p>Each town is ranked against itself. A yellow cell in Wayne and a yellow cell in Colonia are both "middle for their town"; use the market snapshot for cross-town price levels.</p>
+  </section>
+
+  <section id="t-sources" class="tab"><div id="sources"></div></section>
+</aside>
+<div id="map"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
+<script>
+"use strict";
+/* ================= town configuration ================= */
+const TIGER="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/MapServer";
+const OVERPASS=["https://overpass-api.de/api/interpreter","https://overpass.private.coffee/api/interpreter","https://maps.mail.ru/osm/tools/overpass/api/interpreter","https://overpass.kumi.systems/api/interpreter"];
+const TOWNS={
+ springfield:{
+  label:"Springfield", full:"Springfield Township, Union County", zip:"07081", city:"Springfield",
+  note:"Springfield Township (Union County), a municipality. Boundary: Census county subdivision.",
+  tiger:{layer:"County Subdivisions", where:"BASENAME='Springfield' AND STATE='34' AND COUNTY='039'"},
+  osm:{name:"^Springfield", boundary:"administrative"},
+  rough:{s:40.672,w:-74.380,n:40.738,e:-74.282}, areaKm:[11,16], cell:0.08,
+  critical:[{label:"Route 22 crosses southern Springfield",ref:/US 22/,pos:"south"},{label:"I-78 crosses northern Springfield",ref:/I 78/,pos:"north"}],
+  roads:[{label:"Morris Avenue",name:/^Morris Avenue/},{label:"Springfield Avenue",name:/^(South )?Springfield Avenue/}],
+  landmarks:[{label:"James Caldwell Elementary",kind:"school",re:/Caldwell/i,km:0.1},{label:"Jonathan Dayton High School",kind:"school",re:/Dayton/i,km:0.1},{label:"Baltusrol Golf Club",kind:"golf",re:/Baltusrol/i,km:0.3}],
+  neighbors:{Summit:[200,340],Millburn:[300,80],Union:[40,160],Kenilworth:[95,210],Mountainside:[165,265]},
+  contextStreets:["Caldwell Place","Milltown Road"], contextSchools:[/Caldwell/i],
+  defaultAddress:"45 Brook St", prior:{addr:"45 Brook St",lat:40.7101,lon:-74.3167},
+  method:"",
+  salesSource:"Redfin recently-sold and housing-market pages (GSMLS data), Dec 2025 – Sep 2026",
+  sales:[["8 Norwood Rd",925000],["74 Meisel Ave",635000],["4 Prospect Pl",700000],["106 Salter St",695000],["179 Baltusrol Ave",715000],["18 Woodside Rd",1650000],["63 Skylark Rd",1600000],["15 Profitt Ave",615000],["72 Rose Ave",600000],["71 Battle Hill Ave",480000],["78 Tooker Ave",825000],["17 Tooker Pl",765000],["23 Shelley Rd",882500],["28 Warwick Cir",750000],["14 Eton Pl",845000],["474 Meisel Ave",720000],["5 Persimmon Way",999999],["1 Archbridge Ln",989000],["71 Tree Top Dr",1340000],["28 Fernhill Rd",1250000],["50 Newbrook Ln",909000],["10 Ronald Ter",899000],["12 Remer Ave",645000],["42 Evergreen Ave",1281000],["26 Tower Dr",870000],["24 Brook St",658500],["121 Meisel Ave",618000],["189 Hawthorne Ave",400000],["64 S Springfield Ave",705000],["102 Irwin St",1400000]]
+ },
+ colonia:{
+  label:"Colonia", full:"Colonia (CDP), Woodbridge Township, Middlesex County", zip:"07067", city:"Colonia",
+  note:"Colonia is a census-designated place inside Woodbridge Township, not a municipality. Its outline is the Census CDP line; taxes, schools and zoning are Woodbridge Township's.",
+  tiger:{layer:"Census Designated Places", fallbackId:30, where:"BASENAME='Colonia' AND STATE='34'"},
+  osm:{name:"^Colonia$", boundary:"census|administrative|place"}, nomQ:"Colonia, Woodbridge Township, Middlesex County, New Jersey",
+  rough:{s:40.555,w:-74.365,n:40.625,e:-74.265}, areaKm:[7,13], cell:0.08,
+  critical:[{label:"Garden State Parkway runs through or along Colonia",ref:/^GSP/,name:/Garden State Parkway/,withinKm:0.5}],
+  roads:[{label:"Route 27 within 1.5 km",ref:/NJ 27/,withinKm:1.5},{label:"Colonia Boulevard present",name:/^Colonia Boulevard/},{label:"Inman Avenue present",name:/^Inman Avenue/}],
+  landmarks:[{label:"Colonia High School",kind:"school",re:/Colonia High/i,km:0.3},{label:"Colonia Middle School",kind:"school",re:/Colonia Middle/i,km:0.3},{label:"Merrill Park",kind:"park",re:/Merrill/i,km:0.5}],
+  neighbors:{Rahway:[20,150],Clark:[290,60],Edison:[170,300]},
+  contextStreets:[], contextSchools:[/Colonia High/i],
+  defaultAddress:"", prior:null,
+  method:"<p><b>Colonia boundary</b>: Census CDP polygon. ZIP 07067 mailing addresses extend beyond it; sales outside the CDP line are dropped.</p>",
+  salesSource:"Redfin recently-sold page (CJMLS/GSMLS data), May – Sep 2026",
+  sales:[["31 Warwick Rd",801000],["32 Lincoln Ave",560000],["105 E Cliff Rd",510000],["11 Coral Ct",750000],["31 Middle Hill Rd",665000],["26 W Cliff Rd",585000],["205 New Dover Rd",660000],["350 Fairview Ave",770000],["414 Fairview Ave",640000],["369 Fairview Ave",570000],["722 S Middlesex Ave",816000],["559 Colonia Blvd",1525000],["88 Montrose Ave",695000],["43 Pennington Ave",1415000],["70 Berkley Ave",620000],["64 Longfellow Dr",710000],["16 N Lincoln Ave",600000],["11 Lyric Dr",795000],["93 Inwood Ave",590000],["124 Inwood Ave",620000],["16 Neptune Pl",730000],["32 Predmore Ave",575000],["95 Jeffery Rd",540000],["50 Preston Rd",620000],["33 Lancaster Rd",560000],["70 Oxford Rd",665000],["48 Morningside Rd",380000],["61 Cypress Dr",750000],["17 Thelma Ct",625000],["110 Normandy Rd",645000],["47 Miliken Rd",670000],["67 Drake Pl",595000],["56 Drake Pl",585000],["86 Westminster Rd",550000],["96 Drake Pl",675000],["26 Farrell Ave",530000],["126 Florence Ave",560000],["38 Wendy Rd",610000],["15 E Walnut St",560000],["397 Lake Ave",690000],["168 Savoth Ln",680000],["245 Florence Ave",650000]]
+ },
+ wayne:{
+  label:"Wayne", full:"Wayne Township, Passaic County", zip:"07470", city:"Wayne",
+  note:"Wayne Township (Passaic County), a municipality of about 25 sq mi including lakes. Boundary: Census county subdivision.",
+  tiger:{layer:"County Subdivisions", where:"BASENAME='Wayne' AND STATE='34' AND COUNTY='031'"},
+  osm:{name:"^Wayne", boundary:"administrative"},
+  rough:{s:40.865,w:-74.345,n:41.035,e:-74.165}, areaKm:[55,72], cell:0.13,
+  critical:[{label:"I-80 crosses southern Wayne",ref:/I 80/,pos:"south"},{label:"Route 23 crosses Wayne",ref:/NJ 23/}],
+  roads:[{label:"US 46 present",ref:/US 46/},{label:"US 202 present",ref:/US 202/},{label:"Valley Road present",name:/^Valley Road/},{label:"Hamburg Turnpike present",name:/^Hamburg Turnpike/}],
+  landmarks:[{label:"Wayne Valley High School",kind:"school",re:/Wayne Valley/i,km:0.2},{label:"Wayne Hills High School",kind:"school",re:/Wayne Hills/i,km:0.2},{label:"William Paterson University",kind:"school",re:/William Paterson/i,km:0.3}],
+  neighbors:{Totowa:[90,200],"Lincoln Park":[200,300],"Pompton Lakes":[290,40],"North Haledon":[20,130],Fairfield:[150,260]},
+  contextStreets:[], contextSchools:[/Wayne Valley/i,/Wayne Hills/i],
+  defaultAddress:"", prior:null,
+  method:"<p><b>Wayne</b>: about 60 sales across ~65 km² means many cells are more than 800 m from any sale; their value factor leans on the town median (shown in each cell's popup). Lake-community appeal is not scored directly; it only shows up through sale prices.</p>",
+  salesSource:"Homes.com recently-sold pages 1–2 (NJMLS/GSMLS data), Aug 2025 – Sep 2026",
+  sales:[["89 Pancake Hollow Dr",1250000],["16 Atwood Pl",729000],["68 Carol Pl",1275000],["13 Stone Hill Rd",1292000],["192 Mohawk Trl",709900],["11 Kimberly Pl",759900],["10 Queens Ln",796000],["9 Apple Ln",1450000],["12 Jenny Ln",1299900],["8 Woodlot Rd",775000],["17 Orange Pl",805000],["3 Agawam Dr",920000],["84 Brandon Ave",1199000],["444 Black Oak Ridge Rd",777000],["12 Apache Rd",1150000],["78 Maple Ln",650000],["26 Stratton Dr",1400000],["5 Burnside Pl",635000],["4 Michele Ct",1375000],["122 Webster Dr",703000],["7 Kossuth Pl",945000],["1666 Hamburg Tpke",827000],["72 Lenox Rd",1031000],["85 Sheffield Rd",805000],["8 Wedgewood Dr",780000],["35 Robin Rd",790000],["17 Clifford Dr",830000],["40 Lake Dr E",816000],["16 Shadow Ridge Run",1350000],["19 Dave Espie Way",1250000],["40 Worcester Dr",760000],["78 Verkade Dr",999999],["28 Wilson Ave",1100000],["10 Evers Ct",650000],["1118 Pines Lake Dr W",2430000],["27 Grandview Dr",566000],["761 Valley Rd",1250000],["60 Brandon Ave",680000],["70 Weinmanns Blvd",760000],["25 Debbie Ct",925000],["25 Ferndale Rd",785000],["32 Graham Ave",725000],["76 Point View Pkwy",1200000],["38 Augusta Dr",750000],["187 Hillcrest Dr",1200000],["14 Charlotte Ter",650000],["48 Lake Dr E",820000],["139 Webster Dr",762000],["7 Squire Ln",755000],["19 Harwood Pl",1105000],["27 Omaha Rd",2100000],["78 Van Duyne Ave",582000],["7 Pontiac Dr",1250000],["44 Piermont Ter",845000],["110 Chestnut Dr",750000],["31 Gannett Ct",775000],["7 Chicopee Dr",915000],["4 Highfield Ct",910000],["149 Oldham Rd",890000],["4 Corvair Pl",815000],["14 Stirling Ln",790000]]
+ }
+};
+const FACTORS=[{key:"value",label:"Housing value",w:35},{key:"roads",label:"Major-road exposure",w:20},{key:"nonres",label:"Non-residential adjacency",w:15},{key:"flood",label:"Flood",w:15},{key:"amen",label:"Amenities",w:15}];
+const STOPS=[[0,"#d7372f"],[20,"#f39c3d"],[45,"#f2e35c"],[62,"#a6d96a"],[80,"#4caf50"],[100,"#1a7a3a"]];
+const ABBR={st:"Street",ave:"Avenue",av:"Avenue",rd:"Road",dr:"Drive",ln:"Lane",pl:"Place",ct:"Court",ter:"Terrace",terr:"Terrace",blvd:"Boulevard",pkwy:"Parkway",cir:"Circle",tpke:"Turnpike",trl:"Trail",hwy:"Highway",way:"Way",sq:"Square",run:"Run",e:"East",w:"West",n:"North",s:"South"};
+
+/* ================= helpers ================= */
+const $=s=>document.querySelector(s);
+function status(msg,err){const el=$("#status");el.innerHTML=msg;el.className=err?"err":"";}
+/* Local cache: IndexedDB in the browser, plus an optional nj-map-data.json next to this file. */
+const MEM={};let SNAP=null,DBP=null;
+function db(){return DBP||(DBP=new Promise((res,rej)=>{const r=indexedDB.open("njmap",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));}
+function idbReq(mode,fn){return db().then(d=>new Promise((res,rej)=>{const tx=d.transaction("kv",mode);const st=tx.objectStore("kv");const rq=fn(st);tx.oncomplete=()=>res(rq&&rq.result);tx.onerror=()=>rej(tx.error);}));}
+async function cacheGet(k){if(k in MEM)return MEM[k];try{const v=await idbReq("readonly",st=>st.get(k));if(v!==undefined&&v!==null){MEM[k]=v;return v;}}catch(e){}if(SNAP&&k in SNAP){MEM[k]=SNAP[k];return SNAP[k];}return null;}
+async function cacheSet(k,v){MEM[k]=v;try{await idbReq("readwrite",st=>st.put(v,k));}catch(e){}}
+async function cacheDelMatching(re){for(const k of Object.keys(MEM))if(re.test(k))delete MEM[k];if(SNAP)for(const k of Object.keys(SNAP))if(re.test(k))delete SNAP[k];
+  try{const d=await db();await new Promise((res,rej)=>{const tx=d.transaction("kv","readwrite");const rq=tx.objectStore("kv").openCursor();rq.onsuccess=()=>{const c=rq.result;if(c){if(re.test(c.key))c.delete();c.continue();}};tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}catch(e){}}
+async function cacheAll(){const out={...(SNAP||{})};try{const d=await db();await new Promise((res,rej)=>{const tx=d.transaction("kv");const rq=tx.objectStore("kv").openCursor();rq.onsuccess=()=>{const c=rq.result;if(c){out[c.key]=c.value;c.continue();}};tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}catch(e){}Object.assign(out,MEM);return out;}
+async function loadSnapshot(){if(location.protocol==="file:")return;try{const r=await fetch("nj-map-data.json",{cache:"no-store"});if(r.ok){SNAP=await r.json();$("#offline-note").textContent="Using nj-map-data.json from this folder ("+Object.keys(SNAP).length+" cached items). Towns load without refetching.";}}catch(e){}}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function hex2rgb(h){return [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));}
+function ramp(v){v=Math.max(0,Math.min(100,v));for(let i=1;i<STOPS.length;i++){if(v<=STOPS[i][0]){const[a,ca]=STOPS[i-1],[b,cb]=STOPS[i];const t=(v-a)/(b-a);const A=hex2rgb(ca),B=hex2rgb(cb);return "rgb("+A.map((x,j)=>Math.round(x+(B[j]-x)*t)).join(",")+")";}}return STOPS[STOPS.length-1][1];}
+function band(v){return v>=85?"Highest":v>=70?"High":v>=55?"Above average":v>=40?"Middle":v>=20?"Below average":"Lowest";}
+function lvl(v){return v>=70?"Favorable":v>=40?"Moderate":"Unfavorable";}
+const fmt$=n=>"$"+Math.round(n).toLocaleString();
+const m=km=>!isFinite(km)?"n/a":km<1?Math.round(km*1000)+" m":km.toFixed(2)+" km";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reEsc=s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function median(a){const s=a.slice().sort((x,y)=>x-y);return s.length?s[Math.floor(s.length/2)]:NaN;}
+function jsonp(url,timeout=20000){return new Promise((res,rej)=>{const cb="jp"+Math.random().toString(36).slice(2);const s=document.createElement("script");const t=setTimeout(()=>{done();rej(new Error("timeout"));},timeout);function done(){clearTimeout(t);try{delete window[cb];}catch(e){}s.remove();}window[cb]=d=>{done();res(d);};s.onerror=()=>{done();rej(new Error("network"));};s.src=url+"&callback="+cb;document.head.appendChild(s);});}
+async function censusGeocode(addr){const d=await jsonp("https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address="+encodeURIComponent(addr)+"&benchmark=Public_AR_Current&format=jsonp");const mm=d&&d.result&&d.result.addressMatches;if(!mm||!mm.length)return null;return{lat:mm[0].coordinates.y,lon:mm[0].coordinates.x,matched:mm[0].matchedAddress};}
+async function nominatim(street,town){const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=3&country=USA&state=New%20Jersey&postalcode="+town.zip+"&street="+encodeURIComponent(street);const r=await fetch(url,{headers:{"Accept":"application/json"}});if(!r.ok)throw new Error("Nominatim "+r.status);const a=await r.json();if(!a.length)return null;return{lat:+a[0].lat,lon:+a[0].lon,type:a[0].category+"/"+a[0].type};}
+function expandStreet(s){return s.trim().replace(/\./g,"").split(/\s+/).map((w,i,arr)=>{const k=w.toLowerCase();const dir=t=>["e","w","n","s"].includes((t||"").toLowerCase());const lastIsDir=arr.length>2&&dir(arr[arr.length-1]);
+  if(ABBR[k]&&(i===arr.length-1||(i===arr.length-2&&lastIsDir)||(i===0&&dir(k)&&arr.length>2)))return ABBR[k];return w.charAt(0).toUpperCase()+w.slice(1);}).join(" ");}
+
+/* ================= OSM -> GeoJSON ================= */
+const AREA_KEYS=["landuse","leisure","amenity","building","natural"];
+function wayCoords(w){return(w.geometry||[]).map(p=>[p.lon,p.lat]);}
+function joinRings(lines){const rings=[];let pool=lines.filter(l=>l.length>1).map(l=>l.slice());while(pool.length){let ring=pool.shift();let g=0;while(g++<10000){const f=ring[0],l=ring[ring.length-1];if(f[0]===l[0]&&f[1]===l[1]&&ring.length>3)break;let idx=pool.findIndex(p=>(p[0][0]===l[0]&&p[0][1]===l[1])||(p[p.length-1][0]===l[0]&&p[p.length-1][1]===l[1]));if(idx<0)break;let nx=pool.splice(idx,1)[0];if(!(nx[0][0]===l[0]&&nx[0][1]===l[1]))nx=nx.reverse();ring=ring.concat(nx.slice(1));}const f=ring[0],l=ring[ring.length-1];if(ring.length>3&&f[0]===l[0]&&f[1]===l[1])rings.push(ring);}return rings;}
+function osmToFeatures(data){const out=[];for(const el of data.elements){const tags=el.tags||{};
+  if(el.type==="node"){out.push(turf.point([el.lon,el.lat],{...tags}));}
+  else if(el.type==="way"){const c=wayCoords(el);if(c.length<2)continue;const closed=c.length>3&&c[0][0]===c[c.length-1][0]&&c[0][1]===c[c.length-1][1];const isArea=closed&&AREA_KEYS.some(k=>tags[k]!==undefined)&&!tags.highway;out.push(isArea?turf.polygon([c],{...tags}):turf.lineString(c,{...tags}));}
+  else if(el.type==="relation"){const mem=el.members||[];if(!mem.some(x=>x.geometry))continue;const outer=joinRings(mem.filter(x=>x.type==="way"&&x.role!=="inner").map(wayCoords));const inner=joinRings(mem.filter(x=>x.type==="way"&&x.role==="inner").map(wayCoords));if(!outer.length)continue;const polys=outer.map(r=>[r]);for(const ir of inner){const pt=turf.point(ir[0]);const host=polys.find(p=>turf.booleanPointInPolygon(pt,turf.polygon([p[0]])));if(host)host.push(ir);}out.push(turf.multiPolygon(polys,{...tags}));}
+ }return out;}
+async function overpass(q,cacheKey){if(cacheKey){const c=await cacheGet(cacheKey);if(c&&c.d)return c.d;}let last;for(const ep of OVERPASS){try{status("Loading OpenStreetMap geometry from "+new URL(ep).host+"…");const ac=new AbortController();const to=setTimeout(()=>ac.abort(),120000);let r;try{r=await fetch(ep,{method:"POST",body:"data="+encodeURIComponent(q),headers:{"Content-Type":"application/x-www-form-urlencoded"},signal:ac.signal});}finally{clearTimeout(to);}if(!r.ok)throw new Error(ep+" HTTP "+r.status);const d=await r.json();if(cacheKey)cacheSet(cacheKey,{t:Date.now(),d});return d;}catch(e){last=e;}}throw last;}
+
+/* ================= official boundary ================= */
+function esriToGeo(g){ // Esri polygon rings -> GeoJSON MultiPolygon (outer rings clockwise)
+  const sa=r=>{let a=0;for(let i=0;i<r.length-1;i++)a+=(r[i+1][0]-r[i][0])*(r[i+1][1]+r[i][1]);return a;}; // >0 = clockwise
+  const outers=[],holes=[];for(const r of (g.rings||[])){(sa(r)>0?outers:holes).push(r);}
+  const polys=outers.map(r=>[r]);
+  for(const h of holes){const host=polys.find(p=>turf.booleanPointInPolygon(turf.point(h[0]),turf.polygon([p[0]])));if(host)host.push(h);}
+  if(!polys.length)throw new Error("no outer ring");return turf.multiPolygon(polys);
+}
+async function tigerBoundary(spec,log){
+  // JSONP first: works even when the browser blocks cross-origin fetches (e.g. file://)
+  let layers=await cacheGet("tiger_layers_v2");
+  if(!layers){try{const d=await jsonp(TIGER+"?f=json");layers=d.layers||[];}catch(e){log("TIGERweb layer list (JSONP) failed: "+e.message);}
+    if(!layers||!layers.length){try{const r=await fetch(TIGER+"?f=json");layers=(await r.json()).layers||[];}catch(e){log("TIGERweb layer list (fetch) failed: "+e.message);}}
+    if(layers&&layers.length)cacheSet("tiger_layers_v2",layers);}
+  const ids=[];const lay=(layers||[]).find(l=>l.name===spec.layer&&!l.subLayerIds);if(lay)ids.push(lay.id);
+  if(spec.fallbackId!=null&&!ids.includes(spec.fallbackId))ids.push(spec.fallbackId);
+  if(!ids.length)throw new Error("layer '"+spec.layer+"' not found");
+  for(const id of ids){
+    const base=`${TIGER}/${id}/query?where=${encodeURIComponent(spec.where)}&outFields=NAME,BASENAME,GEOID&returnGeometry=true&outSR=4326&geometryPrecision=6`;
+    try{const d=await jsonp(base+"&f=json",30000);if(d.error)throw new Error(d.error.message||"query error");
+      if(d.features&&d.features.length){const f=esriToGeo(d.features[0].geometry);f.properties={...d.features[0].attributes,_src:"US Census TIGERweb ("+spec.layer+", GEOID "+d.features[0].attributes.GEOID+")"};return f;}
+      log(`TIGERweb layer ${id} (JSONP): no match for ${spec.where}`);}catch(e){log(`TIGERweb layer ${id} (JSONP) failed: ${e.message}`);}
+    try{const r=await fetch(base+"&f=geojson");const d=await r.json();if(d.features&&d.features.length){const f=d.features[0];if(f.geometry.type==="Polygon")f.geometry={type:"MultiPolygon",coordinates:[f.geometry.coordinates]};f.properties._src="US Census TIGERweb ("+spec.layer+", GEOID "+f.properties.GEOID+")";return f;}
+      log(`TIGERweb layer ${id} (fetch): no match`);}catch(e){log(`TIGERweb layer ${id} (fetch) failed: ${e.message}`);}
+  }
+  throw new Error("no boundary from TIGERweb");
+}
+async function nominatimBoundary(town){
+  const r=await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&polygon_geojson=1&limit=5&q="+encodeURIComponent(town.nomQ||town.full+", New Jersey"));
+  const a=await r.json();const hit=a.find(x=>x.geojson&&/Polygon/.test(x.geojson.type));if(!hit)throw new Error("no polygon");
+  const g=hit.geojson.type==="Polygon"?{type:"MultiPolygon",coordinates:[hit.geojson.coordinates]}:hit.geojson;
+  return {type:"Feature",geometry:g,properties:{_src:"OpenStreetMap via Nominatim ("+hit.display_name.split(",").slice(0,2).join(",")+")"}};
+}
+async function osmBoundary(town){const b=town.rough;const q=`[out:json][timeout:60];(rel["boundary"~"^(${town.osm.boundary})$"]["name"~"${town.osm.name}"](${b.s},${b.w},${b.n},${b.e});rel["place"]["name"~"${town.osm.name}"](${b.s},${b.w},${b.n},${b.e}););out geom;`;const d=await overpass(q,"osmb2_"+town.label);const fs=osmToFeatures(d).filter(f=>/Polygon/.test(f.geometry.type)).sort((a,b)=>turf.area(b)-turf.area(a));if(!fs.length)throw new Error("no OSM boundary");fs[0].properties._src="OpenStreetMap relation ("+fs[0].properties.name+")";return fs[0];}
+async function femaFlood(key,bb){const ck="fema_v2_"+key;const c=await cacheGet(ck);if(c&&c.d)return c.d;let all=[],offset=0;
+  for(let i=0;i<10;i++){const url="https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28/query?where=1%3D1&geometry="+[bb[0],bb[1],bb[2],bb[3]].join(",")+"&geometryType=esriGeometryEnvelope&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields=FLD_ZONE,ZONE_SUBTY,SFHA_TF&returnGeometry=true&outSR=4326&geometryPrecision=6&resultOffset="+offset+"&resultRecordCount=1000&f=geojson";
+    const r=await fetch(url);if(!r.ok)throw new Error("FEMA HTTP "+r.status);const d=await r.json();if(d.error)throw new Error("FEMA: "+(d.error.message||"error"));const fs=d.features||[];all=all.concat(fs);
+    const more=d.exceededTransferLimit||(d.properties&&d.properties.exceededTransferLimit);if(!more||!fs.length)break;offset+=fs.length;status(`Loading FEMA flood zones… ${all.length}`);}
+  const out={type:"FeatureCollection",features:all};cacheSet(ck,{t:Date.now(),d:out});return out;}
+
+/* ================= spatial helpers ================= */
+function prep(features){return features.map(f=>{const g=f.geometry.type;let lines=null;if(/Polygon/.test(g))lines=turf.flatten(turf.polygonToLine(f)).features;else if(g==="MultiLineString")lines=turf.flatten(f).features;else if(g==="LineString")lines=[f];return{f,b:turf.bbox(f),lines};});}
+function near(pt,b,km){const dLat=km/111,dLon=km/(111*Math.cos(pt[1]*Math.PI/180));return pt[0]>=b[0]-dLon&&pt[0]<=b[2]+dLon&&pt[1]>=b[1]-dLat&&pt[1]<=b[3]+dLat;}
+function minLineDist(pt,items,maxKm){let best=Infinity;const P=turf.point(pt);for(const it of items){if(!near(pt,it.b,Math.min(best,maxKm)))continue;if(it.f.geometry.type==="Point"){best=Math.min(best,turf.distance(P,it.f));continue;}for(const l of it.lines){const d=turf.pointToLineDistance(P,l);if(d<best)best=d;}}return best;}
+function inAny(pt,items){const P=turf.point(pt);for(const it of items){if(pt[0]<it.b[0]||pt[0]>it.b[2]||pt[1]<it.b[1]||pt[1]>it.b[3])continue;if(/Polygon/.test(it.f.geometry.type)&&turf.booleanPointInPolygon(P,it.f))return it.f;}return null;}
+function polyDist(pt,items,maxKm){return inAny(pt,items)?0:minLineDist(pt,items,maxKm);}
+const decay=(d,full,zero)=>d<=full?1:d>=zero?0:1-(d-full)/(zero-full);
+const grow=(d,zero,full)=>d<=zero?0:d>=full?1:(d-zero)/(full-zero);
+
+/* ================= map + state ================= */
+const map=L.map("map",{zoomSnap:0.25}).setView([40.8,-74.3],10);
+const DATA_ATTR=" | Boundaries: US Census TIGER | Flood: FEMA NFHL | Geocoding: US Census, Nominatim";
+const BASES={
+  "OpenStreetMap":L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap contributors"+DATA_ATTR}),
+  "Esri streets":L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,attribution:"Tiles &copy; Esri"+DATA_ATTR}),
+  "Esri imagery":L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",{maxZoom:19,attribution:"Imagery &copy; Esri"+DATA_ATTR})
+};
+// OSM tiles need a real page origin (http://localhost works; file:// gets 403). Fall back to Esri automatically.
+let base=location.protocol==="file:"?BASES["Esri streets"]:BASES["OpenStreetMap"];base.addTo(map);
+let tileErrs=0;BASES["OpenStreetMap"].on("tileerror",()=>{if(++tileErrs===4&&map.hasLayer(BASES["OpenStreetMap"])){map.removeLayer(BASES["OpenStreetMap"]);BASES["Esri streets"].addTo(map);}});
+L.control.layers(BASES,null,{position:"topright",collapsed:true}).addTo(map);
+["hex","lines","top"].forEach((p,i)=>{map.createPane(p);map.getPane(p).style.zIndex=[410,430,650][i];});
+const hexRenderer=L.canvas({pane:"hex",padding:0.3});
+const ST={}; let CUR=null, BUSY=false, currentLayer="composite";
+
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id===b.dataset.tab));}));
+document.querySelectorAll(".towns button").forEach(b=>b.addEventListener("click",()=>selectTown(b.dataset.town)));
+$("#addr-go").addEventListener("click",()=>{const v=$("#addr-in").value.trim();if(v&&CUR&&ST[CUR]&&ST[CUR].ready)checkAddress(ST[CUR],v);});
+$("#addr-in").addEventListener("keydown",e=>{if(e.key==="Enter")$("#addr-go").click();});
+buildControls();
+$("#save-data").addEventListener("click",async()=>{const all=await cacheAll();const blob=new Blob([JSON.stringify(all)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="nj-map-data.json";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  status(`Saved nj-map-data.json (${Object.keys(all).length} items, ${(blob.size/1e6).toFixed(1)} MB). Move it into the same folder as this HTML file.`);});
+$("#refresh-town").addEventListener("click",async()=>{if(BUSY||!CUR)return;const T=TOWNS[CUR];const key=CUR;
+  await cacheDelMatching(new RegExp(`(_v\d+_${key}(_|$))|(^osmb2_${T.label}$)|(^geo2_${T.zip}_)`));
+  if(ST[key]){map.removeLayer(ST[key].group);delete ST[key];}CUR=null;selectTown(key);});
+
+async function selectTown(key){
+  if(BUSY||key===CUR)return;
+  if(CUR&&ST[CUR])map.removeLayer(ST[CUR].group);
+  CUR=key;if(location.protocol!=="file:"){try{history.replaceState(null,"","#"+key);}catch(e){}}
+  document.querySelectorAll(".towns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.town===key));
+  const town=TOWNS[key];$("#townnote").textContent=town.note;$("#town-method").innerHTML=town.method;$("#addr-in").value=town.defaultAddress||"";
+  renderSources(town);
+  if(ST[key]&&!ST[key].bnd){map.removeLayer(ST[key].group);delete ST[key];}
+  if(ST[key]){ST[key].group.addTo(map);map.fitBounds(L.geoJSON(ST[key].bnd).getBounds(),{padding:[20,20]});refreshPanels(ST[key]);status(ST[key].statusMsg,ST[key].statusErr);return;}
+  const T=ST[key]={key,town,group:L.layerGroup().addTo(map),checks:[],addrChecks:[],ready:false};
+  $("#checks").innerHTML="";$("#addr-checks").innerHTML="";$("#addr-report").innerHTML="";$("#market").innerHTML='<p class="sub">Waiting for data…</p>';
+  BUSY=true;document.querySelectorAll(".towns button").forEach(b=>b.disabled=true);
+  try{await run(T);}catch(e){setStatus(T,"Unexpected error: "+esc(e.message)+". Reload the page to retry.",true);}
+  BUSY=false;document.querySelectorAll(".towns button").forEach(b=>b.disabled=false);
+}
+function setStatus(T,msg,err){T.statusMsg=msg;T.statusErr=!!err;if(CUR===T.key)status(msg,err);}
+function refreshPanels(T){renderChecks(T);renderMarket(T);if(T.addr)addressReport(T);else $("#addr-report").innerHTML="";if(T.hex)restyle(T);}
+
+/* ================= main pipeline ================= */
+async function run(T){
+  const town=T.town, C=T.checks;
+  /* 1. official boundary */
+  setStatus(T,"Loading official boundary for "+town.label+"…");
+  let bnd=await cacheGet("bnd_v1_"+T.key);const bndCached=!!bnd;
+  const blog=[];const log=x=>blog.push(esc(x));
+  if(!bnd){try{bnd=await tigerBoundary(town.tiger,log);}catch(e){log("TIGERweb: "+e.message);}}
+  if(!bnd){try{bnd=await osmBoundary(town);}catch(e){log("OSM Overpass boundary: "+e.message);}}
+  if(!bnd){try{bnd=await nominatimBoundary(town);}catch(e){log("OSM Nominatim boundary: "+e.message);}}
+  if(blog.length)C.push(["Boundary source attempts",!!bnd,blog.join("<br>"),false]);
+  if(!bnd){C.push([town.label+" boundary found",false,"No source returned a boundary (details above)",true]);renderChecks(T);return setStatus(T,"Stopped: no verified boundary for "+town.label+". See Checks.",true);}
+  if(bnd.geometry.type==="Polygon")bnd=turf.multiPolygon([bnd.geometry.coordinates],bnd.properties);
+  if(!bndCached)await cacheSet("bnd_v1_"+T.key,bnd);
+  T.bnd=bnd;T.bndPrep=prep([bnd]);
+  const areaKm=turf.area(bnd)/1e6, cen=turf.centroid(bnd).geometry.coordinates;
+  C.push([town.label+" boundary",areaKm>=town.areaKm[0]&&areaKm<=town.areaKm[1],`${esc(bnd.properties._src)}; ${areaKm.toFixed(1)} km² (${(areaKm/2.59).toFixed(2)} sq mi), expected ${town.areaKm[0]}–${town.areaKm[1]} km²`,true]);
+  L.geoJSON(bnd,{pane:"lines",style:{color:"#1d2733",weight:3,fill:false}}).addTo(T.group);
+  map.fitBounds(L.geoJSON(bnd).getBounds(),{padding:[20,20]});
+  const bx=turf.bbox(turf.buffer(bnd,1.5,{units:"kilometers"})); T.bx=bx;
+  const bb=`${bx[1]},${bx[0]},${bx[3]},${bx[2]}`;
+
+  /* 2. OSM context */
+  const ctxNames=town.contextStreets.map(reEsc).join("|");
+  const q=`[out:json][timeout:180];
+rel["boundary"="administrative"]["admin_level"="8"](${bb});out geom;
+way["highway"~"^(motorway|motorway_link|trunk|trunk_link|primary|primary_link|secondary|secondary_link)$"](${bb});out geom;
+(way["landuse"~"^(commercial|retail|industrial|cemetery)$"](${bb});rel["landuse"~"^(commercial|retail|industrial)$"](${bb});
+way["leisure"~"^(park|golf_course|nature_reserve|playground|pitch|recreation_ground)$"](${bb});rel["leisure"~"^(park|golf_course|nature_reserve)$"](${bb});
+way["amenity"~"^(school|university|college)$"](${bb});node["amenity"="school"](${bb});rel["amenity"~"^(school|university|college)$"](${bb});
+way["waterway"~"^(river|stream)$"](${bb});${ctxNames?`way["highway"]["name"~"^(${ctxNames})$"](${bb});`:""});out geom;`;
+  let raw;
+  try{raw=await overpass(q,"ovp_v4_"+T.key);}catch(e){C.push(["OpenStreetMap context loaded",false,"Overpass unreachable: "+esc(e.message),true]);renderChecks(T);return setStatus(T,"Could not reach any Overpass (OpenStreetMap) server. Reload in a minute; nothing is drawn without real geometry.",true);}
+  const F=osmToFeatures(raw);
+  const bndBuf=turf.buffer(bnd,0.05,{units:"kilometers"});
+  const inT=f=>turf.booleanIntersects(f,bnd);
+  const distToTown=f=>turf.booleanIntersects(f,bnd)?0:Math.min(...turf.coordAll(f).filter((_,i,a)=>i%Math.max(1,Math.floor(a.length/60))===0).map(c=>minLineDist(c,T.bndPrep,5)));
+
+  /* neighbors */
+  const admins=F.filter(f=>f.properties.boundary==="administrative"&&/Polygon/.test(f.geometry.type));
+  const ring=turf.buffer(bnd,1.0,{units:"kilometers"});
+  const seen=new Set();
+  for(const a of admins){const nm=a.properties.name||"";if(!turf.booleanIntersects(bndBuf,a))continue;
+    let part=null;try{part=turf.intersect(turf.featureCollection([a,ring]));}catch(e){}
+    let ov=0;try{const o=turf.intersect(turf.featureCollection([a,bnd]));ov=o?turf.area(o)/turf.area(bnd):0;}catch(e){}
+    const contains=ov>0.8&&turf.area(a)>turf.area(bnd)*1.5;
+    if(ov>0.8&&!contains)continue; // the town's own OSM polygon
+    L.geoJSON(a,{pane:"lines",style:{color:"#6b7a89",weight:1.5,dashArray:"5 5",fill:false}}).addTo(T.group);
+    const lp=part?turf.pointOnFeature(part).geometry.coordinates:turf.pointOnFeature(a).geometry.coordinates;
+    const short=nm.replace(/ Township| City| Borough| Town$/,"");
+    if(!seen.has(short)){seen.add(short);L.marker(contains?[cen[1],cen[0]]:[lp[1],lp[0]],{pane:"top",icon:L.divIcon({className:"muni-label",html:contains?"":esc(short),iconSize:[120,16]}),interactive:false}).addTo(T.group);}
+    if(contains){C.push([`${esc(nm)} contains ${town.label}`,true,"Expected for a census-designated place",false]);continue;}
+    const key=Object.keys(town.neighbors).find(k=>nm.startsWith(k));
+    if(key&&part){const pc=turf.centroid(part).geometry.coordinates;const br=(turf.bearing(cen,pc)+360)%360;const[lo,hi]=town.neighbors[key];const ok=lo<=hi?(br>=lo&&br<=hi):(br>=lo||br<=hi);C.push([`${key} lies ${lo}–${hi}° from ${town.label}`,ok,`Measured bearing ${br.toFixed(0)}°`,false]);}
+  }
+  for(const k of Object.keys(town.neighbors))if(!C.some(c=>c[0].startsWith(k+" lies")))C.push([`${k} found as a neighbor`,false,"Not found touching the boundary in OSM",false]);
+
+  /* roads */
+  const roads=F.filter(f=>f.properties.highway&&f.geometry.type==="LineString");
+  const matchRoad=(spec,f)=>(spec.ref&&spec.ref.test(f.properties.ref||""))||(spec.name&&spec.name.test(f.properties.name||""));
+  const meanLat=fs=>{const c=fs.flatMap(f=>f.geometry.coordinates);return c.reduce((s,p)=>s+p[1],0)/c.length;};
+  const roadCheck=(spec,critical)=>{
+    if(spec.withinKm){const fs=roads.filter(f=>matchRoad(spec,f));const d=fs.length?Math.min(...fs.map(distToTown)):Infinity;C.push([spec.label,d<=spec.withinKm,fs.length?`closest ${m(d)} from boundary (${fs.length} OSM ways)`:"not found in OSM",critical]);return;}
+    const fs=roads.filter(f=>matchRoad(spec,f)&&inT(f));let ok=fs.length>0,info=fs.length+" OSM ways inside boundary";
+    if(ok&&spec.pos){const ml=meanLat(fs);ok=spec.pos==="south"?ml<cen[1]:ml>cen[1];info+=`; mean lat ${ml.toFixed(4)} vs centroid ${cen[1].toFixed(4)}`;}
+    C.push([spec.label,ok,info,critical]);};
+  town.critical.forEach(s=>roadCheck(s,true));town.roads.forEach(s=>roadCheck(s,false));
+  const rstyle=f=>{const h=f.properties.highway;return /motorway|trunk/.test(h)?{color:"#9b2c1f",weight:4}:/primary/.test(h)?{color:"#b8651b",weight:3}:{color:"#8a7a2a",weight:2};};
+  L.geoJSON(turf.featureCollection(roads.filter(r=>!/link/.test(r.properties.highway))),{pane:"lines",style:rstyle,onEachFeature:(f,l)=>{const p=f.properties;l.bindTooltip(esc((p.name||"")+(p.ref?" ("+p.ref+")":"")),{sticky:true});}}).addTo(T.group);
+
+  /* land use + landmarks */
+  const polys=F.filter(f=>/Polygon/.test(f.geometry.type));
+  const nonresLU=polys.filter(f=>/^(commercial|retail|industrial)$/.test(f.properties.landuse||""));
+  const parks=polys.filter(f=>/^(park|playground|pitch|recreation_ground|nature_reserve)$/.test(f.properties.leisure||""));
+  const golf=polys.filter(f=>f.properties.leisure==="golf_course");
+  const cem=polys.filter(f=>f.properties.landuse==="cemetery");
+  const schools=F.filter(f=>/^(school|university|college)$/.test(f.properties.amenity||""));
+  const schoolPolys=schools.filter(f=>/Polygon/.test(f.geometry.type));
+  const water=F.filter(f=>f.properties.waterway&&f.geometry.type==="LineString");
+  for(const lm of town.landmarks){const pool=lm.kind==="school"?schools:lm.kind==="golf"?golf:parks;const f=pool.find(x=>lm.re.test(x.properties.name||""));
+    const d=f?distToTown(f):Infinity;C.push([lm.label+" in/at "+town.label,d<=lm.km,f?`${esc(f.properties.name)}; ${d===0?"inside":m(d)+" outside"} boundary`:"not found in OSM",false]);}
+  L.geoJSON(turf.featureCollection(parks),{pane:"lines",style:{color:"#2d6a3e",weight:1,fillOpacity:0,dashArray:"2 3"},onEachFeature:(f,l)=>l.bindTooltip(esc(f.properties.name||"Park/field"))}).addTo(T.group);
+  const bnd300=turf.buffer(bnd,0.3,{units:"kilometers"});
+  for(const s of schools){const c=turf.centroid(s).geometry.coordinates;if(!turf.booleanPointInPolygon(turf.point(c),bnd300))continue;L.circleMarker([c[1],c[0]],{pane:"top",radius:5,color:"#2f5d8a",weight:2,fillColor:"#fff",fillOpacity:1}).bindTooltip("School: "+esc(s.properties.name||"unnamed")).addTo(T.group);}
+  T.ctx={streets:F.filter(f=>town.contextStreets.includes(f.properties.name)&&f.geometry.type==="LineString"),schools};
+
+  /* flood */
+  let flood=null,floodSrc="FEMA NFHL";
+  try{setStatus(T,"Loading FEMA flood zones…");const fz=await femaFlood(T.key,bx);
+    flood={sfha:prep(fz.features.filter(f=>f.geometry&&(f.properties.SFHA_TF==="T"||/^A/.test(f.properties.FLD_ZONE||"")))),p02:prep(fz.features.filter(f=>f.geometry&&/0\.2 PCT/.test(f.properties.ZONE_SUBTY||"")))};
+    T.floodLayer=L.geoJSON(turf.featureCollection([...flood.sfha.map(x=>x.f),...flood.p02.map(x=>x.f)]),{pane:"lines",style:f=>({color:/^A/.test(f.properties.FLD_ZONE||"")?"#1f5fbf":"#6aa0e0",weight:1,fillOpacity:.12})});
+    if($("#show-flood").checked)T.floodLayer.addTo(T.group);
+  }catch(e){floodSrc="Proxy: distance to OSM streams (FEMA unavailable: "+esc(e.message)+")";}
+  C.push(["Flood data source",!!flood,floodSrc,false]);
+  T.floodSrc=flood?"FEMA NFHL":"stream-distance proxy";
+
+  const critical=C.filter(c=>c[3]&&!c[1]);
+  renderChecks(T);
+  if(critical.length){return setStatus(T,`Stopped: ${critical.length} critical geographic check(s) failed for ${town.label}. See Checks. No overlay is drawn on unverified geography.`,true);}
+
+  /* 3. sales */
+  const sales=[];let n=0;
+  for(const[addr,price]of town.sales){n++;setStatus(T,`Locating recent ${town.label} sales… ${n}/${town.sales.length}`);
+    const ck="geo2_"+town.zip+"_"+addr;let g=await cacheGet(ck);
+    if(!g){try{g=await censusGeocode(`${addr}, ${town.city}, NJ ${town.zip}`);}catch(e){g=null;}
+      if(!g){try{await sleep(1100);const r=await nominatim(expandStreet(addr.replace(/^(\d+\S*)\s+/,"$1 ")),town);if(r)g={lat:r.lat,lon:r.lon,matched:"Nominatim"};}catch(e){}}
+      if(g)cacheSet(ck,g);}
+    if(g&&turf.booleanPointInPolygon(turf.point([g.lon,g.lat]),bnd))sales.push({addr,price,lat:g.lat,lon:g.lon});}
+  T.sales=sales;
+  C.push([`Sales located inside ${town.label}`,sales.length>=15,`${sales.length} of ${town.sales.length} (others fell outside the boundary or failed to geocode)`,false]);
+  T.salesLayer=L.layerGroup(sales.map(s=>L.circleMarker([s.lat,s.lon],{pane:"top",radius:3+Math.sqrt(s.price/1e5),color:"#1d2733",weight:1,fillColor:"#fff",fillOpacity:.85}).bindPopup(`<b>${esc(s.addr)}</b><br>Sold ${fmt$(s.price)}`)));
+  if($("#show-sales").checked)T.salesLayer.addTo(T.group);
+
+  /* 4. cells */
+  const cellKey=`cells_v1_${T.key}_${sales.length}_${flood?1:0}`;
+  let cells=await cacheGet(cellKey);
+  if(!cells){
+  setStatus(T,"Scoring cells…");await sleep(30);
+  const grid=turf.hexGrid(turf.bbox(bnd),town.cell,{units:"kilometers"});
+  const P={r1:prep(roads.filter(f=>/motorway|trunk/.test(f.properties.highway))),r2:prep(roads.filter(f=>/primary/.test(f.properties.highway))),r3:prep(roads.filter(f=>/secondary/.test(f.properties.highway))),
+    nonres:prep(nonresLU),parks:prep(parks.filter(p=>p.properties.access!=="private")),schools:prep(schools),
+    mask:prep([...nonresLU,...golf,...cem,...schoolPolys,...parks.filter(p=>turf.area(p)>30000)]),water:prep(water)};
+  const logs=sales.map(s=>Math.log(s.price));const med=median(logs);
+  cells=[];let k=0;
+  for(const h of grid.features){
+    if(++k%150===0){setStatus(T,`Scoring cells… ${Math.round(100*k/grid.features.length)}%`);await sleep(0);}
+    const c=turf.centroid(h).geometry.coordinates;if(!turf.booleanPointInPolygon(turf.point(c),bnd))continue;
+    let geom=h;try{const cl=turf.intersect(turf.featureCollection([h,bnd]));if(cl)geom=cl;}catch(e){}
+    const mh=inAny(c,P.mask);
+    const cell={geom,c,nonres:!!mh,maskName:mh?(mh.properties.name||mh.properties.landuse||mh.properties.leisure||mh.properties.amenity):null};
+    let sw=0,sv=0,n800=0;for(const s of sales){const d=turf.distance(c,[s.lon,s.lat]);if(d<=0.8)n800++;if(d>2)continue;const w=1/Math.pow(Math.max(d,0.12),2);sw+=w;sv+=w*Math.log(s.price);}
+    cell.valueLog=sales.length?(sv+8*med)/(sw+8):0;cell.n800=n800;
+    const d1=minLineDist(c,P.r1,0.5),d2=minLineDist(c,P.r2,0.25),d3=minLineDist(c,P.r3,0.15);
+    cell.roads=100*(1-Math.max(decay(d1,0.08,0.45),0.6*decay(d2,0.025,0.2),0.35*decay(d3,0.02,0.12)));cell.d1=d1;cell.d2=d2;
+    const dn=polyDist(c,P.nonres,0.3);cell.nonresS=100*grow(dn,0,0.25);cell.dn=dn;
+    if(flood){const pts=[c,...turf.coordAll(h).slice(0,6).map(v=>[(v[0]+c[0])/2,(v[1]+c[1])/2])];let a=0,p=0;for(const q2 of pts){if(inAny(q2,flood.sfha))a++;else if(inAny(q2,flood.p02))p++;}
+      cell.flood=100-100*(a/7)-45*(p/7);cell.floodTxt=a?`${Math.round(a/7*100)}% in FEMA 1% zone`:p?`${Math.round(p/7*100)}% in 0.2% zone`:"outside mapped FEMA zones";}
+    else{const dw=minLineDist(c,P.water,0.2);cell.flood=dw<0.04?30:dw<0.1?70:100;cell.floodTxt=`${m(dw)} from mapped stream (proxy)`;}
+    const dp=polyDist(c,P.parks,1.3),ds=minLineDist(c,P.schools,1.6);cell.amen=100*(0.6*decay(dp,0.15,1.2)+0.4*decay(ds,0.3,1.5));cell.dp=dp;cell.ds=ds;
+    cells.push(cell);}
+  const res=cells.filter(c=>!c.nonres);const vmin=Math.min(...res.map(c=>c.valueLog)),vmax=Math.max(...res.map(c=>c.valueLog));
+  for(const c of cells)c.value=sales.length?100*(c.valueLog-vmin)/Math.max(1e-9,vmax-vmin):50;
+  await cacheSet(cellKey,cells);
+  }
+  const res=cells.filter(c=>!c.nonres);
+  T.cells=cells;
+  T.hex=L.geoJSON(turf.featureCollection(cells.map((c,i)=>{const g=c.geom;g.properties={i};return g;})),{renderer:hexRenderer,pane:"hex",
+    onEachFeature:(f,l)=>l.on("click",e=>L.popup().setLatLng(e.latlng).setContent(popup(T.cells[f.properties.i])).openOn(map))}).addTo(T.group);
+  T.ready=true;recompute(T);renderChecks(T);renderMarket(T);
+  setStatus(T,`Done. ${res.length} residential cells scored in ${town.label}, ${cells.length-res.length} non-residential cells gray. Flood: ${T.floodSrc}.`);
+  if(town.defaultAddress&&CUR===T.key)await checkAddress(T,town.defaultAddress);
+}
+
+/* ================= scoring + display ================= */
+function valOf(c,key){return key==="composite"?c.composite:key==="nonres"?c.nonresS:c[key];}
+function recompute(T){if(!T||!T.cells)return;const res=T.cells.filter(c=>!c.nonres);const tw=FACTORS.reduce((a,f)=>a+f.w,0)||1;
+  for(const c of res)c.raw=FACTORS.reduce((s,f)=>s+f.w*valOf(c,f.key),0)/tw;
+  const sorted=res.map(c=>c.raw).sort((a,b)=>a-b);
+  for(const c of res){let lo=0,hi=sorted.length;while(lo<hi){const mid=(lo+hi)>>1;if(sorted[mid]<c.raw)lo=mid+1;else hi=mid;}c.composite=100*lo/Math.max(1,sorted.length-1);}
+  restyle(T);if(T.addr)addressReport(T);}
+function restyle(T){if(!T.hex)return;T.hex.setStyle(f=>{const c=T.cells[f.properties.i];return c.nonres?{stroke:false,fillColor:"#8a939c",fillOpacity:.28}:{color:"#fff",weight:.4,opacity:.6,fillColor:ramp(valOf(c,currentLayer)),fillOpacity:.5};});}
+function why(c){const parts=FACTORS.filter(f=>f.w>0).map(f=>({l:f.label.toLowerCase(),v:valOf(c,f.key)}));const helps=parts.filter(x=>x.v>=70).map(x=>x.l),hurts=parts.filter(x=>x.v<40).map(x=>x.l);
+  let s="";if(helps.length)s+="Helped by "+helps.join(", ")+". ";if(hurts.length)s+="Held back by "+hurts.join(", ")+". ";if(!s)s="No factor stands out strongly either way. ";if(c.n800<3)s+="Few nearby sales, so the value factor leans on the town median.";return s;}
+function popup(c){if(c.nonres)return`<b>Not scored</b><br>Mostly non-residential: ${esc(c.maskName||"non-residential land")}`;
+  const row=(l,v,x)=>`<tr><td>${l}</td><td><b>${Math.round(v)}</b></td><td>${x}</td></tr>`;
+  return`<b>Analytical cell</b> <span class="tag">not a neighborhood</span><br>Composite: <b>${Math.round(c.composite)}/100</b> (${band(c.composite)} within this town)
+  <table>${row("Housing value",c.value,`${c.n800} sales ≤800 m, est. ${fmt$(Math.exp(c.valueLog))}`)}${row("Road exposure",c.roads,`highway ${m(c.d1)}, arterial ${m(c.d2)}`)}${row("Non-res. adjacency",c.nonresS,c.dn===0?"inside":m(c.dn)+" to commercial/industrial")}${row("Flood",c.flood,c.floodTxt)}${row("Amenities",c.amen,`park ${m(c.dp)}, school ${m(c.ds)}`)}</table><i>${why(c)}</i>`;}
+function buildControls(){
+  const opts=[["composite","Composite"],...FACTORS.map(f=>[f.key,f.label])];
+  $("#layer-radios").innerHTML=opts.map(([k,l])=>`<div class="layer-row"><label><input type="radio" name="ly" value="${k}" ${k==="composite"?"checked":""}> ${l}</label></div>`).join("");
+  document.querySelectorAll('input[name="ly"]').forEach(r=>r.addEventListener("change",()=>{currentLayer=r.value;if(CUR&&ST[CUR])restyle(ST[CUR]);}));
+  $("#sliders").innerHTML=FACTORS.map((f,i)=>`<div class="slider"><label for="w${i}">${f.label}</label><input id="w${i}" type="range" min="0" max="50" value="${f.w}"><span id="wv${i}">${f.w}</span></div>`).join("");
+  FACTORS.forEach((f,i)=>{const el=$("#w"+i);el.addEventListener("input",()=>{f.w=+el.value;$("#wv"+i).textContent=f.w;});el.addEventListener("change",()=>{for(const k in ST)if(ST[k].ready)recompute(ST[k]);});});
+  $("#show-sales").addEventListener("change",e=>{const T=ST[CUR];if(!T||!T.salesLayer)return;e.target.checked?T.salesLayer.addTo(T.group):T.group.removeLayer(T.salesLayer);});
+  $("#show-flood").addEventListener("change",e=>{const T=ST[CUR];if(!T||!T.floodLayer)return;e.target.checked?T.floodLayer.addTo(T.group):T.group.removeLayer(T.floodLayer);});
+}
+function renderChecks(T){if(CUR!==T.key)return;const tbl=cs=>`<table><tr><th></th><th>Check</th><th>Result</th></tr>${cs.map(c=>`<tr><td class="${c[1]?"pass":"fail"}">${c[1]?"Pass":"Fail"}</td><td>${c[0]}${c[3]?' <span class="tag">critical</span>':""}</td><td>${c[2]}</td></tr>`).join("")}</table>`;
+  $("#checks").innerHTML=tbl(T.checks);$("#addr-checks").innerHTML=T.addrChecks.length?`<h2>Address: ${esc(T.addrLabel||"")}</h2>`+tbl(T.addrChecks):"";}
+function renderMarket(T){if(CUR!==T.key)return;const s=T.sales||[];if(!s.length){$("#market").innerHTML='<p class="sub">No sales located yet.</p>';return;}
+  const pr=s.map(x=>x.price).sort((a,b)=>a-b);const q=p=>pr[Math.min(pr.length-1,Math.floor(p*pr.length))];
+  $("#market").innerHTML=`<p>${s.length} recent single-family sales inside ${T.town.label}: median <b>${fmt$(q(.5))}</b>, middle half ${fmt$(q(.25))}–${fmt$(q(.75))}, range ${fmt$(pr[0])}–${fmt$(pr[pr.length-1])}.</p><p class="sub">${esc(T.town.salesSource)}. Not size-adjusted.</p>`;}
+function renderSources(town){$("#sources").innerHTML=`<table><tr><th>Source</th><th>Type</th><th>Used for</th></tr>
+ <tr><td>US Census TIGERweb</td><td>Government GIS</td><td>Official ${esc(town.label)} boundary (${esc(town.tiger.layer)}); OSM is the fallback</td></tr>
+ <tr><td>OpenStreetMap via Overpass</td><td>GIS (crowd-sourced)</td><td>Neighbor boundaries, roads, land use, parks, schools, streams, street geometry for address checks</td></tr>
+ <tr><td>US Census Geocoder; OSM Nominatim</td><td>Geocoders</td><td>Sale locations and address checks (two independent sources)</td></tr>
+ <tr><td>FEMA National Flood Hazard Layer</td><td>Government GIS</td><td>Flood factor</td></tr>
+ <tr><td>${esc(town.salesSource)}</td><td>Quantitative housing data</td><td>Housing value factor and market snapshot</td></tr>
+ <tr><td>This page's own analysis</td><td>Derived</td><td>All factor scores and the composite</td></tr></table>`;}
+
+/* ================= address check ================= */
+async function checkAddress(T,input){
+  const town=T.town;const mt=input.match(/^\s*(\d+[A-Za-z]?)\s+(.+?)\s*$/);
+  const out=$("#addr-report");
+  if(!mt){out.innerHTML='<p class="sub">Enter a house number followed by a street, e.g. "12 Oak Rd".</p>';return;}
+  const num=mt[1],street=expandStreet(mt[2]);const label=`${num} ${street}, ${town.city}`;
+  out.innerHTML=`<p class="sub">Checking ${esc(label)}…</p>`;
+  const AC=[];T.addrChecks=AC;T.addrLabel=label;
+  if(T.addrMarker){T.group.removeLayer(T.addrMarker);T.addrMarker=null;}T.addr=null;
+  const bx=T.bx,bb=`${bx[1]},${bx[0]},${bx[3]},${bx[2]}`;const sRe=reEsc(street);
+  let streetWays=[],osmAddr=null;
+  try{const d=await overpass(`[out:json][timeout:40];(way["highway"]["name"~"^${sRe}$",i](${bb});nwr["addr:housenumber"="${num}"]["addr:street"~"^${sRe}$",i](${bb}););out geom;`,null);
+    const fs=osmToFeatures(d);streetWays=fs.filter(f=>f.properties.highway&&f.geometry.type==="LineString"&&turf.booleanIntersects(f,turf.buffer(T.bnd,0.05,{units:"kilometers"})));osmAddr=fs.find(f=>f.properties["addr:housenumber"]===num);}catch(e){}
+  AC.push([`${esc(street)} exists in OSM in ${town.label}`,streetWays.length>0,streetWays.length+" way(s)",true]);
+  let g1=null,g2=null;try{g1=await nominatim(`${num} ${street}`,town);}catch(e){}try{g2=await censusGeocode(`${num} ${street}, ${town.city}, NJ ${town.zip}`);}catch(e){}
+  const cands=[];if(osmAddr){const c=turf.centroid(osmAddr).geometry.coordinates;cands.push({src:"OSM address-tagged feature",lat:c[1],lon:c[0]});}
+  if(g1)cands.push({src:"Nominatim ("+g1.type+")",lat:g1.lat,lon:g1.lon});if(g2)cands.push({src:"US Census geocoder ("+g2.matched+")",lat:g2.lat,lon:g2.lon});
+  const sp=prep(streetWays);
+  for(const c of cands){c.dS=streetWays.length?minLineDist([c.lon,c.lat],sp,2):Infinity;c.inT=turf.booleanPointInPolygon(turf.point([c.lon,c.lat]),T.bnd);
+    AC.push([`Candidate: ${esc(c.src)}`,c.dS<=0.07&&c.inT,`${c.lat.toFixed(5)}, ${c.lon.toFixed(5)}; ${m(c.dS)} from street centerline; ${c.inT?"inside":"OUTSIDE"} ${town.label}`,false]);}
+  if(!cands.length)AC.push(["Any geocoder returned a result",false,"No match from OSM, Nominatim or the Census geocoder",true]);
+  const good=cands.filter(c=>c.dS<=0.07&&c.inT);
+  if(good.length>=2){const d=turf.distance([good[0].lon,good[0].lat],[good[1].lon,good[1].lat]);AC.push(["Independent geocoders agree (≤120 m)",d<=0.12,`${m(d)} apart`,false]);}
+  const pick=good[0]||null;AC.push(["Address placed on its street inside the town",!!pick,pick?"Using "+esc(pick.src):"No geocode fell within 70 m of the street inside the boundary",true]);
+  if(pick&&town.prior&&input.replace(/\s+/g," ").toLowerCase()===town.prior.addr.toLowerCase()){const d=turf.distance([pick.lon,pick.lat],[town.prior.lon,town.prior.lat]);AC.push([`Previously suggested ${town.prior.lat}, ${town.prior.lon}`,d<=0.15,`${m(d)} from the verified location${d>0.15?" – the prior coordinates were off":""}`,false]);}
+  renderChecks(T);
+  if(!pick){out.innerHTML=`<div class="card"><b>${esc(label)}</b><p>Could not verify this address inside ${esc(town.full)}. See the Checks tab for what each geocoder returned. Nothing was placed on the map.</p></div>`;return;}
+  const P=[pick.lon,pick.lat];
+  T.addr={label,lat:pick.lat,lon:pick.lon,src:pick.src,ctx:[...town.contextSchools.map(re=>{const s=T.ctx.schools.find(x=>re.test(x.properties.name||""));return s?[s.properties.name,minLineDist(P,prep([s]),10)]:null;}).filter(Boolean),
+    ...town.contextStreets.map(nm=>{const w=T.ctx.streets.filter(f=>f.properties.name===nm);return[nm,w.length?minLineDist(P,prep(w),10):Infinity];})]};
+  T.addrMarker=L.marker([pick.lat,pick.lon],{pane:"top",icon:L.divIcon({className:"star-icon",html:"★",iconSize:[26,26],iconAnchor:[13,13]})}).bindTooltip("★ "+esc(`${num} ${street}`),{permanent:true,direction:"right",offset:[10,0]}).addTo(T.group);
+  addressReport(T);
+}
+function addressReport(T){if(CUR!==T.key||!T.addr||!T.cells)return;const A=T.addr;const pt=turf.point([A.lon,A.lat]);
+  let cell=T.cells.find(c=>turf.booleanPointInPolygon(pt,c.geom));if(!cell)cell=T.cells.slice().sort((a,b)=>turf.distance(pt,a.c)-turf.distance(pt,b.c))[0];
+  const res=T.cells.filter(c=>!c.nonres);const near=T.sales.map(s=>({...s,d:turf.distance(pt,[s.lon,s.lat])})).filter(s=>s.d<=0.8).sort((a,b)=>a.d-b.d);
+  const f=k=>Math.round(valOf(cell,k));const score=cell.nonres?null:cell.composite;const higher=score==null?null:Math.round(100*res.filter(c=>c.composite>score).length/res.length);
+  $("#addr-report").innerHTML=`<div class="card"><div>★ ${esc(A.label)}</div><div class="big">${score==null?"Cell not scored":Math.round(score)+"/100"}</div>
+  <div>${score==null?"The containing cell is mostly non-residential.":band(score)+" within "+esc(T.town.label)+"; about "+higher+"% of residential cells score higher."}</div>
+  <p class="sub">Location: ${A.lat.toFixed(5)}, ${A.lon.toFixed(5)} (${esc(A.src)}).</p></div>
+  <h2>Factor breakdown</h2><table>
+  <tr><td>Housing value</td><td><b>${f("value")}</b></td><td>${lvl(f("value"))}; ${cell.n800} sales within 800 m</td></tr>
+  <tr><td>Road exposure</td><td><b>${f("roads")}</b></td><td>${lvl(f("roads"))}; highway ${m(cell.d1)}, arterial ${m(cell.d2)}</td></tr>
+  <tr><td>Non-res. adjacency</td><td><b>${f("nonres")}</b></td><td>${lvl(f("nonres"))}; ${m(cell.dn)} to commercial/industrial</td></tr>
+  <tr><td>Flood</td><td><b>${f("flood")}</b></td><td>${cell.floodTxt}</td></tr>
+  <tr><td>Amenities</td><td><b>${f("amen")}</b></td><td>park ${m(cell.dp)}, school ${m(cell.ds)}</td></tr></table>
+  <p><i>${why(cell)}</i></p>
+  ${A.ctx.length?`<h2>Context</h2><p>${A.ctx.map(([n,d])=>`${esc(n)}: ${m(d)}`).join(". ")}.</p>`:""}
+  <h2>Nearby sales (≤800 m)</h2>${near.length?`<table>${near.map(s=>`<tr><td>${esc(s.addr)}</td><td>${fmt$(s.price)}</td><td>${m(s.d)}</td></tr>`).join("")}</table>`:"<p>None located within 800 m.</p>"}`;}
+
+/* ================= start ================= */
+if(location.protocol==="file:"){const w=document.createElement("p");w.className="sub";w.style.cssText="background:#fff4e5;border-left:4px solid #a0431f;padding:8px 10px;color:#1d2733";
+  w.innerHTML="Opened as a local file, so browsers send no origin/referrer and some data servers refuse requests. For reliable loading, serve it locally: in Terminal run <code>cd ~/Downloads && python3 -m http.server 8000</code>, then open <code>http://localhost:8000/nj-desirability-map.html</code>.";
+  $("#townnote").after(w);}
+const startKey=(location.hash||"").slice(1);
+(async()=>{await loadSnapshot();selectTown(TOWNS[startKey]?startKey:"colonia");})();
+</script>
+</body>
+</html>
