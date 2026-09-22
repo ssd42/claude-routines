@@ -85,7 +85,7 @@ import sys
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 LISTINGS_CSV = os.path.join(BASE, "listings.csv")
-ZIPS_FILE = os.path.join(BASE, "zips.json")
+ZIPS_FILE = os.path.join(BASE, "config", "zips.json")
 
 sys.path.insert(0, BASE)
 from aggregate import address_key, today  # noqa: E402  (same-folder reuse)

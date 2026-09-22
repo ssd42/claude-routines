@@ -116,8 +116,8 @@ first, then you re-run section A.
 
 | File | Add | If you skip it |
 |---|---|---|
-| `zips.json` | name, county, its zip(s), rough miles from Westfield | Nothing else sees the town at all |
-| `nj_municipalities.json` | its county + municipality name | No deed sales — the biggest source of history |
+| `config/zips.json` | name, county, its zip(s), rough miles from Westfield | Nothing else sees the town at all |
+| `config/nj_municipalities.json` | its county + municipality name | No deed sales — the biggest source of history |
 | `layers/geo/zip_centroids.json` | the new zip's centre point | No shop/commute distances, and it can't borrow comps from neighbours |
 
 ### 2. Re-run the per-town layers (they cover *our* towns, not all of NJ)

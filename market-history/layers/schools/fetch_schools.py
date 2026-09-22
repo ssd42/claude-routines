@@ -211,7 +211,7 @@ def town_counties():
             for v in o:
                 walk(v)
 
-    walk(json.load(open(os.path.join(root, "zips.json"))))
+    walk(json.load(open(os.path.join(root, "config", "zips.json"))))
     return out
 
 

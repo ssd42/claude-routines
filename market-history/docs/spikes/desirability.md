@@ -176,6 +176,24 @@ interpolation as no coordinate at all.
 `build_share.py` joins layers in at share time. `aggregate.py` never learns this
 exists.
 
+## The one thing that would make it instantly better
+
+**Put our own shortlist on it.**
+
+Today you type one address and get the score for the hexagon it falls in. That's
+backwards — we already have a list of real houses we care about. Pin them all on the
+map at once, each with its score and factor breakdown, and the page stops being "a
+pretty gradient of a town" and starts answering *how does this house's location
+compare to everything around it.*
+
+One address at a time is a lookup. The shortlist on one map, ranked, is a decision
+tool — and it's the cheapest item in this whole note, because the address-check code
+already works. It needs a list of addresses to read and a loop.
+
+Worth noting what it would *not* have told us: 404 Elm's big risk is the rail line at
+~780 ft, and the page scores roads but **not rail**. If we build this, rail belongs in
+the road-exposure factor.
+
 ## One upgrade only our data makes possible
 
 Because the value factor isn't size-adjusted, it partly measures how big the houses
@@ -190,8 +208,19 @@ Colors should keep coming from **sold** prices only. An asking price is a hope, 
 fact; letting it move the map makes an overpriced street look good. For sale is a
 layer you switch on to see what's available.
 
+## Scope: stay at three towns
+
+Decided 2026-09-22 — keep Colonia, Springfield and Wayne for now. Small scope while
+the shape of this is still moving; widening it later is cheap once the page reads our
+data, and there's no point paying for 63 towns' worth of coordinates to answer a
+question we haven't settled yet.
+
+The consequence to remember: Cranford isn't in it, so the houses we're actually
+looking at right now mostly aren't either.
+
 ## Open question
 
 Cross-town comparison is currently refused — each town is ranked only against itself.
 With our data it needn't be. That would make `map.html` "pick the town" and this page
-"pick the street," which is a cleaner split than we have now.
+"pick the street," which is a cleaner split than we have now. Parked while the scope
+stays at three towns.

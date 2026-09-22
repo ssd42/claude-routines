@@ -93,7 +93,7 @@ today it moves all the way.
 
 * **House sq ft — big and NOT fixable this way.** **1,710 of 2,494 houses (69%)**
   publish no size, and the cadastral endpoint has **no living-area field at all** (46
-  fields, none is sqft — see [`../DEFECTS.md`](../DEFECTS.md) #5). It needs the MOD-IV
+  fields, none is sqft — see [`DEFECTS.md`](DEFECTS.md) #5). It needs the MOD-IV
   **assessment** file, which is followup #1 above. Same root cause as the analyser's
   single-sourced `sqft`.
 

@@ -2,7 +2,7 @@
 // Loaded by market.html, sold.html and backtest.html AFTER data.js. Plain globals, no
 // module: these pages open from file://, which blocks ES modules.
 //
-// See SPIKE-saved-searches.md for the reasoning. The short version:
+// See ../docs/spikes/saved-searches.md for the reasoning. The short version:
 //
 //   * The presets are STATIC and hand-edited, right here in this file. There is no
 //     "save as group" button, no naming dialog, no delete. Editing a file to change a

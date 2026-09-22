@@ -36,7 +36,7 @@ Worth separating the readings, because they're different features with different
 | reading | what it is | verdict |
 |---|---|---|
 | **Static town presets** | a handful of named town lists, defined in code | **v1. This.** |
-| **User-created groups** | save / name / edit your own from the UI | **phase 2**, lands with [`SPIKE-persistence.md`](SPIKE-persistence.md) |
+| **User-created groups** | save / name / edit your own from the UI | **phase 2**, lands with [`persistence.md`](persistence.md) |
 | **Full saved searches** | towns *plus* price cap, beds, baths, sort, status | not planned — see below |
 
 The original sentence said "saved searches" but every concrete word after it was about
@@ -82,7 +82,7 @@ Two options for v1:
 *opinion about where to look*, not an output of the sale data, and they belong in a file
 that says so. `build_data.py`'s job is turning `sales.csv` into facts; a shortlist isn't
 one. (This is the same instinct as the two-grains rule in
-[`../CLAUDE.md`](../CLAUDE.md): a thing that describes a *place* doesn't get fused into
+[`../../CLAUDE.md`](../../CLAUDE.md): a thing that describes a *place* doesn't get fused into
 the machinery that describes *sales*.)
 
 **"He edits a file to change them" is fine, and shouldn't be apologised for.** He already
@@ -99,7 +99,7 @@ exchange for saving an edit that takes fifteen seconds. Ship the file.
 
 That dissolves the tension the first draft agonised over. `localStorage` groups would
 have been per-device — the exact problem
-[`SPIKE-persistence.md`](SPIKE-persistence.md) exists to fix — so they'd have been stuck
+[`persistence.md`](persistence.md) exists to fix — so they'd have been stuck
 behind sync, or shipped knowingly broken on the phone. **Static presets have no such
 dependency: they are cross-device on day one, with no infrastructure at all.** That is a
 positive reason to ship presets first, not a compromise while we wait for something
@@ -231,7 +231,7 @@ stronger than it was — the *data* now lives in the shared file too, and a hand
 list duplicated three times is a list that will be wrong in two of them.
 
 ⚠️ **It must be a plain `<script>` assigning a global, not an ES module.** `file://`
-blocks module imports (see [`SPIKE.md`](SPIKE.md) §7) — the same constraint that made
+blocks module imports (see [`offer.md`](offer.md) §7) — the same constraint that made
 `data.js` a global instead of a fetch.
 
 **Bonus worth taking while in there:** give `backtest.html` the `localStorage` save /
@@ -247,7 +247,7 @@ Most of what a "what I'd cut from v1" section would have listed is now cut by de
 What remains, and what it's waiting on:
 
 - **Creating, renaming and deleting presets from the UI** — lands with
-  [`SPIKE-persistence.md`](SPIKE-persistence.md), which gives them somewhere to live that
+  [`persistence.md`](persistence.md), which gives them somewhere to live that
   isn't one device. The v1 shape (§1) already accommodates them.
 - **Filter state inside a preset** (price cap, beds, sort) — see §1. The `filters` key is
   reserved and unused.
@@ -321,7 +321,7 @@ distance, sale price, train minutes — and anyone can check the membership. A s
 an opinion, and that is completely fine **as his own preset in his own file.** What it
 must not do is dress up as data: don't name it "the good ones", and don't derive it from
 `tier` in `tierlist/tiers.json`, which is a hand-assigned grade, not a measurement. Same
-reason [`../layers/README.md`](../layers/README.md) keeps amenity layers as colour and
+reason [`../../layers/README.md`](../../layers/README.md) keeps amenity layers as colour and
 never as filters — a shipped preset encoding our opinion of a town would quietly become a
 filter over a judgement.
 

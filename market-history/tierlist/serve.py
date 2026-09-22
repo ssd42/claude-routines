@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local tier-list editor for the market-history target towns.
 
-Serves tierlist.html, feeds it the towns from ../zips.json, and writes every
+Serves tierlist.html, feeds it the towns from ../config/zips.json, and writes every
 change straight back to tiers.json — that file is the deliverable.
 
     python3 serve.py            # -> http://127.0.0.1:8777
@@ -20,7 +20,7 @@ import threading
 import webbrowser
 
 HERE = pathlib.Path(__file__).resolve().parent
-ZIPS = HERE.parent / "zips.json"
+ZIPS = HERE.parent / "config" / "zips.json"
 # Proposed-but-not-adopted towns. They are deliberately NOT in zips.json, because that file
 # is the scrape config -- a town listed there gets hydrated on the next run. Candidates are
 # merged into the editor's town list so they can be TIERED, while staying invisible to the
@@ -100,7 +100,7 @@ def write_tiers(tiers):
         "_doc": (
             "Hand-ranked tiers for the market-history target towns. Authored in "
             "tierlist/tierlist.html (python3 serve.py); rewritten in full on every "
-            "edit. Town names match ../zips.json. Order within a tier is meaningful "
+            "edit. Town names match ../config/zips.json. Order within a tier is meaningful "
             "— best first. Opinion, not data: nothing in aggregate.py reads this."
         ),
         "_unknown_rule": (
@@ -110,7 +110,7 @@ def write_tiers(tiers):
         ),
         "updated": stamp(),
         "source": (
-            f"../zips.json — {ranked} ranked, {len(ordered['unknown'])} unknown, "
+            f"../config/zips.json — {ranked} ranked, {len(ordered['unknown'])} unknown, "
             f"{len(ordered['unranked'])} unsorted"
         ),
         "tiers": ordered,

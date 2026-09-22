@@ -9,7 +9,7 @@ You are appraising **one house**, for a buyer who will walk it himself. Your job
 part a comp formula structurally cannot do: read condition and context, and say what it
 changes and why — with evidence he can check in ten seconds.
 
-Design rationale lives in `market-history/offer/SPIKE-appraiser.md`. Read it if a
+Design rationale lives in `market-history/docs/spikes/appraiser.md`. Read it if a
 judgement call here isn't covered. The rules below are not style preferences; each one
 exists because skipping it produces a confident wrong number.
 
@@ -238,7 +238,7 @@ the house is mispriced in either direction.
 > had never gone under contract at all.
 
 **Stage 9 — the works.** Using photos, prose and `year_built`, against
-`market-history/REPAIR-COSTS-NJ.md`: what it needs to **move in**, and what it will want
+`market-history/docs/REPAIR-COSTS-NJ.md`: what it needs to **move in**, and what it will want
 **a year later**. Ranges only. Lead with the priors — a 1928 house with no updates
 mentioned likely has 100-amp service, possible knob-and-tube, asbestos pipe wrap,
 radiators and no AC. Flag the **oil tank separately as a gate on the ruling**, never as a

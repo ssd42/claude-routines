@@ -744,7 +744,7 @@ def main():
         for k, towns in json.load(open(TIERS))["tiers"].items():
             for t in towns:
                 tier_of[t] = k
-    zips_doc = json.load(open(os.path.join(ROOT, "zips.json")))
+    zips_doc = json.load(open(os.path.join(ROOT, "config", "zips.json")))
 
     comps = build_comps(sales)
 

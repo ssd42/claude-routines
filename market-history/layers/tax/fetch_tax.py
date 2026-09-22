@@ -46,7 +46,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir, os.pardir)
-ZIPS = os.path.join(ROOT, "zips.json")
+ZIPS = os.path.join(ROOT, "config", "zips.json")
 OUT = os.path.join(HERE, "tax_by_town.csv")
 
 TAX_YEAR = 25   # DCA file year (2025 tables); bump when a newer year is published

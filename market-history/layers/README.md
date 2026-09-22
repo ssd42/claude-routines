@@ -28,7 +28,7 @@ own; it exists so other layers can measure distance.
 
 ## The contract
 
-1. **Keyed on `town`** (or on `zip`, which `../zips.json` maps to a town). That key
+1. **Keyed on `town`** (or on `zip`, which `../config/zips.json` maps to a town). That key
    is what lets a layer join to `by_town.csv` without being welded to it.
 2. **Ships as its OWN file in `share/`.** Never as extra columns on a sales file.
    A town attribute is not a property attribute — fusing them means the two can no

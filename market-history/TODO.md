@@ -234,7 +234,7 @@ Options worth weighing (a spike, not a decision):
 - **A per-device token in `localStorage` writing to a private gist** — token never enters
   the repo. Pragmatic middle ground; think through the failure and leak modes.
 
-**Spiked, and decided:** [`offer/SPIKE-persistence.md`](offer/SPIKE-persistence.md) — a
+**Spiked, and decided:** [`docs/spikes/persistence.md`](docs/spikes/persistence.md) — a
 Cloudflare Worker + Workers KV under a random unguessable id kept in the browser, plus
 export/import a JSON file so nothing is trapped. No login. Answers the open questions below.
 
@@ -272,7 +272,7 @@ $80k of work against a $760k one that's done.
 *"charming original details"* often means an untouched 1940s kitchen; *"newer roof"* is a claim
 with no date; *"freshly painted"* sometimes hides more than it says. Rules and regex can't weigh
 that. Claude can — and can say *which phrase* it inferred from, which is what makes the answer
-checkable. It reads two things: the listing, and [`REPAIR-COSTS-NJ.md`](REPAIR-COSTS-NJ.md).
+checkable. It reads two things: the listing, and [`docs/REPAIR-COSTS-NJ.md`](docs/REPAIR-COSTS-NJ.md).
 
 **How it would work.** A scheduled run reads the favourites, and for each one hands Claude the
 listing (description text, year built, heating/AC type, beds/baths/sqft, lot) plus the cost doc,
@@ -377,7 +377,7 @@ about losing to the asking price included.
 
 
 
-- **NJ repair-cost reference** — written: [`REPAIR-COSTS-NJ.md`](REPAIR-COSTS-NJ.md). What common
+- **NJ repair-cost reference** — written: [`docs/REPAIR-COSTS-NJ.md`](docs/REPAIR-COSTS-NJ.md). What common
   work costs in Union/Essex/Morris/Somerset/Middlesex, with 45 sources and lead-gen marketing
   numbers labelled as such. Covers the asks (central AC, modernising a kitchen, roof) plus the
   NJ-specific ones that decide deals — buried oil tank, radon, asbestos, the 100→200A panel,

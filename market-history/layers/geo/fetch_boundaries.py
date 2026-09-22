@@ -29,8 +29,8 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir, os.pardir)
-ZIPS = os.path.join(ROOT, "zips.json")
-MUNI = os.path.join(ROOT, "nj_municipalities.json")
+ZIPS = os.path.join(ROOT, "config", "zips.json")
+MUNI = os.path.join(ROOT, "config", "nj_municipalities.json")
 OUT = os.path.join(HERE, "town_boundaries.geojson")
 
 BASE = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/tigerWMS_Current/MapServer"

@@ -38,7 +38,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir, os.pardir)
-ZIPS = os.path.join(ROOT, "zips.json")
+ZIPS = os.path.join(ROOT, "config", "zips.json")
 OUT = os.path.join(HERE, "appreciation_by_town.csv")
 
 ZHVI_RAW = os.path.join(HERE, "zhvi_zip.csv")       # gitignored (~120 MB)

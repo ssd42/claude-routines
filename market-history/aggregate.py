@@ -37,7 +37,7 @@ USAGE
   python3 aggregate.py --source redfin_dc    # one source
   python3 aggregate.py --zip 07076 07067     # limit to zips (default: all in zips.json)
   python3 aggregate.py --since 2023-07       # earliest month to keep (default: 3y ago)
-  python3 aggregate.py --fixture             # use fixtures/ instead of the network (offline demo)
+  python3 aggregate.py --fixture             # use tests/fixtures/ instead of the network (offline demo)
   python3 aggregate.py --no-history          # don't snapshot CSVs into history/
 
   Redfin's national TSV is large; --zip narrows the FILTER, not the download.
@@ -59,11 +59,11 @@ from collections import Counter, defaultdict
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 RAW_DIR = os.path.join(BASE_DIR, "raw")
 HIST_DIR = os.path.join(BASE_DIR, "history")
-FIX_DIR = os.path.join(BASE_DIR, "fixtures")
+FIX_DIR = os.path.join(BASE_DIR, "tests", "fixtures")
 
 # config — what to scrape
-ZIPS_FILE = os.path.join(BASE_DIR, "zips.json")
-SOURCES_FILE = os.path.join(BASE_DIR, "sources.json")
+ZIPS_FILE = os.path.join(BASE_DIR, "config", "zips.json")
+SOURCES_FILE = os.path.join(BASE_DIR, "config", "sources.json")
 
 # the dataset — sale-grain output
 MARKET_CSV = os.path.join(BASE_DIR, "market.csv")
@@ -383,7 +383,7 @@ def fetch_redfin_dc(zips, since, fixture=False, limit=None):
 #    year_built, garage, solar, ac_type, property_type, _source, _fetched}     #
 # Missing fields -> None (best-effort/nullable). Don't invent values.          #
 # --------------------------------------------------------------------------- #
-NJ_MUN_FILE = os.path.join(BASE_DIR, "nj_municipalities.json")
+NJ_MUN_FILE = os.path.join(BASE_DIR, "config", "nj_municipalities.json")
 
 # NJ MOD-IV property-class -> our property_type label (best-effort).
 NJ_CLASS = {
@@ -638,7 +638,7 @@ def _clean_list_dates(raw):
     When their backend bulk-refreshes a batch of sold records, every property in the
     batch is stamped with the refresh time — `2024-08-04 14:51:57`, identical to the
     SECOND across dozens of unrelated houses in different towns. Taken at face value
-    it produced 1,862 corrupt rows (8.2% of list-dated rows). See ../DEFECTS.md.
+    it produced 1,862 corrupt rows (8.2% of list-dated rows). See docs/DEFECTS.md.
 
     Two tells:
       1. list_date > sold_date          — impossible; definitive.
@@ -1112,7 +1112,7 @@ def main():
     ap.add_argument("--source", nargs="*", help="sources to run (default: all LIVE)")
     ap.add_argument("--zip", nargs="*", dest="zips", help="limit to these zips")
     ap.add_argument("--since", default=default_since(), help="earliest YYYY-MM to keep")
-    ap.add_argument("--fixture", action="store_true", help="use fixtures/, no network")
+    ap.add_argument("--fixture", action="store_true", help="use tests/fixtures/, no network")
     ap.add_argument("--limit", type=int, help="cap rows per source (debug)")
     ap.add_argument("--min-price", type=int, help="drop nj_records sales below this (default 10000)")
     ap.add_argument("--no-history", action="store_true", help="skip history/ snapshot")

@@ -4,7 +4,7 @@
     python3 layers/income/fetch_income.py            # fill in any missing zips
     python3 layers/income/fetch_income.py --all      # refresh every zip
 
-Fills gaps in layers/income/income.csv -- one row per (town, zip) in ../../zips.json.
+Fills gaps in layers/income/income.csv -- one row per (town, zip) in ../../config/zips.json.
 ADDITIVE by default: existing rows are left exactly as they are, because several carry
 hand-written `note` text explaining a quirk, and a blind rewrite would lose it.
 
@@ -34,7 +34,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir, os.pardir)
-ZIPS = os.path.join(ROOT, "zips.json")
+ZIPS = os.path.join(ROOT, "config", "zips.json")
 OUT = os.path.join(HERE, "income.csv")
 RAW = os.path.join(HERE, "acsdt5y2024-b19013.dat")   # gitignored transient source (~18 MB)
 

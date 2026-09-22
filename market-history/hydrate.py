@@ -134,7 +134,7 @@ def zips():
             for v in o:
                 walk(v)
 
-    walk(json.load(open(os.path.join(HERE, "zips.json"))))
+    walk(json.load(open(os.path.join(HERE, "config", "zips.json"))))
     return sorted(set(out))
 
 

@@ -26,7 +26,7 @@ SHARE = HERE / "share"
 SALES = HERE / "sales.csv"
 
 # config: which towns/zips we target
-ZIPS = HERE / "zips.json"
+ZIPS = HERE / "config" / "zips.json"
 
 # town-grain amenity layers — one folder each under layers/, all keyed on `town`.
 # They describe a TOWN, never a sale, and each ships as its own file in share/.

@@ -33,7 +33,7 @@ import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ZIPS_FILE = os.path.join(HERE, "zips.json")
+ZIPS_FILE = os.path.join(HERE, "config", "zips.json")
 
 
 class Unknown(ValueError):

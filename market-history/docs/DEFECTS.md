@@ -232,7 +232,7 @@ Add the MOD-IV tax file as a **fourth source** in `sources.json`, joined on `PAM
 (already present on every deed row). That gives an independent `sqft` on most of the
 ~39% of rows with a deed record — which makes `conflicts` meaningful on `sqft`, grows
 the 18% comp universe, and gives `offer/` a real second opinion instead of a
-disclaimer. See [`offer/FOLLOWUPS.md`](offer/FOLLOWUPS.md) #1.
+disclaimer. See [`followups-offer.md`](followups-offer.md) #1.
 
 **How we'd know it worked:** a new check, `sqft_disagrees` (|MLS − tax| > 5%), goes
 from *unmeasurable* to a real number. Today it cannot even be computed.

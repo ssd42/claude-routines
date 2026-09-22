@@ -15,7 +15,7 @@ Two denominators, and mixing them up is the easiest way to be wrong:
     deed records have no asking price). Rows outside +/-50% sold-vs-ask are junk
     placeholder list prices and are dropped.
   * listing-lag figures (`n_lag`) -> only sales carrying a TRUSTWORTHY list date.
-    `list_date` is corrupt on ~1,862 rows (see ../DEFECTS.md) and those are
+    `list_date` is corrupt on ~1,862 rows (see ../docs/DEFECTS.md) and those are
     excluded by default.
 `sales_all` is the full bucket count including deed-only rows. Never use it as a
 denominator for either.
@@ -30,7 +30,7 @@ from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SHARE = os.path.join(HERE, os.pardir, "share", "sales.csv")
-ZIPS = os.path.join(HERE, os.pardir, "zips.json")
+ZIPS = os.path.join(HERE, os.pardir, "config", "zips.json")
 
 OUTLIER_PCT = 50.0   # beyond this the list price was a placeholder, not an ask
 THIN = 10            # below this a bucket is too thin to read as signal
@@ -69,7 +69,7 @@ def day(v):
 def bogus_list_dates(rows):
     """list_date values that are scrape batch artifacts, not real dates. A date
     qualifies when >=20 rows carry it and most of them SOLD BEFORE IT — impossible
-    for a real listing. See ../DEFECTS.md #1 and #2."""
+    for a real listing. See ../docs/DEFECTS.md #1 and #2."""
     total, impossible = Counter(), Counter()
     for r in rows:
         ld, sd = day(r["list_date"]), day(r["sold_date"])

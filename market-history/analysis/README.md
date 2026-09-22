@@ -52,7 +52,7 @@ will we actually have to bid, and when do we need to be shopping?*
 
 Deed records carry no asking price, so they can't answer an ask question. And
 `list_date` is corrupt on ~1,862 rows — **excluded by default** (see
-[`../DEFECTS.md`](../DEFECTS.md)); `--keep-defects` turns that off, which you
+[`../docs/DEFECTS.md`](../docs/DEFECTS.md)); `--keep-defects` turns that off, which you
 shouldn't want.
 
 ### Columns

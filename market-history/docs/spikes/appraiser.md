@@ -189,7 +189,7 @@ can compute **this house** to **that station / that four-lane road / that flood
 polygon** for the first time. `layers/geo/` and `layers/flood/` are already here.
 
 ⚠️ **But it stays a flag, never a price adjustment** — for the reason
-`SPIKE-market.md` §6a already worked out: our **sold** rows carry no coordinates
+`market.md` §6a already worked out: our **sold** rows carry no coordinates
 (`sales.csv` has no `lat`/`lon` at all), so we cannot measure what a track-adjacent
 house sells for. We can say *"80m from the NEC"*; we cannot say *"−$40k for it."*
 The reconciler may widen its range downward on that evidence and must label it a
@@ -573,7 +573,7 @@ budget is ever wanted on its own.
 
 ## 12. Where it runs, and what it writes
 
-**Not a button on a page.** `SPIKE-market.md` §2 settled this and it hasn't changed: the
+**Not a button on a page.** `market.md` §2 settled this and it hasn't changed: the
 pages are static, on a **public** repo, served from `file://` or GitHub Pages, with no
 server and no secret. They cannot call a model. No amount of wanting changes it.
 

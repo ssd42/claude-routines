@@ -44,7 +44,7 @@ MOD-IV for **all** NJ counties, so a single integration covers everything. It is
 queried **per municipality**, because the data taught us:
 - **Zip is unreliable** — the `ZIP5` field is dirty (a `ZIP5=07076` query returned
   Essex County rows). MOD-IV is keyed by `COUNTY + MUN_NAME`, so
-  [`nj_municipalities.json`](nj_municipalities.json) maps each town → exact
+  [`config/nj_municipalities.json`](config/nj_municipalities.json) maps each town → exact
   municipality string(s).
 - **Some towns are sections of a bigger municipality** — Colonia→Woodbridge,
   Basking Ridge→Bernards, Towaco→Montville. Marked `section_of`; the pull is
@@ -109,7 +109,7 @@ It **cannot run in the cloud** (Realtor.com 403s datacenter IPs — same constra
 `listing_scrape`). It needs a weekly *local* trigger:
 
 ```bash
-cp schedule/com.claude-routines.market-history-listings.plist ~/Library/LaunchAgents/
+cp config/schedule/com.claude-routines.market-history-listings.plist ~/Library/LaunchAgents/
 launchctl load ~/Library/LaunchAgents/com.claude-routines.market-history-listings.plist
 launchctl list | grep market-history      # confirm it registered
 ```
@@ -139,7 +139,7 @@ The layers are **complementary** (different columns), so the merge uses
 python3 aggregate.py                       # all LIVE sources → merge → CSVs (real network)
 python3 aggregate.py --source nj_records   # deed sales only (~1 min, all 36 municipalities)
 python3 aggregate.py --source redfin_dc    # trends only (large national download)
-python3 aggregate.py --fixture             # offline demo from fixtures/ (what the spike was verified with)
+python3 aggregate.py --fixture             # offline demo from tests/fixtures/ (what the spike was verified with)
 python3 aggregate.py --zip 07076 07067     # limit to towns owning these zips
 python3 aggregate.py --since 2023-07       # earliest month to keep (default: 3 years ago)
 python3 aggregate.py --min-price 25000     # raise the nominal-deed floor for nj_records

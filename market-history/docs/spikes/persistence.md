@@ -163,7 +163,7 @@ That is not laziness, it's the design:
 - **A Worker URL is a plain HTTP GET.** That means `aggregate.py` (or a future
   scheduled routine) can read the favourites with `urllib.request` and nothing else —
   no SDK, no auth dance, no service account. **This is what unlocks the
-  "estimate what a favourited house will need" card in [`../TODO.md`](../TODO.md):**
+  "estimate what a favourited house will need" card in [`../../TODO.md`](../../TODO.md):**
   a scheduled run fetches the blob, reads the favourites, and does the work in
   Python where all the other analysis already lives.
 - **That's a concrete advantage over Firebase**, and worth stating: reading Firestore
@@ -229,7 +229,7 @@ price, address, town, beds/baths, sqft, lot, photo URL, listing URL, and the dat
 starred it. Do not store a pointer and look it up later.
 
 Why: **listings are perishable** — the whole §3 argument of
-[`SPIKE-market.md`](SPIKE-market.md). A house delists, the row vanishes from
+[`market.md`](market.md). A house delists, the row vanishes from
 `listings.js`, and a pointer-based favourite becomes a note attached to nothing. Your
 "loved the kitchen, hated the street" has to still make sense in November.
 
@@ -326,7 +326,7 @@ and build-free**, which is the property we refused to trade in §2.
   syncing filters across devices means your phone's view lurches when the laptop
   changes something. **Favourites and notes only.** (Town *groups* are a different
   question and get their own document —
-  [`SPIKE-saved-searches.md`](SPIKE-saved-searches.md) §2.)
+  [`saved-searches.md`](saved-searches.md) §2.)
 - **No version history / undo UI.** The `<id>:prev` key (§3) is a recovery mechanism
   we can read manually if something goes wrong. That's enough.
 

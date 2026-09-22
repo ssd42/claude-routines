@@ -36,7 +36,7 @@ import urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir)
-MUNIS = os.path.join(ROOT, "nj_municipalities.json")
+MUNIS = os.path.join(ROOT, "config", "nj_municipalities.json")
 
 ENDPOINT = ("https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral"
             "/MapServer/0/query")

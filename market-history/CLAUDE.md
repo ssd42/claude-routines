@@ -90,7 +90,7 @@ describes a sale it goes in the scrape. Read [`layers/README.md`](layers/README.
 — it holds the contract (keyed on `town`; ships as its own file in `share/`; never
 merged into a sales file; never a filter).
 
-Top-level `zips.json` / `nj_municipalities.json` / `sources.json` are **config**
+`config/` (`zips.json` / `nj_municipalities.json` / `sources.json`) is **config**
 (what to scrape), not data — that's why they stay out of `layers/`.
 
 ### Layers refresh on their OWN cadence — a sales rehydrate does NOT recompute them

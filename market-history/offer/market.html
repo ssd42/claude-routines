@@ -496,7 +496,7 @@ $("presets").addEventListener("click", e => {
   // lands on that text has the <i> as its target and carries no data-preset.
   const p = presetById(e.target.closest("button[data-preset]")?.dataset.preset || "");
   if (!p) return;
-  // Clicking a chip REPLACES the selection -- see SPIKE-saved-searches.md §3.
+  // Clicking a chip REPLACES the selection -- see ../docs/spikes/saved-searches.md §3.
   const r = applyPreset(p, new Set(towns().map(x => x.t)));
   picked = r.picked;
   presetNote = r.missing.length

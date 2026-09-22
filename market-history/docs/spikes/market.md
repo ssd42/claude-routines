@@ -47,7 +47,7 @@ Clark's live market: **57 listings, $389,900 – $1,750,000, median $785,000.**
 
 **A `file://` page cannot make network requests.** It can't call Realtor.com, and it
 can't even `fetch()` a local CSV (that's why `data.js` is a `<script>` global — see
-`SPIKE.md` §7). And `listing_scrape` **403s datacenter IPs — it is local-only**
+`offer.md` §7). And `listing_scrape` **403s datacenter IPs — it is local-only**
 (`CLAUDE.md`), so this can never be a cloud routine either.
 
 So **the button cannot go and get listings.** What it can do is filter a snapshot
@@ -176,7 +176,7 @@ actually sold for*, seasonally adjusted, from 38,025 real sales.
 ## 6. Two things the probe turned up that change what's possible
 
 **a) `latitude`/`longitude` are on 100% of listings.** Our **sold** rows have no
-coordinates at all — that's the blocker behind [`FOLLOWUPS.md`](FOLLOWUPS.md) #3b
+coordinates at all — that's the blocker behind [`../followups-offer.md`](../followups-offer.md) #3b
 (rail proximity, e.g. the line behind 63 Lyons) and #4 (flood). For *listings* that
 blocker is simply gone: we could compute distance-to-rail and flood-zone per house on
 day one. **Caveat: we could show it, but not price it** — the comp side still can't

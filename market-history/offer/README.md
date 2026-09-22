@@ -6,7 +6,7 @@ an asking price in that town and month** — with a slider to move the closing m
 watch the number change.
 
 **It is not a valuation.** It reports two measured things and never pretends to a third.
-Read [`SPIKE.md`](SPIKE.md) for why the design is shaped the way it is; the short version
+Read [`../docs/spikes/offer.md`](../docs/spikes/offer.md) for why the design is shaped the way it is; the short version
 is below.
 
 ## Run
@@ -51,7 +51,7 @@ seasonal factor pools every house type, and each rests on 15–30 real sales ins
 - **Level and shape come from different samples, deliberately.** Only 79% of sales report a
   contract date and that subset is biased hot (+4.76% vs +2.45% over ask). So the *level* is
   anchored on all of a town's sales and only the month-to-month *shape* comes from the
-  contract subset. See [FOLLOWUPS.md](FOLLOWUPS.md) #1b — the per-town shape is still noisy
+  contract subset. See [../docs/followups-offer.md](../docs/followups-offer.md) #1b — the per-town shape is still noisy
   where coverage is thin.
 - **Seabra distance and commute times are colour, never inputs.** They don't move the
   offer or rank the town.
