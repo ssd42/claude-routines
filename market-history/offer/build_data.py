@@ -25,6 +25,25 @@ from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, os.pardir)
+
+
+def data_asof():
+    """The date the WHOLE dataset was last refreshed — what the pages show as their
+    last-updated stamp.
+
+    NOT today. `generated` (today) is when these files were built, and the two are only
+    the same after a full hydrate. A scoped `hydrate.py --town X` refreshes a few zips and
+    then rebuilds every derived file, so stamping today would advertise the other ~70
+    towns as current when their newest sale is weeks old. That is the exact failure this
+    routine keeps re-learning: a fresh date printed on stale data reads as fresh and is
+    not. `hydrate.py` writes state/data_asof.json on a FULL run only; a partial one leaves
+    it at the previous full run's date, so the stamp stands still until the whole set moves
+    again. Missing file -> today, for a first build."""
+    try:
+        with open(os.path.join(ROOT, "state", "data_asof.json")) as fh:
+            return json.load(fh)["full_hydrate"]
+    except (OSError, KeyError, ValueError):
+        return date.today().isoformat()
 SHARE = os.path.join(ROOT, "share")
 ANALYSIS = os.path.join(ROOT, "analysis")
 LISTINGS = os.path.join(ROOT, "listings.csv")
@@ -632,7 +651,8 @@ def bake_map(towns):
         appr_asof = next((r.get("asof") for r in read(appr_csv)), None) if os.path.exists(appr_csv) else None
         fh.write("window.MAP = ")
         json.dump({"boundaries": boundaries, "metrics": metrics, "points": pts,
-                   "generated": date.today().isoformat(), "apprAsof": appr_asof}, fh, separators=(",", ":"))
+                   "generated": date.today().isoformat(), "dataAsof": data_asof(),
+                   "apprAsof": appr_asof}, fh, separators=(",", ":"))
         fh.write(";\n")
     print(f"map.js  {os.path.getsize(path)/1024:.0f} KB")
     print(f"  {len(boundaries['features'])} polygons, {len(metrics)} town metrics, {len(pts)} listing points")
@@ -682,7 +702,7 @@ def bake_sold():
         fh.write("//  property_type, list_price, sold_vs_ask_pct]\n")
         fh.write("window.SOLD = ")
         json.dump({"window": [min(window), max(window)], "generated": date.today().isoformat(),
-                   "rows": rows}, fh, separators=(",", ":"))
+                   "dataAsof": data_asof(), "rows": rows}, fh, separators=(",", ":"))
         fh.write(";\n")
     kb = os.path.getsize(path) / 1024
     withask = sum(1 for r in rows if r[11] is not None)
@@ -934,7 +954,8 @@ def main():
         # sets OFFER_DEPLOY=1; a local build leaves it unset and the link appears.
         "deployed": bool(os.environ.get("OFFER_DEPLOY")),
         "family": FAMILY,          # listing property_type -> comp family
-        "generated": date.today().isoformat(),
+        "generated": date.today().isoformat(),   # when these files were BUILT
+        "dataAsof": data_asof(),                 # when the WHOLE dataset last moved
         "snapshot": snap,
         "window": [sold[0], sold[-1]],
         "totalSales": len(sales),

@@ -3,6 +3,7 @@
 
     python3 listings.py                 # one observation run; appends to listings.csv
     python3 listings.py --zip 07090     # limit to zips
+    python3 listings.py --town Cranford Garwood    # ...or name towns instead
     python3 listings.py --dry-run       # scrape + report, write nothing
 
 WHY THIS EXISTS
@@ -24,6 +25,22 @@ history. The only way to know a house left the market is TO HAVE BEEN WATCHING. 
 watch: each run records what is currently for sale, and a listing that was here last run
 and is gone this run has ENDED. If the same property reappears later, that is a RELIST,
 and we know the true first-list date because we saw it.
+
+A SCOPED RUN ONLY ENDS SPELLS IT ACTUALLY LOOKED AT
+---------------------------------------------------
+`--zip`/`--town` narrow the scrape AND the end-of-spell sweep, together. This used to be
+one-sided: the scrape honoured `--zip`, then the sweep walked *every* active row in the
+file and marked anything it had not just seen as `gone`. So one town's ad-hoc refresh
+stamped `gone_on` onto all ~3,600 active listings in the other 60-odd towns, and because
+`link_sales.py` later asks of each one "sold, or withdrawn?", the damage read as market
+history rather than as a bug. A town we did not scrape tells us NOTHING about whether its
+houses are still listed, so a scoped run now leaves those rows exactly as it found them.
+
+The scope is ZIP-grained even when you pass `--town`, because the scrape is, and zip and
+town do not map one-to-one in either direction: Edison spans three zips, while 07006 holds
+Caldwell, North Caldwell and West Caldwell. So naming one town of a shared zip scrapes —
+and therefore sweeps — all of them. That is correct, those rows *were* looked at, and
+towns.py names the tag-alongs at the top of the run so it is never a surprise.
 
 THE GRAIN — one row per listing SPELL, not per sale
 ---------------------------------------------------
@@ -76,6 +93,7 @@ from aggregate import address_key, today  # noqa: E402  (same-folder reuse)
 # network; if this module were broken or its boundary file missing, a deferred import
 # would only blow up AFTER all that work. Fail at startup instead.
 import relabel_listings  # noqa: E402  (same-folder reuse)
+import towns as towns_mod  # noqa: E402  (same-folder reuse — zip<->town is many-to-many)
 
 
 def property_key(address, zip_code):
@@ -399,6 +417,8 @@ def scrape(zips, dry):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--zip", dest="zips", nargs="*")
+    ap.add_argument("--town", dest="towns", nargs="*",
+                    help="town names instead of zips (case-insensitive)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -406,8 +426,19 @@ def main():
     zip_town = {}
     for t in cfg["towns"]:
         for z in t["zips"]:
-            zip_town.setdefault(z, t["name"])
-    zips = set(args.zips) & set(zip_town) if args.zips else set(zip_town)
+            zip_town.setdefault(z, t["name"])   # FIRST-wins: the fallback label
+
+    # scope is None for a full run and a set of zips for a narrowed one. The distinction
+    # matters beyond the scrape: it is what the end-of-spell sweep below is gated on, so
+    # keep it None rather than filling it with every zip.
+    try:
+        scope = towns_mod.resolve(zips=args.zips, towns=args.towns)
+    except towns_mod.Unknown as e:
+        sys.exit(str(e))                         # a typo is not a successful refresh
+    if scope:
+        print(scope.describe())
+        print("  listings in every OTHER town are left untouched, not ended.\n")
+    zips = set(scope.zips) if scope else set(zip_town)
 
     run = today()
     rows = load_existing()
@@ -470,7 +501,15 @@ def main():
 
     # anything that WAS active and is not in this run's scrape has left the market.
     # It either sold or was withdrawn — link_sales.py decides which, by checking sales.csv.
+    #
+    # ONLY within the zips this run actually scraped. Absence is evidence of leaving the
+    # market only where we looked; outside the scope it means nothing at all. See the
+    # "A SCOPED RUN" note at the top of this file.
+    held = 0
     for key, cur in active.items():
+        if scope is not None and cur["zip"] not in scope:
+            held += 1
+            continue
         if key not in live:
             cur["status"] = "gone"
             cur["gone_on"] = run
@@ -483,6 +522,8 @@ def main():
     print("  %5d new to us (first spell)" % new_spells)
     print("  %5d RELISTED (a property we had seen leave, now back)" % relists)
     print("  %5d left the market since the last run (sold or withdrawn)" % ended)
+    if scope is not None:
+        print("  %5d active elsewhere — OUT OF SCOPE, left as-is (not ended)" % held)
     print()
     print("  %5d actually AVAILABLE (mls_status FOR_SALE)" % avail)
     print("  %5d already pending/contingent — still listed, not buyable" % (len(live) - avail))

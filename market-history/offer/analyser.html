@@ -1099,7 +1099,9 @@ $("fine").innerHTML = `
      fallback silently answers a different question.</p>
   <p><b>Window: ${D.window[0]} → ${D.window[1]}.</b> No 2022, no future. Nothing here is projected
      beyond it. Sales data from NJ MOD-IV deed records and Realtor.com sold listings;
-     rollup snapshot <span class="num">${D.snapshot}</span>, built <span class="num">${D.generated}</span>.</p>
+     rollup snapshot <span class="num">${D.snapshot}</span>, data as of
+     <span class="num">${D.dataAsof || D.generated}</span>, built
+     <span class="num">${D.generated}</span>.</p>
   <p><b>Seabra distance and commute times are colour, never inputs.</b> They do not move the offer,
      rank the town, or gate anything.</p>`;
 

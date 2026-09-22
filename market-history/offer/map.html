@@ -576,7 +576,9 @@ $("locate").addEventListener("click", ()=>{
 
 // BUILD tag — bump this string every deploy. If you don't see it, you're on a cached page.
 const BUILD = "b07-18n";   // keep the map.js?v= query above in sync when you bump this
-$("stamp").textContent = `${M.points.length} listings · data ${M.generated} · ${BUILD}`;
+// dataAsof, not generated: a scoped hydrate rebuilds this file today but only refreshes
+// a few towns, so the stamp must show when the whole dataset last moved. See build_data.py.
+$("stamp").textContent = `${M.points.length} listings · data ${M.dataAsof || M.generated} · ${BUILD}`;
 
 drawGeo();
 drawLegend();
