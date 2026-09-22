@@ -1,0 +1,301 @@
+#!/usr/bin/env python3
+"""Emit offer/desirability.js -- everything the "Where in town" map draws.
+
+    python3 offer/build_desirability.py
+    python3 offer/build_desirability.py --towns Colonia
+
+The map used to fetch its own boundaries (Census), flood zones (FEMA) and sale
+locations (geocoder, one address at a time) from the open internet on every visit,
+which is why opening a town took about a minute. All of it is already in this repo, so
+this script bakes it into one file and the page just draws what it is handed -- the
+same arrangement as data.js / sold.js / listings.js.
+
+WHAT GOES IN, AND WHY
+
+sold -- SINGLE-FAMILY ONLY, three years, time-adjusted.
+  Single-family because condos stack. 445 Morris Ave in Springfield is 24 sales at one
+  coordinate and 1360 Hamburg Tpke in Wayne is 13; the map weights nearby sales by
+  1/distance^2, so a stack like that would dominate every cell around it and the colors
+  would be measuring "there is a condo building here", not what a house is worth.
+
+  Three years rather than twelve months because thin coverage is this map's real
+  weakness -- a cell with fewer than ~3 sales within 800 m falls back to the town median
+  and stops saying anything. Three years roughly triples the density.
+
+  Time-adjusted because a 2023 price and a 2026 price are not the same money, and
+  mixing them makes the map measure *when* as much as *where*. Older sales are carried
+  forward to the latest month on the town's own median-price trend, which is what an
+  appraiser does with an older comp (Fannie Mae has required exactly this since March
+  2025, and names price indices as an acceptable basis). The trend is deliberately
+  TOWN-level: deriving it from the same neighborhoods being scored would let the map
+  explain itself.
+
+forSale -- what is listed now, all property types, NOT time-adjusted and NOT fed into
+  the colors. An asking price is a hope; letting it move the map would make an
+  over-priced street look good. It is a layer you switch on to see what is available.
+  These come free -- listings.csv already carries lat/lon from the scrape.
+
+  `status == "active"` in listings.csv is NOT "you can buy it" -- it covers FOR_SALE,
+  PENDING and CONTINGENT alike, and in these three towns that is 198 / 81 / 18. A third
+  of "active" already has an accepted offer. The mls_status rides along on every row so
+  the page can do what market.html does: show genuinely-available by default, grey the
+  rest, never mix them silently.
+
+boundary / flood / stores / assisted -- straight from layers/. Nothing is fetched at run
+  time. `assisted` is HUD's government-assisted housing (see layers/housing/): shown as a
+  map layer, NOT scored. It is there so you can see what is near a house, not so the page
+  can rank neighbourhoods by who lives in them.
+
+NOT INCLUDED, and worth knowing why:
+  - layers/schools/school_ratings.csv is ZIP-grain district deciles with no school
+    coordinates, so it cannot vary within a town. It says nothing about which street to
+    buy on. School POSITIONS still have to come from OSM, as they do today.
+  - transit, tax, appreciation, income, education are all town-grain for the same
+    reason. They belong to map.html, which compares towns.
+"""
+import argparse
+import csv
+import json
+import os
+import statistics
+import sys
+from collections import defaultdict
+from datetime import date
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.join(HERE, os.pardir)
+SALES = os.path.join(ROOT, "sales.csv")
+LISTINGS = os.path.join(ROOT, "listings.csv")
+COORDS = os.path.join(ROOT, "layers", "geo", "address_coords.json")
+BOUNDARIES = os.path.join(ROOT, "layers", "geo", "town_boundaries.geojson")
+FLOOD = os.path.join(ROOT, "layers", "flood", "flood_zones.geojson")
+ASSISTED = os.path.join(ROOT, "layers", "housing", "assisted.geojson")
+BY_TOWN_MONTH = os.path.join(ROOT, "share", "by_town_month.csv")
+OSM = os.path.join(ROOT, "layers", "osm")
+STORES = {
+    "wawa": os.path.join(ROOT, "layers", "wawa", "wawa.json"),
+    "tj": os.path.join(ROOT, "layers", "trader_joes", "trader_joes.json"),
+    "seabra": os.path.join(ROOT, "layers", "seabra", "seabra.json"),
+}
+OUT = os.path.join(HERE, "desirability.js")
+
+TOWNS = ["Colonia", "Springfield", "Wayne"]      # scope held small on purpose
+SINGLE_FAMILY = "Single Family"
+SMOOTH = 5              # months in the centred rolling median for the price trend
+CLAMP = (0.70, 1.60)    # a thin month must not invent a 2x adjustment
+BUFFER_DEG = 0.02       # ~2 km of slack when clipping layers to a town
+
+
+def key(address, town):
+    return f"{' '.join(address.split()).lower()}|{town.strip().lower()}"
+
+
+def load_coords():
+    if not os.path.exists(COORDS):
+        sys.exit("no layers/geo/address_coords.json -- run "
+                 "layers/geo/fetch_address_coords.py first")
+    return json.load(open(COORDS))
+
+
+def price_index(towns):
+    """town -> {month: factor} carrying that month's money forward to the latest month.
+
+    Monthly medians in one small town are noisy, so the series is smoothed with a
+    centred rolling median before any ratio is taken.
+    """
+    series = defaultdict(dict)
+    with open(BY_TOWN_MONTH, newline="") as f:
+        for r in csv.DictReader(f):
+            if r["town"] not in towns or not r.get("median_sold_price"):
+                continue
+            try:
+                series[r["town"]][r["month"]] = float(r["median_sold_price"])
+            except ValueError:
+                pass
+
+    index = {}
+    for town, raw in series.items():
+        months = sorted(raw)
+        if len(months) < SMOOTH:
+            print(f"  ! {town}: only {len(months)} months of trend, leaving prices as-is")
+            index[town] = {}
+            continue
+        half, smoothed = SMOOTH // 2, {}
+        for i, m in enumerate(months):
+            window = [raw[x] for x in months[max(0, i - half): i + half + 1]]
+            smoothed[m] = statistics.median(window)
+        latest = smoothed[months[-1]]
+        index[town] = {
+            m: min(CLAMP[1], max(CLAMP[0], latest / v))
+            for m, v in smoothed.items() if v > 0
+        }
+    return index
+
+
+def bbox_of(geom):
+    xs, ys = [], []
+
+    def walk(c):
+        if isinstance(c[0], (int, float)):
+            xs.append(c[0])
+            ys.append(c[1])
+        else:
+            for x in c:
+                walk(x)
+
+    walk(geom["coordinates"])
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def clip(features, box):
+    """Features whose own bbox overlaps the town's. Cheap, and good enough --
+    the page does the real point-in-polygon work."""
+    w, s, e, n = box
+    out = []
+    for f in features:
+        if not f.get("geometry"):
+            continue
+        fw, fs, fe, fn = bbox_of(f["geometry"])
+        if fe >= w - BUFFER_DEG and fw <= e + BUFFER_DEG \
+           and fn >= s - BUFFER_DEG and fs <= n + BUFFER_DEG:
+            out.append(f)
+    return out
+
+
+def load_stores():
+    out = []
+    for kind, path in STORES.items():
+        d = json.load(open(path))
+        locs = next((v for v in d.values() if isinstance(v, list) and v
+                     and isinstance(v[0], dict)), [])
+        for s in locs:
+            if s.get("lat") and s.get("lon") and s.get("status", "open") != "coming_soon":
+                out.append([round(float(s["lat"]), 5), round(float(s["lon"]), 5), kind])
+    return out
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--towns", nargs="*", default=TOWNS)
+    args = ap.parse_args()
+    towns = list(args.towns)
+
+    coords = load_coords()
+    index = price_index(towns)
+    stores = load_stores()
+
+    bnds = {f["properties"]["town"]: f
+            for f in json.load(open(BOUNDARIES))["features"]
+            if f["properties"].get("town") in towns}
+    flood_all = json.load(open(FLOOD))["features"]
+    assisted_all = (json.load(open(ASSISTED))["features"]
+                    if os.path.exists(ASSISTED) else [])
+
+    out = {"generated": date.today().isoformat(), "towns": {}}
+
+    for town in towns:
+        if town not in bnds:
+            print(f"  ! no boundary for {town}, skipping")
+            continue
+        box = bbox_of(bnds[town]["geometry"])
+
+        sold, missing, undated = [], 0, 0
+        with open(SALES, newline="") as f:
+            for r in csv.DictReader(f):
+                if r["town"] != town or r.get("property_type") != SINGLE_FAMILY:
+                    continue
+                if not r.get("sold_price") or not r.get("sold_date"):
+                    continue
+                c = coords.get(key(r["address"], town))
+                if not c:
+                    missing += 1
+                    continue
+                try:
+                    price = float(r["sold_price"])
+                except ValueError:
+                    continue
+                month = r["sold_date"][:7]
+                factor = index.get(town, {}).get(month)
+                if factor is None:
+                    undated += 1
+                    factor = 1.0
+                try:
+                    sqft = int(float(r["sqft"])) if r.get("sqft") else None
+                except ValueError:
+                    sqft = None
+                try:
+                    beds = int(float(r["beds"])) if r.get("beds") else None
+                except ValueError:
+                    beds = None
+                sold.append([c["lat"], c["lon"], round(price * factor),
+                             round(price), month, sqft, beds])
+
+        for_sale = []
+        with open(LISTINGS, newline="") as f:
+            for r in csv.DictReader(f):
+                if r["town"] != town or r["status"] != "active":
+                    continue
+                if not r.get("lat") or not r.get("lon"):
+                    continue
+                try:
+                    price = float(r.get("last_list_price") or 0)
+                except ValueError:
+                    continue
+                if not price:
+                    continue
+                for_sale.append([
+                    round(float(r["lat"]), 6), round(float(r["lon"]), 6),
+                    round(price), r["address"],
+                    r.get("beds") or None, r.get("baths") or None,
+                    r.get("sqft") or None, r.get("days_on_market") or None,
+                    r.get("url") or None, r.get("mls_status") or "FOR_SALE",
+                ])
+
+        osm_path = os.path.join(OSM, f"{town.lower().replace(' ', '-')}.geojson")
+        if os.path.exists(osm_path):
+            osm = json.load(open(osm_path))["features"]
+        else:
+            osm = []
+            print(f"  ! no baked OSM context for {town} -- run "
+                  f"layers/osm/fetch_osm_context.py")
+
+        flood = clip(flood_all, box)
+        # a 300-unit development just over the line still matters, so keep a wide margin
+        assisted = [f for f in assisted_all
+                    if box[0] - 0.03 <= f["geometry"]["coordinates"][0] <= box[2] + 0.03
+                    and box[1] - 0.02 <= f["geometry"]["coordinates"][1] <= box[3] + 0.02]
+        out["towns"][town] = {
+            "boundary": bnds[town]["geometry"],
+            "sold": sold,
+            "forSale": for_sale,
+            "flood": {"type": "FeatureCollection", "features": flood},
+            "osm": {"type": "FeatureCollection", "features": osm},
+            "assisted": [[f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0],
+                          f["properties"]["name"], f["properties"]["units"],
+                          f["properties"]["low"], "/".join(f["properties"]["kinds"]),
+                          f["properties"]["city"]] for f in assisted],
+            "stores": [s for s in stores
+                       if box[1] - 0.15 <= s[0] <= box[3] + 0.15
+                       and box[0] - 0.2 <= s[1] <= box[2] + 0.2],
+        }
+        print(f"  {town}: {len(sold)} single-family sales "
+              f"({missing} without a coordinate, {undated} without a trend month), "
+              f"{sum(1 for x in for_sale if x[9] == 'FOR_SALE')} for sale "
+              f"(+{sum(1 for x in for_sale if x[9] != 'FOR_SALE')} under contract), "
+              f"{len(flood)} flood polygons, "
+              f"{len(osm)} OSM features, {len(assisted)} assisted-housing sites")
+
+    latest = max((m for t in index.values() for m in t), default="")
+    out["asOf"] = latest
+    body = json.dumps(out, separators=(",", ":"))
+    with open(OUT, "w") as f:
+        f.write("// GENERATED by build_desirability.py -- do not edit.\n")
+        f.write(f"// Sold prices are time-adjusted to {latest} on each town's own "
+                f"median trend.\n")
+        f.write(f"window.DESIRABILITY = {body};\n")
+    print(f"\nwrote {os.path.relpath(OUT, ROOT)} "
+          f"({os.path.getsize(OUT) / 1e6:.1f} MB), prices adjusted to {latest}")
+
+
+if __name__ == "__main__":
+    main()
