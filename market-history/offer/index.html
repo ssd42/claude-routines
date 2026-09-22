@@ -10,7 +10,12 @@
 
      NOTE: no -webkit-font-smoothing:antialiased here, deliberately. On macOS it thins the
      type and against this warm paper it reads washed-out/blurry. Default (subpixel)
-     rendering is crisper and warmer. */
+     rendering is crisper and warmer.
+
+     Grouped, not listed. Eight flat entries read as a pile because they are not the same
+     KIND of thing: two are yours, five answer a question about the market, one is about
+     whether the tool works. Sorting by what you came to do costs three small headings and
+     buys a page that can grow without getting worse. */
   :root{
     --paper:#f7f4ee; --paper-2:#efe9de; --rule:#ddd5c7; --rule-2:#c8bda9;
     --ink:#1f1c18; --ink-2:#4a443b; --ink-3:#7d7367; --flag:#a8631c;
@@ -21,35 +26,42 @@
   body{background:var(--paper);color:var(--ink);font-family:var(--sans);
     font-size:17px;line-height:1.5;
     padding:clamp(2rem,7vw,4.5rem) clamp(1.25rem,5vw,3rem) 4rem}
-  .sheet{max-width:40rem;margin:0 auto}
+  .sheet{max-width:41rem;margin:0 auto}
 
-  /* masthead — one line of what this is, then get out of the way */
   h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.1rem,7vw,3rem);
     letter-spacing:-.02em;line-height:1.05;text-wrap:balance}
   h1 em{font-style:italic;color:var(--ink-2)}
   .lede{margin-top:.7rem;color:var(--ink-2);font-size:1rem}
 
-  /* the four destinations. No cards, no icons, no numbers — a name you understand at a
-     glance and one line telling you when you'd want it. */
-  ul{list-style:none;margin-top:clamp(2rem,5vw,2.8rem);
-     border-top:1px solid var(--rule)}
-  a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.3rem 1rem;
-    text-decoration:none;color:inherit;padding:1.35rem .25rem;
+  /* the group heading — small, quiet, doing structural work only */
+  h2{font-size:.74rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--ink-3);margin:2.4rem 0 0}
+  h2:first-of-type{margin-top:2.2rem}
+
+  ul{list-style:none;border-top:1px solid var(--rule);margin-top:.55rem}
+  a.item{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.3rem 1rem;
+    text-decoration:none;color:inherit;padding:1.1rem .25rem;
     border-bottom:1px solid var(--rule);transition:background-color .13s ease}
-  a:hover,a:focus-visible{background:var(--paper-2)}
-  a:focus-visible{outline:2px solid var(--flag);outline-offset:-2px}
-  .name{font-family:var(--serif);font-size:1.45rem;line-height:1.2;letter-spacing:-.01em}
-  .what{grid-column:1;color:var(--ink-2);font-size:.95rem;max-width:30rem}
-  .go{color:var(--rule-2);font-size:1.2rem;line-height:1;transition:color .13s ease,transform .13s ease}
-  a:hover .go,a:focus-visible .go{color:var(--flag);transform:translateX(3px)}
+  a.item:hover,a.item:focus-visible{background:var(--paper-2)}
+  a.item:focus-visible{outline:2px solid var(--flag);outline-offset:-2px}
+  .name{font-family:var(--serif);font-size:1.35rem;line-height:1.2;letter-spacing:-.01em}
+  .what{grid-column:1;color:var(--ink-2);font-size:.93rem;max-width:30rem}
+  /* the count sits where the arrow was: a number you can read at a glance is worth more
+     than a chevron repeated eight times */
+  .n{color:var(--ink-3);font-size:.84rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .n b{color:var(--ink-2);font-weight:600}
+  a.item:hover .n,a.item:focus-visible .n{color:var(--flag)}
 
-  footer{margin-top:2.2rem;color:var(--ink-3);font-size:.87rem;max-width:32rem}
+  footer{margin-top:2.6rem;padding-top:1.1rem;border-top:1px solid var(--rule);
+    color:var(--ink-3);font-size:.87rem;line-height:1.6}
+  footer a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule-2)}
+  footer a:hover{color:var(--flag);border-bottom-color:var(--flag)}
+  .fine{margin-top:.7rem;max-width:34rem}
 
-  /* phone: keep the tap target tall, let the arrow sit with the name */
   @media(max-width:480px){
     body{font-size:16px}
-    a{padding:1.2rem .1rem}
-    .name{font-size:1.3rem}
+    a.item{padding:1rem .1rem}
+    .name{font-size:1.22rem}
   }
 </style>
 </head>
@@ -57,57 +69,105 @@
 <div class="sheet">
 
   <h1>The house hunt <em>— Westfield &amp; around</em></h1>
-  <p class="lede">Eight tools, built on three years of real New Jersey sale records.</p>
+  <p class="lede">Built on three years of real New Jersey sale records.</p>
 
+  <h2>Yours</h2>
   <ul>
-    <li><a href="analyser.html">
-      <span class="name">Price a house</span><span class="go">→</span>
-      <span class="what">Is an asking price fair? Check one house against similar local sales.</span>
+    <li><a class="item" href="favourites.html">
+      <span class="name">Favourites</span><span class="n" id="n-fav">&nbsp;</span>
+      <span class="what">The shortlist, and what happened to each one after you starred it.</span>
     </a></li>
-
-    <li><a href="market.html">
-      <span class="name">What's for sale</span><span class="go">→</span>
-      <span class="what">Everything on the market now, each priced against comparable sales.</span>
-    </a></li>
-
-    <li><a href="map.html">
-      <span class="name">Compare towns</span><span class="go">→</span>
-      <span class="what">A map of every town — prices, schools, taxes, commute, flood risk.</span>
-    </a></li>
-
-    <li><a href="sold.html">
-      <span class="name">What sold</span><span class="go">→</span>
-      <span class="what">Search 40,000 closed sales and see what houses actually went for.</span>
-    </a></li>
-
-    <li><a href="favourites.html">
-      <span class="name">Favourites</span><span class="go">→</span>
-      <span class="what">The houses you starred, and what happened to them — still there
-        after they sell, so you find out what they went for.</span>
-    </a></li>
-
-    <li><a href="notes.html">
-      <span class="name">Walkthroughs</span><span class="go">→</span>
-      <span class="what">What you thought standing in each house — and what keeps coming
-        up across all of them.</span>
-    </a></li>
-
-    <li><a href="desirability.html">
-      <span class="name">Where in town</span><span class="go">→</span>
-      <span class="what">Within Colonia, Springfield or Wayne — which streets score better on
-        prices, road noise, flood risk and what's nearby.</span>
-    </a></li>
-
-    <li><a href="backtest.html">
-      <span class="name">How right are we?</span><span class="go">→</span>
-      <span class="what">Every house that sold this year, priced by our own tool with the
-        house hidden from itself — next to what it really went for.</span>
+    <li><a class="item" href="notes.html">
+      <span class="name">Walkthroughs</span><span class="n" id="n-notes">&nbsp;</span>
+      <span class="what">What you thought standing in a house — and what keeps coming up
+        across all of them.</span>
     </a></li>
   </ul>
 
-  <footer>Public-record NJ sale data — not a valuation. A way to argue with an asking price
-    using what similar houses actually sold for.</footer>
+  <h2>Find a house</h2>
+  <ul>
+    <li><a class="item" href="market.html">
+      <span class="name">What's for sale</span><span class="n" id="n-market">&nbsp;</span>
+      <span class="what">Everything on the market now, each priced against comparable sales.</span>
+    </a></li>
+    <li><a class="item" href="desirability.html">
+      <span class="name">Where in town</span><span class="n">3 towns</span>
+      <span class="what">Which streets score better on price, road noise, flood risk and
+        what's nearby.</span>
+    </a></li>
+    <li><a class="item" href="map.html">
+      <span class="name">Compare towns</span><span class="n">75 towns</span>
+      <span class="what">A map of every town — prices, schools, taxes, commute, flood risk.</span>
+    </a></li>
+  </ul>
+
+  <h2>Is the price right?</h2>
+  <ul>
+    <li><a class="item" href="analyser.html">
+      <span class="name">Price a house</span><span class="n">one at a time</span>
+      <span class="what">Is an asking price fair? Check one house against similar local sales.</span>
+    </a></li>
+    <li><a class="item" href="sold.html">
+      <span class="name">What sold</span><span class="n" id="n-sold">&nbsp;</span>
+      <span class="what">Search closed sales and see what houses actually went for.</span>
+    </a></li>
+  </ul>
+
+  <footer>
+    <a href="backtest.html">How right are we?</a> — every house that sold this year, priced
+    by our own tool with the house hidden from itself, next to what it really went for.
+    <p class="fine">Public-record NJ sale data — not a valuation. A way to argue with an
+      asking price using what similar houses actually sold for.
+      <span id="asof"></span></p>
+  </footer>
 
 </div>
+
+<script>
+/* Live numbers, from two tiny files. NOT from listings.js and sold.js — those are 9 MB
+   between them, and the hub is the one page that has to open instantly. counts.json is
+   ~174 bytes, written by build_data.py from the same pass that builds those files.
+   Everything degrades to a blank if a fetch fails; a missing number must never keep the
+   page from rendering its links. */
+(async function () {
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const n = x => Number(x).toLocaleString();
+
+  try {
+    const r = await fetch("counts.json", { cache: "no-store" });
+    if (r.ok) {
+      const c = await r.json();
+      set("n-market", `<b>${n(c.available)}</b> for sale`);
+      set("n-sold", `<b>${n(c.sales)}</b> sales`);
+      const el = document.getElementById("asof");
+      if (el && c.fetched) el.textContent = `Listings as of ${c.fetched}.`;
+    }
+  } catch (e) { /* leave the counts blank */ }
+
+  /* Favourites and notes come straight from their own files, so the hub is honest the
+     moment you star something — no rebuild needed. */
+  try {
+    const r = await fetch("favourites.json", { cache: "no-store" });
+    if (r.ok) {
+      const f = (await r.json()).favourites || [];
+      set("n-fav", f.length ? `<b>${f.length}</b> ${f.length === 1 ? "house" : "houses"}` : "none yet");
+    }
+  } catch (e) {}
+
+  try {
+    const r = await fetch("notes.json", { cache: "no-store" });
+    if (r.ok) {
+      const notes = Object.values((await r.json()).notes || {});
+      const written = notes.filter(x =>
+        (x.liked || []).length || (x.disliked || []).length ||
+        (x.note || "").trim() || (x.visit && x.visit.kind)).length;
+      const seen = notes.filter(x => x.visit && x.visit.kind).length;
+      set("n-notes", written
+        ? `<b>${written}</b> written${seen ? ` · ${seen} seen` : ""}`
+        : "nothing yet");
+    }
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
