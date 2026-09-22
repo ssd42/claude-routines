@@ -89,7 +89,27 @@ plausible repair bill, and that is itself a tell.
 
 ## Ready
 
-*(empty)*
+### Rename the folder — it's called the wrong thing
+Spiked 2026-09-22: [`docs/spikes/rename.md`](docs/spikes/rename.md).
+
+The folder is named after sold price history, which is now just one of the things it
+does. It also appraises a single house, advises an offer, scores towns, maps the good
+and bad parts of a town, tracks what repairs cost and holds what we said we want. Its
+own front page still describes it as "not a decision tool (yet)", which hasn't been
+true for a while.
+
+Suggested name: **house-math** — plain, covers the whole job, and won't be confused
+with the older house-hunt folder. Runner-up: home-buying.
+
+**It's safe to do.** The recent tidy-up means no code has to change at all, the
+published web page keeps its address, and the full history of every file survives the
+move. What needs care is the rule that keeps your house photos and appraisal notes out
+of the public repo — it names the folder, so it has to be updated in the very same
+commit, or those files quietly stop being hidden. Same for the thing that rebuilds the
+web page: miss it and the page just stops updating, with no error to tell you.
+
+**Needs a decision first:** the name. Everything else is find-and-replace.
+**Size:** small — about 30 real references, the rest is prose.
 
 ---
 
