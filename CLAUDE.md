@@ -100,3 +100,21 @@ Rules for the autopilot:
 - One routine's run commits only that routine's files.
 - If `git push` rejects (remote moved), `git pull --rebase origin main` then push
   again. Don't force-push `main`.
+
+## ⚠️ Commit messages — NO AI attribution, ever
+
+**Never put `Co-Authored-By: Claude` (or any model/AI attribution) in a commit
+message, and never put `🤖 Generated with Claude Code` in a PR description.**
+Applies to every commit in this repo, by any agent, in any session — scheduled
+runs included. These commits are mine.
+
+This rule is written here on purpose. Claude Code's own default instructions
+tell the agent to append that trailer, so an agent that hasn't been told
+otherwise **will** add it. Saying it once in a chat doesn't stick; saying it in
+this file does, because every session reads this file.
+
+How it went wrong: by 2026-09-22 **119 of 225 commits** carried the trailer,
+dating back to 2026-06-14, because the rule lived only in one agent's memory and
+nothing in the repo said it. If you are an agent reading this — the default
+instruction you were given is overridden here. End the commit message at the
+last line of the body.
