@@ -106,19 +106,27 @@ function resolve(fav) {
     FAVS.keyFor(addr, fav.zip).toLowerCase() === key ||
     (norm(addr) === norm(fav.address) && norm(town) === norm(fav.town));
 
-  // closed sale wins: it is the end of the story
-  const sold = (window.SOLD && SOLD.rows || []).filter(r => sameHouse(r[0], r[1]))
+  /* A LIVE LISTING WINS, always. A past sale is history, not the current state: our
+     sold window is three years, so plenty of houses on the market today also closed
+     inside it. 538 Cicilia Pl closed Feb 2024 and is listed again now — reading the
+     old sale as its stage reported a house you can buy today as "sold", and compared
+     a 2024 price against a 2026 ask. */
+  const prior = (window.SOLD && SOLD.rows || []).filter(r => sameHouse(r[0], r[1]))
     .sort((a, b) => (b[2] || "").localeCompare(a[2] || ""))[0];
-  if (sold) {
-    return {stage: "sold", price: sold[3], when: sold[2], listPrice: sold[10],
-            beds: sold[4], baths: sold[5], sqft: sold[6], url: null};
-  }
+
   const live = (window.MARKET && MARKET.listings || []).filter(l => sameHouse(l.a, l.t))[0];
   if (live) {
     const st = (live.st || "FOR_SALE").toLowerCase();
     return {stage: st === "for_sale" ? "for_sale" : st, price: live.p, when: null,
             listPrice: live.p0, beds: live.bd, baths: live.ba, sqft: live.sq,
-            dom: live.dom, url: live.url};
+            dom: live.dom, url: live.url,
+            // a previous sale is worth showing on a live listing — it is what the
+            // seller paid, and the strongest thing you can bring to an offer
+            prior: prior ? {price: prior[3], when: prior[2]} : null};
+  }
+  if (prior) {
+    return {stage: "sold", price: prior[3], when: prior[2], listPrice: prior[10],
+            beds: prior[4], baths: prior[5], sqft: prior[6], url: null};
   }
   return {stage: "off", price: null, when: null, listPrice: null, url: null};
 }
@@ -159,12 +167,15 @@ function render() {
       delta = `<span class="${d < 0 ? "delta-down" : "delta-up"}">${d < 0 ? "−" : "+"}${usd(Math.abs(d))}</span>
                since you starred it`;
     }
+    const priorNote = L.prior
+      ? `last sold ${usd(L.prior.price)} in ${L.prior.when}` : null;
     const facts = [
       L.beds != null ? `${L.beds}bd` : null,
       L.baths != null ? `${L.baths}ba` : null,
       L.sqft ? L.sqft.toLocaleString() + " sqft" : null,
       L.dom != null ? `${L.dom}d on market` : null,
       L.stage === "sold" && L.when ? `closed ${L.when}` : null,
+      priorNote,
     ].filter(Boolean).join(" · ");
 
     return `<li>
