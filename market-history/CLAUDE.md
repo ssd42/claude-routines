@@ -82,13 +82,30 @@ Every dataset here is one of exactly two things, and the directory says which:
 | grain | where | what | built by |
 |-------|-------|------|----------|
 | **sale-grain** | top level: `sales.csv`, `market.csv`, `_provenance.json`, `history/` | one row per **transaction**, scraped | `aggregate.py` |
-| **town-grain** | **`layers/`** (`seabra/`, `trader_joes/`, `wawa/`, `transit/`, `education/`, `geo/`) | one row per **town** — an attribute of a *place* | curated; joined at share time by `build_share.py` |
+| **town-grain** | **`layers/`** (`seabra/`, `trader_joes/`, `wawa/`, `transit/`, `education/`, `tax/`, `income/`, `appreciation/`, `schools/`) | one row per **town** — an attribute of a *place* | curated; joined at share time by `build_share.py` |
+| **geometry** | `layers/geo/`, `layers/osm/`, `layers/flood/`, `layers/housing/` | shapes and points — boundaries, roads, flood zones, assisted-housing sites | their own `fetch_*.py`; read by `offer/build_desirability.py`, **never** by `build_share.py` |
 
 **`aggregate.py` never reads `layers/`.** Layers are joined in at *share* time, not
 *scrape* time. New dataset? If it describes a town it goes in `layers/`; if it
 describes a sale it goes in the scrape. Read [`layers/README.md`](layers/README.md)
 — it holds the contract (keyed on `town`; ships as its own file in `share/`; never
 merged into a sales file; never a filter).
+
+**A third kind exists now, and it is NOT a layer in that sense.** `geo/`, `osm/`,
+`flood/` and `housing/` hold **geometry** — a boundary, a road, a flood polygon, the
+location of an assisted-housing development. They are keyed on nothing; they are shapes.
+They ship **no column to `share/`**, `build_share.py` does not read them, and the
+town-grain contract does not apply. They exist so something can measure a distance.
+`layers/geo/README` already framed itself that way ("infrastructure, not an amenity") and
+`osm/` + `housing/` follow it. If you are adding a dataset, the question is now three-way:
+describes a town → `layers/`; describes a sale → the scrape; is a shape on a map →
+geometry, and say so in its docstring.
+
+**Why geometry matters for the within-town map.** Most of `layers/` is one value per
+town, so it cannot vary between two streets in Colonia — commute, tax, appreciation,
+income and school ratings all say the same thing about every house in a town. Only the
+geometry folders can answer "what is near *this* house", which is what
+`offer/desirability.html` asks.
 
 `config/` (`zips.json` / `nj_municipalities.json` / `sources.json`) is **config**
 (what to scrape), not data — that's why they stay out of `layers/`.
@@ -104,6 +121,9 @@ re-read the committed layer CSV unchanged. Refresh a layer by re-running its own
 | `appreciation/` | Zillow ZHVI + FHFA HPI | ZHVI ~monthly, FHFA ~yearly | yes (≈160MB DL + `openpyxl`) |
 | `tax/` | NJ DCA Property Tax Tables | yearly (new `YYtaxes.xls`) | yes (`xlrd`) |
 | `geo/`, `flood/` | Census TIGER / FEMA NFHL | rarely (boundaries/remaps) | no |
+| `osm/` | OpenStreetMap via Overpass | rarely (a road gets built) — `hydrate.py` treats it as 180-day. ⚠️ Overpass is a free shared service and 504s under load; a failed run leaves the previous file intact, so just retry | no |
+| `housing/` | HUD LIHTC + Public Housing + Multifamily Assisted | rarely — 180-day in `hydrate.py` | no |
+| `geo/address_coords.json` | US Census batch geocoder | **every rehydrate** — new sold rows need coordinates. Incremental and free for addresses already known; it is in `hydrate.py`'s DERIVED steps, not the layer list, because it depends on `sales.csv` being fresh first | no |
 
 These `fetch_*.py` are **local prep** (big downloads / non-stdlib parsers) — they
 can't run in the cloud routine; they write a small committed CSV/GeoJSON that CI

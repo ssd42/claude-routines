@@ -12,13 +12,27 @@ is below.
 ## Run
 
 ```bash
-python3 build_data.py     # bakes data.js from ../share/ + ../analysis/<newest>/
-open index.html           # that's it — no server, no build, no network
+python3 build_data.py            # bakes data.js from ../share/ + ../analysis/<newest>/
+python3 build_desirability.py    # bakes desirability.js for the "Where in town" map
+open index.html                  # most pages need no server at all
 ```
 
 Re-run `build_data.py` after `sales.csv` grows or a new `analysis/` snapshot lands.
-Nothing else in `market-history/` reads this folder; it is a **viewer**, not a routine
-(no `job.json`, no cron, no state).
+`hydrate.py` runs both builders as DERIVED steps, so a full rehydrate keeps the pages
+current — see [`../RUNBOOK.md`](../RUNBOOK.md).
+
+**Two things changed the old "viewer, no state, no server" description:**
+
+- **`favourites.json` is state, and it lives here.** Stars are written by
+  `serve.py` and committed, so they survive a cleared cache and show up on the published
+  site. It is small, hand-scale data — not a scraped dataset — but it *is* state.
+- **`serve.py` is a local server, and starring needs it.** `python3 serve.py` serves this
+  folder and accepts writes to `favourites.json`; it binds to localhost only. Every page
+  still opens fine without it — you just cannot add a favourite, which is exactly how the
+  published copy behaves.
+
+Everything else still holds: no `job.json`, no cron, and no page fetches anything at load
+time.
 
 ## The one design idea
 

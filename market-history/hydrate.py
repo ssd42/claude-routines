@@ -90,11 +90,18 @@ LAYERS = [                      # (label, script, days before due)
     ("education",    "layers/education/fetch_education.py",        180),
     ("flood_polys",  "layers/flood/fetch_flood_polygons.py",       365),
     ("flood_points", "layers/flood/fetch_flood.py",                 30),
+    # for the "Where in town" map: both change on the scale of months, not days
+    ("assisted",     "layers/housing/fetch_assisted.py",           180),
+    ("osm_context",  "layers/osm/fetch_osm_context.py",            180),
 ]
 
-DERIVED = [("share", "build_share.py"),
-           ("analysis", "analysis/seasonality.py"),
-           ("pages", "offer/build_data.py")]
+# (label, script, args). Order matters: coordinates must exist before the desirability
+# page is built from them, and sales.csv must already be fresh before we geocode it.
+DERIVED = [("share", "build_share.py", []),
+           ("analysis", "analysis/seasonality.py", []),
+           ("pages", "offer/build_data.py", []),
+           ("coords", "layers/geo/fetch_address_coords.py", []),
+           ("desirability", "offer/build_desirability.py", [])]
 
 # steps that cannot be narrowed to a town: one national file, and layer fetchers that
 # cover all of our towns per call.
@@ -306,9 +313,9 @@ def stamp_full_run(scope, want):
 def rebuild():
     print("\n=== rebuild everything derived ===")
     ok = True
-    for label, script in DERIVED:
+    for label, script, args in DERIVED:
         print(f"  {label}")
-        if run(script):
+        if run(script, *args):
             print(f"  {label} FAILED"); ok = False
     return ok
 

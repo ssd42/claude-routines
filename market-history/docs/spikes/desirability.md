@@ -1,6 +1,8 @@
 # SPIKE — "Where in town": sold vs. for sale, and make it load fast
 
-**Status:** note only. Nothing built.
+**Status: BUILT 2026-09-22.** Most of this note is now shipped, not proposed — see
+"What got built" below. The **Decided** markers still stand and aren't meant to be
+re-litigated; the rest is kept because it records *why* the thing is shaped this way.
 
 > Keep this short and plain. It's a working note, not a design doc.
 > Internal tool, just for us. It looks different from the other pages — fine,
@@ -16,6 +18,37 @@ It takes about a minute to open a town, and its sale list is 42 hand-pasted Colo
 addresses with no connection to our data.
 
 ---
+
+## What got built
+
+| | |
+|---|---|
+| `layers/geo/fetch_address_coords.py` | 3,409 addresses geocoded, 97% matched, match quality stored |
+| `layers/osm/fetch_osm_context.py` | roads (incl. rail), parks, land use, schools baked per town |
+| `layers/housing/fetch_assisted.py` | 925 NJ HUD assisted-housing properties, 91,104 units |
+| `offer/build_desirability.py` | emits `desirability.js` — 2,112 sold, 190 for sale, 3.3 MB |
+| `offer/desirability.html` | rewritten to draw the baked file and nothing else |
+| `offer/serve.py`, `favourites.js`, `favourites.html` | favourites: star locally, commit, read anywhere |
+
+Cold load went from about a minute to under four seconds, and the page now makes exactly
+one network request — its own data file.
+
+**Still open:** the shortlist pins (the favourites file now exists, so the input is
+there); rail in the road factor; and whether a "fronts a through road" flag is worth
+having at all — see the measurement below.
+
+### What the road measurement actually said
+
+Built `offer/road_effect.py` to test the assumption rather than code it in. Pooled across
+the three towns, houses within 30 m of a through road sell **-1.7%** against a control
+120-600 m away, and **+0.9%** on $/sqft. Essentially nothing: the raw gap is mostly house
+size, not location.
+
+Individual roads are a different story, and they are all over the place — Morris Ave
+(NJ 124) -61%, Newark-Pompton Turnpike -37%, Ratzer Rd -23%, while Pines Lake Drive West
+is **+86%** because it is lakefront. So a blanket "on a main road" penalty is not
+supported by our own data. *Which* road is what matters, which argues for showing the
+road and its measured effect rather than adding a factor.
 
 ## What the numbers actually mean
 
@@ -104,10 +137,22 @@ own** — and fetching them live from the internet is exactly why it's slow:
 | Schools, from OpenStreetMap (unrated) | `layers/schools/school_ratings.csv` — *with ratings* |
 | Looks up every address, one at a time | see below |
 
-Nothing on the left is better than what's on the right. Two are worse: the artifact
-counts any school as a school regardless of quality, and it knows nothing of Wawa,
-Trader Joe's, Seabra or commute times, all of which sit in `layers/` already — which
-is most of what a real "amenities" score should be made of.
+Nothing on the left is better than what's on the right, and the schools are worse —
+the artifact counts any school as a school regardless of quality.
+
+**But be careful with the rest of `layers/`.** Most of it is **town-grain**: one value
+per town. Commute to Manhattan, tax rate, appreciation, income, education — Colonia has
+*one* number for each. Paint that on a within-town map and every hexagon gets the same
+color, which tells you nothing about where in Colonia to buy. Those layers exist for
+`map.html`, which compares towns, and they belong there.
+
+Only layers with real **point or polygon geometry** work at this scale, because the
+distance changes house to house:
+
+- `layers/geo/town_boundaries.geojson` — the boundary itself
+- `layers/flood/flood_zones.geojson` — 8,118 polygons, varies street to street
+- `layers/schools/school_ratings.csv` — school locations *with* ratings
+- `wawa.json`, `trader_joes.json`, `seabra.json` — geocoded store points
 
 **Delete rather than port:** the whole "Checks" tab, and the per-town config behind
 it (which highway crosses town, which direction each neighbor lies, which landmarks
@@ -115,6 +160,32 @@ to find). That's ~40 lines of hand-written config per town, and it exists to pro
 the artifact wasn't making up geography — an artifact problem, not ours. It's also
 the single thing that makes covering all our towns impractical. Same for the
 browser-side caching and the save/load data file: unnecessary once the data is local.
+
+## The work that touches only this page
+
+Worth separating, because it's the cheapest real improvement here and it breaks nothing.
+
+`build_share.py` is the only thing that reads the store and school layers, and it
+collapses each one to a single number per town — measured from the **zip centroid**. So
+"nearest Wawa: 1.2 mi" means 1.2 mi from the middle of 07067, the same answer for every
+house in Colonia. Correct for `map.html`. Useless for a map of streets.
+
+The page-local work is to measure from **each hexagon** instead:
+
+- **Rebuild the amenities factor from real points** — per-hexagon distance to Wawa,
+  Trader Joe's and Seabra, plus schools weighted by their actual rating rather than
+  "any school counts." Nothing else in the repo computes per-hexagon distances, so no
+  existing page changes.
+- **Read flood zones from `flood_zones.geojson`** instead of calling FEMA live.
+- **Read the boundary from `town_boundaries.geojson`** instead of the Census.
+
+`map.html`, `market.html`, `sold.html`, `analyser.html`, `backtest.html`,
+`build_share.py` and `aggregate.py` are all untouched. And none of it needs a network
+fetch — the data is already committed, so the speed fix and the better amenity score
+fall out of the same change.
+
+The two things that *do* reach further: stopping `build_data.py` from dropping lat/lon
+(additive, breaks nothing) and the `address_coords` file below.
 
 ## The ask: filter sold vs. for sale
 
@@ -176,19 +247,64 @@ interpolation as no coordinate at all.
 `build_share.py` joins layers in at share time. `aggregate.py` never learns this
 exists.
 
+## How far back the sales go: three years, time-adjusted
+
+**Decided 2026-09-22.** Use the full three years and adjust older sales to today's
+money, rather than windowing to the last 12 months.
+
+The reason is coverage, not volume. Thin data is this map's core weakness — cells with
+fewer than three sales within 800 m fall back to the town median and stop saying
+anything. Three years roughly triples the density (Colonia: 185 sales → 529). A
+12-month window preserves that weakness to avoid a problem that has a standard fix.
+
+And it is genuinely standard. Fannie Mae has **required** time adjustments on
+comparable sales since March 2025 — appraisers don't discard older comps, they adjust
+them — and names home price indices as an acceptable basis. We already have the index:
+`market.csv` and `share/by_town_month.csv` hold the zip-month medians. The academic
+side reaches the same place from the other direction; spatiotemporal models exist
+precisely because throwing away time wastes data the spatial side needs.
+
+**One caution:** adjust with the **town-level** trend. Never derive the adjustment from
+the same cells being scored, or the map starts explaining itself.
+
+Sources: [Fannie Mae — Adjustments to Comparable Sales](https://selling-guide.fanniemae.com/sel/b4-1.3-09/adjustments-comparable-sales) ·
+[Fannie Mae — Market Condition Adjustments](https://singlefamily.fanniemae.com/media/40241/display) ·
+[Hedonic estimation with the spatiotemporal geostatistical model](https://link.springer.com/article/10.1007/s43071-023-00039-w) ·
+[Putting time into space](https://ideas.repec.org/a/eee/regeco/v58y2016icp78-88.html)
+
 ## The one thing that would make it instantly better
 
 **Put our own shortlist on it.**
 
 Today you type one address and get the score for the hexagon it falls in. That's
-backwards — we already have a list of real houses we care about. Pin them all on the
-map at once, each with its score and factor breakdown, and the page stops being "a
-pretty gradient of a town" and starts answering *how does this house's location
-compare to everything around it.*
+backwards — we already know which houses we care about. Pin them all on the map at
+once, each with its score and factor breakdown, and the page stops being "a pretty
+gradient of a town" and starts answering *how does this house's location compare to
+everything around it.*
 
 One address at a time is a lookup. The shortlist on one map, ranked, is a decision
 tool — and it's the cheapest item in this whole note, because the address-check code
-already works. It needs a list of addresses to read and a loop.
+already works.
+
+**Two lists, and only one of them needs building.**
+
+*Everything currently for sale in the town* is free — `listings.csv` already has the
+coordinates, so it's a layer, not a project.
+
+*Favourites* is the better list, and it is **already spiked and already decided**:
+[`persistence.md`](persistence.md) covers starring a house on the laptop and seeing it
+on the phone at a viewing, backed by a Cloudflare Worker over Workers KV behind a
+random space-id, no login, JSON export in v1. Build against that decision — don't
+invent a second mechanism here.
+
+Two things to carry back to that spike rather than solve here:
+
+- **Star from the `market.html` list, without opening the house.** The star belongs on
+  the row.
+- **A favourite keeps its history after it leaves the market.** This is the part with
+  real value: a house you starred, then watched sell, tells you what the places you
+  liked actually go for. That's the old house-hunt list→sold watchlist, and nothing in
+  `offer/` does it today.
 
 Worth noting what it would *not* have told us: 404 Elm's big risk is the rail line at
 ~780 ft, and the page scores roads but **not rail**. If we build this, rail belongs in
@@ -218,9 +334,11 @@ question we haven't settled yet.
 The consequence to remember: Cranford isn't in it, so the houses we're actually
 looking at right now mostly aren't either.
 
-## Open question
+## `map.html` stays as it is
 
-Cross-town comparison is currently refused — each town is ranked only against itself.
-With our data it needn't be. That would make `map.html` "pick the town" and this page
-"pick the street," which is a cleaner split than we have now. Parked while the scope
-stays at three towns.
+**Decided 2026-09-22.** They're separate thought bubbles for now. No merging this into
+the town map, no reworking the town map around it. Consolidation is a real option later
+— just not a question being answered yet.
+
+Cross-town comparison stays refused too: each town is ranked only against itself. Our
+data would allow otherwise, but it's parked while the scope stays at three towns.

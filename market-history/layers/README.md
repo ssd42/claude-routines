@@ -12,6 +12,16 @@ If a new dataset describes a **town**, it belongs here. If it describes a
 **sale**, it belongs in the scrape. That question answers itself every time, and
 it's the reason this folder exists.
 
+**A third kind lives here too, and it is not town-grain: geometry.** `geo/`, `osm/`,
+`flood/` and `housing/` hold shapes and points — boundaries, roads, flood polygons,
+assisted-housing sites — keyed on nothing, because a shape has no key. They ship **no
+file to `share/`**, `build_share.py` does not read them, and the numbered contract below
+does not apply to them. They are read by `offer/build_desirability.py`, which asks "what
+is near *this* house" — a question no town-grain layer can answer, since one value per
+town is identical for every street in it. `geo/` was already described here as
+"infrastructure, not an amenity"; `osm/` and `housing/` are the same idea, and each says
+so in its own docstring.
+
 ## The layers
 
 | layer | source file | grain | what it answers |
@@ -21,7 +31,9 @@ it's the reason this folder exists.
 | `seabra/` | `seabra.json` | 11 store points | how far is a town from a Seabra grocery |
 | `transit/` | `transit.json` | town | how long is the commute to Manhattan |
 | `education/` | `education_rates.csv` | zip (ZCTA) | ACS educational attainment — **not yet wired into `build_share.py`** |
-| `geo/` | `zip_centroids.json` | zip (ZCTA) | support layer: zip → lat/lon, so distances can be computed |
+| `geo/` | `zip_centroids.json`, `town_boundaries.geojson`, `address_coords.json` | zip / town / **address** | support geometry: zip → lat/lon for layer distances; town outlines; and one lat/lon per sold address, since `sales.csv` carries none |
+| `osm/` | `<town>.geojson` | geometry | roads (incl. rail), parks, land use, schools per town, baked from Overpass so no page has to fetch it |
+| `housing/` | `assisted.geojson` | geometry | HUD assisted-housing properties (LIHTC, public housing, project-based Section 8). **Displayed, never scored** |
 
 `geo/` is infrastructure, not an amenity — nothing about it goes in `share/` on its
 own; it exists so other layers can measure distance.

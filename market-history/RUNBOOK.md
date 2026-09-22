@@ -62,10 +62,30 @@ scoped run in your shell history, don't re-use it — get it from A2 instead.
 **4–6. Rebuild everything downstream**
 
 ```bash
-python3 build_share.py            # the shared CSVs
-python3 analysis/seasonality.py   # the month-by-month analysis snapshot
-python3 offer/build_data.py       # the four web pages
+python3 build_share.py                        # the shared CSVs
+python3 analysis/seasonality.py               # the month-by-month analysis snapshot
+python3 offer/build_data.py                   # the main web pages
+python3 layers/geo/fetch_address_coords.py    # lat/lon for any NEW sold address
+python3 offer/build_desirability.py           # the "Where in town" map
 ```
+
+The last two are for [`desirability.html`](offer/desirability.html). `sales.csv` carries no
+coordinates, so new sold rows have to be geocoded before the map can place them — that
+step is incremental and free for addresses already known, and it defaults to the three
+towns the map covers (Colonia, Springfield, Wayne). Widen it with
+`--towns` followed by town names, or `--towns` with nothing after it for every town —
+that last one is ~45k lookups, so do it deliberately.
+
+Two of its inputs move on the scale of months, not days, and `hydrate.py` treats them as
+180-day layers rather than running them every time:
+
+```bash
+python3 layers/osm/fetch_osm_context.py       # roads, parks, land use, schools, rail
+python3 layers/housing/fetch_assisted.py      # HUD assisted-housing properties
+```
+
+⚠️ Overpass (the OSM source) is a free shared service and returns 504s under load — a
+failed run leaves the previous file in place, so just try again later.
 
 **If a source comes back empty** the run stops and says so, loudly. That is deliberate:
 the trend feed silently returned nothing for weeks because the provider renamed its
