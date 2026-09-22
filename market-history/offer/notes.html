@@ -12,59 +12,93 @@
     --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
     --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
   }
+  /* This is the one page you sit and WRITE on, for a long time, often at night — which
+     is why the same warm paper that reads fine on the other pages is fatiguing here.
+     Dark follows the system by default and is remembered per browser. Kept warm rather
+     than blue-black so it still belongs to the same set. */
+  :root[data-theme="dark"]{
+    --paper:#16150f; --paper-2:#211f18; --rule:#332f25; --rule-2:#4a4436;
+    --ink:#e8e1d2; --ink-2:#b5ad9c; --ink-3:#8a8271; --flag:#d59a4e;
+    --ok:#7fb188; --warn:#d99175; --cool:#8aa9c9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#16150f; --paper-2:#211f18; --rule:#332f25; --rule-2:#4a4436;
+      --ink:#e8e1d2; --ink-2:#b5ad9c; --ink-3:#8a8271; --flag:#d59a4e;
+      --ok:#7fb188; --warn:#d99175; --cool:#8aa9c9;
+    }
+  }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;
     line-height:1.5;padding:clamp(1.5rem,5vw,3rem) clamp(1.25rem,5vw,3rem) 5rem}
   .sheet{max-width:52rem;margin:0 auto}
-  .home{display:inline-block;font-size:.85rem;color:var(--ink-3);text-decoration:none;margin-bottom:1rem}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+  .home{font-size:.85rem;color:var(--ink-3);text-decoration:none}
   .home:hover{color:var(--flag)}
+  #theme{font:inherit;font-size:.8rem;background:none;border:1px solid var(--rule);
+    border-radius:999px;padding:.25rem .7rem;color:var(--ink-3);cursor:pointer}
+  #theme:hover{color:var(--ink-2);border-color:var(--rule-2)}
+
+  /* filters — same chip language as favourites.html */
+  .filters{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.4rem 0 .2rem}
+  .filters button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:none;
+    color:var(--ink-2);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+  .filters button:hover{border-color:var(--rule-2)}
+  .filters button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .filters .n{opacity:.55;font-size:.8em;margin-left:.25rem}
+
+  /* one row per visit you logged, because you can see a house more than once */
+  .visit-row{display:flex;gap:.5rem;align-items:center;font-size:.82rem;color:var(--ink-3);margin-top:.3rem}
+  .visit-row .kind{color:var(--ink-2)}
+  .visit-row input{font:inherit;font-size:.8rem;border:0;border-bottom:1px solid var(--rule);
+    padding:.1rem;background:none;color:var(--ink-2);color-scheme:light dark}
+  .visit-row .drop{background:none;border:0;color:var(--ink-3);cursor:pointer;font-size:.95rem;padding:0 .2rem}
+  .visit-row .drop:hover{color:var(--warn)}
   h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,5vw,2.5rem);letter-spacing:-.02em;line-height:1.1}
   .lede{margin-top:.6rem;color:var(--ink-2);font-size:.97rem;max-width:42rem}
   .banner{margin-top:1.2rem;padding:.75rem .9rem;border-left:3px solid var(--rule-2);
     background:var(--paper-2);font-size:.88rem;color:var(--ink-2)}
   h2{font-family:var(--serif);font-weight:400;font-size:1.4rem;margin:2.4rem 0 .3rem}
   .sub{color:var(--ink-3);font-size:.85rem;margin-bottom:.8rem}
-  .patterns{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:1rem 1.1rem}
-  .patterns .col{margin-bottom:.9rem}
-  .patterns .col:last-child{margin-bottom:0}
-  .patterns h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600;margin-bottom:.4rem}
-  .chip{display:inline-block;font-size:.85rem;padding:.2rem .55rem;border-radius:999px;margin:0 .3rem .35rem 0}
-  .chip.up{background:#e3efe4;color:var(--ok)}
-  .chip.down{background:#f7e4dc;color:var(--warn)}
   .none{color:var(--ink-3);font-size:.88rem;font-style:italic}
-  .card{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:1.1rem 1.2rem;margin-bottom:1rem}
-  .card.gone{background:#fbf9f5}
-  .card header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
-  .addr{font-family:var(--serif);font-size:1.3rem;line-height:1.2}
+
+  /* No cards. This page was the only one in the set using white blocks on warm paper,
+     seven of them, each holding five pills, three uppercase labels and three bordered
+     boxes — about thirteen rectangles per house, all vibrating against the background.
+     It now uses the same hairline-rule rhythm as every other page here, and the writing
+     area is a sheet of paper rather than a form field. */
+  .house{border-bottom:1px solid var(--rule);padding:1.6rem 0}
+  .house:first-child{border-top:1px solid var(--rule)}
+  .house header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+  .addr{font-family:var(--serif);font-size:1.35rem;line-height:1.2}
   .addr a{color:inherit;text-decoration:none}
   .addr a:hover{color:var(--flag)}
-  .price{font-variant-numeric:tabular-nums;font-weight:600}
+  .price{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:.95rem}
   .where{color:var(--ink-3);font-size:.85rem;margin-top:.15rem}
   .tag{display:inline-block;font-size:.7rem;letter-spacing:.02em;text-transform:uppercase;
     padding:.1rem .4rem;border-radius:3px;margin-left:.4rem;vertical-align:.15em}
-  .t-for_sale{background:#e3efe4;color:var(--ok)}
-  .t-pending,.t-contingent{background:#f6e9dd;color:var(--flag)}
-  .t-sold{background:#e2e8f0;color:var(--cool)}
-  .t-off{background:#eee9e0;color:var(--ink-3)}
-  .t-unstarred{background:#eee9e0;color:var(--ink-3)}
-  .seen{display:flex;gap:.4rem;flex-wrap:wrap;margin:.9rem 0 .2rem}
-  .seen button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:var(--paper);
-    color:var(--ink-2);padding:.35rem .7rem;border-radius:999px;cursor:pointer}
-  .seen button:hover{border-color:var(--rule-2)}
-  .seen button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .when{font-size:.8rem;color:var(--ink-3);margin-top:.35rem}
-  .when input{font:inherit;font-size:.8rem;border:1px solid var(--rule);border-radius:3px;
-    padding:.15rem .3rem;background:var(--paper);color:var(--ink)}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
-  @media(max-width:620px){.two{grid-template-columns:1fr}}
-  label.fld{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;
-    color:var(--ink-3);font-weight:600;margin-bottom:.3rem}
-  textarea{width:100%;font:inherit;font-size:.9rem;line-height:1.45;padding:.5rem .6rem;
-    border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink);
-    resize:vertical;min-height:4.5rem}
-  textarea:focus{outline:2px solid var(--flag);outline-offset:1px;background:#fff}
-  .hint{font-size:.76rem;color:var(--ink-3);margin-top:.25rem}
-  .saved{font-size:.76rem;color:var(--ok);opacity:0;transition:opacity .2s;margin-top:.5rem}
+  .tag{background:var(--paper-2)}
+  .t-for_sale{color:var(--ok)}
+  .t-pending,.t-contingent{color:var(--flag)}
+  .t-sold{color:var(--cool)}
+  .t-off,.t-unstarred{color:var(--ink-3)}
+
+  /* the visit row: text, not buttons, until you hover one */
+  .seen{display:flex;gap:.9rem;flex-wrap:wrap;margin:.7rem 0 .1rem}
+  .seen button{font:inherit;font-size:.82rem;border:0;background:none;padding:0;
+    color:var(--ink-3);cursor:pointer;border-bottom:1px solid transparent}
+  .seen button:hover{color:var(--ink-2);border-bottom-color:var(--rule-2)}
+  .seen button[aria-pressed="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--flag)}
+  .when{font-size:.8rem;color:var(--ink-3);margin-top:.3rem}
+  .when input{font:inherit;font-size:.8rem;border:0;border-bottom:1px solid var(--rule);
+    padding:.1rem .1rem;background:none;color:var(--ink-2)}
+
+  textarea{width:100%;font:inherit;font-size:1rem;line-height:1.6;margin-top:.8rem;
+    padding:.2rem 0;border:0;background:none;color:var(--ink);resize:none;overflow:hidden;
+    min-height:2.2rem}
+  textarea::placeholder{color:var(--rule-2)}
+  textarea:focus{outline:0}
+  .saved{font-size:.76rem;color:var(--ink-3);margin-top:.5rem;opacity:0;transition:opacity .25s}
   .saved.on{opacity:1}
   footer{margin-top:2.5rem;color:var(--ink-3);font-size:.85rem;line-height:1.6}
   code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;
@@ -73,7 +107,10 @@
 </head>
 <body>
 <div class="sheet">
-  <a class="home" href="index.html">← all tools</a>
+  <div class="topbar">
+    <a class="home" href="index.html">← all tools</a>
+    <button type="button" id="theme" aria-label="Switch between light and dark">◑ theme</button>
+  </div>
   <h1>Walkthroughs</h1>
   <p class="lede">What you thought when you stood in it. Houses blur after the fourth one —
     this is where the reason you liked or didn't like each of them stays put, including the
@@ -81,12 +118,8 @@
 
   <div class="banner" id="banner"></div>
 
-  <h2>What keeps coming up</h2>
-  <p class="sub">Counted across every house you've written about. What repeats is what you
-    actually care about, as opposed to what you said you wanted.</p>
-  <div class="patterns" id="patterns"></div>
-
   <h2>Houses</h2>
+  <div class="filters" id="filters"></div>
   <p class="sub" id="sub-houses"></p>
   <div id="list"></div>
 
@@ -107,7 +140,6 @@ const today = () => new Date().toISOString().slice(0, 10);
    minutes and slowing down outside it are different kinds of knowledge, and later you
    will want to know which one a note came from. */
 const SEEN = [
-  {k: "",                label: "Not yet"},
   {k: "drive_by",        label: "Drove by"},
   {k: "open_house",      label: "Open house"},
   {k: "private_showing", label: "Private showing"},
@@ -115,9 +147,19 @@ const SEEN = [
 ];
 const SEEN_LABEL = Object.fromEntries(SEEN.map(s => [s.k, s.label]));
 
+/* You can see one house several ways -- drove past it in June, open house in August,
+   went back with the inspector in September -- and later you will want to know which
+   visit a thought came from. So visits are a LIST, and each one's date is optional:
+   being made to supply a date is exactly the friction that stops you logging it.
+   `visit` (singular) was the old shape and is read once, then written back as a list. */
+function visitsOf(n) {
+  if (!n) return [];
+  if (Array.isArray(n.visits)) return n.visits;
+  if (n.visit && n.visit.kind) return [n.visit];
+  return [];
+}
+
 const norm = s => (s || "").trim().toLowerCase().replace(/\s+/g, " ");
-const toList = t => (t || "").split("\n").map(x => x.trim()).filter(Boolean);
-const fromList = a => (Array.isArray(a) ? a : []).join("\n");
 
 /* Same rule as favourites.html: a live listing beats an old sale, because our sold
    window is three years and plenty of listed houses also closed inside it. */
@@ -152,56 +194,72 @@ function houses() {
   return [...out.values()];
 }
 
-function patterns() {
-  const up = {}, down = {};
-  for (const [k, n] of Object.entries(NOTES.all())) {
-    const where = n.address || k;
-    for (const [bucket, items] of [[up, n.liked], [down, n.disliked]]) {
-      for (const raw of (items || [])) {
-        const kk = norm(raw).replace(/[.,;!]+$/, "");
-        if (!kk) continue;
-        bucket[kk] = bucket[kk] || {label: raw.trim(), n: 0, where: []};
-        bucket[kk].n++; bucket[kk].where.push(where);
-      }
-    }
+/* One debounce timer PER HOUSE, but the pending edits ACCUMULATE. Replacing them lost
+   data when two fields on the same house changed inside half a second -- the second call
+   cancelled the first timer and only the later field was sent. Still true for the note
+   and the visit date. */
+/* The same stages favourites.html filters by, plus the two questions this page is for:
+   have I been, and have I written it down. */
+const STAGES = [
+  {k: "all",        label: "All"},
+  {k: "for_sale",   label: "For sale"},
+  {k: "pending",    label: "Pending"},
+  {k: "contingent", label: "Contingent"},
+  {k: "sold",       label: "Sold"},
+  {k: "off",        label: "Off market"},
+  {k: "seen",       label: "Seen in person"},
+  {k: "written",    label: "Has notes"},
+  {k: "blank",      label: "Nothing written"},
+];
+let filter = "all";
+const matches = (h, L) => {
+  const n = NOTES.get(h.key) || {};
+  switch (filter) {
+    case "all":     return true;
+    case "seen":    return visitsOf(n).length > 0;
+    case "written": return !!(n.note || "").trim();
+    case "blank":   return !(n.note || "").trim();
+    default:        return L.stage === filter;
   }
-  const draw = (obj, cls) => {
-    const rows = Object.values(obj).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
-    if (!rows.length) return '<span class="none">nothing yet</span>';
-    return rows.map(r => `<span class="chip ${cls}" title="${esc(r.where.join(" · "))}">${
-      esc(r.label)}${r.n > 1 ? ` <b>×${r.n}</b>` : ""}</span>`).join("");
-  };
-  $("patterns").innerHTML =
-    `<div class="col"><h3>Liked</h3>${draw(up, "up")}</div>
-     <div class="col"><h3>Didn't like</h3>${draw(down, "down")}</div>`;
-}
+};
 
-/* One debounce timer PER HOUSE, but the pending edits ACCUMULATE. Replacing them
-   instead lost data: edit "liked" then "disliked" inside half a second and the second
-   call cancelled the first timer, so only the second field was ever sent. */
 const timers = {}, pending = {};
 const flash = el => { el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1200); };
 
 function render() {
-  const hs = houses(), ro = !NOTES.writable();
-  const seen = hs.filter(h => { const n = NOTES.get(h.key); return n && n.visit && n.visit.kind; }).length;
-  const written = hs.filter(h => !NOTES.isEmpty(NOTES.get(h.key))).length;
-  $("sub-houses").textContent = hs.length
-    ? `${hs.length} houses · ${seen} seen in person · ${written} with notes` : "";
+  const all = houses(), ro = !NOTES.writable();
+  const stageOf = {};
+  for (const h of all) stageOf[h.key] = resolve(h);
 
-  if (!hs.length) {
+  // counts on every chip, so an empty filter is visible before you click it
+  const count = k => { const was = filter; filter = k;
+    const n = all.filter(h => matches(h, stageOf[h.key])).length; filter = was; return n; };
+  $("filters").innerHTML = STAGES.map(f =>
+    `<button type="button" data-k="${f.k}" aria-pressed="${filter === f.k}">${f.label}<span class="n">${count(f.k)}</span></button>`).join("");
+  document.querySelectorAll("#filters button").forEach(b =>
+    b.addEventListener("click", () => { filter = b.dataset.k; render(); }));
+
+  const hs = all.filter(h => matches(h, stageOf[h.key]));
+  const seen = all.filter(h => visitsOf(NOTES.get(h.key)).length).length;
+  const written = all.filter(h => ((NOTES.get(h.key) || {}).note || "").trim()).length;
+  $("sub-houses").textContent = all.length
+    ? `${hs.length} of ${all.length} · ${seen} seen in person · ${written} written up` : "";
+
+  if (!all.length) {
     $("list").innerHTML = `<p class="none">Nothing yet — star a house on
       <a href="market.html">What's for sale</a> and it shows up here.</p>`;
-    patterns(); return;
+    return;
   }
+  if (!hs.length) { $("list").innerHTML = `<p class="none">No houses match that filter.</p>`; return; }
 
   $("list").innerHTML = hs.map(h => {
-    const L = resolve(h), n = NOTES.get(h.key) || {}, k = esc(h.key);
+    const L = stageOf[h.key], n = NOTES.get(h.key) || {}, k = esc(h.key);
     const label = L.stage === "off" ? "off market" : L.stage.replace("_", " ");
     const facts = [L.beds != null ? `${L.beds}bd` : null, L.baths != null ? `${L.baths}ba` : null,
                    L.sqft ? L.sqft.toLocaleString() + " sqft" : null].filter(Boolean).join(" · ");
-    const kind = (n.visit && n.visit.kind) || "";
-    return `<div class="card ${L.stage === "sold" || L.stage === "off" ? "gone" : ""}" data-key="${k}">
+    const vs = visitsOf(n);
+    const on = new Set(vs.map(v => v.kind));
+    return `<div class="house" data-key="${k}">
       <header>
         <div><div class="addr">${L.url ? `<a href="${esc(L.url)}" target="_blank" rel="noopener">${esc(h.address)}</a>` : esc(h.address)}<span class="tag t-${L.stage}">${esc(label)}</span>${
           h.starred ? "" : '<span class="tag t-unstarred">not starred</span>'}</div>
@@ -210,57 +268,85 @@ function render() {
         <div class="price">${usd(L.price)}</div>
       </header>
       <div class="seen" role="group" aria-label="How you saw it">
-        ${SEEN.map(s => `<button type="button" data-kind="${s.k}" aria-pressed="${kind === s.k}"${ro ? " disabled" : ""}>${s.label}</button>`).join("")}
+        ${SEEN.map(v => `<button type="button" data-kind="${v.k}" aria-pressed="${on.has(v.k)}"${ro ? " disabled" : ""}>${v.label}</button>`).join("")}
       </div>
-      <div class="when">${kind ? `on <input type="date" class="visit-date" value="${esc((n.visit && n.visit.date) || today())}"${ro ? " disabled" : ""}>` : ""}</div>
-      <div class="two">
-        <div><label class="fld" for="l-${k}">What you liked</label>
-          <textarea id="l-${k}" class="liked" placeholder="One per line&#10;big flat yard&#10;kitchen already done"${ro ? " disabled" : ""}>${esc(fromList(n.liked))}</textarea>
-          <div class="hint">One thing per line.</div></div>
-        <div><label class="fld" for="d-${k}">What you didn't</label>
-          <textarea id="d-${k}" class="disliked" placeholder="One per line&#10;low ceilings&#10;road noise out front"${ro ? " disabled" : ""}>${esc(fromList(n.disliked))}</textarea>
-          <div class="hint">One thing per line.</div></div>
-      </div>
-      <div style="margin-top:1rem">
-        <label class="fld" for="n-${k}">Anything else</label>
-        <textarea id="n-${k}" class="note" placeholder="Who you met, what the neighbours said, what you'd check next time."${ro ? " disabled" : ""}>${esc(n.note || "")}</textarea>
-      </div>
-      <div class="saved" data-saved>saved${n.updated ? ` · last edited ${esc(n.updated)}` : ""}</div>
+      ${vs.map((v, i) => `<div class="visit-row" data-i="${i}">
+          <span class="kind">${esc(SEEN_LABEL[v.kind] || v.kind)}</span>
+          <input type="date" class="visit-date" value="${esc(v.date || "")}"${ro ? " disabled" : ""}>
+          ${v.date ? "" : '<span>no date</span>'}
+          ${ro ? "" : '<button type="button" class="drop" title="Remove this visit">×</button>'}
+        </div>`).join("")}
+      <textarea class="note" rows="1" placeholder="What did you think?"${ro ? " disabled" : ""}>${esc(n.note || "")}</textarea>
+      <div class="saved" data-saved>${n.updated ? `saved ${esc(n.updated)}` : ""}</div>
     </div>`;
   }).join("");
 
-  if (ro) { patterns(); return; }
+  if (ro) return;
 
-  document.querySelectorAll(".card").forEach(card => {
-    const key = card.dataset.key;
+  /* Grow the box to fit what is in it — a fixed-height field with a scrollbar is the
+     thing that makes people stop writing. */
+  const grow = t => { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; };
+  document.querySelectorAll(".house").forEach(el => {
+    const key = el.dataset.key;
     const h = hs.find(x => (x.key || "").toLowerCase() === key.toLowerCase()) || {};
     const who = {address: h.address, town: h.town, zip: h.zip};
-    const mark = card.querySelector("[data-saved]");
+    const mark = el.querySelector("[data-saved]");
     const push = fields => {
       pending[key] = {...(pending[key] || {}), ...fields};
       clearTimeout(timers[key]);
       timers[key] = setTimeout(async () => {
         const batch = pending[key]; delete pending[key];
-        await NOTES.save(key, who, batch); flash(mark); patterns();
-      }, 500);
+        await NOTES.save(key, who, batch);
+        mark.textContent = "saved"; flash(mark);
+      }, 600);
     };
-    card.querySelectorAll(".seen button").forEach(b => b.addEventListener("click", async () => {
-      const prev = NOTES.get(key) || {};
-      await NOTES.save(key, who, {visit: b.dataset.kind
-        ? {kind: b.dataset.kind, date: (prev.visit && prev.visit.date) || today()} : null});
+    const saveVisits = async list => {
+      await NOTES.save(key, who, {visits: list, visit: null});
       render();
+    };
+
+    el.querySelectorAll(".seen button").forEach(b => b.addEventListener("click", async () => {
+      const kind = b.dataset.kind, vs = visitsOf(NOTES.get(key)).slice();
+      const at = vs.findIndex(v => v.kind === kind);
+      // date starts EMPTY on purpose: having to supply one is the friction that stops
+      // you logging the visit at all. Fill it in later, or never.
+      if (at >= 0) vs.splice(at, 1); else vs.push({kind, date: ""});
+      await saveVisits(vs);
     }));
-    const d = card.querySelector(".visit-date");
-    if (d) d.addEventListener("change", () => {
-      const prev = NOTES.get(key) || {};
-      push({visit: {kind: prev.visit ? prev.visit.kind : "", date: d.value}});
+    el.querySelectorAll(".visit-row").forEach(row => {
+      const i = +row.dataset.i;
+      row.querySelector(".visit-date").addEventListener("change", async e => {
+        const vs = visitsOf(NOTES.get(key)).slice();
+        if (vs[i]) { vs[i] = {...vs[i], date: e.target.value}; await saveVisits(vs); }
+      });
+      const drop = row.querySelector(".drop");
+      if (drop) drop.addEventListener("click", async () => {
+        const vs = visitsOf(NOTES.get(key)).slice();
+        vs.splice(i, 1); await saveVisits(vs);
+      });
     });
-    card.querySelector(".liked").addEventListener("input", e => push({liked: toList(e.target.value)}));
-    card.querySelector(".disliked").addEventListener("input", e => push({disliked: toList(e.target.value)}));
-    card.querySelector(".note").addEventListener("input", e => push({note: e.target.value}));
+
+    const t = el.querySelector(".note");
+    grow(t);
+    t.addEventListener("input", e => { grow(e.target); push({note: e.target.value}); });
   });
-  patterns();
 }
+
+/* Theme: follow the system unless you have said otherwise on this browser. Wrapped,
+   because storage throws in a private window and the page must still render. */
+(function theme() {
+  const KEY = "notes.theme";
+  let saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+  $("theme").addEventListener("click", () => {
+    const dark = getComputedStyle(document.documentElement)
+      .getPropertyValue("--paper").trim().toLowerCase().startsWith("#1");
+    const next = dark ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+  });
+})();
 
 Promise.all([FAVS.load(), NOTES.load()]).then(() => {
   $("banner").innerHTML = NOTES.writable()
@@ -273,9 +359,8 @@ Promise.all([FAVS.load(), NOTES.load()]).then(() => {
      away what you learned in it. A house that sold to someone else still appears here, marked
      <i>not starred</i> — often that is the most useful note you have, because you know how the
      story ended.</p>
-     <p><b>Why one thing per line.</b> Each line is its own item, which is what lets the panel
-     at the top count repeats. Four houses where you wrote "low ceilings" is a fact about you,
-     not about those four houses, and it never surfaces from paragraphs.</p>`;
+     <p>Write however you want. Making sense of it — pulling out what you keep saying across
+     houses — is a job for later, not a form to fill in now.</p>`;
   render();
 });
 </script>

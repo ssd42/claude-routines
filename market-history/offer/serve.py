@@ -138,7 +138,11 @@ class Handler(SimpleHTTPRequestHandler):
                         for f in ("address", "town", "zip"):
                             if req.get(f) and not row.get(f):
                                 row[f] = req[f]
-                        for f in ("visit", "liked", "disliked", "note"):
+                        # `visits` is a LIST -- you can see one house several ways (drove
+                        # past, then an open house, then went back), and which one a note
+                        # came from matters later. `visit` is the old single value, still
+                        # accepted so an older file keeps working.
+                        for f in ("visits", "visit", "liked", "disliked", "note"):
                             if f in req:
                                 row[f] = req[f]
                         row["updated"] = req.get("updated") or row.get("updated")
