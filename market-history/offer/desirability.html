@@ -356,7 +356,8 @@ async function run(T){
 
   /* ---- score the cells ---- */
   setStatus(T,"Scoring cells…");await sleep(20);
-  const sales=D.sold.map(s=>({lat:s[0],lon:s[1],price:s[2],raw:s[3],month:s[4],sqft:s[5],beds:s[6]}));
+  const sales=D.sold.map(s=>({lat:s[0],lon:s[1],price:s[2],raw:s[3],month:s[4],sqft:s[5],beds:s[6],
+                              front:s[7],froad:s[8],fdist:s[9]}));
   T.sales=sales;
   const grid=turf.hexGrid(turf.bbox(bnd),cfg.cell,{units:"kilometers"});
   const P={r1:prep(roads.filter(f=>/motorway|trunk/.test(f.properties.highway))),
@@ -424,10 +425,12 @@ function drawHouses(T){
       const key=FAVS.keyFor(s[3],s[10]), starred=FAVS.has(key);
       /* a starred house gets a gold ring, so you can see your shortlist on the map
          without opening anything */
+      const onRoad=s[11]!=null&&s[11]<55;
       return L.circleMarker([s[0],s[1]],{pane:"top",radius:starred?6:(open?4:3.5),
-        color:starred?"#c8901c":(open?"#a0431f":"#9aa3ac"),weight:starred?3:2,
+        color:starred?"#c8901c":(onRoad?"#9b2c1f":(open?"#a0431f":"#9aa3ac")),
+        weight:starred?3:(onRoad?3:2),
         fillColor:open?"#ffd9c7":"#e8ebee",fillOpacity:open?.95:.75})
-      .bindPopup(`<b>${esc(s[3])}</b>${open?"":' <span class="tag">under contract</span>'}<br>Asking ${fmt$(s[2])}${s[4]?`<br>${esc(s[4])} bd / ${esc(s[5]||"?")} ba`:""}${s[6]?` · ${(+s[6]).toLocaleString()} sqft`:""}${s[7]?`<br>${esc(s[7])} days on market`:""}
+      .bindPopup(`<b>${esc(s[3])}</b>${open?"":' <span class="tag">under contract</span>'}<br>Asking ${fmt$(s[2])}${s[4]?`<br>${esc(s[4])} bd / ${esc(s[5]||"?")} ba`:""}${s[6]?` · ${(+s[6]).toLocaleString()} sqft`:""}${s[7]?`<br>${esc(s[7])} days on market`:""}${frontLine(s[11],s[12],s[13])}
         <div class="popact">${FAVS.writable()
           ? `<button type="button" class="favbtn" data-a="${esc(s[3])}" data-t="${esc(T.key)}" data-z="${esc(s[10]||"")}" data-p="${s[2]}" aria-pressed="${starred}">${starred?"\u2605 saved":"\u2606 save"}</button>`
           : (starred?'<span class="tag">\u2605 a favourite</span>':"")}
@@ -456,6 +459,17 @@ function drawHouses(T){
 }
 
 /* ================= scoring + display ================= */
+/* Road frontage is a fact about a HOUSE, precomputed per address in
+   build_desirability.py. The hexagon can only say "there is a through road in this
+   neighbourhood"; this says whether THIS house is on it. Bands are short on purpose —
+   a highway carries 450 m because of noise, but a local through road hurts because you
+   reverse out of your driveway into it. */
+function frontLine(score,road,dist){
+  if(score==null||score>=100||!road)return "";
+  const how=dist<=20?"fronts":dist<=60?"a few doors from":"near";
+  return `<br><span style="color:${dist<=20?"#9b2c1f":"#a0431f"}">Road: ${how} ${esc(road)}</span>`
+    +` <span class="tag">${dist} m · ${score}/100</span>`;
+}
 function valOf(c,key){return key==="composite"?c.composite:key==="nonres"?c.nonresS:c[key];}
 function recompute(T){if(!T||!T.cells)return;const res=T.cells.filter(c=>!c.nonres);const tw=FACTORS.reduce((a,f)=>a+f.w,0)||1;
   for(const c of res)c.raw=FACTORS.reduce((s,f)=>s+f.w*valOf(c,f.key),0)/tw;
@@ -526,6 +540,31 @@ function renderSources(){$("#sources").innerHTML=`<table><tr><th>Source</th><th>
  <tr><td>US Census geocoder; OSM Nominatim</td><td>The Address tab only — nothing else calls the network</td></tr>
  </table><p class="sub">Built by <code>offer/build_desirability.py</code>. Everything above is committed in this repo; the page fetches none of it at load time.</p>`;}
 
+/* The same measurement build_desirability.py bakes into every house, run live for an
+   address you type. Kept here rather than only in the build so the Address tab works on
+   any address, not just ones already in our data. */
+const FRONT_TIERS=[[/^(motorway|trunk)/,40,400,1.00],[/^primary/,25,150,0.80],
+                   [/^secondary/,20,110,0.55],[/^tertiary/,18,80,0.35],
+                   [/^unclassified/,15,60,0.20]];
+function nearestRoad(T,lat,lon){
+  const F=(T.D&&T.D.osm&&T.D.osm.features)||[];
+  const P=turf.point([lon,lat]);
+  let worst=0,road=null,dist=null;
+  for(const f of F){
+    const p=f.properties,hw=(p.highway||"").replace("_link","");
+    let tier=FRONT_TIERS.find(t=>t[0].test(hw));
+    if(!tier&&/^(CR|NJ|US|I) /.test(p.ref||""))tier=FRONT_TIERS[3];
+    if(!tier||f.geometry.type!=="LineString")continue;
+    const[,full,zero,w]=tier;
+    let d;try{d=turf.pointToLineDistance(P,f,{units:"meters"});}catch(e){continue;}
+    if(d>=zero)continue;
+    const hit=w*(d<=full?1:1-(d-full)/(zero-full));
+    if(hit>worst){worst=hit;dist=Math.round(d);
+      road=p.name&&p.ref?`${p.name} (${p.ref})`:(p.name||p.ref||`unnamed ${hw}`);}
+  }
+  return {score:Math.round(100*(1-worst)),road,dist};
+}
+
 /* ================= address check ================= */
 function jsonp(url,timeout=20000){return new Promise((res,rej)=>{const cb="jp"+Math.random().toString(36).slice(2);const s=document.createElement("script");const t=setTimeout(()=>{done();rej(new Error("timeout"));},timeout);function done(){clearTimeout(t);try{delete window[cb];}catch(e){}s.remove();}window[cb]=d=>{done();res(d);};s.onerror=()=>{done();rej(new Error("network"));};s.src=url+"&callback="+cb;document.head.appendChild(s);});}
 async function censusGeocode(addr){const d=await jsonp("https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address="+encodeURIComponent(addr)+"&benchmark=Public_AR_Current&format=jsonp");const mm=d&&d.result&&d.result.addressMatches;if(!mm||!mm.length)return null;return{lat:mm[0].coordinates.y,lon:mm[0].coordinates.x,src:"US Census geocoder"};}
@@ -544,7 +583,9 @@ async function checkAddress(T,input){
     note=d<=0.12?`Both geocoders agree (${m(d)} apart).`:`⚠ The two geocoders disagree by ${m(d)} — treat the position as rough.`;}
   else note=`Only one geocoder found it (${esc(hits[0].src)}), so the position is less certain.`;
   const pick=hits[0];
-  T.addr={label:input,lat:pick.lat,lon:pick.lon,src:pick.src,note};
+  const fr=nearestRoad(T,pick.lat,pick.lon);
+  T.addr={label:input,lat:pick.lat,lon:pick.lon,src:pick.src,note,
+          front:fr.score,froad:fr.road,fdist:fr.dist};
   T.addrMarker=L.marker([pick.lat,pick.lon],{pane:"top",icon:L.divIcon({className:"star-icon",html:"★",iconSize:[26,26],iconAnchor:[13,13]})}).bindTooltip("★ "+esc(input),{permanent:true,direction:"right",offset:[10,0]}).addTo(T.group);
   map.setView([pick.lat,pick.lon],15);
   addressReport(T);
@@ -558,7 +599,12 @@ function addressReport(T){if(CUR!==T.key||!T.addr||!T.cells)return;const A=T.add
   <p class="sub">${A.lat.toFixed(5)}, ${A.lon.toFixed(5)} — ${esc(A.src)}. ${esc(A.note)}</p></div>
   <h2>Factor breakdown</h2><table>
   <tr><td>Housing value</td><td><b>${f("value")}</b></td><td>${lvl(f("value"))}; ${cell.n800} sales within 800 m</td></tr>
-  <tr><td>Road exposure</td><td><b>${f("roads")}</b></td><td>${lvl(f("roads"))}; highway ${m(cell.d1)}, arterial ${m(cell.d2)}</td></tr>
+  <tr><td>Road exposure <span class="tag">this house</span></td><td><b>${A.front==null?f("roads"):A.front}</b></td><td>${
+    A.front==null?`${lvl(f("roads"))}; highway ${m(cell.d1)}, arterial ${m(cell.d2)}`
+    : A.front>=100?"no through road within range of this address"
+    : A.fdist<=20?`<b>fronts ${esc(A.froad)}</b> — ${A.fdist} m from the centreline`
+    : `${A.fdist} m from ${esc(A.froad)}`}</td></tr>
+  <tr><td>Road exposure <span class="tag">this block</span></td><td><b>${f("roads")}</b></td><td>${lvl(f("roads"))}; highway ${m(cell.d1)}, arterial ${m(cell.d2)}</td></tr>
   <tr><td>Non-res. adjacency</td><td><b>${f("nonres")}</b></td><td>${lvl(f("nonres"))}; ${m(cell.dn)} to commercial/industrial</td></tr>
   <tr><td>Flood</td><td><b>${f("flood")}</b></td><td>${cell.floodTxt}</td></tr>
   <tr><td>Amenities</td><td><b>${f("amen")}</b></td><td>park ${m(cell.dp)}, school ${m(cell.ds)}, grocery ${m(cell.dg)}</td></tr></table>

@@ -41,6 +41,13 @@ forSale -- what is listed now, all property types, NOT time-adjusted and NOT fed
   the page can do what market.html does: show genuinely-available by default, grey the
   rest, never mix them silently.
 
+frontage -- computed per HOUSE, not per cell. A 140 m hexagon can only say "this
+  neighbourhood has a through road in it"; whether a particular house fronts that road is
+  a different question, and we have exact coordinates for every sold and listed house, so
+  we answer it directly. Short distance bands, unlike the cell's road factor: a highway
+  carries 450 m because of noise, but a local through road hurts because you back out of
+  your driveway into it, and that stops mattering within a house or two.
+
 boundary / flood / stores / assisted -- straight from layers/. Nothing is fetched at run
   time. `assisted` is HUD's government-assisted housing (see layers/housing/): shown as a
   map layer, NOT scored. It is there so you can see what is near a house, not so the page
@@ -56,6 +63,7 @@ NOT INCLUDED, and worth knowing why:
 import argparse
 import csv
 import json
+import math
 import os
 import statistics
 import sys
@@ -162,6 +170,78 @@ def clip(features, box):
     return out
 
 
+# ---- road frontage, per house -------------------------------------------------------
+# "On a busy road" is a fact about a HOUSE, not about a 140 m hexagon. The cell colour
+# can only ever say "this neighbourhood has a through road in it"; whether YOUR house
+# fronts it is a different question, and we have the exact coordinates to answer it.
+#
+# The tiers are separate from the cell's road factor on purpose. A highway hurts from
+# 450 m away because of noise; a local through road hurts because you back out of your
+# driveway into it, which stops mattering within a house or two. Short bands, not cones.
+FRONTAGE = [                       # (osm classes, full penalty within m, gone by m, weight)
+    (("motorway", "trunk"),  40, 400, 1.00),
+    (("primary",),           25, 150, 0.80),
+    (("secondary",),         20, 110, 0.55),
+    (("tertiary",),          18,  80, 0.35),
+    (("unclassified",),      15,  60, 0.20),
+]
+ROUTE_PREFIXES = ("CR ", "NJ ", "US ", "I ")
+
+
+def seg_dist_m(px, py, ax, ay, bx, by):
+    dx, dy = bx - ax, by - ay
+    if dx == 0 and dy == 0:
+        return math.hypot(px - ax, py - ay)
+    t = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)))
+    return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+
+
+def road_index(osm_features, lat0):
+    """Through roads as flat metre-space segments, each carrying its own penalty band."""
+    k_lon = 111320 * math.cos(math.radians(lat0))
+    out = []
+    for f in osm_features:
+        p = f["properties"]
+        hw = (p.get("highway") or "").replace("_link", "")
+        ref = p.get("ref") or ""
+        tier = next((t for t in FRONTAGE if hw in t[0]), None)
+        if tier is None and any(ref.startswith(x) for x in ROUTE_PREFIXES):
+            tier = FRONTAGE[3]                 # a county route is a through road either way
+        if tier is None or f["geometry"]["type"] != "LineString":
+            continue
+        _, full, zero, weight = tier
+        name = p.get("name") or ref or f"unnamed {hw or 'road'}"
+        if p.get("name") and ref:
+            name = f"{p['name']} ({ref})"
+        pts = [(x * k_lon, y * 110540) for x, y in f["geometry"]["coordinates"]]
+        out.append({"full": full, "zero": zero, "w": weight, "name": name, "pts": pts})
+    return out, k_lon
+
+
+def frontage(lat, lon, roads, k_lon):
+    """(score 0-100, road name, metres) for ONE house. 100 = no through road near it.
+
+    Worst offender wins, the same rule the cell's road factor uses, so the two numbers
+    move together instead of telling different stories."""
+    px, py = lon * k_lon, lat * 110540
+    worst, who, howfar = 0.0, None, None
+    for r in roads:
+        pts = r["pts"]
+        # cheap reject: if every vertex is far away on one axis, skip the segment loop
+        if min(abs(px - x) for x, _ in pts) > r["zero"] and \
+           min(abs(py - y) for _, y in pts) > r["zero"]:
+            continue
+        best = min(seg_dist_m(px, py, pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1])
+                   for i in range(len(pts) - 1)) if len(pts) > 1 else float("inf")
+        if best >= r["zero"]:
+            continue
+        hit = r["w"] * (1.0 if best <= r["full"]
+                        else 1.0 - (best - r["full"]) / (r["zero"] - r["full"]))
+        if hit > worst:
+            worst, who, howfar = hit, r["name"], best
+    return round(100 * (1 - worst)), who, (round(howfar) if howfar is not None else None)
+
+
 def load_stores():
     out = []
     for kind, path in STORES.items():
@@ -199,6 +279,18 @@ def main():
             continue
         box = bbox_of(bnds[town]["geometry"])
 
+        osm_path = os.path.join(OSM, f"{town.lower().replace(' ', '-')}.geojson")
+        if os.path.exists(osm_path):
+            osm = json.load(open(osm_path))["features"]
+        else:
+            osm = []
+            print(f"  ! no baked OSM context for {town} -- run "
+                  f"layers/osm/fetch_osm_context.py")
+
+        lat0 = (box[1] + box[3]) / 2
+        roads_idx, k_lon = road_index(osm, lat0)
+
+
         sold, missing, undated = [], 0, 0
         with open(SALES, newline="") as f:
             for r in csv.DictReader(f):
@@ -227,8 +319,9 @@ def main():
                     beds = int(float(r["beds"])) if r.get("beds") else None
                 except ValueError:
                     beds = None
+                fs, fname, fdist = frontage(c["lat"], c["lon"], roads_idx, k_lon)
                 sold.append([c["lat"], c["lon"], round(price * factor),
-                             round(price), month, sqft, beds])
+                             round(price), month, sqft, beds, fs, fname, fdist])
 
         for_sale = []
         with open(LISTINGS, newline="") as f:
@@ -250,15 +343,8 @@ def main():
                     r.get("sqft") or None, r.get("days_on_market") or None,
                     r.get("url") or None, r.get("mls_status") or "FOR_SALE",
                     r.get("zip") or None,      # needed to build a favourite's key
+                    *frontage(float(r["lat"]), float(r["lon"]), roads_idx, k_lon),
                 ])
-
-        osm_path = os.path.join(OSM, f"{town.lower().replace(' ', '-')}.geojson")
-        if os.path.exists(osm_path):
-            osm = json.load(open(osm_path))["features"]
-        else:
-            osm = []
-            print(f"  ! no baked OSM context for {town} -- run "
-                  f"layers/osm/fetch_osm_context.py")
 
         flood = clip(flood_all, box)
         # a 300-unit development just over the line still matters, so keep a wide margin
@@ -279,12 +365,14 @@ def main():
                        if box[1] - 0.15 <= s[0] <= box[3] + 0.15
                        and box[0] - 0.2 <= s[1] <= box[2] + 0.2],
         }
+        fronted = sum(1 for x in sold if x[7] < 100)
         print(f"  {town}: {len(sold)} single-family sales "
               f"({missing} without a coordinate, {undated} without a trend month), "
               f"{sum(1 for x in for_sale if x[9] == 'FOR_SALE')} for sale "
               f"(+{sum(1 for x in for_sale if x[9] != 'FOR_SALE')} under contract), "
               f"{len(flood)} flood polygons, "
-              f"{len(osm)} OSM features, {len(assisted)} assisted-housing sites")
+              f"{len(osm)} OSM features, {len(assisted)} assisted-housing sites, "
+              f"{fronted} sales near a through road")
 
     latest = max((m for t in index.values() for m in t), default="")
     out["asOf"] = latest
