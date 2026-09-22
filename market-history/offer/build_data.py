@@ -567,7 +567,7 @@ def bake_listings():
     print(f"listings.js  {os.path.getsize(path)/1024:.0f} KB")
     print(f"  {len(out):>5} active listings   (fetched {fetched})")
     print(f"  {avail:>5} available; {len(out)-avail} pending/contingent")
-    return fetched
+    return {"fetched": fetched, "listings": len(out), "available": avail}
 
 
 def bake_map(towns):
@@ -709,7 +709,7 @@ def bake_sold():
     print(f"sold.js  {kb/1024:.1f} MB")
     print(f"  {len(rows):>6,} sales   {min(window)} -> {max(window)}")
     print(f"  {withask:>6,} with a usable asking price ({100*withask/len(rows):.0f}%)")
-    return rows
+    return {"sales": len(rows), "from": min(window), "to": max(window)}
 
 
 def main():
@@ -997,9 +997,26 @@ def main():
     print(f"  window         {data['window'][0]} -> {data['window'][1]}")
     print(f"  snapshot       {snap}")
     print()
-    bake_listings()
+    listing_counts = bake_listings()
     print()
-    bake_sold()
+    sold_counts = bake_sold()
+    print()
+
+    # counts.json — a few hundred bytes so index.html can show live numbers without
+    # loading listings.js and sold.js, which together are 9 MB. The hub is the one page
+    # that must open instantly.
+    counts = {"generated": date.today().isoformat(),
+              "available": listing_counts["available"],
+              "listings": listing_counts["listings"],
+              "fetched": listing_counts["fetched"],
+              "sales": sold_counts["sales"],
+              "salesFrom": sold_counts["from"], "salesTo": sold_counts["to"]}
+    cpath = os.path.join(HERE, "counts.json")
+    with open(cpath, "w") as fh:
+        json.dump(counts, fh, indent=2)
+        fh.write("\n")
+    print(f"counts.json  {os.path.getsize(cpath)} bytes  "
+          f"{counts['available']:,} available / {counts['sales']:,} sales")
     print()
     bake_map(towns)
 
