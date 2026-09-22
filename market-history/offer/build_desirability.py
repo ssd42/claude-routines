@@ -249,6 +249,7 @@ def main():
                     r.get("beds") or None, r.get("baths") or None,
                     r.get("sqft") or None, r.get("days_on_market") or None,
                     r.get("url") or None, r.get("mls_status") or "FOR_SALE",
+                    r.get("zip") or None,      # needed to build a favourite's key
                 ])
 
         osm_path = os.path.join(OSM, f"{town.lower().replace(' ', '-')}.geojson")

@@ -65,6 +65,13 @@ td,th{padding:4px 6px;border-bottom:1px solid var(--rule);text-align:left;vertic
 .storekey{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.78rem;color:var(--muted);margin:2px 0 6px 22px}
 .storekey span{display:inline-flex;align-items:center;gap:4px}
 .storekey i{width:13px;height:13px;border:1.5px solid #fff;box-shadow:0 0 0 1px var(--rule);font-style:normal}
+.popact{display:flex;gap:10px;align-items:center;margin-top:7px;padding-top:6px;border-top:1px solid var(--rule)}
+.popact a{color:var(--muted);font-size:.8rem;text-decoration:none;border-bottom:1px solid var(--rule)}
+.popact a:hover{color:var(--survey)}
+.favbtn{font:inherit;font-size:.8rem;background:none;border:1px solid var(--rule);border-radius:4px;
+  padding:3px 8px;cursor:pointer;color:var(--muted)}
+.favbtn:hover{border-color:#c8901c;color:#a8631c}
+.favbtn[aria-pressed="true"]{border-color:#c8901c;color:#a8631c;font-weight:600}
 .star-icon{font-size:26px;line-height:26px;color:#111;text-shadow:0 0 3px #fff,0 0 6px #fff}
 .leaflet-popup-content{font-family:inherit;font-size:.82rem;line-height:1.45;min-width:220px}
 .leaflet-popup-content table td{padding:2px 4px}
@@ -185,6 +192,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
 <script src="desirability.js"></script>
+<script src="favourites.js"></script>
 <script>
 "use strict";
 /* Everything this page draws is in desirability.js, built by build_desirability.py from
@@ -265,6 +273,17 @@ $("#show-flood").addEventListener("change",e=>{const T=ST[CUR];if(!T||!T.floodLa
 $("#show-stores").addEventListener("change",e=>{const T=ST[CUR];if(!T||!T.storeLayer)return;e.target.checked?T.storeLayer.addTo(T.group):T.group.removeLayer(T.storeLayer);});
 $("#show-assisted").addEventListener("change",e=>{const T=ST[CUR];if(!T||!T.assistedLayer)return;e.target.checked?T.assistedLayer.addTo(T.group):T.group.removeLayer(T.assistedLayer);});
 buildControls();
+/* Starring from a popup. Delegated, because Leaflet builds popup DOM on demand. */
+document.addEventListener("click",async e=>{
+  const b=e.target.closest(".favbtn");if(!b)return;
+  e.preventDefault();b.disabled=true;
+  await FAVS.toggle({address:b.dataset.a,town:b.dataset.t,zip:b.dataset.z,ask:+b.dataset.p||null});
+  const on=FAVS.has(FAVS.keyFor(b.dataset.a,b.dataset.z));
+  b.setAttribute("aria-pressed",on?"true":"false");
+  b.textContent=on?"\u2605 saved":"\u2606 save";
+  b.disabled=false;
+  if(CUR&&ST[CUR])drawHouses(ST[CUR]);          // repaint the ring
+});
 
 async function selectTown(key){
   if(BUSY||key===CUR)return;
@@ -402,9 +421,17 @@ function drawHouses(T){
   if(showSale){
     const shown=withUC?all:avail;
     T.saleLayer=L.layerGroup(shown.map(s=>{const open=s[9]==="FOR_SALE";
-      return L.circleMarker([s[0],s[1]],{pane:"top",radius:open?4:3.5,
-        color:open?"#a0431f":"#9aa3ac",weight:2,fillColor:open?"#ffd9c7":"#e8ebee",fillOpacity:open?.95:.75})
-      .bindPopup(`<b>${esc(s[3])}</b>${open?"":' <span class="tag">under contract</span>'}<br>Asking ${fmt$(s[2])}${s[4]?`<br>${esc(s[4])} bd / ${esc(s[5]||"?")} ba`:""}${s[6]?` · ${(+s[6]).toLocaleString()} sqft`:""}${s[7]?`<br>${esc(s[7])} days on market`:""}${s[8]?`<br><a href="${esc(s[8])}" target="_blank" rel="noopener">listing →</a>`:""}`);}));
+      const key=FAVS.keyFor(s[3],s[10]), starred=FAVS.has(key);
+      /* a starred house gets a gold ring, so you can see your shortlist on the map
+         without opening anything */
+      return L.circleMarker([s[0],s[1]],{pane:"top",radius:starred?6:(open?4:3.5),
+        color:starred?"#c8901c":(open?"#a0431f":"#9aa3ac"),weight:starred?3:2,
+        fillColor:open?"#ffd9c7":"#e8ebee",fillOpacity:open?.95:.75})
+      .bindPopup(`<b>${esc(s[3])}</b>${open?"":' <span class="tag">under contract</span>'}<br>Asking ${fmt$(s[2])}${s[4]?`<br>${esc(s[4])} bd / ${esc(s[5]||"?")} ba`:""}${s[6]?` · ${(+s[6]).toLocaleString()} sqft`:""}${s[7]?`<br>${esc(s[7])} days on market`:""}
+        <div class="popact">${FAVS.writable()
+          ? `<button type="button" class="favbtn" data-a="${esc(s[3])}" data-t="${esc(T.key)}" data-z="${esc(s[10]||"")}" data-p="${s[2]}" aria-pressed="${starred}">${starred?"\u2605 saved":"\u2606 save"}</button>`
+          : (starred?'<span class="tag">\u2605 a favourite</span>':"")}
+          ${s[8]?`<a href="${esc(s[8])}" target="_blank" rel="noopener">listing \u2197</a>`:""}</div>`);}));
     T.saleLayer.addTo(T.group);
   }
   const nAll=(T.sales||[]).length, n=soldShown.length;
@@ -539,7 +566,8 @@ function addressReport(T){if(CUR!==T.key||!T.addr||!T.cells)return;const A=T.add
   <h2>Nearby sales (≤800 m)</h2>${nearby.length?`<table>${nearby.slice(0,20).map(s=>`<tr><td>${esc(s.month)}</td><td>${fmt$(s.raw)}</td><td>${m(s.d)}</td></tr>`).join("")}</table>${nearby.length>20?`<p class="sub">…and ${nearby.length-20} more.</p>`:""}`:"<p>None within 800 m.</p>"}`;}
 
 /* ================= start ================= */
-(function(){
+(async function(){
+  await FAVS.load();
   if(!window.DESIRABILITY){status("desirability.js did not load. Run <code>python3 offer/build_desirability.py</code>, then reload.",true);return;}
   const startKey=decodeURIComponent((location.hash||"").slice(1));
   selectTown(TOWNS[startKey]?startKey:"Colonia");
