@@ -1,0 +1,67 @@
+{
+  "favourites": [
+    {
+      "key": "496|outlook|07067",
+      "address": "496 Outlook Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "added": "2026-09-22",
+      "ask_when_added": 619900,
+      "note": ""
+    },
+    {
+      "key": "110|amherst|07067",
+      "address": "110 Amherst Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "added": "2026-09-22",
+      "ask_when_added": 499999,
+      "note": ""
+    },
+    {
+      "key": "24|sunset|07066",
+      "address": "24 Sunset Dr",
+      "town": "Clark",
+      "zip": "07066",
+      "added": "2026-09-22",
+      "ask_when_added": 590000,
+      "note": ""
+    },
+    {
+      "key": "17|joanna|07067",
+      "address": "17 Joanna Pl",
+      "town": "Colonia",
+      "zip": "07067",
+      "added": "2026-09-22",
+      "ask_when_added": 480000,
+      "note": ""
+    },
+    {
+      "key": "75|lancaster|07067",
+      "address": "75 Lancaster Rd",
+      "town": "Colonia",
+      "zip": "07067",
+      "added": "2026-09-22",
+      "ask_when_added": 599900,
+      "note": ""
+    },
+    {
+      "key": "538|cicilia|07076",
+      "address": "538 Cicilia Pl",
+      "town": "Scotch Plains",
+      "zip": "07076",
+      "added": "2026-09-22",
+      "ask_when_added": 635000,
+      "note": ""
+    },
+    {
+      "key": "93|gaywood|07067",
+      "address": "93 Gaywood Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "added": "2026-09-22",
+      "ask_when_added": 575000,
+      "note": ""
+    }
+  ]
+}
