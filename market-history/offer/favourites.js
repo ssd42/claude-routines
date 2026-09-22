@@ -59,10 +59,55 @@ window.FAVS = (function () {
     return state;
   }
 
+  const get = key => (state.favourites || []).find(f => (f.key || "").toLowerCase() === key.toLowerCase());
   const has = key => (state.favourites || []).some(f => (f.key || "").toLowerCase() === key.toLowerCase());
   const all = () => state.favourites || [];
   const writable = () => !!state.writable;
   const onChange = f => listeners.push(f);
 
-  return { load, toggle, has, all, writable, keyFor, onChange };
+  return { load, toggle, get, has, all, writable, keyFor, onChange };
+})();
+
+
+/* Notes live in their OWN store, keyed by the same house key.
+
+   Separate from favourites on purpose: a favourite is a live interest and comes off the
+   list when the house is gone, but what you thought standing in a house stays useful
+   long after it sold to someone else — arguably it gets MORE useful, because a sold
+   house with your reaction attached is evidence about what you actually want. Nested
+   inside favourites, un-starring would have deleted it. */
+window.NOTES = (function () {
+  const API = "api/notes";
+  let state = { writable: false, notes: {} };
+
+  async function load() {
+    try {
+      const r = await fetch(API, { cache: "no-store" });
+      if (r.ok) { state = await r.json(); state.writable = true; return state; }
+    } catch (e) { /* no local server: fall through to the static file */ }
+    try {
+      const r = await fetch("notes.json", { cache: "no-store" });
+      if (r.ok) state = { writable: false, ...(await r.json()) };
+    } catch (e) { state = { writable: false, notes: {} }; }
+    state.notes = state.notes || {};
+    return state;
+  }
+
+  async function save(key, house, fields) {
+    if (!state.writable) return state;
+    const r = await fetch(API, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key, ...house, ...fields,
+                             updated: new Date().toISOString().slice(0, 10) })
+    });
+    if (r.ok) state = await r.json();
+    return state;
+  }
+
+  const get = key => (state.notes || {})[String(key).toLowerCase()] || null;
+  const all = () => state.notes || {};
+  const writable = () => !!state.writable;
+  const isEmpty = n => !n || (!(n.liked || []).length && !(n.disliked || []).length
+                              && !(n.note || "").trim() && !(n.visit && n.visit.kind));
+  return { load, save, get, all, writable, isEmpty };
 })();

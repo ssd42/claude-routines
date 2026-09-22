@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthroughs — the house hunt</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#efe9de; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#4a443b; --ink-3:#7d7367; --flag:#a8631c;
+    --ok:#2d6a3e; --warn:#a0431f; --cool:#3a5f86;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;
+    line-height:1.5;padding:clamp(1.5rem,5vw,3rem) clamp(1.25rem,5vw,3rem) 5rem}
+  .sheet{max-width:52rem;margin:0 auto}
+  .home{display:inline-block;font-size:.85rem;color:var(--ink-3);text-decoration:none;margin-bottom:1rem}
+  .home:hover{color:var(--flag)}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,5vw,2.5rem);letter-spacing:-.02em;line-height:1.1}
+  .lede{margin-top:.6rem;color:var(--ink-2);font-size:.97rem;max-width:42rem}
+  .banner{margin-top:1.2rem;padding:.75rem .9rem;border-left:3px solid var(--rule-2);
+    background:var(--paper-2);font-size:.88rem;color:var(--ink-2)}
+  h2{font-family:var(--serif);font-weight:400;font-size:1.4rem;margin:2.4rem 0 .3rem}
+  .sub{color:var(--ink-3);font-size:.85rem;margin-bottom:.8rem}
+  .patterns{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:1rem 1.1rem}
+  .patterns .col{margin-bottom:.9rem}
+  .patterns .col:last-child{margin-bottom:0}
+  .patterns h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:600;margin-bottom:.4rem}
+  .chip{display:inline-block;font-size:.85rem;padding:.2rem .55rem;border-radius:999px;margin:0 .3rem .35rem 0}
+  .chip.up{background:#e3efe4;color:var(--ok)}
+  .chip.down{background:#f7e4dc;color:var(--warn)}
+  .none{color:var(--ink-3);font-size:.88rem;font-style:italic}
+  .card{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:1.1rem 1.2rem;margin-bottom:1rem}
+  .card.gone{background:#fbf9f5}
+  .card header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+  .addr{font-family:var(--serif);font-size:1.3rem;line-height:1.2}
+  .addr a{color:inherit;text-decoration:none}
+  .addr a:hover{color:var(--flag)}
+  .price{font-variant-numeric:tabular-nums;font-weight:600}
+  .where{color:var(--ink-3);font-size:.85rem;margin-top:.15rem}
+  .tag{display:inline-block;font-size:.7rem;letter-spacing:.02em;text-transform:uppercase;
+    padding:.1rem .4rem;border-radius:3px;margin-left:.4rem;vertical-align:.15em}
+  .t-for_sale{background:#e3efe4;color:var(--ok)}
+  .t-pending,.t-contingent{background:#f6e9dd;color:var(--flag)}
+  .t-sold{background:#e2e8f0;color:var(--cool)}
+  .t-off{background:#eee9e0;color:var(--ink-3)}
+  .t-unstarred{background:#eee9e0;color:var(--ink-3)}
+  .seen{display:flex;gap:.4rem;flex-wrap:wrap;margin:.9rem 0 .2rem}
+  .seen button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:var(--paper);
+    color:var(--ink-2);padding:.35rem .7rem;border-radius:999px;cursor:pointer}
+  .seen button:hover{border-color:var(--rule-2)}
+  .seen button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .when{font-size:.8rem;color:var(--ink-3);margin-top:.35rem}
+  .when input{font:inherit;font-size:.8rem;border:1px solid var(--rule);border-radius:3px;
+    padding:.15rem .3rem;background:var(--paper);color:var(--ink)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+  @media(max-width:620px){.two{grid-template-columns:1fr}}
+  label.fld{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--ink-3);font-weight:600;margin-bottom:.3rem}
+  textarea{width:100%;font:inherit;font-size:.9rem;line-height:1.45;padding:.5rem .6rem;
+    border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink);
+    resize:vertical;min-height:4.5rem}
+  textarea:focus{outline:2px solid var(--flag);outline-offset:1px;background:#fff}
+  .hint{font-size:.76rem;color:var(--ink-3);margin-top:.25rem}
+  .saved{font-size:.76rem;color:var(--ok);opacity:0;transition:opacity .2s;margin-top:.5rem}
+  .saved.on{opacity:1}
+  footer{margin-top:2.5rem;color:var(--ink-3);font-size:.85rem;line-height:1.6}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;
+    background:var(--paper-2);padding:.1rem .3rem;border-radius:3px}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <a class="home" href="index.html">← all tools</a>
+  <h1>Walkthroughs</h1>
+  <p class="lede">What you thought when you stood in it. Houses blur after the fourth one —
+    this is where the reason you liked or didn't like each of them stays put, including the
+    ones that got away.</p>
+
+  <div class="banner" id="banner"></div>
+
+  <h2>What keeps coming up</h2>
+  <p class="sub">Counted across every house you've written about. What repeats is what you
+    actually care about, as opposed to what you said you wanted.</p>
+  <div class="patterns" id="patterns"></div>
+
+  <h2>Houses</h2>
+  <p class="sub" id="sub-houses"></p>
+  <div id="list"></div>
+
+  <footer id="fine"></footer>
+</div>
+
+<script src="listings.js"></script>
+<script src="sold.js"></script>
+<script src="favourites.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const usd = n => n == null ? "—" : "$" + Math.round(n).toLocaleString();
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today = () => new Date().toISOString().slice(0, 10);
+
+/* How you saw it. "Visited" was too vague to record: standing in a house for forty
+   minutes and slowing down outside it are different kinds of knowledge, and later you
+   will want to know which one a note came from. */
+const SEEN = [
+  {k: "",                label: "Not yet"},
+  {k: "drive_by",        label: "Drove by"},
+  {k: "open_house",      label: "Open house"},
+  {k: "private_showing", label: "Private showing"},
+  {k: "second_visit",    label: "Went back"},
+];
+const SEEN_LABEL = Object.fromEntries(SEEN.map(s => [s.k, s.label]));
+
+const norm = s => (s || "").trim().toLowerCase().replace(/\s+/g, " ");
+const toList = t => (t || "").split("\n").map(x => x.trim()).filter(Boolean);
+const fromList = a => (Array.isArray(a) ? a : []).join("\n");
+
+/* Same rule as favourites.html: a live listing beats an old sale, because our sold
+   window is three years and plenty of listed houses also closed inside it. */
+function resolve(h) {
+  const key = (h.key || "").toLowerCase();
+  const same = (addr, town) => FAVS.keyFor(addr, h.zip).toLowerCase() === key ||
+    (norm(addr) === norm(h.address) && norm(town) === norm(h.town));
+  const prior = (window.SOLD && SOLD.rows || []).filter(r => same(r[0], r[1]))
+    .sort((a, b) => (b[2] || "").localeCompare(a[2] || ""))[0];
+  const live = (window.MARKET && MARKET.listings || []).filter(l => same(l.a, l.t))[0];
+  if (live) {
+    const st = (live.st || "FOR_SALE").toLowerCase();
+    return {stage: st === "for_sale" ? "for_sale" : st, price: live.p, url: live.url,
+            beds: live.bd, baths: live.ba, sqft: live.sq};
+  }
+  if (prior) return {stage: "sold", price: prior[3], when: prior[2], url: null,
+                     beds: prior[4], baths: prior[5], sqft: prior[6]};
+  return {stage: "off", price: null, url: null};
+}
+
+/* Every house worth showing: the current shortlist, PLUS anything with notes on it even
+   if it is no longer starred. That second half is the point of a separate notes file. */
+function houses() {
+  const out = new Map();
+  for (const f of FAVS.all())
+    out.set((f.key || "").toLowerCase(),
+            {key: f.key, address: f.address, town: f.town, zip: f.zip, starred: true});
+  for (const [k, n] of Object.entries(NOTES.all())) {
+    if (out.has(k)) continue;
+    out.set(k, {key: k, address: n.address || k, town: n.town, zip: n.zip, starred: false});
+  }
+  return [...out.values()];
+}
+
+function patterns() {
+  const up = {}, down = {};
+  for (const [k, n] of Object.entries(NOTES.all())) {
+    const where = n.address || k;
+    for (const [bucket, items] of [[up, n.liked], [down, n.disliked]]) {
+      for (const raw of (items || [])) {
+        const kk = norm(raw).replace(/[.,;!]+$/, "");
+        if (!kk) continue;
+        bucket[kk] = bucket[kk] || {label: raw.trim(), n: 0, where: []};
+        bucket[kk].n++; bucket[kk].where.push(where);
+      }
+    }
+  }
+  const draw = (obj, cls) => {
+    const rows = Object.values(obj).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
+    if (!rows.length) return '<span class="none">nothing yet</span>';
+    return rows.map(r => `<span class="chip ${cls}" title="${esc(r.where.join(" · "))}">${
+      esc(r.label)}${r.n > 1 ? ` <b>×${r.n}</b>` : ""}</span>`).join("");
+  };
+  $("patterns").innerHTML =
+    `<div class="col"><h3>Liked</h3>${draw(up, "up")}</div>
+     <div class="col"><h3>Didn't like</h3>${draw(down, "down")}</div>`;
+}
+
+/* One debounce timer PER HOUSE, but the pending edits ACCUMULATE. Replacing them
+   instead lost data: edit "liked" then "disliked" inside half a second and the second
+   call cancelled the first timer, so only the second field was ever sent. */
+const timers = {}, pending = {};
+const flash = el => { el.classList.add("on"); setTimeout(() => el.classList.remove("on"), 1200); };
+
+function render() {
+  const hs = houses(), ro = !NOTES.writable();
+  const seen = hs.filter(h => { const n = NOTES.get(h.key); return n && n.visit && n.visit.kind; }).length;
+  const written = hs.filter(h => !NOTES.isEmpty(NOTES.get(h.key))).length;
+  $("sub-houses").textContent = hs.length
+    ? `${hs.length} houses · ${seen} seen in person · ${written} with notes` : "";
+
+  if (!hs.length) {
+    $("list").innerHTML = `<p class="none">Nothing yet — star a house on
+      <a href="market.html">What's for sale</a> and it shows up here.</p>`;
+    patterns(); return;
+  }
+
+  $("list").innerHTML = hs.map(h => {
+    const L = resolve(h), n = NOTES.get(h.key) || {}, k = esc(h.key);
+    const label = L.stage === "off" ? "off market" : L.stage.replace("_", " ");
+    const facts = [L.beds != null ? `${L.beds}bd` : null, L.baths != null ? `${L.baths}ba` : null,
+                   L.sqft ? L.sqft.toLocaleString() + " sqft" : null].filter(Boolean).join(" · ");
+    const kind = (n.visit && n.visit.kind) || "";
+    return `<div class="card ${L.stage === "sold" || L.stage === "off" ? "gone" : ""}" data-key="${k}">
+      <header>
+        <div><div class="addr">${L.url ? `<a href="${esc(L.url)}" target="_blank" rel="noopener">${esc(h.address)}</a>` : esc(h.address)}<span class="tag t-${L.stage}">${esc(label)}</span>${
+          h.starred ? "" : '<span class="tag t-unstarred">not starred</span>'}</div>
+          <div class="where">${esc(h.town || "")}${facts ? " · " + facts : ""}${
+            L.stage === "sold" && L.when ? ` · closed ${esc(L.when)}` : ""}</div></div>
+        <div class="price">${usd(L.price)}</div>
+      </header>
+      <div class="seen" role="group" aria-label="How you saw it">
+        ${SEEN.map(s => `<button type="button" data-kind="${s.k}" aria-pressed="${kind === s.k}"${ro ? " disabled" : ""}>${s.label}</button>`).join("")}
+      </div>
+      <div class="when">${kind ? `on <input type="date" class="visit-date" value="${esc((n.visit && n.visit.date) || today())}"${ro ? " disabled" : ""}>` : ""}</div>
+      <div class="two">
+        <div><label class="fld" for="l-${k}">What you liked</label>
+          <textarea id="l-${k}" class="liked" placeholder="One per line&#10;big flat yard&#10;kitchen already done"${ro ? " disabled" : ""}>${esc(fromList(n.liked))}</textarea>
+          <div class="hint">One thing per line.</div></div>
+        <div><label class="fld" for="d-${k}">What you didn't</label>
+          <textarea id="d-${k}" class="disliked" placeholder="One per line&#10;low ceilings&#10;road noise out front"${ro ? " disabled" : ""}>${esc(fromList(n.disliked))}</textarea>
+          <div class="hint">One thing per line.</div></div>
+      </div>
+      <div style="margin-top:1rem">
+        <label class="fld" for="n-${k}">Anything else</label>
+        <textarea id="n-${k}" class="note" placeholder="Who you met, what the neighbours said, what you'd check next time."${ro ? " disabled" : ""}>${esc(n.note || "")}</textarea>
+      </div>
+      <div class="saved" data-saved>saved${n.updated ? ` · last edited ${esc(n.updated)}` : ""}</div>
+    </div>`;
+  }).join("");
+
+  if (ro) { patterns(); return; }
+
+  document.querySelectorAll(".card").forEach(card => {
+    const key = card.dataset.key;
+    const h = hs.find(x => (x.key || "").toLowerCase() === key.toLowerCase()) || {};
+    const who = {address: h.address, town: h.town, zip: h.zip};
+    const mark = card.querySelector("[data-saved]");
+    const push = fields => {
+      pending[key] = {...(pending[key] || {}), ...fields};
+      clearTimeout(timers[key]);
+      timers[key] = setTimeout(async () => {
+        const batch = pending[key]; delete pending[key];
+        await NOTES.save(key, who, batch); flash(mark); patterns();
+      }, 500);
+    };
+    card.querySelectorAll(".seen button").forEach(b => b.addEventListener("click", async () => {
+      const prev = NOTES.get(key) || {};
+      await NOTES.save(key, who, {visit: b.dataset.kind
+        ? {kind: b.dataset.kind, date: (prev.visit && prev.visit.date) || today()} : null});
+      render();
+    }));
+    const d = card.querySelector(".visit-date");
+    if (d) d.addEventListener("change", () => {
+      const prev = NOTES.get(key) || {};
+      push({visit: {kind: prev.visit ? prev.visit.kind : "", date: d.value}});
+    });
+    card.querySelector(".liked").addEventListener("input", e => push({liked: toList(e.target.value)}));
+    card.querySelector(".disliked").addEventListener("input", e => push({disliked: toList(e.target.value)}));
+    card.querySelector(".note").addEventListener("input", e => push({note: e.target.value}));
+  });
+  patterns();
+}
+
+Promise.all([FAVS.load(), NOTES.load()]).then(() => {
+  $("banner").innerHTML = NOTES.writable()
+    ? `<b>Writable.</b> Everything saves into <code>offer/notes.json</code> as you type.
+       Commit it and your notes follow you anywhere.`
+    : `<b>Read-only.</b> This is the published copy — read your notes here, but run
+       <code>python3 offer/serve.py</code> on the laptop to change them.`;
+  $("fine").innerHTML = `<p><b>Notes are their own file.</b> <code>notes.json</code> is keyed by
+     house, separate from <code>favourites.json</code>, so un-starring a house does not throw
+     away what you learned in it. A house that sold to someone else still appears here, marked
+     <i>not starred</i> — often that is the most useful note you have, because you know how the
+     story ended.</p>
+     <p><b>Why one thing per line.</b> Each line is its own item, which is what lets the panel
+     at the top count repeats. Four houses where you wrote "low ceilings" is a fact about you,
+     not about those four houses, and it never surfaces from paragraphs.</p>`;
+  render();
+});
+</script>
+</body>
+</html>
