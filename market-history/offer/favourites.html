@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Favourites — the house hunt</title>
+<style>
+  :root{
+    --paper:#f7f4ee; --paper-2:#efe9de; --rule:#ddd5c7; --rule-2:#c8bda9;
+    --ink:#1f1c18; --ink-2:#4a443b; --ink-3:#7d7367; --flag:#a8631c;
+    --ok:#2d6a3e; --warn:#a0431f; --cool:#3a5f86;
+    --serif:"Iowan Old Style","Hoefler Text","Baskerville","Palatino Linotype",Georgia,serif;
+    --sans:"Avenir Next","Seravek","Optima","Gill Sans",Helvetica,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;
+    line-height:1.5;padding:clamp(1.5rem,5vw,3rem) clamp(1.25rem,5vw,3rem) 4rem}
+  .sheet{max-width:58rem;margin:0 auto}
+  .home{display:inline-block;font-size:.85rem;color:var(--ink-3);text-decoration:none;margin-bottom:1rem}
+  .home:hover{color:var(--flag)}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,5vw,2.5rem);letter-spacing:-.02em;line-height:1.1}
+  .lede{margin-top:.6rem;color:var(--ink-2);font-size:.97rem;max-width:44rem}
+  .banner{margin-top:1.2rem;padding:.75rem .9rem;border-left:3px solid var(--rule-2);
+    background:var(--paper-2);font-size:.88rem;color:var(--ink-2);line-height:1.5}
+  .stages{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.6rem 0 .4rem}
+  .stages button{font:inherit;font-size:.85rem;border:1px solid var(--rule);background:#fff;
+    color:var(--ink);padding:.4rem .75rem;border-radius:999px;cursor:pointer}
+  .stages button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .stages button .n{opacity:.6;font-size:.8em;margin-left:.3rem}
+  #count{font-size:.85rem;color:var(--ink-3);margin:.6rem 0 0}
+  ul{list-style:none;margin-top:1rem;border-top:1px solid var(--rule)}
+  li{border-bottom:1px solid var(--rule);padding:1rem .2rem;display:grid;
+    grid-template-columns:1fr auto;gap:.3rem 1.5rem;align-items:baseline}
+  .addr{font-family:var(--serif);font-size:1.3rem;line-height:1.2}
+  .addr a{color:inherit;text-decoration:none}
+  .addr a:hover{color:var(--flag)}
+  .meta{grid-column:1;color:var(--ink-2);font-size:.88rem}
+  .money{text-align:right;font-variant-numeric:tabular-nums}
+  .money .now{font-size:1.1rem;font-weight:600}
+  .money .then{font-size:.82rem;color:var(--ink-3)}
+  .tag{display:inline-block;font-size:.72rem;letter-spacing:.02em;text-transform:uppercase;
+    padding:.12rem .45rem;border-radius:3px;margin-left:.4rem;vertical-align:.12em}
+  .t-for_sale{background:#e3efe4;color:var(--ok)}
+  .t-pending,.t-contingent{background:#f6e9dd;color:var(--flag)}
+  .t-sold{background:#e2e8f0;color:var(--cool)}
+  .t-off{background:#eee9e0;color:var(--ink-3)}
+  .delta-up{color:var(--ok);font-weight:600}
+  .delta-down{color:var(--warn);font-weight:600}
+  .empty{padding:2.5rem .2rem;color:var(--ink-3);font-size:.95rem}
+  .ext{display:inline-block;margin-top:.35rem;font-size:.82rem;color:var(--ink-2);
+    text-decoration:none;border-bottom:1px solid var(--rule-2);padding-bottom:1px}
+  .ext:hover{color:var(--flag);border-bottom-color:var(--flag)}
+  .actions{grid-column:1;display:flex;gap:1rem;flex-wrap:wrap;align-items:baseline}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.85em;
+    background:var(--paper-2);padding:.1rem .3rem;border-radius:3px}
+  footer{margin-top:2rem;color:var(--ink-3);font-size:.85rem;line-height:1.6}
+  @media(max-width:620px){li{grid-template-columns:1fr}.money{text-align:left}}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <a class="home" href="index.html">← all tools</a>
+  <h1>Favourites</h1>
+  <p class="lede">Houses you starred, and what happened to them since. A favourite stays
+    on this list after it leaves the market — that's the point: it's how you find out what
+    the places you liked actually sold for.</p>
+
+  <div class="banner" id="banner"></div>
+
+  <div class="stages" id="stages"></div>
+  <p id="count"></p>
+  <ul id="list"></ul>
+
+  <footer id="fine"></footer>
+</div>
+
+<script src="data.js"></script>
+<script src="listings.js"></script>
+<script src="sold.js"></script>
+<script src="favourites.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const usd = n => n == null ? "—" : "$" + Math.round(n).toLocaleString();
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* The stages a house moves through. A favourite is matched against the two files this
+   repo already builds -- listings.js for what is on the market, sold.js for what closed
+   -- so the stage is always derived, never stored. Storing it would go stale the moment
+   the next scrape ran. */
+const STAGES = [
+  {k: "all",        label: "All"},
+  {k: "for_sale",   label: "For sale"},
+  {k: "pending",    label: "Pending"},
+  {k: "contingent", label: "Contingent"},
+  {k: "sold",       label: "Sold"},
+  {k: "off",        label: "Off market"},
+];
+let stage = "all";
+
+const norm = s => (s || "").trim().toLowerCase().replace(/\s+/g, " ");
+
+function resolve(fav) {
+  const key = (fav.key || "").toLowerCase();
+  const sameHouse = (addr, town) =>
+    FAVS.keyFor(addr, fav.zip).toLowerCase() === key ||
+    (norm(addr) === norm(fav.address) && norm(town) === norm(fav.town));
+
+  // closed sale wins: it is the end of the story
+  const sold = (window.SOLD && SOLD.rows || []).filter(r => sameHouse(r[0], r[1]))
+    .sort((a, b) => (b[2] || "").localeCompare(a[2] || ""))[0];
+  if (sold) {
+    return {stage: "sold", price: sold[3], when: sold[2], listPrice: sold[10],
+            beds: sold[4], baths: sold[5], sqft: sold[6], url: null};
+  }
+  const live = (window.MARKET && MARKET.listings || []).filter(l => sameHouse(l.a, l.t))[0];
+  if (live) {
+    const st = (live.st || "FOR_SALE").toLowerCase();
+    return {stage: st === "for_sale" ? "for_sale" : st, price: live.p, when: null,
+            listPrice: live.p0, beds: live.bd, baths: live.ba, sqft: live.sq,
+            dom: live.dom, url: live.url};
+  }
+  return {stage: "off", price: null, when: null, listPrice: null, url: null};
+}
+
+function render() {
+  const favs = FAVS.all().map(f => ({...f, live: resolve(f)}));
+  const counts = {all: favs.length};
+  for (const s of STAGES.slice(1)) counts[s.k] = favs.filter(f => f.live.stage === s.k).length;
+
+  $("stages").innerHTML = STAGES.map(s =>
+    `<button type="button" data-k="${s.k}" aria-pressed="${stage === s.k}">${s.label}<span class="n">${counts[s.k] || 0}</span></button>`).join("");
+  document.querySelectorAll("#stages button").forEach(b =>
+    b.addEventListener("click", () => { stage = b.dataset.k; render(); }));
+
+  const rows = stage === "all" ? favs : favs.filter(f => f.live.stage === stage);
+  $("count").textContent = favs.length
+    ? `${rows.length} of ${favs.length} favourite${favs.length === 1 ? "" : "s"}`
+    : "";
+
+  if (!favs.length) {
+    $("list").innerHTML = `<div class="empty">Nothing starred yet. Open
+      <a href="market.html">What's for sale</a> with <code>python3 offer/serve.py</code>
+      running and click the ☆ on any row.</div>`;
+    return;
+  }
+  if (!rows.length) {
+    $("list").innerHTML = `<div class="empty">No favourites at this stage.</div>`;
+    return;
+  }
+
+  $("list").innerHTML = rows.map(f => {
+    const L = f.live;
+    const label = L.stage === "off" ? "off market" : L.stage.replace("_", " ");
+    // what the ask did between starring it and now -- the reason to keep the list
+    let delta = "";
+    if (f.ask_when_added && L.price && L.price !== f.ask_when_added) {
+      const d = L.price - f.ask_when_added;
+      delta = `<span class="${d < 0 ? "delta-down" : "delta-up"}">${d < 0 ? "−" : "+"}${usd(Math.abs(d))}</span>
+               since you starred it`;
+    }
+    const facts = [
+      L.beds != null ? `${L.beds}bd` : null,
+      L.baths != null ? `${L.baths}ba` : null,
+      L.sqft ? L.sqft.toLocaleString() + " sqft" : null,
+      L.dom != null ? `${L.dom}d on market` : null,
+      L.stage === "sold" && L.when ? `closed ${L.when}` : null,
+    ].filter(Boolean).join(" · ");
+
+    return `<li>
+      <div class="addr">${L.url
+          ? `<a href="${esc(L.url)}" target="_blank" rel="noopener">${esc(f.address)}</a>`
+          : esc(f.address)}<span class="tag t-${L.stage}">${esc(label)}</span></div>
+      <div class="money">
+        <div class="now">${usd(L.price)}</div>
+        ${L.stage === "sold" && L.listPrice
+            ? `<div class="then">asked ${usd(L.listPrice)}</div>` : ""}
+      </div>
+      <div class="meta">${esc(f.town || "")}${f.added ? ` · starred ${esc(f.added)}` : ""}${
+        f.ask_when_added ? ` at ${usd(f.ask_when_added)}` : ""}${delta ? " · " + delta : ""}
+        ${facts ? `<br>${facts}` : ""}${f.note ? `<br><i>${esc(f.note)}</i>` : ""}</div>
+      <div class="actions">
+        ${L.url ? `<a class="ext" href="${esc(L.url)}" target="_blank" rel="noopener">listing \u2197</a>` : ""}
+        <a class="ext" href="analyser.html#${encodeURIComponent(JSON.stringify({
+            street: f.address, town: f.town, ask: String(L.price || f.ask_when_added || ""),
+            sqft: L.sqft ? String(L.sqft) : "", beds: L.beds != null ? String(L.beds) : "",
+            baths: L.baths != null ? String(L.baths) : ""
+          }))}">price it \u2192</a>
+        <a class="ext" href="desirability.html#${encodeURIComponent(f.town || "")}">where in town \u2192</a>
+      </div>
+    </li>`;
+  }).join("");
+}
+
+FAVS.load().then(() => {
+  $("banner").innerHTML = FAVS.writable()
+    ? `<b>Writable.</b> <code>offer/serve.py</code> is running, so stars on
+       <a href="market.html">What's for sale</a> save straight into
+       <code>offer/favourites.json</code>. Commit it and this list follows you everywhere.`
+    : `<b>Read-only.</b> This is the published copy, so it shows what has been committed but
+       cannot add to it. To star a house, run <code>python3 offer/serve.py</code> on the
+       laptop and use <a href="market.html">What's for sale</a> there.`;
+  $("fine").innerHTML = `<p><b>The stage is worked out, not remembered.</b> Every favourite is
+     matched against ${window.MARKET ? MARKET.listings.length.toLocaleString() : "—"} current
+     listings and ${window.SOLD ? SOLD.rows.length.toLocaleString() : "—"} closed sales each
+     time this page loads, so it is as fresh as the last scrape
+     ${window.MARKET && MARKET.fetched ? "(" + MARKET.fetched + ")" : ""} — never a status
+     saved when you starred it.</p>
+     <p><b>Off market</b> means we cannot find it in either file: usually it was withdrawn,
+     or it sold long enough ago to fall outside our sold window. It is not proof of anything.</p>`;
+  render();
+});
+</script>
+</body>
+</html>

@@ -151,6 +151,13 @@
   .row:hover{background:var(--paper-2)}
   /* the whole row opens the analyser... */
   .stretch{color:inherit;text-decoration:none}
+  /* Star a house straight from the list — no need to open it first. Sits above the
+     stretched link (z-index) or the click would fall through to the analyser. */
+  .favbtn{position:relative;z-index:3;background:none;border:0;cursor:pointer;padding:.1rem .3rem;
+    font-size:1.05rem;line-height:1;color:var(--rule-2);transition:color .12s ease,transform .12s ease}
+  .favbtn:hover{color:var(--flag);transform:scale(1.15)}
+  .favbtn[aria-pressed="true"]{color:var(--flag)}
+  .favbtn:focus-visible{outline:2px solid var(--flag);outline-offset:2px;border-radius:3px}
   .stretch::after{content:"";position:absolute;inset:0}
   /* ...except this, which sits above it and opens the real listing */
   .ext{position:relative;z-index:1;display:inline-block;margin-top:.35rem;font-size:.7rem;
@@ -324,6 +331,7 @@
 <script src="listings.js"></script>
 <script src="engine.js"></script>
 <script src="towns-groups.js"></script>
+<script src="favourites.js"></script>
 <script>
 "use strict";
 const M = window.MARKET;
@@ -681,7 +689,11 @@ function render() {
     ].join("");
     return `<div class="row ${pend ? "pending" : ""}">
       <img class="thumb" loading="lazy" src="${esc2(l.img || "")}" alt="">
-      <div class="addr"><a class="stretch" href="analyser.html#${state}">${esc2(l.a)}</a>${tags}
+      <div class="addr">${FAVS.writable() ? `<button type="button" class="favbtn"
+           data-a="${esc2(l.a)}" data-t="${esc2(l.t)}" data-z="${esc2(l.z || "")}" data-p="${l.p}"
+           aria-pressed="${FAVS.has(FAVS.keyFor(l.a, l.z))}"
+           title="${FAVS.has(FAVS.keyFor(l.a, l.z)) ? "Remove from favourites" : "Save to favourites"}"
+           >${FAVS.has(FAVS.keyFor(l.a, l.z)) ? "\u2605" : "\u2606"}</button>` : ""}<a class="stretch" href="analyser.html#${state}">${esc2(l.a)}</a>${tags}
         <div class="t">${esc2(l.t)}${l.ts ? `<span class="unv" title="${UNV_WHY[l.ts] || UNV_WHY.unchecked}">town unverified</span>` : ""}${D.towns[l.t]?.dist != null ? " · " + D.towns[l.t].dist + "mi from Westfield" : ""}${apprTag(l.t)}
           ${l.dom != null ? " · " + l.dom + "d on market" : ""}</div></div>
       <div class="price"><div class="ask">${usdFull(l.p)}</div>
@@ -909,6 +921,23 @@ $("fine").innerHTML = `
 if (M && M.listings) restore();
 drawTowns();
 render();
+
+/* Favourites: load the file first so a second render can draw the stars in their real
+   state, then delegate clicks so they survive every later re-render. */
+FAVS.load().then(() => { if (FAVS.writable()) render(); });
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest(".favbtn");
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();          // never follow the row's link
+  b.disabled = true;
+  await FAVS.toggle({ address: b.dataset.a, town: b.dataset.t,
+                     zip: b.dataset.z, ask: +b.dataset.p || null });
+  const on = FAVS.has(FAVS.keyFor(b.dataset.a, b.dataset.z));
+  b.setAttribute("aria-pressed", on ? "true" : "false");
+  b.textContent = on ? "\u2605" : "\u2606";
+  b.title = on ? "Remove from favourites" : "Save to favourites";
+  b.disabled = false;
+});
 </script>
 </body>
 </html>
