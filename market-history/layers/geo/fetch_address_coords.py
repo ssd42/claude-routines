@@ -51,6 +51,13 @@ BATCH = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch"
 CHUNK = 1000            # well under the 10k ceiling; keeps a failed POST cheap to redo
 BENCHMARK = "Public_AR_Current"
 
+# the towns offer/desirability.html covers -- kept in one place so widening
+# the map does not silently leave half its houses without coordinates
+MAP_TOWNS = ("Colonia", "Springfield", "Wayne", "Westfield", "Cranford",
+             "Scotch Plains", "Montclair", "Clark", "Basking Ridge",
+             "Watchung", "Cedar Grove", "Fanwood", "Garwood", "Gillette",
+             "Verona")
+
 
 def key(address, town):
     """The join key. Whitespace and case only -- no cleverness, so it stays reversible."""
@@ -132,7 +139,7 @@ def main():
     ap = argparse.ArgumentParser()
     # Default to the towns the desirability map covers, NOT every town: unscoped this is
     # ~45k unknown addresses. Pass --towns explicitly (or --towns with no values) to widen.
-    ap.add_argument("--towns", nargs="*", default=["Colonia", "Springfield", "Wayne"],
+    ap.add_argument("--towns", nargs="*", default=list(MAP_TOWNS),
                     help="only these towns (default: the three desirability towns)")
     ap.add_argument("--limit", type=int, help="only this many new addresses (smoke test)")
     ap.add_argument("--dry-run", action="store_true", help="report the work, fetch nothing")

@@ -91,7 +91,7 @@
       <span class="what">Everything on the market now, each priced against comparable sales.</span>
     </a></li>
     <li><a class="item" href="desirability.html">
-      <span class="name">Where in town</span><span class="n">3 towns</span>
+      <span class="name">Where in town</span><span class="n" id="n-where">&nbsp;</span>
       <span class="what">Which streets score better on price, road noise, flood risk and
         what's nearby.</span>
     </a></li>
@@ -146,6 +146,17 @@
 
   /* Favourites and notes come straight from their own files, so the hub is honest the
      moment you star something — no rebuild needed. */
+  /* The desirability index is a .js assignment, not JSON, so slice out the object
+     rather than pull in the whole file as a script. */
+  try {
+    const r = await fetch("desirability-index.js", { cache: "no-store" });
+    if (r.ok) {
+      const txt = await r.text();
+      const idx = JSON.parse(txt.slice(txt.indexOf("{"), txt.lastIndexOf("}") + 1));
+      set("n-where", `<b>${idx.towns.length}</b> towns`);
+    }
+  } catch (e) {}
+
   try {
     const r = await fetch("favourites.json", { cache: "no-store" });
     if (r.ok) {

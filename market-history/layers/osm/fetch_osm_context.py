@@ -36,7 +36,10 @@ ENDPOINTS = [
     "https://overpass.kumi.systems/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
 ]
-TOWNS = ["Colonia", "Springfield", "Wayne"]
+TOWNS = ["Colonia", "Springfield", "Wayne", "Westfield", "Cranford",
+         "Scotch Plains", "Montclair", "Clark", "Basking Ridge", "Watchung",
+         "Cedar Grove", "Fanwood", "Garwood", "Gillette", "Verona"]
+UA = "claude-routines/1.0 (+https://github.com/ssd42/claude-routines) house-hunt research"
 PAD = 0.015          # ~1.5 km beyond the boundary: a highway just outside still matters
 
 QUERY = """[out:json][timeout:180];
@@ -77,20 +80,32 @@ def bbox(geom, pad=PAD):
     return min(ys) - pad, min(xs) - pad, max(ys) + pad, max(xs) + pad
 
 
+class OverpassBusy(RuntimeError):
+    """Every mirror refused. Transient — retry the town later."""
+
+
 def overpass(query):
     last = None
     for ep in ENDPOINTS:
         try:
+            # A User-Agent is NOT optional. overpass-api.de returns 406 Not Acceptable
+            # to the default "Python-urllib/3.x" and we spent whole runs failing over to
+            # slower mirrors because of it. Identify the client, as their usage policy
+            # asks anyway.
             req = urllib.request.Request(
                 ep, data=urllib.parse.urlencode({"data": query}).encode(),
-                headers={"Content-Type": "application/x-www-form-urlencoded"})
+                headers={"Content-Type": "application/x-www-form-urlencoded",
+                         "User-Agent": UA})
             with urllib.request.urlopen(req, timeout=240) as r:
                 return json.load(r)
         except Exception as e:
             print(f"    {ep.split('/')[2]}: {e}", file=sys.stderr)
             last = e
             time.sleep(2)
-    raise SystemExit(f"every Overpass mirror failed: {last}")
+    # Do NOT abort the run. Overpass 504s under load, and one busy minute on one town
+    # should not cost the other fourteen -- a town that fails keeps whatever file it
+    # already had, and the next run picks it up.
+    raise OverpassBusy(f"every mirror failed: {last}")
 
 
 def to_features(data):
@@ -133,13 +148,20 @@ def main():
     bnds = {f["properties"]["town"]: f
             for f in json.load(open(BOUNDARIES))["features"]}
 
+    failed = []
     for town in args.towns:
         if town not in bnds:
             print(f"! no boundary for {town}, skipping")
             continue
         s, w, n, e = bbox(bnds[town]["geometry"])
         print(f"{town}: querying Overpass for {s:.3f},{w:.3f},{n:.3f},{e:.3f}")
-        data = overpass(QUERY % {"bb": f"{s},{w},{n},{e}"})
+        try:
+            data = overpass(QUERY % {"bb": f"{s},{w},{n},{e}"})
+        except OverpassBusy as e:
+            print(f"  ! {town} skipped: {e}", file=sys.stderr)
+            failed.append(town)
+            time.sleep(5)
+            continue
         feats = to_features(data)
         path = os.path.join(HERE, f"{town.lower().replace(' ', '-')}.geojson")
         with open(path, "w") as f:
@@ -155,6 +177,12 @@ def main():
         print(f"  {len(feats)} features, {os.path.getsize(path)/1e6:.1f} MB  "
               + ", ".join(f"{k}:{v}" for k, v in sorted(kinds.items())))
         time.sleep(3)                            # be gentle to a free shared service
+
+    if failed:
+        print(f"\n{len(failed)} town(s) failed and kept their previous file: "
+              f"{', '.join(failed)}")
+        print("re-run with:  python3 layers/osm/fetch_osm_context.py --towns "
+              + " ".join(f'"{t}"' for t in failed))
 
 
 if __name__ == "__main__":

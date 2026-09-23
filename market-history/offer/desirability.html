@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Where in town — Colonia, Springfield, Wayne</title>
+<title>Where in town — NJ</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,10 +21,13 @@ h2{font-size:.95rem;margin:20px 0 8px;padding-top:12px;border-top:1px solid var(
 p,li{font-size:.86rem;line-height:1.5}
 .home{display:inline-block;font-size:.82rem;color:var(--muted);text-decoration:none;margin:0 0 10px}
 .home:hover,.home:focus-visible{color:var(--survey)}
-.towns{display:grid;grid-template-columns:repeat(3,1fr);margin:10px 0 6px;border:1px solid var(--survey);border-radius:6px;overflow:hidden}
-.towns button{font:inherit;font-size:.9rem;font-weight:600;border:0;border-right:1px solid var(--survey);background:#fff;color:var(--survey);padding:9px 4px;cursor:pointer}
-.towns button:last-child{border-right:0}
-.towns button[aria-pressed="true"]{background:var(--survey);color:#fff}
+/* Fifteen towns is too many for a button row, and the row was already the widest thing
+   in the sidebar at three. */
+.townpick{display:block;margin:10px 0 6px}
+.townpick span{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
+.townpick select{width:100%;font:inherit;font-size:1rem;font-weight:600;padding:9px 10px;
+  border:1px solid var(--survey);border-radius:6px;background:#fff;color:var(--survey);cursor:pointer}
+.townpick select:disabled{opacity:.6;cursor:wait}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 4px}
 .tabs button{font:inherit;font-size:.82rem;border:1px solid var(--rule);background:#fff;padding:6px 10px;border-radius:4px;cursor:pointer;color:var(--ink)}
 .tabs button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
@@ -88,12 +91,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline
 <aside id="panel">
   <a class="home" href="index.html">← all tools</a>
   <h1>Where in town</h1>
-  <p class="sub">Which parts of a town score better on price, road noise, flood risk and what's nearby. Colors compare locations <i>within</i> the selected town only, never across towns.</p>
-  <div class="towns" role="group" aria-label="Town">
-    <button data-town="Colonia" aria-pressed="true">Colonia</button>
-    <button data-town="Springfield" aria-pressed="false">Springfield</button>
-    <button data-town="Wayne" aria-pressed="false">Wayne</button>
-  </div>
+  <p class="sub">Which parts of a town score better on price, road noise, flood risk and what's nearby. Colors compare locations <i>within</i> the selected town only, never across towns. Each town loads its own data when you pick it.</p>
+  <label class="townpick"><span>Town</span>
+    <select id="town"></select>
+  </label>
   <p id="townnote"></p>
   <div id="status">Starting…</div>
   <div class="tabs" role="tablist">
@@ -165,7 +166,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline
 
   <section id="t-method" class="tab">
     <h2>Units</h2>
-    <p>Analytical hexagons generated for this map — about 140 m across in Springfield and Colonia, about 225 m in Wayne because the township is roughly five times larger. They are not neighborhoods and have no official status.</p>
+    <p>Analytical hexagons generated for this map — about 140 m across, or 225 m in townships over 30 km² such as Wayne, Montclair and Basking Ridge, where a finer grid would mean thousands of cells to score before anything can be drawn. They are not neighborhoods and have no official status.</p>
     <h2>Factors (each 0–100, 100 is always the good end)</h2>
     <p><b>Housing value</b>: nearby sold prices, weighted by 1/distance² out to 2 km and averaged in logs, shrunk toward the town median where few sales are close. Single-family only — condo buildings stack dozens of sales on one coordinate and would swamp every cell around them. Sales cover three years and are <b>time-adjusted</b> to the latest month on each town's own median trend, so the map measures where rather than when. Not size-adjusted.</p>
     <p><b>Major-road exposure</b>: distance to motorway/trunk roads (influence to 450 m) and primary/secondary arterials (to 200/120 m). Higher = quieter.</p>
@@ -191,7 +192,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
-<script src="desirability.js"></script>
+<script src="desirability-index.js"></script>
 <script src="favourites.js"></script>
 <script>
 "use strict";
@@ -201,11 +202,17 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--survey);outline
    The only network calls left are the two geocoders behind the Address tab, and those
    only fire when you ask. */
 
-const TOWNS={
- Colonia:{cell:0.08, note:"Colonia is a census-designated place inside Woodbridge Township, not a municipality. Taxes, schools and zoning are Woodbridge's."},
- Springfield:{cell:0.08, note:"Springfield Township, Union County."},
- Wayne:{cell:0.13, note:"Wayne Township, Passaic County — about 25 sq mi including lakes, so its cells are larger."}
+/* The town list is generated, not hand-written: adding a town is a build-script change,
+   not an edit here. A couple of towns need a sentence of their own, though. */
+const NOTES_BY_TOWN={
+ Colonia:"Colonia is a census-designated place inside Woodbridge Township, not a municipality. Taxes, schools and zoning are Woodbridge's.",
+ Gillette:"Gillette is a section of Long Hill Township, not a municipality of its own.",
+ "Basking Ridge":"Basking Ridge is a section of Bernards Township.",
+ Wayne:"Wayne Township, Passaic County — about 25 sq mi including lakes, so its cells are larger."
 };
+const IDX=window.DESIRABILITY_INDEX||{towns:[]};
+const TOWN_BY_NAME=Object.fromEntries(IDX.towns.map(t=>[t.name,t]));
+const LOADED={};                       // town -> payload, so a revisit is instant
 const FACTORS=[
  {key:"value",label:"Housing value",w:35,desc:"What houses nearby actually sold for. Every sale within 2 km counts, but closer ones count far more (weight falls off with distance squared). Three years of single-family sales, each carried forward to today's money. Where few sales are close, it leans on the town median rather than inventing a figure."},
  {key:"roads",label:"Major-road exposure",w:20,desc:"How much road noise reaches you, worst offender wins. Highways hurt within 80 m and fade out by 450 m; primary roads within 25 m fading by 200 m; secondary within 20 m fading by 120 m. 100 means nothing significant is near you."},
@@ -264,7 +271,7 @@ const ST={}; let CUR=null, BUSY=false, currentLayer="composite", houses="sold";
 
 /* ================= wiring ================= */
 document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id===b.dataset.tab));}));
-document.querySelectorAll(".towns button").forEach(b=>b.addEventListener("click",()=>selectTown(b.dataset.town)));
+$("#town").addEventListener("change",e=>selectTown(e.target.value));
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{houses=b.dataset.houses;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));if(CUR&&ST[CUR])drawHouses(ST[CUR]);}));
 $("#addr-go").addEventListener("click",()=>{const v=$("#addr-in").value.trim();if(v&&CUR&&ST[CUR]&&ST[CUR].ready)checkAddress(ST[CUR],v);});
 $("#addr-in").addEventListener("keydown",e=>{if(e.key==="Enter")$("#addr-go").click();});
@@ -290,25 +297,47 @@ async function selectTown(key){
   if(CUR&&ST[CUR])map.removeLayer(ST[CUR].group);
   CUR=key;
   if(location.protocol!=="file:"){try{history.replaceState(null,"","#"+key);}catch(e){}}
-  document.querySelectorAll(".towns button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.town===key));
-  $("#townnote").textContent=TOWNS[key].note;
+  $("#town").value=key;
+  $("#townnote").textContent=NOTES_BY_TOWN[key]||"";
   $("#addr-in").value="";$("#addr-report").innerHTML="";
   renderSources();
   if(ST[key]){ST[key].group.addTo(map);map.fitBounds(L.geoJSON(ST[key].bnd).getBounds(),{padding:[20,20]});refreshPanels(ST[key]);status(ST[key].statusMsg,ST[key].statusErr);return;}
   const T=ST[key]={key,group:L.layerGroup().addTo(map),ready:false};
   $("#market").innerHTML='<p class="sub">Waiting for data…</p>';
-  BUSY=true;document.querySelectorAll(".towns button").forEach(b=>b.disabled=true);
-  try{await run(T);}catch(e){setStatus(T,"Unexpected error: "+esc(e.message),true);console.error(e);}
-  BUSY=false;document.querySelectorAll(".towns button").forEach(b=>b.disabled=false);
+  BUSY=true;$("#town").disabled=true;
+  try{
+    const meta=TOWN_BY_NAME[key];
+    setStatus(T,`Loading ${esc(key)}…${meta?` <span class="tag">${meta.kb} KB</span>`:""}`);
+    await loadTown(key);
+    await run(T);
+  }catch(e){setStatus(T,"Unexpected error: "+esc(e.message),true);console.error(e);}
+  BUSY=false;$("#town").disabled=false;
 }
 function setStatus(T,msg,err){T.statusMsg=msg;T.statusErr=!!err;if(CUR===T.key)status(msg,err);}
 function refreshPanels(T){renderMarket(T);if(T.addr)addressReport(T);else $("#addr-report").innerHTML="";if(T.hex)restyle(T);drawHouses(T);}
 
+/* Each town is its own file, fetched the first time you pick it and kept in memory
+   after. Fifteen towns in one bundle would be ~20 MB paid on every visit to look at one
+   of them; this way you pay for the town you are actually looking at. */
+function loadTown(name){
+  if(LOADED[name])return Promise.resolve(LOADED[name]);
+  const meta=TOWN_BY_NAME[name];
+  if(!meta)return Promise.reject(new Error("no data for "+name));
+  return new Promise((res,rej)=>{
+    const sc=document.createElement("script");
+    sc.src=`desirability/${meta.slug}.js`;
+    sc.onload=()=>{const d=window.DESIRABILITY_TOWN;window.DESIRABILITY_TOWN=null;
+      if(!d||d.town!==name)return rej(new Error("wrong payload for "+name));
+      LOADED[name]=d;res(d);};
+    sc.onerror=()=>rej(new Error(`could not load desirability/${meta.slug}.js`));
+    document.head.appendChild(sc);});
+}
+
 /* ================= the pipeline ================= */
 async function run(T){
-  const D=(window.DESIRABILITY&&window.DESIRABILITY.towns||{})[T.key];
-  if(!D)return setStatus(T,"desirability.js has no data for "+esc(T.key)+". Run <code>python3 offer/build_desirability.py</code>.",true);
-  const cfg=TOWNS[T.key];
+  const D=LOADED[T.key];
+  if(!D)return setStatus(T,"No data for "+esc(T.key)+". Run <code>python3 offer/build_desirability.py</code>.",true);
+  const cfg={cell:D.cell||0.08};
   setStatus(T,"Drawing "+T.key+"…");await sleep(0);
 
   const bnd={type:"Feature",geometry:D.boundary,properties:{}};
@@ -527,7 +556,7 @@ function renderMarket(T){if(CUR!==T.key)return;const s=T.sales||[];if(!s.length)
   const asks=(T.D.forSale||[]).map(x=>x[2]).sort((a,b)=>a-b);
   $("#market").innerHTML=`<p>${s.length} single-family sales in ${T.key} over 3 years, in today's money: median <b>${fmt$(q(.5))}</b>, middle half ${fmt$(q(.25))}–${fmt$(q(.75))}.</p>
   ${asks.length?`<p>${asks.length} asking now: median <b>${fmt$(asks[Math.floor(asks.length/2)])}</b>.</p>`:""}
-  <p class="sub">Sold prices carried to ${esc(window.DESIRABILITY.asOf||"today")} on the town's own median trend. Not size-adjusted.</p>`;}
+  <p class="sub">Sold prices carried to ${esc((LOADED[T.key]||{}).asOf||"today")} on the town's own median trend. Not size-adjusted.</p>`;}
 function renderSources(){$("#sources").innerHTML=`<table><tr><th>Source</th><th>Used for</th></tr>
  <tr><td>Our own <code>sales.csv</code> — NJ MOD-IV deed records + Realtor.com sold listings</td><td>Sold prices and locations, three years</td></tr>
  <tr><td>Our own <code>listings.csv</code></td><td>What is for sale now (coordinates come with the scrape)</td></tr>
@@ -614,9 +643,12 @@ function addressReport(T){if(CUR!==T.key||!T.addr||!T.cells)return;const A=T.add
 /* ================= start ================= */
 (async function(){
   await FAVS.load();
-  if(!window.DESIRABILITY){status("desirability.js did not load. Run <code>python3 offer/build_desirability.py</code>, then reload.",true);return;}
+  if(!IDX.towns.length){status("desirability-index.js did not load. Run <code>python3 offer/build_desirability.py</code>, then reload.",true);return;}
+  $("#town").innerHTML=IDX.towns.slice()
+    .sort((a,b)=>a.name.localeCompare(b.name))
+    .map(t=>`<option value="${esc(t.name)}">${esc(t.name)} — ${t.sold.toLocaleString()} sold, ${t.forSale} for sale</option>`).join("");
   const startKey=decodeURIComponent((location.hash||"").slice(1));
-  selectTown(TOWNS[startKey]?startKey:"Colonia");
+  selectTown(TOWN_BY_NAME[startKey]?startKey:IDX.towns[0].name);
 })();
 </script>
 </body>
