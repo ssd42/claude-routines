@@ -1,3 +1,101 @@
 {
-  "notes": {}
+  "notes": {
+    "496|outlook|07067": {
+      "address": "496 Outlook Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "visits": [
+        {
+          "kind": "drive_by",
+          "date": ""
+        },
+        {
+          "kind": "open_house",
+          "date": ""
+        },
+        {
+          "kind": "private_showing",
+          "date": ""
+        },
+        {
+          "kind": "second_visit",
+          "date": ""
+        }
+      ],
+      "visit": null,
+      "updated": "2026-09-22"
+    },
+    "110|amherst|07067": {
+      "address": "110 Amherst Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "visits": [
+        {
+          "kind": "open_house",
+          "date": ""
+        }
+      ],
+      "visit": null,
+      "updated": "2026-09-22"
+    },
+    "24|sunset|07066": {
+      "address": "24 Sunset Dr",
+      "town": "Clark",
+      "zip": "07066",
+      "visits": [
+        {
+          "kind": "drive_by",
+          "date": "2026-09-21"
+        }
+      ],
+      "visit": null,
+      "updated": "2026-09-22"
+    },
+    "75|lancaster|07067": {
+      "address": "75 Lancaster Rd",
+      "town": "Colonia",
+      "zip": "07067",
+      "visits": [
+        {
+          "kind": "drive_by",
+          "date": ""
+        },
+        {
+          "kind": "private_showing",
+          "date": ""
+        },
+        {
+          "kind": "second_visit",
+          "date": ""
+        }
+      ],
+      "visit": null,
+      "updated": "2026-09-22"
+    },
+    "93|gaywood|07067": {
+      "address": "93 Gaywood Ave",
+      "town": "Colonia",
+      "zip": "07067",
+      "visits": [
+        {
+          "kind": "drive_by",
+          "date": ""
+        },
+        {
+          "kind": "open_house",
+          "date": ""
+        },
+        {
+          "kind": "private_showing",
+          "date": ""
+        },
+        {
+          "kind": "second_visit",
+          "date": ""
+        }
+      ],
+      "visit": null,
+      "updated": "2026-09-22"
+    }
+  }
 }
