@@ -103,10 +103,20 @@ jobs:
           cp market-history/offer/towns-groups.js _site/
           # index.html links to both of these unconditionally, so leaving either out
           # of this list is a 404 on the front page rather than a missing extra.
-          # "Where in town" — desirability.js is committed (not re-baked here like
-          # data.js), because hydrate.py builds it from the boundaries and share data.
-          cp market-history/offer/desirability.html _site/
-          cp market-history/offer/desirability.js   _site/
+          # "Where in town" — committed, not re-baked here, because build_desirability.py
+          # needs the boundary/flood/OSM layers rather than just share data.
+          # ONE FILE PER TOWN: the index is tiny and lists the towns; each town's data is
+          # fetched only when you pick it. Copy the whole directory — a `cp` naming one
+          # file per town is a 404 waiting for the next town we add.
+          cp market-history/offer/desirability.html      _site/
+          cp market-history/offer/desirability-index.js  _site/
+          cp -R market-history/offer/desirability        _site/desirability
+          # Walkthrough notes. Same arrangement as favourites: the page is read-only here
+          # and notes.json is what gives it anything to show.
+          cp market-history/offer/notes.html   _site/
+          cp market-history/offer/notes.json   _site/
+          # index.html reads this for its live counts.
+          cp market-history/offer/counts.json  _site/
           # Favourites. favourites.js talks to serve.py when it's running and falls
           # back to fetching favourites.json when it isn't — which is always the case
           # here, so the .json is what makes the published page show anything at all.
@@ -114,6 +124,21 @@ jobs:
           cp market-history/offer/favourites.js   _site/
           cp market-history/offer/favourites.json _site/
           cp market-history/layers/flood/flood_zones.geojson _site/flood.geojson
+          # GUARD: every local link and script the hub points at must actually exist in
+          # _site. This job has now shipped a broken front page twice by renaming a file
+          # and forgetting the cp — a 404 on the hub is invisible until someone clicks.
+          missing=0
+          for ref in $(grep -oE '(href|src)="[^"#:]+"' _site/index.html \
+                       | sed -E 's/.*="([^"]+)"/\1/' | sort -u); do
+            [ -e "_site/$ref" ] || { echo "index.html points at missing $ref"; missing=1; }
+          done
+          for ref in $(grep -oE 'src="[^"#:]+"' _site/desirability.html _site/notes.html \
+                       _site/favourites.html | sed -E 's/.*="([^"]+)"/\1/' | sort -u); do
+            [ -e "_site/$ref" ] || { echo "a page points at missing $ref"; missing=1; }
+          done
+          [ "$missing" = 0 ] || { echo "refusing to publish a site with dead links"; exit 1; }
+          echo "link check passed"
+
           # The market browser is only honest if it says how old it is — a stale
           # snapshot on a public URL is worse than no snapshot. Fail rather than
           # publish a page that lost its staleness stamp.
