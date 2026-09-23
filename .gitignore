@@ -49,3 +49,11 @@ market-history/appraise/run/
 # repo — so they stay local. A screenshot that IS documentation belongs next to the
 # thing it documents, committed deliberately, not loose in the root.
 /*.png
+
+# Experiments — scratch analyses that are NOT routines. Kept on disk so agents
+# can read and re-run them, deliberately never committed: they are one-off
+# explorations, they carry big fetched caches (a few MB of Scryfall JSON), and
+# a public repo does not need them in history forever. If an experiment ever
+# graduates into something real, it moves out of here and gets committed on
+# purpose.
+/experiments/
