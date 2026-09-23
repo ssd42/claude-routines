@@ -356,7 +356,7 @@ A bit more work, computable from `sales.csv`:
 - **Price-cut share among active listings** — leading indicator of softening.
 - **Housing stock character** — median lot, median sqft, median year built.
 
-Already spiked, deliberately NOT shown yet (see `SPIKE-hs-location-factors.md`):
+Already spiked, deliberately NOT shown yet (see `docs/spikes/hs-location-factors.md`):
 - **Crime** (§3) and **airport/highway/rail noise** (§4). Both are HS inputs only. Crime
   especially is close to a wealth proxy, and a "safety" colour on a map reads as gospel.
   Decide deliberately before putting either on the page.

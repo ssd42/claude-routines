@@ -83,4 +83,4 @@ weight 12, the three shop layers sharing weight 5. The line that survives:
 > **Amenities never touch what a house is WORTH. They may touch whether you WANT it.**
 
 If you are adding a new consumer and it wants amenity data: valuation, no. Taste, ask.
-See [`../../SPIKE-housing-score.md`](../../SPIKE-housing-score.md).
+See [`../docs/spikes/housing-score.md`](../docs/spikes/housing-score.md).

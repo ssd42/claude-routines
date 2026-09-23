@@ -6,7 +6,7 @@
 Writes layers/geo/town_boundaries.geojson -- one simplified polygon per town, for the
 map page (map.html). This is the FOUNDATION of that page, not a nice-to-have: the
 "what town am I in" feature is a point-in-polygon test, and centroids can't answer it
-(5 of our towns share 2 points; neighbours sit ~2mi apart). See SPIKE-map-page.md.
+(5 of our towns share 2 points; neighbours sit ~2mi apart). See ../../docs/spikes/map-page.md.
 
 WHY TWO LAYERS. Several of our "towns" are SECTIONS of a township, not municipalities:
 Short Hills + Millburn are both Millburn Twp; Colonia + Woodbridge are Woodbridge Twp;
