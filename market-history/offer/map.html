@@ -215,7 +215,7 @@ let metric = "appr";
    what makes the differences legible. Distinct hues also mean you can tell at a glance which
    metric you're on. ColorBrewer sequential ramps (colour-blind-safe), but starting one
    step IN: ColorBrewer's palest class (e.g. #eff3ff) is tuned for white PAPER and washes
-   out to nothing over the light-grey CARTO basemap at 62% fill — the lowest quintile
+   out to nothing over the light-grey canvas basemap at 62% fill — the lowest quintile
    looked see-through. These floors are the 2nd class of each 6-class ramp, so the bottom
    bin keeps a legible tint while the ramp still runs light→dark. */
 const SCHEMES = {
@@ -272,8 +272,18 @@ const map = L.map("map", {zoomControl:false, attributionControl:true}).setView([
 L.control.zoom({position:"topleft"}).addTo(map);
 map.createPane("pins");                 // above the choropleth (overlayPane=400)
 map.getPane("pins").style.zIndex = 620; // below marker/tooltip panes, above polygons
-L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-  attribution:'© OpenStreetMap © CARTO', subdomains:"abcd", maxZoom:19,
+// Esri's light-grey canvas, not CARTO. CARTO's basemaps.cartocdn.com stopped serving
+// anonymously (Sept 2026): every tile now comes back 200 OK with a grey "API KEY REQUIRED"
+// watermark painted on it, so the map looked broken everywhere rather than failing loudly.
+// Esri's Light Gray Canvas is keyless, the same near-white palette the choropleth floors
+// were tuned against, and it ships base and labels as two services — labels go on right
+// after the base so they still sit UNDER the town polygons, exactly as light_all did.
+const ESRI_CANVAS = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_";
+L.tileLayer(ESRI_CANVAS + "Base/MapServer/tile/{z}/{y}/{x}", {
+  attribution:'Tiles © Esri', maxZoom:19,
+}).addTo(map);
+L.tileLayer(ESRI_CANVAS + "Reference/MapServer/tile/{z}/{y}/{x}", {
+  maxZoom:19,
 }).addTo(map);
 
 // FEMA flood ZONES (toggle) — real SFHA polygons we fetched from FEMA (layers/flood/
