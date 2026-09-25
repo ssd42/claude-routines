@@ -112,7 +112,8 @@ def area_km2(geom):
 
 TOWNS = ["Colonia", "Springfield", "Wayne", "Westfield", "Cranford",
          "Scotch Plains", "Montclair", "Clark", "Basking Ridge", "Watchung",
-         "Cedar Grove", "Fanwood", "Garwood", "Gillette", "Verona"]
+         "Cedar Grove", "Fanwood", "Garwood", "Gillette", "Verona",
+         "West Orange"]
 SINGLE_FAMILY = "Single Family"
 SMOOTH = 5              # months in the centred rolling median for the price trend
 CLAMP = (0.70, 1.60)    # a thin month must not invent a 2x adjustment
