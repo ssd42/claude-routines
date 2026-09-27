@@ -1,4 +1,22 @@
 {
+"0-143g beverly hill ter unit 4307|woodbridge": {
+"lat": 40.554702,
+"lon": -74.302584,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"0-201c sierra ct unit 201|woodbridge": {
+"lat": 40.564117,
+"lon": -74.292641,
+"match": "listing",
+"src": "listings.csv"
+},
+"0-777 barron ave|woodbridge": {
+"lat": 40.567524,
+"lon": -74.279555,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "01 castle pl|gillette": {
 "lat": 40.673256,
 "lon": -74.465774,
@@ -142,6 +160,12 @@
 "lon": -74.219011,
 "match": "listing",
 "src": "listings.csv"
+},
+"1 center cir|woodbridge": {
+"lat": 40.554213,
+"lon": -74.286291,
+"match": "Exact",
+"src": "census_batch"
 },
 "1 central ave|montclair": {
 "lat": 40.820355,
@@ -713,6 +737,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1 hollywood dr|woodbridge": {
+"lat": 40.552205,
+"lon": -74.288906,
+"match": "Exact",
+"src": "census_batch"
+},
 "1 jarvis ter|clark": {
 "lat": 40.615249,
 "lon": -74.298286,
@@ -806,6 +836,12 @@
 "1 lorelei rd|west orange": {
 "lat": 40.792475,
 "lon": -74.270372,
+"match": "listing",
+"src": "listings.csv"
+},
+"1 maryknoll rd|woodbridge": {
+"lat": 40.552001,
+"lon": -74.319822,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -1373,6 +1409,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"10 crampton ave|woodbridge": {
+"lat": 40.559653,
+"lon": -74.27383,
+"match": "listing",
+"src": "listings.csv"
+},
 "10 crestmont rd apt 1b|montclair": {
 "lat": 40.826337,
 "lon": -74.227747,
@@ -1508,6 +1550,12 @@
 "10 dorchester dr|basking ridge": {
 "lat": 40.652808,
 "lon": -74.619132,
+"match": "Exact",
+"src": "census_batch"
+},
+"10 e grove ave|woodbridge": {
+"lat": 40.559193,
+"lon": -74.275717,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -2729,6 +2777,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"100 cutters dock rd|woodbridge": {
+"lat": 40.54357,
+"lon": -74.273892,
+"match": "Exact",
+"src": "census_batch"
+},
+"100 e prospect ave|woodbridge": {
+"lat": 40.567697,
+"lon": -74.274357,
+"match": "Exact",
+"src": "census_batch"
+},
 "100 easedale rd unit 100|wayne": {
 "lat": 40.939547,
 "lon": -74.204237,
@@ -2765,6 +2825,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"100 grove ave|woodbridge": {
+"lat": 40.559762,
+"lon": -74.281436,
+"match": "listing",
+"src": "listings.csv"
+},
 "100 hayes ave|clark": {
 "lat": 40.609556,
 "lon": -74.309872,
@@ -2792,6 +2858,12 @@
 "100 lessing rd|west orange": {
 "lat": 40.777195,
 "lon": -74.273238,
+"match": "Exact",
+"src": "census_batch"
+},
+"100 mawbey st|woodbridge": {
+"lat": 40.560726,
+"lon": -74.28532,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -2921,6 +2993,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1004 cricket ln|woodbridge": {
+"lat": 40.543248,
+"lon": -74.286319,
+"match": "Exact",
+"src": "census_batch"
+},
 "1004 holly ln|cedar grove": {
 "lat": 40.866282,
 "lon": -74.23238,
@@ -2981,6 +3059,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1008 cricket ln|woodbridge": {
+"lat": 40.543705,
+"lon": -74.285927,
+"match": "listing",
+"src": "listings.csv"
+},
+"1008 maple hill dr unit 1008|woodbridge": {
+"lat": 40.551876,
+"lon": -74.303877,
+"match": "Exact",
+"src": "census_batch"
+},
 "1008 valley rd|wayne": {
 "lat": 40.946216,
 "lon": -74.227049,
@@ -2993,17 +3083,35 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1009 cricket ln|woodbridge": {
+"lat": 40.543488,
+"lon": -74.285798,
+"match": "Exact",
+"src": "census_batch"
+},
 "1009 smith manor blvd # 96|west orange": {
 "lat": 40.800428,
 "lon": -74.242271,
 "match": "Exact",
 "src": "census_batch"
 },
+"101 beverly hill ter|woodbridge": {
+"lat": 40.552681,
+"lon": -74.303673,
+"match": "listing",
+"src": "listings.csv"
+},
 "101 chetwood ter|fanwood": {
 "lat": 40.634753,
 "lon": -74.384281,
 "match": "listing",
 "src": "listings.csv"
+},
+"101 cricket ln|woodbridge": {
+"lat": 40.546301,
+"lon": -74.278207,
+"match": "Exact",
+"src": "census_batch"
 },
 "101 gates ave # c002a|montclair": {
 "lat": 40.806556,
@@ -3119,6 +3227,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"101 maple hill dr|woodbridge": {
+"lat": 40.55447,
+"lon": -74.300935,
+"match": "Exact",
+"src": "census_batch"
+},
 "101 north ave|fanwood": {
 "lat": 40.638547,
 "lon": -74.390958,
@@ -3177,6 +3291,12 @@
 "lat": 40.866303,
 "lon": -74.2324,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"1010 maple hill dr|woodbridge": {
+"lat": 40.551875,
+"lon": -74.303881,
+"match": "Exact",
 "src": "census_batch"
 },
 "1011 boynton ave|westfield": {
@@ -3485,6 +3605,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"102-120 wedgewood ave|woodbridge": {
+"lat": 40.564938,
+"lon": -74.275882,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1020 minisink way|westfield": {
 "lat": 40.663201,
 "lon": -74.365595,
@@ -3569,6 +3695,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1028 cricket ln unit 1028|woodbridge": {
+"lat": 40.542758,
+"lon": -74.286706,
+"match": "Exact",
+"src": "census_batch"
+},
+"1029 cricket ln|woodbridge": {
+"lat": 40.543533,
+"lon": -74.285686,
+"match": "Exact",
+"src": "census_batch"
+},
 "103 adams ave|cranford": {
 "lat": 40.662176,
 "lon": -74.292263,
@@ -3614,6 +3752,12 @@
 "103 county park dr|cranford": {
 "lat": 40.672947,
 "lon": -74.315651,
+"match": "Exact",
+"src": "census_batch"
+},
+"103 cricket ln|woodbridge": {
+"lat": 40.546295,
+"lon": -74.278231,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -3773,6 +3917,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"1032 cricket ln|woodbridge": {
+"lat": 40.543293,
+"lon": -74.286268,
+"match": "Exact",
+"src": "census_batch"
+},
 "1033 cellar ave # 33|scotch plains": {
 "lat": 40.616744,
 "lon": -74.335888,
@@ -3803,6 +3953,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1036 cricket ln|woodbridge": {
+"lat": 40.543434,
+"lon": -74.285933,
+"match": "Exact",
+"src": "census_batch"
+},
+"1037 cricket ln|woodbridge": {
+"lat": 40.543551,
+"lon": -74.285641,
+"match": "Exact",
+"src": "census_batch"
+},
 "104 adams ave|cranford": {
 "lat": 40.662103,
 "lon": -74.292143,
@@ -3812,6 +3974,12 @@
 "104 amherst ave|colonia": {
 "lat": 40.59526,
 "lon": -74.325964,
+"match": "Exact",
+"src": "census_batch"
+},
+"104 bucknell ave|woodbridge": {
+"lat": 40.570542,
+"lon": -74.274835,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -4001,6 +4169,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"104-104 cricket ln|woodbridge": {
+"lat": 40.546288,
+"lon": -74.278256,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1040 seward ave|westfield": {
 "lat": 40.633761,
 "lon": -74.338941,
@@ -4010,6 +4184,12 @@
 "1041 wychwood road|westfield": {
 "lat": 40.669535,
 "lon": -74.343699,
+"match": "Exact",
+"src": "census_batch"
+},
+"1042 cricket ln|woodbridge": {
+"lat": 40.543598,
+"lon": -74.285586,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -4136,6 +4316,12 @@
 "105 hayes ave|clark": {
 "lat": 40.609601,
 "lon": -74.31003,
+"match": "Exact",
+"src": "census_batch"
+},
+"105 hillside ave|woodbridge": {
+"lat": 40.569009,
+"lon": -74.274539,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -4325,6 +4511,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"106 alwat st|woodbridge": {
+"lat": 40.563744,
+"lon": -74.289725,
+"match": "Exact",
+"src": "census_batch"
+},
 "106 barringer court|west orange": {
 "lat": 40.769873,
 "lon": -74.272093,
@@ -4391,11 +4583,23 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"106 main st|woodbridge": {
+"lat": 40.553914,
+"lon": -74.281336,
+"match": "Exact",
+"src": "census_batch"
+},
 "106 marion ave|westfield": {
 "lat": 40.641312,
 "lon": -74.3587,
 "match": "Exact",
 "src": "census_batch"
+},
+"106 maryknoll rte|woodbridge": {
+"lat": 40.555239,
+"lon": -74.32215,
+"match": "listing",
+"src": "listings.csv"
 },
 "106 meeker rd|basking ridge": {
 "lat": 40.696449,
@@ -4583,6 +4787,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"107 keystone ct unit 107c|woodbridge": {
+"lat": 40.562933,
+"lon": -74.293888,
+"match": "Exact",
+"src": "census_batch"
+},
 "107 levinberg lane|wayne": {
 "lat": 40.963188,
 "lon": -74.251425,
@@ -4604,6 +4814,12 @@
 "107 lincoln st|montclair": {
 "lat": 40.800734,
 "lon": -74.213739,
+"match": "Exact",
+"src": "census_batch"
+},
+"107 lockwood ave|woodbridge": {
+"lat": 40.569697,
+"lon": -74.274599,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -4673,6 +4889,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"107 schoder ave|woodbridge": {
+"lat": 40.565634,
+"lon": -74.27545,
+"match": "Exact",
+"src": "census_batch"
+},
 "107 severin ct|cranford": {
 "lat": 40.65289,
 "lon": -74.294095,
@@ -4739,6 +4961,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"107c keystone ct # 1073|woodbridge": {
+"lat": 40.562933,
+"lon": -74.293888,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "108 2nd st|fanwood": {
 "lat": 40.637768,
 "lon": -74.382528,
@@ -4796,6 +5024,12 @@
 "108 elmora ave|cranford": {
 "lat": 40.667214,
 "lon": -74.305972,
+"match": "Exact",
+"src": "census_batch"
+},
+"108 freeman st|woodbridge": {
+"lat": 40.56226,
+"lon": -74.279679,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -4925,6 +5159,24 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"108c keystone ct # 1083|woodbridge": {
+"lat": 40.562844,
+"lon": -74.293982,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"108c keystone ct|woodbridge": {
+"lat": 40.562844,
+"lon": -74.293982,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"109 2nd st|woodbridge": {
+"lat": 40.552503,
+"lon": -74.280227,
+"match": "Exact",
+"src": "census_batch"
+},
 "109 alexandria way|basking ridge": {
 "lat": 40.661137,
 "lon": -74.54618,
@@ -5003,6 +5255,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"109 cricket ln|woodbridge": {
+"lat": 40.546274,
+"lon": -74.278305,
+"match": "Exact",
+"src": "census_batch"
+},
 "109 donato cir unit 109|scotch plains": {
 "lat": 40.658103,
 "lon": -74.400517,
@@ -5045,6 +5303,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"109 high st|woodbridge": {
+"lat": 40.560778,
+"lon": -74.282651,
+"match": "Exact",
+"src": "census_batch"
+},
 "109 highfield rd|colonia": {
 "lat": 40.577479,
 "lon": -74.298315,
@@ -5062,6 +5326,24 @@
 "lon": -74.2287,
 "match": "Exact",
 "src": "census_batch"
+},
+"109 maple hill dr|woodbridge": {
+"lat": 40.553845,
+"lon": -74.300574,
+"match": "listing",
+"src": "listings.csv"
+},
+"109 michaels ct unit 109|woodbridge": {
+"lat": 40.563461,
+"lon": -74.294385,
+"match": "listing",
+"src": "listings.csv"
+},
+"109 michaels ct|woodbridge": {
+"lat": 40.563461,
+"lon": -74.294385,
+"match": "listing",
+"src": "listings.csv"
 },
 "109 mohawk dr|cranford": {
 "lat": 40.641613,
@@ -5096,6 +5378,12 @@
 "109 pleasant ave|fanwood": {
 "lat": 40.649229,
 "lon": -74.388823,
+"match": "Exact",
+"src": "census_batch"
+},
+"109 russell st|woodbridge": {
+"lat": 40.545489,
+"lon": -74.275386,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -5411,6 +5699,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"11 e grove ave|woodbridge": {
+"lat": 40.558997,
+"lon": -74.276084,
+"match": "listing",
+"src": "listings.csv"
+},
 "11 eastgate sq|westfield": {
 "lat": 40.670849,
 "lon": -74.330658,
@@ -5603,6 +5897,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"11 jean ct|woodbridge": {
+"lat": 40.552966,
+"lon": -74.275167,
+"match": "listing",
+"src": "listings.csv"
+},
 "11 johnson st|scotch plains": {
 "lat": 40.660528,
 "lon": -74.376818,
@@ -5672,6 +5972,12 @@
 "11 lapis circle|west orange": {
 "lat": 40.821387,
 "lon": -74.269765,
+"match": "Exact",
+"src": "census_batch"
+},
+"11 legion pl|woodbridge": {
+"lat": 40.552278,
+"lon": -74.273833,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -5810,6 +6116,12 @@
 "11 mendell ave|cranford": {
 "lat": 40.644321,
 "lon": -74.298042,
+"match": "Exact",
+"src": "census_batch"
+},
+"11 milton ave|woodbridge": {
+"lat": 40.548957,
+"lon": -74.276125,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -6341,6 +6653,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"110 church st|woodbridge": {
+"lat": 40.562094,
+"lon": -74.281953,
+"match": "Exact",
+"src": "census_batch"
+},
 "110 easedale rd|wayne": {
 "lat": 40.939624,
 "lon": -74.204615,
@@ -6406,6 +6724,18 @@
 "lon": -74.537622,
 "match": "Exact",
 "src": "census_batch"
+},
+"110 keystone ct unit 110a|woodbridge": {
+"lat": 40.563107,
+"lon": -74.294067,
+"match": "listing",
+"src": "listings.csv"
+},
+"110 keystone ct|woodbridge": {
+"lat": 40.563107,
+"lon": -74.294067,
+"match": "listing",
+"src": "listings.csv"
 },
 "110 knollwood drive|watchung": {
 "lat": 40.627576,
@@ -6653,6 +6983,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1106 maple hill dr unit 1106|woodbridge": {
+"lat": 40.551848,
+"lon": -74.304755,
+"match": "Exact",
+"src": "census_batch"
+},
 "1107 brittany dr|wayne": {
 "lat": 40.965424,
 "lon": -74.240535,
@@ -6719,15 +7055,51 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"110a keystone ct # 1101|woodbridge": {
+"lat": 40.562934,
+"lon": -74.293889,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "111 anderson parkway|cedar grove": {
 "lat": 40.871435,
 "lon": -74.228295,
 "match": "Exact",
 "src": "census_batch"
 },
+"111 beverly hill ter # 1101|woodbridge": {
+"lat": 40.553329,
+"lon": -74.303718,
+"match": "Exact",
+"src": "census_batch"
+},
+"111 beverly hill ter unit a|woodbridge": {
+"lat": 40.553329,
+"lon": -74.303718,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"111 beverly hills ter unit d|woodbridge": {
+"lat": 40.553329,
+"lon": -74.303718,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"111 bucknell ave|woodbridge": {
+"lat": 40.5704,
+"lon": -74.274637,
+"match": "Exact",
+"src": "census_batch"
+},
 "111 chopin dr|wayne": {
 "lat": 40.988927,
 "lon": -74.275995,
+"match": "Exact",
+"src": "census_batch"
+},
+"111 church st|woodbridge": {
+"lat": 40.561915,
+"lon": -74.28277,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -6959,6 +7331,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"111 willry st|woodbridge": {
+"lat": 40.562952,
+"lon": -74.290513,
+"match": "Exact",
+"src": "census_batch"
+},
 "111 woodward ln|basking ridge": {
 "lat": 40.658309,
 "lon": -74.566514,
@@ -7043,6 +7421,30 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"112 beverly hill ter # 1208|woodbridge": {
+"lat": 40.553576,
+"lon": -74.303587,
+"match": "Exact",
+"src": "census_batch"
+},
+"112 beverly hill ter unit e|woodbridge": {
+"lat": 40.553211,
+"lon": -74.302887,
+"match": "listing",
+"src": "listings.csv"
+},
+"112 beverly hill ter unit h|woodbridge": {
+"lat": 40.553576,
+"lon": -74.303587,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"112 beverly hills ter unit e|woodbridge": {
+"lat": 40.553211,
+"lon": -74.302886,
+"match": "listing",
+"src": "listings.csv"
+},
 "112 bryant ave|cranford": {
 "lat": 40.651847,
 "lon": -74.286358,
@@ -7064,6 +7466,12 @@
 "112 centennial ave|cranford": {
 "lat": 40.652924,
 "lon": -74.298285,
+"match": "Exact",
+"src": "census_batch"
+},
+"112 church st|woodbridge": {
+"lat": 40.562075,
+"lon": -74.282199,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -7155,6 +7563,12 @@
 "lat": 40.596242,
 "lon": -74.313065,
 "match": "Exact",
+"src": "census_batch"
+},
+"112 michaels ct|woodbridge": {
+"lat": 40.56287,
+"lon": -74.295555,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "112 myrtle ave|cedar grove": {
@@ -7295,6 +7709,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"112-a keystone ct|woodbridge": {
+"lat": 40.562935,
+"lon": -74.293888,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1120 brittany dr|wayne": {
 "lat": 40.965116,
 "lon": -74.242425,
@@ -7427,6 +7847,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"113 e prospect ave|woodbridge": {
+"lat": 40.567462,
+"lon": -74.27484,
+"match": "listing",
+"src": "listings.csv"
+},
 "113 forest ave|cranford": {
 "lat": 40.658361,
 "lon": -74.299911,
@@ -7454,6 +7880,12 @@
 "113 harrison avenue|montclair": {
 "lat": 40.802795,
 "lon": -74.225039,
+"match": "Exact",
+"src": "census_batch"
+},
+"113 high st|woodbridge": {
+"lat": 40.56078,
+"lon": -74.282779,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -7654,6 +8086,12 @@
 "lon": -74.256413,
 "match": "Exact",
 "src": "census_batch"
+},
+"114 beverly hill ter unit h|woodbridge": {
+"lat": 40.553394,
+"lon": -74.303429,
+"match": "listing",
+"src": "listings.csv"
 },
 "114 elm st|west orange": {
 "lat": 40.793292,
@@ -7949,6 +8387,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"115 highview dr|woodbridge": {
+"lat": 40.549737,
+"lon": -74.305409,
+"match": "Exact",
+"src": "census_batch"
+},
 "115 hill hollow rd|watchung": {
 "lat": 40.64626,
 "lon": -74.433364,
@@ -7976,6 +8420,12 @@
 "115 montclair avenue|montclair": {
 "lat": 40.823934,
 "lon": -74.204149,
+"match": "Exact",
+"src": "census_batch"
+},
+"115 new st|woodbridge": {
+"lat": 40.553306,
+"lon": -74.27987,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -8043,6 +8493,12 @@
 "lat": 40.787402,
 "lon": -74.229198,
 "match": "Exact",
+"src": "census_batch"
+},
+"115-117 harrell ave|woodbridge": {
+"lat": 40.564025,
+"lon": -74.280523,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1150 raritan road|clark": {
@@ -8183,6 +8639,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"116 harrell ave|woodbridge": {
+"lat": 40.562206,
+"lon": -74.280574,
+"match": "Exact",
+"src": "census_batch"
+},
 "116 inwood ave|colonia": {
 "lat": 40.592953,
 "lon": -74.327511,
@@ -8198,6 +8660,12 @@
 "116 johnston dr|watchung": {
 "lat": 40.631427,
 "lon": -74.439115,
+"match": "Exact",
+"src": "census_batch"
+},
+"116 keystone ct unit 1162|woodbridge": {
+"lat": 40.562938,
+"lon": -74.293885,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -8267,6 +8735,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"116-b keystone ct|woodbridge": {
+"lat": 40.562938,
+"lon": -74.293885,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1162 raritan rd|clark": {
 "lat": 40.629827,
 "lon": -74.310966,
@@ -8309,6 +8783,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"116b keystone ct # 1162|woodbridge": {
+"lat": 40.562938,
+"lon": -74.293885,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "117 alexander avenue|montclair": {
 "lat": 40.850101,
 "lon": -74.193708,
@@ -8348,6 +8828,18 @@
 "117 countryside dr|basking ridge": {
 "lat": 40.70406,
 "lon": -74.572979,
+"match": "Exact",
+"src": "census_batch"
+},
+"117 cricket ln unit 117|woodbridge": {
+"lat": 40.546247,
+"lon": -74.278403,
+"match": "Exact",
+"src": "census_batch"
+},
+"117 freeman st|woodbridge": {
+"lat": 40.562136,
+"lon": -74.279868,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -8573,6 +9065,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"118 hillside ave|woodbridge": {
+"lat": 40.569147,
+"lon": -74.274706,
+"match": "Exact",
+"src": "census_batch"
+},
 "118 liberty st|clark": {
 "lat": 40.622674,
 "lon": -74.295098,
@@ -8615,6 +9113,18 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"118 sharon ct|woodbridge": {
+"lat": 40.552765,
+"lon": -74.296668,
+"match": "Exact",
+"src": "census_batch"
+},
+"118 sharon garden ct|woodbridge": {
+"lat": 40.552765,
+"lon": -74.296668,
+"match": "Exact",
+"src": "census_batch"
+},
 "118 smithfield ct|basking ridge": {
 "lat": 40.661279,
 "lon": -74.54105,
@@ -8648,6 +9158,12 @@
 "118 wildwood ter|watchung": {
 "lat": 40.619831,
 "lon": -74.479982,
+"match": "Exact",
+"src": "census_batch"
+},
+"118 willry st|woodbridge": {
+"lat": 40.563422,
+"lon": -74.291113,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -8692,6 +9208,12 @@
 "lon": -74.572978,
 "match": "Exact",
 "src": "census_batch"
+},
+"119 cricket ln|woodbridge": {
+"lat": 40.545578,
+"lon": -74.280784,
+"match": "listing",
+"src": "listings.csv"
 },
 "119 delia terr|clark": {
 "lat": 40.62635,
@@ -9119,6 +9641,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"12 dixon dr|woodbridge": {
+"lat": 40.553512,
+"lon": -74.285417,
+"match": "listing",
+"src": "listings.csv"
+},
 "12 dogwood ln|colonia": {
 "lat": 40.589934,
 "lon": -74.305262,
@@ -9136,6 +9664,12 @@
 "lon": -74.307497,
 "match": "listing",
 "src": "listings.csv"
+},
+"12 e grove ave|woodbridge": {
+"lat": 40.559216,
+"lon": -74.275882,
+"match": "Exact",
+"src": "census_batch"
 },
 "12 eastgate sq|westfield": {
 "lat": 40.670798,
@@ -9226,6 +9760,12 @@
 "lon": -74.22686,
 "match": "Exact",
 "src": "census_batch"
+},
+"12 freeman st|woodbridge": {
+"lat": 40.562119,
+"lon": -74.274481,
+"match": "listing",
+"src": "listings.csv"
 },
 "12 glennon pl|west orange": {
 "lat": 40.787785,
@@ -9833,6 +10373,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"12 vanderbuilt pl|woodbridge": {
+"lat": 40.56715,
+"lon": -74.27654,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "12 w clark pl|colonia": {
 "lat": 40.591629,
 "lon": -74.337157,
@@ -10139,6 +10685,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"121 beverly hills ter unit b|woodbridge": {
+"lat": 40.554042,
+"lon": -74.303092,
+"match": "listing",
+"src": "listings.csv"
+},
 "121 coccio dr|west orange": {
 "lat": 40.790086,
 "lon": -74.252317,
@@ -10154,6 +10706,12 @@
 "121 cottage pl|westfield": {
 "lat": 40.633685,
 "lon": -74.327099,
+"match": "Exact",
+"src": "census_batch"
+},
+"121 cricket ln|woodbridge": {
+"lat": 40.546233,
+"lon": -74.278452,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -10253,6 +10811,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"121 sharon garden ct|woodbridge": {
+"lat": 40.552267,
+"lon": -74.297819,
+"match": "Exact",
+"src": "census_batch"
+},
 "121 summit court|westfield": {
 "lat": 40.630818,
 "lon": -74.320993,
@@ -10288,6 +10852,24 @@
 "lon": -74.566124,
 "match": "listing",
 "src": "listings.csv"
+},
+"121-b beverly hill ter|woodbridge": {
+"lat": 40.554029,
+"lon": -74.303393,
+"match": "listing",
+"src": "listings.csv"
+},
+"121-f beverly hill ter|woodbridge": {
+"lat": 40.553875,
+"lon": -74.303357,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"1210 cricket ln unit 1210|woodbridge": {
+"lat": 40.545249,
+"lon": -74.283162,
+"match": "Exact",
+"src": "census_batch"
 },
 "1210 lawrence ave|westfield": {
 "lat": 40.668266,
@@ -10346,6 +10928,12 @@
 "122 berkley ave|colonia": {
 "lat": 40.590272,
 "lon": -74.308925,
+"match": "Exact",
+"src": "census_batch"
+},
+"122 cricket ln|woodbridge": {
+"lat": 40.546226,
+"lon": -74.278476,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -10475,6 +11063,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1226 cricket ln|woodbridge": {
+"lat": 40.546333,
+"lon": -74.278807,
+"match": "Exact",
+"src": "census_batch"
+},
+"1228 cricket ln|woodbridge": {
+"lat": 40.546409,
+"lon": -74.278259,
+"match": "Exact",
+"src": "census_batch"
+},
 "123 alexander ave|montclair": {
 "lat": 40.850259,
 "lon": -74.194306,
@@ -10523,6 +11123,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"123 cricket ln unit 123|woodbridge": {
+"lat": 40.546226,
+"lon": -74.278476,
+"match": "Exact",
+"src": "census_batch"
+},
 "123 elizabeth ave|westfield": {
 "lat": 40.644823,
 "lon": -74.334076,
@@ -10540,6 +11146,12 @@
 "lon": -74.309058,
 "match": "listing",
 "src": "listings.csv"
+},
+"123 grove ave|woodbridge": {
+"lat": 40.559415,
+"lon": -74.282827,
+"match": "Exact",
+"src": "census_batch"
 },
 "123 highfield rd|colonia": {
 "lat": 40.577509,
@@ -10667,6 +11279,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"124 beverly hill ter unit j|woodbridge": {
+"lat": 40.553585,
+"lon": -74.302361,
+"match": "listing",
+"src": "listings.csv"
+},
+"124 beverly hill ter unit m|woodbridge": {
+"lat": 40.554217,
+"lon": -74.303093,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "124 cedar rd|watchung": {
 "lat": 40.639116,
 "lon": -74.458906,
@@ -10731,6 +11355,18 @@
 "lat": 40.65734,
 "lon": -74.566666,
 "match": "Exact",
+"src": "census_batch"
+},
+"124-l beverly hill terr|woodbridge": {
+"lat": 40.554217,
+"lon": -74.303093,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"124-m beverly hill terr|woodbridge": {
+"lat": 40.554217,
+"lon": -74.303093,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1240 prospect st|westfield": {
@@ -10919,6 +11555,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"125 green st|woodbridge": {
+"lat": 40.557697,
+"lon": -74.283014,
+"match": "Exact",
+"src": "census_batch"
+},
 "125 kimberly rd|colonia": {
 "lat": 40.602866,
 "lon": -74.330465,
@@ -11069,6 +11711,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"126 cricket ln unit 126|woodbridge": {
+"lat": 40.546213,
+"lon": -74.278525,
+"match": "Exact",
+"src": "census_batch"
+},
 "126 fieldstone dr|springfield": {
 "lat": 40.696763,
 "lon": -74.322485,
@@ -11080,6 +11728,12 @@
 "lon": -74.308817,
 "match": "listing",
 "src": "listings.csv"
+},
+"126 highview dr|woodbridge": {
+"lat": 40.560883,
+"lon": -74.283279,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "126 king dr|gillette": {
 "lat": 40.676756,
@@ -11279,6 +11933,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"128 cricket ln|woodbridge": {
+"lat": 40.545954,
+"lon": -74.281028,
+"match": "listing",
+"src": "listings.csv"
+},
 "128 gallows hill rd|cranford": {
 "lat": 40.65613,
 "lon": -74.315827,
@@ -11288,6 +11948,12 @@
 "128 green knolls dr|wayne": {
 "lat": 40.996642,
 "lon": -74.269047,
+"match": "Exact",
+"src": "census_batch"
+},
+"128 green st|woodbridge": {
+"lat": 40.557813,
+"lon": -74.282616,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -11747,6 +12413,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"13 hollywood dr|woodbridge": {
+"lat": 40.552419,
+"lon": -74.288753,
+"match": "Exact",
+"src": "census_batch"
+},
 "13 johnson st|scotch plains": {
 "lat": 40.660791,
 "lon": -74.376192,
@@ -11771,9 +12443,27 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"13 lambert st|woodbridge": {
+"lat": 40.553408,
+"lon": -74.289777,
+"match": "Exact",
+"src": "census_batch"
+},
 "13 lawrence way|cedar grove": {
 "lat": 40.865367,
 "lon": -74.23956,
+"match": "Exact",
+"src": "census_batch"
+},
+"13 lillian terr|woodbridge": {
+"lat": 40.552573,
+"lon": -74.273798,
+"match": "Exact",
+"src": "census_batch"
+},
+"13 lillian ter|woodbridge": {
+"lat": 40.552573,
+"lon": -74.273798,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -11782,6 +12472,12 @@
 "lon": -74.302477,
 "match": "listing",
 "src": "listings.csv"
+},
+"13 melbourne ct|woodbridge": {
+"lat": 40.55807,
+"lon": -74.274529,
+"match": "Exact",
+"src": "census_batch"
 },
 "13 montague place|montclair": {
 "lat": 40.817203,
@@ -12029,6 +12725,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"130 highview dr|woodbridge": {
+"lat": 40.54875,
+"lon": -74.305049,
+"match": "listing",
+"src": "listings.csv"
+},
 "130 jefferson ave|westfield": {
 "lat": 40.661408,
 "lon": -74.339621,
@@ -12161,6 +12863,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1303 cricket ln|woodbridge": {
+"lat": 40.546433,
+"lon": -74.278721,
+"match": "listing",
+"src": "listings.csv"
+},
+"1304 cricket ln|woodbridge": {
+"lat": 40.544471,
+"lon": -74.284861,
+"match": "Exact",
+"src": "census_batch"
+},
 "1305 four seasons dr|wayne": {
 "lat": 40.951684,
 "lon": -74.217178,
@@ -12197,11 +12911,47 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1307 cricket ln|woodbridge": {
+"lat": 40.546021,
+"lon": -74.281706,
+"match": "Exact",
+"src": "census_batch"
+},
+"1308 cricket ln|woodbridge": {
+"lat": 40.544792,
+"lon": -74.284157,
+"match": "Exact",
+"src": "census_batch"
+},
 "1308 four seasons dr unit 1308|wayne": {
 "lat": 40.952266,
 "lon": -74.216837,
 "match": "Exact",
 "src": "census_batch"
+},
+"131 beverly hill ter # 3103|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302677,
+"match": "Exact",
+"src": "census_batch"
+},
+"131 beverly hill ter unit c|woodbridge": {
+"lat": 40.55381,
+"lon": -74.301949,
+"match": "listing",
+"src": "listings.csv"
+},
+"131 beverly hill ter unit e|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302677,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"131 beverly hill ter|woodbridge": {
+"lat": 40.553898,
+"lon": -74.301941,
+"match": "listing",
+"src": "listings.csv"
 },
 "131 buckingham road|montclair": {
 "lat": 40.844855,
@@ -12266,6 +13016,12 @@
 "131 harper ter|cedar grove": {
 "lat": 40.839275,
 "lon": -74.233801,
+"match": "Exact",
+"src": "census_batch"
+},
+"131 highview dr|woodbridge": {
+"lat": 40.54872,
+"lon": -74.305274,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12362,6 +13118,12 @@
 "131-131 cedar st|colonia": {
 "lat": 40.602811,
 "lon": -74.317274,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"131-e beverly hill terr|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302677,
 "match": "Non_Exact",
 "src": "census_batch"
 },
@@ -12470,6 +13232,12 @@
 "132 constitution way|basking ridge": {
 "lat": 40.653626,
 "lon": -74.613434,
+"match": "Exact",
+"src": "census_batch"
+},
+"132 cricket ln|woodbridge": {
+"lat": 40.546211,
+"lon": -74.278633,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12611,6 +13379,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1320 cricket ln unit 1320|woodbridge": {
+"lat": 40.545812,
+"lon": -74.282101,
+"match": "Exact",
+"src": "census_batch"
+},
 "1320 overhill st|westfield": {
 "lat": 40.663612,
 "lon": -74.375121,
@@ -12645,6 +13419,18 @@
 "lat": 40.658173,
 "lon": -74.339583,
 "match": "Exact",
+"src": "census_batch"
+},
+"133 beverly hill ter # 3307|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302676,
+"match": "Exact",
+"src": "census_batch"
+},
+"133 beverly hills ter unit g|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302676,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "133 cedar st|westfield": {
@@ -12686,6 +13472,12 @@
 "133 forest ave|verona": {
 "lat": 40.827113,
 "lon": -74.255255,
+"match": "Exact",
+"src": "census_batch"
+},
+"133 highview dr|woodbridge": {
+"lat": 40.548354,
+"lon": -74.304738,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12749,6 +13541,30 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"133-e beverly hill terr|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302676,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"133-e beverly hill ter|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302676,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"1330 cricket ln|woodbridge": {
+"lat": 40.546443,
+"lon": -74.280248,
+"match": "Exact",
+"src": "census_batch"
+},
+"1335 cricket ln|woodbridge": {
+"lat": 40.546452,
+"lon": -74.280728,
+"match": "Exact",
+"src": "census_batch"
+},
 "1335 martine ave|scotch plains": {
 "lat": 40.632047,
 "lon": -74.367614,
@@ -12777,6 +13593,18 @@
 "lat": 40.635497,
 "lon": -74.381772,
 "match": "Exact",
+"src": "census_batch"
+},
+"134 beverly hill ter # 3406|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Exact",
+"src": "census_batch"
+},
+"134 beverly hill ter unit f|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "134 butternut dr|wayne": {
@@ -12824,6 +13652,12 @@
 "134 levinberg ln|wayne": {
 "lat": 40.963561,
 "lon": -74.252347,
+"match": "Exact",
+"src": "census_batch"
+},
+"134 north st|woodbridge": {
+"lat": 40.563237,
+"lon": -74.283838,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12893,9 +13727,39 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"135 beverly hill ter # 3502|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Exact",
+"src": "census_batch"
+},
+"135 beverly hill ter # 3503|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Exact",
+"src": "census_batch"
+},
+"135 beverly hill ter # 3507|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Exact",
+"src": "census_batch"
+},
+"135 beverly hill ter unit b|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "135 claremont avenue|montclair": {
 "lat": 40.814816,
 "lon": -74.211714,
+"match": "Exact",
+"src": "census_batch"
+},
+"135 e prospect ave|woodbridge": {
+"lat": 40.567782,
+"lon": -74.275971,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12914,6 +13778,12 @@
 "135 new dover ave|colonia": {
 "lat": 40.590311,
 "lon": -74.335731,
+"match": "Exact",
+"src": "census_batch"
+},
+"135 overlook ct unit 135a|woodbridge": {
+"lat": 40.56343,
+"lon": -74.293022,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -12983,6 +13853,30 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"135-a overlook ct|woodbridge": {
+"lat": 40.56343,
+"lon": -74.293022,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"135-c beverly hill terr|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"135-c beverly hill ter|woodbridge": {
+"lat": 40.554357,
+"lon": -74.302795,
+"match": "listing",
+"src": "listings.csv"
+},
+"135-g beverly hill ter|woodbridge": {
+"lat": 40.554553,
+"lon": -74.302674,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1350 overhill st|westfield": {
 "lat": 40.663861,
 "lon": -74.375539,
@@ -13013,6 +13907,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"136 carroll ave|woodbridge": {
+"lat": 40.564354,
+"lon": -74.276669,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "136 easedale rd|wayne": {
 "lat": 40.940002,
 "lon": -74.204951,
@@ -13031,9 +13931,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"136 highview dr|woodbridge": {
+"lat": 40.547971,
+"lon": -74.304877,
+"match": "listing",
+"src": "listings.csv"
+},
 "136 irwin st|springfield": {
 "lat": 40.690691,
 "lon": -74.33911,
+"match": "listing",
+"src": "listings.csv"
+},
+"136 isabelle st|woodbridge": {
+"lat": 40.554902,
+"lon": -74.324523,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -13088,6 +14000,12 @@
 "136 walnut st|montclair": {
 "lat": 40.818231,
 "lon": -74.212952,
+"match": "Exact",
+"src": "census_batch"
+},
+"136 wedgewood ave|woodbridge": {
+"lat": 40.564971,
+"lon": -74.276304,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -14051,6 +14969,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"14 liberty ave|woodbridge": {
+"lat": 40.557315,
+"lon": -74.290809,
+"match": "Exact",
+"src": "census_batch"
+},
 "14 linda ave|colonia": {
 "lat": 40.603986,
 "lon": -74.308918,
@@ -14321,6 +15245,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"14 seymour ave|woodbridge": {
+"lat": 40.562379,
+"lon": -74.286367,
+"match": "listing",
+"src": "listings.csv"
+},
 "14 silver spring rd|west orange": {
 "lat": 40.761269,
 "lon": -74.257357,
@@ -14561,6 +15491,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"140 grove ave|woodbridge": {
+"lat": 40.559694,
+"lon": -74.283725,
+"match": "listing",
+"src": "listings.csv"
+},
+"140 highview dr|woodbridge": {
+"lat": 40.553402,
+"lon": -74.30505,
+"match": "Exact",
+"src": "census_batch"
+},
 "140 irving pl|basking ridge": {
 "lat": 40.654802,
 "lon": -74.568311,
@@ -14608,6 +15550,12 @@
 "lon": -74.361685,
 "match": "Exact",
 "src": "census_batch"
+},
+"140 valentine pl|woodbridge": {
+"lat": 40.559002,
+"lon": -74.283642,
+"match": "listing",
+"src": "listings.csv"
 },
 "140 walker rd|west orange": {
 "lat": 40.766156,
@@ -14705,6 +15653,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"141 high st|woodbridge": {
+"lat": 40.560726,
+"lon": -74.283866,
+"match": "Exact",
+"src": "census_batch"
+},
 "141 lake rd|basking ridge": {
 "lat": 40.69331,
 "lon": -74.562449,
@@ -14759,10 +15713,28 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"141 valentine pl|woodbridge": {
+"lat": 40.558821,
+"lon": -74.283863,
+"match": "Exact",
+"src": "census_batch"
+},
 "141 walnut st|montclair": {
 "lat": 40.81827,
 "lon": -74.213314,
 "match": "Exact",
+"src": "census_batch"
+},
+"141-h beverly hill terr|woodbridge": {
+"lat": 40.55504,
+"lon": -74.302123,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"141-h beverly hill ter|woodbridge": {
+"lat": 40.55504,
+"lon": -74.302123,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1410 four seasons dr unit 1410|wayne": {
@@ -14792,6 +15764,12 @@
 "142 broadway|clark": {
 "lat": 40.621814,
 "lon": -74.299826,
+"match": "Exact",
+"src": "census_batch"
+},
+"142 bucknell ave|woodbridge": {
+"lat": 40.570634,
+"lon": -74.275541,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -14889,6 +15867,12 @@
 "lat": 40.658422,
 "lon": -74.56654,
 "match": "Exact",
+"src": "census_batch"
+},
+"142-c overlook ct|woodbridge": {
+"lat": 40.563399,
+"lon": -74.292877,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1420 boulevard|westfield": {
@@ -14993,6 +15977,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"143 overlook ct # 1433|woodbridge": {
+"lat": 40.563437,
+"lon": -74.293019,
+"match": "Exact",
+"src": "census_batch"
+},
 "143 s martine ave|fanwood": {
 "lat": 40.638553,
 "lon": -74.379091,
@@ -15029,6 +16019,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"143-c overlook ct|woodbridge": {
+"lat": 40.563437,
+"lon": -74.293019,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"143-g beverly hill terr|woodbridge": {
+"lat": 40.554702,
+"lon": -74.302584,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1431 alps rd|wayne": {
 "lat": 40.955218,
 "lon": -74.246435,
@@ -15053,10 +16055,28 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"143c overlook ct # 1433|woodbridge": {
+"lat": 40.563437,
+"lon": -74.293019,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"143c overlook ct unit 143c|woodbridge": {
+"lat": 40.563437,
+"lon": -74.293019,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "144 acorn dr|clark": {
 "lat": 40.619352,
 "lon": -74.324053,
 "match": "Exact",
+"src": "census_batch"
+},
+"144 beverly hill ter unit g|woodbridge": {
+"lat": 40.554622,
+"lon": -74.302459,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "144 garside ave # 4|wayne": {
@@ -15087,6 +16107,12 @@
 "lat": 40.600379,
 "lon": -74.309127,
 "match": "Exact",
+"src": "census_batch"
+},
+"144 overlook ct unit c|woodbridge": {
+"lat": 40.5634,
+"lon": -74.292876,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "144 park st|montclair": {
@@ -15155,6 +16181,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"144c overlook ct # 1443|woodbridge": {
+"lat": 40.5634,
+"lon": -74.292876,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"144c overlook ct|woodbridge": {
+"lat": 40.5634,
+"lon": -74.292876,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "145 arbor cir|basking ridge": {
 "lat": 40.660957,
 "lon": -74.553646,
@@ -15219,6 +16257,12 @@
 "lat": 40.647565,
 "lon": -74.427176,
 "match": "Exact",
+"src": "census_batch"
+},
+"145 overlook ct unit a|woodbridge": {
+"lat": 40.563439,
+"lon": -74.293018,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "145 park st|montclair": {
@@ -15365,6 +16409,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"147 bucknell ave|woodbridge": {
+"lat": 40.570554,
+"lon": -74.275818,
+"match": "Exact",
+"src": "census_batch"
+},
 "147 claremont ave|verona": {
 "lat": 40.828256,
 "lon": -74.233969,
@@ -15374,6 +16424,12 @@
 "147 deer run|watchung": {
 "lat": 40.627556,
 "lon": -74.44844,
+"match": "Exact",
+"src": "census_batch"
+},
+"147 grove ave|woodbridge": {
+"lat": 40.559388,
+"lon": -74.284326,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -15422,6 +16478,12 @@
 "147 union street|montclair": {
 "lat": 40.810846,
 "lon": -74.224711,
+"match": "Exact",
+"src": "census_batch"
+},
+"147 wedgewood ave|woodbridge": {
+"lat": 40.564877,
+"lon": -74.276583,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -15509,6 +16571,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"148 overlook ct unit 1481|woodbridge": {
+"lat": 40.563404,
+"lon": -74.292874,
+"match": "Exact",
+"src": "census_batch"
+},
 "148 stonehenge ter|clark": {
 "lat": 40.614939,
 "lon": -74.33297,
@@ -15527,11 +16595,23 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"148-a overlook ct|woodbridge": {
+"lat": 40.563404,
+"lon": -74.292874,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1486 alps rd|wayne": {
 "lat": 40.957155,
 "lon": -74.245702,
 "match": "listing",
 "src": "listings.csv"
+},
+"148a overlook ct|woodbridge": {
+"lat": 40.563404,
+"lon": -74.292874,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "149 anderson pkwy|cedar grove": {
 "lat": 40.869878,
@@ -15610,6 +16690,12 @@
 "lon": -74.315557,
 "match": "Exact",
 "src": "census_batch"
+},
+"149 strawberry hill ave|woodbridge": {
+"lat": 40.546713,
+"lon": -74.275361,
+"match": "listing",
+"src": "listings.csv"
 },
 "149 tillotson rd|fanwood": {
 "lat": 40.647552,
@@ -15872,6 +16958,12 @@
 "15 colona rd|wayne": {
 "lat": 40.999065,
 "lon": -74.270801,
+"match": "Exact",
+"src": "census_batch"
+},
+"15 colonial ct|woodbridge": {
+"lat": 40.569004,
+"lon": -74.278844,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -16475,6 +17567,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"15 rector ave|woodbridge": {
+"lat": 40.554175,
+"lon": -74.273893,
+"match": "listing",
+"src": "listings.csv"
+},
 "15 ridgeview ave|west orange": {
 "lat": 40.761831,
 "lon": -74.255939,
@@ -16745,6 +17843,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"15 wedgewood ave|woodbridge": {
+"lat": 40.56495,
+"lon": -74.271098,
+"match": "Exact",
+"src": "census_batch"
+},
 "15 wedgewood dr apt 85|verona": {
 "lat": 40.832522,
 "lon": -74.240171,
@@ -16823,6 +17927,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"15 winston dr|woodbridge": {
+"lat": 40.566372,
+"lon": -74.27764,
+"match": "listing",
+"src": "listings.csv"
+},
 "15 woodbrook cir|westfield": {
 "lat": 40.67153,
 "lon": -74.326088,
@@ -16870,6 +17980,12 @@
 "lon": -74.309524,
 "match": "listing",
 "src": "listings.csv"
+},
+"150 clinton st|woodbridge": {
+"lat": 40.549733,
+"lon": -74.280806,
+"match": "Exact",
+"src": "census_batch"
 },
 "150 dezenzo road|west orange": {
 "lat": 40.790211,
@@ -17135,6 +18251,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"152 bunns ln|woodbridge": {
+"lat": 40.549067,
+"lon": -74.28054,
+"match": "Exact",
+"src": "census_batch"
+},
 "152 gates ave|montclair": {
 "lat": 40.807509,
 "lon": -74.225659,
@@ -17150,6 +18272,12 @@
 "152 high street|montclair": {
 "lat": 40.793634,
 "lon": -74.224337,
+"match": "Exact",
+"src": "census_batch"
+},
+"152 hillside ave|woodbridge": {
+"lat": 40.569254,
+"lon": -74.275523,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -17339,6 +18467,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"154 crescent st|woodbridge": {
+"lat": 40.571397,
+"lon": -74.276155,
+"match": "Exact",
+"src": "census_batch"
+},
 "154 forest ave|verona": {
 "lat": 40.825958,
 "lon": -74.255977,
@@ -17348,6 +18482,12 @@
 "154 forest hill rd|west orange": {
 "lat": 40.769837,
 "lon": -74.259101,
+"match": "Exact",
+"src": "census_batch"
+},
+"154 freeman st|woodbridge": {
+"lat": 40.562866,
+"lon": -74.281514,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -17408,6 +18548,12 @@
 "155 chestnut street|montclair": {
 "lat": 40.824459,
 "lon": -74.217668,
+"match": "Exact",
+"src": "census_batch"
+},
+"155 dunham pl|woodbridge": {
+"lat": 40.559978,
+"lon": -74.284186,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -17501,6 +18647,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"155-c overlook ct|woodbridge": {
+"lat": 40.563447,
+"lon": -74.293014,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1550 alps rd|wayne": {
 "lat": 40.959418,
 "lon": -74.246624,
@@ -17511,6 +18663,12 @@
 "lat": 40.959385,
 "lon": -74.246771,
 "match": "Exact",
+"src": "census_batch"
+},
+"155c overlook ct # 1553|woodbridge": {
+"lat": 40.563447,
+"lon": -74.293014,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "156 cheyenne way|wayne": {
@@ -17663,6 +18821,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"157 freeman st|woodbridge": {
+"lat": 40.562579,
+"lon": -74.281343,
+"match": "Exact",
+"src": "census_batch"
+},
 "157 gregory ave|west orange": {
 "lat": 40.774755,
 "lon": -74.253686,
@@ -17696,6 +18860,12 @@
 "157 savoth lane|colonia": {
 "lat": 40.59827,
 "lon": -74.320659,
+"match": "Exact",
+"src": "census_batch"
+},
+"157 strawberry hill ave|woodbridge": {
+"lat": 40.547072,
+"lon": -74.275354,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -17763,6 +18933,12 @@
 "lat": 40.643831,
 "lon": -74.401322,
 "match": "Exact",
+"src": "census_batch"
+},
+"158 carroll ave|woodbridge": {
+"lat": 40.564386,
+"lon": -74.2771,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "158 childs rd|basking ridge": {
@@ -17883,6 +19059,12 @@
 "lat": 40.644054,
 "lon": -74.40131,
 "match": "Exact",
+"src": "census_batch"
+},
+"159 fulton st|woodbridge": {
+"lat": 40.547364,
+"lon": -74.274399,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "159 gates ave|montclair": {
@@ -19109,11 +20291,29 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"161 dunham pl|woodbridge": {
+"lat": 40.559973,
+"lon": -74.284301,
+"match": "Exact",
+"src": "census_batch"
+},
+"161 lockwood ave|woodbridge": {
+"lat": 40.569902,
+"lon": -74.27622,
+"match": "Exact",
+"src": "census_batch"
+},
 "161 marion dr|west orange": {
 "lat": 40.793627,
 "lon": -74.259734,
 "match": "listing",
 "src": "listings.csv"
+},
+"161 metuchen ave|woodbridge": {
+"lat": 40.551812,
+"lon": -74.291859,
+"match": "Exact",
+"src": "census_batch"
 },
 "161 mitchell street|west orange": {
 "lat": 40.772156,
@@ -19204,6 +20404,12 @@
 "lon": -74.542124,
 "match": "Exact",
 "src": "census_batch"
+},
+"162 rutherford ave|woodbridge": {
+"lat": 40.568716,
+"lon": -74.277308,
+"match": "listing",
+"src": "listings.csv"
 },
 "162 union st|montclair": {
 "lat": 40.810313,
@@ -19415,6 +20621,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"164 woodbridge ctr|woodbridge": {
+"lat": 40.553578,
+"lon": -74.29959,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "164 woodward ln|basking ridge": {
 "lat": 40.657873,
 "lon": -74.569274,
@@ -19481,9 +20693,21 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"165 crescent ave|woodbridge": {
+"lat": 40.571323,
+"lon": -74.276465,
+"match": "Exact",
+"src": "census_batch"
+},
 "165 gates ave|gillette": {
 "lat": 40.686498,
 "lon": -74.460561,
+"match": "Exact",
+"src": "census_batch"
+},
+"165 grove st|woodbridge": {
+"lat": 40.552169,
+"lon": -74.283524,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -19509,6 +20733,12 @@
 "lat": 40.686957,
 "lon": -74.5606,
 "match": "Exact",
+"src": "census_batch"
+},
+"165-c overlook ct|woodbridge": {
+"lat": 40.563456,
+"lon": -74.29301,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "166 johnston drive ext|watchung": {
@@ -19643,6 +20873,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"167 sherry st|woodbridge": {
+"lat": 40.550127,
+"lon": -74.282073,
+"match": "Exact",
+"src": "census_batch"
+},
 "167 valley rd|wayne": {
 "lat": 40.919931,
 "lon": -74.238332,
@@ -19671,6 +20907,12 @@
 "lat": 40.770423,
 "lon": -74.260555,
 "match": "Exact",
+"src": "census_batch"
+},
+"168 fulton st|woodbridge": {
+"lat": 40.54774,
+"lon": -74.274477,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "168 grove st|montclair": {
@@ -19708,6 +20950,12 @@
 "lon": -74.320601,
 "match": "listing",
 "src": "listings.csv"
+},
+"168 sherry st|woodbridge": {
+"lat": 40.550182,
+"lon": -74.282254,
+"match": "Exact",
+"src": "census_batch"
 },
 "168 walker road|west orange": {
 "lat": 40.765509,
@@ -19760,6 +21008,12 @@
 "169 jamestown rd|basking ridge": {
 "lat": 40.659754,
 "lon": -74.537458,
+"match": "Exact",
+"src": "census_batch"
+},
+"169 metuchen ave|woodbridge": {
+"lat": 40.551824,
+"lon": -74.291938,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -19979,6 +21233,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"17 e grove ave|woodbridge": {
+"lat": 40.559171,
+"lon": -74.276403,
+"match": "Exact",
+"src": "census_batch"
+},
+"17 e grove st|woodbridge": {
+"lat": 40.559171,
+"lon": -74.276403,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "17 edgemont rd|west orange": {
 "lat": 40.810746,
 "lon": -74.266886,
@@ -20129,6 +21395,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"17 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "17 hollywood avenue|montclair": {
 "lat": 40.794609,
 "lon": -74.216836,
@@ -20141,9 +21413,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"17 hollywood dr|woodbridge": {
+"lat": 40.55249,
+"lon": -74.288702,
+"match": "Exact",
+"src": "census_batch"
+},
 "17 huntington rd|basking ridge": {
 "lat": 40.661011,
 "lon": -74.625012,
+"match": "Exact",
+"src": "census_batch"
+},
+"17 jean ct|woodbridge": {
+"lat": 40.553028,
+"lon": -74.275581,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -20218,6 +21502,12 @@
 "lon": -74.229469,
 "match": "listing",
 "src": "listings.csv"
+},
+"17 lillian ter|woodbridge": {
+"lat": 40.552557,
+"lon": -74.273899,
+"match": "Exact",
+"src": "census_batch"
 },
 "17 lincoln avenue|west orange": {
 "lat": 40.80051,
@@ -20585,6 +21875,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"17 vanderbuilt pl|woodbridge": {
+"lat": 40.567017,
+"lon": -74.277498,
+"match": "listing",
+"src": "listings.csv"
+},
 "17 waverly pl|basking ridge": {
 "lat": 40.671948,
 "lon": -74.573225,
@@ -20675,6 +21971,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"170 clinton st|woodbridge": {
+"lat": 40.5494,
+"lon": -74.281629,
+"match": "Exact",
+"src": "census_batch"
+},
 "170 forest ave|verona": {
 "lat": 40.825381,
 "lon": -74.256287,
@@ -20723,9 +22025,27 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"170 overlook ct # 1701|woodbridge": {
+"lat": 40.563423,
+"lon": -74.292866,
+"match": "Exact",
+"src": "census_batch"
+},
+"170 overlook ct unit a|woodbridge": {
+"lat": 40.563423,
+"lon": -74.292866,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "170 oxford rd|colonia": {
 "lat": 40.605402,
 "lon": -74.337031,
+"match": "Exact",
+"src": "census_batch"
+},
+"170 rowland pl|woodbridge": {
+"lat": 40.557877,
+"lon": -74.286299,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -20739,6 +22059,12 @@
 "lat": 40.662308,
 "lon": -74.538442,
 "match": "Exact",
+"src": "census_batch"
+},
+"170-a overlook ct|woodbridge": {
+"lat": 40.563423,
+"lon": -74.292866,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1700 king st|scotch plains": {
@@ -20795,6 +22121,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"170a overlook ct # 1701|woodbridge": {
+"lat": 40.563423,
+"lon": -74.292866,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "171 christopher st|montclair": {
 "lat": 40.825198,
 "lon": -74.201892,
@@ -20804,6 +22136,12 @@
 "171 dorset dr|clark": {
 "lat": 40.609999,
 "lon": -74.314202,
+"match": "Exact",
+"src": "census_batch"
+},
+"171 grove st|woodbridge": {
+"lat": 40.552055,
+"lon": -74.283799,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -20915,6 +22253,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"172 sherry st|woodbridge": {
+"lat": 40.550091,
+"lon": -74.28247,
+"match": "Exact",
+"src": "census_batch"
+},
 "172 summit avenue|montclair": {
 "lat": 40.837513,
 "lon": -74.203872,
@@ -20981,6 +22325,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"173 fulton st|woodbridge": {
+"lat": 40.547797,
+"lon": -74.274683,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "173 gates ave|gillette": {
 "lat": 40.686421,
 "lon": -74.460886,
@@ -21026,6 +22376,12 @@
 "173 marion dr|west orange": {
 "lat": 40.792609,
 "lon": -74.259444,
+"match": "Exact",
+"src": "census_batch"
+},
+"173 s fulton st|woodbridge": {
+"lat": 40.547797,
+"lon": -74.274683,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -21179,10 +22535,40 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"175 clinton st|woodbridge": {
+"lat": 40.549154,
+"lon": -74.28192,
+"match": "Exact",
+"src": "census_batch"
+},
+"175 decker pl|woodbridge": {
+"lat": 40.558668,
+"lon": -74.285696,
+"match": "Exact",
+"src": "census_batch"
+},
+"175 e prospect ave|woodbridge": {
+"lat": 40.568002,
+"lon": -74.277816,
+"match": "Exact",
+"src": "census_batch"
+},
 "175 euclid ave n|westfield": {
 "lat": 40.656017,
 "lon": -74.345511,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"175 grenville st|woodbridge": {
+"lat": 40.551409,
+"lon": -74.283043,
+"match": "Exact",
+"src": "census_batch"
+},
+"175 grove st|woodbridge": {
+"lat": 40.551979,
+"lon": -74.283983,
+"match": "Exact",
 "src": "census_batch"
 },
 "175 harrison ave|montclair": {
@@ -21194,6 +22580,12 @@
 "175 herbert ave|fanwood": {
 "lat": 40.637127,
 "lon": -74.382619,
+"match": "Exact",
+"src": "census_batch"
+},
+"175 hillside ave|woodbridge": {
+"lat": 40.569331,
+"lon": -74.276998,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -21269,6 +22661,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"176 edgar st|woodbridge": {
+"lat": 40.556507,
+"lon": -74.284927,
+"match": "Exact",
+"src": "census_batch"
+},
 "176 gregory avenue|west orange": {
 "lat": 40.773791,
 "lon": -74.253958,
@@ -21278,6 +22676,12 @@
 "176 grove ave|verona": {
 "lat": 40.841941,
 "lon": -74.240771,
+"match": "Exact",
+"src": "census_batch"
+},
+"176 grove st|woodbridge": {
+"lat": 40.552015,
+"lon": -74.284211,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -21299,6 +22703,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"176 metuchen ave|woodbridge": {
+"lat": 40.551975,
+"lon": -74.292156,
+"match": "Exact",
+"src": "census_batch"
+},
 "176 mount pleasant ave|west orange": {
 "lat": 40.7821,
 "lon": -74.249686,
@@ -21314,6 +22724,12 @@
 "176 no martine avenue|fanwood": {
 "lat": 40.645773,
 "lon": -74.390934,
+"match": "Exact",
+"src": "census_batch"
+},
+"176 overlook ct # 1762|woodbridge": {
+"lat": 40.563428,
+"lon": -74.292863,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -21347,6 +22763,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"176-b overlook ct|woodbridge": {
+"lat": 40.563428,
+"lon": -74.292863,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "1761 cooper rd|scotch plains": {
 "lat": 40.629297,
 "lon": -74.365316,
@@ -21362,6 +22784,18 @@
 "1766 east second st|scotch plains": {
 "lat": 40.647246,
 "lon": -74.398461,
+"match": "Exact",
+"src": "census_batch"
+},
+"176b overlook ct # 1762|woodbridge": {
+"lat": 40.563428,
+"lon": -74.292863,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"177 bergen st|woodbridge": {
+"lat": 40.550549,
+"lon": -74.283211,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -21515,6 +22949,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"179 decker pl|woodbridge": {
+"lat": 40.558496,
+"lon": -74.285786,
+"match": "listing",
+"src": "listings.csv"
+},
 "179 grove avenue|verona": {
 "lat": 40.841026,
 "lon": -74.24224,
@@ -21524,6 +22964,12 @@
 "179 grove ave|verona": {
 "lat": 40.841026,
 "lon": -74.24224,
+"match": "Exact",
+"src": "census_batch"
+},
+"179 sherry st|woodbridge": {
+"lat": 40.549855,
+"lon": -74.282722,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -22493,6 +23939,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"180 clinton st|woodbridge": {
+"lat": 40.549159,
+"lon": -74.282231,
+"match": "Exact",
+"src": "census_batch"
+},
 "180 coriell ave|fanwood": {
 "lat": 40.635989,
 "lon": -74.380198,
@@ -22535,6 +23987,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"180 overlook ct # 1803|woodbridge": {
+"lat": 40.563431,
+"lon": -74.292861,
+"match": "Exact",
+"src": "census_batch"
+},
 "180 s martine ave|fanwood": {
 "lat": 40.637513,
 "lon": -74.378023,
@@ -22569,6 +24027,12 @@
 "lat": 40.836446,
 "lon": -74.205321,
 "match": "Exact",
+"src": "census_batch"
+},
+"180-c overlook ct|woodbridge": {
+"lat": 40.563431,
+"lon": -74.292861,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "1806 park pl|springfield": {
@@ -22697,6 +24161,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"182 decker pl|woodbridge": {
+"lat": 40.558755,
+"lon": -74.285827,
+"match": "Exact",
+"src": "census_batch"
+},
 "182 deer run|watchung": {
 "lat": 40.631289,
 "lon": -74.448882,
@@ -22730,6 +24200,12 @@
 "182 meisel ave|springfield": {
 "lat": 40.704084,
 "lon": -74.30894,
+"match": "Exact",
+"src": "census_batch"
+},
+"182 rowland pl|woodbridge": {
+"lat": 40.557805,
+"lon": -74.286548,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -22823,6 +24299,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"183 strawberry hill ave|woodbridge": {
+"lat": 40.54801,
+"lon": -74.275886,
+"match": "Exact",
+"src": "census_batch"
+},
 "183 watson rd|fanwood": {
 "lat": 40.643254,
 "lon": -74.386693,
@@ -22876,6 +24358,12 @@
 "lon": -74.204502,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"184 green st|woodbridge": {
+"lat": 40.5575,
+"lon": -74.285685,
+"match": "listing",
+"src": "listings.csv"
 },
 "184 hickory tavern rd|gillette": {
 "lat": 40.689922,
@@ -22967,6 +24455,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"185 e cliff rd|woodbridge": {
+"lat": 40.550475,
+"lon": -74.255519,
+"match": "listing",
+"src": "listings.csv"
+},
 "185 fernwood ave|montclair": {
 "lat": 40.844822,
 "lon": -74.204043,
@@ -23014,6 +24508,12 @@
 "lon": -74.270338,
 "match": "listing",
 "src": "listings.csv"
+},
+"185 rowland pl|woodbridge": {
+"lat": 40.557686,
+"lon": -74.286536,
+"match": "Exact",
+"src": "census_batch"
 },
 "185 up. mountain avenue|montclair": {
 "lat": 40.832184,
@@ -23063,6 +24563,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"186 edgar st|woodbridge": {
+"lat": 40.556473,
+"lon": -74.285047,
+"match": "Exact",
+"src": "census_batch"
+},
 "186 highland avenue|montclair": {
 "lat": 40.83493,
 "lon": -74.217786,
@@ -23080,6 +24586,12 @@
 "lon": -74.239132,
 "match": "listing",
 "src": "listings.csv"
+},
+"186 metuchen ave|woodbridge": {
+"lat": 40.552075,
+"lon": -74.29271,
+"match": "Exact",
+"src": "census_batch"
 },
 "187 alps rd|wayne": {
 "lat": 40.919605,
@@ -23117,6 +24629,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"187 main st|woodbridge": {
+"lat": 40.552621,
+"lon": -74.2849,
+"match": "Exact",
+"src": "census_batch"
+},
 "187 mccosh rd|montclair": {
 "lat": 40.858983,
 "lon": -74.194587,
@@ -23134,6 +24652,12 @@
 "lon": -74.299797,
 "match": "listing",
 "src": "listings.csv"
+},
+"187 sherry st|woodbridge": {
+"lat": 40.549699,
+"lon": -74.283092,
+"match": "Exact",
+"src": "census_batch"
 },
 "188 alexandria way|basking ridge": {
 "lat": 40.65996,
@@ -23180,6 +24704,12 @@
 "188 park street|montclair": {
 "lat": 40.826488,
 "lon": -74.209294,
+"match": "Exact",
+"src": "census_batch"
+},
+"188 sherry st|woodbridge": {
+"lat": 40.549778,
+"lon": -74.283217,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -23432,6 +24962,12 @@
 "19 clark ct|basking ridge": {
 "lat": 40.65385,
 "lon": -74.617544,
+"match": "Exact",
+"src": "census_batch"
+},
+"19 clayton ct|woodbridge": {
+"lat": 40.554113,
+"lon": -74.287572,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -24089,6 +25625,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"19-b powderhorn ct|woodbridge": {
+"lat": 40.562253,
+"lon": -74.294845,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "190 alexander ave|montclair": {
 "lat": 40.850643,
 "lon": -74.200642,
@@ -24251,6 +25793,30 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"191 s fulton st|woodbridge": {
+"lat": 40.548344,
+"lon": -74.275203,
+"match": "Exact",
+"src": "census_batch"
+},
+"191 sherry st|woodbridge": {
+"lat": 40.549633,
+"lon": -74.28325,
+"match": "Exact",
+"src": "census_batch"
+},
+"191 sierra ct unit 191|woodbridge": {
+"lat": 40.564081,
+"lon": -74.292788,
+"match": "listing",
+"src": "listings.csv"
+},
+"191 sierra ct|woodbridge": {
+"lat": 40.564102,
+"lon": -74.292476,
+"match": "Exact",
+"src": "census_batch"
+},
 "191 union street|montclair": {
 "lat": 40.810763,
 "lon": -74.22853,
@@ -24262,6 +25828,12 @@
 "lon": -74.30255,
 "match": "Exact",
 "src": "census_batch"
+},
+"191-c sierra ct|woodbridge": {
+"lat": 40.564079,
+"lon": -74.292786,
+"match": "listing",
+"src": "listings.csv"
 },
 "1910 grandview ave|westfield": {
 "lat": 40.637911,
@@ -24407,6 +25979,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"193 sierra ct|woodbridge": {
+"lat": 40.564106,
+"lon": -74.292473,
+"match": "Exact",
+"src": "census_batch"
+},
 "193 smoke rise rd|basking ridge": {
 "lat": 40.660523,
 "lon": -74.624526,
@@ -24443,6 +26021,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"193a sierra ct # 1931|woodbridge": {
+"lat": 40.564106,
+"lon": -74.292473,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "194 clarken dr # 21|west orange": {
 "lat": 40.79839,
 "lon": -74.25932,
@@ -24452,6 +26036,12 @@
 "194 clarken dr|west orange": {
 "lat": 40.79839,
 "lon": -74.25932,
+"match": "Exact",
+"src": "census_batch"
+},
+"194 grove ave|woodbridge": {
+"lat": 40.559402,
+"lon": -74.286081,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -24611,6 +26201,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"196 grove st|woodbridge": {
+"lat": 40.551757,
+"lon": -74.284832,
+"match": "Exact",
+"src": "census_batch"
+},
 "196 hawthorne dr|clark": {
 "lat": 40.608092,
 "lon": -74.334568,
@@ -24635,9 +26231,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"196 metuchen ave|woodbridge": {
+"lat": 40.552196,
+"lon": -74.293399,
+"match": "Exact",
+"src": "census_batch"
+},
 "196 potomac dr|basking ridge": {
 "lat": 40.658863,
 "lon": -74.54385,
+"match": "Exact",
+"src": "census_batch"
+},
+"196 sierra ct # 1961|woodbridge": {
+"lat": 40.56406,
+"lon": -74.292335,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -24940,6 +26548,12 @@
 "lon": -74.200722,
 "match": "Exact",
 "src": "census_batch"
+},
+"199 grove ave|woodbridge": {
+"lat": 40.559151,
+"lon": -74.286532,
+"match": "listing",
+"src": "listings.csv"
 },
 "199 levinberg lane|wayne": {
 "lat": 40.965103,
@@ -25973,6 +27587,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"2 highview dr unit 2|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "2 highwood rd|west orange": {
 "lat": 40.777952,
 "lon": -74.255456,
@@ -26087,6 +27707,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"2 lillian terr|woodbridge": {
+"lat": 40.552716,
+"lon": -74.273582,
+"match": "Exact",
+"src": "census_batch"
+},
+"2 lillian ter|woodbridge": {
+"lat": 40.552856,
+"lon": -74.27426,
+"match": "listing",
+"src": "listings.csv"
+},
 "2 linden ave|west orange": {
 "lat": 40.776266,
 "lon": -74.249676,
@@ -26152,6 +27784,12 @@
 "lon": -74.296616,
 "match": "listing",
 "src": "listings.csv"
+},
+"2 metuchen ave|woodbridge": {
+"lat": 40.551697,
+"lon": -74.287431,
+"match": "Exact",
+"src": "census_batch"
 },
 "2 meyer ct|west orange": {
 "lat": 40.762755,
@@ -26231,6 +27869,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"2 peyser st|woodbridge": {
+"lat": 40.551986,
+"lon": -74.292207,
+"match": "Exact",
+"src": "census_batch"
+},
 "2 pine st|cranford": {
 "lat": 40.647354,
 "lon": -74.302997,
@@ -26288,6 +27932,12 @@
 "2 ridge ln|colonia": {
 "lat": 40.584357,
 "lon": -74.313629,
+"match": "Exact",
+"src": "census_batch"
+},
+"2 ridgedale pl|woodbridge": {
+"lat": 40.568523,
+"lon": -74.275231,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -26692,6 +28342,12 @@
 "lon": -74.322993,
 "match": "listing",
 "src": "listings.csv"
+},
+"20 dixon dr|woodbridge": {
+"lat": 40.554035,
+"lon": -74.285992,
+"match": "Exact",
+"src": "census_batch"
 },
 "20 drayton pl|wayne": {
 "lat": 40.953354,
@@ -27281,6 +28937,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"200 mawbey st|woodbridge": {
+"lat": 40.560776,
+"lon": -74.286886,
+"match": "Exact",
+"src": "census_batch"
+},
 "200 mccosh rd|montclair": {
 "lat": 40.85878,
 "lon": -74.195181,
@@ -27297,6 +28959,18 @@
 "lat": 40.857357,
 "lon": -74.238851,
 "match": "Exact",
+"src": "census_batch"
+},
+"200 sherry st|woodbridge": {
+"lat": 40.549595,
+"lon": -74.283654,
+"match": "Exact",
+"src": "census_batch"
+},
+"200 sierra ct unit b|woodbridge": {
+"lat": 40.564067,
+"lon": -74.292329,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "200 valley dr|watchung": {
@@ -27347,6 +29021,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"200b sierra ct # 2002|woodbridge": {
+"lat": 40.564067,
+"lon": -74.292329,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "201 alexander avenue|montclair": {
 "lat": 40.851125,
 "lon": -74.201432,
@@ -27362,6 +29042,12 @@
 "201 broadway|clark": {
 "lat": 40.624097,
 "lon": -74.301161,
+"match": "Exact",
+"src": "census_batch"
+},
+"201 campbell st|woodbridge": {
+"lat": 40.559955,
+"lon": -74.286379,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -27431,6 +29117,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"201 s fulton st|woodbridge": {
+"lat": 40.548622,
+"lon": -74.275344,
+"match": "Exact",
+"src": "census_batch"
+},
+"201 sharon garden ct|woodbridge": {
+"lat": 40.552059,
+"lon": -74.29821,
+"match": "Exact",
+"src": "census_batch"
+},
 "201 thomas st|cranford": {
 "lat": 40.652087,
 "lon": -74.295483,
@@ -27448,6 +29146,12 @@
 "lon": -74.227951,
 "match": "listing",
 "src": "listings.csv"
+},
+"201-c sierra ct|woodbridge": {
+"lat": 40.564121,
+"lon": -74.292462,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "2011 hill top rd|scotch plains": {
 "lat": 40.637883,
@@ -27509,6 +29213,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"202 maple hill dr|woodbridge": {
+"lat": 40.554169,
+"lon": -74.301221,
+"match": "Exact",
+"src": "census_batch"
+},
 "202 newark pompton tpke|wayne": {
 "lat": 40.930391,
 "lon": -74.273763,
@@ -27518,6 +29228,12 @@
 "202 patriot hill dr|basking ridge": {
 "lat": 40.651367,
 "lon": -74.612143,
+"match": "Exact",
+"src": "census_batch"
+},
+"202 sharon garden ct|woodbridge": {
+"lat": 40.552191,
+"lon": -74.29763,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -27701,6 +29417,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"204 grove ave|woodbridge": {
+"lat": 40.559405,
+"lon": -74.286325,
+"match": "Exact",
+"src": "census_batch"
+},
 "204 holly ln # 16|cedar grove": {
 "lat": 40.867645,
 "lon": -74.232357,
@@ -27773,6 +29495,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"204c sierra ct unit 2043|woodbridge": {
+"lat": 40.564202,
+"lon": -74.292632,
+"match": "listing",
+"src": "listings.csv"
+},
+"204c sierra ct|woodbridge": {
+"lat": 40.565513,
+"lon": -74.29179,
+"match": "listing",
+"src": "listings.csv"
+},
 "205 casino ave|cranford": {
 "lat": 40.660862,
 "lon": -74.304225,
@@ -27796,6 +29530,12 @@
 "lon": -74.308094,
 "match": "Exact",
 "src": "census_batch"
+},
+"205 green st|woodbridge": {
+"lat": 40.556703,
+"lon": -74.286655,
+"match": "listing",
+"src": "listings.csv"
 },
 "205 hawthorn ave|springfield": {
 "lat": 40.708678,
@@ -27831,6 +29571,18 @@
 "lat": 40.649095,
 "lon": -74.31891,
 "match": "Exact",
+"src": "census_batch"
+},
+"205 maple hill dr|woodbridge": {
+"lat": 40.554204,
+"lon": -74.301189,
+"match": "Exact",
+"src": "census_batch"
+},
+"205 michaels ct|woodbridge": {
+"lat": 40.562814,
+"lon": -74.295421,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "205 new dover rd|colonia": {
@@ -27872,6 +29624,12 @@
 "205 retford ave|cranford": {
 "lat": 40.64899,
 "lon": -74.309106,
+"match": "Exact",
+"src": "census_batch"
+},
+"205 russell st|woodbridge": {
+"lat": 40.547972,
+"lon": -74.276951,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -28004,6 +29762,12 @@
 "206 sailer st|cranford": {
 "lat": 40.660388,
 "lon": -74.290966,
+"match": "Exact",
+"src": "census_batch"
+},
+"206 sharon garden ct|woodbridge": {
+"lat": 40.552198,
+"lon": -74.2976,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -28157,6 +29921,24 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"207 sierra ct # 2071|woodbridge": {
+"lat": 40.564133,
+"lon": -74.292454,
+"match": "Exact",
+"src": "census_batch"
+},
+"207 sierra ct unit a|woodbridge": {
+"lat": 40.563759,
+"lon": -74.292282,
+"match": "listing",
+"src": "listings.csv"
+},
+"207 sierra ct|woodbridge": {
+"lat": 40.564133,
+"lon": -74.292454,
+"match": "Exact",
+"src": "census_batch"
+},
 "207 stoughton ave|cranford": {
 "lat": 40.648134,
 "lon": -74.30824,
@@ -28211,6 +29993,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"207a sierra ct unit 207|woodbridge": {
+"lat": 40.564133,
+"lon": -74.292454,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "208 charles st|westfield": {
 "lat": 40.650711,
 "lon": -74.353799,
@@ -28238,6 +30026,12 @@
 "208 linden ave|verona": {
 "lat": 40.836254,
 "lon": -74.243381,
+"match": "Exact",
+"src": "census_batch"
+},
+"208 maple hill dr|woodbridge": {
+"lat": 40.554152,
+"lon": -74.301238,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -28383,6 +30177,18 @@
 "lat": 40.653358,
 "lon": -74.300116,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"209 main st|woodbridge": {
+"lat": 40.552258,
+"lon": -74.285777,
+"match": "Exact",
+"src": "census_batch"
+},
+"209 mawbey st|woodbridge": {
+"lat": 40.560655,
+"lon": -74.286703,
+"match": "Exact",
 "src": "census_batch"
 },
 "209 midwood pl|westfield": {
@@ -28739,6 +30545,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"21 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "21 hillside ter|basking ridge": {
 "lat": 40.708078,
 "lon": -74.552483,
@@ -28840,6 +30652,12 @@
 "lon": -74.262229,
 "match": "Exact",
 "src": "census_batch"
+},
+"21 mcguire st|woodbridge": {
+"lat": 40.55221,
+"lon": -74.328753,
+"match": "listing",
+"src": "listings.csv"
 },
 "21 meade st|west orange": {
 "lat": 40.785965,
@@ -29243,6 +31061,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"210 cricket ln|woodbridge": {
+"lat": 40.546281,
+"lon": -74.279649,
+"match": "Exact",
+"src": "census_batch"
+},
 "210 elizabeth ave|cranford": {
 "lat": 40.660693,
 "lon": -74.294849,
@@ -29294,6 +31118,12 @@
 "210 massachusetts st|westfield": {
 "lat": 40.638375,
 "lon": -74.319708,
+"match": "Exact",
+"src": "census_batch"
+},
+"210 mawbey st|woodbridge": {
+"lat": 40.560781,
+"lon": -74.287043,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -29549,6 +31379,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"212 freeman st|woodbridge": {
+"lat": 40.563986,
+"lon": -74.283591,
+"match": "Exact",
+"src": "census_batch"
+},
 "212 grove ave|verona": {
 "lat": 40.842832,
 "lon": -74.239845,
@@ -29571,6 +31407,12 @@
 "lat": 40.672768,
 "lon": -74.333563,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"212 metuchen ave|woodbridge": {
+"lat": 40.552299,
+"lon": -74.294077,
+"match": "Exact",
 "src": "census_batch"
 },
 "212 midland ave|montclair": {
@@ -29691,6 +31533,12 @@
 "lat": 40.792077,
 "lon": -74.250938,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"214 cricket ln|woodbridge": {
+"lat": 40.546285,
+"lon": -74.279701,
+"match": "Exact",
 "src": "census_batch"
 },
 "214 gregory avenue|west orange": {
@@ -29903,6 +31751,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"215 sherry st|woodbridge": {
+"lat": 40.549158,
+"lon": -74.284055,
+"match": "listing",
+"src": "listings.csv"
+},
 "215 upper mountain ave|montclair": {
 "lat": 40.834398,
 "lon": -74.215492,
@@ -29936,6 +31790,12 @@
 "216 clarken drive|west orange": {
 "lat": 40.799122,
 "lon": -74.259644,
+"match": "Exact",
+"src": "census_batch"
+},
+"216 freeman st|woodbridge": {
+"lat": 40.564064,
+"lon": -74.28379,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -30010,6 +31870,12 @@
 "lon": -74.319351,
 "match": "Exact",
 "src": "census_batch"
+},
+"217 bergen st|woodbridge": {
+"lat": 40.549865,
+"lon": -74.284556,
+"match": "listing",
+"src": "listings.csv"
 },
 "217 harrison ave|montclair": {
 "lat": 40.796394,
@@ -30281,9 +32147,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"218 church st|woodbridge": {
+"lat": 40.561436,
+"lon": -74.286507,
+"match": "Exact",
+"src": "census_batch"
+},
 "218 golf edge dr|westfield": {
 "lat": 40.674072,
 "lon": -74.333708,
+"match": "Exact",
+"src": "census_batch"
+},
+"218 grove ave|woodbridge": {
+"lat": 40.559411,
+"lon": -74.286666,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -30309,6 +32187,12 @@
 "lat": 40.651234,
 "lon": -74.612151,
 "match": "Exact",
+"src": "census_batch"
+},
+"218-a sierra ct|woodbridge": {
+"lat": 40.564103,
+"lon": -74.292304,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "219 centennial ave unit b|cranford": {
@@ -30695,6 +32579,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"22 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "22 hillcrest ave|cranford": {
 "lat": 40.650622,
 "lon": -74.310827,
@@ -30878,6 +32768,12 @@
 "22 pleasant ave|montclair": {
 "lat": 40.797215,
 "lon": -74.220617,
+"match": "Exact",
+"src": "census_batch"
+},
+"22 port reading ave|woodbridge": {
+"lat": 40.561867,
+"lon": -74.272336,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -31283,6 +33179,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"221 grove ave|woodbridge": {
+"lat": 40.5593,
+"lon": -74.286923,
+"match": "Exact",
+"src": "census_batch"
+},
 "221 hazel ave|westfield": {
 "lat": 40.641696,
 "lon": -74.355225,
@@ -31577,6 +33479,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"223 fulton st|woodbridge": {
+"lat": 40.550664,
+"lon": -74.276563,
+"match": "Exact",
+"src": "census_batch"
+},
 "223 morristown rd|gillette": {
 "lat": 40.675777,
 "lon": -74.478509,
@@ -31757,16 +33665,34 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"225 church st|woodbridge": {
+"lat": 40.561337,
+"lon": -74.286989,
+"match": "Exact",
+"src": "census_batch"
+},
 "225 colfax rd|wayne": {
 "lat": 40.979486,
 "lon": -74.2663,
 "match": "Exact",
 "src": "census_batch"
 },
+"225 freeman st|woodbridge": {
+"lat": 40.563978,
+"lon": -74.284543,
+"match": "listing",
+"src": "listings.csv"
+},
 "225 golf edge|westfield": {
 "lat": 40.674617,
 "lon": -74.333173,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"225 grove ave|woodbridge": {
+"lat": 40.559302,
+"lon": -74.28704,
+"match": "Exact",
 "src": "census_batch"
 },
 "225 hillside ave|cranford": {
@@ -32144,6 +34070,12 @@
 "229 english pl|basking ridge": {
 "lat": 40.654926,
 "lon": -74.565115,
+"match": "Exact",
+"src": "census_batch"
+},
+"229 martool dr|woodbridge": {
+"lat": 40.556149,
+"lon": -74.288901,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -32897,6 +34829,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"23 seymour ave|woodbridge": {
+"lat": 40.56208,
+"lon": -74.286939,
+"match": "Exact",
+"src": "census_batch"
+},
 "23 shelley rd|springfield": {
 "lat": 40.699012,
 "lon": -74.323835,
@@ -33052,6 +34990,12 @@
 "lon": -74.234694,
 "match": "Exact",
 "src": "census_batch"
+},
+"23-c powderhorn ct|woodbridge": {
+"lat": 40.562126,
+"lon": -74.295097,
+"match": "listing",
+"src": "listings.csv"
 },
 "230 4th ave|garwood": {
 "lat": 40.656929,
@@ -33239,6 +35183,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"232 alpine way # 2321|woodbridge": {
+"lat": 40.564794,
+"lon": -74.292759,
+"match": "Exact",
+"src": "census_batch"
+},
 "232 arrowood way|basking ridge": {
 "lat": 40.660194,
 "lon": -74.557179,
@@ -33353,6 +35303,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"232a alpine way unit 232a|woodbridge": {
+"lat": 40.564794,
+"lon": -74.292759,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "233 amherst ave|colonia": {
 "lat": 40.590663,
 "lon": -74.327011,
@@ -33386,6 +35342,12 @@
 "233 irving pl|basking ridge": {
 "lat": 40.654785,
 "lon": -74.568285,
+"match": "Exact",
+"src": "census_batch"
+},
+"233 martool dr|woodbridge": {
+"lat": 40.556155,
+"lon": -74.288972,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -33473,6 +35435,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"235 clinton st|woodbridge": {
+"lat": 40.548041,
+"lon": -74.284402,
+"match": "listing",
+"src": "listings.csv"
+},
 "235 forest rd|fanwood": {
 "lat": 40.648339,
 "lon": -74.391993,
@@ -33485,6 +35453,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"235 grove st|woodbridge": {
+"lat": 40.551082,
+"lon": -74.286142,
+"match": "Exact",
+"src": "census_batch"
+},
 "235 haven ave|scotch plains": {
 "lat": 40.651656,
 "lon": -74.404169,
@@ -33494,6 +35468,12 @@
 "235 hazel ave|garwood": {
 "lat": 40.646645,
 "lon": -74.320029,
+"match": "Exact",
+"src": "census_batch"
+},
+"235 mawbey st|woodbridge": {
+"lat": 40.560666,
+"lon": -74.287034,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -33620,6 +35600,12 @@
 "237 carolyn ave|colonia": {
 "lat": 40.600699,
 "lon": -74.312546,
+"match": "Exact",
+"src": "census_batch"
+},
+"237 clinton st|woodbridge": {
+"lat": 40.548052,
+"lon": -74.284675,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -34469,6 +36455,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"24 powderhorn ct unit c|woodbridge": {
+"lat": 40.562311,
+"lon": -74.294705,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "24 princeton ct|basking ridge": {
 "lat": 40.64894,
 "lon": -74.616543,
@@ -35171,6 +37163,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"248 alpine way unit b|woodbridge": {
+"lat": 40.565247,
+"lon": -74.292526,
+"match": "listing",
+"src": "listings.csv"
+},
 "248 colonia blvd|colonia": {
 "lat": 40.591151,
 "lon": -74.297916,
@@ -35278,6 +37276,12 @@
 "lon": -74.294859,
 "match": "listing",
 "src": "listings.csv"
+},
+"24c powderhorn ct # 243|woodbridge": {
+"lat": 40.562311,
+"lon": -74.294705,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "25 acken dr|clark": {
 "lat": 40.609463,
@@ -35759,6 +37763,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"25 menlo ave|woodbridge": {
+"lat": 40.549301,
+"lon": -74.325616,
+"match": "listing",
+"src": "listings.csv"
+},
 "25 mountain dr|west orange": {
 "lat": 40.778469,
 "lon": -74.256216,
@@ -35949,6 +37959,12 @@
 "lat": 40.773968,
 "lon": -74.246743,
 "match": "Exact",
+"src": "census_batch"
+},
+"25 saint joseph ter|woodbridge": {
+"lat": 40.545839,
+"lon": -74.276914,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "25 sandra circle|westfield": {
@@ -36167,6 +38183,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"250 grove st|woodbridge": {
+"lat": 40.550765,
+"lon": -74.287219,
+"match": "Exact",
+"src": "census_batch"
+},
 "250 milltown rd|springfield": {
 "lat": 40.696286,
 "lon": -74.314857,
@@ -36212,6 +38234,12 @@
 "251 amherst ave|colonia": {
 "lat": 40.590347,
 "lon": -74.327234,
+"match": "Exact",
+"src": "census_batch"
+},
+"251 green st|woodbridge": {
+"lat": 40.557027,
+"lon": -74.289031,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -36302,6 +38330,12 @@
 "252 orchard st|westfield": {
 "lat": 40.654192,
 "lon": -74.349762,
+"match": "Exact",
+"src": "census_batch"
+},
+"252 w prospect ave|woodbridge": {
+"lat": 40.568345,
+"lon": -74.281189,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -36401,6 +38435,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"255 alpine way unit a|woodbridge": {
+"lat": 40.564737,
+"lon": -74.293241,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"255 alpine way|woodbridge": {
+"lat": 40.564737,
+"lon": -74.293241,
+"match": "Exact",
+"src": "census_batch"
+},
 "255 clark st|westfield": {
 "lat": 40.650995,
 "lon": -74.353892,
@@ -36412,6 +38458,12 @@
 "lon": -74.245194,
 "match": "listing",
 "src": "listings.csv"
+},
+"255 grove st|woodbridge": {
+"lat": 40.550426,
+"lon": -74.287722,
+"match": "Exact",
+"src": "census_batch"
 },
 "255 third ave|garwood": {
 "lat": 40.655689,
@@ -36464,6 +38516,12 @@
 "257 cedar street|cedar grove": {
 "lat": 40.847311,
 "lon": -74.218472,
+"match": "Exact",
+"src": "census_batch"
+},
+"257 columbus ave|woodbridge": {
+"lat": 40.549004,
+"lon": -74.282294,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -36971,6 +39029,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"26 henley st|woodbridge": {
+"lat": 40.555523,
+"lon": -74.273845,
+"match": "Exact",
+"src": "census_batch"
+},
 "26 highland ave|gillette": {
 "lat": 40.67395,
 "lon": -74.471344,
@@ -37112,6 +39176,18 @@
 "26 marquette rd|montclair": {
 "lat": 40.851205,
 "lon": -74.191171,
+"match": "Exact",
+"src": "census_batch"
+},
+"26 martin ter unit 1|woodbridge": {
+"lat": 40.560754,
+"lon": -74.275774,
+"match": "Exact",
+"src": "census_batch"
+},
+"26 martin terr|woodbridge": {
+"lat": 40.560754,
+"lon": -74.275774,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -37353,6 +39429,12 @@
 "lat": 40.714306,
 "lon": -74.331697,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"260 bunns ln|woodbridge": {
+"lat": 40.547214,
+"lon": -74.285185,
+"match": "Exact",
 "src": "census_batch"
 },
 "260 clarken dr # 148|west orange": {
@@ -37655,6 +39737,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"265 grove st|woodbridge": {
+"lat": 40.550089,
+"lon": -74.288231,
+"match": "listing",
+"src": "listings.csv"
+},
 "265 hickory ave|garwood": {
 "lat": 40.645198,
 "lon": -74.319976,
@@ -37751,6 +39839,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"266 thomas st|woodbridge": {
+"lat": 40.559261,
+"lon": -74.289318,
+"match": "listing",
+"src": "listings.csv"
+},
 "2660 deer path|scotch plains": {
 "lat": 40.672332,
 "lon": -74.384241,
@@ -37811,16 +39905,34 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"267-a alpine way unit 267a|woodbridge": {
+"lat": 40.564565,
+"lon": -74.293435,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "2673 crest ln|scotch plains": {
 "lat": 40.67487,
 "lon": -74.385182,
 "match": "Exact",
 "src": "census_batch"
 },
+"267a alpine way # 2671|woodbridge": {
+"lat": 40.564565,
+"lon": -74.293435,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "267b mt pleasant ave unit b|west orange": {
 "lat": 40.787662,
 "lon": -74.25298,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"268 alpine way # 2681|woodbridge": {
+"lat": 40.564492,
+"lon": -74.293319,
+"match": "Exact",
 "src": "census_batch"
 },
 "268 farmingdale rd|wayne": {
@@ -37841,6 +39953,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"268-a alpine way|woodbridge": {
+"lat": 40.564492,
+"lon": -74.293319,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "2682 plainfield ave|scotch plains": {
 "lat": 40.654795,
 "lon": -74.371487,
@@ -37857,6 +39975,12 @@
 "lat": 40.673853,
 "lon": -74.384069,
 "match": "Exact",
+"src": "census_batch"
+},
+"268a alpine way # 2681|woodbridge": {
+"lat": 40.564492,
+"lon": -74.293319,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "26b troy dr unit b|springfield": {
@@ -38069,6 +40193,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"27 e grove ave|woodbridge": {
+"lat": 40.559263,
+"lon": -74.277074,
+"match": "Exact",
+"src": "census_batch"
+},
 "27 edgar road|west orange": {
 "lat": 40.779981,
 "lon": -74.270575,
@@ -38120,6 +40250,12 @@
 "27 fieldstone dr|springfield": {
 "lat": 40.699208,
 "lon": -74.319341,
+"match": "Exact",
+"src": "census_batch"
+},
+"27 fleetwood rd|woodbridge": {
+"lat": 40.553041,
+"lon": -74.290773,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -38177,11 +40313,29 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"27 henley st|woodbridge": {
+"lat": 40.555703,
+"lon": -74.274323,
+"match": "listing",
+"src": "listings.csv"
+},
 "27 highlander drive|scotch plains": {
 "lat": 40.619956,
 "lon": -74.377673,
 "match": "Exact",
 "src": "census_batch"
+},
+"27 highview dr unit 27|woodbridge": {
+"lat": 40.549081,
+"lon": -74.306385,
+"match": "listing",
+"src": "listings.csv"
+},
+"27 highview dr|woodbridge": {
+"lat": 40.549081,
+"lon": -74.306385,
+"match": "listing",
+"src": "listings.csv"
 },
 "27 hinchman ave apt 1d|wayne": {
 "lat": 40.950778,
@@ -38248,6 +40402,12 @@
 "lon": -74.531445,
 "match": "Exact",
 "src": "census_batch"
+},
+"27 lillian ter|woodbridge": {
+"lat": 40.552224,
+"lon": -74.275815,
+"match": "listing",
+"src": "listings.csv"
 },
 "27 limoli lane|clark": {
 "lat": 40.609971,
@@ -38675,6 +40835,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"273 alpine way # 2733|woodbridge": {
+"lat": 40.564478,
+"lon": -74.293524,
+"match": "Exact",
+"src": "census_batch"
+},
 "273 de rose court|west orange": {
 "lat": 40.794015,
 "lon": -74.249872,
@@ -38692,6 +40858,18 @@
 "lon": -74.540662,
 "match": "listing",
 "src": "listings.csv"
+},
+"273-c alpine way|woodbridge": {
+"lat": 40.564478,
+"lon": -74.293524,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"273c alpine way unit 273c|woodbridge": {
+"lat": 40.564478,
+"lon": -74.293524,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "274 beech terr|wayne": {
 "lat": 40.988131,
@@ -38741,6 +40919,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"275 fulton st|woodbridge": {
+"lat": 40.55134,
+"lon": -74.276882,
+"match": "Exact",
+"src": "census_batch"
+},
 "275 grove street|montclair": {
 "lat": 40.824822,
 "lon": -74.200408,
@@ -38786,6 +40970,12 @@
 "276 alexandria way|basking ridge": {
 "lat": 40.660651,
 "lon": -74.548162,
+"match": "Exact",
+"src": "census_batch"
+},
+"276 anders way|woodbridge": {
+"lat": 40.549421,
+"lon": -74.288069,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -38873,9 +41063,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"278 oak ave|woodbridge": {
+"lat": 40.548125,
+"lon": -74.287306,
+"match": "Exact",
+"src": "census_batch"
+},
 "278 penns way|basking ridge": {
 "lat": 40.653062,
 "lon": -74.564967,
+"match": "listing",
+"src": "listings.csv"
+},
+"279 amboy ave|woodbridge": {
+"lat": 40.550538,
+"lon": -74.280243,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -39449,6 +41651,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"28 powderhorn ct unit a|woodbridge": {
+"lat": 40.562287,
+"lon": -74.29467,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "28 prospect ln|colonia": {
 "lat": 40.592874,
 "lon": -74.293766,
@@ -39605,6 +41813,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"28 wedgewood ave|woodbridge": {
+"lat": 40.564983,
+"lon": -74.271591,
+"match": "Exact",
+"src": "census_batch"
+},
 "28 wildwood ave|west orange": {
 "lat": 40.781315,
 "lon": -74.241565,
@@ -39647,6 +41861,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"280 bunns ln|woodbridge": {
+"lat": 40.546983,
+"lon": -74.285833,
+"match": "Exact",
+"src": "census_batch"
+},
 "280 canterbury rd|westfield": {
 "lat": 40.663,
 "lon": -74.340799,
@@ -39677,6 +41897,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"280 saint james ave|woodbridge": {
+"lat": 40.548641,
+"lon": -74.286431,
+"match": "Exact",
+"src": "census_batch"
+},
 "280 tanglewood trl|gillette": {
 "lat": 40.682275,
 "lon": -74.46492,
@@ -39704,6 +41930,12 @@
 "2803 hemlock pl|basking ridge": {
 "lat": 40.660189,
 "lon": -74.552177,
+"match": "Exact",
+"src": "census_batch"
+},
+"281 columbus ave|woodbridge": {
+"lat": 40.549487,
+"lon": -74.282634,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -39767,6 +41999,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"283 s park dr|woodbridge": {
+"lat": 40.555585,
+"lon": -74.291488,
+"match": "Exact",
+"src": "census_batch"
+},
 "284 claremont ave apt a3|verona": {
 "lat": 40.829747,
 "lon": -74.240474,
@@ -39825,6 +42063,18 @@
 "lat": 40.652767,
 "lon": -74.367059,
 "match": "Exact",
+"src": "census_batch"
+},
+"285-c alpine way|woodbridge": {
+"lat": 40.564329,
+"lon": -74.293682,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"285c alpine way # 2853|woodbridge": {
+"lat": 40.564329,
+"lon": -74.293682,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "286 burnside ave|cranford": {
@@ -39887,6 +42137,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"288-c alpine way|woodbridge": {
+"lat": 40.564247,
+"lon": -74.293576,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "289 araneo drive|west orange": {
 "lat": 40.794658,
 "lon": -74.251134,
@@ -39903,6 +42159,12 @@
 "lat": 40.656843,
 "lon": -74.566085,
 "match": "Exact",
+"src": "census_batch"
+},
+"28a powderhorn ct # 281|woodbridge": {
+"lat": 40.562287,
+"lon": -74.29467,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "28a troy dr|springfield": {
@@ -40144,6 +42406,12 @@
 "lon": -74.552359,
 "match": "listing",
 "src": "listings.csv"
+},
+"29 hollywood dr|woodbridge": {
+"lat": 40.552704,
+"lon": -74.28855,
+"match": "Exact",
+"src": "census_batch"
 },
 "29 janet ln|springfield": {
 "lat": 40.693586,
@@ -40541,6 +42809,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"290 grove st|woodbridge": {
+"lat": 40.54993,
+"lon": -74.289429,
+"match": "listing",
+"src": "listings.csv"
+},
 "290 main st|west orange": {
 "lat": 40.787405,
 "lon": -74.231447,
@@ -40595,10 +42869,22 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"293 grady dr|woodbridge": {
+"lat": 40.548816,
+"lon": -74.285514,
+"match": "Exact",
+"src": "census_batch"
+},
 "293 oak ridge rd|clark": {
 "lat": 40.609368,
 "lon": -74.339475,
 "match": "Exact",
+"src": "census_batch"
+},
+"293-b alpine way|woodbridge": {
+"lat": 40.564298,
+"lon": -74.293717,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "294 araneo drive|west orange": {
@@ -40649,6 +42935,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"295 green st|woodbridge": {
+"lat": 40.557463,
+"lon": -74.290728,
+"match": "Exact",
+"src": "census_batch"
+},
 "295 ratzer rd|wayne": {
 "lat": 40.947871,
 "lon": -74.264636,
@@ -40679,9 +42971,33 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"296 saint james ave|woodbridge": {
+"lat": 40.548626,
+"lon": -74.286149,
+"match": "listing",
+"src": "listings.csv"
+},
+"296b alpine way|woodbridge": {
+"lat": 40.563755,
+"lon": -74.293953,
+"match": "listing",
+"src": "listings.csv"
+},
+"297 alpine way unit c|woodbridge": {
+"lat": 40.564282,
+"lon": -74.293734,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "297 e pines lake dr|wayne": {
 "lat": 40.990729,
 "lon": -74.259823,
+"match": "listing",
+"src": "listings.csv"
+},
+"297 grove st|woodbridge": {
+"lat": 40.549463,
+"lon": -74.289474,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -40701,6 +43017,12 @@
 "lat": 40.999221,
 "lon": -74.274087,
 "match": "Exact",
+"src": "census_batch"
+},
+"297c alpine way # 2973|woodbridge": {
+"lat": 40.564282,
+"lon": -74.293734,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "298 araneo drive|west orange": {
@@ -40733,6 +43055,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"299 alpine way unit c|woodbridge": {
+"lat": 40.564274,
+"lon": -74.293743,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "299 baltusrol way|springfield": {
 "lat": 40.706435,
 "lon": -74.326252,
@@ -40751,9 +43079,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"299 saint james ave|woodbridge": {
+"lat": 40.548531,
+"lon": -74.286523,
+"match": "Exact",
+"src": "census_batch"
+},
 "299 springfield ave|westfield": {
 "lat": 40.672241,
 "lon": -74.326194,
+"match": "Exact",
+"src": "census_batch"
+},
+"299 st james ave|woodbridge": {
+"lat": 40.548531,
+"lon": -74.286523,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -40762,6 +43102,12 @@
 "lon": -74.310086,
 "match": "listing",
 "src": "listings.csv"
+},
+"299c alpine way # 2993|woodbridge": {
+"lat": 40.564274,
+"lon": -74.293743,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "2b parkway vlg unit 2b|cranford": {
 "lat": 40.661413,
@@ -41177,6 +43523,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"3 jenessee ct|woodbridge": {
+"lat": 40.567013,
+"lon": -74.276359,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "3 johanna lane|watchung": {
 "lat": 40.631122,
 "lon": -74.454223,
@@ -41199,6 +43551,18 @@
 "lat": 40.780794,
 "lon": -74.289506,
 "match": "Exact",
+"src": "census_batch"
+},
+"3 lambert st|woodbridge": {
+"lat": 40.553423,
+"lon": -74.28967,
+"match": "Exact",
+"src": "census_batch"
+},
+"3 lillian st|woodbridge": {
+"lat": 40.55261,
+"lon": -74.273546,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "3 linden court|west orange": {
@@ -41789,6 +44153,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"30 freeman st|woodbridge": {
+"lat": 40.562056,
+"lon": -74.275573,
+"match": "Exact",
+"src": "census_batch"
+},
 "30 gannet ct|wayne": {
 "lat": 40.957495,
 "lon": -74.204901,
@@ -42005,6 +44375,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"30 powderhorn ct # 302|woodbridge": {
+"lat": 40.562275,
+"lon": -74.294653,
+"match": "Exact",
+"src": "census_batch"
+},
 "30 raven dr|colonia": {
 "lat": 40.60169,
 "lon": -74.32494,
@@ -42197,6 +44573,18 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"30-b powderhorn ct|woodbridge": {
+"lat": 40.562275,
+"lon": -74.294653,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"300 alpine way # 3003|woodbridge": {
+"lat": 40.564199,
+"lon": -74.293629,
+"match": "Exact",
+"src": "census_batch"
+},
 "300 alps rd|wayne": {
 "lat": 40.920073,
 "lon": -74.253031,
@@ -42317,6 +44705,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"300 mawbey st|woodbridge": {
+"lat": 40.560856,
+"lon": -74.289346,
+"match": "Exact",
+"src": "census_batch"
+},
 "300 milltown rd|springfield": {
 "lat": 40.695439,
 "lon": -74.3129,
@@ -42371,6 +44765,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"300-c alpine way|woodbridge": {
+"lat": 40.564199,
+"lon": -74.293629,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "3004 hemlock pl|basking ridge": {
 "lat": 40.659717,
 "lon": -74.552158,
@@ -42393,6 +44793,12 @@
 "lat": 40.651645,
 "lon": -74.354889,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"301 amboy ave|woodbridge": {
+"lat": 40.551056,
+"lon": -74.280468,
+"match": "Exact",
 "src": "census_batch"
 },
 "301 claremont ave apt 1|montclair": {
@@ -42441,6 +44847,12 @@
 "lat": 40.771686,
 "lon": -74.292179,
 "match": "Exact",
+"src": "census_batch"
+},
+"301 michaels ct|woodbridge": {
+"lat": 40.562414,
+"lon": -74.295855,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "301 new york ave|clark": {
@@ -42557,6 +44969,24 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"303 cricket ln unit 303|woodbridge": {
+"lat": 40.54632,
+"lon": -74.280806,
+"match": "Exact",
+"src": "census_batch"
+},
+"303 de sota ave|woodbridge": {
+"lat": 40.549729,
+"lon": -74.285167,
+"match": "Exact",
+"src": "census_batch"
+},
+"303 desota ave|woodbridge": {
+"lat": 40.549729,
+"lon": -74.285167,
+"match": "Exact",
+"src": "census_batch"
+},
 "303 harrison ave|westfield": {
 "lat": 40.658994,
 "lon": -74.346992,
@@ -42579,6 +45009,12 @@
 "lat": 40.663382,
 "lon": -74.303507,
 "match": "Exact",
+"src": "census_batch"
+},
+"303 michaels ct|woodbridge": {
+"lat": 40.562406,
+"lon": -74.295864,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "303 montague ave|scotch plains": {
@@ -42653,6 +45089,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"304 green st|woodbridge": {
+"lat": 40.557906,
+"lon": -74.290817,
+"match": "listing",
+"src": "listings.csv"
+},
 "304 grove st|montclair": {
 "lat": 40.826751,
 "lon": -74.199439,
@@ -42695,11 +45137,29 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"305 cricket ln|woodbridge": {
+"lat": 40.546313,
+"lon": -74.28083,
+"match": "Exact",
+"src": "census_batch"
+},
 "305 elm st|westfield": {
 "lat": 40.654046,
 "lon": -74.352555,
 "match": "Exact",
 "src": "census_batch"
+},
+"305 maple hill dr|woodbridge": {
+"lat": 40.553856,
+"lon": -74.301517,
+"match": "Exact",
+"src": "census_batch"
+},
+"305 michaels ct|woodbridge": {
+"lat": 40.5627,
+"lon": -74.295431,
+"match": "listing",
+"src": "listings.csv"
 },
 "305 n scotch plains ave|westfield": {
 "lat": 40.643371,
@@ -42737,6 +45197,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"305 sharon garden ct|woodbridge": {
+"lat": 40.552427,
+"lon": -74.297213,
+"match": "Exact",
+"src": "census_batch"
+},
 "305 short hills ave|springfield": {
 "lat": 40.718719,
 "lon": -74.3188,
@@ -42761,6 +45227,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"306 cricket ln|woodbridge": {
+"lat": 40.546307,
+"lon": -74.280855,
+"match": "Exact",
+"src": "census_batch"
+},
 "306 edgar ave|cranford": {
 "lat": 40.667094,
 "lon": -74.308947,
@@ -42777,6 +45249,18 @@
 "lat": 40.662168,
 "lon": -74.342849,
 "match": "Exact",
+"src": "census_batch"
+},
+"306 michael ct|woodbridge": {
+"lat": 40.562334,
+"lon": -74.296139,
+"match": "Exact",
+"src": "census_batch"
+},
+"306 michaels ct|woodbridge": {
+"lat": 40.562334,
+"lon": -74.296139,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "306 n chestnut st|westfield": {
@@ -42863,6 +45347,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"307 mawbey st|woodbridge": {
+"lat": 40.560744,
+"lon": -74.289451,
+"match": "Exact",
+"src": "census_batch"
+},
 "307 metzger drive|west orange": {
 "lat": 40.77172,
 "lon": -74.292171,
@@ -42886,6 +45376,18 @@
 "lon": -74.354152,
 "match": "Exact",
 "src": "census_batch"
+},
+"307 sharon ct|woodbridge": {
+"lat": 40.552575,
+"lon": -74.296652,
+"match": "listing",
+"src": "listings.csv"
+},
+"307 sharon garden ct|woodbridge": {
+"lat": 40.552575,
+"lon": -74.296652,
+"match": "listing",
+"src": "listings.csv"
 },
 "307 stirling rd|watchung": {
 "lat": 40.636812,
@@ -42947,6 +45449,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"308 sharon garden ct|woodbridge": {
+"lat": 40.552528,
+"lon": -74.296913,
+"match": "Exact",
+"src": "census_batch"
+},
 "308 union ave n|cranford": {
 "lat": 40.66046,
 "lon": -74.300177,
@@ -42980,6 +45488,12 @@
 "309 four seasons dr|wayne": {
 "lat": 40.950799,
 "lon": -74.218114,
+"match": "Exact",
+"src": "census_batch"
+},
+"309 grady dr|woodbridge": {
+"lat": 40.549287,
+"lon": -74.285855,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -43775,9 +46289,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"310 campbell st|woodbridge": {
+"lat": 40.560353,
+"lon": -74.290193,
+"match": "listing",
+"src": "listings.csv"
+},
 "310 evergreen blvd|scotch plains": {
 "lat": 40.659153,
 "lon": -74.392345,
+"match": "Exact",
+"src": "census_batch"
+},
+"310 green st|woodbridge": {
+"lat": 40.557752,
+"lon": -74.291246,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -43791,6 +46317,12 @@
 "lat": 40.65024,
 "lon": -74.302205,
 "match": "Exact",
+"src": "census_batch"
+},
+"310 michaels ct unit 310|woodbridge": {
+"lat": 40.562323,
+"lon": -74.296151,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "310 n euclid ave|westfield": {
@@ -43844,6 +46376,12 @@
 "310 roanoke rd|westfield": {
 "lat": 40.664423,
 "lon": -74.362221,
+"match": "Exact",
+"src": "census_batch"
+},
+"310 sharon garden ct|woodbridge": {
+"lat": 40.552538,
+"lon": -74.296904,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -43985,6 +46523,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"312 sharon garden ct unit 312|woodbridge": {
+"lat": 40.552548,
+"lon": -74.296895,
+"match": "Exact",
+"src": "census_batch"
+},
+"312 sharon garden ct|woodbridge": {
+"lat": 40.552304,
+"lon": -74.296795,
+"match": "listing",
+"src": "listings.csv"
+},
 "312 wells st|westfield": {
 "lat": 40.659195,
 "lon": -74.333971,
@@ -44069,6 +46619,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"315 e smith st|woodbridge": {
+"lat": 40.55229,
+"lon": -74.280042,
+"match": "Exact",
+"src": "census_batch"
+},
 "315 four seasons dr unit 315|wayne": {
 "lat": 40.950817,
 "lon": -74.218116,
@@ -44099,6 +46655,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"315 mawbey st|woodbridge": {
+"lat": 40.560748,
+"lon": -74.289581,
+"match": "Exact",
+"src": "census_batch"
+},
 "315 morristown rd|gillette": {
 "lat": 40.671818,
 "lon": -74.477326,
@@ -44108,6 +46670,12 @@
 "315 myrtle ave|scotch plains": {
 "lat": 40.649433,
 "lon": -74.403521,
+"match": "listing",
+"src": "listings.csv"
+},
+"315 regency pl unit 315|woodbridge": {
+"lat": 40.548194,
+"lon": -74.289793,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -44225,6 +46793,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"318 sharon ct|woodbridge": {
+"lat": 40.552565,
+"lon": -74.296882,
+"match": "Exact",
+"src": "census_batch"
+},
+"318 sharon garden ct|woodbridge": {
+"lat": 40.552565,
+"lon": -74.296882,
+"match": "Exact",
+"src": "census_batch"
+},
 "318 temple place|westfield": {
 "lat": 40.64785,
 "lon": -74.345522,
@@ -44278,6 +46858,12 @@
 "lon": -74.541254,
 "match": "Exact",
 "src": "census_batch"
+},
+"319 regency pl unit 319|woodbridge": {
+"lat": 40.548531,
+"lon": -74.289254,
+"match": "listing",
+"src": "listings.csv"
 },
 "319 s euclid ave|westfield": {
 "lat": 40.653287,
@@ -44501,6 +47087,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"32 crocus st|woodbridge": {
+"lat": 40.553212,
+"lon": -74.28955,
+"match": "Exact",
+"src": "census_batch"
+},
 "32 dodd st|montclair": {
 "lat": 40.823611,
 "lon": -74.199091,
@@ -44687,6 +47279,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"32 martin terr|woodbridge": {
+"lat": 40.560785,
+"lon": -74.275985,
+"match": "Exact",
+"src": "census_batch"
+},
 "32 mayflower dr|basking ridge": {
 "lat": 40.65236,
 "lon": -74.620775,
@@ -44870,6 +47468,12 @@
 "320 brittany dr unit 320|wayne": {
 "lat": 40.965505,
 "lon": -74.240831,
+"match": "Exact",
+"src": "census_batch"
+},
+"320 cricket ln|woodbridge": {
+"lat": 40.546254,
+"lon": -74.281001,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -45077,6 +47681,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"323 green st|woodbridge": {
+"lat": 40.557844,
+"lon": -74.291927,
+"match": "Exact",
+"src": "census_batch"
+},
 "323 grove st w|westfield": {
 "lat": 40.642368,
 "lon": -74.337719,
@@ -45119,11 +47729,23 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"324 cricket ln|woodbridge": {
+"lat": 40.546232,
+"lon": -74.281044,
+"match": "Exact",
+"src": "census_batch"
+},
 "324 dudley ave e|westfield": {
 "lat": 40.657628,
 "lon": -74.352235,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"324 green st|woodbridge": {
+"lat": 40.5582,
+"lon": -74.291696,
+"match": "listing",
+"src": "listings.csv"
 },
 "324 haven ave|scotch plains": {
 "lat": 40.650564,
@@ -45161,6 +47783,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"324 sharon garden ct|woodbridge": {
+"lat": 40.552148,
+"lon": -74.29702,
+"match": "listing",
+"src": "listings.csv"
+},
 "324 union ave n|cranford": {
 "lat": 40.660706,
 "lon": -74.29992,
@@ -45184,6 +47812,18 @@
 "lon": -74.300623,
 "match": "listing",
 "src": "listings.csv"
+},
+"325 cricket ln|woodbridge": {
+"lat": 40.546232,
+"lon": -74.281044,
+"match": "Exact",
+"src": "census_batch"
+},
+"325 de sota ave|woodbridge": {
+"lat": 40.550096,
+"lon": -74.285431,
+"match": "Exact",
+"src": "census_batch"
 },
 "325 grove st|montclair": {
 "lat": 40.827873,
@@ -45227,6 +47867,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"326 dekalb ave|woodbridge": {
+"lat": 40.550512,
+"lon": -74.284519,
+"match": "Exact",
+"src": "census_batch"
+},
 "326 english pl|basking ridge": {
 "lat": 40.655885,
 "lon": -74.565069,
@@ -45236,6 +47882,12 @@
 "326 grove st|montclair": {
 "lat": 40.827844,
 "lon": -74.198768,
+"match": "Exact",
+"src": "census_batch"
+},
+"326 mawbey st|woodbridge": {
+"lat": 40.560869,
+"lon": -74.289771,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -45260,6 +47912,12 @@
 "326 victor st|scotch plains": {
 "lat": 40.662338,
 "lon": -74.387503,
+"match": "Exact",
+"src": "census_batch"
+},
+"327 cricket ln|woodbridge": {
+"lat": 40.54622,
+"lon": -74.281065,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -45317,6 +47975,30 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"328 sharon ct|woodbridge": {
+"lat": 40.552604,
+"lon": -74.296822,
+"match": "Exact",
+"src": "census_batch"
+},
+"328 sharon garden ct|woodbridge": {
+"lat": 40.552604,
+"lon": -74.296822,
+"match": "Exact",
+"src": "census_batch"
+},
+"329 berry st|woodbridge": {
+"lat": 40.553225,
+"lon": -74.273997,
+"match": "Exact",
+"src": "census_batch"
+},
+"329 desota ave|woodbridge": {
+"lat": 40.550223,
+"lon": -74.285739,
+"match": "listing",
+"src": "listings.csv"
+},
 "329 hunter ave|scotch plains": {
 "lat": 40.647976,
 "lon": -74.404529,
@@ -45344,6 +48026,12 @@
 "329 pines lake dr e|wayne": {
 "lat": 40.989849,
 "lon": -74.259948,
+"match": "Exact",
+"src": "census_batch"
+},
+"329 sharon ct|woodbridge": {
+"lat": 40.552533,
+"lon": -74.297092,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -46073,6 +48761,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"330 st james ave|woodbridge": {
+"lat": 40.549733,
+"lon": -74.287219,
+"match": "Exact",
+"src": "census_batch"
+},
 "330 westfield ave|clark": {
 "lat": 40.622553,
 "lon": -74.310683,
@@ -46112,6 +48806,12 @@
 "332 araneo drive|west orange": {
 "lat": 40.795111,
 "lon": -74.251812,
+"match": "Exact",
+"src": "census_batch"
+},
+"332 berry st|woodbridge": {
+"lat": 40.553417,
+"lon": -74.273984,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -46211,9 +48911,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"334 grady dr|woodbridge": {
+"lat": 40.549943,
+"lon": -74.286155,
+"match": "Exact",
+"src": "census_batch"
+},
 "335 cedar grove terrace|scotch plains": {
 "lat": 40.651452,
 "lon": -74.401532,
+"match": "Exact",
+"src": "census_batch"
+},
+"335 desota ave|woodbridge": {
+"lat": 40.550229,
+"lon": -74.285527,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -46322,6 +49034,18 @@
 "336 william st|scotch plains": {
 "lat": 40.661725,
 "lon": -74.388023,
+"match": "Exact",
+"src": "census_batch"
+},
+"337 desota ave|woodbridge": {
+"lat": 40.550256,
+"lon": -74.285547,
+"match": "Exact",
+"src": "census_batch"
+},
+"337 oak ave|woodbridge": {
+"lat": 40.549722,
+"lon": -74.288742,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -46564,6 +49288,12 @@
 "lon": -74.226089,
 "match": "listing",
 "src": "listings.csv"
+},
+"34 e grove ave|woodbridge": {
+"lat": 40.559342,
+"lon": -74.276802,
+"match": "Exact",
+"src": "census_batch"
 },
 "34 e prescott ave|colonia": {
 "lat": 40.60126,
@@ -47075,6 +49805,18 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"340 de kalb ave|woodbridge": {
+"lat": 40.550698,
+"lon": -74.284656,
+"match": "Exact",
+"src": "census_batch"
+},
+"340 dekalb ave|woodbridge": {
+"lat": 40.550698,
+"lon": -74.284656,
+"match": "Exact",
+"src": "census_batch"
+},
 "340 highland ave|montclair": {
 "lat": 40.844972,
 "lon": -74.211827,
@@ -47099,6 +49841,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"340 sharon garden ct|woodbridge": {
+"lat": 40.55188,
+"lon": -74.297051,
+"match": "listing",
+"src": "listings.csv"
+},
 "340 up mountain ave|montclair": {
 "lat": 40.842323,
 "lon": -74.211843,
@@ -47108,6 +49856,12 @@
 "341 acacia rd|scotch plains": {
 "lat": 40.664332,
 "lon": -74.383678,
+"match": "Exact",
+"src": "census_batch"
+},
+"341 grady dr|woodbridge": {
+"lat": 40.549894,
+"lon": -74.286292,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -47246,6 +50000,12 @@
 "345 la grande ave|fanwood": {
 "lat": 40.641763,
 "lon": -74.379267,
+"match": "Exact",
+"src": "census_batch"
+},
+"345 main st|woodbridge": {
+"lat": 40.549665,
+"lon": -74.291423,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -47813,6 +50573,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"35 melbourne ct|woodbridge": {
+"lat": 40.558304,
+"lon": -74.274413,
+"match": "Exact",
+"src": "census_batch"
+},
 "35 minns ave|wayne": {
 "lat": 40.937984,
 "lon": -74.19844,
@@ -48371,6 +51137,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"355 oak ave|woodbridge": {
+"lat": 40.550148,
+"lon": -74.289068,
+"match": "Exact",
+"src": "census_batch"
+},
 "356 1st st unit 2|westfield": {
 "lat": 40.646774,
 "lon": -74.351234,
@@ -48590,6 +51362,12 @@
 "36 debra ln|basking ridge": {
 "lat": 40.68796,
 "lon": -74.55366,
+"match": "Exact",
+"src": "census_batch"
+},
+"36 dorothy st|woodbridge": {
+"lat": 40.553334,
+"lon": -74.292825,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -48974,6 +51752,12 @@
 "36 william st|west orange": {
 "lat": 40.788849,
 "lon": -74.230304,
+"match": "Exact",
+"src": "census_batch"
+},
+"36 willry st|woodbridge": {
+"lat": 40.562999,
+"lon": -74.287823,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -49565,6 +52349,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"37 kosene st|woodbridge": {
+"lat": 40.553554,
+"lon": -74.293839,
+"match": "Exact",
+"src": "census_batch"
+},
 "37 lacey ave|gillette": {
 "lat": 40.691046,
 "lon": -74.450569,
@@ -49670,6 +52460,12 @@
 "37 potomac dr unit 37|basking ridge": {
 "lat": 40.660404,
 "lon": -74.541199,
+"match": "Exact",
+"src": "census_batch"
+},
+"37 powderhorn ct unit 371|woodbridge": {
+"lat": 40.562147,
+"lon": -74.294691,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -50063,6 +52859,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"37a powderhorn ct # 371|woodbridge": {
+"lat": 40.562147,
+"lon": -74.294691,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "37a sandra cir unit 4|westfield": {
 "lat": 40.669338,
 "lon": -74.329338,
@@ -50138,6 +52940,12 @@
 "38 clarken drive|west orange": {
 "lat": 40.800559,
 "lon": -74.256659,
+"match": "Exact",
+"src": "census_batch"
+},
+"38 clayton ct|woodbridge": {
+"lat": 40.553695,
+"lon": -74.287437,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -50783,6 +53591,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"385 school st|woodbridge": {
+"lat": 40.554714,
+"lon": -74.280298,
+"match": "Exact",
+"src": "census_batch"
+},
 "386 north ave|fanwood": {
 "lat": 40.644546,
 "lon": -74.380882,
@@ -51269,6 +54083,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"39 powderhorn ct|woodbridge": {
+"lat": 40.562139,
+"lon": -74.294152,
+"match": "listing",
+"src": "listings.csv"
+},
 "39 richmond ave|cranford": {
 "lat": 40.666613,
 "lon": -74.307844,
@@ -51634,6 +54454,12 @@
 "lon": -74.22944,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"39a powderhorn ct unit 39a|woodbridge": {
+"lat": 40.56214,
+"lon": -74.294162,
+"match": "listing",
+"src": "listings.csv"
 },
 "39a sandra cir unit 1|westfield": {
 "lat": 40.669724,
@@ -52319,6 +55145,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"4 powderhorn ct # 41|woodbridge": {
+"lat": 40.562432,
+"lon": -74.29488,
+"match": "Exact",
+"src": "census_batch"
+},
 "4 pring court|west orange": {
 "lat": 40.817382,
 "lon": -74.263853,
@@ -52598,6 +55430,12 @@
 "4 virginia st|cranford": {
 "lat": 40.639031,
 "lon": -74.312961,
+"match": "Exact",
+"src": "census_batch"
+},
+"4 wallace st|woodbridge": {
+"lat": 40.553163,
+"lon": -74.275634,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -52892,6 +55730,12 @@
 "40 grove avenue|verona": {
 "lat": 40.834954,
 "lon": -74.247335,
+"match": "Exact",
+"src": "census_batch"
+},
+"40 grove ave|woodbridge": {
+"lat": 40.559589,
+"lon": -74.278944,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -53237,6 +56081,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"400 school st|woodbridge": {
+"lat": 40.554936,
+"lon": -74.280186,
+"match": "Exact",
+"src": "census_batch"
+},
 "400 valley rd|clark": {
 "lat": 40.626936,
 "lon": -74.286936,
@@ -53333,6 +56183,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"401 sharon garden ct|woodbridge": {
+"lat": 40.552059,
+"lon": -74.29821,
+"match": "Exact",
+"src": "census_batch"
+},
 "401 stout ave|scotch plains": {
 "lat": 40.652918,
 "lon": -74.395364,
@@ -53384,6 +56240,18 @@
 "403 roberts ln|scotch plains": {
 "lat": 40.664917,
 "lon": -74.380345,
+"match": "Exact",
+"src": "census_batch"
+},
+"403 sharon ct|woodbridge": {
+"lat": 40.55218,
+"lon": -74.297678,
+"match": "Exact",
+"src": "census_batch"
+},
+"403 sharon garden ct|woodbridge": {
+"lat": 40.55218,
+"lon": -74.297678,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -53462,6 +56330,12 @@
 "406 donato circle|scotch plains": {
 "lat": 40.658279,
 "lon": -74.401363,
+"match": "Exact",
+"src": "census_batch"
+},
+"406 elmwood ave|woodbridge": {
+"lat": 40.554102,
+"lon": -74.285019,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -53564,6 +56438,12 @@
 "409 s union ave|cranford": {
 "lat": 40.644142,
 "lon": -74.316253,
+"match": "Exact",
+"src": "census_batch"
+},
+"409 sharon ct|woodbridge": {
+"lat": 40.552582,
+"lon": -74.296287,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -54185,6 +57065,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"412 e middlesex ave|woodbridge": {
+"lat": 40.554443,
+"lon": -74.28382,
+"match": "Exact",
+"src": "census_batch"
+},
 "412 forest road|scotch plains": {
 "lat": 40.651431,
 "lon": -74.396717,
@@ -54287,9 +57173,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"414 cricket ln unit 414|woodbridge": {
+"lat": 40.545722,
+"lon": -74.282006,
+"match": "Exact",
+"src": "census_batch"
+},
 "414 edgar rd|westfield": {
 "lat": 40.645479,
 "lon": -74.351353,
+"match": "Exact",
+"src": "census_batch"
+},
+"414 elmwood ave|woodbridge": {
+"lat": 40.554326,
+"lon": -74.285175,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -54590,6 +57488,24 @@
 "419 brookside pl|cranford": {
 "lat": 40.6575,
 "lon": -74.324491,
+"match": "Exact",
+"src": "census_batch"
+},
+"419 cricket ln unit 10|woodbridge": {
+"lat": 40.545699,
+"lon": -74.282049,
+"match": "Exact",
+"src": "census_batch"
+},
+"419 cricket ln|woodbridge": {
+"lat": 40.545699,
+"lon": -74.282049,
+"match": "Exact",
+"src": "census_batch"
+},
+"419 e middlesex ave|woodbridge": {
+"lat": 40.554472,
+"lon": -74.283997,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -55097,6 +58013,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"423 cricket ln|woodbridge": {
+"lat": 40.545676,
+"lon": -74.282092,
+"match": "Exact",
+"src": "census_batch"
+},
 "423 edgewood ave|westfield": {
 "lat": 40.649909,
 "lon": -74.363386,
@@ -55196,6 +58118,12 @@
 "428 1st st|westfield": {
 "lat": 40.64601,
 "lon": -74.352006,
+"match": "Exact",
+"src": "census_batch"
+},
+"428 e middlesex ave|woodbridge": {
+"lat": 40.554632,
+"lon": -74.283919,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -55529,6 +58457,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"43 highview dr|woodbridge": {
+"lat": 40.55034,
+"lon": -74.305461,
+"match": "Exact",
+"src": "census_batch"
+},
 "43 highwood road|west orange": {
 "lat": 40.78006,
 "lon": -74.254174,
@@ -55580,6 +58514,12 @@
 "43 larkin cir|west orange": {
 "lat": 40.761755,
 "lon": -74.297104,
+"match": "Exact",
+"src": "census_batch"
+},
+"43 liberty ave|woodbridge": {
+"lat": 40.557013,
+"lon": -74.291156,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -56465,6 +59405,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"44 powderhorn ct # 442|woodbridge": {
+"lat": 40.562191,
+"lon": -74.294531,
+"match": "Exact",
+"src": "census_batch"
+},
 "44 raven dr|colonia": {
 "lat": 40.601568,
 "lon": -74.325098,
@@ -56559,6 +59505,12 @@
 "lat": 40.81227,
 "lon": -74.249572,
 "match": "Exact",
+"src": "census_batch"
+},
+"44-b powderhorn ct|woodbridge": {
+"lat": 40.562191,
+"lon": -74.294531,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "440 fairview ave|colonia": {
@@ -57569,6 +60521,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"46 crampton ave|woodbridge": {
+"lat": 40.559419,
+"lon": -74.272078,
+"match": "Exact",
+"src": "census_batch"
+},
 "46 eider ct|wayne": {
 "lat": 40.953092,
 "lon": -74.20493,
@@ -57662,6 +60620,24 @@
 "46 maple ave|west orange": {
 "lat": 40.76332,
 "lon": -74.273639,
+"match": "Exact",
+"src": "census_batch"
+},
+"46 martin terr|woodbridge": {
+"lat": 40.560874,
+"lon": -74.276606,
+"match": "Exact",
+"src": "census_batch"
+},
+"46 martin ter|woodbridge": {
+"lat": 40.560874,
+"lon": -74.276606,
+"match": "Exact",
+"src": "census_batch"
+},
+"46 melbourne ct|woodbridge": {
+"lat": 40.558306,
+"lon": -74.274251,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -57773,6 +60749,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"46-c powderhorn ct|woodbridge": {
+"lat": 40.562179,
+"lon": -74.294513,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "460 hillside ave|westfield": {
 "lat": 40.664819,
 "lon": -74.35678,
@@ -57863,6 +60845,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"467 gorham ave|woodbridge": {
+"lat": 40.556811,
+"lon": -74.290444,
+"match": "listing",
+"src": "listings.csv"
+},
 "467 valley rd|montclair": {
 "lat": 40.834805,
 "lon": -74.206702,
@@ -57874,6 +60862,12 @@
 "lon": -74.206702,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"468 gorham ave|woodbridge": {
+"lat": 40.556631,
+"lon": -74.289706,
+"match": "listing",
+"src": "listings.csv"
 },
 "468 orchard st|cranford": {
 "lat": 40.661282,
@@ -58337,6 +61331,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"47 willry st|woodbridge": {
+"lat": 40.562738,
+"lon": -74.28806,
+"match": "listing",
+"src": "listings.csv"
+},
 "47 woodward ln|basking ridge": {
 "lat": 40.656956,
 "lon": -74.568672,
@@ -58502,6 +61502,12 @@
 "48 alps rd|wayne": {
 "lat": 40.918286,
 "lon": -74.263848,
+"match": "Exact",
+"src": "census_batch"
+},
+"48 alwat st|woodbridge": {
+"lat": 40.563704,
+"lon": -74.288222,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -58991,6 +61997,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"482 rahway ave|woodbridge": {
+"lat": 40.557961,
+"lon": -74.275532,
+"match": "listing",
+"src": "listings.csv"
+},
 "483 mountain ave|springfield": {
 "lat": 40.696867,
 "lon": -74.325074,
@@ -59078,6 +62090,12 @@
 "49 alice lane|clark": {
 "lat": 40.636729,
 "lon": -74.2959,
+"match": "Exact",
+"src": "census_batch"
+},
+"49 alwat st|woodbridge": {
+"lat": 40.563591,
+"lon": -74.288273,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -59855,6 +62873,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"5 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "5 indian run|scotch plains": {
 "lat": 40.612984,
 "lon": -74.380052,
@@ -60605,6 +63629,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"5 wedgewood ave|woodbridge": {
+"lat": 40.565048,
+"lon": -74.270525,
+"match": "Exact",
+"src": "census_batch"
+},
 "5 wedgewood dr apt 101|verona": {
 "lat": 40.831458,
 "lon": -74.240527,
@@ -61319,6 +64349,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"501 cricket ln|woodbridge": {
+"lat": 40.545234,
+"lon": -74.282926,
+"match": "Exact",
+"src": "census_batch"
+},
 "501 four seasons dr|wayne": {
 "lat": 40.951405,
 "lon": -74.218156,
@@ -61376,6 +64412,12 @@
 "503 myrtle ave|garwood": {
 "lat": 40.649508,
 "lon": -74.32736,
+"match": "Exact",
+"src": "census_batch"
+},
+"503 sharon garden ct|woodbridge": {
+"lat": 40.55198,
+"lon": -74.295105,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -61487,6 +64529,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"506 sharon garden ct|woodbridge": {
+"lat": 40.552415,
+"lon": -74.295546,
+"match": "Exact",
+"src": "census_batch"
+},
 "507 birch ave|westfield": {
 "lat": 40.662906,
 "lon": -74.355274,
@@ -61547,6 +64595,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"508 maple hill dr|woodbridge": {
+"lat": 40.553807,
+"lon": -74.301562,
+"match": "Exact",
+"src": "census_batch"
+},
 "508 n chestnut st|westfield": {
 "lat": 40.662552,
 "lon": -74.34785,
@@ -61588,6 +64642,12 @@
 "lon": -74.350558,
 "match": "Exact",
 "src": "census_batch"
+},
+"509 cricket ln|woodbridge": {
+"lat": 40.544513,
+"lon": -74.283205,
+"match": "listing",
+"src": "listings.csv"
 },
 "509 lincoln park e|cranford": {
 "lat": 40.652504,
@@ -61720,6 +64780,12 @@
 "lon": -74.316345,
 "match": "Exact",
 "src": "census_batch"
+},
+"51 federal st|woodbridge": {
+"lat": 40.5554,
+"lon": -74.325725,
+"match": "listing",
+"src": "listings.csv"
 },
 "51 gray st|montclair": {
 "lat": 40.824982,
@@ -62063,6 +65129,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"510 rahway ave|woodbridge": {
+"lat": 40.558693,
+"lon": -74.275128,
+"match": "Exact",
+"src": "census_batch"
+},
 "510 riverside dr|cranford": {
 "lat": 40.665288,
 "lon": -74.309265,
@@ -62171,9 +65243,27 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"514 linden ave|woodbridge": {
+"lat": 40.55863,
+"lon": -74.283066,
+"match": "Exact",
+"src": "census_batch"
+},
 "514 lyons rd|basking ridge": {
 "lat": 40.667892,
 "lon": -74.57975,
+"match": "Exact",
+"src": "census_batch"
+},
+"514 rahway ave|woodbridge": {
+"lat": 40.558857,
+"lon": -74.27478,
+"match": "listing",
+"src": "listings.csv"
+},
+"515 amboy ave|woodbridge": {
+"lat": 40.558312,
+"lon": -74.284833,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -62321,6 +65411,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"516 cricket ln|woodbridge": {
+"lat": 40.545144,
+"lon": -74.283098,
+"match": "Exact",
+"src": "census_batch"
+},
 "516 fairview avenue|cedar grove": {
 "lat": 40.863171,
 "lon": -74.234749,
@@ -62350,6 +65446,18 @@
 "lon": -74.357882,
 "match": "Exact",
 "src": "census_batch"
+},
+"517 cricket ln|woodbridge": {
+"lat": 40.544596,
+"lon": -74.282732,
+"match": "listing",
+"src": "listings.csv"
+},
+"517 joseph ave|woodbridge": {
+"lat": 40.5581,
+"lon": -74.288673,
+"match": "listing",
+"src": "listings.csv"
 },
 "517 lexington ave|cranford": {
 "lat": 40.641671,
@@ -62735,6 +65843,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"52 martin ter|woodbridge": {
+"lat": 40.560907,
+"lon": -74.276838,
+"match": "Exact",
+"src": "census_batch"
+},
 "52 morningside rd|verona": {
 "lat": 40.826762,
 "lon": -74.253622,
@@ -62891,6 +66005,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"521 cricket ln|woodbridge": {
+"lat": 40.545119,
+"lon": -74.283145,
+"match": "Exact",
+"src": "census_batch"
+},
 "521 forest rd|scotch plains": {
 "lat": 40.650199,
 "lon": -74.394594,
@@ -62907,6 +66027,12 @@
 "lat": 40.65165,
 "lon": -74.337473,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"521 olive pl|woodbridge": {
+"lat": 40.559731,
+"lon": -74.277491,
+"match": "Exact",
 "src": "census_batch"
 },
 "521 topping hill rd|westfield": {
@@ -62927,15 +66053,39 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"522 linden ave|woodbridge": {
+"lat": 40.558811,
+"lon": -74.283058,
+"match": "Exact",
+"src": "census_batch"
+},
+"522 olive pl|woodbridge": {
+"lat": 40.55974,
+"lon": -74.277336,
+"match": "Exact",
+"src": "census_batch"
+},
 "522 willow ave|garwood": {
 "lat": 40.650354,
 "lon": -74.328097,
 "match": "Exact",
 "src": "census_batch"
 },
+"523 alice pl|woodbridge": {
+"lat": 40.55964,
+"lon": -74.276618,
+"match": "Exact",
+"src": "census_batch"
+},
 "523 coleman pl|westfield": {
 "lat": 40.650324,
 "lon": -74.360573,
+"match": "Exact",
+"src": "census_batch"
+},
+"523 cricket ln|woodbridge": {
+"lat": 40.545109,
+"lon": -74.283167,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -62993,6 +66143,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"524 bamford ave|woodbridge": {
+"lat": 40.558533,
+"lon": -74.271333,
+"match": "Exact",
+"src": "census_batch"
+},
 "524 chestnut st n|westfield": {
 "lat": 40.662846,
 "lon": -74.348361,
@@ -63016,6 +66172,12 @@
 "lon": -74.400804,
 "match": "listing",
 "src": "listings.csv"
+},
+"524 linden ave|woodbridge": {
+"lat": 40.558925,
+"lon": -74.283053,
+"match": "Exact",
+"src": "census_batch"
 },
 "524 ridge road|watchung": {
 "lat": 40.656443,
@@ -63071,11 +66233,35 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"525 francis ave|woodbridge": {
+"lat": 40.558439,
+"lon": -74.286995,
+"match": "Exact",
+"src": "census_batch"
+},
 "525 johnston dr|watchung": {
 "lat": 40.637932,
 "lon": -74.433996,
 "match": "listing",
 "src": "listings.csv"
+},
+"525 leonard ave|woodbridge": {
+"lat": 40.557951,
+"lon": -74.287938,
+"match": "Exact",
+"src": "census_batch"
+},
+"525 linden ave|woodbridge": {
+"lat": 40.558929,
+"lon": -74.283204,
+"match": "Exact",
+"src": "census_batch"
+},
+"525 lyman ave|woodbridge": {
+"lat": 40.559551,
+"lon": -74.291811,
+"match": "Exact",
+"src": "census_batch"
 },
 "525 mountain ave|westfield": {
 "lat": 40.660771,
@@ -63113,6 +66299,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"526 olive pl|woodbridge": {
+"lat": 40.559797,
+"lon": -74.277324,
+"match": "Exact",
+"src": "census_batch"
+},
 "526 trinity pl|westfield": {
 "lat": 40.646255,
 "lon": -74.349245,
@@ -63131,9 +66323,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"527 e washington ave|woodbridge": {
+"lat": 40.559095,
+"lon": -74.287839,
+"match": "Exact",
+"src": "census_batch"
+},
 "527 fairview ave|colonia": {
 "lat": 40.585862,
 "lon": -74.299167,
+"match": "Exact",
+"src": "census_batch"
+},
+"527 gorham ave|woodbridge": {
+"lat": 40.558252,
+"lon": -74.289335,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -63155,6 +66359,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"527 linden ave|woodbridge": {
+"lat": 40.55917,
+"lon": -74.283193,
+"match": "Exact",
+"src": "census_batch"
+},
 "527 ridge rd|watchung": {
 "lat": 40.657904,
 "lon": -74.431825,
@@ -63170,6 +66380,12 @@
 "528 boulevard|westfield": {
 "lat": 40.647228,
 "lon": -74.344784,
+"match": "Exact",
+"src": "census_batch"
+},
+"528 cricket ln|woodbridge": {
+"lat": 40.545078,
+"lon": -74.283234,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -63200,6 +66416,12 @@
 "529 henry st|scotch plains": {
 "lat": 40.659242,
 "lon": -74.384898,
+"match": "Exact",
+"src": "census_batch"
+},
+"529 sharon garden ct|woodbridge": {
+"lat": 40.551661,
+"lon": -74.295026,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -63383,6 +66605,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"53 melbourne ct|woodbridge": {
+"lat": 40.558399,
+"lon": -74.274367,
+"match": "Exact",
+"src": "census_batch"
+},
 "53 melrose pl|montclair": {
 "lat": 40.806482,
 "lon": -74.225458,
@@ -63496,6 +66724,12 @@
 "lon": -74.232411,
 "match": "listing",
 "src": "listings.csv"
+},
+"53 van buren st|woodbridge": {
+"lat": 40.564309,
+"lon": -74.288938,
+"match": "Exact",
+"src": "census_batch"
 },
 "53 wildwood ter|watchung": {
 "lat": 40.621032,
@@ -63995,6 +67229,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"532 bamford ave|woodbridge": {
+"lat": 40.558695,
+"lon": -74.27127,
+"match": "Exact",
+"src": "census_batch"
+},
 "532 cumberland st|westfield": {
 "lat": 40.646626,
 "lon": -74.356684,
@@ -64016,6 +67256,12 @@
 "532 mt. pleasant avenue|west orange": {
 "lat": 40.790725,
 "lon": -74.274278,
+"match": "Exact",
+"src": "census_batch"
+},
+"532 olive pl|woodbridge": {
+"lat": 40.559883,
+"lon": -74.277305,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64043,6 +67289,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"533 lyman ave|woodbridge": {
+"lat": 40.55964,
+"lon": -74.291763,
+"match": "Exact",
+"src": "census_batch"
+},
 "533 trinity pl|westfield": {
 "lat": 40.646137,
 "lon": -74.34896,
@@ -64052,6 +67304,12 @@
 "534 alden ave|westfield": {
 "lat": 40.66181,
 "lon": -74.352082,
+"match": "Exact",
+"src": "census_batch"
+},
+"534 alice pl|woodbridge": {
+"lat": 40.559791,
+"lon": -74.276431,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64151,9 +67409,21 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"537 alice pl|woodbridge": {
+"lat": 40.559839,
+"lon": -74.276573,
+"match": "Exact",
+"src": "census_batch"
+},
 "537 eagle rock ave|west orange": {
 "lat": 40.807094,
 "lon": -74.253242,
+"match": "Exact",
+"src": "census_batch"
+},
+"537 lyman ave|woodbridge": {
+"lat": 40.559684,
+"lon": -74.291738,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64259,6 +67529,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"54 atlantic st|woodbridge": {
+"lat": 40.551186,
+"lon": -74.326623,
+"match": "listing",
+"src": "listings.csv"
+},
 "54 aubrey rd|montclair": {
 "lat": 40.833421,
 "lon": -74.20206,
@@ -64349,6 +67625,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"54 freeman st|woodbridge": {
+"lat": 40.562234,
+"lon": -74.277123,
+"match": "Exact",
+"src": "census_batch"
+},
 "54 garden oval|springfield": {
 "lat": 40.705189,
 "lon": -74.310488,
@@ -64370,6 +67652,12 @@
 "54 hart drive|west orange": {
 "lat": 40.759797,
 "lon": -74.296727,
+"match": "Exact",
+"src": "census_batch"
+},
+"54 highview dr|woodbridge": {
+"lat": 40.549866,
+"lon": -74.305571,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64442,6 +67730,12 @@
 "54 maple ave|west orange": {
 "lat": 40.762815,
 "lon": -74.273907,
+"match": "Exact",
+"src": "census_batch"
+},
+"54 martin terr|woodbridge": {
+"lat": 40.560918,
+"lon": -74.276915,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64625,6 +67919,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"540 lyman ave|woodbridge": {
+"lat": 40.55992,
+"lon": -74.291448,
+"match": "Exact",
+"src": "census_batch"
+},
 "540 mt. pleasant avenue|west orange": {
 "lat": 40.790336,
 "lon": -74.275272,
@@ -64646,6 +67946,12 @@
 "541 dona ln|scotch plains": {
 "lat": 40.650309,
 "lon": -74.393215,
+"match": "Exact",
+"src": "census_batch"
+},
+"541 lyman ave|woodbridge": {
+"lat": 40.559813,
+"lon": -74.291669,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -64733,6 +68039,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"545 myrtle ave|woodbridge": {
+"lat": 40.559896,
+"lon": -74.281212,
+"match": "Exact",
+"src": "census_batch"
+},
 "545 trinity pl|westfield": {
 "lat": 40.645773,
 "lon": -74.348643,
@@ -64743,6 +68055,12 @@
 "lat": 40.654227,
 "lon": -74.388184,
 "match": "Exact",
+"src": "census_batch"
+},
+"545-547 olive pl|woodbridge": {
+"lat": 40.560103,
+"lon": -74.277409,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "546 4th ave|garwood": {
@@ -64766,6 +68084,12 @@
 "546 fourth ave|garwood": {
 "lat": 40.655973,
 "lon": -74.328556,
+"match": "Exact",
+"src": "census_batch"
+},
+"547 cedar ave|woodbridge": {
+"lat": 40.559924,
+"lon": -74.280325,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -65003,9 +68327,21 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"55 maple ave|woodbridge": {
+"lat": 40.531535,
+"lon": -74.317443,
+"match": "listing",
+"src": "listings.csv"
+},
 "55 mckinley ave|colonia": {
 "lat": 40.598154,
 "lon": -74.313212,
+"match": "Exact",
+"src": "census_batch"
+},
+"55 metuchen ave|woodbridge": {
+"lat": 40.551999,
+"lon": -74.289429,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -65225,6 +68561,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"554 barron ave|woodbridge": {
+"lat": 40.560098,
+"lon": -74.278985,
+"match": "Exact",
+"src": "census_batch"
+},
+"554 cedar ave|woodbridge": {
+"lat": 40.55999,
+"lon": -74.280178,
+"match": "Exact",
+"src": "census_batch"
+},
 "554 fairmont ave|westfield": {
 "lat": 40.653054,
 "lon": -74.338129,
@@ -65248,6 +68596,12 @@
 "lon": -74.32961,
 "match": "Exact",
 "src": "census_batch"
+},
+"555 e maple ave|woodbridge": {
+"lat": 40.560216,
+"lon": -74.282419,
+"match": "listing",
+"src": "listings.csv"
 },
 "555 hamburg tpke|wayne": {
 "lat": 40.95494,
@@ -65355,6 +68709,12 @@
 "lat": 40.713825,
 "lon": -74.330313,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"56 2nd st|woodbridge": {
+"lat": 40.553035,
+"lon": -74.278677,
+"match": "Exact",
 "src": "census_batch"
 },
 "56 alder ln|basking ridge": {
@@ -65699,6 +69059,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"564 bamford ave|woodbridge": {
+"lat": 40.559544,
+"lon": -74.270933,
+"match": "Exact",
+"src": "census_batch"
+},
 "564 highland ave|westfield": {
 "lat": 40.660237,
 "lon": -74.353468,
@@ -65751,6 +69117,12 @@
 "lat": 40.772609,
 "lon": -74.245658,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"57 alwat st|woodbridge": {
+"lat": 40.563599,
+"lon": -74.288603,
+"match": "Exact",
 "src": "census_batch"
 },
 "57 baldwin ct|basking ridge": {
@@ -66059,6 +69431,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"571 almon ave|woodbridge": {
+"lat": 40.560388,
+"lon": -74.27169,
+"match": "Exact",
+"src": "census_batch"
+},
 "571 eagle rock avenue|west orange": {
 "lat": 40.808637,
 "lon": -74.254143,
@@ -66083,9 +69461,27 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"573 garden ave|woodbridge": {
+"lat": 40.560671,
+"lon": -74.272533,
+"match": "Exact",
+"src": "census_batch"
+},
+"574 amboy ave # 572|woodbridge": {
+"lat": 40.560097,
+"lon": -74.285055,
+"match": "Exact",
+"src": "census_batch"
+},
 "575 black oak ridge rd|wayne": {
 "lat": 40.960082,
 "lon": -74.268665,
+"match": "Exact",
+"src": "census_batch"
+},
+"575 s lincoln ave|woodbridge": {
+"lat": 40.560469,
+"lon": -74.289359,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66098,6 +69494,36 @@
 "577 park street|montclair": {
 "lat": 40.85158,
 "lon": -74.195995,
+"match": "Exact",
+"src": "census_batch"
+},
+"577 rahway ave|woodbridge": {
+"lat": 40.561034,
+"lon": -74.274213,
+"match": "Exact",
+"src": "census_batch"
+},
+"578 garden ave|woodbridge": {
+"lat": 40.560656,
+"lon": -74.272168,
+"match": "listing",
+"src": "listings.csv"
+},
+"579 ellis pl|woodbridge": {
+"lat": 40.5612,
+"lon": -74.275549,
+"match": "Exact",
+"src": "census_batch"
+},
+"579 ridgedale ave|woodbridge": {
+"lat": 40.561786,
+"lon": -74.276336,
+"match": "Exact",
+"src": "census_batch"
+},
+"579 s lincoln ave|woodbridge": {
+"lat": 40.560578,
+"lon": -74.289356,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66461,6 +69887,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"580 garden ave|woodbridge": {
+"lat": 40.560761,
+"lon": -74.272127,
+"match": "listing",
+"src": "listings.csv"
+},
+"580 s garden ave|woodbridge": {
+"lat": 40.560761,
+"lon": -74.272127,
+"match": "listing",
+"src": "listings.csv"
+},
 "580 valley road|west orange": {
 "lat": 40.768165,
 "lon": -74.246839,
@@ -66485,9 +69923,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"582 garden ave|woodbridge": {
+"lat": 40.560827,
+"lon": -74.272101,
+"match": "listing",
+"src": "listings.csv"
+},
 "582 highland ave|montclair": {
 "lat": 40.858803,
 "lon": -74.20537,
+"match": "Exact",
+"src": "census_batch"
+},
+"582 linden ave|woodbridge": {
+"lat": 40.561296,
+"lon": -74.282951,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66515,11 +69965,35 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"584 garden ave|woodbridge": {
+"lat": 40.560916,
+"lon": -74.272278,
+"match": "Exact",
+"src": "census_batch"
+},
+"585 bamford ave|woodbridge": {
+"lat": 40.560567,
+"lon": -74.270676,
+"match": "Exact",
+"src": "census_batch"
+},
+"585 garden ave|woodbridge": {
+"lat": 40.561005,
+"lon": -74.272401,
+"match": "Exact",
+"src": "census_batch"
+},
 "585 highland ave|westfield": {
 "lat": 40.660294,
 "lon": -74.354554,
 "match": "Exact",
 "src": "census_batch"
+},
+"585 noe ave|woodbridge": {
+"lat": 40.561169,
+"lon": -74.284476,
+"match": "listing",
+"src": "listings.csv"
 },
 "585 trinity pl # 11|westfield": {
 "lat": 40.644559,
@@ -66548,6 +70022,18 @@
 "586 terhune dr|wayne": {
 "lat": 41.00795,
 "lon": -74.270306,
+"match": "Exact",
+"src": "census_batch"
+},
+"587 ellis pl|woodbridge": {
+"lat": 40.561248,
+"lon": -74.27554,
+"match": "Exact",
+"src": "census_batch"
+},
+"587 linden ave|woodbridge": {
+"lat": 40.561462,
+"lon": -74.283094,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66638,6 +70124,12 @@
 "59 chestnut ct|cedar grove": {
 "lat": 40.870113,
 "lon": -74.225883,
+"match": "Exact",
+"src": "census_batch"
+},
+"59 coley st|woodbridge": {
+"lat": 40.552246,
+"lon": -74.278574,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66845,6 +70337,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"59 trinity ln|woodbridge": {
+"lat": 40.562924,
+"lon": -74.271125,
+"match": "Exact",
+"src": "census_batch"
+},
 "59 tudor dr|clark": {
 "lat": 40.619928,
 "lon": -74.325264,
@@ -66872,6 +70370,12 @@
 "59 willow ave|garwood": {
 "lat": 40.651909,
 "lon": -74.31582,
+"match": "Exact",
+"src": "census_batch"
+},
+"59 willry st|woodbridge": {
+"lat": 40.562907,
+"lon": -74.288755,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66911,6 +70415,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"591 barron ave|woodbridge": {
+"lat": 40.56154,
+"lon": -74.279212,
+"match": "Exact",
+"src": "census_batch"
+},
 "591 highland ave|montclair": {
 "lat": 40.860154,
 "lon": -74.204519,
@@ -66929,15 +70439,45 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"592 garden ave|woodbridge": {
+"lat": 40.561139,
+"lon": -74.27219,
+"match": "Exact",
+"src": "census_batch"
+},
+"592 ridgedale ave|woodbridge": {
+"lat": 40.561933,
+"lon": -74.276153,
+"match": "Exact",
+"src": "census_batch"
+},
 "594 mountain ave|gillette": {
 "lat": 40.672516,
 "lon": -74.465449,
 "match": "Exact",
 "src": "census_batch"
 },
+"594 ridgedale ave|woodbridge": {
+"lat": 40.561957,
+"lon": -74.276148,
+"match": "Exact",
+"src": "census_batch"
+},
+"595 garden ave|woodbridge": {
+"lat": 40.561283,
+"lon": -74.272291,
+"match": "Exact",
+"src": "census_batch"
+},
 "595 hamburg tpke|wayne": {
 "lat": 40.955384,
 "lon": -74.218804,
+"match": "Exact",
+"src": "census_batch"
+},
+"595 s lincoln ave|woodbridge": {
+"lat": 40.56104,
+"lon": -74.289343,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -66952,6 +70492,12 @@
 "lon": -74.2697,
 "match": "listing",
 "src": "listings.csv"
+},
+"597 barron ave|woodbridge": {
+"lat": 40.561717,
+"lon": -74.279221,
+"match": "Exact",
+"src": "census_batch"
 },
 "59c 4 sandra cir unit 4|westfield": {
 "lat": 40.670087,
@@ -67280,6 +70826,12 @@
 "6 dowitcher ct|wayne": {
 "lat": 40.95378,
 "lon": -74.207624,
+"match": "Exact",
+"src": "census_batch"
+},
+"6 e grove ave|woodbridge": {
+"lat": 40.559148,
+"lon": -74.275388,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -67643,6 +71195,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"6 kosene st|woodbridge": {
+"lat": 40.552937,
+"lon": -74.293808,
+"match": "Exact",
+"src": "census_batch"
+},
 "6 kristen ct|wayne": {
 "lat": 40.988329,
 "lon": -74.256373,
@@ -67850,6 +71408,12 @@
 "6 persimmon way|springfield": {
 "lat": 40.69912,
 "lon": -74.346379,
+"match": "Exact",
+"src": "census_batch"
+},
+"6 peyser st|woodbridge": {
+"lat": 40.552031,
+"lon": -74.292198,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -68201,6 +71765,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"60 crampton ave|woodbridge": {
+"lat": 40.559266,
+"lon": -74.271397,
+"match": "Exact",
+"src": "census_batch"
+},
 "60 deerfield rd|wayne": {
 "lat": 40.967818,
 "lon": -74.273091,
@@ -68252,6 +71822,12 @@
 "60 grandview place|montclair": {
 "lat": 40.836587,
 "lon": -74.194746,
+"match": "Exact",
+"src": "census_batch"
+},
+"60 highview dr|woodbridge": {
+"lat": 40.549948,
+"lon": -74.305578,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -68477,6 +72053,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"601 bamford ave|woodbridge": {
+"lat": 40.561051,
+"lon": -74.270481,
+"match": "Exact",
+"src": "census_batch"
+},
 "601 brookside pl|cranford": {
 "lat": 40.660727,
 "lon": -74.321279,
@@ -68495,10 +72077,28 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"601 linden ave|woodbridge": {
+"lat": 40.561898,
+"lon": -74.28308,
+"match": "Exact",
+"src": "census_batch"
+},
 "601 phillip ln|watchung": {
 "lat": 40.661,
 "lon": -74.426346,
 "match": "Exact",
+"src": "census_batch"
+},
+"601 sharon ct|woodbridge": {
+"lat": 40.552362,
+"lon": -74.295315,
+"match": "Exact",
+"src": "census_batch"
+},
+"601 sharon garden ct|woodbridge": {
+"lat": 40.552362,
+"lon": -74.295315,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "601 upper mountain ave|montclair": {
@@ -68741,6 +72341,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"608 garden ave|woodbridge": {
+"lat": 40.561466,
+"lon": -74.272061,
+"match": "Exact",
+"src": "census_batch"
+},
 "608 hort st|westfield": {
 "lat": 40.645416,
 "lon": -74.360173,
@@ -68768,6 +72374,12 @@
 "609 ardsleigh dr|westfield": {
 "lat": 40.630267,
 "lon": -74.327691,
+"match": "Exact",
+"src": "census_batch"
+},
+"609 cricket ln|woodbridge": {
+"lat": 40.544671,
+"lon": -74.284129,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -68908,6 +72520,18 @@
 "lon": -74.381652,
 "match": "listing",
 "src": "listings.csv"
+},
+"61 golden sq unit a|woodbridge": {
+"lat": 40.56247,
+"lon": -74.293386,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"61 golden sq|woodbridge": {
+"lat": 40.56247,
+"lon": -74.293386,
+"match": "Exact",
+"src": "census_batch"
 },
 "61 grandview pl|montclair": {
 "lat": 40.836703,
@@ -69071,6 +72695,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"61 trinity ln|woodbridge": {
+"lat": 40.562914,
+"lon": -74.270975,
+"match": "Exact",
+"src": "census_batch"
+},
 "61 tuxedo road|montclair": {
 "lat": 40.817261,
 "lon": -74.203453,
@@ -69110,6 +72740,12 @@
 "61-63 claremont ave|montclair": {
 "lat": 40.812926,
 "lon": -74.208471,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"61-a golden sq|woodbridge": {
+"lat": 40.56247,
+"lon": -74.293386,
 "match": "Non_Exact",
 "src": "census_batch"
 },
@@ -69185,6 +72821,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"611 maple hill dr|woodbridge": {
+"lat": 40.552717,
+"lon": -74.302559,
+"match": "Exact",
+"src": "census_batch"
+},
 "612 brittany dr|wayne": {
 "lat": 40.965454,
 "lon": -74.240318,
@@ -69257,9 +72899,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"614 maple hill dr|woodbridge": {
+"lat": 40.55196,
+"lon": -74.302481,
+"match": "listing",
+"src": "listings.csv"
+},
 "614 raymond st|westfield": {
 "lat": 40.660668,
 "lon": -74.348202,
+"match": "Exact",
+"src": "census_batch"
+},
+"615 cricket ln|woodbridge": {
+"lat": 40.54464,
+"lon": -74.284196,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -69311,11 +72965,23 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"615 maple hill dr|woodbridge": {
+"lat": 40.552705,
+"lon": -74.30257,
+"match": "Exact",
+"src": "census_batch"
+},
 "615 ripley pl|westfield": {
 "lat": 40.649187,
 "lon": -74.337887,
 "match": "listing",
 "src": "listings.csv"
+},
+"615 sharon garden ct|woodbridge": {
+"lat": 40.55233,
+"lon": -74.29517,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "616 hillcrest ave|westfield": {
 "lat": 40.653644,
@@ -69353,10 +73019,40 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"619 bamford ave|woodbridge": {
+"lat": 40.561352,
+"lon": -74.270363,
+"match": "Exact",
+"src": "census_batch"
+},
+"619 cricket ln|woodbridge": {
+"lat": 40.54462,
+"lon": -74.284241,
+"match": "Exact",
+"src": "census_batch"
+},
 "619 ripley pl|westfield": {
 "lat": 40.649209,
 "lon": -74.33826,
 "match": "Exact",
+"src": "census_batch"
+},
+"619 sharon ct|woodbridge": {
+"lat": 40.55232,
+"lon": -74.295128,
+"match": "Exact",
+"src": "census_batch"
+},
+"619 sharon garden ct|woodbridge": {
+"lat": 40.55232,
+"lon": -74.295128,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"61a golden ct unit 611|woodbridge": {
+"lat": 40.56247,
+"lon": -74.293386,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "62 alder ln|basking ridge": {
@@ -69509,6 +73205,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"62 green st|woodbridge": {
+"lat": 40.557828,
+"lon": -74.279743,
+"match": "Exact",
+"src": "census_batch"
+},
 "62 guinard drive|watchung": {
 "lat": 40.639821,
 "lon": -74.452662,
@@ -69530,6 +73232,12 @@
 "62 hickory rd|colonia": {
 "lat": 40.601205,
 "lon": -74.325908,
+"match": "Exact",
+"src": "census_batch"
+},
+"62 highview dr unit 62|woodbridge": {
+"lat": 40.549975,
+"lon": -74.305581,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -69671,6 +73379,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"621 cricket ln unit 621|woodbridge": {
+"lat": 40.543999,
+"lon": -74.284553,
+"match": "listing",
+"src": "listings.csv"
+},
 "621 green briar ct|westfield": {
 "lat": 40.631488,
 "lon": -74.331625,
@@ -69701,6 +73415,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"622 linden ave|woodbridge": {
+"lat": 40.562706,
+"lon": -74.28291,
+"match": "Exact",
+"src": "census_batch"
+},
 "622 prospect st|westfield": {
 "lat": 40.656252,
 "lon": -74.358946,
@@ -69710,6 +73430,12 @@
 "622 saint marks ave|westfield": {
 "lat": 40.655591,
 "lon": -74.338813,
+"match": "Exact",
+"src": "census_batch"
+},
+"623 cricket ln|woodbridge": {
+"lat": 40.544599,
+"lon": -74.284286,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -69737,6 +73463,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"624 lyman ave|woodbridge": {
+"lat": 40.562439,
+"lon": -74.290213,
+"match": "Exact",
+"src": "census_batch"
+},
 "624 n scotch plains ave|westfield": {
 "lat": 40.646054,
 "lon": -74.363688,
@@ -69761,6 +73493,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"625 sharon ct|woodbridge": {
+"lat": 40.552304,
+"lon": -74.295099,
+"match": "Exact",
+"src": "census_batch"
+},
+"625 sharon garden ct|woodbridge": {
+"lat": 40.552304,
+"lon": -74.295099,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "626 boulevard|westfield": {
 "lat": 40.645434,
 "lon": -74.342961,
@@ -69773,6 +73517,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"627 bamford ave|woodbridge": {
+"lat": 40.561485,
+"lon": -74.270311,
+"match": "Exact",
+"src": "census_batch"
+},
 "627 fairfield cir|westfield": {
 "lat": 40.646135,
 "lon": -74.340573,
@@ -69782,6 +73532,12 @@
 "628 benson pl|westfield": {
 "lat": 40.655847,
 "lon": -74.33142,
+"match": "Exact",
+"src": "census_batch"
+},
+"628 cricket ln|woodbridge": {
+"lat": 40.544569,
+"lon": -74.284353,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -69802,6 +73558,12 @@
 "lon": -74.336179,
 "match": "listing",
 "src": "listings.csv"
+},
+"628 sharon garden ct|woodbridge": {
+"lat": 40.55215,
+"lon": -74.295066,
+"match": "Exact",
+"src": "census_batch"
 },
 "629 clark st|westfield": {
 "lat": 40.654189,
@@ -70025,6 +73787,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"63 lyons ave|woodbridge": {
+"lat": 40.571263,
+"lon": -74.277504,
+"match": "listing",
+"src": "listings.csv"
+},
 "63 maple lane|wayne": {
 "lat": 40.973809,
 "lon": -74.276582,
@@ -70181,6 +73949,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"630 ridgewood ave|woodbridge": {
+"lat": 40.562282,
+"lon": -74.274873,
+"match": "Exact",
+"src": "census_batch"
+},
 "630 valley rd|gillette": {
 "lat": 40.674583,
 "lon": -74.465378,
@@ -70241,6 +74015,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"633 s lincoln ave|woodbridge": {
+"lat": 40.562041,
+"lon": -74.289506,
+"match": "listing",
+"src": "listings.csv"
+},
 "634 fanwood ave|scotch plains": {
 "lat": 40.661095,
 "lon": -74.375012,
@@ -70268,6 +74048,12 @@
 "635 alps rd|wayne": {
 "lat": 40.92885,
 "lon": -74.244508,
+"match": "Exact",
+"src": "census_batch"
+},
+"635 barron ave|woodbridge": {
+"lat": 40.562975,
+"lon": -74.27929,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70307,6 +74093,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"636 ridgedale ave|woodbridge": {
+"lat": 40.562646,
+"lon": -74.276041,
+"match": "Exact",
+"src": "census_batch"
+},
 "636 roosevelt st|westfield": {
 "lat": 40.64564,
 "lon": -74.361193,
@@ -70319,9 +74111,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"637 harrell ave|woodbridge": {
+"lat": 40.563043,
+"lon": -74.28062,
+"match": "Exact",
+"src": "census_batch"
+},
 "638 boulevard|westfield": {
 "lat": 40.645239,
 "lon": -74.342591,
+"match": "Exact",
+"src": "census_batch"
+},
+"638 linden ave|woodbridge": {
+"lat": 40.563307,
+"lon": -74.282896,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70331,9 +74135,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"638 s lincoln ave|woodbridge": {
+"lat": 40.56208,
+"lon": -74.289157,
+"match": "Exact",
+"src": "census_batch"
+},
 "638 w broad st|westfield": {
 "lat": 40.642767,
 "lon": -74.357474,
+"match": "Exact",
+"src": "census_batch"
+},
+"639 cricket ln|woodbridge": {
+"lat": 40.544518,
+"lon": -74.284465,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70679,6 +74495,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"641 cricket ln|woodbridge": {
+"lat": 40.544508,
+"lon": -74.284487,
+"match": "Exact",
+"src": "census_batch"
+},
 "641 embree cres|westfield": {
 "lat": 40.653287,
 "lon": -74.362135,
@@ -70688,6 +74510,12 @@
 "641 long hill rd|gillette": {
 "lat": 40.685245,
 "lon": -74.470045,
+"match": "Exact",
+"src": "census_batch"
+},
+"641 ridgedale ave|woodbridge": {
+"lat": 40.563303,
+"lon": -74.276101,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70727,9 +74555,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"644 cricket ln|woodbridge": {
+"lat": 40.544487,
+"lon": -74.284532,
+"match": "Exact",
+"src": "census_batch"
+},
 "644 kimball ave|westfield": {
 "lat": 40.660341,
 "lon": -74.346825,
+"match": "Exact",
+"src": "census_batch"
+},
+"645 cricket ln|woodbridge": {
+"lat": 40.544487,
+"lon": -74.284532,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70742,6 +74582,12 @@
 "645 raymond st|westfield": {
 "lat": 40.661422,
 "lon": -74.347607,
+"match": "Exact",
+"src": "census_batch"
+},
+"645 ridgedale ave|woodbridge": {
+"lat": 40.563421,
+"lon": -74.276085,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70775,6 +74621,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"648 cricket ln|woodbridge": {
+"lat": 40.54437,
+"lon": -74.284105,
+"match": "listing",
+"src": "listings.csv"
+},
+"648 ridgedale ave|woodbridge": {
+"lat": 40.563304,
+"lon": -74.275949,
+"match": "Exact",
+"src": "census_batch"
+},
 "648 w broad st|westfield": {
 "lat": 40.642662,
 "lon": -74.357583,
@@ -70784,6 +74642,12 @@
 "649 hillcrest ave|westfield": {
 "lat": 40.654232,
 "lon": -74.335288,
+"match": "Exact",
+"src": "census_batch"
+},
+"649 rahway ave|woodbridge": {
+"lat": 40.563296,
+"lon": -74.273535,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -70901,6 +74765,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"65 green st|woodbridge": {
+"lat": 40.557712,
+"lon": -74.279889,
+"match": "Exact",
+"src": "census_batch"
+},
 "65 harrison ave|west orange": {
 "lat": 40.794121,
 "lon": -74.230872,
@@ -70918,6 +74788,12 @@
 "lon": -74.245001,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"65 hunter ln|woodbridge": {
+"lat": 40.553977,
+"lon": -74.289894,
+"match": "listing",
+"src": "listings.csv"
 },
 "65 jamestown rd|basking ridge": {
 "lat": 40.659296,
@@ -70994,6 +74870,12 @@
 "65 rosemont ter|west orange": {
 "lat": 40.820138,
 "lon": -74.257126,
+"match": "Exact",
+"src": "census_batch"
+},
+"65 russell st|woodbridge": {
+"lat": 40.544704,
+"lon": -74.274779,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -71087,6 +74969,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"651 s lincoln ave|woodbridge": {
+"lat": 40.56239,
+"lon": -74.289296,
+"match": "Exact",
+"src": "census_batch"
+},
 "652 w broad st|westfield": {
 "lat": 40.64262,
 "lon": -74.357627,
@@ -71110,6 +74998,30 @@
 "lon": -74.207282,
 "match": "Exact",
 "src": "census_batch"
+},
+"655 rahway ave|woodbridge": {
+"lat": 40.56358,
+"lon": -74.273455,
+"match": "Exact",
+"src": "census_batch"
+},
+"655 ridgedale ave|woodbridge": {
+"lat": 40.563716,
+"lon": -74.276043,
+"match": "Exact",
+"src": "census_batch"
+},
+"656 saint george ave|woodbridge": {
+"lat": 40.563434,
+"lon": -74.285283,
+"match": "Exact",
+"src": "census_batch"
+},
+"657 barron ave|woodbridge": {
+"lat": 40.563698,
+"lon": -74.279672,
+"match": "listing",
+"src": "listings.csv"
 },
 "657 indian rd|wayne": {
 "lat": 41.006358,
@@ -71435,11 +75347,23 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"660 leone st|woodbridge": {
+"lat": 40.564119,
+"lon": -74.271341,
+"match": "Exact",
+"src": "census_batch"
+},
 "660 myrtle ave|garwood": {
 "lat": 40.649019,
 "lon": -74.331898,
 "match": "Exact",
 "src": "census_batch"
+},
+"661 leone st|woodbridge": {
+"lat": 40.563754,
+"lon": -74.271592,
+"match": "listing",
+"src": "listings.csv"
 },
 "662 prospect avenue|west orange": {
 "lat": 40.778677,
@@ -71669,6 +75593,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"67 lyon ave|woodbridge": {
+"lat": 40.571335,
+"lon": -74.277166,
+"match": "Exact",
+"src": "census_batch"
+},
 "67 madison st|gillette": {
 "lat": 40.672269,
 "lon": -74.476217,
@@ -71759,9 +75689,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"670 barron ave|woodbridge": {
+"lat": 40.564047,
+"lon": -74.2792,
+"match": "Exact",
+"src": "census_batch"
+},
 "670 prospect avenue|west orange": {
 "lat": 40.778236,
 "lon": -74.261744,
+"match": "Exact",
+"src": "census_batch"
+},
+"671 barron ave|woodbridge": {
+"lat": 40.564267,
+"lon": -74.279364,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -71860,6 +75802,12 @@
 "lon": -74.341747,
 "match": "Exact",
 "src": "census_batch"
+},
+"678 ridgedale ave|woodbridge": {
+"lat": 40.56455,
+"lon": -74.275559,
+"match": "listing",
+"src": "listings.csv"
 },
 "679 valley rd|gillette": {
 "lat": 40.673605,
@@ -72071,6 +76019,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"68 port reading ave|woodbridge": {
+"lat": 40.562467,
+"lon": -74.270519,
+"match": "listing",
+"src": "listings.csv"
+},
 "68 seneca trail|wayne": {
 "lat": 40.928261,
 "lon": -74.25133,
@@ -72131,6 +76085,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"682 leone st|woodbridge": {
+"lat": 40.564554,
+"lon": -74.271467,
+"match": "Exact",
+"src": "census_batch"
+},
 "683 gallows hill rd|cranford": {
 "lat": 40.660299,
 "lon": -74.323328,
@@ -72146,6 +76106,12 @@
 "684 westfield ave|westfield": {
 "lat": 40.642279,
 "lon": -74.343651,
+"match": "Exact",
+"src": "census_batch"
+},
+"685 barron ave|woodbridge": {
+"lat": 40.564809,
+"lon": -74.279394,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -72327,6 +76293,12 @@
 "lat": 40.777872,
 "lon": -74.291108,
 "match": "Exact",
+"src": "census_batch"
+},
+"69 highview dr|woodbridge": {
+"lat": 40.560756,
+"lon": -74.281364,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "69 lapis cir|west orange": {
@@ -72953,6 +76925,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"7 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "7 irene place|wayne": {
 "lat": 40.947849,
 "lon": -74.262803,
@@ -73016,6 +76994,12 @@
 "7 korwel ct|west orange": {
 "lat": 40.7696,
 "lon": -74.291944,
+"match": "Exact",
+"src": "census_batch"
+},
+"7 kosene st|woodbridge": {
+"lat": 40.552666,
+"lon": -74.294011,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -73865,6 +77849,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"70 lockwood ave|woodbridge": {
+"lat": 40.569697,
+"lon": -74.273687,
+"match": "Exact",
+"src": "census_batch"
+},
 "70 mayfair dr|west orange": {
 "lat": 40.819276,
 "lon": -74.258811,
@@ -73949,6 +77939,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"70 spring st|woodbridge": {
+"lat": 40.55181,
+"lon": -74.277986,
+"match": "listing",
+"src": "listings.csv"
+},
 "70 surrey ln|colonia": {
 "lat": 40.584706,
 "lon": -74.312373,
@@ -74006,6 +78002,12 @@
 "700 tamaques way|westfield": {
 "lat": 40.629347,
 "lon": -74.331575,
+"match": "Exact",
+"src": "census_batch"
+},
+"701 amboy ave|woodbridge": {
+"lat": 40.563633,
+"lon": -74.286368,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74069,9 +78071,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"702 maple hill dr|woodbridge": {
+"lat": 40.551996,
+"lon": -74.30347,
+"match": "Exact",
+"src": "census_batch"
+},
 "702 park place|springfield": {
 "lat": 40.681622,
 "lon": -74.328074,
+"match": "Exact",
+"src": "census_batch"
+},
+"702 sharon garden ct|woodbridge": {
+"lat": 40.551782,
+"lon": -74.295149,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74086,6 +78100,12 @@
 "lon": -74.239839,
 "match": "Exact",
 "src": "census_batch"
+},
+"703 cricket ln|woodbridge": {
+"lat": 40.544105,
+"lon": -74.285161,
+"match": "listing",
+"src": "listings.csv"
 },
 "703 donato circle|scotch plains": {
 "lat": 40.657529,
@@ -74102,6 +78122,12 @@
 "703 st marks ave|westfield": {
 "lat": 40.65697,
 "lon": -74.337489,
+"match": "Exact",
+"src": "census_batch"
+},
+"704 cricket ln unit 704|woodbridge": {
+"lat": 40.54414,
+"lon": -74.285295,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74153,6 +78179,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"705 sharon garden ct|woodbridge": {
+"lat": 40.55266,
+"lon": -74.2961,
+"match": "Exact",
+"src": "census_batch"
+},
 "706 holly ln # 78|cedar grove": {
 "lat": 40.866751,
 "lon": -74.233246,
@@ -74189,6 +78221,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"706 sharon garden ct|woodbridge": {
+"lat": 40.552656,
+"lon": -74.296081,
+"match": "Exact",
+"src": "census_batch"
+},
 "707 embree crescent|westfield": {
 "lat": 40.654069,
 "lon": -74.363116,
@@ -74218,6 +78256,12 @@
 "lon": -74.360445,
 "match": "listing",
 "src": "listings.csv"
+},
+"707 sharon garden ct|woodbridge": {
+"lat": 40.552656,
+"lon": -74.296081,
+"match": "Exact",
+"src": "census_batch"
 },
 "708 brittany dr|wayne": {
 "lat": 40.96552,
@@ -74327,11 +78371,23 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"71 crampton ave|woodbridge": {
+"lat": 40.559282,
+"lon": -74.270938,
+"match": "Exact",
+"src": "census_batch"
+},
 "71 fairview ave|west orange": {
 "lat": 40.776006,
 "lon": -74.271807,
 "match": "Exact",
 "src": "census_batch"
+},
+"71 highview dr|woodbridge": {
+"lat": 40.550126,
+"lon": -74.305942,
+"match": "listing",
+"src": "listings.csv"
 },
 "71 jamestown rd|basking ridge": {
 "lat": 40.659281,
@@ -74429,6 +78485,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"71 russell st|woodbridge": {
+"lat": 40.544811,
+"lon": -74.274861,
+"match": "Exact",
+"src": "census_batch"
+},
 "71 s hill rd|colonia": {
 "lat": 40.576352,
 "lon": -74.296976,
@@ -74446,6 +78508,12 @@
 "lon": -74.343427,
 "match": "listing",
 "src": "listings.csv"
+},
+"71 trinity ln|woodbridge": {
+"lat": 40.562906,
+"lon": -74.270842,
+"match": "Exact",
+"src": "census_batch"
 },
 "71 valleyview rd|watchung": {
 "lat": 40.63846,
@@ -74516,6 +78584,12 @@
 "710 girard ave|westfield": {
 "lat": 40.666209,
 "lon": -74.346464,
+"match": "Exact",
+"src": "census_batch"
+},
+"710 harrell ave|woodbridge": {
+"lat": 40.565584,
+"lon": -74.28061,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74603,6 +78677,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"713 cricket ln|woodbridge": {
+"lat": 40.544024,
+"lon": -74.285363,
+"match": "Exact",
+"src": "census_batch"
+},
 "713 first st|westfield": {
 "lat": 40.640895,
 "lon": -74.357271,
@@ -74657,6 +78737,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"716 barron ave|woodbridge": {
+"lat": 40.565784,
+"lon": -74.279299,
+"match": "Exact",
+"src": "census_batch"
+},
 "716 belvidere ave|westfield": {
 "lat": 40.664224,
 "lon": -74.349727,
@@ -74699,6 +78785,18 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"717 barron ave|woodbridge": {
+"lat": 40.565894,
+"lon": -74.279457,
+"match": "Exact",
+"src": "census_batch"
+},
+"717 cricket ln|woodbridge": {
+"lat": 40.543957,
+"lon": -74.285385,
+"match": "Exact",
+"src": "census_batch"
+},
 "717 hyslip ave|westfield": {
 "lat": 40.638065,
 "lon": -74.348413,
@@ -74711,9 +78809,21 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"717 saint george ave|woodbridge": {
+"lat": 40.564948,
+"lon": -74.285847,
+"match": "Exact",
+"src": "census_batch"
+},
 "717 valley road|watchung": {
 "lat": 40.653747,
 "lon": -74.427703,
+"match": "Exact",
+"src": "census_batch"
+},
+"718 cricket ln|woodbridge": {
+"lat": 40.544108,
+"lon": -74.285335,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74828,6 +78938,12 @@
 "72 gillette rd|gillette": {
 "lat": 40.688063,
 "lon": -74.470375,
+"match": "Exact",
+"src": "census_batch"
+},
+"72 golden sq unit 72c|woodbridge": {
+"lat": 40.562555,
+"lon": -74.293553,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -74957,6 +79073,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"72-74 coley st|woodbridge": {
+"lat": 40.552351,
+"lon": -74.27891,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"72-c golden sq|woodbridge": {
+"lat": 40.562555,
+"lon": -74.293553,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "72-d troy dr bldg 18|springfield": {
 "lat": 40.713001,
 "lon": -74.329561,
@@ -74992,6 +79120,12 @@
 "lon": -74.363307,
 "match": "Exact",
 "src": "census_batch"
+},
+"720 ford ave|woodbridge": {
+"lat": 40.552959,
+"lon": -74.324199,
+"match": "listing",
+"src": "listings.csv"
 },
 "720 harding st|westfield": {
 "lat": 40.657132,
@@ -75137,6 +79271,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"728 cricket ln|woodbridge": {
+"lat": 40.544043,
+"lon": -74.285356,
+"match": "Exact",
+"src": "census_batch"
+},
 "728 fairacres ave|westfield": {
 "lat": 40.658697,
 "lon": -74.338101,
@@ -75197,6 +79337,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"73 caroline st|woodbridge": {
+"lat": 40.550746,
+"lon": -74.27778,
+"match": "Exact",
+"src": "census_batch"
+},
 "73 colonial rd|wayne": {
 "lat": 40.926347,
 "lon": -74.2126,
@@ -75244,6 +79390,12 @@
 "lon": -74.29594,
 "match": "Exact",
 "src": "census_batch"
+},
+"73 isabelle st|woodbridge": {
+"lat": 40.55395,
+"lon": -74.327424,
+"match": "listing",
+"src": "listings.csv"
 },
 "73 james ave|clark": {
 "lat": 40.634506,
@@ -75347,6 +79499,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"730 cricket ln|woodbridge": {
+"lat": 40.54403,
+"lon": -74.285361,
+"match": "Exact",
+"src": "census_batch"
+},
 "730 eagle rock ave|west orange": {
 "lat": 40.812211,
 "lon": -74.266864,
@@ -75431,6 +79589,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"733 cricket ln|woodbridge": {
+"lat": 40.543511,
+"lon": -74.285154,
+"match": "listing",
+"src": "listings.csv"
+},
 "733 summit ave|westfield": {
 "lat": 40.64274,
 "lon": -74.340295,
@@ -75440,6 +79604,12 @@
 "733 willow st|cranford": {
 "lat": 40.663829,
 "lon": -74.314968,
+"match": "Exact",
+"src": "census_batch"
+},
+"734 cricket ln|woodbridge": {
+"lat": 40.544004,
+"lon": -74.285369,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -75461,6 +79631,24 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"735 chalet dr|woodbridge": {
+"lat": 40.566584,
+"lon": -74.278594,
+"match": "Exact",
+"src": "census_batch"
+},
+"735 cricket ln unit 735|woodbridge": {
+"lat": 40.543658,
+"lon": -74.285429,
+"match": "Exact",
+"src": "census_batch"
+},
+"735 cricket ln|woodbridge": {
+"lat": 40.543658,
+"lon": -74.285429,
+"match": "Exact",
+"src": "census_batch"
+},
 "735 radley rd|westfield": {
 "lat": 40.634453,
 "lon": -74.350804,
@@ -75476,6 +79664,12 @@
 "736 fairacres ave|westfield": {
 "lat": 40.658824,
 "lon": -74.337574,
+"match": "listing",
+"src": "listings.csv"
+},
+"736 harrell ave|woodbridge": {
+"lat": 40.566375,
+"lon": -74.280379,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -75509,9 +79703,21 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"739 ridgedale ave|woodbridge": {
+"lat": 40.566575,
+"lon": -74.275884,
+"match": "listing",
+"src": "listings.csv"
+},
 "739 willow st|cranford": {
 "lat": 40.663922,
 "lon": -74.315142,
+"match": "Exact",
+"src": "census_batch"
+},
+"74 albert st|woodbridge": {
+"lat": 40.55018,
+"lon": -74.277751,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -75629,6 +79835,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"74 main st|woodbridge": {
+"lat": 40.554344,
+"lon": -74.279356,
+"match": "Exact",
+"src": "census_batch"
+},
 "74 malvern dr|clark": {
 "lat": 40.623821,
 "lon": -74.292168,
@@ -75710,6 +79922,12 @@
 "74 russell rd|fanwood": {
 "lat": 40.641734,
 "lon": -74.389563,
+"match": "Exact",
+"src": "census_batch"
+},
+"74 spring st|woodbridge": {
+"lat": 40.551669,
+"lon": -74.277996,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -75866,6 +80084,12 @@
 "748 tamaques way|westfield": {
 "lat": 40.62847,
 "lon": -74.330781,
+"match": "Exact",
+"src": "census_batch"
+},
+"749 barron ave|woodbridge": {
+"lat": 40.566763,
+"lon": -74.279508,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -76085,6 +80309,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"75 strawberry hill ave|woodbridge": {
+"lat": 40.545085,
+"lon": -74.274046,
+"match": "Exact",
+"src": "census_batch"
+},
 "75 sunrise ter|cedar grove": {
 "lat": 40.855298,
 "lon": -74.235749,
@@ -76103,10 +80333,28 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"75-a golden sq|woodbridge": {
+"lat": 40.562659,
+"lon": -74.29348,
+"match": "Non_Exact",
+"src": "census_batch"
+},
 "75-c troy dr bldg 10|springfield": {
 "lat": 40.714332,
 "lon": -74.331246,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"750 ridgedale ave|woodbridge": {
+"lat": 40.567021,
+"lon": -74.275453,
+"match": "Exact",
+"src": "census_batch"
+},
+"751 chalet dr|woodbridge": {
+"lat": 40.567339,
+"lon": -74.278599,
+"match": "Exact",
 "src": "census_batch"
 },
 "751 crescent pkwy|westfield": {
@@ -76114,6 +80362,12 @@
 "lon": -74.347909,
 "match": "Exact",
 "src": "census_batch"
+},
+"751 rutherford ave|woodbridge": {
+"lat": 40.567726,
+"lon": -74.278041,
+"match": "listing",
+"src": "listings.csv"
 },
 "751 s middlesex ave|colonia": {
 "lat": 40.5833,
@@ -76493,6 +80747,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"760 coolidge ave|woodbridge": {
+"lat": 40.567116,
+"lon": -74.28147,
+"match": "listing",
+"src": "listings.csv"
+},
 "760 lawrence ave|westfield": {
 "lat": 40.660572,
 "lon": -74.357685,
@@ -76568,6 +80828,12 @@
 "765 first st|westfield": {
 "lat": 40.639962,
 "lon": -74.358299,
+"match": "Exact",
+"src": "census_batch"
+},
+"765 harrell ave|woodbridge": {
+"lat": 40.567424,
+"lon": -74.28087,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -76718,6 +80984,12 @@
 "77 harper ter|cedar grove": {
 "lat": 40.838622,
 "lon": -74.231042,
+"match": "Exact",
+"src": "census_batch"
+},
+"77 highview dr|woodbridge": {
+"lat": 40.550359,
+"lon": -74.305457,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -76919,6 +81191,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"772 harrell ave|woodbridge": {
+"lat": 40.568059,
+"lon": -74.28076,
+"match": "Exact",
+"src": "census_batch"
+},
 "772 meyersville rd|gillette": {
 "lat": 40.687415,
 "lon": -74.476428,
@@ -76940,6 +81218,18 @@
 "775 oak ave|westfield": {
 "lat": 40.664304,
 "lon": -74.345645,
+"match": "Exact",
+"src": "census_batch"
+},
+"776 harrell ave|woodbridge": {
+"lat": 40.567763,
+"lon": -74.280463,
+"match": "listing",
+"src": "listings.csv"
+},
+"777 harrell ave|woodbridge": {
+"lat": 40.567896,
+"lon": -74.280901,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -76994,6 +81284,12 @@
 "78 commonwealth dr|basking ridge": {
 "lat": 40.66099,
 "lon": -74.536088,
+"match": "Exact",
+"src": "census_batch"
+},
+"78 craske st|woodbridge": {
+"lat": 40.566551,
+"lon": -74.273956,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -77105,6 +81401,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"78 schoder ave|woodbridge": {
+"lat": 40.565691,
+"lon": -74.274699,
+"match": "Exact",
+"src": "census_batch"
+},
 "78 shady ln|fanwood": {
 "lat": 40.64287,
 "lon": -74.373834,
@@ -77120,6 +81422,12 @@
 "78 skytop rd|cedar grove": {
 "lat": 40.858818,
 "lon": -74.243837,
+"match": "Exact",
+"src": "census_batch"
+},
+"78 spring st|woodbridge": {
+"lat": 40.551671,
+"lon": -74.278045,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -77225,6 +81533,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"783 aborn ave|woodbridge": {
+"lat": 40.567663,
+"lon": -74.282738,
+"match": "Exact",
+"src": "census_batch"
+},
 "783 long hill rd|gillette": {
 "lat": 40.683418,
 "lon": -74.476052,
@@ -77252,6 +81566,12 @@
 "785 clarence st|westfield": {
 "lat": 40.638106,
 "lon": -74.357567,
+"match": "Exact",
+"src": "census_batch"
+},
+"785 harrell ave|woodbridge": {
+"lat": 40.568211,
+"lon": -74.280921,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -77486,6 +81806,12 @@
 "795 black oak ridge rd|wayne": {
 "lat": 40.967336,
 "lon": -74.269191,
+"match": "Exact",
+"src": "census_batch"
+},
+"795 chalet dr|woodbridge": {
+"lat": 40.568827,
+"lon": -74.278934,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -77963,6 +82289,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"8 highview dr|woodbridge": {
+"lat": 40.548329,
+"lon": -74.304605,
+"match": "Exact",
+"src": "census_batch"
+},
 "8 himsl court|west orange": {
 "lat": 40.776094,
 "lon": -74.292751,
@@ -77972,6 +82304,12 @@
 "8 himsl ct|west orange": {
 "lat": 40.776094,
 "lon": -74.292751,
+"match": "Exact",
+"src": "census_batch"
+},
+"8 hollywood dr|woodbridge": {
+"lat": 40.552259,
+"lon": -74.288696,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -77996,6 +82334,12 @@
 "8 kevin rd|scotch plains": {
 "lat": 40.626707,
 "lon": -74.384464,
+"match": "Exact",
+"src": "census_batch"
+},
+"8 kosene st|woodbridge": {
+"lat": 40.553264,
+"lon": -74.293747,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -78455,6 +82799,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"8 wallace st|woodbridge": {
+"lat": 40.5532,
+"lon": -74.275651,
+"match": "Exact",
+"src": "census_batch"
+},
 "8 watson avenue|west orange": {
 "lat": 40.792717,
 "lon": -74.225415,
@@ -78545,6 +82895,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"80 2nd st|woodbridge": {
+"lat": 40.552901,
+"lon": -74.279178,
+"match": "Exact",
+"src": "census_batch"
+},
 "80 alexandria way|basking ridge": {
 "lat": 40.66224,
 "lon": -74.545662,
@@ -78596,6 +82952,12 @@
 "80 carrar dr|watchung": {
 "lat": 40.620981,
 "lon": -74.474246,
+"match": "Exact",
+"src": "census_batch"
+},
+"80 coley st|woodbridge": {
+"lat": 40.552347,
+"lon": -74.279051,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -78851,6 +83213,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"801 cricket ln|woodbridge": {
+"lat": 40.543459,
+"lon": -74.285548,
+"match": "Exact",
+"src": "census_batch"
+},
 "801 four seasons dr unit 801|wayne": {
 "lat": 40.952422,
 "lon": -74.217909,
@@ -78878,6 +83246,12 @@
 "8018 brittany dr|wayne": {
 "lat": 40.966409,
 "lon": -74.237754,
+"match": "Exact",
+"src": "census_batch"
+},
+"802 cricket ln|woodbridge": {
+"lat": 40.543406,
+"lon": -74.285679,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -79013,6 +83387,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"807 maple hill dr unit 807|woodbridge": {
+"lat": 40.552097,
+"lon": -74.303109,
+"match": "Exact",
+"src": "census_batch"
+},
 "807 mountain ave apt b|springfield": {
 "lat": 40.68858,
 "lon": -74.333402,
@@ -79034,6 +83414,12 @@
 "808 riverbend dr|clark": {
 "lat": 40.6328,
 "lon": -74.283918,
+"match": "Exact",
+"src": "census_batch"
+},
+"809 sharon garden ct unit 809|woodbridge": {
+"lat": 40.552436,
+"lon": -74.295112,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -79175,6 +83561,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"81 lockwood ave|woodbridge": {
+"lat": 40.56936,
+"lon": -74.273042,
+"match": "listing",
+"src": "listings.csv"
+},
 "81 mapes ave|springfield": {
 "lat": 40.692102,
 "lon": -74.334616,
@@ -79283,6 +83675,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"810 cricket ln|woodbridge": {
+"lat": 40.543201,
+"lon": -74.286173,
+"match": "Exact",
+"src": "census_batch"
+},
 "810 donato circle|scotch plains": {
 "lat": 40.65788,
 "lon": -74.400968,
@@ -79300,6 +83698,12 @@
 "lon": -74.240431,
 "match": "listing",
 "src": "listings.csv"
+},
+"811 coolidge ave|woodbridge": {
+"lat": 40.568824,
+"lon": -74.281931,
+"match": "Exact",
+"src": "census_batch"
 },
 "811 donato cir|scotch plains": {
 "lat": 40.658166,
@@ -79355,6 +83759,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"812 sharon garden ct|woodbridge": {
+"lat": 40.551614,
+"lon": -74.294725,
+"match": "listing",
+"src": "listings.csv"
+},
 "812 sherbrooke dr|westfield": {
 "lat": 40.659332,
 "lon": -74.333607,
@@ -79391,6 +83801,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"815 ridgedale ave|woodbridge": {
+"lat": 40.569415,
+"lon": -74.275027,
+"match": "Exact",
+"src": "census_batch"
+},
 "815 wallberg ave|westfield": {
 "lat": 40.666634,
 "lon": -74.346249,
@@ -79403,9 +83819,21 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"816 cricket ln|woodbridge": {
+"lat": 40.542908,
+"lon": -74.285941,
+"match": "listing",
+"src": "listings.csv"
+},
 "816 e broad st|westfield": {
 "lat": 40.66189,
 "lon": -74.337101,
+"match": "Exact",
+"src": "census_batch"
+},
+"816 sharon garden ct|woodbridge": {
+"lat": 40.552401,
+"lon": -74.295017,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -79420,6 +83848,12 @@
 "lon": -74.337792,
 "match": "Exact",
 "src": "census_batch"
+},
+"818 cricket ln|woodbridge": {
+"lat": 40.542988,
+"lon": -74.286094,
+"match": "listing",
+"src": "listings.csv"
 },
 "818 summit ave|westfield": {
 "lat": 40.64131,
@@ -79493,6 +83927,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"82 golden sq # 823|woodbridge": {
+"lat": 40.562632,
+"lon": -74.293665,
+"match": "Exact",
+"src": "census_batch"
+},
+"82 golden sq|woodbridge": {
+"lat": 40.562632,
+"lon": -74.293665,
+"match": "Exact",
+"src": "census_batch"
+},
 "82 grove st|montclair": {
 "lat": 40.812944,
 "lon": -74.210341,
@@ -79532,6 +83978,12 @@
 "82 little falls rd|cedar grove": {
 "lat": 40.857206,
 "lon": -74.22834,
+"match": "Exact",
+"src": "census_batch"
+},
+"82 main st|woodbridge": {
+"lat": 40.554256,
+"lon": -74.279743,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -79612,6 +84064,12 @@
 "lon": -74.208588,
 "match": "listing",
 "src": "listings.csv"
+},
+"82-c golden sq|woodbridge": {
+"lat": 40.562632,
+"lon": -74.293665,
+"match": "Non_Exact",
+"src": "census_batch"
 },
 "820 e broad st|westfield": {
 "lat": 40.662359,
@@ -79773,6 +84231,18 @@
 "lat": 40.6657,
 "lon": -74.315977,
 "match": "Exact",
+"src": "census_batch"
+},
+"829 harrell ave|woodbridge": {
+"lat": 40.569539,
+"lon": -74.281182,
+"match": "listing",
+"src": "listings.csv"
+},
+"82c golden sq # 823|woodbridge": {
+"lat": 40.562632,
+"lon": -74.293665,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "83 alder ln|basking ridge": {
@@ -79955,6 +84425,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"831 cricket ln|woodbridge": {
+"lat": 40.543528,
+"lon": -74.285697,
+"match": "Exact",
+"src": "census_batch"
+},
 "831 harding st|westfield": {
 "lat": 40.658989,
 "lon": -74.332545,
@@ -79994,6 +84470,12 @@
 "832 valley rd|watchung": {
 "lat": 40.655965,
 "lon": -74.422896,
+"match": "Exact",
+"src": "census_batch"
+},
+"834 cricket ln unit 834|woodbridge": {
+"lat": 40.543402,
+"lon": -74.285689,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -80049,6 +84531,18 @@
 "lat": 40.714422,
 "lon": -74.331704,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"84 albert st|woodbridge": {
+"lat": 40.549999,
+"lon": -74.278362,
+"match": "Exact",
+"src": "census_batch"
+},
+"84 alwat st|woodbridge": {
+"lat": 40.563736,
+"lon": -74.28943,
+"match": "Exact",
 "src": "census_batch"
 },
 "84 baldwin ter|wayne": {
@@ -80129,6 +84623,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"84 orange st|woodbridge": {
+"lat": 40.564699,
+"lon": -74.278686,
+"match": "listing",
+"src": "listings.csv"
+},
 "84 pine st|verona": {
 "lat": 40.834829,
 "lon": -74.253878,
@@ -80177,6 +84677,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"840 adelaide ave|woodbridge": {
+"lat": 40.570324,
+"lon": -74.282485,
+"match": "Exact",
+"src": "census_batch"
+},
 "840 dorian rd|westfield": {
 "lat": 40.63789,
 "lon": -74.354251,
@@ -80210,6 +84716,12 @@
 "841 e broad st|westfield": {
 "lat": 40.662196,
 "lon": -74.336964,
+"match": "Exact",
+"src": "census_batch"
+},
+"841 harrell ave|woodbridge": {
+"lat": 40.570161,
+"lon": -74.280932,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -80357,6 +84869,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"85 highview dr|woodbridge": {
+"lat": 40.55024,
+"lon": -74.305452,
+"match": "Exact",
+"src": "census_batch"
+},
 "85 hillside avenue|verona": {
 "lat": 40.826874,
 "lon": -74.257349,
@@ -80420,6 +84938,12 @@
 "85 s mountain ave|cedar grove": {
 "lat": 40.84247,
 "lon": -74.230788,
+"match": "Exact",
+"src": "census_batch"
+},
+"85 schoder ave|woodbridge": {
+"lat": 40.565594,
+"lon": -74.274933,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -80493,6 +85017,12 @@
 "lat": 40.714431,
 "lon": -74.331816,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"850 adelaide ave|woodbridge": {
+"lat": 40.570338,
+"lon": -74.282485,
+"match": "Exact",
 "src": "census_batch"
 },
 "850 summit ave|westfield": {
@@ -80717,6 +85247,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"86 s fulton st|woodbridge": {
+"lat": 40.545048,
+"lon": -74.272507,
+"match": "listing",
+"src": "listings.csv"
+},
 "86 saint laurent dr|clark": {
 "lat": 40.626019,
 "lon": -74.280616,
@@ -80855,6 +85391,18 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"864 court st|woodbridge": {
+"lat": 40.570977,
+"lon": -74.275294,
+"match": "listing",
+"src": "listings.csv"
+},
+"864 terrace ave|woodbridge": {
+"lat": 40.570519,
+"lon": -74.279827,
+"match": "Exact",
+"src": "census_batch"
+},
 "864 valley rd|gillette": {
 "lat": 40.671083,
 "lon": -74.475552,
@@ -80866,6 +85414,12 @@
 "lon": -74.360215,
 "match": "listing",
 "src": "listings.csv"
+},
+"868 coolidge ave|woodbridge": {
+"lat": 40.570764,
+"lon": -74.281617,
+"match": "Exact",
+"src": "census_batch"
 },
 "869 odonnell ave|scotch plains": {
 "lat": 40.651795,
@@ -80960,6 +85514,12 @@
 "87 riggs pl|west orange": {
 "lat": 40.773045,
 "lon": -74.244263,
+"match": "Exact",
+"src": "census_batch"
+},
+"87 s fulton st|woodbridge": {
+"lat": 40.545584,
+"lon": -74.273231,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -81106,6 +85666,12 @@
 "lon": -74.262671,
 "match": "Exact",
 "src": "census_batch"
+},
+"88 coley st|woodbridge": {
+"lat": 40.552552,
+"lon": -74.279656,
+"match": "listing",
+"src": "listings.csv"
 },
 "88 durrell street|verona": {
 "lat": 40.845083,
@@ -81341,6 +85907,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"884 court st|woodbridge": {
+"lat": 40.57177,
+"lon": -74.275292,
+"match": "Exact",
+"src": "census_batch"
+},
+"884 sylvia pl|woodbridge": {
+"lat": 40.571929,
+"lon": -74.276135,
+"match": "Exact",
+"src": "census_batch"
+},
 "884 winyah ave|westfield": {
 "lat": 40.663316,
 "lon": -74.339155,
@@ -81473,6 +86051,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"89 golden sq|woodbridge": {
+"lat": 40.562764,
+"lon": -74.293632,
+"match": "Exact",
+"src": "census_batch"
+},
 "89 harrison rd|wayne": {
 "lat": 40.92461,
 "lon": -74.253934,
@@ -81561,6 +86145,12 @@
 "lat": 40.99496,
 "lon": -74.268603,
 "match": "Exact",
+"src": "census_batch"
+},
+"89b golden sq # 892|woodbridge": {
+"lat": 40.562764,
+"lon": -74.293632,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "89d troy dr apt d|springfield": {
@@ -82613,6 +87203,12 @@
 "match": "Non_Exact",
 "src": "census_batch"
 },
+"9 winston dr|woodbridge": {
+"lat": 40.566419,
+"lon": -74.276632,
+"match": "Exact",
+"src": "census_batch"
+},
 "9 woodland ct|wayne": {
 "lat": 40.936059,
 "lon": -74.240493,
@@ -82817,6 +87413,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"90 russell st|woodbridge": {
+"lat": 40.545063,
+"lon": -74.274882,
+"match": "Exact",
+"src": "census_batch"
+},
 "90 s cliff rd|colonia": {
 "lat": 40.575755,
 "lon": -74.303143,
@@ -82877,6 +87479,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"90-90 maryknoll rd|woodbridge": {
+"lat": 40.554752,
+"lon": -74.321716,
+"match": "listing",
+"src": "listings.csv"
+},
 "900 kimball ave|westfield": {
 "lat": 40.665529,
 "lon": -74.340423,
@@ -82931,6 +87539,18 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"903 cricket ln unit 903|woodbridge": {
+"lat": 40.542558,
+"lon": -74.286718,
+"match": "listing",
+"src": "listings.csv"
+},
+"903 cricket ln|woodbridge": {
+"lat": 40.542558,
+"lon": -74.286718,
+"match": "listing",
+"src": "listings.csv"
+},
 "903 pennsylvania ave|westfield": {
 "lat": 40.634466,
 "lon": -74.341582,
@@ -82940,6 +87560,18 @@
 "904 cranford ave|westfield": {
 "lat": 40.658404,
 "lon": -74.328471,
+"match": "Exact",
+"src": "census_batch"
+},
+"904 cricket ln unit 904|woodbridge": {
+"lat": 40.543013,
+"lon": -74.286357,
+"match": "Exact",
+"src": "census_batch"
+},
+"904 cricket ln|woodbridge": {
+"lat": 40.543013,
+"lon": -74.286357,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -82958,6 +87590,12 @@
 "904 tice pl|westfield": {
 "lat": 40.638856,
 "lon": -74.337217,
+"match": "Exact",
+"src": "census_batch"
+},
+"905 cricket ln|woodbridge": {
+"lat": 40.543206,
+"lon": -74.286367,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -82994,6 +87632,12 @@
 "907 burgundy way|wayne": {
 "lat": 40.966546,
 "lon": -74.240742,
+"match": "Exact",
+"src": "census_batch"
+},
+"907 maple hill dr|woodbridge": {
+"lat": 40.551802,
+"lon": -74.30364,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -83043,6 +87687,18 @@
 "lat": 40.712303,
 "lon": -74.328916,
 "match": "Non_Exact",
+"src": "census_batch"
+},
+"91 2nd st apt 1|woodbridge": {
+"lat": 40.552676,
+"lon": -74.279568,
+"match": "Exact",
+"src": "census_batch"
+},
+"91 2nd st|woodbridge": {
+"lat": 40.552676,
+"lon": -74.279568,
+"match": "Exact",
 "src": "census_batch"
 },
 "91 3rd ave|garwood": {
@@ -83116,6 +87772,12 @@
 "lon": -74.22819,
 "match": "listing",
 "src": "listings.csv"
+},
+"91 golden sq # 912|woodbridge": {
+"lat": 40.56278,
+"lon": -74.293654,
+"match": "Exact",
+"src": "census_batch"
 },
 "91 hart st|clark": {
 "lat": 40.620595,
@@ -83223,6 +87885,12 @@
 "lat": 40.799599,
 "lon": -74.279857,
 "match": "Exact",
+"src": "census_batch"
+},
+"91-b golden sq|woodbridge": {
+"lat": 40.56278,
+"lon": -74.293654,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "910 highland ave|westfield": {
@@ -83343,6 +88011,30 @@
 "lat": 40.947119,
 "lon": -74.211297,
 "match": "Exact",
+"src": "census_batch"
+},
+"92 beverly hill ter # 9206|woodbridge": {
+"lat": 40.551878,
+"lon": -74.304041,
+"match": "Exact",
+"src": "census_batch"
+},
+"92 beverly hill ter unit b|woodbridge": {
+"lat": 40.551878,
+"lon": -74.304041,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"92 beverly hill ter unit d|woodbridge": {
+"lat": 40.551878,
+"lon": -74.304041,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"92 beverly hill ter unit f|woodbridge": {
+"lat": 40.551878,
+"lon": -74.304041,
+"match": "Non_Exact",
 "src": "census_batch"
 },
 "92 birch road|cedar grove": {
@@ -83582,6 +88274,12 @@
 "920 boulevard|westfield": {
 "lat": 40.640907,
 "lon": -74.334426,
+"match": "Exact",
+"src": "census_batch"
+},
+"920 cricket ln|woodbridge": {
+"lat": 40.542964,
+"lon": -74.2864,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -84203,6 +88901,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"95 highview dr|woodbridge": {
+"lat": 40.550072,
+"lon": -74.305438,
+"match": "Exact",
+"src": "census_batch"
+},
 "95 hillcrest rd|watchung": {
 "lat": 40.641557,
 "lon": -74.451714,
@@ -84287,6 +88991,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"95 s fulton st|woodbridge": {
+"lat": 40.545716,
+"lon": -74.273318,
+"match": "Exact",
+"src": "census_batch"
+},
 "95 stevens ave|cedar grove": {
 "lat": 40.871493,
 "lon": -74.233652,
@@ -84308,6 +89018,12 @@
 "95 wendt ln|wayne": {
 "lat": 40.961229,
 "lon": -74.276511,
+"match": "listing",
+"src": "listings.csv"
+},
+"95 willry st|woodbridge": {
+"lat": 40.562813,
+"lon": -74.290487,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -84371,6 +89087,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"96 alwat st|woodbridge": {
+"lat": 40.56374,
+"lon": -74.289591,
+"match": "Exact",
+"src": "census_batch"
+},
 "96 aspen dr|basking ridge": {
 "lat": 40.671907,
 "lon": -74.551516,
@@ -84416,6 +89138,12 @@
 "96 easedale rd|wayne": {
 "lat": 40.93967,
 "lon": -74.204033,
+"match": "listing",
+"src": "listings.csv"
+},
+"96 ethel st|woodbridge": {
+"lat": 40.551403,
+"lon": -74.324706,
 "match": "listing",
 "src": "listings.csv"
 },
@@ -84851,6 +89579,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"98 craske st|woodbridge": {
+"lat": 40.566744,
+"lon": -74.274334,
+"match": "listing",
+"src": "listings.csv"
+},
 "98 cumberland avenue|verona": {
 "lat": 40.834629,
 "lon": -74.240672,
@@ -84872,6 +89606,12 @@
 "98 forest st|montclair": {
 "lat": 40.818476,
 "lon": -74.212141,
+"match": "listing",
+"src": "listings.csv"
+},
+"98 liberty st|woodbridge": {
+"lat": 40.556465,
+"lon": -74.291369,
 "match": "listing",
 "src": "listings.csv"
 },
