@@ -3695,6 +3695,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"1027 cricket ln unit 1027|woodbridge": {
+"lat": 40.543288,
+"lon": -74.286627,
+"match": "listing",
+"src": "listings.csv"
+},
 "1028 cricket ln unit 1028|woodbridge": {
 "lat": 40.542758,
 "lon": -74.286706,
@@ -6722,6 +6728,12 @@
 "110 juniper way|basking ridge": {
 "lat": 40.701093,
 "lon": -74.537622,
+"match": "Exact",
+"src": "census_batch"
+},
+"110 keystone ct # 1101|woodbridge": {
+"lat": 40.562934,
+"lon": -74.293889,
 "match": "Exact",
 "src": "census_batch"
 },
@@ -42041,6 +42053,12 @@
 "match": "Exact",
 "src": "census_batch"
 },
+"285 alpine way # 2853|woodbridge": {
+"lat": 40.564329,
+"lon": -74.293682,
+"match": "Exact",
+"src": "census_batch"
+},
 "285 levinberg ln|wayne": {
 "lat": 40.963475,
 "lon": -74.251136,
@@ -47710,6 +47728,12 @@
 "lon": -74.391901,
 "match": "Exact",
 "src": "census_batch"
+},
+"323 regency pl|woodbridge": {
+"lat": 40.54823,
+"lon": -74.288744,
+"match": "listing",
+"src": "listings.csv"
 },
 "323 sycamore ave|scotch plains": {
 "lat": 40.649982,
@@ -68603,6 +68627,12 @@
 "match": "listing",
 "src": "listings.csv"
 },
+"555 e washington ave|woodbridge": {
+"lat": 40.559649,
+"lon": -74.287867,
+"match": "listing",
+"src": "listings.csv"
+},
 "555 hamburg tpke|wayne": {
 "lat": 40.95494,
 "lon": -74.217433,
@@ -73050,6 +73080,12 @@
 "src": "census_batch"
 },
 "61a golden ct unit 611|woodbridge": {
+"lat": 40.56247,
+"lon": -74.293386,
+"match": "Non_Exact",
+"src": "census_batch"
+},
+"61a golden sq # 611|woodbridge": {
 "lat": 40.56247,
 "lon": -74.293386,
 "match": "Non_Exact",
@@ -85336,6 +85372,12 @@
 "lon": -74.329059,
 "match": "Non_Exact",
 "src": "census_batch"
+},
+"860 coolidge ave|woodbridge": {
+"lat": 40.570575,
+"lon": -74.281456,
+"match": "listing",
+"src": "listings.csv"
 },
 "8605 brittany dr|wayne": {
 "lat": 40.965548,
